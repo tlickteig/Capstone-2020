@@ -16,3 +16,5 @@ Robert Holmes                   POS Scrum Leader
 Tener Karar                     Developer
 Austin Gee						Adoptions Scrum Leader
 Matt Deaton						Developer
+Chuck Baxter					Animal & Facility Management Scrum Leader
+
