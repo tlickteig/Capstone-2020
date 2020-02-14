@@ -22,3 +22,4 @@ Matt Deaton						Developer
 Jordan Lindo					Personnel Scrum Leader
 Brandyn T. Coverdill			Developer
 Timothy D. Lickteig             Developer
+Jesse Tomash					Inventory Scrum Leader
