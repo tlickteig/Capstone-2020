@@ -19,4 +19,4 @@ Benjamin Hanna					Developer
 Carl Davis						Developer
 Chuck Baxter					Animal & Facility Management Scrum Leader
 Matt Deaton						Developer
-
+Jordan Lindo					Personnel Scrum Leader
