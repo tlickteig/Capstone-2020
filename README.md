@@ -17,3 +17,4 @@ Tener Karar                     Developer
 Austin Gee						Adoptions Scrum Leader
 Carl Davis						Developer
 Chuck Baxter					Animal & Facility Management Scrum Leader
+Matt Deaton						Developer
