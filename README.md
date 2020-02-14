@@ -8,5 +8,5 @@ Name							Role
 ----------------------------- 	-----
 Steven J. Cardona				Project Manager
 Zachory Behrensmeyer			Product Owner
-Cash Carlson                    QA Lead
 Robert Holmes                   POS Scrum Leader
+Cash Carlson                    QA Lead
