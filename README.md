@@ -20,3 +20,4 @@ Carl Davis						Developer
 Chuck Baxter					Animal & Facility Management Scrum Leader
 Matt Deaton						Developer
 Jordan Lindo					Personnel Scrum Leader
+Brandyn T. Coverdill			Developer
