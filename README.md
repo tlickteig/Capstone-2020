@@ -6,5 +6,5 @@ Capstone Project Team for 2020:
 
 Name							Role
 ----------------------------- 	-----
-Steven Cardona					Project Manager
-Zach Behrensmeyer				Product Owner
+Steven J. Cardona				Project Manager
+Zachory Behrensmeyer			Product Owner
