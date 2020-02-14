@@ -8,7 +8,13 @@ Name							Role
 ----------------------------- 	-----
 Steven J. Cardona				Project Manager
 Zachory Behrensmeyer			Product Owner
+Robert Holmes                   POS Scrum Leader
+Cash Carlson                    QA Lead
 Jaeho Kim						Developer
 Zachory A. Behrensmeyer			Product Owner
 Robert Holmes                   POS Scrum Leader
+<<<<<<< HEAD
 tenerkarar                      Developer
+=======
+Austin Gee						Adoptions Scrum Leader
+>>>>>>> origin/master
