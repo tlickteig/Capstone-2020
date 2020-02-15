@@ -1,0 +1,549 @@
+﻿<!-- Name: Zach Behrensmeyer
+     Date: 2/8/2020
+     CHECKED BY: Steven Cardona
+     
+     This window is where the main activity in the console app will occur -->
+<Window x:Class="WPFPresentationLayer.PetUniverseHome"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFPresentationLayer"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="PetUniverse" Height="900" Width="1500" ResizeMode="NoResize" Background="#fff8e3" Loaded="Window_Loaded">
+    <Grid MinHeight="4" Margin="0,0,-0.333,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="205.333"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition/>
+            <RowDefinition Height="0"/>
+        </Grid.RowDefinitions>
+        <Grid Background="#2e3137" Grid.Row="1">
+            <StackPanel Grid.Row="1" Margin="0,16,0,0">
+                <Button x:Name="btnInventory" Margin="10 100 10 10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnInventory_Click">
+                    <Grid Width="150">
+                        <TextBlock HorizontalAlignment="Center" Text="Inventory"/>
+                    </Grid>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button x:Name="btnAM" Margin="10" Height="40" FontSize="15" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnAM_Click">
+                    <Grid Width="150">
+                        <TextBlock HorizontalAlignment="Right" Text="Animal Management" Margin="0,0,1,0"/>
+                    </Grid>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button x:Name="btnPoS" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnPoS_Click">
+                    <Grid Width="150">
+                        <TextBlock HorizontalAlignment="Right" Text="Point of Sale" Margin="0,0,22,0"/>
+                    </Grid>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button x:Name="btnVolHub" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnVolHub_Click">
+                    <Grid Width="150">
+                        <TextBlock Text="Volunteer Hub" Margin="10,0,0,0"/>
+                    </Grid>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button x:Name="btnRequest" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="BtnRequest_Click">
+                    <Grid Width="150">
+                        <TextBlock Text="Requests" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button x:Name="btnSysAdmin" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnSysAdmin_Click">
+                    <Grid Width="150">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="7*"/>
+                            <RowDefinition Height="5*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock HorizontalAlignment="Right" Text="System Admin" Margin="0,0,-10,0" Width="149" Grid.RowSpan="2"/>
+                    </Grid>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="btnLogout" Margin="10 340 10 10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnLogout_Click">
+                    <Grid Width="150">
+                        <TextBlock HorizontalAlignment="Right" Text="Logout" Margin="0,0,38,0"/>
+                    </Grid>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!-- Name: Zach Behrensmeyer
+             Date: 2/8/2020
+             CHECKED BY: Steven Cardona
+             
+             This canvas will contain the general controls for inventory
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
+
+        <Canvas x:Name="canInventory" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
+            <Grid Height="756">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="204"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="107"/>
+                    <RowDefinition Height="107"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <TabControl x:Name="tabsetInventory" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                <TabItem x:Name="tabViewinventory" Header="View Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="100*"/>
+                            <ColumnDefinition Width="1170*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="210"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Canvas>
+
+        <!-- Name: Zach Behrensmeyer
+             Date: 2/11/2020
+             CHECKED BY: Steven Cardona
+             
+             This canvas will contain the general controls for the recruitment group
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
+
+        <Canvas x:Name="canRequests" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
+
+            <Grid Height="756">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="204"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="107"/>
+                    <RowDefinition Height="107"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <TabControl x:Name="tabsetRequests" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                <TabItem x:Name="tabViewRequests" Header="View Requests" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="100*"/>
+                            <ColumnDefinition Width="1170*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="210"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Canvas>
+
+
+        <!-- Name: Zach Behrensmeyer
+             Date: 2/8/2020
+             CHECKED BY: Steven Cardona
+             
+             This canvas will contain the general controls for animal management
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
+        <Canvas x:Name="canAM" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
+            <Grid Height="756">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="204"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="107"/>
+                    <RowDefinition Height="107"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <TabControl x:Name="tabsetAM" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                <TabItem x:Name="tabViewAnimals" Header="View Animals" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="100*"/>
+                            <ColumnDefinition Width="1170*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="210"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Canvas>
+
+        <!-- Name: Zach Behrensmeyer
+             Date: 2/8/2020
+             CHECKED BY: Steven Cardona
+             
+             This canvas will contain the general controls for Point of Sale
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
+        <Canvas x:Name="canPoS" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
+            <Grid Height="756">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="204"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="107"/>
+                    <RowDefinition Height="107"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <TabControl x:Name="tabsetPoS" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                <TabItem x:Name="tabViewSales" Header="View Sales" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="100*"/>
+                            <ColumnDefinition Width="1170*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="210"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Canvas>
+
+        <!-- Name: Zach Behrensmeyer
+             Date: 2/8/2020
+             CHECKED BY: Steven Cardona
+             
+             This canvas will contain the general controls for the volunteer hub
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
+        <Canvas x:Name="canVolHub" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
+            <Grid Height="756">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="204"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="107"/>
+                    <RowDefinition Height="107"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <TabControl x:Name="tabsetVolHub" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                <TabItem x:Name="tabViewVolunteers" Header="View Volunteers" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="100*"/>
+                            <ColumnDefinition Width="1170*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="210"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Canvas>
+
+        <!-- Name: Zach Behrensmeyer
+             Date: 2/8/2020
+             CHECKED BY: Steven Cardona
+             
+             This canvas will contain the general controls for system admin
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
+        <Canvas x:Name="canSysAd" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Visible">
+            <Grid Height="756">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="202"/>
+                    <ColumnDefinition Width="204"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="108"/>
+                    <RowDefinition Height="107"/>
+                    <RowDefinition Height="107"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <TabControl x:Name="tabsetSysAdmin" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10" >
+
+
+                <!-- Creator: Steven Cardona
+             Date: 2/8/2020
+             CHECKED BY: Zach Behrensmeyer
+             
+             This canvas will contain the general controls for system admin
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
+                <TabItem x:Name="tabViewUsers" Header="Users" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Grid>
+                        <Canvas x:Name="canViewUsers" Visibility="Hidden">
+                            <Grid Height="800" Width="1283">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="13*"/>
+                                    <ColumnDefinition Width="100*"/>
+                                    <ColumnDefinition Width="1170*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackPanel x:Name="spUserToolbar" Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="17,0,30,0" Grid.Column="1" Background="LightGray" >
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                    </Grid>
+                                    <Button x:Name="btnCreateUser" Content="Add User" FontSize="18" FontWeight="DemiBold" BorderThickness="0" Background="{x:Null}"  Width="90" BorderBrush="{x:Null}" Click="btnCreateUser_Click"/>
+                                </StackPanel>
+                                <DataGrid x:Name="dgUserList" Grid.Row="2" Margin="17,0,30,20"  IsReadOnly="True" SelectionMode="Single" FontSize="12" FontWeight="Medium" AutoGeneratedColumns="dgUserList_AutoGeneratedColumns" Grid.Column="1" Grid.ColumnSpan="2" Loaded="dgUserList_Loaded"/>
+                            </Grid>
+                        </Canvas>
+                        <Canvas x:Name="canNewUsers" Visibility="Hidden">
+                            <Grid Height="800" Width="1283" >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="13*"/>
+                                    <ColumnDefinition Width="100*"/>
+                                    <ColumnDefinition Width="1170*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="20"/>
+                                    <RowDefinition Height="30"></RowDefinition>
+                                    <RowDefinition ></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <StackPanel x:Name="spNewUserToolbar" Grid.Row="1" Orientation="Horizontal" Grid.ColumnSpan="2" Margin="15,0,30,0" Grid.Column="1" Background="LightGray" >
+                                    <StackPanel.Effect>
+                                        <DropShadowEffect  Opacity="0.65"/>
+                                    </StackPanel.Effect>
+                                    <Grid Width="1223">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Button x:Name="btnBack" Content="Back" FontSize="18" FontWeight="DemiBold" BorderThickness="0" HorizontalAlignment="Left" Background="{x:Null}"  Width="52" Click="btnBack_Click" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Bottom"/>
+                                        <Button x:Name="btnSaveUser" Content="Save" Grid.Column="11" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="30" Click="btnSaveUser_Click" Margin="51,0,0,0"/>
+                                    </Grid>
+                                </StackPanel>
+                                <Canvas Grid.Row="2" Grid.ColumnSpan="2" Margin="15,0,30,20" Grid.Column="1">
+                                    <Canvas.Effect>
+                                        <DropShadowEffect Opacity="0.65"/>
+                                    </Canvas.Effect>
+                                    <Grid Height="717" Width="1225" Background="LightGray" Canvas.Top="-1">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="245*"/>
+                                            <ColumnDefinition Width="245*"/>
+                                            <ColumnDefinition Width="245*"/>
+                                            <ColumnDefinition Width="245*"/>
+                                            <ColumnDefinition Width="218*"/>
+                                            <ColumnDefinition Width="27*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="121*"/>
+                                            <RowDefinition Height="120*"/>
+                                            <RowDefinition Height="120*"/>
+                                            <RowDefinition Height="120*"/>
+                                            <RowDefinition Height="119*"/>
+                                            <RowDefinition Height="120*"/>
+                                        </Grid.RowDefinitions>
+                                        <Label Grid.Row="1" Grid.Column="0" Content="First Name: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
+                                        <TextBox x:Name="txtFirstName" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,44,0,45" Grid.ColumnSpan="2"/>
+                                        <Label Grid.Row="1" Grid.Column="2" Content="Last Name: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
+                                        <TextBox x:Name="txtLastName" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,44,0,45" Grid.ColumnSpan="2"/>
+                                        <Label Grid.Row="2" Grid.Column="0" Content="Email: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
+                                        <TextBox x:Name="txtEmail" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,45" Grid.ColumnSpan="2"/>
+                                        <Label Grid.Row="2" Grid.Column="2" Content="Phone Number: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
+                                        <TextBox x:Name="txtPhoneNumber" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,45" Grid.ColumnSpan="2"/>
+                                        <Label Grid.Row="3" Grid.Column="0" Content="City: "  FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
+                                        <TextBox x:Name="txtCity" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,45" Grid.ColumnSpan="2"/>
+                                        <Label Grid.Row="3" Grid.Column="2" Content="State: "  FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
+                                        <ComboBox x:Name="cmbState" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="100" Height="30" VerticalContentAlignment="Center" Margin="0,45"/>
+                                        <Label Grid.Row="4" Grid.Column="0" Content="Zipcode: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
+                                        <TextBox x:Name="txtZipcode" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"  HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,45,0,44" Grid.ColumnSpan="2"/>
+                                    </Grid>
+                                </Canvas>
+                            </Grid>
+                        </Canvas>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="tabViewLogs" Header="Login and out logs" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="13*"/>
+                            <ColumnDefinition Width="12*"/>
+                            <ColumnDefinition Width="89*"/>
+                            <ColumnDefinition Width="1170*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="40"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <DataGrid x:Name="dgLogList" Margin="5.5,10,30,0" SelectionMode="Single"  FontSize="12" FontWeight="Medium" IsReadOnly="True" Grid.Column="2" Grid.ColumnSpan="2" AutoGeneratedColumns="dgLogList_AutoGeneratedColumns_1" Loaded="dgLogList_Loaded"/>
+                        <Grid Grid.Row="1" Grid.ColumnSpan="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition Width="50"></ColumnDefinition>
+                                <ColumnDefinition Width="210"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </Grid>
+                </TabItem>
+                <DockPanel Height="100" LastChildFill="False" Width="100"/>
+            </TabControl>
+        </Canvas>
+        <Label x:Name="lblStatusBar" FontSize="15" Content="Hello," Padding="1300 8 0 0"  Background="#2e3137" HorizontalAlignment="Right" Grid.RowSpan="2" Foreground="White" VerticalAlignment="Top" Width="1494" Height="31" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="txtWelcome" Grid.Column="1" HorizontalAlignment="Left" Margin="378,366,0,0" Grid.RowSpan="2" FontSize="23" TextWrapping="Wrap" Text="Hello welcome to the PetUniverse Hub! Please select a button on the sidebar." VerticalAlignment="Top" Height="133" Width="448"/>
+    </Grid>
+</Window>
