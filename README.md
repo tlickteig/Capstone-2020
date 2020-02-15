@@ -23,3 +23,4 @@ Jordan Lindo					Personnel Scrum Leader
 Brandyn T. Coverdill			Developer
 Timothy D. Lickteig             Developer
 Jesse Tomash					Inventory Scrum Leader
+Awaab Elamin					Developer
