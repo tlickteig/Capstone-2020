@@ -11,8 +11,6 @@ Zachory A. Behrensmeyer			Product Owner
 Robert Holmes                   POS Scrum Leader
 Cash Carlson                    QA Lead
 Jaeho Kim						Developer
-Zachory A. Behrensmeyer			Product Owner
-Robert Holmes                   POS Scrum Leader
 Tener Karar                     Developer
 Austin Gee						Adoptions Scrum Leader
 Benjamin Hanna					Developer
