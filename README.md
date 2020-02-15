@@ -24,3 +24,4 @@ Brandyn T. Coverdill			Developer
 Timothy D. Lickteig             Developer
 Jesse Tomash					Inventory Scrum Leader
 Awaab Elamin					Developer
+Lane Sandburg                   Personnel Dev
