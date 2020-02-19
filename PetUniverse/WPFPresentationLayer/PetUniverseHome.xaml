@@ -383,7 +383,7 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-        <Canvas x:Name="canSysAd" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Visible">
+        <Canvas x:Name="canSysAd" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
             <Grid Height="756">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202"/>
