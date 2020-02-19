@@ -28,3 +28,4 @@ Thomas Dupuy					Developer
 Mohamed E. Elamin               Developer
 Ryan Morganti					Developer
 Ethan Murphy					Developer
+Hassan Karar                    Developer
