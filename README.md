@@ -29,3 +29,4 @@ Mohamed E. Elamin               Developer
 Ryan Morganti					Developer
 Ethan Murphy					Developer
 Hassan Karar                    Developer
+Michael Thompson                Developer
