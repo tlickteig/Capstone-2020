@@ -163,112 +163,98 @@ namespace LogicLayerTests
         [TestMethod]
         public void TestUserManagerAuthentication()
         {
+            //Arrange            
+            string email = "j.doe@RandoGuy.com";
+            string password = "passwordtest";
+            //Act
+            _user = _userManager.AuthenticateUser(email, password);
+            //Assert    
+            Assert.AreEqual(email, _user.Email);
+        }
+
+        /// <summary>
+        /// NAME: Zach Behrensmeyer
+        /// DATE: 2/5/2020
+        /// CHECKED BY: Steven Cardona
+        /// 
+        /// This Method is a failing test for the UserAuthentication() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestUserManagerAuthenticationPasswordException()
+        {
             //return this value to determine if its a real user
             bool isValidUser = false;
             //Arrange            
             string email = "j.doe@RandoGuy.com";
             //Value you want PasswordHash() to return
-            string expectedPasswordHash = "A7574A42198B7D7EEE2C037703A0B95558F195457908D6975E681E2055FD5EB9";
+            //Hashing Password
+            string goodPasswordHash = hashPassword("newuser");
+            //Act
+            _user = _userManager.AuthenticateUser(email, goodPasswordHash);
+            //Assert not needed
+        }
+        /// <summary>
+        /// NAME: Zach Behrensmeyer
+        /// DATE: 2/5/2020
+        /// CHECKED BY: Steven Cardona
+        /// 
+        /// This Method is a failing test for the UserAuthentication() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestUserManagerAuthenticationUserNameException()
+        {
+
+            //Arrange            
+            string email = "j.blue@RandoGuy.com";
+            //Value you want PasswordHash() to return
             //Hashing Password
             string goodPasswordHash = hashPassword("passwordtest");
             //Act
             _user = _userManager.AuthenticateUser(email, goodPasswordHash);
-            //Assert    
-            if (_user.Email == email && goodPasswordHash == expectedPasswordHash)
-            {
-                isValidUser = true;
-            }
-            else
-            {
-                isValidUser = false;
-            }
-            Assert.IsTrue(isValidUser);
+            //Assert not needed   
         }
 
-        /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/5/2020
-        /// CHECKED BY: Steven Cardona
-        /// 
-        /// This Method is a failing test for the UserAuthentication() method
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
-        /// 
-        /// </remarks>
-        /// </summary>
         [TestMethod]
-        public void TestUserManagerAuthenticationBadPassword()
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestCreateNewUserException()
         {
-            bool isValidUser = false;
-            //Arrange            
-
-            //Valid email
-            string email = "j.doe@RandoGuy.com";
-            //expected password hash for good email
-            string expectedPasswordHash = "A7574A42198B7D7EEE2C037703A0B95558F195457908D6975E681E2055FD5EB9";
-            string badPasswordHash = hashPassword("badPassword");
-
-            //Act
-            _user = _userManager.AuthenticateUser(email, badPasswordHash);
-
-            //Assert    
-            if (_user.Email == email && badPasswordHash == expectedPasswordHash)
+            // arrange
+            PetUniverseUser petUniverseUser = new PetUniverseUser()
             {
-                isValidUser = true;
-            }
-            else
-            {
-                isValidUser = false;
-            }
-            Assert.IsFalse(isValidUser);
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "",
+                City = "Cedar Rapids",
+                PhoneNumber = "2255448796",
+                State = "IA",
+                ZipCode = "52404"
+            };
+
+
+            bool created = false;
+
+            // act
+            created = _userManager.CreateNewUser(petUniverseUser);
+
         }
-
-        /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/5/2020
-        /// CHECKED BY: Steven Cardona
-        /// 
-        /// This Method is a failing test for the UserAuthentication() method
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
-        /// 
-        /// </remarks>
-        /// </summary>
-        [TestMethod]
-        public void TestUserManagerAuthenticationBadUserName()
-        {
-            bool isValidUser = false;
-            //Arrange            
-
-            //Bad email
-            string email = "j.doe@Rando.com";
-            //expected result of password hash
-            string expectedPasswordHash = "A7574A42198B7D7EEE2C037703A0B95558F195457908D6975E681E2055FD5EB9";
-            string goodPasswordHash = hashPassword("passwordtest");
-
-            //Act
-            _user = _userManager.AuthenticateUser(email, goodPasswordHash);
-
-            //Assert    
-            if (_user.Email == email && goodPasswordHash == expectedPasswordHash)
-            {
-                isValidUser = true;
-            }
-            else
-            {
-                isValidUser = false;
-            }
-            Assert.IsFalse(isValidUser);
-        }
-
 
         /// <summary>
         /// CREATOR: Steven Cardona

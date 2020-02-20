@@ -37,20 +37,23 @@ namespace DataAccessFakes
         /// <returns>True if fakePetUniverseUser and petUniverseUser are equal</returns>
         public bool InsertNewUser(PetUniverseUser petUniverseUser)
         {
-            PetUniverseUser fakePetUniverseUser = new PetUniverseUser()
+            bool firstName = petUniverseUser.FirstName.Equals("John");
+            bool lastName = petUniverseUser.LastName.Equals("Doe");
+            bool email = petUniverseUser.Email.Equals("jdoe@PetUniverse.com");
+            bool city = petUniverseUser.City.Equals("Cedar Rapids");
+            bool phoneNumber = petUniverseUser.PhoneNumber.Equals("2255448796");
+            bool state = petUniverseUser.State.Equals("IA");
+            bool zipCode = petUniverseUser.ZipCode.Equals("52404");
+
+            if (firstName && lastName && email && city && phoneNumber && state && zipCode)
             {
-                FirstName = "John",
-                LastName = "Doe",
-                Email = "jdoe@PetUniverse.com",
-                City = "Cedar Rapids",
-                PhoneNumber = "2255448796",
-                State = "IA",
-                ZipCode = "52404",
-            };
+                return true;
+            }
+            else
+            {
+                throw new ApplicationException("Unable to add User");
+            }
 
-            bool equals = fakePetUniverseUser.ToString().Equals(petUniverseUser.ToString());
-
-            return equals;
         }
 
         /// <summary>
@@ -135,19 +138,31 @@ namespace DataAccessFakes
         /// <returns>fake user</returns>
         public PetUniverseUser AuthenticateUser(string username, string passwordHash)
         {
-            _user = new PetUniverseUser()
+            bool userName = username.Equals("j.doe@RandoGuy.com");
+            bool hash = passwordHash.Equals("A7574A42198B7D7EEE2C037703A0B95558F195457908D6975E681E2055FD5EB9");
+
+
+            if (userName && hash)
             {
-                PUUserID = 100000,
-                FirstName = "John",
-                LastName = "Doe",
-                PhoneNumber = "5632102101",
-                Email = "j.doe@RandoGuy.com",
-                Active = true,
-                City = "Cedar Rapids",
-                State = "IA",
-                ZipCode = "52404"
-            };
-            return _user;
+                _user = new PetUniverseUser()
+                {
+                    PUUserID = 100000,
+                    FirstName = "John",
+                    LastName = "Doe",
+                    PhoneNumber = "5632102101",
+                    Email = "j.doe@RandoGuy.com",
+                    Active = true,
+                    City = "Cedar Rapids",
+                    State = "IA",
+                    ZipCode = "52404"
+                };
+                return _user;
+            }
+            else
+            {
+                throw new ApplicationException("Invalid User");
+            }
+
         }
     }
 }

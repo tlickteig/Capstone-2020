@@ -22,7 +22,6 @@ namespace LogicLayerTests
         private FakeLogAccessor _fakeLogAccessor;
         private ILogManager _logManager;
 
-
         /// <summary>
         /// CREATOR: Zach Behrensmeyer
         /// DATE: 02/15/2020
@@ -41,7 +40,6 @@ namespace LogicLayerTests
             _fakeLogAccessor = new FakeLogAccessor();
             _logManager = new LogManager(_fakeLogAccessor);
         }
-
 
         /// <summary>
         /// NAME: Zach Behrensmeyer
