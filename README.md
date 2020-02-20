@@ -24,3 +24,10 @@ Jesse Tomash					Inventory Scrum Leader
 Awaab Elamin					Developer
 Lane Sandburg                   Personnel Dev
 Kaleb Bachert					Developer
+Thomas Dupuy					Developer
+Mohamed E. Elamin               Developer
+Ryan Morganti					Developer
+Ethan Murphy					Developer
+Hassan Karar                    Developer
+Michael Thompson                Developer
+Alex Diers                      Developer
