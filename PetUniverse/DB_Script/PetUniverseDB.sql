@@ -1169,7 +1169,127 @@ GO
 
 
 
+/*
+ShiftTime table shows timeframe and which dept.
 
+Author: Lane Sandburg 
+2/5/2020
+
+*/
+print '' print '*** creating table ShiftTime'
+GO
+CREATE TABLE [dbo].[ShiftTime](
+	[ShiftTimeID]	[int]IDENTITY(1000000,1)	NOT NULL,
+	[DepartmentID]  [NVARCHAR](50)				NOT NULL,
+	[StartTime]		[NVARCHAR](20) 					NOT NULL,
+	[EndTime]		[NVARCHAR](20) 					NOT NULL,
+	
+	
+	CONSTRAINT [pk_ShiftTime_ShiftTimeID] 
+		PRIMARY KEY([ShiftTimeID] ASC),
+	CONSTRAINT [fk_ShiftTime_DepartmentID] FOREIGN KEY([DepartmentID])
+		REFERENCES [Department]([DepartmentID]) ON UPDATE CASCADE
+)
+GO
+
+/*
+Sample ShiftTime Data
+
+Author: Lane Sandburg 
+2/5/2020
+
+*/
+print '' print '*** creating sample ShiftTime records'
+GO
+INSERT INTO [dbo].[ShiftTime]
+([DepartmentID],[StartTime],[EndTime])
+VALUES
+("Fake1","14:00:00","22:00:00"),
+("Fake2","08:45:00","17:45:00"),
+("Fake3","14:00:00","22:00:00"),
+("Fake4","08:45:00","17:45:00")
+GO
+
+/*
+Sproc for inserting a shift time
+
+Author: Lane Sandburg 
+2/5/2020
+
+*/
+print '' print '*** creating sp_insert_ShiftTime'
+GO
+CREATE PROCEDURE [sp_insert_ShiftTime](
+	@DepartmentID [NVARCHAR](50),
+	@StartTime[TIME](0),
+	@EndTime[TIME](0)	
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[ShiftTime]
+		([DepartmentID],[StartTime],[EndTime])
+		VALUES
+		(@DepartmentID,@StartTime,@EndTime)
+		RETURN SCOPE_IDENTITY()
+	
+END
+GO
+
+/*
+Sproc for Retreiveing Departments
+
+Author: Lane Sandburg 
+2/5/2020
+
+*/
+print '' print '*** creating sp_select_all_ShiftTimes'
+GO
+CREATE PROCEDURE [sp_select_all_ShiftTimes]
+AS
+BEGIN
+	SELECT [ShiftTimeID],[DepartmentID],[StartTime],[EndTime]
+	FROM [dbo].[ShiftTime]
+	ORDER BY [DepartmentID]
+END
+GO
+
+
+/*
+Sproc for Retreiveing Departments
+
+Author: Lane Sandburg 
+2/13/2020
+
+*/
+print '' print '*** creating sp_update_shiftTime'
+GO
+CREATE PROCEDURE [sp_update_shiftTime](
+	@ShiftTimeID [int],
+	
+	@NewDepartmentID  	[nvarchar](50),
+	@NewStartTime		[TIME](0),
+	@NewEndTime			[TIME](0),
+	
+	    
+	@OldDepartmentID  	[nvarchar](50),
+	@OldStartTime		[TIME](0),
+	@OldEndTime			[TIME](0)
+)
+AS
+BEGIN
+	UPDATE [dbo].[ShiftTime]
+		SET [DepartmentID] = @NewDepartmentID,
+			[StartTime] = @NewStartTime,
+			[EndTime] = @NewEndTime
+			
+		WHERE [ShiftTimeID] = @ShiftTimeID
+		AND	[DepartmentID] = @OldDepartmentID
+		AND [StartTime] = @OldStartTime
+		AND[EndTime] = @OldEndTime
+				
+		RETURN @@ROWCOUNT
+END
+GO
 
 
 

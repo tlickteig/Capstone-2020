@@ -44,6 +44,7 @@
     <Compile Include="FakeAnimalAccessor.cs" />
     <Compile Include="FakeDepartmentAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
+    <Compile Include="FakeShiftTimeAccessor.cs" />
     <Compile Include="FakeUserAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

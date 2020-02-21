@@ -287,6 +287,12 @@
                         <Frame Source="./PersonnelPages/Departments.xaml"/>
                     </Grid>
                 </TabItem>
+                <TabItem x:Name="tabShiftTimeManager" Header="ShiftTimeManager" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Grid Background="#fff8e3">
+                        <Frame Source="./PersonnelPages/frameShiftTime.xaml"></Frame>
+                    </Grid>
+                </TabItem>
+                <DockPanel Height="100" LastChildFill="False" Width="100"/>
             </TabControl>
         </Canvas>
 
