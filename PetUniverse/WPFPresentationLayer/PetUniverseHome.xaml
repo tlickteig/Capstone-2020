@@ -11,9 +11,9 @@
         xmlns:local="clr-namespace:WPFPresentationLayer"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
         Title="PetUniverse" Height="900" Width="1500" ResizeMode="NoResize" Background="#fff8e3" Loaded="Window_Loaded">
-    <Grid MinHeight="4" Margin="0,0,-0.333,0">
+    <Grid MinHeight="4" Margin="0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="205.333"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
@@ -128,7 +128,7 @@
              UPDATED NA
              CHANGE: NA -->
 
-        <Canvas x:Name="canInventory" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
+        <Canvas x:Name="canInventory" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
             <Grid Height="756">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202"/>
@@ -183,7 +183,7 @@
              UPDATED NA
              CHANGE: NA -->
 
-        <Canvas x:Name="canRequests" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
+        <Canvas x:Name="canRequests" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
 
             <Grid Height="756">
                 <Grid.ColumnDefinitions>
@@ -239,7 +239,7 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-        <Canvas x:Name="canAM" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
+        <Canvas x:Name="canAM" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <Grid Height="756">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202"/>
@@ -261,25 +261,7 @@
             </Grid>
             <TabControl x:Name="tabsetAM" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewAnimals" Header="View Animals" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="13*"/>
-                            <ColumnDefinition Width="100*"/>
-                            <ColumnDefinition Width="1170*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
-                        </Grid.RowDefinitions>
-
-                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="210"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </Grid>
+                    <Frame Source="./AMPages/AnimalControls.xaml"/>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -293,7 +275,7 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-        <Canvas x:Name="canPoS" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
+        <Canvas x:Name="canPoS" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
             <Grid Height="756">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202"/>
@@ -347,7 +329,7 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-        <Canvas x:Name="canVolHub" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
+        <Canvas x:Name="canVolHub" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <Grid Height="756">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202"/>
@@ -400,7 +382,7 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-        <Canvas x:Name="canSysAd" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
+        <Canvas x:Name="canSysAd" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
             <Grid Height="756">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202"/>
@@ -453,7 +435,7 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-        <Canvas x:Name="canAdoptions" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
+        <Canvas x:Name="canAdoptions" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <Grid Height="756">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="202"/>

@@ -1,0 +1,129 @@
+﻿<Page x:Class="WPFPresentationLayer.AMPages.AnimalControls"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFPresentationLayer.AMPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="845" d:DesignWidth="1289"
+      Title="AnimalControls">
+    <Canvas x:Name="canViewAnimalList" Height="845" Width="1289">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="725"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="dgActiveAnimals" Grid.Row="0" Width="1280" Grid.ColumnSpan="2" SelectionMode="Single"
+                   Padding="0"
+                  IsReadOnly="True" CanUserResizeRows="False" 
+                  CanUserResizeColumns="False" CanUserReorderColumns="False" Loaded="Window_Loaded">
+        </DataGrid>
+
+        <Button x:Name="btnAddAnimal" Margin="5"  Grid.Row="1" Grid.Column="0" Width="150" Height="50" FontSize="16" Click="BtnAddAnimal_Click">ADD ANIMAL</Button>
+        <CheckBox x:Name="chkActive" Grid.Row="1" Grid.Column="1" 
+                  VerticalAlignment="Center" VerticalContentAlignment="Center"
+                  FontSize="8" Content="View Inactive Animals" Click="chkActive_Click" Margin="5">
+            <CheckBox.LayoutTransform>
+                <ScaleTransform ScaleX="2" ScaleY="2" />
+            </CheckBox.LayoutTransform>
+        </CheckBox>
+    </Grid>
+        <Canvas Height="845" Width=" 1280" x:Name="canAddAnimal" Background="AntiqueWhite" Visibility="Hidden">
+            <Grid Height="800" Width=" 1280">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label FontSize="36" VerticalAlignment="Center" Grid.Row="0">Register New Animal</Label>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Animal Name-->
+                    <Label x:Name="lblAnimalName" Grid.Row="0" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Name:</Label>
+                    <TextBox x:Name="txtAnimalName"  Grid.Row="0" Grid.Column="1" Background="LightGray" Height="30" 
+                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+
+                    <!--Animal Species-->
+                    <Label x:Name="lblAnimalSpecies" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Species:</Label>
+                    <ComboBox x:Name="cmbAnimalSpecies" Grid.Row="1" Grid.Column="1" Height="30" 
+                      Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></ComboBox>
+
+                    <!--Animal Breed-->
+                    <Label x:Name="lblAnimalBreed" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Breed:</Label>
+                    <TextBox  x:Name="txtAnimalBreed" Grid.Row="2" Grid.Column="1" Background="LightGray" Height="30" 
+                      Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+
+                    <!--Animal Status-->
+                    <Label x:Name="lblAnimalStatus" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Status:</Label>
+                    <ComboBox x:Name="cmbAnimalStatus" Grid.Row="3" Grid.Column="1" Height="30" 
+                      Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></ComboBox>
+
+                    <!--Image Location-->
+                    <Label x:Name="lblImageLocation" Grid.Row="4" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Image Location:</Label>
+                    <TextBox  x:Name="txtImageLocation" Grid.Row="4" Grid.Column="1" Background="LightGray" Height="30" 
+                      Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+
+                    <Grid Grid.Row="5" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="80"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="175"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="175"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Arrival Date-->
+                        <Label x:Name="lblArrivalDate" Grid.Row="0" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                       HorizontalAlignment="Center">Arrival Date:</Label>
+                        <Calendar x:Name="cndArrivalDate" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" 
+                          VerticalAlignment="Center"
+                          SelectionMode="SingleDate"/>
+
+                        <!--Date of Birth-->
+                        <Label x:Name="lblDob" Grid.Row="0" Grid.Column="2" FontSize="22" VerticalAlignment="Center" 
+                       HorizontalAlignment="Center">Date of Birth:</Label>
+                        <Calendar x:Name="cndDob" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" 
+                          VerticalAlignment="Center" Margin="0 0 12.5 0"/>
+
+                        <!--Submit-->
+                        <Button x:Name="BtnSubmitAnimalAdd" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
+                        Width="150" FontSize="36" Padding="10"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitAnimalAdd_Click">Submit</Button>
+
+                        <!--Cancel-->
+                        <Button x:Name="btnCancelAnimalAdd" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" 
+                        Width="150" FontSize="36" Padding="10"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnCancelAnimalAdd_Click">Cancel</Button>
+                    </Grid>
+
+
+                </Grid>
+
+            </Grid>
+        </Canvas>
+    </Canvas>
+    
+</Page>

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAnimalAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

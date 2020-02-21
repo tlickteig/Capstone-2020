@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Animal.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="PetUniverseUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
