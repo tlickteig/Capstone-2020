@@ -24,50 +24,25 @@
         </Grid.RowDefinitions>
         <Grid Background="#2e3137" Grid.Row="1">
             <StackPanel Grid.Row="1" Margin="0,16,0,0">
-                <Button x:Name="btnInventory" Margin="10 100 10 10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnInventory_Click">
-                    <Grid Width="150">
-                        <TextBlock HorizontalAlignment="Center" Text="Inventory"/>
-                    </Grid>
+
+                <Button x:Name="btnInventory" Content="Inventory" Margin="10 100 10 10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnInventory_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
                         </Style>
                     </Button.Resources>
                 </Button>
-                <Button x:Name="btnAM" Margin="10" Height="40" FontSize="15" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnAM_Click">
-                    <Grid Width="150">
-                        <TextBlock HorizontalAlignment="Right" Text="Animal Management" Margin="0,0,1,0"/>
-                    </Grid>
+
+                <Button x:Name="btnAM" Margin="10" Height="40" FontSize="16" Content="Animal Management" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnAM_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
                         </Style>
                     </Button.Resources>
                 </Button>
+
                 <Button x:Name="btnPoS" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnPoS_Click">
-                    <Grid Width="150">
-                        <TextBlock HorizontalAlignment="Right" Text="Point of Sale" Margin="0,0,22,0"/>
-                    </Grid>
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="15"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-                <Button x:Name="btnVolHub" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnVolHub_Click">
-                    <Grid Width="150">
-                        <TextBlock Text="Volunteer Hub" Margin="10,0,0,0"/>
-                    </Grid>
-                    <Button.Resources>
-                        <Style TargetType="Border">
-                            <Setter Property="CornerRadius" Value="15"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-                <Button x:Name="btnRequest" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="BtnRequest_Click">
-                    <Grid Width="150">
-                        <TextBlock Text="Requests" HorizontalAlignment="Center"/>
-                    </Grid>
+                    <TextBlock HorizontalAlignment="Right" Text="Point of Sale" Margin="0,0,22,0"/>
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
@@ -75,14 +50,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="btnAdoptions" Margin="10" HorizontalContentAlignment="Center" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="BtnAdoptions_Click">
-                    <Grid Width="150">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="7*"/>
-                            <RowDefinition Height="5*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock  Text="Adoptions" Margin="30,0,28,0" Grid.RowSpan="2"/>
-                    </Grid>
+                <Button x:Name="btnVolHub" Margin="10" Content="Volunteer Hub" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnVolHub_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
@@ -90,26 +58,47 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="btnSysAdmin" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnSysAdmin_Click">
-                    <Grid Width="150">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="7*"/>
-                            <RowDefinition Height="5*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock HorizontalAlignment="Right" Text="System Admin" Margin="0,0,-10,0" Width="149" Grid.RowSpan="2"/>
-                    </Grid>
+                <Button x:Name="btnRequest" Content="Requests" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="BtnRequest_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
                         </Style>
                     </Button.Resources>
                 </Button>
-                
 
-                <Button x:Name="btnLogout" Margin="10 280 10 10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnLogout_Click">
-                    <Grid Width="150">
-                        <TextBlock HorizontalAlignment="Right" Text="Logout" Margin="0,0,38,0"/>
-                    </Grid>
+                <Button x:Name="btnAdoptions" Content="Adoptions" Margin="10" HorizontalContentAlignment="Center" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="BtnAdoptions_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="btnDonRec" Content="Donations/Recruiting" Margin="10" HorizontalContentAlignment="Center" Height="40" FontSize="16" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnDonRec_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="btnPersonnelManagement" Content="Personnel Management" Margin="10" HorizontalContentAlignment="Center" Height="40" FontSize="15" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnPersonnelManagement_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="btnSysAdmin" Content="System Admin" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnSysAdmin_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="btnLogout" Margin="10 160 10 10" Height="40" FontSize="18" Content="Logout" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnLogout_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
@@ -118,6 +107,7 @@
                 </Button>
             </StackPanel>
         </Grid>
+        
         <!-- Name: Zach Behrensmeyer
              Date: 2/8/2020
              CHECKED BY: Steven Cardona
@@ -129,46 +119,9 @@
              CHANGE: NA -->
 
         <Canvas x:Name="canInventory" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
-            <Grid Height="756">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="204"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="107"/>
-                    <RowDefinition Height="107"/>
-                </Grid.RowDefinitions>
-            </Grid>
             <TabControl x:Name="tabsetInventory" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewinventory" Header="View Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="13*"/>
-                            <ColumnDefinition Width="100*"/>
-                            <ColumnDefinition Width="1170*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
-                        </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="210"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </Grid>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -184,47 +137,9 @@
              CHANGE: NA -->
 
         <Canvas x:Name="canRequests" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
-
-            <Grid Height="756">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="204"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="107"/>
-                    <RowDefinition Height="107"/>
-                </Grid.RowDefinitions>
-            </Grid>
             <TabControl x:Name="tabsetRequests" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewRequests" Header="View Requests" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="13*"/>
-                            <ColumnDefinition Width="100*"/>
-                            <ColumnDefinition Width="1170*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
-                        </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="210"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </Grid>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -239,26 +154,8 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
+
         <Canvas x:Name="canAM" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
-            <Grid Height="756">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="204"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="107"/>
-                    <RowDefinition Height="107"/>
-                </Grid.RowDefinitions>
-            </Grid>
             <TabControl x:Name="tabsetAM" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewAnimals" Header="View Animals" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AMPages/AnimalControls.xaml"/>
@@ -275,47 +172,11 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
+        
         <Canvas x:Name="canPoS" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
-            <Grid Height="756">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="204"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="107"/>
-                    <RowDefinition Height="107"/>
-                </Grid.RowDefinitions>
-            </Grid>
             <TabControl x:Name="tabsetPoS" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewSales" Header="View Sales" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="13*"/>
-                            <ColumnDefinition Width="100*"/>
-                            <ColumnDefinition Width="1170*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
-                        </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="210"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </Grid>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -329,46 +190,11 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
+        
         <Canvas x:Name="canVolHub" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
-            <Grid Height="756">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="204"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="107"/>
-                    <RowDefinition Height="107"/>
-                </Grid.RowDefinitions>
-            </Grid>
             <TabControl x:Name="tabsetVolHub" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewVolunteers" Header="View Volunteers" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="13*"/>
-                            <ColumnDefinition Width="100*"/>
-                            <ColumnDefinition Width="1170*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="210"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </Grid>
+
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -382,30 +208,11 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
+        
         <Canvas x:Name="canSysAd" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
-            <Grid Height="756">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="204"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="107"/>
-                    <RowDefinition Height="107"/>
-                </Grid.RowDefinitions>
-            </Grid>
             <TabControl x:Name="tabsetSysAdmin" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10" >
 
-
-                <!-- Creator: Steven Cardona
+        <!-- Creator: Steven Cardona
              Date: 2/8/2020
              CHECKED BY: Zach Behrensmeyer
              
@@ -414,11 +221,13 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
+
                 <TabItem x:Name="tabViewUsers" Header="Users" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Grid>
                         <Frame Source="./SystemAdminPages/UserControls.xaml"></Frame>
                     </Grid>
                 </TabItem>
+
                 <TabItem x:Name="tabViewLogs" Header="AccessLogs" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./SystemAdminPages/LogView.xaml"></Frame>
                 </TabItem>
@@ -436,46 +245,45 @@
              UPDATED NA
              CHANGE: NA -->
         <Canvas x:Name="canAdoptions" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
-            <Grid Height="756">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="202"/>
-                    <ColumnDefinition Width="204"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="108"/>
-                    <RowDefinition Height="107"/>
-                    <RowDefinition Height="107"/>
-                </Grid.RowDefinitions>
-            </Grid>
             <TabControl x:Name="tabsetAdoptions" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewAdoption" Header="View Adoptions" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="13*"/>
-                            <ColumnDefinition Width="100*"/>
-                            <ColumnDefinition Width="1170*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="40"></RowDefinition>
-                        </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="1" Grid.ColumnSpan="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition Width="50"></ColumnDefinition>
-                                <ColumnDefinition Width="210"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                        </Grid>
-                    </Grid>
+                </TabItem>
+            </TabControl>
+        </Canvas>
+
+        <!-- Creator: Steven Coonrod
+             Date: 2/20/2020
+             CHECKED BY: Zach Behrensmeyer
+             
+             This canvas will contain the general controls for Adoptions
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
+        
+        <Canvas x:Name="canDonRec" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
+            <TabControl x:Name="tabsetDonRec" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                <TabItem x:Name="tabViewDonRec" Header="View Donations" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+
+                </TabItem>
+            </TabControl>
+        </Canvas>
+
+        <!-- Creator: Lane Sandburg
+             Date: 2/20/2020
+             CHECKED BY: Zach Behrensmeyer
+             
+             This canvas will contain the general controls for Adoptions
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
+
+        <Canvas x:Name="canPersonnel" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
+            <TabControl x:Name="tabsetPersonnel" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                <TabItem x:Name="tabViewPersonnel" Header="View Personnel" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+
                 </TabItem>
             </TabControl>
         </Canvas>

@@ -14,7 +14,11 @@
       Title="UserControls">
 
 
-
+    <!-- Name: Steven Cardona
+     Date: 2/19/2020
+     CHECKED BY: Zach Behrensmeyer
+     
+     This window is where the main activity for viewing and adding users will happen-->
     <Canvas x:Name="UserControl" Visibility="Visible">
         <Canvas>
             <Canvas x:Name="canUserView">
@@ -114,10 +118,8 @@
                             <TextBox x:Name="txtZipcode" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"  HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,45,0,44" Grid.ColumnSpan="2"/>
                         </Grid>
                     </Canvas>
-
                 </Grid>
             </Canvas>
         </Canvas>
     </Canvas>
-
 </Page>

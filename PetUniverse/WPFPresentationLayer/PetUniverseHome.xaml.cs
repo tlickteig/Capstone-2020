@@ -260,6 +260,8 @@ namespace WPFPresentationLayer
                     canRequests.Visibility = Visibility.Hidden;
                     canSysAd.Visibility = Visibility.Hidden;
                     canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
                     break;
                 case "Animal Management":
@@ -270,6 +272,8 @@ namespace WPFPresentationLayer
                     canRequests.Visibility = Visibility.Hidden;
                     canSysAd.Visibility = Visibility.Hidden;
                     canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
                     break;
                 case "Point of Sale":
@@ -280,6 +284,8 @@ namespace WPFPresentationLayer
                     canRequests.Visibility = Visibility.Hidden;
                     canSysAd.Visibility = Visibility.Hidden;
                     canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
                     break;
                 case "Volunteer Hub":
@@ -290,6 +296,8 @@ namespace WPFPresentationLayer
                     canRequests.Visibility = Visibility.Hidden;
                     canSysAd.Visibility = Visibility.Hidden;
                     canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
                     break;
                 case "System Admin":
@@ -300,6 +308,8 @@ namespace WPFPresentationLayer
                     canRequests.Visibility = Visibility.Hidden;
                     canSysAd.Visibility = Visibility.Visible;
                     canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
                     break;
                 case "Requests":
@@ -310,6 +320,8 @@ namespace WPFPresentationLayer
                     canRequests.Visibility = Visibility.Visible;
                     canSysAd.Visibility = Visibility.Hidden;
                     canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
                     break;
                 case "Adoptions":
@@ -320,6 +332,32 @@ namespace WPFPresentationLayer
                     canRequests.Visibility = Visibility.Hidden;
                     canSysAd.Visibility = Visibility.Hidden;
                     canAdoptions.Visibility = Visibility.Visible;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
+                    txtWelcome.Visibility = Visibility.Hidden;
+                    break;
+                case "Donations":
+                    canInventory.Visibility = Visibility.Hidden;
+                    canAM.Visibility = Visibility.Hidden;
+                    canPoS.Visibility = Visibility.Hidden;
+                    canVolHub.Visibility = Visibility.Hidden;
+                    canRequests.Visibility = Visibility.Hidden;
+                    canSysAd.Visibility = Visibility.Hidden;
+                    canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Visible;
+                    canPersonnel.Visibility = Visibility.Hidden;
+                    txtWelcome.Visibility = Visibility.Hidden;
+                    break;
+                case "Personnel":
+                    canInventory.Visibility = Visibility.Hidden;
+                    canAM.Visibility = Visibility.Hidden;
+                    canPoS.Visibility = Visibility.Hidden;
+                    canVolHub.Visibility = Visibility.Hidden;
+                    canRequests.Visibility = Visibility.Hidden;
+                    canSysAd.Visibility = Visibility.Hidden;
+                    canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Visible;
                     txtWelcome.Visibility = Visibility.Hidden;
                     break;
                 default:
@@ -330,6 +368,8 @@ namespace WPFPresentationLayer
                     canRequests.Visibility = Visibility.Hidden;
                     canSysAd.Visibility = Visibility.Hidden;
                     canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
                     break;
             }
@@ -397,6 +437,48 @@ namespace WPFPresentationLayer
         private void BtnAdoptions_Click(object sender, RoutedEventArgs e)
         {
             desiredScreen = "Adoptions";
+            switchScreen(desiredScreen);
+        }
+
+        /// <summary>
+        /// NAME : Steven Coonrod
+        /// DATE: 2/20/2020
+        /// CHECKED BY: Zach Behrensmeyer
+        /// 
+        /// This method is called when the donations button is clicked
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDonRec_Click(object sender, RoutedEventArgs e)
+        {
+            desiredScreen = "Donations";
+            switchScreen(desiredScreen);
+        }
+
+        /// <summary>
+        /// NAME : Lane Sandburg
+        /// DATE: 2/20/2020
+        /// CHECKED BY: Zach Behrensmeyer
+        /// 
+        /// This method is called when the Personnel button is clicked
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPersonnelManagement_Click(object sender, RoutedEventArgs e)
+        {
+            desiredScreen = "Personnel";
             switchScreen(desiredScreen);
         }
     }
