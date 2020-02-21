@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Animal.cs" />
+    <Compile Include="Department.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="PetUniverseUser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

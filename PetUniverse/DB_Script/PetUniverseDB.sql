@@ -198,21 +198,6 @@ VALUES
 (100002, 'Volunteer')
 GO
 
-/*
-Created by: Zach Behrensmeyer
-Date: 2/5/2020
-Comment: This is used to store the roles of the different users 
-such as admin, manager, customer etc.
-*/
-drop table if exists [dbo].[Department]
-
-print '' print '*** Create Department Table ***'
-GO
-CREATE TABLE [dbo].[Department](
-DepartmentID 				[int] 		PRIMARY KEY,
-DepartmentRoleDescription	[nvarchar](250) NULL	
-)
-GO
 
 /*
 Created by: Zach Behrensmeyer
@@ -1052,7 +1037,133 @@ BEGIN
 END 
 GO
 
+/**********************************************************************************************************************************
+***********************************************************************************************************************************
+***********************************************************************************************************************************
+***********************************************************************************************************************************
+***********************************************************************************************************************************
+***********************************************************************************************************************************/
 
+/*
+ * Created by: Jordan Lindo
+ * Date: 2/5/2020
+ * Comment: This is the table for department information.
+ */
+print '' print '*** Creating Table Department'
+GO
+
+CREATE TABLE [dbo].[department]
+(
+	 [DepartmentID]			[nvarchar](50)		NOT NULL
+	,[Description]			[nvarchar](200)		NULL
+	DEFAULT NULL
+	,CONSTRAINT 			[pk_departmentID]	PRIMARY KEY ([DepartmentID]ASC)
+
+)
+GO
+
+print '' print '*** Creating sample Department records'
+GO
+
+/*
+ * Created by: Jordan Lindo
+ * Date: 2/5/2020
+ * Comment: This is Sample data for the department table.
+ */
+
+INSERT INTO [dbo].[department]
+([DepartmentID],[Description])
+VALUES
+ ('Fake1','A Description')
+,('Fake2','Another Description')
+,('Fake3','Yet Another Description')
+,('Fake4',NULL)
+
+
+print '' print '*** Create procedure sp_insert_department'
+GO
+
+/*
+ * Created by: Jordan Lindo
+ * Date: 2/5/2020
+ * Comment: This is a stored procedure for inserting new departments into the 
+ * department table.
+ */
+CREATE PROCEDURE [sp_insert_department]
+(
+	 @DepartmentID			[nvarchar](50)
+	,@Description			[nvarchar](200)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[department]
+	([DepartmentID],[Description])
+	VALUES
+	(@DepartmentID,@Description)
+END
+GO
+
+print '' print '*** Create procedure sp_select_all_departments'
+GO
+
+/*
+ * Created by: Jordan Lindo
+ * Date: 2/5/2020
+ * Comment: This is a stored procedure for selecting all department records.
+ */
+CREATE PROCEDURE [sp_select_all_departments]
+AS
+BEGIN
+	SELECT [DepartmentID],[Description]
+	FROM [Department]
+END
+GO
+
+print '' print '*** Create procedure sp_select_department_by_id'
+GO
+
+/*
+ * Created by: Jordan Lindo
+ * Date: 2/5/2020
+ * Comment: This is a stored procedure for selecting all records with a departmentID
+ * matching the input.
+ */
+CREATE PROCEDURE [sp_select_department_by_id]
+(
+	 @DepartmentID			[nvarchar](50)
+)
+AS
+BEGIN
+	SELECT [DepartmentID],[Description]
+	FROM [Department]
+	WHERE [DepartmentID] = @DepartmentID
+END
+GO
+
+
+print '' print '*** Create procedure sp_update_department'
+GO
+
+
+/*
+ * Created by: Jordan Lindo
+ * Date: 2/15/2020
+ * Comment: This is a stored procedure for updating a department record.
+ */
+CREATE PROCEDURE [sp_update_department]
+(
+	 @DepartmentID			[nvarchar](50)
+	,@NewDescription		[nvarchar](200)
+)
+AS
+BEGIN
+	UPDATE [dbo].[department]
+	SET [Description] = @NewDescription
+	WHERE [DepartmentID] = @DepartmentID
+	RETURN @@ROWCOUNT
+END
+GO
+	
 
 
 

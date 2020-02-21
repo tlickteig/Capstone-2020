@@ -61,6 +61,9 @@
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonnelPages\Departments.xaml.cs">
+      <DependentUpon>Departments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SystemAdminPages\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
@@ -74,6 +77,10 @@
       <DependentUpon>UserControls.xaml</DependentUpon>
     </Compile>
     <Page Include="AMPages\AnimalControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PersonnelPages\Departments.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,7 +155,6 @@
   <ItemGroup>
     <Folder Include="AdoptionsPages\" />
     <Folder Include="InventoryPages\" />
-    <Folder Include="PersonnelPages\" />
     <Folder Include="PoSPages\" />
     <Folder Include="RecruitingPages\" />
     <Folder Include="VolunteerPages\" />
