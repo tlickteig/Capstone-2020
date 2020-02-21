@@ -73,6 +73,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdoptionPages\frmHomeInspectionForm.xaml.cs">
+      <DependentUpon>frmHomeInspectionForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
@@ -94,6 +97,10 @@
     <Compile Include="SystemAdminPages\UserControls.xaml.cs">
       <DependentUpon>UserControls.xaml</DependentUpon>
     </Compile>
+    <Page Include="AdoptionPages\frmHomeInspectionForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AMPages\AnimalControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -175,7 +182,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AdoptionsPages\" />
     <Folder Include="InventoryPages\" />
     <Folder Include="PoSPages\" />
     <Folder Include="RecruitingPages\" />

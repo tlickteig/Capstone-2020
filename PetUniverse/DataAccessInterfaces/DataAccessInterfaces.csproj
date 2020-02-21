@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IAnimalAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
+    <Compile Include="IHomeInspectoAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />

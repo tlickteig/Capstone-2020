@@ -1292,9 +1292,125 @@ END
 GO
 
 
+/*
+Created by: Mohamed Elamin
+Date: 2/3/2020
+Comment: Customer table.
+*/
+drop table if exists [dbo].[Customer]
+print '' print '*** Creating Customer Table'
+GO
+CREATE TABLE [dbo].[Customer](
+	[CustomerID]					[int]	IDENTITY(100000,1)		NOT NULL,
+	[UserID]						[int]							NOT NULL,
+	CONSTRAINT [pk_CustomerID] PRIMARY KEY([CustomerID]),
+	CONSTRAINT [fk_Customer_User_UserID] FOREIGN KEY ([UserID])
+		REFERENCES [User]([UserID])
+)
+GO
+
+/*
+Created by: Mohamed Elamin
+Date: 02/19/2020
+Comment: This is used to insert Sample Customer into the database 
+*/
+print '' print '*** Creating Sample Customer Records'
+GO
+INSERT INTO [dbo].[Customer]
+	([UserID])
+	VALUES
+	(100000)	
+GO
+
+/*
+Created by: Mohamed Elamin
+Date: 2/3/2020
+Comment: AdoptionApplication table.
+*/
+drop table if exists [dbo].[AdoptionApplication]
+print '' print '*** Creating AdoptionApplication Table'
+GO
+CREATE TABLE [dbo].[AdoptionApplication](
+	[AdoptionApplicationID]		[int]	IDENTITY(100000,1)		NOT NULL,
+	[CustomerID]				[int]							NOT NULL,
+	[AnimalID]					[int]									,
+	[Status]					[nvarchar]	(1000)						,
+	[RecievedDate]				[datetime]						NOT NULL,
+	CONSTRAINT [pk_AdoptionApplicationID] PRIMARY KEY ([AdoptionApplicationID]),
+	CONSTRAINT [fk_AdoptionApplication_Customer_CustomerID] FOREIGN KEY ([CustomerID])
+		REFERENCES [Customer]([CustomerID]),
+	CONSTRAINT [fk_AdoptionApplication_Animal_AnimalID] FOREIGN KEY ([AnimalID])
+		REFERENCES [Animal]([AnimalID])
+)
+GO
+
+/*
+Created by: Mohamed Elamin
+Date: 02/19/2020
+Comment: This is used to insert Sample AdoptionApplication into the database 
+*/
+print '' print '*** Creating Sample AdoptionApplication Records'
+GO
+INSERT INTO [dbo].[AdoptionApplication]
+	([CustomerID],[AnimalID],[Status],[RecievedDate])
+	VALUES
+	(100000,1000000,"inHomeInspection","2019-10-9")
+GO
+
+/*
+Created by: Mohamed Elamin
+Date: 2/2/2020
+Comment: Sproc to pull list of Adoption Applications which their status
+is inHomeInspection.
+*/
+print '' print '*** Creating sp_select_AdoptionApplication_by_Status'
+GO
+CREATE PROCEDURE [sp_select_AdoptionApplication_by_Status]	
+AS
+BEGIN
+	SELECT 	AdoptionApplicationID,AnimalID,CustomerID,Status,RecievedDate
+	FROM 	[dbo].[AdoptionApplication]
+	WHERE	[Status] = "inHomeInspection"
+END
+GO
+
+/*
+Created by: Mohamed Elamin
+Date: 2/2/2020
+Comment: Sproc to find animal name from Animal table
+by animal ID.
+*/
+print '' print '*** Creating sp_select_AnimalName_by_AnimalID'
+GO
+CREATE PROCEDURE [sp_select_AnimalName_by_AnimalID]
+(
+	@AnimalID 		[int]
+)
+AS
+BEGIN
+	SELECT 	[AnimalName]
+	FROM 	[dbo].[Animal]
+	WHERE	[AnimalID] = @AnimalID 
+END
+GO
 
 
-
-
-
-
+/*
+Created by: Mohamed Elamin
+Date: 2/2/2020
+Comment: Sproc to find Customer name by Customer ID from the User Table.
+*/
+print '' print '*** Creating sp_select_CustomerName_by_CustomerID'
+GO
+CREATE PROCEDURE [sp_select_CustomerName_by_CustomerID]
+(
+	@CustomerID 		[int]	
+)
+AS
+BEGIN
+	SELECT 	firstName,lastName
+	FROM 	[dbo].[User]
+	JOIN [Customer] ON [Customer].[UserID] = [User].[USERID]
+	WHERE	[Customer].[CustomerID] = @CustomerID 
+END
+GO

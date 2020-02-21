@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AnimalManagerTests.cs" />
     <Compile Include="DepartmentManagerTests.cs" />
+    <Compile Include="HomeInspectorManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogManagerTests.cs" />
     <Compile Include="ShiftTimeManagerTests.cs" />

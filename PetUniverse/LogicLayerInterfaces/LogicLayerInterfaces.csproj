@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IAnimalManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
+    <Compile Include="IHomeInspectorManager.cs" />
     <Compile Include="ILogManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
     <Compile Include="IUserManager.cs" />
