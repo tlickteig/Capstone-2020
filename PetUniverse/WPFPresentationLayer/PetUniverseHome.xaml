@@ -326,6 +326,25 @@
                         <Frame Source="./PersonnelPages/frameShiftTime.xaml"></Frame>
                     </Grid>
                 </TabItem>
+
+                <!-- Name: Chase Schulte
+             Date: 2/14/2020
+             CHECKED BY: Kaleb Bachert
+             
+             This tab will show a list of all roles in the db
+              
+             UPDATE BY: NA
+             UPDATE DATE: NA
+             CHANGE: NA -->
+                <TabItem x:Name="tabViewAllERoles" Header="View Roles" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Grid>
+                        <Canvas x:Name="canViewAllRoles">
+                            <Frame Source="./PersonnelPages/ViewAllRoles.xaml"></Frame>
+
+                        </Canvas>
+                    </Grid>
+                </TabItem>
+
                 <DockPanel Height="100" LastChildFill="False" Width="100"/>
             </TabControl>
         </Canvas>

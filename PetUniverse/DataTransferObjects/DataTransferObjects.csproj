@@ -46,6 +46,7 @@
     <Compile Include="Applicant.cs" />
     <Compile Include="Appointment.cs" />
     <Compile Include="Department.cs" />
+    <Compile Include="ERole.cs" />
     <Compile Include="FacilityMaintenance.cs" />
     <Compile Include="InventoryItems.cs" />
     <Compile Include="LogItem.cs" />

@@ -1750,5 +1750,234 @@ BEGIN
 	SELECT [ApplicantID], [FirstName], [LastName], [MiddleName], [Email], [PhoneNumber]
 	FROM [dbo].[Applicant]
 	ORDER BY [ApplicantID]
+
+
+/*
+Created by: Chase Schulte
+Date: 02/05/2020
+Comment: Test dummy for department  
+*/
+drop table if exists [dbo].[EDepartment]
+
+print '' print '*** Create Department Table ***'
+GO
+Create Table [dbo].[EDepartment](
+	[EDepartmentID]	[nvarchar](50) 							not Null,
+	Constraint	[pk_EDepartmentID] 	PRIMARY KEY([EDepartmentID] ASC)
+)
+GO
+
+/*
+Created by: Chase Schulte
+Date: 02/05/2020
+Comment: Inserts test data for the EDepartment Table
+*/
+print ''  print '*** Insert EDepartment into EDepartment Table'
+GO
+
+Insert INTO [dbo].[EDepartment]
+	([EDepartmentID])
+	Values
+	('a'),
+	('b')
+Go
+
+
+/*
+Created by: Chase Schulte
+Date: 02/05/2020
+Comment: Inserts test data for the ERole Table
+*/
+drop table if exists [dbo].[ERole]
+
+print ''  print '*** Creating Table "ERole Table"'
+GO
+Create Table [dbo].[ERole](
+	[ERoleID]	[nvarchar](50) 							not Null,
+	[EDepartmentID] nvarchar(50)							Not Null,
+	[Description] [nvarchar](250)						Null,
+	[Active]		[bit]			Not Null Default 1,
+	Constraint	[pk_ERoleID] 	PRIMARY KEY([ERoleID] ASC),
+	Constraint	[fk_ERole_EDepartmentID] Foreign Key([EDepartmentID])
+		REFERENCES [EDepartment]([EDepartmentID] ) On UPDATE CASCADE
+)
+GO
+
+
+/*
+Created by: Chase Schulte
+Date: 02/05/2020
+Comment: Inserts test data for the ERole Table
+*/
+print ''  print '*** Insert eRoles into ERole Table'
+GO
+
+Insert INTO [dbo].[ERole]
+	([ERoleID],[EDepartmentID],[Description])
+	Values
+	('Cashier','a','Handles customer'),
+	('Manager','b','Handles internal operations like employee records and payment info')
+Go
+
+
+
+/*
+Created by: Chase Schulte
+Date: 2/05/2020
+Comment: pull up a list of eRoles 
+*/
+print '' print '*** Creating sp_select_all_eRoles'
+GO
+CREATE PROCEDURE sp_select_all_eRoles
+	
+AS
+	BEGIN
+		SELECT 	[ERoleID],[EDepartmentID],[Description],[Active]
+		FROM 	[ERole]
+	
+	END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 2/05/2020
+Comment: deactivate a eRoleID by ID
+*/
+print ''  print '*** Creating sp_deactivate_eRole '
+GO
+CREATE PROCEDURE [sp_deactivate_eRole]
+(
+	
+	@ERoleID	[nvarchar](50)	
+)
+AS
+BEGIN
+	Update [dbo].[ERole]
+	Set
+	[Active]=0
+	Where [ERoleID] = @ERoleID
+	
+	Return @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 2/05/2020
+Comment: activate a eRoleID by ID
+*/
+print ''  print '*** Creating sp_activate_eRole '
+GO
+CREATE PROCEDURE [sp_activate_eRole]
+(
+	
+	@ERoleID	[nvarchar](50)	
+)
+AS
+BEGIN
+	Update [dbo].[ERole]
+	Set
+	[Active]=1
+	Where [ERoleID] = @ERoleID
+	
+	Return @@ROWCOUNT
+END
+GO
+/*
+Created by: Chase Schulte
+Date: 2/05/2020
+Comment: update an oldERole with a new eRole
+*/
+print ''  print '*** Creating sp_update_eRole_by_id'
+GO
+CREATE PROCEDURE [sp_update_eRole]
+(
+	@OldERoleID	[nvarchar](50),
+	@OldEDepartmentID nvarchar(50),
+	@OldDescription [nvarchar](250),
+	
+	
+	--New rows
+	@NewEDepartmentID nvarchar(50),
+	@NewDescription [nvarchar](250)
+	
+	
+)
+AS
+BEGIN
+	Update [dbo].[ERole]
+	Set
+	[EDepartmentID]=@NewEDepartmentID,
+	[Description]=@NewDescription
+	Where [ERoleID] = @OldERoleID
+	And [EDepartmentID] = @OldEDepartmentID
+	And [Description] = @OldDescription
+	Return @@ROWCOUNT
+END
+GO
+
+
+/*
+Created by: Chase Schulte
+Date: 2/05/2020
+Comment: insert a new eRole
+*/
+print ''  print '*** Creating sp_insert_eRole'
+GO
+CREATE PROCEDURE [sp_insert_eRole]
+(
+	@ERoleID[nvarchar](50),
+	@EDepartmentID[nvarchar](50),
+	@Description[nvarchar](250)
+)
+AS
+BEGIN
+	Insert Into [dbo].[ERole]
+		([ERoleID],[EDepartmentID],[Description])
+	VALUES
+		(@ERoleID,@EDepartmentID,@Description)
+		
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 2/05/2020
+Comment: delete an eRole
+*/
+print '' print '*** Creating sp_delete_eRole '
+GO
+CREATE PROCEDURE [sp_delete_eRole] 
+	(
+		@ERoleID				[nvarchar](50)
+	)
+AS
+	BEGIN
+		DELETE  
+		FROM 	[ERole]
+		WHERE 	[ERoleId] = @ERoleId
+		
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 02/16/2020
+Comment: Select eRoles by active state
+*/
+print '' print '*** Creating sp_select_all_active_eRoles'
+GO
+
+CREATE PROCEDURE [sp_select_all_active_eRoles]
+	(
+		@Active				[bit]
+	)
+AS
+BEGIN
+	select [ERoleID],[EDepartmentID],[Description],[Active]
+	FROM [dbo].[ERole]
+	WHERE [Active] = @Active
 END
 GO

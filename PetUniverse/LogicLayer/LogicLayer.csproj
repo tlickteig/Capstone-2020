@@ -45,6 +45,7 @@
     <Compile Include="ApplicantManager.cs" />
     <Compile Include="AppointmentManager.cs" />
     <Compile Include="DepartmentManager.cs" />
+    <Compile Include="ERoleManager.cs" />
     <Compile Include="FacilityMaintenanceManager.cs" />
     <Compile Include="HomeInspectorManager.cs" />
     <Compile Include="InventoryItemsManager.cs" />
