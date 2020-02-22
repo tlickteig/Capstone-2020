@@ -8,10 +8,10 @@ Standard CLASS comments:
 	/// <summary>
 	/// Creator: Your Name
 	/// Created: yyyy/mm/dd
-	/// Approver
+	/// Approver: Name
 	///
 	/// Actual summary of the class
-	/// Class for the creation of User Objects with set data fields
+	/// (example: Class for the creation of User Objects with set data fields)
 	/// </summary>
 	
 Standard METHOD comments:
@@ -24,10 +24,11 @@ Standard METHOD comments:
 	/// </summary>
 	///
 	/// <remarks>
-	/// Updater Name
+	/// Updater: Name
 	/// Updated: yyyy/mm/dd 
 	/// Update: (example: Fixed a problem when user inputs bad data)
 	/// </remarks>
 	/// <param name="sender"></param>
 	/// <param name="e"></param>
+
 

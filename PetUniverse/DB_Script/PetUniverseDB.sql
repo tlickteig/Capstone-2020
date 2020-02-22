@@ -1037,13 +1037,6 @@ BEGIN
 END 
 GO
 
-/**********************************************************************************************************************************
-***********************************************************************************************************************************
-***********************************************************************************************************************************
-***********************************************************************************************************************************
-***********************************************************************************************************************************
-***********************************************************************************************************************************/
-
 /*
  * Created by: Jordan Lindo
  * Date: 2/5/2020
@@ -1354,7 +1347,7 @@ GO
 INSERT INTO [dbo].[AdoptionApplication]
 	([CustomerID],[AnimalID],[Status],[RecievedDate])
 	VALUES
-	(100000,1000000,"inHomeInspection","2019-10-9")
+	(100000,1000000,"InHomeInspection","2019-10-9")
 GO
 
 /*
@@ -1370,7 +1363,7 @@ AS
 BEGIN
 	SELECT 	AdoptionApplicationID,AnimalID,CustomerID,Status,RecievedDate
 	FROM 	[dbo].[AdoptionApplication]
-	WHERE	[Status] = "inHomeInspection"
+	WHERE	[Status] = "InHomeInspection"
 END
 GO
 
@@ -1412,5 +1405,72 @@ BEGIN
 	FROM 	[dbo].[User]
 	JOIN [Customer] ON [Customer].[UserID] = [User].[USERID]
 	WHERE	[Customer].[CustomerID] = @CustomerID 
+END
+GO
+
+
+
+/*
+Created by: Thomas Dupuy
+Date: 2/6/2020
+Comment: Creats AppointmentType Table
+*/
+print '' print '*** Creating AppointmentType Table'
+GO
+CREATE TABLE [dbo].[AppointmentType](
+	[AppointmentTypeID] 	[nvarchar](150) 				NOT NULL,
+	[Description]			[nvarchar](250) 					NULL,
+	CONSTRAINT [pk_AppointmentTypeID] PRIMARY KEY([AppointmentTypeID] ASC)
+)
+GO
+
+
+/*
+Created by: Thomas Dupuy
+Date: 2/6/2020
+Comment: Creats Appointment Table
+*/
+print '' print '*** Creating Appointment Table'
+GO
+CREATE TABLE [dbo].[Appointment](
+	[AppointmentID] 		[int] IDENTITY(1000,1)			NOT NULL,
+	[AdoptionApplicationID]	[int]							NOT NULL,
+	[AppointmentTypeID] 	[nvarchar](150) 				NOT NULL,
+	[DateTime] 				[smalldatetime]					NOT NULL,
+	[Notes] 				[nvarchar](1000) 					NULL,
+	[Decicion] 				[nvarchar](50) 						NULL,
+	[Location] 				[nvarchar](100) 				NOT NULL,
+	CONSTRAINT [pk_AppointmentID] PRIMARY KEY([AppointmentID] ASC)
+)
+GO
+
+
+/*
+Created by: Thomas Dupuy
+Date: 2/6/2020
+Comment: Creats Sample Appointment Records
+*/
+print '' print '*** Creating Sample Appointment Records'
+GO
+INSERT INTO [dbo].[Appointment]
+	([AdoptionApplicationID], [AppointmentTypeID], [DateTime], [Notes], [Decicion], [Location])
+	VALUES
+	('1000000', 'InHomeInspection', '2020-04-02 12:30:00', '', 'Undesided', '123 Real Ave, Marion IA'),
+	('1000001', 'InHomeInspection', '1984-03-06 16:15:00', '', 'Undesided', '654 Notreal Blvd, Marion IA')
+GO
+
+
+/*
+Created by: Thomas Dupuy
+Date: 2/20/2020
+Comment: Sproc to pull list of all appointments
+*/
+print '' print '*** sp_get_all_appointments'
+GO
+CREATE PROCEDURE [sp_get_all_appointments]
+AS
+BEGIN
+	SELECT 	[AdoptionApplicationID], [AppointmentTypeID], [DateTime], [Notes], [Decicion], [Location]            
+	FROM Appointment
 END
 GO
