@@ -54,6 +54,7 @@
     <Compile Include="DepartmentManagerTests.cs" />
     <Compile Include="FacilityMaintenanceManagerTests.cs" />
     <Compile Include="HomeInspectorManagerTest.cs" />
+    <Compile Include="InventoryItemsManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogManagerTests.cs" />
     <Compile Include="ShiftTimeManagerTests.cs" />

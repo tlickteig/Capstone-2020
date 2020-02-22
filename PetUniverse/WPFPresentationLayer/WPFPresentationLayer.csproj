@@ -91,6 +91,9 @@
     <Compile Include="PersonnelPages\frameShiftTime.xaml.cs">
       <DependentUpon>frameShiftTime.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PoSPages\InventoryItems.xaml.cs">
+      <DependentUpon>InventoryItems.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SystemAdminPages\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
@@ -126,6 +129,10 @@
     <Page Include="PersonnelPages\frameShiftTime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PoSPages\InventoryItems.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="SystemAdminPages\LogView.xaml">
       <SubType>Designer</SubType>
@@ -197,7 +204,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="InventoryPages\" />
-    <Folder Include="PoSPages\" />
     <Folder Include="RecruitingPages\" />
     <Folder Include="VolunteerPages\" />
   </ItemGroup>

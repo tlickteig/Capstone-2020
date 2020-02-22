@@ -1474,3 +1474,209 @@ BEGIN
 	FROM Appointment
 END
 GO
+
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Create ItemCategory Table
+*/
+print '' print '*** Creating ItemCategory Table'
+GO
+CREATE TABLE [dbo].[ItemCategory](
+	[ItemCategoryID] [nvarchar](50) NOT NULL PRIMARY KEY,
+	[Description] [nvarchar](250) NOT NULL
+)
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Create Item Table
+*/
+
+print '' print '*** Creating Item Table'
+GO
+CREATE TABLE [dbo].[Item](
+	[ItemID] [int] NOT NULL IDENTITY(100000, 1) PRIMARY KEY,
+	[ItemName] [nvarchar](50) NOT NULL,
+	[ItemCategoryID] [nvarchar](50) NOT NULL,
+	[ItemDescription] [nvarchar](250) NOT NULL,
+	[ItemQuantity] [int] NOT NULL,
+	CONSTRAINT [fk_Item_ItemCategoryID] FOREIGN KEY ([ItemCategoryID])
+		REFERENCES [dbo].[ItemCategory]([ItemCategoryID])
+)
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Create ProductCategory Table
+*/
+
+print '' print '*** Creating ProductCategory Table'
+GO
+CREATE TABLE [dbo].[ProductCategory](
+	[ProductCategoryID] [nvarchar](20) NOT NULL PRIMARY KEY,
+	[Description] [nvarchar](500) NOT NULL
+)
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Create ProductType Table
+*/
+
+print '' print '*** Creating ProductType Table'
+GO
+CREATE TABLE [dbo].[ProductType](
+	[ProductTypeID] [nvarchar](20) NOT NULL PRIMARY KEY,
+	[Description] [nvarchar](500) NOT NULL
+)
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Create Product Table
+*/
+
+print '' print '*** Creating Product Table'
+GO
+CREATE TABLE [dbo].[Product](
+	[ProductID] [nvarchar](13) NOT NULL PRIMARY KEY,
+	[ItemID] [int] NOT NULL,
+	[ProductName] [nvarchar](50) NOT NULL,
+	[ProductCategoryID] [nvarchar](20) NOT NULL,
+	[ProductTypeID] [nvarchar](20) NOT NULL,
+	[Description] [nvarchar](250) NOT NULL,
+	[Price] [decimal](10,2) NOT NULL,
+	[Brand] [nvarchar](20) NOT NULL,
+	[Taxable] [bit] NOT NULL DEFAULT 1,
+	CONSTRAINT [fk_Product_ItemID] FOREIGN KEY ([ItemID])
+		REFERENCES [dbo].[Item]([ItemID]),
+	CONSTRAINT [fk_Product_ProductCatagoryID] FOREIGN KEY ([ProductCategoryID])
+		REFERENCES [dbo].[ProductCategory]([ProductCategoryID]),
+	CONSTRAINT [fk_Product_ProductTypeID] FOREIGN KEY ([ProductTypeID])
+		REFERENCES [dbo].[ProductType]([ProductTypeID])
+)
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Insert Sample Data into ItemCategory Table
+*/
+
+print '' print '*** Insert Into ItemCategory Table ***'
+GO
+INSERT INTO [dbo].[ItemCategory](
+	[ItemCategoryID],
+	[Description]
+)
+VALUES
+('Food','Pet food'),
+('Medical','Medical supplies')
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Insert Sample Data into Item Table
+*/
+
+print '' print '*** Insert Into Item Table ***'
+GO
+INSERT INTO [dbo].[Item](
+	[ItemName],
+	[ItemCategoryID],
+	[ItemDescription],
+	[ItemQuantity]
+)
+VALUES
+('LoCatMein','Food','Name Brand Cat Food', 42),
+('Scratch Be Gone','Medical','Animal Scratch Wound Healant', 35)
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Insert Sample Data into ProductCategory Table
+*/
+
+print '' print '*** Insert Into ProductCategory Table ***'
+GO
+INSERT INTO [dbo].[ProductCategory](
+	[ProductCategoryID],
+	[Description]
+)
+VALUES
+('Food','Pet food'),
+('Medical','Medical supplies')
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Insert Sample Data into ProductType Table
+*/
+
+
+print '' print '*** Insert Into ProductType Table ***'
+GO
+INSERT INTO [dbo].[ProductType](
+	[ProductTypeID],
+	[Description]
+)
+VALUES
+('Cat','Cat supplies'),
+('General','General supplies')
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Insert Sample Data into Product Table
+*/
+
+print '' print '*** Insert Into Product Table ***'
+GO
+INSERT INTO [dbo].[Product](
+	[ProductID],
+	[ItemID],
+	[ProductName],
+	[ProductCategoryID],
+	[ProductTypeID],
+	[Description],
+	[Price],
+	[Brand]
+)
+VALUES
+('7084781116',100000,'LoCatMein', 'Food', 'Cat', 'Name brand Cat Food', 50.00, 'OnlyForCats'),
+('2500006153',100001,'Scratch Be Gone','Medical', 'General', 'Medical Supplies to Heal Scratch Wounds', 100.00, 'AlsoForHumans')
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Creating Stored Procedure sp_select_all_products_items
+*/
+
+print '' print '*** Creating sp_select_all_products_items ***'
+GO
+CREATE PROCEDURE [sp_select_all_products_items]
+AS
+BEGIN
+	SELECT
+		[Product].[ProductID],
+		[Product].[ProductName],
+		[Product].[Brand],
+		[Product].[ProductCategoryID],
+		[Product].[ProductTypeID],
+		[Product].[Price],
+		[Item].[ItemQuantity]
+		FROM [Product]
+		JOIN [Item] ON [Item].[ItemID] = [Product].[ItemID]
+END
+GO
