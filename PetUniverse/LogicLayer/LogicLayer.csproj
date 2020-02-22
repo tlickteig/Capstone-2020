@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimalManager.cs" />
+    <Compile Include="ApplicantManager.cs" />
     <Compile Include="AppointmentManager.cs" />
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="FacilityMaintenanceManager.cs" />

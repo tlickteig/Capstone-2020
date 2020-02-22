@@ -1680,3 +1680,75 @@ BEGIN
 		JOIN [Item] ON [Item].[ItemID] = [Product].[ItemID]
 END
 GO
+
+/*
+Created by: Derek Taylor
+Date 2/4/2020
+Comment: Stores data about applicants
+*/
+print '' print '*** Creating Applicant Table'
+GO
+CREATE TABLE [dbo].[Applicant](
+	[ApplicantID]			[int]IDENTITY(100000, 1)	NOT NULL,
+	[FirstName]				[nvarchar](50)				NOT NULL,
+	[LastName]				[nvarchar](50)				NOT NULL,
+	[MiddleName]			[nvarchar](50)				NOT NULL,
+	[Email]					[nvarchar](250)				NOT NULL,
+	[PhoneNumber]			[nvarchar](11)				NOT NULL,
+	[AddressLine1]			[nvarchar](100)				NOT NULL,
+	[AddressLine2]			[nvarchar](100)				NULL,
+	[City]					[nvarchar](100)				NOT NULL,
+	[State]					[char](2)					NOT NULL,
+	[ZipCode]				[nvarchar](12)				NOT NULL,
+	CONSTRAINT [pk_ApplicantID] PRIMARY KEY([ApplicantID] ASC),
+	CONSTRAINT [ak_Applicant_Email] UNIQUE([Email] ASC)
+)
+GO
+
+/*
+Created by: Derek Taylor
+Date 2/4/2020
+Comment: Inserts sample data for the application
+*/
+print '' print '*** Creating Sample Applicants'
+GO
+INSERT INTO [dbo].[Applicant]
+	([FirstName], [LastName], [MiddleName], [Email], [PhoneNumber], [AddressLine1], 
+		[AddressLine2], [City], [State], [ZipCode])
+	VALUES
+	('Derek', 'Taylor', 'Joel','derek@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Ryan', 'Morganti', 'Donald Albert','ryan@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Steve', 'Coonrod', 'Marcus','steve@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Matt', 'Deaton', 'Franklin','matt@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Hassan', 'Karar', 'MiddleName','hassan@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Gabrielle', 'Legrande', 'Sue','gabrielle@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Michael', 'Thompson', 'Michael','michael@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Zach', 'Behrensmeyer', 'Zachariah','zach@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Josh', 'Jackson', 'Barry','josh@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Ethan', 'Murphy', 'Clover','ethan@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Brandyn', 'Cloverdill', 'David','brandyn@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Dalton', 'Reierson', '','dalton@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Jesse', 'Tomash', '','jesse@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Rasha', 'Mohammed', '','rasha@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Zoey', 'McDonald', 'Elizabeth','zoey@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Alex', 'Biers', '','alex@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Ben', 'Hanna', '','ben@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Cash', 'Carlson', '','cash@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
+	('Rob', 'Holmes', '','rob@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555')
+GO
+
+/*
+Created by: Derek Taylor
+Date 2/21/2020
+Comment: Stored Procedure to select all of the applicants
+*/
+print '' print '*** Creating sp_select_all_applicants'
+GO
+CREATE PROCEDURE [sp_select_all_applicants]
+AS
+BEGIN
+	SELECT [ApplicantID], [FirstName], [LastName], [MiddleName], [Email], [PhoneNumber]
+	FROM [dbo].[Applicant]
+	ORDER BY [ApplicantID]
+END
+GO

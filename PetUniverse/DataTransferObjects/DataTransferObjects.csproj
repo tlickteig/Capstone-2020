@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AdoptionApplication.cs" />
     <Compile Include="Animal.cs" />
+    <Compile Include="Applicant.cs" />
     <Compile Include="Appointment.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="FacilityMaintenance.cs" />
