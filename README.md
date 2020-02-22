@@ -32,3 +32,4 @@ Hassan Karar                    Developer
 Michael Thompson                Developer
 Alex Diers                      Developer
 Rasha Mohammed					Developer
+Josh Jackson          Developer
