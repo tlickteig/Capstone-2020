@@ -7,6 +7,15 @@
       mc:Ignorable="d" 
       d:DesignHeight="845" d:DesignWidth="1289"
       Title="AnimalControls">
+    <!-- Name: Chuck Baxter
+             Date: 2/18/2020
+             CHECKED BY: Carl Davis
+             
+             xaml to view active and inactive animals, as well as add an animal
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
     <Canvas x:Name="canViewAnimalList" Height="845" Width="1289">
     <Grid>
         <Grid.RowDefinitions>

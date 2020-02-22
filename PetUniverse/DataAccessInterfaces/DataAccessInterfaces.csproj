@@ -44,6 +44,7 @@
     <Compile Include="IAnimalAccessor.cs" />
     <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
+    <Compile Include="IFacilityMaintenanceAccessor.cs" />
     <Compile Include="IHomeInspectoAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />

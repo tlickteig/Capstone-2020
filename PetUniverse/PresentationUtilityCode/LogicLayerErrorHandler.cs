@@ -42,7 +42,7 @@ namespace PresentationUtilityCode
             string message = null;
             if (!string.IsNullOrEmpty(exInnerMessage))
             {
-                message = exInnerMessage + "\n\n" + exInnerMessage;
+                message = exMessage + "\n\n" + exInnerMessage;
             }
             else
             {
@@ -71,7 +71,7 @@ namespace PresentationUtilityCode
             string message = null;
             if (!string.IsNullOrEmpty(exInnerMessage))
             {
-                message = exInnerMessage + "\n\n" + exInnerMessage;
+                message = exMessage + "\n\n" + exInnerMessage;
             }
             else
             {

@@ -52,6 +52,7 @@
     <Compile Include="AnimalManagerTests.cs" />
     <Compile Include="AppointmentManagerTest.cs" />
     <Compile Include="DepartmentManagerTests.cs" />
+    <Compile Include="FacilityMaintenanceManagerTests.cs" />
     <Compile Include="HomeInspectorManagerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogManagerTests.cs" />

@@ -44,6 +44,7 @@
     <Compile Include="IAnimalManager.cs" />
     <Compile Include="IAppointmentManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
+    <Compile Include="IFacilityMaintenanceManager.cs" />
     <Compile Include="IHomeInspectorManager.cs" />
     <Compile Include="ILogManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />

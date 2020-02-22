@@ -45,6 +45,7 @@
     <Compile Include="Animal.cs" />
     <Compile Include="Appointment.cs" />
     <Compile Include="Department.cs" />
+    <Compile Include="FacilityMaintenance.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />

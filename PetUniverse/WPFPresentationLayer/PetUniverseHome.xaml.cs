@@ -243,6 +243,10 @@ namespace WPFPresentationLayer
         /// UPDATED 02/15/2020
         /// CHANGE: Added canViewUsers.Visibility = Visibility.Visible; to SysAdmin Case
         /// 
+        /// UPDATED BY: Carl Davis
+        /// UPDATED 02/21/2020
+        /// CHANGE: Added facility maintenance switch case
+        /// 
         /// </remarks>
         /// </summary>
         /// <param name="sender"></param>
@@ -255,6 +259,7 @@ namespace WPFPresentationLayer
                 case "Inventory":
                     canInventory.Visibility = Visibility.Visible;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -267,6 +272,20 @@ namespace WPFPresentationLayer
                 case "Animal Management":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Visible;
+                    canFM.Visibility = Visibility.Hidden;
+                    canPoS.Visibility = Visibility.Hidden;
+                    canVolHub.Visibility = Visibility.Hidden;
+                    canRequests.Visibility = Visibility.Hidden;
+                    canSysAd.Visibility = Visibility.Hidden;
+                    canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
+                    txtWelcome.Visibility = Visibility.Hidden;
+                    break;
+                case "Facility Management":
+                    canInventory.Visibility = Visibility.Hidden;
+                    canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Visible;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -279,6 +298,7 @@ namespace WPFPresentationLayer
                 case "Point of Sale":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Visible;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -291,6 +311,7 @@ namespace WPFPresentationLayer
                 case "Volunteer Hub":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Visible;
                     canRequests.Visibility = Visibility.Hidden;
@@ -303,6 +324,7 @@ namespace WPFPresentationLayer
                 case "System Admin":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -315,6 +337,7 @@ namespace WPFPresentationLayer
                 case "Requests":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Visible;
@@ -327,6 +350,7 @@ namespace WPFPresentationLayer
                 case "Adoptions":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -339,6 +363,7 @@ namespace WPFPresentationLayer
                 case "Donations":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -351,6 +376,7 @@ namespace WPFPresentationLayer
                 case "Personnel":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -363,6 +389,7 @@ namespace WPFPresentationLayer
                 default:
                     canInventory.Visibility = Visibility.Visible;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -479,6 +506,27 @@ namespace WPFPresentationLayer
         private void btnPersonnelManagement_Click(object sender, RoutedEventArgs e)
         {
             desiredScreen = "Personnel";
+            switchScreen(desiredScreen);
+        }
+
+        /// <summary>
+        /// NAME : Carl Davis
+        /// DATE: 2/21/2020
+        /// CHECKED BY: Chuck Baxter
+        /// 
+        /// This method is called when the Facility Management button is clicked
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnFm_Click(object sender, RoutedEventArgs e)
+        {
+            desiredScreen = "Facility Management";
             switchScreen(desiredScreen);
         }
     }

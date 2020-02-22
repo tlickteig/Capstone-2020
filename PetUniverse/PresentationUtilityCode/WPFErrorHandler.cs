@@ -47,6 +47,43 @@ namespace PresentationUtilityCode
                 MessageBoxImage.Error);
         }
 
+        ///// <summary>
+        ///// Creator: Carl Davis
+        ///// Date: 02/22/2020
+        ///// Approver: Steven Cardona
+        ///// 
+        ///// Method of general Error handling.
+        ///// </summary>
+        ///// <remarks>
+        ///// Updated BY: N/A
+        ///// Updated N/A
+        ///// Update: N/A
+        ///// Approver: N/A
+        ///// </remarks>
+        ///// <param name="message"></param>
+        ///// <param name="typeOfError"></param>
+        ///// <param name="innerMessage"></param>
+        //public static void ErrorMessage(this string message, string typeOfError = null, string innerMessage = null)
+        //{
+        //    string caption = null;
+        //    string innerMessage1 = null;
+        //    if (!string.IsNullOrEmpty(typeOfError))
+        //    {
+        //        caption = typeOfError + " Error";
+        //    }
+        //    else if (!string.IsNullOrEmpty(innerMessage))
+        //    {
+        //        innerMessage1 = innerMessage;
+        //    }
+        //    else
+        //    {
+        //        caption = "Error";
+        //        innerMessage1 = "";
+        //    }
+        //    MessageBox.Show(message + "\n\n" + innerMessage1, caption, MessageBoxButton.OK,
+        //        MessageBoxImage.Error);
+        //}
+
         public static void SuccessMessage(this string message)
         {
             MessageBox.Show(message, "Success", MessageBoxButton.OK);

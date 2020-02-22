@@ -44,6 +44,7 @@
     <Compile Include="AnimalManager.cs" />
     <Compile Include="AppointmentManager.cs" />
     <Compile Include="DepartmentManager.cs" />
+    <Compile Include="FacilityMaintenanceManager.cs" />
     <Compile Include="HomeInspectorManager.cs" />
     <Compile Include="LogManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
