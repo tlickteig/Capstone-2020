@@ -8,33 +8,33 @@ using System.Threading.Tasks;
 namespace DataAccessInterfaces
 {
     /// <summary>
-    /// NAME: Derek Taylor
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Ryan Morganti
+    /// Creator: Derek Taylor
+    /// Created: 2/14/2020
+    /// Approver: Ryan Morganti
     /// 
     /// 
     /// Interface for accessing Applicants
     /// </summary>
     /// <remarks>
-    /// UPDATE BY: NA
-    /// UPDATED DATE: NA
-    /// CHANGE: NA
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
     /// </remarks>
     public interface IApplicantAccessor
     {
         /// <summary>
-        /// NAME: Derek Taylor
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver: Ryan Morganti
         /// 
         /// 
         /// Method is used to retrieve all applicant records
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
-        /// <returns></returns>
         List<Applicant> SelectAllApplicants();
     }
 }

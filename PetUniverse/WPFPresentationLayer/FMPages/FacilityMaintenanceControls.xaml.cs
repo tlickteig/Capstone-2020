@@ -23,7 +23,6 @@ namespace WPFPresentationLayer.FMPages
     /// Creator: Carl Davis
     /// Created: 2/21/2020
     /// Approver: Steven Cardona
-    /// Approver: 
     /// 
     /// Interaction logic for FacilityMaintenanceControls.xaml
     /// </summary>
@@ -44,7 +43,6 @@ namespace WPFPresentationLayer.FMPages
         /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Steven Cardona 
-        /// Approver: 
         /// 
         /// constructor for facility maintenance controls
         /// </summary>
@@ -65,7 +63,6 @@ namespace WPFPresentationLayer.FMPages
         /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Steven Cardona
-        /// Approver: 
         /// 
         /// method to load facility maintenance data
         /// </summary>
@@ -100,7 +97,6 @@ namespace WPFPresentationLayer.FMPages
         /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Steven Cardona
-        /// Approver: 
         /// 
         /// method to refresh the data grid items
         /// </summary>
@@ -133,7 +129,6 @@ namespace WPFPresentationLayer.FMPages
         /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Steven Cardona
-        /// Approver: 
         /// 
         /// displays the add facility maintenance canvas
         /// </summary>
@@ -156,7 +151,6 @@ namespace WPFPresentationLayer.FMPages
         /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Steven Cardona
-        /// Approver: 
         /// 
         /// searches the item inputed by the user and displays it on the screen
         /// </summary>
@@ -224,7 +218,6 @@ namespace WPFPresentationLayer.FMPages
         /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Steven Cardona
-        /// Approver: 
         /// 
         /// cancels updated a record and brings user back to display screen
         /// </summary>
@@ -254,7 +247,6 @@ namespace WPFPresentationLayer.FMPages
         /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Steven Cardona
-        /// Approver: 
         /// 
         /// creates a new record the user has entered if validated
         /// </summary>
@@ -287,8 +279,6 @@ namespace WPFPresentationLayer.FMPages
                 MessageBox.Show("Please enter the maintenance description");
                 return;
             }
-
-
 
             try
             {
@@ -325,7 +315,6 @@ namespace WPFPresentationLayer.FMPages
         /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Steven Cardona
-        /// Approver: 
         /// 
         /// brings up update window
         /// </summary>
@@ -347,15 +336,12 @@ namespace WPFPresentationLayer.FMPages
             txtMaintenanceName.Text = selectedFacilityMaintenance.MaintenanceName;
             txtMaintenanceInterval.Text = selectedFacilityMaintenance.MaintenanceInterval;
             txtMaintenanceDescription.Text = selectedFacilityMaintenance.MaintenanceDescription;
-
-
         }
 
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Steven Cardona
-        /// Approver: 
         /// 
         /// Submits the updated information to the database
         /// </summary>
@@ -389,8 +375,6 @@ namespace WPFPresentationLayer.FMPages
                 return;
             }
 
-
-
             try
             {
                 FacilityMaintenance facilityMaintenance = new FacilityMaintenance
@@ -420,7 +404,6 @@ namespace WPFPresentationLayer.FMPages
             }
             catch (Exception ex)
             {
-
                 WPFErrorHandler.ErrorMessage(ex.Message, "Update");
             }
         }

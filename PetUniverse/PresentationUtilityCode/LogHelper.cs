@@ -8,9 +8,9 @@ using log4net;
 namespace WPFPresentationLayer
 {
     /// <summary>
-    /// NAME: Zach Behrensmeyer
-    /// DATE: 2/11/2020
-    /// CHECKED BY: Steven Cardona
+    /// Creator: Zach Behrensmeyer
+    /// Creator: 2/11/2020
+    /// Approver: Steven Cardona
     /// 
     /// This class is a helper method to call when something needs logged in the PresentationLayer
     /// </summary>

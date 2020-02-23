@@ -11,26 +11,25 @@ using System.Threading.Tasks;
 namespace DataAccessLayer
 {
     /// <summary>
-    /// CREATOR: Steven Cardona
-    /// DATE: 02/11/2020
-    /// APPROVER: Zach Behrensmeyer
+    /// Creator: Steven Cardona
+    /// Created: 02/11/2020
+    /// Approver: Zach Behrensmeyer
     ///
     /// Class of methods for Accessing using information
     /// </summary>
     public class UserAccessor : IUserAccessor
     {
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/11/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/11/2020
+        /// Approver: Zach Behrensmeyer
         ///
         /// This method connects to the database and inserts a user via the sp_insert_user stored procedure
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Updated: N/A
         /// </remarks>
         /// <param name="petUniverseUser">The user that is going to be inserted into the database</param>
         /// <returns>Returns true if insert is successful else returns false</returns>
@@ -70,18 +69,18 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/11/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/11/2020
+        /// Approver: Zach Behrensmeyer
         ///
         /// This method connects to the database and
         /// selects all active users via the sp_select_all_active_users stored procedure
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// APPROVER: NA
         /// </remarks>
         /// <returns>Returns a list of PetUniverseUsers</returns>
         public List<PetUniverseUser> SelectAllActivePetUniverseUsers()
@@ -113,7 +112,6 @@ namespace DataAccessLayer
                         ZipCode = reader.GetString(7)
                     });
                 }
-
                 reader.Close();
             }
             catch (Exception ex)
@@ -123,8 +121,7 @@ namespace DataAccessLayer
             finally
             {
                 conn.Close();
-            }
-            
+            }            
             return users;
         }
 
@@ -193,16 +190,16 @@ namespace DataAccessLayer
 
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This method is used to find retrieve a user based on the provided email
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// CHANGE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="email"></param>
         /// <returns></returns>

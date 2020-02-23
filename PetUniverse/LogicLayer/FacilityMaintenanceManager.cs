@@ -92,8 +92,6 @@ namespace LogicLayer
             return result;
         }
 
-
-
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 2/13/2020
@@ -248,6 +246,4 @@ namespace LogicLayer
             return result;
         }
     }
-
-
 }

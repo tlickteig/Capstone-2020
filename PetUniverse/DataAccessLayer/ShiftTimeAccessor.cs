@@ -11,16 +11,16 @@ using DataTransferObjects;
 namespace DataAccessLayer
 {
     /// <summary>
-    /// NAME:Lane Sandburg
-    /// DATE: 02/05/2019
-    /// CHECKED BY:Alex Diers
+    /// Creator: Lane Sandburg
+    /// Created: 02/05/2019
+    /// Approver: Alex Diers
     /// 
     /// the shiftTime Data Accessor
     /// </summary>
     /// <remarks>
-    /// UPDATED BY:NA
-    /// UPDATED DATE:
-    /// WHAT WAS CHANGED:
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
     /// </remarks> 
     public class ShiftTimeAccessor : IShiftTimeAccessor
     {
@@ -49,7 +49,6 @@ namespace DataAccessLayer
             var cmd = new SqlCommand("sp_insert_ShiftTime", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-
             cmd.Parameters.AddWithValue("@DepartmentID", shiftTime.DepartmentID);
             cmd.Parameters.AddWithValue("@StartTime", shiftTime.StartTime);
             cmd.Parameters.AddWithValue("@EndTime", shiftTime.EndTime);
@@ -58,7 +57,6 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 ShiftTimeID = Convert.ToInt32(cmd.ExecuteScalar());
-
             }
             catch (Exception ex)
             {
@@ -69,8 +67,6 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-
-
             return ShiftTimeID;
         }
 
@@ -87,7 +83,6 @@ namespace DataAccessLayer
         /// Updated: yyyy/mm/dd 
         /// Update: (example: Fixed a problem when user inputs bad data)
         /// </remarks>
-
         public List<PetUniverseShiftTime> SelectAllShiftTimes()
         {
             List<PetUniverseShiftTime> ShiftTimes = new List<PetUniverseShiftTime>();
@@ -119,7 +114,6 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             return ShiftTimes;
@@ -127,16 +121,16 @@ namespace DataAccessLayer
 
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/13/2019
-        /// CHECKED BY:Alex Diers
+        /// Creator: Lane Sandburg
+        /// Created: 02/13/2020
+        /// Approver:Alex Diers
         /// 
         /// Opens DB Connection to Update a shiftTime
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: (example: Fixed a problem when user inputs bad data)
         /// </remarks>
         /// <param name="newShiftTime"></param>
         /// <param name="oldShiftTime"></param>
@@ -176,9 +170,7 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-
             return rows;
-
         }
     }
 }

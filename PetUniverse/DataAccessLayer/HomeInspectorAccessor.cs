@@ -135,8 +135,7 @@ namespace DataAccessLayer
         /// This method used to get Adoption Applications where thier status
         /// is In-home Inspection.
         /// 
-        /// </summary>
-        ///
+        /// </summary>      
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 

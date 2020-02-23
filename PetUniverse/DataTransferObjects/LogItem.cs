@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace DataTransferObjects
 {
     /// <summary>
-    /// NAME: Zach Behrensmeyer
-    /// DATE: 2/11/20
-    /// CHECKED BY: Steven Cardona
+    /// Created: Zach Behrensmeyer
+    /// Created: 2/11/20
+    /// Approver: Steven Cardona
     /// 
     /// This class is where we create the properties of a LogItem
     /// </summary>
     /// <remarks>
-    /// UPDATE BY: NA
-    /// UPDATED NA
-    /// CHANGE: NA
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
     /// 
     /// </remarks>
     public class LogItem

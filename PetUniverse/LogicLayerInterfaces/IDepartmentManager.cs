@@ -8,31 +8,26 @@ using DataTransferObjects;
 namespace LogicLayerInterfaces
 {
     /// <summary>
-    /// NAME: Jordan Lindo
-    /// DATE: 2/6/2020
-    /// CHECKED BY: Alex Diers
+    /// Creator: Jordan Lindo
+    /// Created: 2/6/2020
+    /// Approver: Alex Diers
     /// 
     /// This is an interface method.
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// 
-    /// </remarks>
+
     public interface IDepartmentManager
     {
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is an interface method for adding a department.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         /// <param name="departmentId"></param>
@@ -41,31 +36,31 @@ namespace LogicLayerInterfaces
         bool AddDepartment(string departmentId, string description);
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is an interface method for getting a list of departments.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         List<Department> RetrieveAllDepartments();
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is an interface method getting a department by id.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         /// <param name="DepartmentId"></param>
@@ -73,16 +68,16 @@ namespace LogicLayerInterfaces
         Department RetrieveDepartmentByID(string DepartmentId);
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is an interface method update a department.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         /// <param name="oldDepartmentId"></param>
@@ -91,16 +86,16 @@ namespace LogicLayerInterfaces
         bool EditDepartment(Department oldDepartment, Department newDepartment);
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is an interface method for deleting a department.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         /// <param name="departmentId"></param>

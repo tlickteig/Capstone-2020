@@ -117,8 +117,5 @@ namespace LogicLayerInterfaces
         /// <param name="newFacilityMaintenance"></param>
         /// <returns>1 or 0 int depending if record was updated</returns>
         bool EditFacilityMaintenance(FacilityMaintenance oldFacilityMaintenance, FacilityMaintenance newFacilityMaintenance);
-
-
-
     }
 }

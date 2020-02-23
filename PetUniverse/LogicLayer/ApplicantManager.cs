@@ -11,32 +11,27 @@ using System.Threading.Tasks;
 namespace LogicLayer
 {
     /// <summary>
-    /// NAME: Derek Taylor
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Ryan Morganti
+    /// Creator: Derek Taylor
+    /// Created: 2/14/2020
+    /// Approver: Ryan Morganti
     /// 
     /// This class is handles the logic for Applicants.
     /// </summary>
-    /// <remarks>
-    /// UPDATE BY: NA
-    /// UPDATE DATE: NA
-    /// CHANGE: NA
-    /// 
-    /// </remarks>
     public class ApplicantManager : IApplicantManager
     {
         private IApplicantAccessor _applicantAccessor;
+
         /// <summary>
-        /// NAME: Derek Taylor
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver: Ryan Morganti
         /// 
         /// No argument Constructor for ApplicantManager
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public ApplicantManager()
@@ -44,16 +39,16 @@ namespace LogicLayer
             _applicantAccessor = new ApplicantAccessor();
         }
         /// <summary>
-        /// NAME: Derek Taylor
-        /// DATE 2/14/2020
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver: Ryan Morganti
         /// 
         /// This Constructor accesses the fake data for Applicants
         /// </summary>
         /// <remarks>
-        /// UPDATE BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="applicantAccessor"></param>
@@ -61,18 +56,19 @@ namespace LogicLayer
         {
             _applicantAccessor = applicantAccessor;
         }
+
         /// <summary>
-        /// NAME : Derek Taylor
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver: Ryan Morganti
         /// 
         /// This method calls the ApplicantAccessor to retrieve all apllicants
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// 

@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace LogicLayer
 {
     /// <summary>
-    /// NAME: Zach Behrensmeyer
-    /// DATE: 2/11/2020
-    /// CHECKED BY: Steven Cardona
+    /// Creator: Zach Behrensmeyer
+    /// Created: 2/11/2020
+    /// Approver: Steven Cardona
     /// 
     /// This class is where I am calling the data access layer for Logs
     /// </summary>
@@ -22,16 +22,16 @@ namespace LogicLayer
         private ILogAccessor _logAccessor;
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/11/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
         /// 
         /// No argument Constructor for LogManager
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public LogManager()
@@ -47,16 +47,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE 2/11/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Constructor accesses the fake data for logs
         /// </summary>
         /// <remarks>
-        /// UPDATE BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="logAccessor"></param>
@@ -66,17 +66,17 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME : Zach Behrensmeyer
-        /// DATE: 2/11/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
         /// 
         /// This method calls the logaccessor to get a list of logs
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>      
         /// <returns>List of Logs</returns>

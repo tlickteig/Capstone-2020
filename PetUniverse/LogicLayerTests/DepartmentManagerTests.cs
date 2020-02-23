@@ -11,18 +11,12 @@ using DataAccessFakes;
 namespace LogicLayerTests
 {
     /// <summary>
-    /// NAME: Jordan Lindo
-    /// DATE: 2/6/2020
-    /// CHECKED BY: Alex Diers
+    /// Creator: Jordan Lindo
+    /// Created: 2/6/2020
+    /// Approver: Alex Diers
     /// 
     /// This is a unit test set for DepartmentManager.
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// 
-    /// </remarks>
     [TestClass]
     public class DepartmentManagerTests
     {
@@ -30,16 +24,16 @@ namespace LogicLayerTests
 
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test constructor DepartmentManager.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         public DepartmentManagerTests()
@@ -48,16 +42,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for retrieving all departments.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -72,16 +66,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for retrieve by id.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -102,18 +96,17 @@ namespace LogicLayerTests
 
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for good values insert.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -129,18 +122,17 @@ namespace LogicLayerTests
 
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for null id insert.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -156,18 +148,17 @@ namespace LogicLayerTests
 
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for existing id insert.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -183,18 +174,17 @@ namespace LogicLayerTests
 
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/16/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/16/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for DepartmentManager too long ID.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -212,18 +202,17 @@ namespace LogicLayerTests
 
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/16/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for DepartmentManager just too long ID.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -240,16 +229,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/16/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/16/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for DepartmentManager just too long description.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -266,18 +255,17 @@ namespace LogicLayerTests
 
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/15/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for DepartmentManager no match.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -300,18 +288,17 @@ namespace LogicLayerTests
             Assert.AreEqual(false, result);
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/15/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for DepartmentManager no match to original id by new.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -335,18 +322,17 @@ namespace LogicLayerTests
 
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/15/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for DepartmentManager no match to existing description.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -369,18 +355,17 @@ namespace LogicLayerTests
 
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/16/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for DepartmentManager one char to long description.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -404,18 +389,17 @@ namespace LogicLayerTests
 
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/16/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a unit test for DepartmentManager one char to long id.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         [TestMethod]
@@ -435,8 +419,6 @@ namespace LogicLayerTests
 
             bool result = departmentManager.EditDepartment(department, anotherDepartment);
             Assert.AreEqual(false, result);
-
         }
-
     }
 }

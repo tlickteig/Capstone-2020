@@ -8,7 +8,7 @@ namespace DataTransferObjects
 {
     /// <summary>
     /// Creator: Cash Carlson
-    /// Created: 2020/02/21
+    /// Created: 02/21/2020
     /// Approver: Zach Behrensmeyer
     ///
     /// This class creates the properties for Inventory Items

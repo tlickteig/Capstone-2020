@@ -9,16 +9,16 @@ namespace LogicLayerInterfaces
 {
     /// <summary>
     /// <summary>
-    /// NAME: Chase Schutle
-    /// DATE: 2/7/2020
-    /// CHECKED BY: N/A
+    /// Creator: Chase Schutle
+    /// Created: 2/7/2020
+    /// Approver: Kaleb Bachert
     /// 
     /// Interface for ERoleManager
     /// </summary>
     /// <remarks>
-    /// UPDATED BY: Chase Schulte
-    /// UPDATE DATE: 2/7/2020
-    /// WHAT WAS CHAGED: Removed RetrieveByERoleID
+    /// Updater: Chase Schulte
+    /// Updated: 2/7/2020
+    /// UPdate: Removed RetrieveByERoleID
     /// 
     /// </remarks>
     /// </summary>

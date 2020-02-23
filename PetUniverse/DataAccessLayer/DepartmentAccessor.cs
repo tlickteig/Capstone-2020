@@ -11,16 +11,16 @@ using System.Threading.Tasks;
 namespace DataAccessLayer
 {
     /// <summary>
-    /// NAME: Jordan Lindo
-    /// DATE: 2/6/2020
-    /// CHECKED BY: Alex Diers
+    /// Creator: Jordan Lindo
+    /// Created: 2/6/2020
+    /// Approver: Alex Diers
     /// 
     /// This is a DataAccess class for TSQL it implements the IDepartmentAccessor
     /// </summary>
     /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
     /// 
     /// </remarks>
     public class DepartmentAccessor : IDepartmentAccessor
@@ -31,16 +31,16 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a method for inserting a department into the tsql database.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public int InsertDepartment(string departmentId, string description)
@@ -60,30 +60,27 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
             {
                 conn.Close();
             }
-
-
             return rows;
         }
 
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a method for selecting all departments from the tsql database.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public List<Department> SelectAllDepartments()
@@ -113,7 +110,6 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
@@ -125,16 +121,16 @@ namespace DataAccessLayer
 
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the method for selecting a department by id from the tsql database.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public Department SelectDepartmentByID(string departmentId)
@@ -173,18 +169,19 @@ namespace DataAccessLayer
 
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/15/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the method for updating a department in the tsql database.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
+        /// 
         /// <param name="oldDepartment"></param>
         /// <param name="newDepartment"></param>
         /// <returns></returns>
@@ -205,7 +202,6 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally

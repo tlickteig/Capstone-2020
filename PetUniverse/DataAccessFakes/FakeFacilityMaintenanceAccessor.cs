@@ -226,7 +226,5 @@ namespace DataAccessFakes
                 return 0;
             }
         }
-
-
     }
 }

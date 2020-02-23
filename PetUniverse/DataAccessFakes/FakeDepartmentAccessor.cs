@@ -9,33 +9,27 @@ using DataAccessInterfaces;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Jordan Lindo
-    /// DATE: 2/6/2020
-    /// CHECKED BY: Alex Diers
+    /// Creator: Jordan Lindo
+    /// Created: 2/6/2020
+    /// Approver: Alex Diers
     /// 
     /// This is a DataAccessFake used for unit testing.
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// 
-    /// </remarks>
     public class FakeDepartmentAccessor : IDepartmentAccessor
     {
         private List<Department> departments;
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a DataAccessFake constructor used for unit testing.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public FakeDepartmentAccessor()
@@ -50,25 +44,22 @@ namespace DataAccessFakes
             };
         }
 
-
         public int DeleteDepartment(string departmentId)
         {
             throw new NotImplementedException();
         }
 
-
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the data access fake for adding a department to the table.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public int InsertDepartment(string departmentId, string description)
@@ -86,21 +77,20 @@ namespace DataAccessFakes
             {
                 rows = 1;
             }
-
             return rows;
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the data access fake for selecting all departments.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public List<Department> SelectAllDepartments()
@@ -109,16 +99,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the data access fake for selecting a department by id.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public Department SelectDepartmentByID(string departmentId)
@@ -135,16 +125,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/18/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/18/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the data access fake for update department
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public int UpdateDepartment(Department oldDepartment, Department newDepartment)

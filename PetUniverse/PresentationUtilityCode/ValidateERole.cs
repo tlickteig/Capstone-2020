@@ -9,8 +9,8 @@ namespace PresentationUtilityCode
 {
     /// <summary>
 	/// Creator: Chase Schulte
-	/// Created: 2020/02/07
-	/// Approver
+	/// Created: 02/07/2020
+	/// Approver: Kaleb Bachert
 	///
 	/// Class for validating ERoleView
 	/// </summary>
@@ -19,16 +19,16 @@ namespace PresentationUtilityCode
 
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Check if ERoleID string length and if it's empty
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="eRole"></param>
         /// <returns></returns>
@@ -44,16 +44,16 @@ namespace PresentationUtilityCode
         }
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Check if DepartmentID string length and if it's empty
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="dept"></param>
         /// <returns></returns>
@@ -70,16 +70,16 @@ namespace PresentationUtilityCode
         }
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Check if Description is too long
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="description"></param>
         /// <returns></returns>
@@ -95,16 +95,16 @@ namespace PresentationUtilityCode
         }
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/22
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Check if eRole is too long, too small
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="eRole"></param>
         /// <returns></returns>
@@ -119,16 +119,16 @@ namespace PresentationUtilityCode
         }
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/22
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Simple string compari
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="aString"></param>
         /// <param name="anotherString"></param>

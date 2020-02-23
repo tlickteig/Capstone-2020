@@ -11,18 +11,12 @@ using DataAccessLayer;
 namespace LogicLayer
 {
     /// <summary>
-    /// NAME: Jordan Lindo
-    /// DATE: 2/6/2020
-    /// CHECKED BY: NA
+    /// Creator: Jordan Lindo
+    /// Created: 2/6/2020
+    /// Approver: Alex Diers
     /// 
     /// This is the Logic layer Department Manager for interacting between the Presentation and the Data Access.
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// 
-    /// </remarks>
     public class DepartmentManager : IDepartmentManager
     {
 
@@ -30,16 +24,16 @@ namespace LogicLayer
 
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the no argument constructor.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         public DepartmentManager()
@@ -49,16 +43,16 @@ namespace LogicLayer
 
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This constructor requires an IDepartmentAccessor.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         /// <param name="departmentAccessor"></param>
@@ -69,16 +63,16 @@ namespace LogicLayer
 
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the method to add a department.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         /// <param name="departmentId"></param>
@@ -109,16 +103,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the method to retrieve all departments.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         public List<Department> RetrieveAllDepartments()
@@ -135,16 +129,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the method to select a department by id.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         /// <param name="departmentId"></param>
@@ -157,16 +151,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/15/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the method to update a department.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
         /// 
         /// </remarks>
         /// <param name="oldDepartmentId"></param>

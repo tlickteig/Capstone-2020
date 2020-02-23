@@ -8,25 +8,20 @@ using DataTransferObjects;
 namespace DataAccessInterfaces
 {
     /// <summary>
-    /// NAME:Lane Sandburg
-    /// DATE: 02/05/2019
-    /// CHECKED BY:NA
+    /// Creator: Lane Sandburg
+    /// Created: 02/06/2020
+    /// Approver: Alex Diers
     /// 
     /// the shiftTime Accessor Interface.
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY:NA
-    /// UPDATED DATE:
-    /// WHAT WAS CHANGED:
-    /// </remarks> 
     public interface IShiftTimeAccessor
     {
         /// <summary>
         /// Creator: Lane Sandburg
         /// Created: 02/07/2020
-        /// Approver:Alex Diers
+        /// Approver: Alex Diers
         /// 
-        /// defenition for Insert a new ShiftTime
+        /// definition for Insert a new ShiftTime
         /// and sets parameters for insertion
         /// </summary>
         ///
@@ -41,9 +36,9 @@ namespace DataAccessInterfaces
         /// <summary>
         /// Creator: Lane Sandburg
         /// Created: 02/13/2020
-        /// Approver:Alex Diers
+        /// Approver: Alex Diers
         /// 
-        /// defenition for update a new ShiftTime
+        /// definition for update a new ShiftTime
         /// and sets parameters for insertion
         /// </summary>
         ///
@@ -59,9 +54,9 @@ namespace DataAccessInterfaces
         /// <summary>
         /// Creator: Lane Sandburg
         /// Created: 02/13/2020
-        /// Approver:Alex Diers
+        /// Approver: Alex Diers
         /// 
-        /// defenition for select all ShiftTime
+        /// definition for select all ShiftTime
         /// and sets parameters for insertion
         /// </summary>
         ///

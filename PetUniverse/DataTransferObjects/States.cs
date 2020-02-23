@@ -7,25 +7,24 @@ using System.Threading.Tasks;
 namespace DataTransferObjects
 {
     /// <summary>
-    /// CREATOR: Steven Cardona
-    /// DATE: 02/10/2020
-    /// APPROVER: Zach Behrensmeyer
+    /// Created: Steven Cardona
+    /// Created: 02/10/2020
+    /// Approver: Zach Behrensmeyer
     /// Class representing a state
     /// </summary>
     public class States
     {
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/10/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/10/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Enumeration of U.S. State abbreviations
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public enum StatesAb
         {

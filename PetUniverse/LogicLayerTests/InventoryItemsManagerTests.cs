@@ -28,6 +28,11 @@ namespace LogicLayerTests
 		///
 		/// Passing in FakeInventoryItemsAccessor at the start of every test
 		/// </summary>
+		/// <remarks>
+		/// Updater: Name
+		/// Updated: yyyy/mm/dd 
+		/// Update: ()
+		/// </remarks>
 		[TestInitialize]
 		public void InventoryItemsTestSetup()
 		{
@@ -41,6 +46,11 @@ namespace LogicLayerTests
 		///
 		/// Test method for retrieving all of Inventory Items from the accessor
 		/// </summary>
+		/// <remarks>
+		/// Updater: Name
+		/// Updated: yyyy/mm/dd 
+		/// Update: ()
+		/// </remarks>
 		[TestMethod]
 		public void TestInventoryItemsManagerRetrieveInventoryItems()
 		{
@@ -62,6 +72,11 @@ namespace LogicLayerTests
 		///
 		/// Tear down method that resets the accessor class
 		/// </summary>
+		/// <remarks>
+		/// Updater: Name
+		/// Updated: yyyy/mm/dd 
+		/// Update: ()
+		/// </remarks>
 		[TestCleanup]
 		public void TestTearDown()
 		{

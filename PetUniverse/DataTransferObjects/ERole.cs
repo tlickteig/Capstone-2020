@@ -9,7 +9,7 @@ namespace DataTransferObjects
     /// <summary>
 	/// Creator: Chase Schulte
 	/// Created: 2020/02/05
-	/// Approver
+	/// Approver: Kaleb Bachert
 	///
 	/// properties for a Role
 	/// </summary>

@@ -11,30 +11,25 @@ using DataTransferObjects;
 namespace DataAccessLayer
 {
     /// <summary>
-    /// NAME: Derek Taylor
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Ryan Morganti
+    /// Creator: Derek Taylor
+    /// Created: 2/14/2020
+    /// Approver: Ryan Morganti
     /// 
     /// This class accesses Applicants 
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATED DATE: NA
-    /// CHANGE:
-    /// </remarks>
     public class ApplicantAccessor : IApplicantAccessor
     {
         /// <summary>
-        /// NAME: Derek Taylor
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver: Ryan Morganti
         /// 
         /// This method is used to get all applicants
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// CHANGE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <returns>List of Logs</returns>
         public List<Applicant> SelectAllApplicants()
@@ -75,7 +70,6 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-
             return applicants;
         }
     }

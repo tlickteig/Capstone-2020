@@ -9,32 +9,26 @@ using DataTransferObjects;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Derek Taylor
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Ryan Morganti
+    /// Creator: Derek Taylor
+    /// Created: 2/14/2020
+    /// Approver: Ryan Morganti
     /// 
     /// This class is where we can pull fake Applicant Records from
-    /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATED DATE: NA
-    /// CHANGE:
-    /// 
-    /// </remarks>
+    /// </summary>    
     public class FakeApplicantAccessor : IApplicantAccessor
     {
         private List<Applicant> applicants = null;
         /// <summary>
-        /// NAME: Derek Taylor
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Ryan Morganti
+        /// Creatpr: Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver: Ryan Morganti
         /// 
         /// This fake method is called to get a fake ApplicantAccessor
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED BY: NA
-        /// CHANGE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <returns>Fake ApplicantAccessor</returns>
@@ -86,17 +80,18 @@ namespace DataAccessFakes
                 }
             };
         }
+
         /// <summary>
-        /// NAME: Derek Taylor
-        /// DATE: 2/14/2020
-        /// CHECKED BY:  Ryan Morganti
+        /// Creator: Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver:  Ryan Morganti
         /// 
         /// This fake method is called to get a fake list of Applicants
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED BY: NA
-        /// CHANGE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <returns>Fake list of Applicants</returns>

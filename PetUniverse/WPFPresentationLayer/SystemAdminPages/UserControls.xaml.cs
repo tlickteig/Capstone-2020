@@ -20,9 +20,9 @@ using System.Windows.Shapes;
 namespace WPFPresentationLayer.SystemAdminPages
 {
     /// <summary>
-    /// NAME: Zach Behrensmeyer
-    /// DATE: 2/20/2020
-    /// CHECKED BY: Michael Thompson
+    /// Creator: Zach Behrensmeyer
+    /// Created: 2/20/2020
+    /// Approver: Michael Thompson
     /// 
     /// This class controls UserControls page
     /// 
@@ -33,17 +33,17 @@ namespace WPFPresentationLayer.SystemAdminPages
 
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/20/2020
-        /// CHECKED BY: Michael Thompson
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/20/2020
+        /// Approver: Michael Thompson
         /// 
         /// This is a constructor for the UserControls Page
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -54,17 +54,16 @@ namespace WPFPresentationLayer.SystemAdminPages
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/14/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/14/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Method of general Error handling.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        /// UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -92,16 +91,16 @@ namespace WPFPresentationLayer.SystemAdminPages
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// CREATED: 02/14/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/14/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// When dgUserList is loaded. Adds items into dgUserList.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED: N/A
-        /// UPDATE: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -111,16 +110,16 @@ namespace WPFPresentationLayer.SystemAdminPages
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// CREATED: 02/14/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/14/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Adds items into dgUserList.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED: N/A
-        /// UPDATE: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void RefreshDgUserList()
         {
@@ -135,16 +134,16 @@ namespace WPFPresentationLayer.SystemAdminPages
 
         }
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/20/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/20/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Hides dgUserList and shows new canvas for creating users. Also adds enum values to cmbState items source
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATED DATE:
-        /// UPDATE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -160,16 +159,16 @@ namespace WPFPresentationLayer.SystemAdminPages
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/20/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/14/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Loaded event for User Controls
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATED DATE:
-        /// UPDATE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -186,15 +185,16 @@ namespace WPFPresentationLayer.SystemAdminPages
         }
 
         /// <summary>
-        /// CODED BY: Steven Cardona
-        /// DATE: 02/10/2020
-        /// CHECKED BY: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/10/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
         /// Create a new user by clicking save
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        /// WHAT WAS CHANGED: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -332,17 +332,16 @@ namespace WPFPresentationLayer.SystemAdminPages
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/015/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/15/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Hides canNewUsers and shows canViewUsers.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATED DATE:
-        /// UPDATE:
-        /// APPROVER:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>

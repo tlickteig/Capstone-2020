@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace DataTransferObjects
 {
     /// <summary>
-    /// NAME: Derek Taylor
-    /// DATE: 2/14/20
-    /// CHECKED BY: Ryan Morganti
+    /// Creator: Derek Taylor
+    /// Created: 2/14/20
+    /// Approver: Ryan Morganti
     /// 
     /// This class is a representation of an Applicant Record
     /// </summary>
     /// <remarks>
-    /// UPDATE BY: NA
-    /// UPDATE DATE: NA
-    /// CHANGE:
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
     /// 
     /// </remarks>
     public class Applicant

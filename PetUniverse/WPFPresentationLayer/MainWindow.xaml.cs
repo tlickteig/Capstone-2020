@@ -19,9 +19,9 @@ using PresentationUtilityCode;
 namespace WPFPresentationLayer
 {
     /// <summary>
-    /// NAME: Zach Behrensmeyer
-    /// DATE: 2/7/2020
-    /// CHECKED BY: Steven Cardona
+    /// Creator: Zach Behrensmeyer
+    /// Created: 2/7/2020
+    /// Approver: Steven Cardona
     /// 
     /// This class controls the MainWindow window
     /// 
@@ -34,17 +34,17 @@ namespace WPFPresentationLayer
         private IUserManager _userManager;
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This is a constructor for the main window class
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -56,17 +56,17 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is used to login the user after they click the button
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>

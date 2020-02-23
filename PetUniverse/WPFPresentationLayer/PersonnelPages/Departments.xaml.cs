@@ -19,8 +19,12 @@ using LogicLayer;
 namespace WPFPresentationLayer.PersonnelPages
 {
     /// <summary>
-    /// Interaction logic for Departments.xaml
-    /// </summary>
+    /// Creator: Jordan Lindo
+    /// Created: 2/13/2020
+    /// Approver: Alex Diers
+    /// 
+    /// Interaction logic for Departments.xaml    
+    /// <summary>
     public partial class Departments : Page
     {
         private IDepartmentManager _departmentManager;
@@ -34,16 +38,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/13/2020
+        /// Approver: Alex Diers
         /// 
         /// The constructoer with a user.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="user"></param>
         public Departments(PetUniverseUser user)
@@ -54,9 +58,9 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/13/2020
-        /// CHECKED BY:
+        /// Creator: Jordan Lindo
+        /// Created: 2/13/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a method for add department click.
         /// </summ/ary>
@@ -75,16 +79,16 @@ namespace WPFPresentationLayer.PersonnelPages
 
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/13/2020
-        /// CHECKED BY:
+        /// Creator: Jordan Lindo
+        /// Created: 2/13/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the method to try to safely retrieve data for departments.
         /// </summ/ary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         private void showDGDepartments()
@@ -106,16 +110,16 @@ namespace WPFPresentationLayer.PersonnelPages
 
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/15/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the method for setting the column width.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -129,16 +133,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/15/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This is the method fills a data grid.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -149,16 +153,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This button click listener sends the data for creating a new department record to the logic layer
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -192,16 +196,16 @@ namespace WPFPresentationLayer.PersonnelPages
 
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/15/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This method hides the canvas.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -213,16 +217,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/15/2020
-        /// CHECKED BY:
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a method for edit department click.
         /// </summ/ary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         private void btnEditDepartment_Click(object sender, RoutedEventArgs e)
@@ -257,18 +261,17 @@ namespace WPFPresentationLayer.PersonnelPages
             }
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/18/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a method for clicking save.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -302,18 +305,17 @@ namespace WPFPresentationLayer.PersonnelPages
             }
         }
 
-
         /// <summary>
-        /// NAME: Jordan Lindo
-        /// DATE: 2/18/2020
-        /// CHECKED BY: Alex Diers
+        /// Creator: Jordan Lindo
+        /// Created: 2/15/2020
+        /// Approver: Alex Diers
         /// 
         /// This is a method for clicking cancel.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         private void btnEditDepartmentCancel_Click(object sender, RoutedEventArgs e)

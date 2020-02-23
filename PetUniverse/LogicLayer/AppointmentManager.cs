@@ -12,7 +12,7 @@ namespace LogicLayer
 {
     /// <summary>
     /// Creator: Thomas Dupuy
-    /// Created: 2020/02/06
+    /// Created: 02/06/2020
     /// Approver: Awaab Elamin
     /// 
     /// This manager class is used as a manager for the accessor
@@ -23,7 +23,7 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 2020/02/06
+        /// Created: 02/06/2020
         /// Approver: Awaab Elamin
         /// 
         /// This method is a no-argument constructor
@@ -41,7 +41,7 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 2020/02/06
+        /// Created: 02/06/2020
         /// Approver: Awaab Elamin
         /// 
         /// This method is a one argument constructor
@@ -60,7 +60,7 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 2020/02/06
+        /// Created: 02/06/2020
         /// Approver: Awaab Elamin
         /// 
         /// This method retrieve all appointments

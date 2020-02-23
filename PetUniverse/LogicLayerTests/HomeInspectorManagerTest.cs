@@ -35,7 +35,7 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
+        /// Updater: Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
@@ -58,7 +58,7 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
+        /// Updater: Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>

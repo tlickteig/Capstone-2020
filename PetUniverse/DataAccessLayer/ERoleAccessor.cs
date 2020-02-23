@@ -12,8 +12,8 @@ namespace DataAccessLayer
 {
     /// <summary>
     /// Creator: Chase Schulte
-    /// Created: 2020/02/15
-    /// Approver
+    /// Created: 02/15/2020
+    /// Approver: Kaleb Bachert
     ///
     /// Reads and writes to database by invoking eRole Stored Procedures
     /// Class for the creation of User Objects with set data fields
@@ -22,17 +22,12 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/09
+        /// Created: 02/09/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Activate a role id in the database by invoking the "sp_activate_eRole" stored procedure
         /// </summary>
         ///
-        /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
-        /// </remarks>
         /// <param name="eRoleID"></param>
         /// <returns></returns>
         public int ActivateERole(string eRoleID)
@@ -56,9 +51,10 @@ namespace DataAccessLayer
             }
             return nonQueryResults;
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/09
+        /// Created: 02/09/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Deactivate a role id in the database by invoking the "sp_deactivate_eRole" stored procedure
@@ -92,9 +88,10 @@ namespace DataAccessLayer
             }
             return nonQueryResults;
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/09
+        /// Created: 02/09/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Delete a role in the database by invoking the "sp_delete_eRole" stored procedure
@@ -131,7 +128,7 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/07/09
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Insert a role the database by invoking the "sp_delete_eRole" stored procedure
@@ -162,42 +159,37 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@EDepartmentID", eRole.EDepartmentID);
             cmd.Parameters.AddWithValue("@Description", eRole.Description);
 
-
-
             //Execute Command
             try
             {
-
                 //Open conn
                 conn.Open();
                 nonQueryResults = cmd.ExecuteNonQuery();
-
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
             {
                 conn.Close();
             }
-
             return nonQueryResults;
         }
+
         /// <summary>
-        /// NAME: Chase Schutle
-        /// DATE: 2/7/2020
-        /// CHECKED BY: N/A
+        /// Creator: Chase Schulte
+        /// Created: 02/07/2020
+        /// Approver: Kaleb Bachert
         /// 
         /// Method grabs all eRoles
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATE DATE: N/A
-        /// WHAT WAS CHAGED: N/A
-        /// 
+        /// Updater 
+        /// Updated:
+        /// Update: 
         /// </remarks>
+        /// 
         /// <returns></returns>
         public List<ERole> SelectAllERoles()
         {
@@ -241,17 +233,16 @@ namespace DataAccessLayer
             return eRoles;
         }
         /// <summary>
-        /// NAME: Chase Schutle
-        /// DATE: 2/16/2020
-        /// CHECKED BY: N/A
+        /// Creator: Chase Schulte
+        /// Created: 02/16/2020
+        /// Approver: Kaleb Bachert
         /// 
         /// Method grabs all eRoles by active state
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATE DATE: N/A
-        /// WHAT WAS CHAGED: N/A
-        /// 
+        /// Updater 
+        /// Updated:
+        /// Update: 
         /// </remarks>
         /// <returns></returns>
         public List<ERole> SelectAllERolesByActive(bool active = true)
@@ -291,21 +282,19 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-
             return eRoles;
         }
         /// <summary>
-        /// NAME: Chase Schutle
-        /// DATE: 2/16/2020
-        /// CHECKED BY: N/A
+        /// Creator: Chase Schulte
+        /// Created: 02/16/2020
+        /// Approver: Kaleb Bachert
         /// 
         /// Method grabs a eRole and allows it to be modified
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATE DATE: N/A
-        /// WHAT WAS CHAGED: N/A
-        /// 
+        /// Updater 
+        /// Updated:
+        /// Update: 
         /// </remarks>
         /// <returns></returns>
         public int UpdateERole(ERole oldERole, ERole newERole)
@@ -327,13 +316,9 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("NewEDepartmentID", newERole.EDepartmentID);
             cmd.Parameters.AddWithValue("NewDescription", newERole.Description);
 
-
-
-
             //Execute Command
             try
             {
-
                 //Open conn
                 conn.Open();
                 nonQueryResults = cmd.ExecuteNonQuery();
@@ -341,14 +326,12 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
             {
                 conn.Close();
             }
-
             return nonQueryResults;
         }
     }

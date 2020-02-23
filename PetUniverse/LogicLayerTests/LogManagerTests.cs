@@ -10,9 +10,9 @@ using LogicLayer;
 namespace LogicLayerTests
 {
     /// <summary>
-    /// NAME : Zach Behrensmeyer
-    /// DATE: 2/11/2020
-    /// CHECKED BY: Steven Cardona
+    /// Creator: Zach Behrensmeyer
+    /// Created: 2/11/2020
+    /// Approver: Steven Cardona
     /// 
     /// This class tests the LogManager Class
     /// </summary>
@@ -23,16 +23,16 @@ namespace LogicLayerTests
         private ILogManager _logManager;
 
         /// <summary>
-        /// CREATOR: Zach Behrensmeyer
-        /// DATE: 02/15/2020
-        /// APPROVER: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
+        /// 
         /// Setup for tests to run
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updater: NA
+        /// Update: NA        
         /// </remarks>
         [TestInitialize]
         public void TestSetup()
@@ -42,19 +42,18 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/11/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is test for the RetrieveLoginandOutLogs() method
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
-        /// 
-        /// </remarks>    
+        /// Updater: NA
+        /// Updater: NA
+        /// Update: NA        
+        /// </remarks>  
         [TestMethod]
         public void TestRetrieveListOfLoginandOutLogs()
         {
@@ -67,16 +66,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// CREATOR: Zach Behrensmeyer
-        /// DATE: 02/15/2020
-        /// APPROVER: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
+        /// 
         /// Method to reset all variable for next test run.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updater: NA
+        /// Update: NA        
         /// </remarks>
         [TestCleanup]
         public void TestTearDown()

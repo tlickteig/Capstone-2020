@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// CREATOR: Steven Cardona
-    /// DATE: 02/10/2020
-    /// APPROVER: Zach Behrensmeyer
+    /// Creator: Steven Cardona
+    /// Created: 02/10/2020
+    /// Approver: Zach Behrensmeyer
     /// 
     /// Data Access Fake for Accessing Users
     /// </summary>
@@ -21,18 +21,17 @@ namespace DataAccessFakes
         private PetUniverseUser _user;
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/10/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/10/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Data Access Fake for Inserting a new user
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        /// UPDATE: N/A
-        /// APPROVER: N/A
-        /// </remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
         /// <param name="petUniverseUser">Test user being created</param>
         /// <returns>True if fakePetUniverseUser and petUniverseUser are equal</returns>
         public bool InsertNewUser(PetUniverseUser petUniverseUser)
@@ -53,22 +52,20 @@ namespace DataAccessFakes
             {
                 throw new ApplicationException("Unable to add User");
             }
-
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/11/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/11/2020
+        /// Approver: Zach Behrensmeyer
         ///
         /// Data Access Face for selecting all active users.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        /// UPDATE: N/A
-        /// APPROVER: N/A
-        /// </remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
         /// <returns>Returns a list of PetUniverseUsers</returns>
         public List<PetUniverseUser> SelectAllActivePetUniverseUsers()
         {
@@ -118,21 +115,20 @@ namespace DataAccessFakes
 
             return users;
         }
-        
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/3/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/3/2020
+        /// Approver: Steven Cardona
         /// 
         /// This fake method is called to get a fake user
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED BY: NA
-        /// CHANGE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
         /// 
-        /// </remarks>
         /// <param name="username"></param>
         /// <param name="passwordHash"></param>
         /// <returns>fake user</returns>
@@ -140,7 +136,6 @@ namespace DataAccessFakes
         {
             bool userName = username.Equals("j.doe@RandoGuy.com");
             bool hash = passwordHash.Equals("A7574A42198B7D7EEE2C037703A0B95558F195457908D6975E681E2055FD5EB9");
-
 
             if (userName && hash)
             {
@@ -162,7 +157,6 @@ namespace DataAccessFakes
             {
                 throw new ApplicationException("Invalid User");
             }
-
         }
     }
 }

@@ -26,6 +26,11 @@ namespace DataAccessLayer
         ///
         /// Method to get Inventory Items
         /// </summary>
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
         /// <returns>A List of Inventory Items</returns>
         public List<InventoryItems> SelectAllInventory()
 		{

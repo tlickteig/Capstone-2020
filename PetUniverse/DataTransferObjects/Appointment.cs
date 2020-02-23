@@ -8,7 +8,7 @@ namespace DataTransferObjects
 {
     /// <summary>
     /// Creator: Thomas Dupuy
-    /// Created: 2020/02/06
+    /// Created: 02/06/2020
     /// Approver: Awaab Elamin
     /// 
     /// This data object class is used as a reference to an appointment object

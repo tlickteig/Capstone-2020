@@ -9,7 +9,7 @@ namespace LogicLayerInterfaces
 {
 	/// <summary>
 	/// Creator: Cash Carlson
-	/// Created: 2020/02/21
+	/// Created: 02/21/2020
 	/// Approver: Zach Behrensmeyer
 	///
 	/// An interface for InventoryItems Logic Manager
@@ -18,7 +18,7 @@ namespace LogicLayerInterfaces
 	{
 		/// <summary>
 		/// Creator: Cash Carlson
-		/// Created: 2020/02/21
+		/// Created: 02/21/2020
 		/// Approver: Zach Behrensmeyer
 		///
 		/// Interface for a method that gets a list of all InventoryItems from an accessor

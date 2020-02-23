@@ -20,6 +20,10 @@ using System.Windows.Shapes;
 namespace WPFPresentationLayer.PersonnelPages
 {
     /// <summary>
+    /// Creator: Lane Sandburg
+    /// Created: 02/07/2019
+    /// Approver: Alex Diers
+    /// 
     /// Interaction logic for frameShiftTime.xaml
     /// </summary>
     public partial class frameShiftTime : Page
@@ -28,7 +32,19 @@ namespace WPFPresentationLayer.PersonnelPages
         private IDepartmentManager _departmentManager = null;
         private PetUniverseShiftTime _shiftTime = null;
 
-
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
+        /// 
+        /// No arg-constructor
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         public frameShiftTime()
         {
             InitializeComponent();
@@ -36,33 +52,58 @@ namespace WPFPresentationLayer.PersonnelPages
             _departmentManager = new DepartmentManager();
         }
 
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
+        /// 
+        /// Passes shiftTimeManager Interface
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         public frameShiftTime(IShiftTimeManager shiftTimeManager)
         {
             InitializeComponent();
             _departmentManager = new DepartmentManager();
             _shiftTimeManager = shiftTimeManager;
-
         }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
+        /// 
+        /// Passes shiftTimeManager and shiftTimeManager Interface
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         public frameShiftTime(PetUniverseShiftTime shiftTime, IShiftTimeManager shiftTimeManager)
         {
             _shiftTime = shiftTime;
             _shiftTimeManager = shiftTimeManager;
             _departmentManager = new DepartmentManager();
             InitializeComponent();
-
         }
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:NA
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
-        //cancels opperations in the current window
+        /// cancels opperations in the current window
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks> 
         private void btnShiftTimeCancel_Click(object sender, RoutedEventArgs e)
         {
@@ -70,16 +111,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:NA
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
-        //logic or what happens when the window loads
+        /// logic or what happens when the window loads
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -89,17 +130,18 @@ namespace WPFPresentationLayer.PersonnelPages
             TPStartTime.IsEnabled = false;
             TPEndTime.IsEnabled = false;
         }
+
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:NA
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// Helper method for populating the Departments Drop Down
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void PopulateDepartments()
         {
@@ -114,16 +156,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:NA
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// Helper method for populating the ShiftTime DG
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void PopulateShiftTimes()
         {
@@ -134,16 +176,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:NA
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// Helper method for reseting the controls of the page after certain events
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void ResetControls()
         {
@@ -161,16 +203,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:NA
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// click handler for the save button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void btnShiftTimeSave_Click(object sender, RoutedEventArgs e)
         {
@@ -253,28 +295,23 @@ namespace WPFPresentationLayer.PersonnelPages
                     MessageBox.Show("Canceled.", "PetUniverse");
                     break;
             }
-
-
-
         }
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:NA
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// click handler for the add
         /// button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void btnShiftTimeAdd_Click(object sender, RoutedEventArgs e)
         {
-
-
             btnShiftTimeEdit.IsEnabled = false;
             btnShiftTimeCancel.IsEnabled = true;
             TPStartTime.IsReadOnly = false;
@@ -282,21 +319,20 @@ namespace WPFPresentationLayer.PersonnelPages
             TPStartTime.IsEnabled = true;
             TPEndTime.IsEnabled = true;
             cboShiftTimeDepartment.IsEnabled = true;
-
         }
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:NA
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// auto generated columns handler to get rid of the ShiftTimeID field on DGShiftTime
         /// button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void dgShiftTime_AutoGeneratedColumns(object sender, EventArgs e)
         {
@@ -306,23 +342,20 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:NA
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// click handler for the edit
         /// button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void btnShiftTimeEdit_Click(object sender, RoutedEventArgs e)
         {
-
-
-
             string time = null;
 
             PetUniverseShiftTime shiftTime = (PetUniverseShiftTime)dgShiftTime.SelectedItem;
@@ -349,30 +382,25 @@ namespace WPFPresentationLayer.PersonnelPages
                 TPEndTime.Value = dateTime;
             }
             else { MessageBox.Show("you must select a ShiftTime to edit!"); }
-
-
         }
 
-
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:NA
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// helper method for getting shiftTimes from string to date time to be displayed in time pickers
         /// button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private static DateTime ParseDatetime(string time)
         {
             return DateTime.ParseExact(time, "HH:mm:ss",
                                         CultureInfo.InvariantCulture);
         }
-
-
     }
 }

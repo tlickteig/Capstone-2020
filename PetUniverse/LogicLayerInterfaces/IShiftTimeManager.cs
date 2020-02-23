@@ -8,50 +8,45 @@ using DataTransferObjects;
 namespace LogicLayerInterfaces
 {
     /// <summary>
-    /// NAME:Lane Sandburg
-    /// DATE: 02/05/2019
-    /// CHECKED BY:Alex Diers
+    /// Creator: Lane Sandburg
+    /// Created: 02/05/2019
+    /// Approver: Alex Diers
     /// 
     /// Interface for shift time logic
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY:NA
-    /// UPDATED DATE:
-    /// WHAT WAS CHANGED:
-    /// </remarks>
     public interface IShiftTimeManager
     {
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:Alex Diers
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// defenition for adding a shift time,
         /// returns true/false if shift time was added
         /// takes a shift time as a parameter.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater:NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks> 
         /// <param name="shiftTime"></param>
         bool AddShiftTime(PetUniverseShiftTime shiftTime);
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:Alex Diers
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// defenition for editing a shift time,
         /// returns true/false if shift time was added
         /// takes a shift time as a parameter.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater:NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks> 
         /// <param name="oldShiftTime"></param>
         /// <param name="newShiftTime"></param>
@@ -59,18 +54,18 @@ namespace LogicLayerInterfaces
         bool EditShiftTime(PetUniverseShiftTime oldShiftTime, PetUniverseShiftTime newShiftTime);
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:Alex Diers
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// defenition for retrieving all shift times,
         /// returns true/false if shift time was added
         /// takes a shift time as a parameter.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater:NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks> 
 
         List<PetUniverseShiftTime> RetrieveShiftTimes();

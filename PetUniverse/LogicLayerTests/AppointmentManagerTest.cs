@@ -12,7 +12,7 @@ namespace LogicLayerTests
 {
     /// <summary>
     /// Creator: Thomas Dupuy
-    /// Created: 2020/02/06
+    /// Created: 02/06/2020
     /// Approver: Awaab Elamin
     /// 
     /// This test class is used to test the data layer
@@ -24,7 +24,7 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 2020/02/06
+        /// Created: 02/06/2020
         /// Approver: Awaab Elamin
         /// 
         /// This method is a no-argument constructor
@@ -42,7 +42,7 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 2020/02/06
+        /// Created: 02/06/2020
         /// Approver: Awaab Elamin
         /// 
         /// This test method is used to test the data layer

@@ -13,7 +13,7 @@ namespace LogicLayer
     /// <summary>
 	/// Creator: Chase Schulte
 	/// Created: 2020/02/05
-	/// Approver
+	/// Approver: Kaleb Bachert
 	///
 	/// Manages requests for ERoleAccessor and ensures whether they return data or not
 	/// </summary>
@@ -29,7 +29,7 @@ namespace LogicLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
+        /// Updater: 
         /// Updated:
         /// Update: 
         /// </remarks>
@@ -53,7 +53,7 @@ namespace LogicLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
+        /// Updater: 
         /// Updated:
         /// Update: 
         /// </remarks>
@@ -71,7 +71,7 @@ namespace LogicLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
+        /// Updater: 
         /// Updated:
         /// Update: 
         /// </remarks>
@@ -100,7 +100,7 @@ namespace LogicLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
+        /// Updater: 
         /// Updated:
         /// Update: 
         /// </remarks>
@@ -128,7 +128,7 @@ namespace LogicLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
+        /// Updater: 
         /// Updated:
         /// Update: 
         /// </remarks>
@@ -156,7 +156,7 @@ namespace LogicLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
+        /// Updater: 
         /// Updated:
         /// Update: 
         /// </remarks>
@@ -185,7 +185,7 @@ namespace LogicLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
+        /// Updater: 
         /// Updated:
         /// Update: 
         /// </remarks>
@@ -215,7 +215,7 @@ namespace LogicLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
+        /// Updater: 
         /// Updated:
         /// Update: 
         /// </remarks>
@@ -241,7 +241,7 @@ namespace LogicLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
+        /// Updater: 
         /// Updated:
         /// Update: 
         /// </remarks>

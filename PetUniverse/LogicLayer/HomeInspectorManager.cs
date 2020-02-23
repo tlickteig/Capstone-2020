@@ -77,7 +77,6 @@ namespace LogicLayer
             {
                 throw new ApplicationException("List not Found", ex);
             }
-
             return adoptionApplications;
         }
     }

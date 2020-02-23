@@ -9,7 +9,7 @@ namespace LogicLayerInterfaces
 {
     /// <summary>
     /// Creator: Thomas Dupuy
-    /// Created: 2020/02/06
+    /// Created: 02/06/2020
     /// Approver: Awaab Elamin
     /// 
     /// This interface class is used as an interface for the logic layer

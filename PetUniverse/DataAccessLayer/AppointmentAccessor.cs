@@ -12,7 +12,7 @@ namespace DataAccessLayer
 {
     /// <summary>
     /// Creator: Thomas Dupuy
-    /// Created: 2020/02/06
+    /// Created: 02/06/2020
     /// Approver: Awaab Elamin
     /// 
     /// This Accessor class is used as ac accessor for the data objects
@@ -21,7 +21,7 @@ namespace DataAccessLayer
     {
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 2020/2/6
+        /// Created: 02/06/2020
         /// Approver: Awaab Elamin
         /// 
         /// This method selects all appointments

@@ -26,6 +26,11 @@ namespace DataAccessFakes
         ///
         /// List of fake Inventory Items to use instead of a database
         /// </summary>
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
         public FakeInventoryItemsAccessor()
 		{
 			inventoryItems = new List<InventoryItems>()
@@ -51,6 +56,11 @@ namespace DataAccessFakes
         /// Returns all inventory items from the accessor
         /// </summary>
         /// <returns></returns>
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
         public List<InventoryItems> SelectAllInventory()
 		{
 			return inventoryItems;

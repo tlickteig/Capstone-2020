@@ -21,7 +21,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 2020/2/6
+        /// Created: 2/6/2020
         /// Approver: Awaab Elamin
         /// 
         /// This method is a no-argument constructor
@@ -61,7 +61,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 2020/2/6
+        /// Created: 2/6/2020
         /// Approver: Awaab Elamin
         /// 
         /// This method selects all appointments

@@ -23,6 +23,12 @@ namespace DataAccessInterfaces
         ///
         /// An data access method to return all InventoryItems
         /// </summary>
+		/// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// 
         /// <returns>A list of InventoryItems</returns>
         List<InventoryItems> SelectAllInventory();
 	}

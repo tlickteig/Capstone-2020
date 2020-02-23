@@ -9,7 +9,7 @@ namespace DataAccessInterfaces
 {
     /// <summary>
     /// Creator: Thomas Dupuy
-    /// Created: 2020/02/06
+    /// Created: 02/06/2020
     /// Approver: Awaab Elamin
     /// 
     /// This interface class is used as an interface for the Accessor Layer
@@ -18,7 +18,7 @@ namespace DataAccessInterfaces
     {
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 2020/2/6
+        /// Created: 02/06/2020
         /// Approver: Awaab Elamin
         /// 
         /// This method selects all appointments

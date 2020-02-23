@@ -18,7 +18,14 @@ using System.Windows.Shapes;
 namespace WPFPresentationLayer.AdoptionPages
 {
     /// <summary>
+    /// Created: 2/5/2020
+    /// Approver: Austin Gee, 2/7/2020
+    /// Approver:
+    /// 
     /// Interaction logic for frmHomeInspectionForm.xaml
+    /// window.
+    /// and roles and will control what the user can see and do
+    /// ID.
     /// </summary>
     public partial class frmHomeInspectionForm : Page
     {
@@ -27,7 +34,6 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Created: 2/5/2020
         /// Approver: Austin Gee, 2/7/2020
-        /// Approver:
         /// 
         /// This This constructor method for frmHomeInspectorAdoptionApplication
         /// window.
@@ -50,7 +56,6 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Created: 2/5/2020
         /// Approver: Austin Gee, 2/7/2020
-        /// Approver:
         /// 
         /// This constructor is passed a HomeInspectorManager 
         /// and homeInspectorManager.
@@ -116,7 +121,6 @@ namespace WPFPresentationLayer.AdoptionPages
             dgAdoptionApplicationsList.Columns[2].Header = "Animal Name";
             dgAdoptionApplicationsList.Columns[3].Header = "Status";
             dgAdoptionApplicationsList.Columns[4].Header = "Recieved Date and Time";
-
         }
     }
 }

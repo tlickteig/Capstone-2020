@@ -8,9 +8,9 @@ using System.Windows;
 namespace PresentationUtilityCode
 {
     /// <summary>
-    /// CREATOR: Steven Cardona
-    /// DATE: 02/11/2020
-    /// APPROVER: Zach Behrensmeyer
+    /// Creator: Steven Cardona
+    /// Created: 02/11/2020
+    /// Approver: Zach Behrensmeyer
     /// 
     /// Class to handle error messaging that are 
     /// coming directly from the WPF Presentaion Layer
@@ -18,17 +18,16 @@ namespace PresentationUtilityCode
     public static class WPFErrorHandler
     {
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/11/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/11/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Method of general Error handling.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updated BY: N/A
+        /// Updated N/A
+        /// Update: N/A
         /// </remarks>
         /// <param name="message"></param>
         /// <param name="typeOfError"></param>
@@ -84,6 +83,19 @@ namespace PresentationUtilityCode
         //        MessageBoxImage.Error);
         //}
 
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 02/11/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Method of general Error handling.
+        /// </summary>
+        /// <remarks>
+        /// Updated BY: N/A
+        /// Updated N/A
+        /// Update: N/A
+        /// </remarks>
         public static void SuccessMessage(this string message)
         {
             MessageBox.Show(message, "Success", MessageBoxButton.OK);

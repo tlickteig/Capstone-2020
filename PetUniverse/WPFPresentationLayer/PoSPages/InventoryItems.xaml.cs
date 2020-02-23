@@ -19,7 +19,7 @@ namespace WPFPresentationLayer.PoSPages
 {
     /// <summary>
     /// Creator: Cash Carlson
-    /// Created: 2020/02/21
+    /// Created: 02/21/2020
     /// Approver: Zach Behrensmeyer
     ///
     /// Interaction logic for InventoryItems.xaml
@@ -30,11 +30,16 @@ namespace WPFPresentationLayer.PoSPages
 
         /// <summary>
         /// Creator: Cash Carlson
-        /// Created: 2020/02/21
+        /// Created: 02/21/2020
         /// Approver: Zach Behrensmeyer
         ///
         /// Default Constructor for InventoryItems Page
         /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
         public InventoryItems()
 		{
 			_inventoryItemsManager = new InventoryItemsManager();
@@ -43,11 +48,16 @@ namespace WPFPresentationLayer.PoSPages
 
         /// <summary>
         /// Creator: Cash Carlson
-        /// Created: 2020/02/21
+        /// Created: 02/21/2020
         /// Approver: Zach Behrensmeyer
         ///
         /// Event Handler Method that activates on page load
         /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         public void Window_Loaded(object sender, RoutedEventArgs e) 
@@ -57,11 +67,16 @@ namespace WPFPresentationLayer.PoSPages
 
         /// <summary>
         /// Creator: Cash Carlson
-        /// Created: 2020/02/21
+        /// Created: 02/21/2020
         /// Approver: Zach Behrensmeyer
         ///
         /// Data Refresh Method to be called on every time it is needed.
         /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
         public void RefreshData()
 		{
 			dgInventoryItems.ItemsSource = _inventoryItemsManager.RetrieveInventoryItems();

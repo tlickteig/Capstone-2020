@@ -8,32 +8,31 @@ using System.Windows;
 namespace PresentationUtilityCode
 {
     /// <summary>
-    /// CODED BY: Steven  Cardona
-    /// DATE: 02/13/2020
-    /// APPROVER: Zach Behrensmeyer
+    /// Creator: Steven  Cardona
+    /// Created: 02/13/2020
+    /// Approver: Zach Behrensmeyer
     /// 
     /// Class to handle error message passed up 
     /// from Logic Layer
     /// </summary>
     /// <remarks>
-    /// UPDATED BY: N/A
-    /// UPDATED N/A
-    /// UPDATE:
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
     /// </remarks>
     public static class LogicLayerErrorHandler
     {
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/13/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/13/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Method to handle Data loading errors that are thrown from Logic layer
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="exMessage">Exception Message</param>
         /// <param name="exInnerMessage">Exception's inner message</param>
@@ -52,17 +51,16 @@ namespace PresentationUtilityCode
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/13/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven  Cardona
+        /// Created: 02/13/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Method to handle Data loading errors that are thrown from Logic layer
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="exMessage">Exception Message</param>
         /// <param name="exInnerMessage">Exception's inner message</param>
@@ -81,17 +79,16 @@ namespace PresentationUtilityCode
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/15/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven  Cardona
+        /// Created: 02/15/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Method to handle User Creation errors that are thrown from Logic layer
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="exMessage">Exception Message</param>
         /// <param name="exInnerMessage">Exception's inner message</param>

@@ -18,9 +18,9 @@ using System.Windows.Shapes;
 namespace WPFPresentationLayer
 {
     /// <summary>
-    /// NAME: Zach Behrensmeyer
-    /// DATE: 2/20/2020
-    /// CHECKED BY: NA
+    /// Creator: Zach Behrensmeyer
+    /// Created: 2/20/2020
+    /// Appover: Steven Cardonas
     /// 
     /// This class controls LogView page
     /// 
@@ -28,20 +28,20 @@ namespace WPFPresentationLayer
     public partial class LogView : Page
     {
 
-        private ILogManager _logManager; 
+        private ILogManager _logManager;
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/20/2020
-        /// CHECKED BY: 
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/20/2020
+        /// Appover: Steven Cardonas
         /// 
         /// This is a constructor for the LogView Page
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -51,16 +51,17 @@ namespace WPFPresentationLayer
             InitializeComponent();
         }
 
-        /// CREATOR: Zach Behrensmeyer
-        /// CREATED: 02/15/2020
-        /// APPROVER: Steven Cardona
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/15/2020
+        /// Appover: Steven Cardonas
         /// 
         /// Method that generates the columns for the log list.
         /// </summary>
         /// <remarks>
-        /// UPDATER: N/A
-        /// UPDATED: N/A
-        /// UPDATE: N/A        
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA      
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -82,16 +83,16 @@ namespace WPFPresentationLayer
 
 
         /// <summary>
-        /// CREATOR: Zach Behrensmeyer
-        /// CREATED: 02/15/2020
-        /// APPROVER: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/15/2020
+        /// Appover: Steven Cardonas
         /// 
         /// When dgLogList is loaded. Adds items into dgLogList.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED: N/A
-        /// UPDATE: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>

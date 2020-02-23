@@ -73,7 +73,6 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-
             return result;
         }
 
@@ -157,6 +156,7 @@ namespace DataAccessLayer
         /// Updater:
         /// Updated:
         /// Update:
+        /// </remarks>
         /// <param name="facilityMaintenanceID"></param>
         /// <returns>FacilityMaintenance object</returns>
         public FacilityMaintenance SelectFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID)
@@ -279,7 +279,6 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
@@ -287,7 +286,6 @@ namespace DataAccessLayer
                 // close connection
                 conn.Close();
             }
-
             return facilityMaintenances;
         }
 
@@ -352,7 +350,6 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
@@ -431,10 +428,7 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-
             return result;
         }
-
-
     }
 }

@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 namespace LogicLayer
 {
     /// <summary>
-    /// CODED BY: Steven Cardona and Zach Behrensmeyer
-    /// DATE: 02/07/2020
-    /// APPROVER: Zach Behrensmeyer
+    /// Creator: Steven Cardona and Zach Behrensmeyer
+    /// Created: 02/07/2020
+    /// Approver: Zach Behrensmeyer
     ///
     /// Class to manage uses implements the IUserManager Interface
     /// </summary>
@@ -24,15 +24,16 @@ namespace LogicLayer
         private IUserAccessor _userAccessor;
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/ 07/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/07/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
         /// Default constructor for the User Manager
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED DATE: N/A
-        /// UPDATE: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public UserManager()
         {
@@ -40,15 +41,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/ 07/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/07/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
         /// Constructor for the User Manager that takes an userAccessor
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED DATE: N/A
-        /// UPDATE: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="userAccessor">User Accessor that is being used</param>
         public UserManager(IUserAccessor userAccessor)
@@ -57,16 +59,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/07/2020/
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/07/2020
+        /// Approver: Zach Behrensmeyer
         ///
         /// Manager method to create new user
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="petUniverseUser">User being created</param>
         /// <returns>Returns true if successful user creation</returns>
@@ -83,16 +85,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/10/2020/
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/10/2020/
+        /// Approver: Zach Behrensmeyer
         ///
         /// Manager method to get all active users
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <returns>Returns a list of active PetUniverseUsers</returns>
         public List<PetUniverseUser> RetrieveAllActivePetUniverseUsers()
@@ -112,16 +114,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME : Zach Behrensmeyer
-        /// DATE: 2/3/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator : Zach Behrensmeyer
+        /// Created: 2/3/2020
+        /// Approver: Steven Cardona
         /// 
         /// This calls the User Authentication Data Accessor Method
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// UPDATE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="email"></param>
@@ -145,17 +147,17 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME : Zach Behrensmeyer
-        /// DATE: 2/3/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator : Zach Behrensmeyer
+        /// Created: 2/3/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method hashes the given password
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="source"></param>

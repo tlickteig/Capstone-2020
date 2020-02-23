@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Zach Behrensmeyer
-    /// CREATED: 2/11/2020
-    /// CHECKED BY: Steven Cardona
+    /// Creator: Zach Behrensmeyer
+    /// Created: 2/11/2020
+    /// Approver: Steven Cardona
     /// 
     /// This class is where we can pull fake LogItems from from
     /// </summary>
@@ -20,16 +20,16 @@ namespace DataAccessFakes
         private List<LogItem> logs;
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// CREATED: 2/11/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
         /// 
         /// This fake method is called to get a fake LogItem
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED BY: NA
-        /// CHANGE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <returns>fake LogItem</returns>
@@ -51,16 +51,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/11/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
         /// 
         /// This fake method is called to get a fake list of logitems
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED BY: NA
-        /// CHANGE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <returns>Fake list of logs</returns>

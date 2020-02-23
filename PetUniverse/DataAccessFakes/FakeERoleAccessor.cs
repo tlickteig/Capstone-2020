@@ -10,7 +10,7 @@ namespace DataAccessFakes
 {
     /// <summary>
 	/// Creator: Chase Schulte
-	/// Created: 2020/02/07
+	/// Created: 02/07/2020
 	/// Approver
 	///
 	/// Class for testing fake Role data
@@ -18,11 +18,10 @@ namespace DataAccessFakes
     public class FakeERoleAccessor : IERoleAccessor
     {
 
-
         // need a collection of eRoles
-
         List<ERole> eRoles = null;
         List<String> deptIDs = null;
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2020/02/07
@@ -52,12 +51,12 @@ namespace DataAccessFakes
                 new ERole(){ERoleID="Manager",EDepartmentID="A", Description="", Active = false },
                 new ERole(){ERoleID="Scheduler",EDepartmentID="A", Description="", Active = true },
                 new ERole(){ERoleID="Planner",EDepartmentID="A", Description="", Active = true }
-
             };
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/09
+        /// Created: 02/09/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test fake activation for Roles
@@ -73,11 +72,13 @@ namespace DataAccessFakes
         public int ActivateERole(string eRoleID)
         {
             ERole eRole = null;
+
             //Fail immediatly if null
             if (eRoleID == null)
             {
                 throw new Exception();
             }
+
             //Check that eRole is in list, if so assign it, else fail
             foreach (var r in eRoles)
             {
@@ -85,8 +86,8 @@ namespace DataAccessFakes
                 {
                     eRole = r;
                 }
-
             }
+
             //Throw exception if eRole isn't in list
             if (eRole == null || eRoleID != eRole.ERoleID)
             {
@@ -102,9 +103,10 @@ namespace DataAccessFakes
             }
             return 0;
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/09
+        /// Created: 02/09/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test fake deactivation of role
@@ -120,11 +122,13 @@ namespace DataAccessFakes
         public int DeactivateERole(string eRoleID)
         {
             ERole eRole = null;
+
             //Fail immediatly if null
             if (eRoleID == null)
             {
                 throw new Exception();
             }
+
             //Check that eRole is in list, if so assign it, else fail
             foreach (var r in eRoles)
             {
@@ -132,8 +136,8 @@ namespace DataAccessFakes
                 {
                     eRole = r;
                 }
-
             }
+
             //Throw exception if eRole isn't in list
             if (eRole == null || eRoleID != eRole.ERoleID)
             {
@@ -149,9 +153,10 @@ namespace DataAccessFakes
             }
             return 0;
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/09
+        /// Created: 02/09/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test fake deletion of role
@@ -167,6 +172,7 @@ namespace DataAccessFakes
         public int DeleteERole(string eRoleID)
         {
             ERole eRole = null;
+
             //Check that eRole is in list, if so assign it, else fail
             foreach (var r in eRoles)
             {
@@ -179,6 +185,7 @@ namespace DataAccessFakes
             {
                 throw new Exception();
             }
+
             //Simulate deletion
             eRole = null;
             if (eRole == null)
@@ -187,9 +194,10 @@ namespace DataAccessFakes
             }
             return 0;
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/09
+        /// Created: 02/09/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test fake insert Role 
@@ -209,21 +217,25 @@ namespace DataAccessFakes
             {
                 throw new Exception();
             }
+
             //Check if new eRole.DepartmentID is null
             if (eRole.EDepartmentID == null)
             {
                 throw new Exception();
             }
+            
             //Check if eRole.ERoleID exceeds maximum length
             if (eRole.ERoleID.Length > 50)
             {
                 throw new Exception();
             }
+            
             //Check if eRole.DepartmentID exceeds maximum length
             if (eRole.EDepartmentID.Length > 50)
             {
                 throw new Exception();
             }
+            
             //Check if eRole.Description exceeds maximum char length
             if (eRole.Description != null)
             {
@@ -232,18 +244,20 @@ namespace DataAccessFakes
                     throw new Exception();
                 }
             }
+            
             //Check if new eRoleID is a duplicate of pre-existing eRoleID
             if (eRoles.Find(r => r.ERoleID == eRole.ERoleID) != null)
             {
                 throw new Exception();
             }
+            
             //returns fake rows effected if it passed all tests
             return 1;
 
         }
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/09
+        /// Created: 02/09/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test select all fake roles
@@ -260,9 +274,10 @@ namespace DataAccessFakes
             //Return all ERoles
             return eRoles.ToList();
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/16
+        /// Created: 02/16/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test select all fake roles by active state
@@ -288,6 +303,21 @@ namespace DataAccessFakes
             return newERoles;
         }
 
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 02/16/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Test update roles 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
         public int UpdateERole(ERole oldERole, ERole newERole)
         {
             bool eRoleTrue = false;
@@ -298,6 +328,7 @@ namespace DataAccessFakes
             {
                 throw new Exception();
             }
+
             //Check that eRole is in list, if so assign it, else fail
             foreach (var r in eRoles)
             {
@@ -307,6 +338,7 @@ namespace DataAccessFakes
                 }
 
             }
+
             //Throw exception if eRole isn't in list
             if (eRoleTrue == false)
             {

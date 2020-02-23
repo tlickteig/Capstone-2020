@@ -11,18 +11,13 @@ using LogicLayer;
 namespace LogicLayerTests
 {
 
-    /// /// <summary>
-    /// NAME:Lane Sandburg
-    /// DATE: 02/07/2019
-    /// CHECKED BY:Alex Diers
+    /// <summary>
+    /// Creator: Lane Sandburg
+    /// Created: 02/07/2019
+    /// Approver: Alex Diers
     /// 
     /// Tests of the Shift ManagerClass Methods
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY:NA
-    /// UPDATED DATE:
-    /// WHAT WAS CHANGED:
-    /// </remarks>
     [TestClass]
     public class ShiftTimeManagerTests
     {
@@ -35,16 +30,16 @@ namespace LogicLayerTests
 
 
         /// /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:Alex Diers
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// Test of the Shift Time insert Method
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         #region Additional test attributes
         //
@@ -88,16 +83,16 @@ namespace LogicLayerTests
         }
 
         /// /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:Alex Diers
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// Test of the Shift Time Edit Method
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         [TestMethod]
         public void TestShiftTimeManagerEditShiftTimeTests()
@@ -124,16 +119,16 @@ namespace LogicLayerTests
         }
 
         /// /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:Alex Diers
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// Test of the Shift Time Retrieve Method
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         [TestMethod]
         public void TestShiftTimeManagerRetrieveShiftTimes()
@@ -148,6 +143,5 @@ namespace LogicLayerTests
             //assert
             Assert.AreEqual(1, shifTimes.Count);
         }
-
     }
 }

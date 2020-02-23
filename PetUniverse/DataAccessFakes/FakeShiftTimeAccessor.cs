@@ -24,6 +24,11 @@ namespace DataAccessFakes
     {
         private List<PetUniverseShiftTime> shiftTimes;
 
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
+        /// </summary>
         public FakeShiftTimeAccessor()
         {
             shiftTimes = new List<PetUniverseShiftTime>()
@@ -35,25 +40,20 @@ namespace DataAccessFakes
                     StartTime = "08:45:00",
                     EndTime = "5:45:00"
                 }
-
-
             };
-
-
-
         }
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:Alex Diers
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// Fake Logic for inserting a shift time
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks> 
         public int InsertShiftTime(PetUniverseShiftTime shiftTime)
         {
@@ -70,23 +70,22 @@ namespace DataAccessFakes
             {
                 return 0;
                 throw ex;
-
             }
         }
 
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/07/2019
-        /// CHECKED BY:Alex Diers
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
+        /// Approver: Alex Diers
         /// 
         /// Fake Logic for selecting all shift times
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
-        /// </remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
         public List<PetUniverseShiftTime> SelectAllShiftTimes()
         {
             return (from s in shiftTimes
@@ -95,22 +94,20 @@ namespace DataAccessFakes
 
 
         /// <summary>
-        /// NAME:Lane Sandburg
-        /// DATE: 02/13/2019
-        /// CHECKED BY:Alex Diers
+        /// Creator: Lane Sandburg
+        /// Created: 02/13/2019
+        /// Approver: Alex Diers
         /// 
         /// Fake Logic for updating a shift time
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:NA
-        /// UPDATED DATE:
-        /// WHAT WAS CHANGED:
-        /// </remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
         public int UpdateShiftTime(PetUniverseShiftTime oldShiftTime, PetUniverseShiftTime newShiftTime)
         {
             PetUniverseShiftTime ShiftTime = oldShiftTime;
-
-
 
             try
             {

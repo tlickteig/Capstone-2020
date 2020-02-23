@@ -15,8 +15,8 @@ namespace LogicLayerTests
 
     /// <summary>
     /// Creator: Chase Schulte
-    /// Created: 2020/02/05
-    /// Approver
+    /// Created: 02/05/2020
+    /// Approver: Kaleb Bachert
     ///
     /// Test ERole Objects from "FakeERoleAccessor"
     /// </summary>
@@ -33,7 +33,7 @@ namespace LogicLayerTests
         private TestContext testContextInstance;
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/05
+        /// Created: 02/05/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Gets or sets the test context which provides
@@ -82,7 +82,7 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Insert ERole from "FakeERoleAccessor"
@@ -105,9 +105,10 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(actualResult, expectResult);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Insert with null ERole from "FakeERoleAccessor"
@@ -130,9 +131,10 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(actualResult, expectResult);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Insert same ERole from "FakeERoleAccessor"
@@ -153,9 +155,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.AddERole(eRole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Insert RoleID over character limit from "FakeERoleAccessor"
@@ -176,9 +179,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.AddERole(eRole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Insert ERole ID over char limit from "FakeERoleAccessor"
@@ -199,9 +203,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.AddERole(eRole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Insert ERole description over limit from "FakeERoleAccessor"
@@ -222,9 +227,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.AddERole(eRole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Insert ERole role Id empty from "FakeERoleAccessor"
@@ -245,9 +251,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.AddERole(eRole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Insert ERole EDepartment ID Empty from "FakeERoleAccessor"
@@ -268,9 +275,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.AddERole(eRole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Insert ERole roleID null from "FakeERoleAccessor"
@@ -291,9 +299,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.AddERole(eRole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Insert ERole Dept ID null from "FakeERoleAccessor"
@@ -314,9 +323,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.AddERole(eRole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Select All ERole from "FakeERoleAccessor"
@@ -338,9 +348,10 @@ namespace LogicLayerTests
             //Assert
             Assert.IsNotNull(actualResult);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Update Success from "FakeERoleAccessor"
@@ -364,9 +375,10 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(actualResult, expectedResults);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Update With no Changes from "FakeERoleAccessor"
@@ -391,9 +403,10 @@ namespace LogicLayerTests
             Assert.AreEqual(actualResult, expectedResults);
 
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Update Null Descritpion from "FakeERoleAccessor"
@@ -418,9 +431,10 @@ namespace LogicLayerTests
             Assert.AreEqual(actualResult, expectedResults);
 
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Update Old ERole Incorrect from "FakeERoleAccessor"
@@ -442,9 +456,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.EditERole(oldERole, newERole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Update Null Old ERole from "FakeERoleAccessor"
@@ -466,9 +481,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.EditERole(oldERole, newERole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Update Null deptID from "FakeERoleAccessor"
@@ -490,9 +506,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.EditERole(oldERole, newERole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Update New ERole Null from "FakeERoleAccessor"
@@ -514,9 +531,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.EditERole(oldERole, newERole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Update Change PK from "FakeERoleAccessor"
@@ -538,9 +556,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.EditERole(oldERole, newERole);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Activate Success from "FakeERoleAccessor"
@@ -563,9 +582,10 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(actualResult, expectResult);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Activate Already Active ERole from "FakeERoleAccessor"
@@ -588,9 +608,10 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(actualResult, expectResult);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test NonActivate Success from "FakeERoleAccessor"
@@ -611,9 +632,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.ActivateERole(eRoleID);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Activate Empty ERoleID from "FakeERoleAccessor"
@@ -634,9 +656,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.ActivateERole(eRoleID);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Activate Null ERole ID from "FakeERoleAccessor"
@@ -657,9 +680,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.ActivateERole(eRoleID);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Deactivate Success from "FakeERoleAccessor"
@@ -682,9 +706,10 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(actualResult, expectResult);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Deactivate Already Deactivated ERole from "FakeERoleAccessor"
@@ -707,9 +732,10 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(actualResult, expectResult);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Deactivate nonExistant ERole from "FakeERoleAccessor"
@@ -730,9 +756,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.DeactivateERole(eRoleID);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Deactivate Empty ERole ID from "FakeERoleAccessor"
@@ -753,9 +780,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.DeactivateERole(eRoleID);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Deactivate Null ERole from "FakeERoleAccessor"
@@ -776,9 +804,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.DeactivateERole(eRoleID);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Delete Success from "FakeERoleAccessor"
@@ -801,9 +830,10 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(actualResult, expectResult);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Delete nonExistant ERole from "FakeERoleAccessor"
@@ -824,9 +854,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.DeleteERole(eRoleID);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Delete Empty ERole ID from "FakeERoleAccessor"
@@ -847,9 +878,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.DeleteERole(eRoleID);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test Delete Null ERole from "FakeERoleAccessor"
@@ -870,9 +902,10 @@ namespace LogicLayerTests
             //Act
             _eRoleManager.DeleteERole(eRoleID);
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Test seperate eRoles by active from "FakeERoleAccessor"
@@ -897,7 +930,7 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/07
+        /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Clean up ERole Tests

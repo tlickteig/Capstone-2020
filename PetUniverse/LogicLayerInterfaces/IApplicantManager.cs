@@ -14,25 +14,20 @@ namespace LogicLayerInterfaces
     /// 
     /// This is the interface for the ApplicantManager
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// CHANGE: NA
-    /// 
-    /// </remarks>
+
     public interface IApplicantManager
     {
         /// <summary>
-        /// CREATED BY: Derek Taylor
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver: Ryan Morganti
         /// 
         /// This calls the Applicant Retrieval Data Accessor Method
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <returns>List of Logs</returns>

@@ -20,11 +20,7 @@ namespace DataAccessLayer
     /// 
     /// animal accessor to interact with animal data
     /// </summary>
-    /// <remarks>
-    /// Updater:
-    /// Updated:
-    /// Update
-    /// </remarks>
+
     public class AnimalAccessor : IAnimalAccessor
     {
         /// <summary>
@@ -35,11 +31,6 @@ namespace DataAccessLayer
         ///
         /// a data access method that uses a stored procedure to add a new animal to the database
         /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update
-        /// </remarks>
         /// <param name="animal"></param>
         /// <returns></returns>
         public int InsertAnimal(Animal animal)

@@ -9,9 +9,9 @@ using DataTransferObjects;
 namespace LogicLayerTests
 {
     /// <summary>
-    /// NAME : Derek Taylor
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Ryan Morganti
+    /// Creator : Derek Taylor
+    /// Created: 2/14/2020
+    /// Approver: Ryan Morganti
     /// 
     /// This class tests the ApplicantManager Class
     /// </summary>
@@ -26,17 +26,18 @@ namespace LogicLayerTests
     {
         private IApplicantAccessor _fakeApplicantAccessor;
         private ApplicantManager _applicantManager;
+
         /// <summary>
-        /// NAME : Derek Taylor
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Ryan Morganti
+        /// Creator : Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver: Ryan Morganti
         /// 
         /// This is the fake constructor. Initializes the test class.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         [TestInitialize]
@@ -45,18 +46,19 @@ namespace LogicLayerTests
             _fakeApplicantAccessor = new FakeApplicantAccessor();
             _applicantManager = new ApplicantManager(_fakeApplicantAccessor);
         }
+
         /// <summary>
-        /// NAME: Derek Taylor
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Ryan Morganti
+        /// Creator : Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver: Ryan Morganti
         /// 
         /// This Method is test for the SelectAllApplicants() method
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>  
         [TestMethod]
@@ -69,17 +71,18 @@ namespace LogicLayerTests
             // Assert
             Assert.AreEqual(3, selectedApplicants.Count);
         }
+
         /// <summary>
-        /// CREATED BY: Derek Taylor
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Ryan Morganti
+        /// Creator : Derek Taylor
+        /// Created: 2/14/2020
+        /// Approver: Ryan Morganti
         /// 
         /// This is the test cleanup method
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         [TestCleanup]
