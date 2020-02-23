@@ -34,3 +34,4 @@ Alex Diers                      Developer
 Rasha Mohammed					Developer
 Josh Jackson          			Developer
 Chase Schulte					Developer
+Ethan Holmes                    Developer

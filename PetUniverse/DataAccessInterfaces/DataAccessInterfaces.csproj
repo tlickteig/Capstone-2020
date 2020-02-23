@@ -53,6 +53,7 @@
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
+    <Compile Include="IVolunteerTaskAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

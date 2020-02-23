@@ -62,6 +62,7 @@
     <Compile Include="RequestManagerTests.cs" />
     <Compile Include="ShiftTimeManagerTests.cs" />
     <Compile Include="UserManagerTests.cs" />
+    <Compile Include="VolunteerTaskManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

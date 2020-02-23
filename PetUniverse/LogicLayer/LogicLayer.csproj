@@ -54,6 +54,7 @@
     <Compile Include="RequestManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
     <Compile Include="UserManager.cs" />
+    <Compile Include="VolunteerTaskManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessFakes\DataAccessFakes.csproj">

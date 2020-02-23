@@ -53,6 +53,7 @@
     <Compile Include="IRequestManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
     <Compile Include="IUserManager.cs" />
+    <Compile Include="IVolunteerTaskManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
