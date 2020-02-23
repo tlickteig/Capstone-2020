@@ -50,6 +50,7 @@
     <Compile Include="FakeHomeInspectorAccessor.cs" />
     <Compile Include="FakeInventoryItemsAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
+    <Compile Include="FakeRequestAccessor.cs" />
     <Compile Include="FakeShiftTimeAccessor.cs" />
     <Compile Include="FakeUserAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

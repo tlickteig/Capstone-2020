@@ -59,6 +59,7 @@
     <Compile Include="InventoryItemsManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogManagerTests.cs" />
+    <Compile Include="RequestManagerTests.cs" />
     <Compile Include="ShiftTimeManagerTests.cs" />
     <Compile Include="UserManagerTests.cs" />
   </ItemGroup>

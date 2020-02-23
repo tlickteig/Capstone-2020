@@ -50,6 +50,7 @@
     <Compile Include="IHomeInspectoAccessor.cs" />
     <Compile Include="IInventoryItemsAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
+    <Compile Include="IRequestAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

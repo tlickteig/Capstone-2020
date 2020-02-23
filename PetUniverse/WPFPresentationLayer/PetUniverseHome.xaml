@@ -106,7 +106,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="btnLogout" Margin="10 160 10 10" Height="40" FontSize="18" Content="Logout" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnLogout_Click">
+                <Button x:Name="btnLogout" Margin="10 100 10 10" Height="40" FontSize="18" Content="Logout" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnLogout_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
@@ -325,6 +325,19 @@
                     <Grid Background="#fff8e3">
                         <Frame Source="./PersonnelPages/frameShiftTime.xaml"></Frame>
                     </Grid>
+                </TabItem>
+
+             <!-- Creator: Kaleb Bachert
+                 Date: 2/23/2020
+                 CHECKED BY: Zach Behrensmeyer
+             
+                 This TabItem takes you to the PersonnelRequests Page
+              
+                 UPDATE BY: NA
+                 UPDATED NA
+                 CHANGE: NA -->
+                <TabItem x:Name="tabViewPersonnelRequests" Header="View Requests" FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="tabViewPersonnelRequests_Loaded">
+                    <Frame x:Name="frmViewPersonnelRequests" HorizontalAlignment="Left" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
 
                 <!-- Name: Chase Schulte

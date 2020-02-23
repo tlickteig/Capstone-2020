@@ -50,6 +50,7 @@
     <Compile Include="IHomeInspectorManager.cs" />
     <Compile Include="IInventoryItemsManager.cs" />
     <Compile Include="ILogManager.cs" />
+    <Compile Include="IRequestManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
     <Compile Include="IUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1981,3 +1981,143 @@ BEGIN
 	WHERE [Active] = @Active
 END
 GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Employee table
+*/
+print '' print '*** Creating employee table'
+GO
+CREATE TABLE [dbo].[employee] (
+	[EmployeeID]	[int]IDENTITY(1000000,1)	NOT NULL,
+	[FirstName]		[nvarchar](50)				NOT NULL
+	CONSTRAINT [pk_EmployeeID] PRIMARY KEY ([EmployeeID] ASC)
+)
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Table that holds different types of requests
+*/
+print '' print '*** Creating requestType table'
+GO
+CREATE TABLE [dbo].[requestType] (
+	[RequestTypeID]		[nvarchar](50)		NOT NULL,
+	[Description]		[nvarchar](250)			NULL,
+	CONSTRAINT [pk_RequestTypeID] PRIMARY KEY ([RequestTypeID] ASC)
+)
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Table that holds each submitted request
+*/
+print '' print '*** Creating request table'
+GO
+CREATE TABLE [dbo].[request] (
+	[RequestID]				[int]IDENTITY(1000000,1)	NOT NULL,
+	[RequestTypeID]			[nvarchar](50)				NOT NULL,
+	[EffectiveStart]		[datetime]					NOT NULL,
+	[EffectiveEnd]			[datetime]						NULL,
+	[ApprovalDate]			[datetime]						NULL,
+	[RequestingEmployeeID]	[int]						NOT NULL,
+	[ApprovingUserID]		[int]							NULL,
+	[Open]					[bit]			  NOT NULL DEFAULT 1,
+	CONSTRAINT [pk_RequestID] PRIMARY KEY ([RequestID] ASC),
+	CONSTRAINT [fk_request_requestTypeID] FOREIGN KEY([RequestTypeID])
+		REFERENCES [requestType]([RequestTypeID]) ON UPDATE CASCADE,
+	CONSTRAINT [fk_request_requestingEmployeeID] FOREIGN KEY ([RequestingEmployeeID])
+		REFERENCES [employee]([EmployeeID]),
+	CONSTRAINT [fk_request_approvingUserID] FOREIGN KEY ([ApprovingUserID])
+		REFERENCES [user]([UserID])
+)
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Method to retrieve all submitted requests
+*/
+print '' print '*** Creating sp_select_all_requests'
+GO
+CREATE PROCEDURE [sp_select_all_requests]
+AS
+BEGIN
+	SELECT [RequestID], [RequestTypeID], [EffectiveStart], [EffectiveEnd], 
+		   [ApprovalDate], [RequestingEmployeeID], [ApprovingUserID]
+	FROM [dbo].[request]
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/19/2020
+Comment: Method to approve a specified request
+*/
+print '' print '*** Creating sp_approve_request'
+GO
+CREATE PROCEDURE [sp_approve_request]
+	@RequestID		[int],
+	@UserID			[int]
+AS
+BEGIN
+	UPDATE [dbo].[request]
+	SET [ApprovingUserID] = @UserID,
+		[ApprovalDate] = GETDATE()
+	WHERE [RequestID] = @RequestID
+	AND [ApprovingUserID] IS NULL
+	AND [Open] = 1
+	SELECT @@ROWCOUNT
+END
+GO
+
+/*
+SAMPLE DATA
+*/
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Inserting Sample Data for RequestType
+*/
+INSERT INTO [dbo].[requestType]
+	([RequestTypeID])
+	VALUES
+	('Time Off'), ('Availability Change')
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Inserting Sample Data for Employee
+*/
+INSERT INTO [dbo].[employee]
+	([FirstName])
+	VALUES
+	('John'), ('Son')
+	
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Inserting Sample Data for Request with nulls
+*/
+INSERT INTO [dbo].[request]
+	([RequestTypeID], [EffectiveStart], [EffectiveEnd], [RequestingEmployeeID])
+	VALUES
+	('Time Off', '2020-2-22 12:12:12', '2020-2-26 12:12:12', 1000001)
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Inserting Sample Data for Request without nulls
+*/
+INSERT INTO [dbo].[request]
+	([RequestTypeID], [EffectiveStart], 
+	[ApprovalDate], [RequestingEmployeeID], [ApprovingUserID])
+	VALUES
+	('Availability Change', '2020-6-1 12:00:00', '2020-2-11 11:31:15', 1000001, 100000)
+GO

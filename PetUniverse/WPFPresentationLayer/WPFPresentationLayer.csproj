@@ -94,6 +94,9 @@
     <Compile Include="PersonnelPages\ViewAllRoles.xaml.cs">
       <DependentUpon>ViewAllRoles.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonnelPages\ViewPersonnelRequests.xaml.cs">
+      <DependentUpon>ViewPersonnelRequests.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\InventoryItems.xaml.cs">
       <DependentUpon>InventoryItems.xaml</DependentUpon>
     </Compile>
@@ -134,6 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PersonnelPages\ViewAllRoles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PersonnelPages\ViewPersonnelRequests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -523,5 +523,27 @@ namespace WPFPresentationLayer
             desiredScreen = "Facility Management";
             switchScreen(desiredScreen);
         }
+
+
+        /// <summary>
+        /// Creator : Kaleb Bachert
+        /// Created: 2/20/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// This method is called when the PersonnelRequests Tab is loaded
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void tabViewPersonnelRequests_Loaded(object sender, RoutedEventArgs e)
+        {
+            frmViewPersonnelRequests.Content = new PersonnelPages.ViewPersonnelRequests(_user);
+        }
     }
 }
