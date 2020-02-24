@@ -97,15 +97,28 @@ namespace WPFPresentationLayer.AMPages
         /// When the window is loaded the data grid is also loaded with its info
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Ben Hanna
+        /// Updated: 2/22/2020
+        /// Update: Added commands to make only certain cells editable
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             refreshActiveData();
+
+            dgActiveAnimals.Columns[0].IsReadOnly = true;
+            dgActiveAnimals.Columns[1].IsReadOnly = true;
+            dgActiveAnimals.Columns[2].IsReadOnly = true;
+            dgActiveAnimals.Columns[3].IsReadOnly = true;
+            dgActiveAnimals.Columns[4].IsReadOnly = true;
+            dgActiveAnimals.Columns[8].IsReadOnly = true;
+            dgActiveAnimals.Columns[9].IsReadOnly = true;
+
+
+            dgActiveAnimals.Columns[7].IsReadOnly = true;
+            dgActiveAnimals.Columns[6].IsReadOnly = true;
+            dgActiveAnimals.Columns[5].IsReadOnly = true;
         }
 
         /// <summary>
@@ -240,7 +253,7 @@ namespace WPFPresentationLayer.AMPages
                 if (_animalManager.AddNewAnimal(newAnimal))
                 {
                     WPFErrorHandler.SuccessMessage("Animal Successfully Added");
-                    
+
                     canViewAnimalList.Visibility = Visibility.Visible;
                     canAddAnimal.Visibility = Visibility.Hidden;
                     refreshActiveData();
@@ -248,7 +261,7 @@ namespace WPFPresentationLayer.AMPages
             }
             catch (Exception ex)
             {
-                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);                
+                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
                 canViewAnimalList.Visibility = Visibility.Visible;
                 canAddAnimal.Visibility = Visibility.Hidden;
             }

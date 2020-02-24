@@ -174,5 +174,29 @@ namespace DataAccessFakes
                 return activeAnimals;
             }
         }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Dummy method that returns the result as if the real method had succeded.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="AnimalID">Primary key that identifies the animal</param>
+        /// <returns>The number of animals that match the supplied primary key. Should either be 0 (fail) or 1 (success)</returns>
+        public int ActivateAdoptable(int animalID)
+        {
+            return (from a in animals
+                    where a.AnimalID == animalID
+                    select a).Count();
+        }
+
+       
     }
 }

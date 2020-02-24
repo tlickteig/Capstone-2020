@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FakeAnimalAccessor.cs" />
+    <Compile Include="FakeAnimalHandlingAccessor.cs" />
+    <Compile Include="FakeAnimalKennelAccessor.cs" />
     <Compile Include="FakeApplicantAccessor.cs" />
     <Compile Include="FakeAppointmentAccessor.cs" />
     <Compile Include="FakeDepartmentAccessor.cs" />

@@ -70,5 +70,9 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns>a list of animal objects</returns>
         List<Animal> SelectAnimalsByInactive(bool active = false);
+
+
+
+        
     }
 }

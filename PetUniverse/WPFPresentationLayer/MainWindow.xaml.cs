@@ -114,7 +114,7 @@ namespace WPFPresentationLayer
             {
                 //Log failed login
                 LogHelper.log.Error("Someone failed to login using email: " + txtEmail.Text);
-                LogicLayerErrorHandler.LoginErrorMessage(ex.Message, ex.InnerException.Message);
+                LogicLayerErrorHandler.LoginErrorMessage(ex.Message);
             }
         }
     }

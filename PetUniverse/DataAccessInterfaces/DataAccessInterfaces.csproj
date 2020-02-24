@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAnimalAccessor.cs" />
+    <Compile Include="IAnimalHandlingAccessor.cs" />
+    <Compile Include="IAnimalKennelAccessor.cs" />
     <Compile Include="IApplicantAccessor.cs" />
     <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />

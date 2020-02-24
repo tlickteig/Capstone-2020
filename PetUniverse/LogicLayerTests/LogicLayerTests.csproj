@@ -49,6 +49,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnimalHandlingManagerTests.cs" />
+    <Compile Include="AnimalKennelManagerTests.cs" />
     <Compile Include="AnimalManagerTests.cs" />
     <Compile Include="ApplicantManagerTests.cs" />
     <Compile Include="AppointmentManagerTest.cs" />

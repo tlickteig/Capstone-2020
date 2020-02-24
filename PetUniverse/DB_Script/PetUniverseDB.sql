@@ -406,7 +406,7 @@ CREATE TABLE [dbo].[AnimalHandlingNotes] (
 	[AnimalID]				[int]					  NOT NULL,
 	[UserID]				[int]					  NOT NULL,
 	[AnimalHandlingNotes]	[nvarchar](4000)		  NOT NULL,
-	[TempermantWarning]		[nvarchar](1000)		  NOT NULL,
+	[TemperamentWarning]	[nvarchar](1000)		  NOT NULL,
 	[UpdateDate]			[date]					  NOT NULL
 
 	CONSTRAINT [pk_AnimalHandlingNotesID] PRIMARY KEY([AnimalHandlingNotesID] ASC),
@@ -1036,6 +1036,96 @@ BEGIN
     RETURN @@ROWCOUNT
 END 
 GO
+                
+
+/*
+Created by: Ben Hanna
+Date: 2/18/2020
+Comment: Sample animal handling notes record
+*/                
+print '' print '*** Creating Sample Animal Handling Records'
+GO
+INSERT INTO [dbo].[AnimalHandlingNotes]
+	([AnimalID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID] 
+    )
+	VALUES
+	(1000000,
+     'test test test', 'hubba hubba', '2020-01-22', 
+     100000)
+GO
+                
+/*
+Created by: Ben Hanna
+Date: 2/18/2020
+Comment: Sets an animal's adoptable state to false
+*/ 
+print '' print '*** Creating sp_select_handling_notes_by_animal_id'
+GO
+CREATE PROCEDURE [sp_select_handling_notes_by_animal_id]
+(
+    @AnimalID      [int]
+)
+AS
+BEGIN
+   SELECT [AnimalHandlingNotesID],[AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID] 
+                
+   FROM [dbo].[AnimalHandlingNotes]
+   WHERE [AnimalID] = @AnimalID
+   ORDER BY [UpdateDate]
+END
+GO
+                
+/*
+Created by: Ben Hanna
+Date: 2/9/2020
+Comment: Insert a kennel record
+*/                
+print '' print '*** Creating sp_insert_kennel_record'
+GO
+CREATE PROCEDURE [sp_insert_kennel_record]
+(
+    @AnimalID           [int],
+    @AnimalKennelInfo   [nvarchar](4000), 
+    @AnimalKennelDateIn	[date],
+    @UserID           [int]
+        
+)
+AS
+BEGIN
+   INSERT INTO [dbo].[AnimalKennel] 
+        ([AnimalID], 
+         [AnimalKennelInfo], 
+         [AnimalKennelDateIn],
+         [UserID]
+        )
+   VALUES 
+        (@AnimalID,
+         @AnimalKennelInfo,
+         @AnimalKennelDateIn
+         ,@UserID
+        )
+   SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Ben Hanna
+Date: 2/18/2020
+Comment: Sets an animal's adoptable state to false
+*/                
+print '' print '*** Creating sp_select_handling_notes_by_id'
+GO
+CREATE PROCEDURE [sp_select_handling_notes_by_id]
+(
+    @AnimalHandlingNotesID      [int]
+)
+AS
+BEGIN
+   SELECT [AnimalID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID] 
+   FROM [dbo].[AnimalHandlingNotes]
+   WHERE [AnimalHandlingNotesID] = @AnimalHandlingNotesID
+END
+GO 
 
 /*
  * Created by: Jordan Lindo

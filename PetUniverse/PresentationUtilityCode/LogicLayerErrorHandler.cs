@@ -105,5 +105,20 @@ namespace PresentationUtilityCode
             }
             MessageBox.Show(message, "Create User Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+
+        public static void ActivateDeactivateErrorMessage(this string exMessage, string exInnerMessage = null)
+        {
+            string message = null;
+            if (!string.IsNullOrEmpty(exInnerMessage))
+            {
+                message = exInnerMessage + "\n\n" + exInnerMessage;
+            }
+            else
+            {
+                message = exMessage;
+            }
+            MessageBox.Show(message, "Update Error: Activate/Deactivate", MessageBoxButton.OK, MessageBoxImage.Error);
+        } 
     }
 }
