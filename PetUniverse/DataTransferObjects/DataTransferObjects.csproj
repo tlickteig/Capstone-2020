@@ -44,8 +44,11 @@
     <Compile Include="Animal.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="PetUniverseUser.cs" />
+    <Compile Include="Product.cs" />
+    <Compile Include="ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="States.cs" />
+    <Compile Include="Transaction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

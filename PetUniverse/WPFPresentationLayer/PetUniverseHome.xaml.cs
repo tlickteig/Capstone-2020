@@ -15,6 +15,7 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
+using WPFPresentationLayer.PoSPages;
 
 namespace WPFPresentationLayer
 {
@@ -480,6 +481,34 @@ namespace WPFPresentationLayer
         {
             desiredScreen = "Personnel";
             switchScreen(desiredScreen);
+        }
+
+        /// <summary>
+        /// NAME : Robert Holmes
+        /// DATE: 2/21/2020
+        /// CHECKED BY: 
+        /// 
+        /// Loads check out page into the frame.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabCheckOut_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (frmCheckOut == null)
+            {
+                frmCheckOut = new Frame();
+                tabCheckOut.Content = frmCheckOut;
+            }
+            if (frmCheckOut.Content == null)
+            {
+                frmCheckOut.Navigate(new pgCheckOut());
+            }
         }
     }
 }
