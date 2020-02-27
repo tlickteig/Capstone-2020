@@ -1,6 +1,4 @@
-﻿using LogicLayer;
-using LogicLayerInterfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DataTransferObjects;
+using LogicLayer;
+using LogicLayerInterfaces;
 
 namespace WPFPresentationLayer.AdoptionPages
 {
@@ -122,6 +123,41 @@ namespace WPFPresentationLayer.AdoptionPages
             dgAdoptionApplicationsList.Columns[3].Header = "Status";
             dgAdoptionApplicationsList.Columns[4].Header = "Recieved Date and Time";
         }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/02/19
+        /// Approver: Thomas Dupuy
+        /// 
+        /// This is an event on btnOpen is clicked.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name=" sender"></param>
+        /// <param name=" e"></param>
+        /// <returns></returns>   
+        private void BtnOpenRecord_Click(object sender, RoutedEventArgs e)
+        {
+            AdoptionApplication adoptionApplication = new AdoptionApplication();
+            adoptionApplication = (AdoptionApplication)dgAdoptionApplicationsList.SelectedItem;
+
+            var selectedItem = (AdoptionApplication)dgAdoptionApplicationsList.SelectedItem;
+            if (selectedItem == null)
+            {
+                MessageBox.Show("Please select an Adoption Appliction to open the Customer Details.");
+            }
+            else
+            {
+                this.NavigationService?.Navigate(new CustomerDetail
+                    (adoptionApplication.CustomerName));
+                populatedgAdoptionApplicationsList();
+            }
+        }
     }
 }
+
 

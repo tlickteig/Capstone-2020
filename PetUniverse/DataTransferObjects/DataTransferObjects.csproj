@@ -47,6 +47,7 @@
     <Compile Include="AnimalKennel.cs" />
     <Compile Include="Applicant.cs" />
     <Compile Include="Appointment.cs" />
+    <Compile Include="Customer.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="ERole.cs" />
     <Compile Include="FacilityMaintenance.cs" />

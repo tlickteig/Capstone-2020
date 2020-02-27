@@ -35,9 +35,12 @@ CREATE TABLE [dbo].[User](
 [PasswordHash] [nvarchar](100) NOT NULL DEFAULT 
 '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E',
 [Active] [bit] NOT NULL Default 1,
+[addressLineOne] [nvarchar](250),
+[addressLineTwo] [nvarchar](250),
 [City] [nvarchar] (20) NOT NULL,
 [State] [nvarchar] (2) NOT NULL,
 [Zipcode] [nvarchar] (15) NOT NULL
+
 )
 GO
 
@@ -56,12 +59,15 @@ INSERT INTO [dbo].[User]
 [Active],
 [City],
 [State],
-[Zipcode]
+[Zipcode],
+[addressLineOne],
+[addressLineTwo]
 )
 VALUES
-('Zach', 'Behrensmeyer', '1234567890', 'zbehrens@PetUniverse.com', 1, 'Cedar Rapids', 'IA', '52404'),
-('Steven', 'Cardona', '2234567890', 'scardona@PetUniverse.com', 1, 'Cedar Rapids', 'IA', '52404'), 
-('Thomas', 'Dupuy', '3234567890', 'tdupuy@PetUniverse.com', 1, 'Cedar Rapids', 'IA', '52404')
+('Mohamed','Elamin' ,'3198376522','moals@PetUniverse.com',1,'Cedar Rapids','IA','52433','J street NE','APT3'),
+('Zach', 'Behrensmeyer', '1234567890', 'zbehrens@PetUniverse.com', 1,'Cedar Rapids','IA','52433','J street NE','APT3'),
+('Steven', 'Cardona', '2234567890', 'scardona@PetUniverse.com', 1,'Cedar Rapids','IA','52433','J street NE','APT3'), 
+('Thomas', 'Dupuy', '3234567890', 'tdupuy@PetUniverse.com', 1,'Cedar Rapids','IA','52433','J street NE','APT3')
 GO
 print '' print '*** Insert users into User Table ***'
 GO
@@ -1498,8 +1504,65 @@ BEGIN
 END
 GO
 
+/*
+Created by: Mohamed Elamin
+Date: 02/18/2020
+Comment: Sproc to find Customer by Customer name from the User Table.
+*/
+print '' print '*** Creating sp_select_Customer_by_Customer_Name'
+GO
+CREATE PROCEDURE [sp_select_Customer_by_Customer_Name]
+(
+	@CustomerName 		[nvarchar](50)
+)
+AS
+BEGIN
 
 
+	SELECT[userID],[FirstName],[lastName],[phoneNumber],[email],[active],[addressLineOne],
+			[addressLineTwo],[city],[state],[zipCode]
+	
+			
+	FROM 	[User]
+	WHERE	[User].[lastName] = @CustomerName  
+	
+END
+GO
+
+
+/*
+Created by: Mohamed Elamin
+Date: 02/18/2020
+Comment: Sproc to updates Adoption appliction's decision and notes.
+*/
+print '' print '*** Creating sp_update_AdoptionApliction'
+GO
+
+CREATE PROCEDURE [sp_update_AdoptionApliction]
+(
+
+    @AppointmentID			[int],
+
+	@NewNotes		      [nvarchar](1000),
+	@NewDecision		  [nvarchar](50),
+	
+	
+	@OldNotes    		[nvarchar](50),
+	@OldDecision		[nvarchar](50)
+	
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+		SET [Notes] = 	  @NewNotes,
+			[Decision] = 	@NewDecision
+			
+	WHERE 	[AppointmentID] =	@AppointmentID  
+	  AND	[Notes] = 	@OldNotes
+	  AND	[Decision] = 	@OldDecision	 
+	RETURN  @@ROWCOUNT
+END
+GO
 /*
 Created by: Thomas Dupuy
 Date: 2/6/2020

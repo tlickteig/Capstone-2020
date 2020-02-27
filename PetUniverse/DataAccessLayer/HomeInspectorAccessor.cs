@@ -57,7 +57,7 @@ namespace DataAccessLayer
                 {
                     lastName = reader.GetString(1);
                     firstName = reader.GetString(0);
-                    customerName = lastName + " " + firstName;
+                    customerName = lastName;
                 }
                 else
                 {
@@ -161,7 +161,7 @@ namespace DataAccessLayer
                         var adoptionApplication = new AdoptionApplication()
                         {
                             AdoptionApplicationID = reader.GetInt32(0),
-                            AnimalName = SelectAnimalNameByAnimalID(reader.GetInt32(0)),
+                            AnimalName = SelectAnimalNameByAnimalID(reader.GetInt32(1)),
                             CustomerName = GetCustomerNameByCustomerID(reader.GetInt32(2)),
                             Status = reader.GetString(3),
                             RecievedDate = reader.GetDateTime(4)

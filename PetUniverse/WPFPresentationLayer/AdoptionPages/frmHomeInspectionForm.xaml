@@ -37,7 +37,7 @@
             <Grid Grid.Row="2">
                 <Button Content=" Back" Name="btnBack" Margin="20" HorizontalAlignment="Left" Width="100" Height="30"/>
                 <Button Content=" OpenRecord" Name="btnOpenRecord" 
-                            HorizontalAlignment="Right" Width="100" Height="30" Margin="20" />
+                            HorizontalAlignment="Right" Width="100" Height="30" Margin="20" Click="BtnOpenRecord_Click" />
             </Grid>
         </Grid>
     </Grid>

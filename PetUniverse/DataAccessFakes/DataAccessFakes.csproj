@@ -46,6 +46,7 @@
     <Compile Include="FakeAnimalKennelAccessor.cs" />
     <Compile Include="FakeApplicantAccessor.cs" />
     <Compile Include="FakeAppointmentAccessor.cs" />
+    <Compile Include="FakeCustomerAccessor.cs" />
     <Compile Include="FakeDepartmentAccessor.cs" />
     <Compile Include="FakeERoleAccessor.cs" />
     <Compile Include="FakeFacilityMaintenanceAccessor.cs" />
