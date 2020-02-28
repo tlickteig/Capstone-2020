@@ -51,6 +51,7 @@
     <Compile Include="FakeERoleAccessor.cs" />
     <Compile Include="FakeFacilityMaintenanceAccessor.cs" />
     <Compile Include="FakeHomeInspectorAccessor.cs" />
+    <Compile Include="FakeInHomeInspectionAppointmentDecisionAccessor.cs" />
     <Compile Include="FakeInventoryItemsAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
     <Compile Include="FakeRequestAccessor.cs" />

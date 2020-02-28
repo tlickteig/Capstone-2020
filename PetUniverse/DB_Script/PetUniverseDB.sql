@@ -1530,6 +1530,25 @@ END
 GO
 
 
+
+/*
+Created by: Mohamed Elamin
+Date: 02/18/2020
+Comment: Sproc to gets ALL Adoption applictions where thier status is inHomeInspection
+*/
+print '' print '*** Creating sp_select_inHomeInspectionAppointments_by_AppointmentType'
+GO
+CREATE PROCEDURE [sp_select_inHomeInspectionAppointments_by_AppointmentType]	
+AS
+BEGIN
+	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
+			Decision,LocationID,Active
+	FROM 	[dbo].[Appointment]
+	WHERE	[AppointmentTypeID] = "inHomeInspection"
+END
+GO
+
+
 /*
 Created by: Mohamed Elamin
 Date: 02/18/2020
@@ -1563,11 +1582,13 @@ BEGIN
 	RETURN  @@ROWCOUNT
 END
 GO
+
+
 /*
 Created by: Thomas Dupuy
 Date: 2/6/2020
 Comment: Creats AppointmentType Table
-*/
+
 print '' print '*** Creating AppointmentType Table'
 GO
 CREATE TABLE [dbo].[AppointmentType](
@@ -1582,7 +1603,7 @@ GO
 Created by: Thomas Dupuy
 Date: 2/6/2020
 Comment: Creats Appointment Table
-*/
+
 print '' print '*** Creating Appointment Table'
 GO
 CREATE TABLE [dbo].[Appointment](
@@ -1602,7 +1623,7 @@ GO
 Created by: Thomas Dupuy
 Date: 2/6/2020
 Comment: Creats Sample Appointment Records
-*/
+
 print '' print '*** Creating Sample Appointment Records'
 GO
 INSERT INTO [dbo].[Appointment]
@@ -1617,7 +1638,7 @@ GO
 Created by: Thomas Dupuy
 Date: 2/20/2020
 Comment: Sproc to pull list of all appointments
-*/
+
 print '' print '*** sp_get_all_appointments'
 GO
 CREATE PROCEDURE [sp_get_all_appointments]
@@ -1628,6 +1649,7 @@ BEGIN
 END
 GO
 
+*/
 
 /*
 Created by: Cash Carlson

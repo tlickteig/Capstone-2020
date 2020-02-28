@@ -51,6 +51,7 @@
     <Compile Include="ERoleManager.cs" />
     <Compile Include="FacilityMaintenanceManager.cs" />
     <Compile Include="HomeInspectorManager.cs" />
+    <Compile Include="InHomeInspectionAppointmentDecisionManager.cs" />
     <Compile Include="InventoryItemsManager.cs" />
     <Compile Include="LogManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

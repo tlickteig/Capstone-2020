@@ -51,6 +51,7 @@
     <Compile Include="Department.cs" />
     <Compile Include="ERole.cs" />
     <Compile Include="FacilityMaintenance.cs" />
+    <Compile Include="HomeInspectorAdoptionAppointmentDecision.cs" />
     <Compile Include="InventoryItems.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />

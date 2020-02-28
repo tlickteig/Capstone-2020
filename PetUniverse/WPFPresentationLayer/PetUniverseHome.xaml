@@ -174,6 +174,7 @@
                 <TabItem x:Name="tabViewHandling" Header="View Handling Records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AMPages/HandlingControls.xaml"/>
                 </TabItem>
+  
             </TabControl>
         </Canvas>
 
@@ -288,6 +289,9 @@
                 </TabItem>
                 <TabItem x:Name="AppoimentShedule" Header="Appoiment Shedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AppointmentSchedule.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="InHomeInspector" Header="Inspection Decision" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/frmInHomeInspectorDecision.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </TabControl>
         </Canvas>

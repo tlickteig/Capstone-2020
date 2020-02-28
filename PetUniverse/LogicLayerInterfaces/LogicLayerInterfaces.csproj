@@ -51,6 +51,7 @@
     <Compile Include="IERoleManager.cs" />
     <Compile Include="IFacilityMaintenanceManager.cs" />
     <Compile Include="IHomeInspectorManager.cs" />
+    <Compile Include="IInHomeInspectionAppointmentDecisionManager.cs" />
     <Compile Include="IInventoryItemsManager.cs" />
     <Compile Include="ILogManager.cs" />
     <Compile Include="IRequestManager.cs" />

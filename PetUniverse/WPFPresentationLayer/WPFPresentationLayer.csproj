@@ -76,11 +76,17 @@
     <Compile Include="AdoptionPages\CustomerDetail.xaml.cs">
       <DependentUpon>CustomerDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdoptionPages\frmAdoptionApplictionDetails.xaml.cs">
+      <DependentUpon>frmAdoptionApplictionDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdoptionPages\frmHomeInspectionForm.xaml.cs">
       <DependentUpon>frmHomeInspectionForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="AdoptionPages\AppointmentSchedule.xaml.cs">
       <DependentUpon>AppointmentSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdoptionPages\frmInHomeInspectorDecision.xaml.cs">
+      <DependentUpon>frmInHomeInspectorDecision.xaml</DependentUpon>
     </Compile>
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
@@ -128,11 +134,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AdoptionPages\frmAdoptionApplictionDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AdoptionPages\frmHomeInspectionForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdoptionPages\AppointmentSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdoptionPages\frmInHomeInspectorDecision.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
