@@ -39,7 +39,7 @@ namespace DataAccessInterfaces
         /// Created: 2/14/2020
         /// Approver: Alex Diers
         /// 
-        /// This is an interface method selecting all departments.
+        /// This is an interface method selecting all active departments.
         /// </summary>
         /// <remarks>
         /// Updater: NA
@@ -49,6 +49,7 @@ namespace DataAccessInterfaces
         /// 
         /// <returns>List<Department></DepartmentsV></returns>
         List<Department> SelectAllDepartments();
+
 
         /// <summary>
         /// Creator: Jordan Lindo
@@ -101,5 +102,6 @@ namespace DataAccessInterfaces
         /// <param name="departmentId"></param>
         /// <returns>int</returns>
         int DeleteDepartment(string departmentId);
+
     }
 }

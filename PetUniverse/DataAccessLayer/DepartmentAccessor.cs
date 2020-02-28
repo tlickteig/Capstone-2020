@@ -87,7 +87,7 @@ namespace DataAccessLayer
         {
             List<Department> departments = new List<Department>();
             var conn = DBConnection.GetConnection();
-            var cmd = new SqlCommand("sp_select_all_departments", conn);
+            var cmd = new SqlCommand("sp_select_all_active_departments", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             try

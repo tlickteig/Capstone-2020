@@ -28,33 +28,12 @@ namespace WPFPresentationLayer.PersonnelPages
     public partial class Departments : Page
     {
         private IDepartmentManager _departmentManager;
-        private PetUniverseUser _user;
         private Department _department;
 
         public Departments()
         {
             InitializeComponent();
             _departmentManager = new DepartmentManager();
-        }
-
-        /// <summary>
-        /// Creator: Jordan Lindo
-        /// Created: 2/13/2020
-        /// Approver: Alex Diers
-        /// 
-        /// The constructoer with a user.
-        /// </summary>
-        /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// </remarks>
-        /// <param name="user"></param>
-        public Departments(PetUniverseUser user)
-        {
-            InitializeComponent();
-            _departmentManager = new DepartmentManager();
-            _user = user;
         }
 
         /// <summary>
@@ -203,9 +182,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// This method hides the canvas.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Jordan Lindo
+        /// Updated: 2/26/2020
+        /// Update: Clears text box.
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -213,6 +192,7 @@ namespace WPFPresentationLayer.PersonnelPages
         private void btnAddDepartmentCancel_Click(object sender, RoutedEventArgs e)
         {
             canAddDepartment.Visibility = Visibility.Hidden;
+            txtEditDepartmentDescription.Text = "";
             canDepartmentList.Visibility = Visibility.Visible;
         }
 
@@ -233,17 +213,9 @@ namespace WPFPresentationLayer.PersonnelPages
         {
             if (!dgDepartment.SelectedIndex.Equals(-1))
             {
-                string departmentID = txtAddDepartmentDepartmentName.Text;
-                string description = txtAddDepartmentDescription.Text;
-
                 try
                 {
-                    Department department = (Department)dgDepartment.SelectedItem;
-                    _department = new Department
-                    {
-                        DepartmentID = departmentID,
-                        Description = description
-                    };
+                    _department = (Department)dgDepartment.SelectedItem;
 
 
                     lblEditDepartmentDepartmentName.Content = _department.DepartmentID;
