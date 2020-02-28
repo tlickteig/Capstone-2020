@@ -3470,3 +3470,156 @@ BEGIN
 END
 GO
  
+/*
+Created By: Timothy Lickteig
+Date: 2/07/2020
+Comment: Table for volunteer shifts
+*/
+print '' print '*** Creating VolunteerShift Table'
+go
+
+create table [dbo].[VolunteerShift](
+	
+	[VolunteerShiftID] 	[int] identity(1000000, 1) 	not null,
+	[ShiftDescription] 	[nvarchar](1080) 			not null,
+	[ShiftTitle] 		[nvarchar](500) 			not null,
+	[ShiftDate]			[date]						not null,
+	[ShiftStartTime] 	[time] 						not null,
+	[ShiftEndTime] 		[time] 						not null,
+	[Recurrance] 		[nvarchar](100) 			not null,
+	[IsSpecialEvent] 	[bit] 						not null,
+	[ShiftNotes] 		[nvarchar](1080) 			null,
+	[ScheduleID] 		[int] 						not null,
+	constraint [pk_VolunteerShift_VolunteerShiftID] primary key([VolunteerShiftID] asc)
+)
+go
+
+/*
+Created By: Timothy Lickteig
+Date: 2/07/2020
+Comment: Sample data for volunteer shifts
+*/
+print '' print '*** Creating Volunteer Shift records'
+go
+
+insert into [dbo].[VolunteerShift]
+	([ShiftDescription], [ShiftTitle], [ShiftDate],
+	[ShiftStartTime], [ShiftEndTime], [Recurrance],
+	[IsSpecialEvent], [ShiftNotes] ,[ScheduleID])
+	values
+	('This is the first shift', 'Its a pretty cool shift', '2020-01-01','13:30:00', '15:00:00', 'None', 0, 'Any notes go here', 0),
+	('This is the second shift', 'Its an even cooler shift', '2009-08-07','12:00:00', '13:00:00', 'None', 0, 'Any other notes go here', 0)
+go
+
+/*
+Created By: Timothy Lickteig
+Date: 2/07/2020
+Comment: Procedure for inserting volunteer shifts
+*/
+print '' print '*** Creating procedure sp_insert_volunteer_shift'
+go
+
+create procedure [sp_insert_volunteer_shift]
+(
+	@ShiftDescription 	[nvarchar](1080),
+	@ShiftTitle 		[nvarchar](500),
+	@ShiftDate 			[date],
+	@ShiftStartTime 	[time],
+	@ShiftEndTime 		[time],
+	@Recurrance 		[nvarchar](100),
+	@IsSpecialEvent 	[bit],
+	@ShiftNotes 		[nvarchar](1080),
+	@ScheduleID 		[int]
+)
+as
+begin
+	
+	insert into [dbo].[VolunteerShift]
+		([ShiftDescription], [ShiftTitle], [ShiftDate],
+		[ShiftStartTime], [ShiftEndTime], [Recurrance], 
+		[IsSpecialEvent], [ShiftNotes], [ScheduleID])
+		values
+		(@ShiftDescription, @ShiftTitle, @ShiftDate,
+		@ShiftStartTime, @ShiftEndTime, @Recurrance, 
+		@IsSpecialEvent, @ShiftNotes, @ScheduleID)
+end
+go	
+
+/*
+Created By: Timothy Lickteig
+Date: 2/05/2020
+Comment: Procedure for deleting a volunteer shift
+*/
+print '' print '*** Creating procedure sp_delete_volunteer_shift'
+go
+
+create procedure [sp_delete_volunteer_shift]
+(
+	@ShiftID [int]
+)
+as
+begin
+	
+	delete from [dbo].[VolunteerShift]
+	where [VolunteerShiftID] = @ShiftID
+end
+go
+
+print '' print '*** Creating procedure sp_edit_volunteer_shift'
+go
+
+/*
+Created By: Timothy Lickteig
+Date: 2/10/2020
+Comment: Procedure for updating a volunteer shift
+*/
+create procedure [sp_update_volunteer_shift]
+(
+	@VolunteerShiftID [int],
+	@ShiftDescription [nvarchar](1080),
+	@ShiftDate [date],
+	@ShiftTitle [nvarchar](500),
+	@ShiftStartTime [time],
+	@ShiftEndTime [time],
+	@Recurrance [nvarchar](100),
+	@IsSpecialEvent [bit],
+	@ShiftNotes [nvarchar](1080),
+	@ScheduleID [int]	
+)
+as
+begin
+	
+	update [VolunteerShift]
+	set [ShiftDescription] = @ShiftDescription,
+	[ShiftDate] = @ShiftDate,
+	[ShiftTitle] = @ShiftTitle,
+	[ShiftStartTime] = @ShiftStartTime,
+	[ShiftEndTime] = @ShiftEndTime,
+	[Recurrance] = @Recurrance,
+	[IsSpecialEvent] = @IsSpecialEvent,
+	[ShiftNotes] = @ShiftNotes,
+	[ScheduleID] = @ScheduleID
+	where [VolunteerShiftID] = @VolunteerShiftID
+	select @@ROWCOUNT
+end
+go
+
+/*
+Created By: Timothy Lickteig
+Date: 2/17/2020
+Comment: Procedure for selecting all volunteer shifts
+*/
+print '' print '*** Creating procedure sp_select_all_volunteer_shifts'
+go
+
+create procedure [sp_select_all_volunteer_shifts]
+as
+begin
+	select
+		[VolunteerShiftID], [ShiftDescription],
+		[ShiftTitle], [ShiftStartTime], [ShiftEndTime],
+		[Recurrance], [IsSpecialEvent], [ShiftNotes],
+		[ShiftDate], [ScheduleID]
+	from [dbo].[VolunteerShift]
+end
+go

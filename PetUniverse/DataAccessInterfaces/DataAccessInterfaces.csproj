@@ -63,6 +63,7 @@
     <Compile Include="ITrainingVideoAccessor.cs" />
     <Compile Include="ITransactionAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
+    <Compile Include="IVolunteerShiftAccessor.cs" />
     <Compile Include="IVolunteerTaskAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

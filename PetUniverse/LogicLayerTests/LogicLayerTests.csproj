@@ -72,6 +72,7 @@
     <Compile Include="TrainingVideoTests.cs" />
     <Compile Include="TransactionManagerTests.cs" />
     <Compile Include="UserManagerTests.cs" />
+    <Compile Include="VolunteerShiftTests.cs" />
     <Compile Include="VolunteerTaskManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>

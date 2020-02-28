@@ -63,10 +63,15 @@
     <Compile Include="ITrainingVideoManager.cs" />
     <Compile Include="ITransactionManager.cs" />
     <Compile Include="IUserManager.cs" />
+    <Compile Include="IVolunteerShiftManager.cs" />
     <Compile Include="IVolunteerTaskManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccessInterfaces\DataAccessInterfaces.csproj">
+      <Project>{c9c0c512-dbd6-4250-b98f-1b50e597bdef}</Project>
+      <Name>DataAccessInterfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataTransferObjects\DataTransferObjects.csproj">
       <Project>{B3679B25-08AD-45B6-9057-5784C8CCF5F7}</Project>
       <Name>DataTransferObjects</Name>
