@@ -49,6 +49,7 @@
     <Compile Include="IAnimalKennelAccessor.cs" />
     <Compile Include="IApplicantAccessor.cs" />
     <Compile Include="IAppointmentAccessor.cs" />
+    <Compile Include="IbackstockAccessor.cs" />
     <Compile Include="ICustomerAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IERoleAccessor.cs" />

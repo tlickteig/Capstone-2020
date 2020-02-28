@@ -80,7 +80,7 @@ namespace LogicLayerTests
             //acct
             customer = reviewerManager.retrieveCustomerByCustomerName(customerName);
             //assert
-            Assert.AreEqual(customerName, customer.lastName);
+            Assert.AreEqual(customerName, customer.LastName);
 
         }
 

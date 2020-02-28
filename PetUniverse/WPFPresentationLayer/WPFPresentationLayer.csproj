@@ -109,6 +109,9 @@
     <Compile Include="FMPages\FacilityMaintenanceControls.xaml.cs">
       <DependentUpon>FacilityMaintenanceControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\viewItems.xaml.cs">
+      <DependentUpon>viewItems.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PersonnelPages\Departments.xaml.cs">
       <DependentUpon>Departments.xaml</DependentUpon>
     </Compile>
@@ -192,6 +195,10 @@
     <Page Include="FMPages\FacilityMaintenanceControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\viewItems.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PersonnelPages\Departments.xaml">
       <SubType>Designer</SubType>
@@ -294,7 +301,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="InventoryPages\" />
     <Folder Include="RecruitingPages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

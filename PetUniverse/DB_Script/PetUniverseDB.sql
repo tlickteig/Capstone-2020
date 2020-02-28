@@ -3285,3 +3285,188 @@ BEGIN
 
 END
 GO
+
+/*
+Created by: Tener Karar
+Date: 02/27/2020
+Comment: inserting ItemCategory sample data
+*/
+print '' print '*** inserting ItemCategory sample data'
+GO
+INSERT INTO [dbo].[ItemCategory]
+([ItemCategoryID],[Description])
+
+VALUES
+( 'cat',' Litter-Robot 3 is the highest-rated automatic,
+ self-cleaning litter box for cats. 
+ Never scoop cat litter again while giving your kitty a clean
+ bed of litter for each use. Litter-Robot ')
+Go
+/*
+Created by: Tener Karar
+Date: 02/27/2020
+Comment: inserting Item sample data
+*/
+print '' print '*** inserting Item sample data'
+GO
+INSERT INTO [dbo].[Item] 
+	([ItemName], [ItemQuantity], [ItemCategoryID], [ItemDescription] )
+VALUES
+	('loon', 1, 'cat',' Litter-Robot 3 is the highest-rated automatic,
+ self-cleaning litter box for cats. 
+ Never scoop cat litter again while giving your kitty a clean
+ bed of litter for each use. Litter-Robot ' )
+	
+go
+/*
+Created by: Tener Karar
+Date: 02/27/2020
+Comment: inserting Item Location table data
+*/
+print '' print '*** creating ItemLocation table'
+GO
+
+CREATE TABLE [dbo].[ItemLocation] (
+	[LocationID]	    [int] IDENTITY(1000,1) 	    NOT NULL,
+	[Description]      [nvarchar]     (50) 			  	NOT NULL,
+	
+	CONSTRAINT [pk_invLocationID] PRIMARY KEY([LocationID] ASC),
+	
+)
+GO
+/*
+Created by: Tener Karar
+Date: 02/27/2020
+Comment: inserting Item Location sample data
+*/
+print '' print '*** inserting ItemLocation sample data'
+GO
+INSERT INTO [dbo].[ItemLocation] 
+	( [Description]  )
+VALUES
+	(' in the first floor ' ),
+	(' in the first floor ' ),
+	(' in the first floor ' ),
+	(' in the first floor ' ),
+	(' in the first floor ' ),
+	(' in the first floor ' )
+	
+	
+Go	
+/*
+Created by: Tener Karar
+Date: 02/27/2020
+Comment: creating Item Location Line table'
+*/
+  print '' print '*** creating ItemLocationLine table'
+GO
+CREATE TABLE [dbo].[ItemLocationLine] (
+    [ItemID]		     [int]                 	    NOT NULL,
+	[LocationID]	    [int]             	    NOT NULL,
+	
+	CONSTRAINT [fk_ItemID] FOREIGN KEY([ItemID]) 
+	REFERENCES [Item]([ItemID]),
+	CONSTRAINT [fk_LocationID] FOREIGN KEY([LocationID]) 
+	REFERENCES [ItemLocation]([LocationID])
+	
+	
+	
+)
+GO 
+/*
+Created by: Tener Karar
+Date: 02/27/2020
+Comment:  inserting Item Location Line table'
+*/
+print '' print '*** inserting ItemLocationLine sample data'
+GO
+INSERT INTO [dbo].[ItemLocationLine] 
+	([ItemID]	,[LocationID]  )
+VALUES
+	( 100002, 1000 )
+	
+Go	
+/*
+Created by: Tener Karar
+Date: 02/16/2020
+Comment:retrieve ItemLocations List
+*/
+print '' print '*** Creating sp_retrieve_ItemLocations_List'
+GO
+CREATE PROCEDURE sp_retrieve_ItemLocations_List( @ItemID int)
+AS
+BEGIN
+	SELECT  [LocationID]	 
+	FROM [dbo].[ItemLocationLine ]
+	where ItemID = @ItemID
+	  
+	 
+	
+END
+GO
+/*
+Created by: Tener Karar and Brandyn Coverdill
+Date: 02/16/2020
+Comment:retrieve Item List
+*/
+print '' print '*** Creating sp_retrieve_item_list'
+GO
+CREATE PROCEDURE sp_retrieve_item_list
+AS
+BEGIN
+	SELECT [ItemID], [ItemName]	,[ItemQuantity] ,[ItemCategoryID] 
+	FROM [dbo].[Item ]
+	  
+	 
+	
+END
+GO
+
+/*
+Created by: Tener Karar
+Date: 02/16/2020
+Comment:retrieve ItemCategory List
+*/
+print '' print '*** Creating sp_retrieve_ItemCategory_list'
+GO
+CREATE PROCEDURE sp_retrieve_ItemCategory_list
+AS
+BEGIN
+	SELECT [ItemCategoryID] ,[Description]
+	FROM [dbo].[ItemCategory ]
+	  
+	 
+	
+END
+GO
+/*
+Created by: Tener Karar
+Date: 02/16/2020
+Comment:update Item Location
+*/
+print '' print '*** Creating sp_update_Item_Location'
+GO
+CREATE PROCEDURE [sp_update_Item_Location]
+(
+
+
+	@ItemID	         	[int ],
+	@NewLocationID		[int],
+	
+	@OldLocationID		[int]
+	
+
+)
+AS
+BEGIN
+	UPDATE [dbo].[ItemLocationLine]
+		SET [LocationID] = 	@NewLocationID
+			
+	WHERE 	[ItemID] =	   @ItemID  
+	  AND	[LocationID] = 	@OldLocationID
+
+	 
+	RETURN @@ROWCOUNT
+END
+GO
+ 

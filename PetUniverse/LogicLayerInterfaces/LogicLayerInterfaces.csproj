@@ -57,6 +57,7 @@
     <Compile Include="IInHomeInspectionAppointmentDecisionManager.cs" />
     <Compile Include="IInventoryItemsManager.cs" />
     <Compile Include="ILogManager.cs" />
+    <Compile Include="IManageBackstockRecords.cs" />
     <Compile Include="IRequestManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
     <Compile Include="ITrainingVideoManager.cs" />

@@ -56,6 +56,7 @@
     <Compile Include="AnimalManagerTests.cs" />
     <Compile Include="ApplicantManagerTests.cs" />
     <Compile Include="AppointmentManagerTest.cs" />
+    <Compile Include="BackRecordMangerTester.cs" />
     <Compile Include="CustomerManagerTests.cs" />
     <Compile Include="DepartmentManagerTests.cs" />
     <Compile Include="ERoleManagerTests.cs" />

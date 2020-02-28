@@ -59,6 +59,9 @@
     <Compile Include="GeneralQuestion.cs" />
     <Compile Include="HomeInspectorAdoptionAppointmentDecision.cs" />
     <Compile Include="InventoryItems.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemCategory.cs" />
+    <Compile Include="ItemLocation.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />
