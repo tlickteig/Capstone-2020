@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdoptionApplication.cs" />
+    <Compile Include="AdoptionAppointment.cs" />
+    <Compile Include="AdoptionAppointmentVM.cs" />
+    <Compile Include="AdoptionCustomerVM.cs" />
     <Compile Include="Animal.cs" />
     <Compile Include="AnimalHandlingNotes.cs" />
     <Compile Include="AnimalKennel.cs" />

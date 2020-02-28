@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeAdoptionAppointmentAccessor.cs" />
+    <Compile Include="FakeAdoptionCustomerAccessor.cs" />
     <Compile Include="FakeAnimalAccessor.cs" />
     <Compile Include="FakeAnimalHandlingAccessor.cs" />
     <Compile Include="FakeAnimalKennelAccessor.cs" />

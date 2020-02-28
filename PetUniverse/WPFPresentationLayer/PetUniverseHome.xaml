@@ -293,6 +293,12 @@
                 <TabItem x:Name="InHomeInspector" Header="Inspection Decision" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/frmInHomeInspectorDecision.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
+                <TabItem x:Name="tabAdoptionCustomers" Header="Adoption Customers" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/pgAdoptionCustomers.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="tabMeetAndGreets" Header="Meet And Greets" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/pgMeetAndGreets.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
             </TabControl>
         </Canvas>
 
