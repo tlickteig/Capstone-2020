@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAdoptionAccessor.cs" />
     <Compile Include="IAdoptionAppointmentAccessor.cs" />
     <Compile Include="IAdoptionCustomerAccessor.cs" />
     <Compile Include="IAnimalAccessor.cs" />

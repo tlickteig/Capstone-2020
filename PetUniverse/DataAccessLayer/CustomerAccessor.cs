@@ -58,7 +58,7 @@ namespace DataAccessLayer
                     customer.LastName = customerName;
                     customer.PhoneNumber = reader.GetString(3);
                     customer.Email = reader.GetString(4);
-                    customer.Activ = reader.GetBoolean(5);
+                    customer.Active = reader.GetBoolean(5);
                     customer.AddressLineOne = reader.GetString(6);
                     customer.AddressLineTwo = reader.GetString(7);
                     customer.City = reader.GetString(8);

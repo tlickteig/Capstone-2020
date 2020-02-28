@@ -64,7 +64,7 @@ namespace WPFPresentationLayer.AdoptionPages
                 txtLasttName.Text = _customer.LastName;
                 txtPhoneNumbere.Text = _customer.PhoneNumber;
                 txtEmail.Text = _customer.Email;
-                txtActiv.Text = _customer.Activ.ToString();
+                txtActiv.Text = _customer.Active.ToString();
                 txtAddressLineOne.Text = _customer.AddressLineOne;
                 txtAddressLineTwo.Text = _customer.AddressLineTwo;
                 txtCity.Text = _customer.City;

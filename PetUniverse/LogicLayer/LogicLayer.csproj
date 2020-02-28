@@ -58,6 +58,7 @@
     <Compile Include="LogManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestManager.cs" />
+    <Compile Include="ReviewerManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="VolunteerTaskManager.cs" />

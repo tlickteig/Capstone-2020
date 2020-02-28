@@ -53,7 +53,7 @@ namespace DataAccessFakes
                 ZipCode = "53987",
                 State = "NY",
                 City = "london",
-                Activ = true
+                Active = true
                 },
 
             new Customer()
@@ -68,7 +68,7 @@ namespace DataAccessFakes
                 ZipCode = "52487",
                 State = "IA",
                 City = "cedar rapids",
-                Activ = true
+                Active = true
             },
             new Customer()
             {
@@ -82,7 +82,7 @@ namespace DataAccessFakes
                 ZipCode = "50987",
                 State = "IA",
                 City = "cedar rapids",
-                Activ = true
+                Active = true
             },
         };
         }

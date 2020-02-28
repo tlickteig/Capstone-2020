@@ -59,6 +59,7 @@
     <Compile Include="LogAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestAccessor.cs" />
+    <Compile Include="ReviewerAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
     <Compile Include="VolunteerTaskAccessor.cs" />

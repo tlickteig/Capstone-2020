@@ -73,6 +73,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AdoptionPages\AdoptionApplications.xaml.cs">
+      <DependentUpon>AdoptionApplications.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdoptionPages\CustomerDetail.xaml.cs">
       <DependentUpon>CustomerDetail.xaml</DependentUpon>
     </Compile>
@@ -136,6 +139,10 @@
     <Compile Include="VolunteerPages\TaskControls.xaml.cs">
       <DependentUpon>TaskControls.xaml</DependentUpon>
     </Compile>
+    <Page Include="AdoptionPages\AdoptionApplications.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AdoptionPages\CustomerDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
