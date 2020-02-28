@@ -8,6 +8,15 @@
     UPDATED: 2/22/2020
     UPDATE: Added event handlers to the animal data grid for the activate/deactivate animal use case. 
     APPROVED BY: Steven Cardona
+    
+    Updater: Chuck Baxter
+    Updated: 2/28/2020
+    Update: Removed status and image location
+    Approver: Austin Gee
+    
+    Updater:
+    Updated:
+    Update:
     -->
 <Page x:Class="WPFPresentationLayer.AMPages.AnimalControls"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -30,7 +39,7 @@
             </Grid.ColumnDefinitions>
             <DataGrid x:Name="dgActiveAnimals" Grid.Row="0" Width="1280" Grid.ColumnSpan="2" SelectionMode="Single"
                        Padding="0" CanUserResizeRows="False"
-                      CanUserResizeColumns="False" CanUserReorderColumns="False" Loaded="Window_Loaded">
+                       CanUserResizeColumns="False" CanUserReorderColumns="False"  Loaded="Window_Loaded" IsReadOnly="True">
             </DataGrid>
 
             <Button x:Name="btnAddAnimal" Margin="5"  Grid.Row="1" Grid.Column="0" Width="150" Height="50" FontSize="16" Click="BtnAddAnimal_Click">ADD ANIMAL</Button>
@@ -60,8 +69,6 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"></ColumnDefinition>
@@ -83,17 +90,7 @@
                     <TextBox  x:Name="txtAnimalBreed" Grid.Row="2" Grid.Column="1" Background="LightGray" Height="30" 
                       Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
 
-                    <!--Animal Status-->
-                    <Label x:Name="lblAnimalStatus" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Status:</Label>
-                    <ComboBox x:Name="cmbAnimalStatus" Grid.Row="3" Grid.Column="1" Height="30" 
-                      Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></ComboBox>
-
-                    <!--Image Location-->
-                    <Label x:Name="lblImageLocation" Grid.Row="4" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Image Location:</Label>
-                    <TextBox  x:Name="txtImageLocation" Grid.Row="4" Grid.Column="1" Background="LightGray" Height="30" 
-                      Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
-
-                    <Grid Grid.Row="5" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                    <Grid Grid.Row="3" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="80"></RowDefinition>

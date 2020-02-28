@@ -29,21 +29,7 @@ namespace WPFPresentationLayer.AMPages
     /// </summary>
     public partial class AnimalControls : Page
     {
-        // Arrays to populate the combo boxes until the methods are done
-        string[] species =
-        {
-            "A",
-            "B",
-            "C",
-            "D"
-        };
-        string[] statuses =
-        {
-            "A",
-            "B",
-            "C",
-            "D"
-        };
+
 
         /// <summary>
         /// Creator: Chuck Baxter
@@ -54,6 +40,11 @@ namespace WPFPresentationLayer.AMPages
         /// constructor for animal controls
         /// </summary>
         /// <remarks>
+        /// Updater: Chuck Baxter
+        /// Updated: 2/28/2020
+        /// Update: Removed status
+        /// Approver: Austin Gee
+        /// 
         /// Updater:
         /// Updated:
         /// Update:
@@ -62,8 +53,7 @@ namespace WPFPresentationLayer.AMPages
         {
             InitializeComponent();
             _animalManager = new AnimalManager();
-            cmbAnimalSpecies.ItemsSource = species;
-            cmbAnimalStatus.ItemsSource = statuses;
+            cmbAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
         }
 
         private IAnimalManager _animalManager;
@@ -97,28 +87,15 @@ namespace WPFPresentationLayer.AMPages
         /// When the window is loaded the data grid is also loaded with its info
         /// </summary>
         /// <remarks>
-        /// Updater: Ben Hanna
-        /// Updated: 2/22/2020
-        /// Update: Added commands to make only certain cells editable
+        /// Updater:
+        /// Updated:
+        /// Update:
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             refreshActiveData();
-
-            dgActiveAnimals.Columns[0].IsReadOnly = true;
-            dgActiveAnimals.Columns[1].IsReadOnly = true;
-            dgActiveAnimals.Columns[2].IsReadOnly = true;
-            dgActiveAnimals.Columns[3].IsReadOnly = true;
-            dgActiveAnimals.Columns[4].IsReadOnly = true;
-            dgActiveAnimals.Columns[8].IsReadOnly = true;
-            dgActiveAnimals.Columns[9].IsReadOnly = true;
-
-
-            dgActiveAnimals.Columns[7].IsReadOnly = true;
-            dgActiveAnimals.Columns[6].IsReadOnly = true;
-            dgActiveAnimals.Columns[5].IsReadOnly = true;
         }
 
         /// <summary>
@@ -194,6 +171,11 @@ namespace WPFPresentationLayer.AMPages
         /// The method opens the add animal canvas
         /// </summary>
         /// <remarks>
+        /// Updater: Chuck Baxter
+        /// Updated: 2/28/2020
+        /// Update: Removed status and image location
+        /// Approver: Austin Gee
+        /// 
         /// Updater:
         /// Updated:
         /// Update:
@@ -227,26 +209,14 @@ namespace WPFPresentationLayer.AMPages
                 cndDob.SelectedDate = DateTime.Parse("01/01/2000");
                 return;
             }
-            if (String.IsNullOrEmpty(txtImageLocation.Text))
-            {
-                MessageBox.Show("Please enter the animal's image location");
-                return;
-            }
-            if (String.IsNullOrEmpty(cmbAnimalStatus.Text))
-            {
-                MessageBox.Show("Please enter the animal's status");
-                return;
-            }
 
             Animal newAnimal = new Animal();
 
             newAnimal.AnimalName = txtAnimalName.Text;
             newAnimal.AnimalSpeciesID = cmbAnimalSpecies.Text;
             newAnimal.AnimalBreed = txtAnimalBreed.Text;
-            newAnimal.ImageLocation = txtImageLocation.Text;
             newAnimal.ArrivalDate = (DateTime)cndArrivalDate.SelectedDate;
             newAnimal.Dob = (DateTime)cndDob.SelectedDate;
-            newAnimal.StatusID = cmbAnimalStatus.Text;
 
             try
             {

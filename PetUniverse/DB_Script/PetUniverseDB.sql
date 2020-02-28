@@ -64,7 +64,6 @@ INSERT INTO [dbo].[User]
 [addressLineTwo]
 )
 VALUES
-
 ('Zach', 'Behrensmeyer', '1234567890', 'zbehrens@PetUniverse.com', 1,'Cedar Rapids','IA','52433','J street NE','APT3'),
 ('Steven', 'Cardona', '2234567890', 'scardona@PetUniverse.com', 1,'Cedar Rapids','IA','52433','J street NE','APT3'), 
 ('Thomas', 'Dupuy', '3234567890', 'tdupuy@PetUniverse.com', 1,'Cedar Rapids','IA','52433','J street NE','APT3'),
@@ -88,6 +87,7 @@ INSERT INTO [dbo].[User]
 	('Barb','Brinoll','1234567890','Barb@email.com','Cedar Rapids','IA','52404'),	
 	('Awaab','Elamin','3192104964','Awaab@Awaaab.com','Cedar Rapids','IA','52404')
 GO
+
 
 /*
 Created by: Steven Cardona
@@ -262,14 +262,30 @@ CREATE TABLE [dbo].[AnimalSpecies](
 )
 GO
 
-print '' print '*** Creating sample AnimalSpecies records'
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This adds AnimalSpecies records to the AnimalSpecies table.
+*/
+print '' print '*** Creating Sample AnimalSpecies Records'
+GO
+INSERT INTO [dbo].[AnimalSpecies]
+	([AnimalSpeciesID],[Description])
+	VALUES
+	('Dog','This is a dog'),
+	('Cat','Your commmon house cat'),
+	('Rat','The fancy rat')
 GO
 
 /*
+print '' print '*** Creating sample AnimalSpecies records'
+GO
+
+
 Created by: Chuck Baxter
 Date: 2/8/2020
 Comment: Sample Data
-*/
+
 INSERT INTO [dbo].[AnimalSpecies]
 	([AnimalSpeciesID])
 	VALUES
@@ -278,6 +294,7 @@ INSERT INTO [dbo].[AnimalSpecies]
 	('C'),
 	('D')
 GO
+*/
 
 print '' print '*** Creating table Status'
 GO
@@ -324,17 +341,13 @@ CREATE TABLE [dbo].[Animal](
 	[Dob]				[date]						NULL,
 	[AnimalBreed]		[nvarchar](100)				NOT NULL,
 	[ArrivalDate]		[date]						NOT NULL,
-	[ImageLocation]		[nvarchar](100)				NULL,
 	[CurrentlyHoused]	[bit]						NOT NULL 	DEFAULT 0,
 	[Adoptable]			[bit]						NOT NULL	DEFAULT 0,
 	[Active]			[bit]						NOT NULL	DEFAULT 1,
 	[AnimalSpeciesID]	[nvarchar](100)				NOT NULL,
-	[StatusID]			[nvarchar](100)				NOT NULL,
 	CONSTRAINT [pk_AnimalID] PRIMARY KEY([AnimalID] ASC),
 	CONSTRAINT [fk_Animal_AnimalSpeciesID] FOREIGN KEY([AnimalSpeciesID])
-		REFERENCES [AnimalSpecies]([AnimalSpeciesID]),
-	CONSTRAINT [fk_Animal_StatusID] FOREIGN KEY([StatusID])
-		REFERENCES [Status]([StatusID])
+		REFERENCES [AnimalSpecies]([AnimalSpeciesID])
 )
 GO
 
@@ -349,48 +362,14 @@ Comment: Sample Animal Data
 */
 
 INSERT INTO [dbo].[Animal]
-	([AnimalName],[Dob],[AnimalBreed],[ArrivalDate],[ImageLocation],[CurrentlyHoused],[Adoptable],[Active],[AnimalSpeciesID],[StatusID])
+	([AnimalName],[Dob],[AnimalBreed],[ArrivalDate],[CurrentlyHoused],[Adoptable],[Active],[AnimalSpeciesID])
 	VALUES
-	('Paul','12-01-2015','Pit Bull','01-20-2020','ImageLocation1',1,1,1,'A','A'),
-	('Snowball II','10-05-2011','Tabby','11-24-2019','ImageLocation2',0,0,1,'B','C'),
-	('Lassie','04-23-2018','Collie','01-12-2020','ImageLocation3',1,1,1,'C','A'),
-	('Spot','08-14-2014','French Bulldog','05-10-2019','ImageLocation4',1,1,1,'D','A'),
-	('fluffs','06-21-2012','Siamese','04-11-2019','ImageLocation5',0,1,1,'C','B'),
-	('Doggo','03-06-2015','Shih Tzu','02-22-2019','ImageLocation6',1,1,0,'D','A')
-GO
-
-/*
-Created by: Awaab Elamin
-Date: 2/6/2020
-Comment: Sproc retrieve animal record by its ID.
-*/
-GO
-GO
-print '' print '*** Creating sp_get_Animal_by_id'
-GO	
-Create PROCEDURE [dbo].[sp_get_animal_by_id]
-(
-	@animalId int
-)
-AS
-BEGIN
-	SELECT 	[AnimalID] ,
-			[AnimalName],
-			[Dob] ,
-			[AnimalBreed] ,
-			[ArrivalDate] ,
-			[ImageLocation] ,
-			[CurrentlyHoused] ,
-			[Adoptable],
-			[Active] ,
-			[AnimalSpeciesID] ,			
-			[StatusID] 
-	FROM 	[dbo].[Animal]
-	WHERE	[AnimalID] = @animalId;	
-END
-GO
-
-print '' print '*** Creating AnimalKennel Table'
+	('Paul','12-01-2015','Pit Bull','01-20-2020',1,1,1,'Cat'),
+	('Snowball II','10-05-2011','Tabby','11-24-2019',0,0,1,'Cat'),
+	('Lassie','04-23-2018','Collie','01-12-2020',1,1,1,'Dog'),
+	('Spot','08-14-2014','French Bulldog','05-10-2019',1,1,1,'Dog'),
+	('fluffs','06-21-2012','Siamese','04-11-2019',0,1,1,'Rat'),
+	('Doggo','03-06-2015','Shih Tzu','02-22-2019',1,1,0,'Dog')
 GO
 
 
@@ -893,16 +872,14 @@ CREATE PROCEDURE [sp_insert_animal]
 	@Dob				[nvarchar](100),
 	@AnimalBreed		[nvarchar](100),
 	@ArrivalDate		[nvarchar](100),
-	@ImageLocation		[nvarchar](100),
-	@AnimalSpeciesID	[nvarchar](100),
-	@StatusID			[nvarchar](100)
+	@AnimalSpeciesID	[nvarchar](100)
 )
 AS
 BEGIN
 	INSERT INTO [dbo].[Animal]
-		([AnimalName],[Dob],[AnimalBreed],[ArrivalDate],[ImageLocation],[AnimalSpeciesID],[StatusID])
+		([AnimalName],[Dob],[AnimalBreed],[ArrivalDate],[AnimalSpeciesID])
 	VALUES
-		(@AnimalName, @Dob, @AnimalBreed, @ArrivalDate, @ImageLocation, @AnimalSpeciesID, @StatusID)
+		(@AnimalName, @Dob, @AnimalBreed, @ArrivalDate, @AnimalSpeciesID)
 	RETURN SCOPE_IDENTITY()
 END
 GO
@@ -920,8 +897,8 @@ CREATE PROCEDURE [sp_select_active_animals]
 )
 AS
 BEGIN
-	SELECT [AnimalID],[AnimalName],[Dob],[AnimalBreed],[ArrivalDate],[ImageLocation],
-	[CurrentlyHoused],[Adoptable],[Active],[AnimalSpeciesID],[StatusID]
+	SELECT [AnimalID],[AnimalName],[Dob],[AnimalBreed],[ArrivalDate],
+	[CurrentlyHoused],[Adoptable],[Active],[AnimalSpeciesID]
 	FROM [dbo].[Animal]
 	WHERE [Active] = @Active
 	ORDER BY [AnimalID]
@@ -1466,8 +1443,9 @@ GO
 INSERT INTO [dbo].[Customer]
 	([UserID])
 	VALUES
-	(100000)
+	(100000)	
 GO
+
 /*
 Created by: Austin Gee
 Date: 2/21/2020
@@ -1484,6 +1462,7 @@ INSERT INTO [dbo].[Customer]
 	(100003),
 	((SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))
 GO
+
 
 /*
 Created by: Mohamed Elamin
@@ -1518,47 +1497,6 @@ INSERT INTO [dbo].[AdoptionApplication]
 	([CustomerID],[AnimalID],[Status],[RecievedDate])
 	VALUES
 	(100000,1000000,'InHomeInspection','2019-10-9')
-GO
-/*
-Created by: Austin Gee
-Date: 2/21/2020
-Comment: Adds adoption appliacation records to the AdoptionApplication table.
-*/
-print '' print '*** Creating Sample AdoptionApplication Records'
-GO
-INSERT INTO [dbo].[AdoptionApplication]
-	([CustomerID],[AnimalID],[Status],[RecievedDate])
-	VALUES
-	(100000,1000000,'Interview Stage','2019-10-9'),
-	(100001,1000001,'Reviewing Application','2019-10-9'),
-	(100002,1000002,'Waitng for Pickup','2019-10-9'),
-	(
-		((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
-		(SELECT [AnimalID]FROM[dbo].[Animal]WHERE [Animal].[AnimalName] = 'Paul'),
-		'Reviewer',
-		'2020-01-01'
-		
-	)
-GO
-/*
-Created by: Awaab Elamin
-Date: 2/5/2020
-Comment: Spoc to retrieve all Adoption Applications
-*/
-GO
-print '' print '*** Creating sp_get_Adoption_Application'
-GO
-Create PROCEDURE [dbo].[sp_get_Adoption_Application]
-AS
-BEGIN
-	SELECT 	[AdoptionApplicationID],
-			[CustomerID],
-			[AnimalID],
-			[Status],
-			[RecievedDate]
-	From 	[dbo].[AdoptionApplication]
-END
 GO
 
 /*
@@ -2422,22 +2360,36 @@ GO
 
 
 
-
-
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This adds some ample user records to the database.
+*/
+print '' print '*** Creating Sample User Records'
+GO
+INSERT INTO [dbo].[User]
+	([FirstName],[LastName],[PhoneNumber],[Email],[City],[State],[Zipcode])
+	VALUES
+	('Austin','Gee','1234567890','Austin@email.com','Cedar Rapids','IA','52404'),
+	('Bill','Buffalo','1234567890','Bill@email.com','Cedar Rapids','IA','52404'),
+	('Brad','Bean','1234567890','Brad@email.com','Iowa City','IA','52404'),
+	('Barb','Brinoll','1234567890','Barb@email.com','Cedar Rapids','IA','52404')
+GO
 
 /*
 Created by: Austin Gee
 Date: 2/21/2020
-Comment: This adds AnimalSpecies records to the AnimalSpecies table.
+Comment: This adds some sample customer records to the Customer table.
 */
-print '' print '*** Creating Sample AnimalSpecies Records'
+print '' print '*** Creating Sample Customer Records'
 GO
-INSERT INTO [dbo].[AnimalSpecies]
-	([AnimalSpeciesID],[Description])
+INSERT INTO [dbo].[Customer]
+	([UserID])
 	VALUES
-	('Dog','This is a dog'),
-	('Cat','Your commmon house cat'),
-	('Rat','The fancy rat')
+	(100000),
+	(100001),
+	(100002),
+	(100003)
 GO
 
 /*
@@ -2448,14 +2400,27 @@ Comment: Adds Animal records to the Animal table
 print '' print '*** Creating Sample Animal Records'
 GO
 INSERT INTO [dbo].[Animal]
-	([AnimalName],[Dob],[AnimalSpeciesID],[AnimalBreed],[ArrivalDate],[StatusID])
+	([AnimalName],[Dob],[AnimalSpeciesID],[AnimalBreed],[ArrivalDate])
 	VALUES
-	('Spot','07-12-1984','Dog','Blood Hound','10-10-2019','A'),
-	('Spit','07-12-1984','Cat','Tabby','10-10-2019','A'),
-	('Simon','07-12-1984','Rat','Siamese','10-10-2019','A')
+	('Spot','07-12-1984','Dog','Blood Hound','10-10-2019'),
+	('Spit','07-12-1984','Cat','Tabby','10-10-2019'),
+	('Simon','07-12-1984','Rat','Siamese','10-10-2019')
 GO
 
-
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Adds adoption appliacation records to the AdoptionApplication table.
+*/
+print '' print '*** Creating Sample AdoptionApplication Records'
+GO
+INSERT INTO [dbo].[AdoptionApplication]
+	([CustomerID],[AnimalID],[Status],[RecievedDate])
+	VALUES
+	(100000,1000000,'Interview Stage','2019-10-9'),
+	(100001,1000001,'Reviewing Application','2019-10-9'),
+	(100002,1000002,'Waitng for Pickup','2019-10-9')
+GO
 
 /*
 Created by: Austin Gee
@@ -2601,7 +2566,7 @@ BEGIN
 	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
 			Decision,LocationID,Active
 	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = 'inHomeInspection'
+	WHERE	[AppointmentTypeID] = "inHomeInspection"
 END
 GO
 
@@ -2770,7 +2735,7 @@ CREATE TABLE [dbo].[CustomerAnswer](
 	CONSTRAINT [CustomerID]	FOREIGN KEY ([CustomerID])
 		REFERENCES [dbo].[Customer]([CustomerID]),
 	CONSTRAINT [AdoptionApplicationID]	FOREIGN KEY ([AdoptionApplicationID])
-		REFERENCES [dbo].[AdoptionApplication]([AdoptionApplicationID]),
+		REFERENCES [dbo].[AdoptionApplication]([AdoptionApplicationID])
 )
 GO
 print '' print '*** Inserting CustomerAnswer records'
@@ -2779,68 +2744,7 @@ INSERT INTO [dbo].[CustomerAnswer]
 ([QuestionID],[CustomerID],[AdoptionApplicationID],[Answer])
 VALUES
 (
-	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 1'),
-	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
-	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
-	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
-	'Answer1'
-
-),
-(
-	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 2'),
-	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
-	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
-	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
-	'Answer2'
-),
-(
-	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 3'),
-	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
-	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
-	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
-	'Answer3'
-),
-(
-	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 4'),
-	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
-	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
-	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
-	'Answer4'
-),
-(
-	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 5'),
-	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
-	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
-	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
-	'Answer5'
-),
-(
-	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 6'),
-	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
-	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
-	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
-	'Answer6'
-),
-(
-	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 7'),
-	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
-	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
-	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
-	'Answer7'
+	1000000,100000,100000,'Question 1'
 )
 GO
 /*
@@ -2900,6 +2804,56 @@ BEGIN
 	WHERE	[QuestionID] = @QuestionID;	
 END
 GO
+
+/*
+Created by: Awaab Elamin
+Date: 2/5/2020
+Comment: Spoc to retrieve all Adoption Applications
+*/
+GO
+print '' print '*** Creating sp_get_Adoption_Application'
+GO
+Create PROCEDURE [dbo].[sp_get_Adoption_Application]
+AS
+BEGIN
+	SELECT 	[AdoptionApplicationID],
+			[CustomerID],
+			[AnimalID],
+			[Status],
+			[RecievedDate]
+	From 	[dbo].[AdoptionApplication]
+END
+GO
+
+/*
+Created by: Awaab Elamin
+Date: 2/6/2020
+Comment: Sproc retrieve animal record by its ID.
+*/
+GO
+GO
+print '' print '*** Creating sp_get_Animal_by_id'
+GO	
+Create PROCEDURE [dbo].[sp_get_animal_by_id]
+(
+	@animalId int
+)
+AS
+BEGIN
+	SELECT 	[AnimalID] ,
+			[AnimalName],
+			[Dob] ,
+			[AnimalBreed] ,
+			[ArrivalDate] ,
+			[CurrentlyHoused] ,
+			[Adoptable],
+			[Active] ,
+			[AnimalSpeciesID]			
+	FROM 	[dbo].[Animal]
+	WHERE	[AnimalID] = @animalId;	
+END
+GO
+
 /*
 Created by: Awaab Elamin
 Date: 2/15/2020
@@ -3623,3 +3577,32 @@ begin
 	from [dbo].[VolunteerShift]
 end
 go
+
+/*
+Created By: Chuck Baxter
+Date: 2/28/2020
+Comment: select animal species
+*/
+print '' print '*** Creating procedure sp_select_animal_species'
+GO
+
+CREATE PROCEDURE [sp_select_animal_species]
+AS
+BEGIN
+SELECT 	[AnimalSpeciesID]
+FROM	[dbo].[AnimalSpecies]
+END
+
+
+
+
+
+
+
+
+
+
+
+
+
+

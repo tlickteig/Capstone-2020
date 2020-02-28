@@ -13,6 +13,17 @@ namespace DataTransferObjects
     /// Approver: Daulton Schilling, 2/7/2020
     /// 
     /// an animal data trasfer object
+    /// 
+    /// <remarks>
+    /// Updater: Chuck Baxter
+    /// Updated: 2/28/2020
+    /// Update: Removed status and image location
+    /// Approver: Austin Gee
+    /// 
+    /// Updater:
+    /// Updated:
+    /// Update:
+    /// </summary>remarks>
     /// </summary>
     public class Animal
     {
@@ -21,11 +32,9 @@ namespace DataTransferObjects
         public DateTime Dob { get; set; }
         public string AnimalBreed { get; set; }
         public DateTime ArrivalDate { get; set; }
-        public string ImageLocation { get; set; }
         public bool CurrentlyHoused { get; set; }
         public bool Adoptable { get; set; }
         public bool Active { get; set; }
         public string AnimalSpeciesID { get; set; }
-        public string StatusID { get; set; }
     }
 }

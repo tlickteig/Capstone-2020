@@ -211,12 +211,10 @@ namespace DataAccessLayer
 					animal.Dob = reader.GetDateTime(2);
 					animal.AnimalBreed = reader.GetString(3);
 					animal.ArrivalDate = reader.GetDateTime(4);
-					animal.ImageLocation = reader.GetString(5);
-					animal.CurrentlyHoused = reader.GetBoolean(6);
-					animal.Adoptable = reader.GetBoolean(7);
-					animal.Active = reader.GetBoolean(8);
-					animal.AnimalSpeciesID = reader.GetString(9);
-					animal.StatusID = reader.GetString(10);
+					animal.CurrentlyHoused = reader.GetBoolean(5);
+					animal.Adoptable = reader.GetBoolean(6);
+					animal.Active = reader.GetBoolean(7);
+					animal.AnimalSpeciesID = reader.GetString(8);
 
 					animalName = animal.AnimalName;
 

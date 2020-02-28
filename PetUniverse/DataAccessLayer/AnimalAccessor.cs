@@ -31,6 +31,16 @@ namespace DataAccessLayer
         ///
         /// a data access method that uses a stored procedure to add a new animal to the database
         /// </summary>
+        /// <remarks>
+        /// Updater: Chuck Baxter
+        /// Updated: 2/28/2020
+        /// Update: Removed status and image location
+        /// Approver: Austin Gee
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
         /// <param name="animal"></param>
         /// <returns></returns>
         public int InsertAnimal(Animal animal)
@@ -45,9 +55,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@Dob", animal.Dob);
             cmd.Parameters.AddWithValue("@AnimalBreed", animal.AnimalBreed);
             cmd.Parameters.AddWithValue("@ArrivalDate", animal.ArrivalDate);
-            cmd.Parameters.AddWithValue("@ImageLocation", animal.ImageLocation);
             cmd.Parameters.AddWithValue("@AnimalSpeciesID", animal.AnimalSpeciesID);
-            cmd.Parameters.AddWithValue("@StatusID", animal.StatusID);
 
             try
             {
@@ -77,9 +85,14 @@ namespace DataAccessLayer
         /// need to add a default imagelocation later
         /// </summary>
         /// <remarks>
+        /// Updater: Chuck Baxter
+        /// Updated: 2/28/2020
+        /// Update: Removed status and image location
+        /// Approver: Austin Gee
+        /// 
         /// Updater:
         /// Updated:
-        /// Update
+        /// Update:
         /// </remarks>
         /// <param name="active"></param>
         /// <returns>a list of animal objects</returns>
@@ -116,20 +129,10 @@ namespace DataAccessLayer
                         }
                         animal.AnimalBreed = reader.GetString(3);
                         animal.ArrivalDate = reader.GetDateTime(4);
-                        if (reader.IsDBNull(5))
-                        {
-                            // put the location of a default image here later
-                            animal.ImageLocation = "";
-                        }
-                        else
-                        {
-                            animal.ImageLocation = reader.GetString(5);
-                        }
-                        animal.CurrentlyHoused = reader.GetBoolean(6);
-                        animal.Adoptable = reader.GetBoolean(7);
-                        animal.Active = reader.GetBoolean(8);
-                        animal.AnimalSpeciesID = reader.GetString(9);
-                        animal.StatusID = reader.GetString(10);
+                        animal.CurrentlyHoused = reader.GetBoolean(5);
+                        animal.Adoptable = reader.GetBoolean(6);
+                        animal.Active = reader.GetBoolean(7);
+                        animal.AnimalSpeciesID = reader.GetString(8);
 
                         animals.Add(animal);
                     }
@@ -159,9 +162,14 @@ namespace DataAccessLayer
         /// need to add a default imagelocation later
         /// </summary>
         /// <remarks>
+        /// Updater: Chuck Baxter
+        /// Updated: 2/28/2020
+        /// Update: Removed status and image location
+        /// Approver: Austin Gee
+        /// 
         /// Updater:
         /// Updated:
-        /// Update
+        /// Update:
         /// </remarks>
         /// <param name="active"></param>
         /// <returns>a list of animal objects</returns>
@@ -198,20 +206,10 @@ namespace DataAccessLayer
                         }
                         animal.AnimalBreed = reader.GetString(3);
                         animal.ArrivalDate = reader.GetDateTime(4);
-                        if (reader.IsDBNull(5))
-                        {
-                            // put the location of a default image here later
-                            animal.ImageLocation = "";
-                        }
-                        else
-                        {
-                            animal.ImageLocation = reader.GetString(5);
-                        }
-                        animal.CurrentlyHoused = reader.GetBoolean(6);
-                        animal.Adoptable = reader.GetBoolean(7);
-                        animal.Active = reader.GetBoolean(8);
-                        animal.AnimalSpeciesID = reader.GetString(9);
-                        animal.StatusID = reader.GetString(10);
+                        animal.CurrentlyHoused = reader.GetBoolean(5);
+                        animal.Adoptable = reader.GetBoolean(6);
+                        animal.Active = reader.GetBoolean(7);
+                        animal.AnimalSpeciesID = reader.GetString(8);
 
                         animals.Add(animal);
                     }
@@ -227,6 +225,57 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return animals;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 2/28/2020
+        /// Approver: Jordan Lindo, 2/28/2020
+        /// Approver:  
+        /// 
+        /// a data access method that uses a stored procedure to select a list of strings of animal species
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param></param>
+        /// <returns>a list of animal objects</returns>
+        public List<string> SelectAnimalSpeciesID()
+        {
+            List<string> species = new List<string>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_animal_species");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        species.Add(reader.GetString(0));
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return species;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace DataAccessFakes
     {
         private List<Animal> animals;
         private List<Animal> activeAnimals;
+        private List<string> species;
 
         /// <summary>
         /// Creator: Chuck Baxter
@@ -45,12 +46,10 @@ namespace DataAccessFakes
                     Dob = DateTime.Now.Date,
                     AnimalBreed = "A",
                     ArrivalDate = DateTime.Now.Date,
-                    ImageLocation = "A",
                     CurrentlyHoused = true,
                     Adoptable = true,
                     Active = true,
                     AnimalSpeciesID = "A",
-                    StatusID = "A"
                 },
 
                 new Animal()
@@ -60,12 +59,10 @@ namespace DataAccessFakes
                     Dob = DateTime.Now.Date,
                     AnimalBreed = "B",
                     ArrivalDate = DateTime.Now.Date,
-                    ImageLocation = "B",
                     CurrentlyHoused = true,
                     Adoptable = true,
                     Active = true,
                     AnimalSpeciesID = "B",
-                    StatusID = "B"
                 }
             };
         }
@@ -197,6 +194,28 @@ namespace DataAccessFakes
                     select a).Count();
         }
 
-       
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 2/28/2020
+        /// Approver: Jordan Lindo, 2/28/2020
+        /// Approver: 
+        /// 
+        /// Fake data access that returns a list of strings for animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param ></param>
+        /// <returns>List of strings></returns>
+        public List<string> SelectAnimalSpeciesID()
+        {
+            species = new List<string>{
+                "Dog",
+                "Cat"
+            };
+            return species;
+        }
     }
 }
