@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using LogicLayer;
 using DataAccessFakes;
-using DataAccessLayer;
 using DataAccessInterfaces;
 using DataTransferObjects;
 using LogicLayerInterfaces;

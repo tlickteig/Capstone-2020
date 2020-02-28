@@ -1151,6 +1151,8 @@ CREATE TABLE [dbo].[department]
 	 [DepartmentID]			[nvarchar](50)		NOT NULL
 	,[Description]			[nvarchar](200)		NULL
 	DEFAULT NULL
+	,[Active]				[bit]
+	DEFAULT 1
 	,CONSTRAINT 			[pk_departmentID]	PRIMARY KEY ([DepartmentID]ASC)
 
 )
@@ -1205,11 +1207,12 @@ GO
  * Date: 2/5/2020
  * Comment: This is a stored procedure for selecting all department records.
  */
-CREATE PROCEDURE [sp_select_all_departments]
+CREATE PROCEDURE [sp_select_all_active_departments]
 AS
 BEGIN
 	SELECT [DepartmentID],[Description]
 	FROM [Department]
+	WHERE [Active] = 1
 END
 GO
 
