@@ -2919,3 +2919,177 @@ BEGIN
 	WHERE	[CustomerID] = @CustomerID;	
 END
 GO
+
+/*
+Created by: Jaeho Kim
+Date: 2/26/2020
+Comment: Create TransactionStatus Table
+*/
+
+print '' print '*** Creating TransactionStatus Table'
+GO
+CREATE TABLE [dbo].[TransactionStatus](
+	[TransactionStatusID] 	[nvarchar](20) NOT NULL,
+	[Description] 			[nvarchar](500) NOT NULL,
+	
+	CONSTRAINT [pk_TransactionStatus_TransactionStatusID] PRIMARY KEY ([TransactionStatusID] ASC)
+)
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 02/27/2020
+Comment: Inserts test data for the TransactionStatus Table
+*/
+print ''  print '*** Inserting sample data into TransactionStatus Table'
+GO
+
+Insert INTO [dbo].[TransactionStatus]
+	([TransactionStatusID], [Description])
+	Values
+	('tranStatus100', 'description 100'),
+	('tranStatus200', 'description 200'),
+	('tranStatus500', 'description 500'),
+	('tranStatus800', 'description 800')
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2/26/2020
+Comment: Create TransactionType Table
+*/
+
+print '' print '*** Creating TransactionType Table'
+GO
+CREATE TABLE [dbo].[TransactionType](
+	[TransactionTypeID] 	[nvarchar](20) 		NOT NULL,
+	[Description] 			[nvarchar](500) 	NOT NULL,
+	
+	CONSTRAINT [pk_TransactionType_TransactionTypeID] PRIMARY KEY ([TransactionTypeID] ASC)
+)
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 02/27/2020
+Comment: Inserts test data for the TransactionType Table
+*/
+print ''  print '*** Inserting sample data into TransactionType Table'
+GO
+
+Insert INTO [dbo].[TransactionType]
+	([TransactionTypeID], [Description])
+	Values
+	('tranTYPE100', 'TYPEdescription 100'),
+	('tranTYPE200', 'TYPEdescription 200'),
+	('tranTYPE500', 'TYPEdescription 500'),
+	('tranTYPE800', 'TYPEdescription 800')
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2/26/2020
+Comment: Create Transaction Table
+*/
+
+print '' print '*** Creating Transaction Table'
+GO
+CREATE TABLE [dbo].[Transaction](
+	[TransactionID] 		[int]IDENTITY(1000,1)	NOT NULL,
+	[EmployeeID] 			[int] 				 	NOT NULL,
+	[TransactionStatusID] 	[nvarchar](20) 				NOT NULL,
+	[TransactionTypeID] 	[nvarchar](20) 				NOT NULL,
+	[TransactionDate] 		[datetime]				NOT NULL,
+	[Notes] 				[nvarchar](500)		    NOT NULL,
+	
+	CONSTRAINT [pk_Transaction_TransactionID] PRIMARY KEY ([TransactionID] ASC),
+	CONSTRAINT [fk_Transaction_EmployeeID] FOREIGN KEY ([EmployeeID])
+		REFERENCES [User]([UserID]) ON UPDATE CASCADE,
+	CONSTRAINT [fk_Transaction_TransactionStatusID] FOREIGN KEY ([TransactionStatusID])
+		REFERENCES [TransactionStatus]([TransactionStatusID]) ON UPDATE CASCADE,
+	CONSTRAINT [fk_Transaction_TransactionTypeID] FOREIGN KEY ([TransactionTypeID])
+		REFERENCES [TransactionType]([TransactionTypeID])  ON UPDATE CASCADE
+)
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 02/27/2020
+Comment: Inserts test data for the Transaction Table
+*/
+print ''  print '*** Inserting sample data into Transaction Table'
+GO
+
+Insert INTO [dbo].[Transaction]
+	([EmployeeID], [TransactionStatusID], [TransactionTypeID], [TransactionDate], [Notes])
+	Values
+	(100000, 'tranStatus100','tranTYPE100', '2018-02-10', 'TRAN_NOTES100'),
+	(100001, 'tranStatus200','tranTYPE200', '2017-02-06', 'TRAN_NOTES200'),
+	(100002, 'tranStatus800','tranTYPE800', '2012-04-03', 'TRAN_NOTES800')
+Go
+
+/*
+Created by: Jaeho Kim
+Date: 2/27/2020
+Comment: Create TransactionLine Table
+*/
+
+print '' print '*** Creating TransactionLine Table'
+GO
+CREATE TABLE [dbo].[TransactionLine](
+	[TransactionID] 		[int] 		NOT NULL,
+	[ProductID] 			[nvarchar](13) 	NOT NULL,
+	[Quantity]				[int]			NOT NULL,
+	
+	CONSTRAINT [fk_TransactionLine_TransactionID] FOREIGN KEY ([TransactionID])
+		REFERENCES [Transaction]([TransactionID]) ON UPDATE CASCADE,
+	CONSTRAINT [fk_TransactionLine_ProductID] FOREIGN KEY ([ProductID])
+		REFERENCES [Product]([ProductID]) ON UPDATE CASCADE
+)
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 02/27/2020
+Comment: Inserts test data for the TransactionLine Table
+*/
+print ''  print '*** Inserting sample data into TransactionLine Table'
+GO
+
+Insert INTO [dbo].[TransactionLine]
+	([TransactionID], [ProductID], [Quantity])
+	Values
+	(1000, '7084781116', 5),
+	(1000, '2500006153', 3),
+	(1002, '2500006153', 9)
+Go
+
+/*
+Created by: Jaeho Kim
+Date: 2/27/2020
+Comment: Selects a list of all transactions with join tables for the customer
+*/
+print '' print '*** Creating sp_select_all_transactions'
+GO
+CREATE PROCEDURE sp_select_all_transactions
+AS
+	BEGIN
+		SELECT 	
+		TL.[TransactionID]
+		, TL.[Quantity]
+		, P.[ProductName]
+		, P.[Brand]
+		, P.[Price]
+		, T.[TransactionDate]
+		, T.[TransactionTypeID]
+		, T.[Notes]
+		
+		FROM 	[TransactionLine] TL
+		INNER JOIN [Product] P
+			ON TL.[ProductID] = P.[ProductID]
+		INNER JOIN [Transaction] T
+			ON TL.[TransactionID] = T.[TransactionID]
+		INNER JOIN [TransactionType] TT
+			ON TT.[TransactionTypeID] = T.[TransactionTypeID]
+	END
+GO

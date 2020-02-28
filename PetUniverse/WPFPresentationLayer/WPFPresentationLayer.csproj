@@ -124,6 +124,9 @@
     <Compile Include="PoSPages\InventoryItems.xaml.cs">
       <DependentUpon>InventoryItems.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PoSPages\ViewAllTransactions.xaml.cs">
+      <DependentUpon>ViewAllTransactions.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SystemAdminPages\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\InventoryItems.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PoSPages\ViewAllTransactions.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -67,6 +67,8 @@
     <Compile Include="Request.cs" />
     <Compile Include="RequestVM.cs" />
     <Compile Include="States.cs" />
+    <Compile Include="Transaction.cs" />
+    <Compile Include="TransactionVM.cs" />
     <Compile Include="VolunteerTask.cs" />
     <Compile Include="VolunteerTaskVM.cs" />
   </ItemGroup>

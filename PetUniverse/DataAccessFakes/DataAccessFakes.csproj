@@ -59,6 +59,7 @@
     <Compile Include="FakeRequestAccessor.cs" />
     <Compile Include="FakeReviewerAccessor.cs" />
     <Compile Include="FakeShiftTimeAccessor.cs" />
+    <Compile Include="FakeTransactionAccessor.cs" />
     <Compile Include="FakeUserAccessor.cs" />
     <Compile Include="FakeVolunteerTaskAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

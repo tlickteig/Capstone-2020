@@ -61,6 +61,7 @@
     <Compile Include="RequestAccessor.cs" />
     <Compile Include="ReviewerAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
+    <Compile Include="TransactionAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
     <Compile Include="VolunteerTaskAccessor.cs" />
   </ItemGroup>
