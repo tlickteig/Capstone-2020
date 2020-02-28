@@ -59,6 +59,7 @@
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
+    <Compile Include="ITrainingVideoAccessor.cs" />
     <Compile Include="ITransactionAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
     <Compile Include="IVolunteerTaskAccessor.cs" />

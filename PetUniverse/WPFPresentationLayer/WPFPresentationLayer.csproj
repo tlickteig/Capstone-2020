@@ -115,6 +115,9 @@
     <Compile Include="PersonnelPages\frameShiftTime.xaml.cs">
       <DependentUpon>frameShiftTime.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonnelPages\frameTrainingVideos.xaml.cs">
+      <DependentUpon>frameTrainingVideos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PersonnelPages\ViewAllRoles.xaml.cs">
       <DependentUpon>ViewAllRoles.xaml</DependentUpon>
     </Compile>
@@ -197,6 +200,10 @@
     <Page Include="PersonnelPages\frameShiftTime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PersonnelPages\frameTrainingVideos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PersonnelPages\ViewAllRoles.xaml">
       <SubType>Designer</SubType>

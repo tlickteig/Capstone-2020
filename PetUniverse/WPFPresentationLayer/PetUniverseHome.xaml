@@ -346,8 +346,11 @@
                         <Frame Source="./PersonnelPages/frameShiftTime.xaml"></Frame>
                     </Grid>
                 </TabItem>
+                <TabItem x:Name="tabTrainingVideos" Header="Training Videos" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./PersonnelPages/frameTrainingVideos.xaml"></Frame>
+                </TabItem>
 
-             <!-- Creator: Kaleb Bachert
+                <!-- Creator: Kaleb Bachert
                  Date: 2/23/2020
                  CHECKED BY: Zach Behrensmeyer
              
@@ -377,8 +380,7 @@
                         </Canvas>
                     </Grid>
                 </TabItem>
-
-                <DockPanel Height="100" LastChildFill="False" Width="100"/>
+                
             </TabControl>
         </Canvas>
 

@@ -1482,7 +1482,7 @@ INSERT INTO [dbo].[Customer]
 	(100001),
 	(100002),
 	(100003),
-	((SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))
+	((SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))
 GO
 
 /*
@@ -1534,7 +1534,7 @@ INSERT INTO [dbo].[AdoptionApplication]
 	(100002,1000002,'Waitng for Pickup','2019-10-9'),
 	(
 		((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
 		(SELECT [AnimalID]FROM[dbo].[Animal]WHERE [Animal].[AnimalName] = 'Paul'),
 		'Reviewer',
 		'2020-01-01'
@@ -2601,7 +2601,7 @@ BEGIN
 	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
 			Decision,LocationID,Active
 	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = "inHomeInspection"
+	WHERE	[AppointmentTypeID] = 'inHomeInspection'
 END
 GO
 
@@ -2781,65 +2781,65 @@ VALUES
 (
 	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 1'),
 	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
 	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
 	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
 	'Answer1'
 
 ),
 (
 	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 2'),
 	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
 	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
 	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
 	'Answer2'
 ),
 (
 	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 3'),
 	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
 	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
 	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
 	'Answer3'
 ),
 (
 	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 4'),
 	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
 	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
 	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
 	'Answer4'
 ),
 (
 	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 5'),
 	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
 	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
 	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
 	'Answer5'
 ),
 (
 	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 6'),
 	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
 	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
 	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
 	'Answer6'
 ),
 (
 	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 7'),
 	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
 	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
 	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))))),
 	'Answer7'
 )
 GO
@@ -3092,4 +3092,196 @@ AS
 		INNER JOIN [TransactionType] TT
 			ON TT.[TransactionTypeID] = T.[TransactionTypeID]
 	END
+GO
+
+/*
+Created by: Alex Diers
+Date: 2/28/2020
+Comment: Creates the table for Training Videos
+*/
+print '' print '*** Creating TrainingVideo Table'
+GO
+
+CREATE TABLE [dbo].[TrainingVideo](
+	[TrainingVideoID] 		[nvarchar](150)				NOT NULL,
+	[RunTimeMinutes] 		[int] 						NOT NULL,
+	[RunTimeSeconds] 		[int] 						NOT NULL,
+	[Description] 			[nvarchar] (1000) 			NOT NULL,
+	CONSTRAINT [pk_TrainingVideoID] 			PRIMARY KEY ([TrainingVideoID] ASC)
+)
+GO
+
+/*
+Created by: Alex Diers
+Date: 2/28/2020
+Comment: Creates sample training video information
+*/
+print '' print '*** Creating Sample Training Video Records'
+GO
+INSERT INTO [dbo].[TrainingVideo]
+	([TrainingVideoID], [RunTimeMinutes], [RunTimeSeconds], [Description])
+	VALUES
+    ('Link', 1, 25, 'Description'),
+    ('AnotherLink', 2, 5, 'Another description')
+GO
+
+/*
+Created by: Alex Diers
+Date: 2/28/2020
+Comment: Stored procedure to add a training video
+*/
+print '' print '*** Creating sp_insert_training_video'
+GO
+CREATE PROCEDURE [sp_insert_training_video]
+(
+	@TrainingVideoID	[nvarchar](150),
+	@RunTimeMinutes		[int],
+	@RunTimeSeconds 	[int],
+	@Description 		[nvarchar](1000)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[TrainingVideo]
+		([TrainingVideoID], [RunTimeMinutes], [RunTimeSeconds], [Description])
+	VALUES
+		(@TrainingVideoID, @RunTimeMinutes, @RunTimeSeconds, @Description)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Alex Diers
+Date: 2/28/2020
+Comment: Stored procedure to select the videos to watch
+*/
+print '' print '*** Creating sp_select_videos_by_employee'
+GO
+CREATE PROCEDURE [sp_select_videos_by_employee]
+AS
+	BEGIN
+	SELECT	[TrainingVideoID], [RunTimeMinutes], [RunTimeSeconds], [Description]
+	FROM		[TrainingVideo]
+	ORDER BY [TrainingVideoID]
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/14/2020
+Comment: Sproc to select facility maintenance by id
+*/
+
+print '' print '*** Creating sp_select_facility_maintenance_by_id'
+GO
+CREATE PROCEDURE [sp_select_facility_maintenance_by_id]
+(
+    @FacilityMaintenanceID                        	[int]
+
+)
+AS
+BEGIN
+    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
+            [MaintenanceInterval], [MaintenanceDescription]
+    FROM [dbo].[FacilityMaintenance] 
+	WHERE [FacilityMaintenanceID] = @FacilityMaintenanceID
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/14/2020
+Comment: Sproc to select all facility maintenance
+*/
+print '' print '*** Creating sp_select_all_facility_maintenance'
+GO
+CREATE PROCEDURE [sp_select_all_facility_maintenance]
+AS
+BEGIN
+    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
+            [MaintenanceInterval], [MaintenanceDescription]
+    FROM [dbo].[FacilityMaintenance] 
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/14/2020
+Comment: Sproc to select facility maintenance by user id
+*/
+print '' print '*** Creating sp_select_facility_maintenance_by_user_id'
+GO
+CREATE PROCEDURE [sp_select_facility_maintenance_by_user_id]
+(
+    @UserID                        	[int]
+
+)
+AS
+BEGIN
+    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
+            [MaintenanceInterval], [MaintenanceDescription]
+    FROM [dbo].[FacilityMaintenance] 
+	WHERE [UserID] = @UserID
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/14/2020
+Comment: Sproc to select facility maintenance by name
+*/
+print '' print '*** Creating sp_select_facility_maintenance_by_name'
+GO
+CREATE PROCEDURE [sp_select_facility_maintenance_by_name]
+(
+    @MaintenanceName                        	[nvarchar](50)
+
+)
+AS
+BEGIN
+    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
+            [MaintenanceInterval], [MaintenanceDescription]
+    FROM [dbo].[FacilityMaintenance] 
+	WHERE [MaintenanceName] = @MaintenanceName
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/14/2020
+Comment: Sproc to update facility maintenance
+*/
+print '' print '*** Creating sp_update_facility_maintenance '
+GO
+CREATE PROCEDURE [sp_update_facility_maintenance]
+(
+	@FacilityMaintenanceID          	[int],
+    @OldUserID                        	[int],
+    @OldMaintenanceName            		[nvarchar](50),
+    @OldMaintenanceInterval         	[nvarchar](20),
+    @OldMaintenanceDescription     		[nvarchar](250),
+	@NewUserID                        	[int],
+    @NewMaintenanceName            		[nvarchar](50),
+    @NewMaintenanceInterval         	[nvarchar](20),
+    @NewMaintenanceDescription     		[nvarchar](250)
+
+)
+AS
+BEGIN
+    UPDATE 	[dbo].[FacilityMaintenance]
+	SET 	[UserID] = @NewUserID,
+			[MaintenanceName] = @NewMaintenanceName,
+			[MaintenanceInterval] = @NewMaintenanceInterval,
+			[MaintenanceDescription] = @NewMaintenanceDescription
+			
+	WHERE   [FacilityMaintenanceID] = @FacilityMaintenanceID
+		AND	[UserID] = @OldUserID
+		AND	[MaintenanceName] = @OldMaintenanceName
+		AND	[MaintenanceInterval] = @OldMaintenanceInterval
+		AND	[MaintenanceDescription] = @OldMaintenanceDescription
+	 RETURN @@ROWCOUNT
+
+END
 GO
