@@ -234,9 +234,14 @@ GO
 Created by: Chuck Baxter
 Date: 2/8/2020
 Comment: Place Holder for animal species
+
+Updated by: Austin Gee
+Date: 2/21/2020
+Comment: Added Description Field.
 */
 CREATE TABLE [dbo].[AnimalSpecies](
 	[AnimalSpeciesID]	[nvarchar](100)				NOT NULL,
+	[Description]		[nvarchar](1000)					,
 	CONSTRAINT [pk_AnimalSpeciesID] PRIMARY KEY([AnimalSpeciesID] ASC)
 )
 GO
@@ -1530,25 +1535,6 @@ END
 GO
 
 
-
-/*
-Created by: Mohamed Elamin
-Date: 02/18/2020
-Comment: Sproc to gets ALL Adoption applictions where thier status is inHomeInspection
-*/
-print '' print '*** Creating sp_select_inHomeInspectionAppointments_by_AppointmentType'
-GO
-CREATE PROCEDURE [sp_select_inHomeInspectionAppointments_by_AppointmentType]	
-AS
-BEGIN
-	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
-			Decision,LocationID,Active
-	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = "inHomeInspection"
-END
-GO
-
-
 /*
 Created by: Mohamed Elamin
 Date: 02/18/2020
@@ -1566,7 +1552,7 @@ CREATE PROCEDURE [sp_update_AdoptionApliction]
 	@NewDecision		  [nvarchar](50),
 	
 	
-	@OldNotes    		[nvarchar](50),
+	@OldNotes    		[nvarchar](1000),
 	@OldDecision		[nvarchar](50)
 	
 )
@@ -1582,13 +1568,12 @@ BEGIN
 	RETURN  @@ROWCOUNT
 END
 GO
-
-
 /*
 Created by: Thomas Dupuy
 Date: 2/6/2020
 Comment: Creats AppointmentType Table
-
+*/
+/*
 print '' print '*** Creating AppointmentType Table'
 GO
 CREATE TABLE [dbo].[AppointmentType](
@@ -1597,59 +1582,105 @@ CREATE TABLE [dbo].[AppointmentType](
 	CONSTRAINT [pk_AppointmentTypeID] PRIMARY KEY([AppointmentTypeID] ASC)
 )
 GO
-
+*/
 
 /*
 Created by: Thomas Dupuy
 Date: 2/6/2020
 Comment: Creats Appointment Table
-
+*/
+/*
 print '' print '*** Creating Appointment Table'
 GO
 CREATE TABLE [dbo].[Appointment](
-	[AppointmentID] 		[int] IDENTITY(1000,1)			NOT NULL,
-	[AdoptionApplicationID]	[int]							NOT NULL,
-	[AppointmentTypeID] 	[nvarchar](150) 				NOT NULL,
-	[DateTime] 				[smalldatetime]					NOT NULL,
-	[Notes] 				[nvarchar](1000) 					NULL,
-	[Decicion] 				[nvarchar](50) 						NULL,
-	[Location] 				[nvarchar](100) 				NOT NULL,
+	[AppointmentID] 			[int] IDENTITY(1000,1)			NOT NULL,
+	[AdoptionApplicationID]		[int]							NOT NULL,
+	[AppointmentTypeID] 		[nvarchar](150) 				NOT NULL,
+	[DateTime] 					[smalldatetime]					NOT NULL,
+	[Notes] 					[nvarchar](1000) 					NULL,
+	[Decicion] 					[nvarchar](50) 						NULL,
+	[Location] 					[nvarchar](100) 				NOT NULL,
 	CONSTRAINT [pk_AppointmentID] PRIMARY KEY([AppointmentID] ASC)
+)
+GO
+*/
+
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Table that holds the various appointment types for adoption appointments
+*/
+print '' print '*** Creating AppointmentType Table'
+GO
+CREATE TABLE [dbo].[AppointmentType](
+	[AppointmentTypeID]		[nvarchar]	(100)	NOT NULL,
+	[Description]			[nvarchar]	(1000)			,
+	CONSTRAINT [pk_AppointmentTypeID] PRIMARY KEY ([AppointmentTypeID])
+)
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This Table holds locations in general. It is used by Adoptions to
+	track locations of various appointments.
+*/
+print '' print '*** Creating Location Table'
+GO
+CREATE TABLE [dbo].[Location](
+	[LocationID]	[int]	IDENTITY(1000000,1)		NOT NULL,
+	[Name]			[nvarchar]	(100)						,
+	[Address1]		[nvarchar]	(100)				NOT NULL,
+	[Address2]		[nvarchar]	(100)						,
+	[City]			[nvarchar]	(100)				NOT NULL,
+	[State]			[nvarchar]	(2)					NOT NULL,
+	[Zip]			[nvarchar]	(20)				NOT NULL,
+	CONSTRAINT [pk_LocationID] PRIMARY KEY	([LocationID])
+)
+GO
+
+print '' print '*** Creating Sample Location Records'
+GO
+INSERT INTO [dbo].[Location]
+	([Name],[Address1],[Address2],[City],[State],[Zip])
+	VALUES
+	('Shelter','123 here we go lane',null,'Good Town','ST','12345'),
+	(null,'123 2nd St',null,'Bad City','ST','12345'),
+	(null,'555 Oak St.',null,'Far Away Town','ST','12345'),
+	(null,'9090 Ninety Rd.','Apt # 4','Good Town','ST','12345')
+GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This table holds data regarding various adoption related appointments.
+*/
+print '' print '*** Creating Appointment Table'
+GO
+CREATE TABLE [dbo].[Appointment](
+	[AppointmentID]			[int]	IDENTITY(1000000,1)		NOT NULL,
+	[AdoptionApplicationID]	[int]							NOT NULL,
+	[AppointmentTypeID]		[nvarchar]	(100)				NOT NULL,
+	[DateTime]				[datetime]						NOT NULL,
+	[Notes]					[nvarchar]	(1000)						,
+	[Decision]				[nvarchar]	(50)						,
+	[LocationID]			[int]							NOT NULL,
+	[Active]				[bit]	DEFAULT 1				NOT NULL,			
+	CONSTRAINT [pk_AppointmentID] PRIMARY KEY ([AppointmentID]),
+	CONSTRAINT [fk_Appointment_AdoptionApplication_AdoptionApplicationID] FOREIGN KEY ([AdoptionApplicationID])
+		REFERENCES [AdoptionApplication] ([AdoptionApplicationID]),
+	CONSTRAINT [fk_Appointment_AppointmentType_AppointmentTypeID] FOREIGN KEY ([AppointmentTypeID])
+		REFERENCES [AppointmentType] ([AppointmentTypeID]),
+	CONSTRAINT [fk_Appointment_Location_LocationID] FOREIGN KEY ([LocationID])
+		REFERENCES [Location] ([LocationID])
 )
 GO
 
 
-/*
-Created by: Thomas Dupuy
-Date: 2/6/2020
-Comment: Creats Sample Appointment Records
-
-print '' print '*** Creating Sample Appointment Records'
-GO
-INSERT INTO [dbo].[Appointment]
-	([AdoptionApplicationID], [AppointmentTypeID], [DateTime], [Notes], [Decicion], [Location])
-	VALUES
-	('1000000', 'InHomeInspection', '2020-04-02 12:30:00', '', 'Undesided', '123 Real Ave, Marion IA'),
-	('1000001', 'InHomeInspection', '1984-03-06 16:15:00', '', 'Undesided', '654 Notreal Blvd, Marion IA')
-GO
 
 
-/*
-Created by: Thomas Dupuy
-Date: 2/20/2020
-Comment: Sproc to pull list of all appointments
 
-print '' print '*** sp_get_all_appointments'
-GO
-CREATE PROCEDURE [sp_get_all_appointments]
-AS
-BEGIN
-	SELECT 	[AdoptionApplicationID], [AppointmentTypeID], [DateTime], [Notes], [Decicion], [Location]            
-	FROM Appointment
-END
-GO
 
-*/
 
 /*
 Created by: Cash Carlson
@@ -2277,4 +2308,326 @@ BEGIN
 	WHERE [TaskName] = @TaskName
 	SELECT SCOPE_IDENTITY()
 END 
+GO
+
+
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This adds some ample user records to the database.
+*/
+print '' print '*** Creating Sample User Records'
+GO
+INSERT INTO [dbo].[User]
+	([FirstName],[LastName],[PhoneNumber],[Email],[City],[State],[Zipcode])
+	VALUES
+	('Austin','Gee','1234567890','Austin@email.com','Cedar Rapids','IA','52404'),
+	('Bill','Buffalo','1234567890','Bill@email.com','Cedar Rapids','IA','52404'),
+	('Brad','Bean','1234567890','Brad@email.com','Iowa City','IA','52404'),
+	('Barb','Brinoll','1234567890','Barb@email.com','Cedar Rapids','IA','52404')
+GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This adds some sample customer records to the Customer table.
+*/
+print '' print '*** Creating Sample Customer Records'
+GO
+INSERT INTO [dbo].[Customer]
+	([UserID])
+	VALUES
+	(100000),
+	(100001),
+	(100002),
+	(100003)
+GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This adds AnimalSpecies records to the AnimalSpecies table.
+*/
+print '' print '*** Creating Sample AnimalSpecies Records'
+GO
+INSERT INTO [dbo].[AnimalSpecies]
+	([AnimalSpeciesID],[Description])
+	VALUES
+	('Dog','This is a dog'),
+	('Cat','Your commmon house cat'),
+	('Rat','The fancy rat')
+GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Adds Animal records to the Animal table
+*/
+print '' print '*** Creating Sample Animal Records'
+GO
+INSERT INTO [dbo].[Animal]
+	([AnimalName],[Dob],[AnimalSpeciesID],[AnimalBreed],[ArrivalDate],[StatusID])
+	VALUES
+	('Spot','07-12-1984','Dog','Blood Hound','10-10-2019','A'),
+	('Spit','07-12-1984','Cat','Tabby','10-10-2019','A'),
+	('Simon','07-12-1984','Rat','Siamese','10-10-2019','A')
+GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Adds adoption appliacation records to the AdoptionApplication table.
+*/
+print '' print '*** Creating Sample AdoptionApplication Records'
+GO
+INSERT INTO [dbo].[AdoptionApplication]
+	([CustomerID],[AnimalID],[Status],[RecievedDate])
+	VALUES
+	(100000,1000000,'Interview Stage','2019-10-9'),
+	(100001,1000001,'Reviewing Application','2019-10-9'),
+	(100002,1000002,'Waitng for Pickup','2019-10-9')
+GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Adds AppointmentType Records to the AppointmentType table.
+*/
+print '' print '*** Creating Sample AppointmentType Records'
+GO
+INSERT INTO [dbo].[AppointmentType]
+	([AppointmentTypeID],[Description])
+	VALUES
+	('Meet and Greet','This is where the Adoption Customer will meet the animal while the facilitator is present'),
+	('inHomeInspection','This is where the Interviewer will interview the Adoption Customer')
+GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Adds sample Appointment records to the Appointment table.
+*/
+print '' print '*** Creating Sample Appointment Records'
+GO
+INSERT INTO [dbo].[Appointment]
+	([AdoptionApplicationID],[AppointmentTypeID],[DateTime],[Notes],[Decision],[LocationID])
+	VALUES
+	(100000,'inHomeInspection','2020-2-22 10am','','',1000000),
+	(100001,'Meet and Greet','2020-2-22 9am','','',1000000),
+	(100002,'inHomeInspection','2020-2-22 12pm','','',1000000)
+GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Stored Procedure that selects Adoption Customers by active status
+*/
+print '' print '*** Creating sp_select_adoption_customers_by_active'
+GO
+CREATE PROCEDURE [sp_select_adoption_customers_by_active]
+(
+	@Active			[bit]
+)
+AS
+BEGIN
+	SELECT 
+	[User].[UserID]
+	,[FirstName]
+	,[LastName]
+	,[PhoneNumber]
+	,[Email]
+	,[User].[Active]
+	,[City],[State]
+	,[Zipcode]
+	,[Customer].[CustomerID]
+	,[Animal].[AnimalID]
+	,[Status],[AdoptionApplication].[RecievedDate]
+	,[AnimalName]
+	,[AnimalBreed]
+	,[Animal].[ArrivalDate]
+	,[CurrentlyHoused]
+	,[Adoptable]
+	,[Animal].[Active]
+	,[AdoptionApplication].[AdoptionApplicationID]
+	,[AnimalSpeciesID]
+	FROM [User] JOIN [Customer] ON [User].[UserID] = [Customer].[UserID]
+	JOIN [AdoptionApplication] ON [Customer].[CustomerID] = [AdoptionApplication].[CustomerID]
+	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
+	WHERE [Customer].[UserID] IS NOT NULL
+	AND [User].[Active] = @Active
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Stored Procedure that selects adoption appointments by active and type.
+*/
+print '' print '*** Creating sp_select_adoption_appointments_by_active_and_type'
+GO
+CREATE PROCEDURE [sp_select_adoption_appointments_by_active_and_type]
+(
+	@Active				[int] 			,
+	@AppointmentTypeID	[nvarchar] (100)
+)
+AS
+BEGIN
+	SELECT 
+	[AppointmentID]
+	,[AdoptionApplication].[AdoptionApplicationID]
+	,[Appointment].[AppointmentTypeID]
+	,[Appointment].[DateTime]
+	,[Appointment].[Notes]
+	,[Appointment].[Decision]
+	,[Location].[LocationID]
+	,[Appointment].[Active]
+	,[Customer].[CustomerID]
+	,[Animal].[AnimalID]
+	,[AdoptionApplication].[Status]
+	,[AdoptionApplication].[RecievedDate]
+	,[Location].[Name]
+	,[Location].[Address1]
+	,[Location].[Address2]
+	,[Location].[City]
+	,[Location].[State]
+	,[Location].[Zip]
+	,[Customer].[UserID]
+	,[User].[FirstName]
+	,[User].[LastName]
+	,[User].[PhoneNumber]
+	,[User].[Email]
+	,[User].[Active]
+	,[User].[City]
+	,[User].[State]
+	,[User].[Zipcode]
+	,[Animal].[AnimalName]
+	,[Animal].[Dob]
+	,[Animal].[AnimalSpeciesID]
+	,[Animal].[AnimalBreed]
+	,[Animal].[ArrivalDate]
+	,[Animal].[CurrentlyHoused]
+	,[Animal].[Adoptable]
+	,[Animal].[Active]
+	FROM [Appointment] JOIN [AdoptionApplication] ON [AdoptionApplication].[AdoptionApplicationID] = [Appointment].[AdoptionApplicationID]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	JOIN [Customer] ON [AdoptionApplication].[CustomerID] = [Customer].[CustomerID]
+	JOIN [Animal] ON [AdoptionApplication].[AnimalID] = [Animal].[AnimalID]
+	JOIN [User] ON [Customer].[UserID] = [User].[UserID]
+	WHERE [Appointment].[Active] = @Active
+	AND	[Appointment].[AppointmentTypeID] = @AppointmentTypeID
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
+
+/*
+Created by: Mohamed Elamin
+Date: 02/18/2020
+Comment: Sproc to gets ALL Adoption applictions where thier status is inHomeInspection
+*/
+print '' print '*** Creating sp_select_inHomeInspectionAppointments_by_AppointmentType'
+GO
+CREATE PROCEDURE [sp_select_inHomeInspectionAppointments_by_AppointmentType]	
+AS
+BEGIN
+	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
+			Decision,LocationID,Active
+	FROM 	[dbo].[Appointment]
+	WHERE	[AppointmentTypeID] = "inHomeInspection"
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Employee table
+*/
+print '' print '*** Creating employee table'
+GO
+CREATE TABLE [dbo].[employee] (
+	[EmployeeID]	[int]IDENTITY(1000000,1)	NOT NULL,
+	[FirstName]		[nvarchar](50)				NOT NULL
+	CONSTRAINT [pk_EmployeeID] PRIMARY KEY ([EmployeeID] ASC)
+)
+GO
+
+
+
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Table that holds different types of requests
+*/
+print '' print '*** Creating requestType table'
+GO
+CREATE TABLE [dbo].[requestType] (
+	[RequestTypeID]		[nvarchar](50)		NOT NULL,
+	[Description]		[nvarchar](250)			NULL,
+	CONSTRAINT [pk_RequestTypeID] PRIMARY KEY ([RequestTypeID] ASC)
+)
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Table that holds each submitted request
+*/
+print '' print '*** Creating request table'
+GO
+CREATE TABLE [dbo].[request] (
+	[RequestID]				[int]IDENTITY(1000000,1)	NOT NULL,
+	[RequestTypeID]			[nvarchar](50)				NOT NULL,
+	[EffectiveStart]		[datetime]					NOT NULL,
+	[EffectiveEnd]			[datetime]						NULL,
+	[ApprovalDate]			[datetime]						NULL,
+	[RequestingEmployeeID]	[int]						NOT NULL,
+	[ApprovingUserID]		[int]							NULL,
+	[Open]					[bit]			  NOT NULL DEFAULT 1,
+	CONSTRAINT [pk_RequestID] PRIMARY KEY ([RequestID] ASC),
+	CONSTRAINT [fk_request_requestTypeID] FOREIGN KEY([RequestTypeID])
+		REFERENCES [requestType]([RequestTypeID]) ON UPDATE CASCADE,
+	CONSTRAINT [fk_request_requestingEmployeeID] FOREIGN KEY ([RequestingEmployeeID])
+		REFERENCES [employee]([EmployeeID]),
+	CONSTRAINT [fk_request_approvingUserID] FOREIGN KEY ([ApprovingUserID])
+		REFERENCES [user]([UserID])
+)
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Method to retrieve all submitted requests
+*/
+print '' print '*** Creating sp_select_all_requests'
+GO
+CREATE PROCEDURE [sp_select_all_requests]
+AS
+BEGIN
+	SELECT [RequestID], [RequestTypeID], [EffectiveStart], [EffectiveEnd], 
+		   [ApprovalDate], [RequestingEmployeeID], [ApprovingUserID]
+	FROM [dbo].[request]
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/19/2020
+Comment: Method to approve a specified request
+*/
+print '' print '*** Creating sp_approve_request'
+GO
+CREATE PROCEDURE [sp_approve_request]
+	@RequestID		[int],
+	@UserID			[int]
+AS
+BEGIN
+	UPDATE [dbo].[request]
+	SET [ApprovingUserID] = @UserID,
+		[ApprovalDate] = GETDATE()
+	WHERE [RequestID] = @RequestID
+	AND [ApprovingUserID] IS NULL
+	AND [Open] = 1
+	SELECT @@ROWCOUNT
+END
 GO
