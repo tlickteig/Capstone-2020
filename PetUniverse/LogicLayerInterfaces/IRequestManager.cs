@@ -45,5 +45,79 @@ namespace LogicLayer
         /// <param name="requestID"></param>
         /// <param name="userID"></param>
         int ApproveRequest(int requestID, int userID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/13
+        /// Approver: Derek Taylor
+        ///
+        /// Interface method for selecting New DepartmentRequests
+        /// based on list of DepartmentIDs
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="deptIDs"></param>
+        /// <returns></returns>
+        List<DepartmentRequest> RetrieveNewRequestsByDepartmentID(List<string> deptIDs);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/13
+        /// Approver:  Derek Taylor
+        ///
+        /// Interface method for selecting Active DepartmentRequests
+        /// based on list of DepartmentIDs
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="deptIDs"></param>
+        /// <returns></returns>
+        List<DepartmentRequest> RetrieveActiveRequestsByDepartmentID(List<string> deptIDs);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/13
+        /// Approver: Derek Taylor
+        ///
+        /// Interface method for selecting Complete DepartmentRequests
+        /// based on list of DepartmentIDs
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="deptIDs"></param>
+        /// <returns></returns>
+        List<DepartmentRequest> RetrieveCompleteRequestsByDepartmentID(List<string> deptIDs);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/22
+        /// Approver: Derek Taylor
+        ///
+        /// Interface method for selecting DepartmentIDs based on a UserID
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        List<string> RetrieveAllDepartmentIDsByUserID(int userId);
+
+
+
     }
 }

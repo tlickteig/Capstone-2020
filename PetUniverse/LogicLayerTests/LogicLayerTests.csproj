@@ -60,6 +60,7 @@
     <Compile Include="CustomerManagerTests.cs" />
     <Compile Include="DepartmentManagerTests.cs" />
     <Compile Include="ERoleManagerTests.cs" />
+    <Compile Include="EventManagerTests.cs" />
     <Compile Include="FacilityMaintenanceManagerTests.cs" />
     <Compile Include="HomeInspectorManagerTest.cs" />
     <Compile Include="InHomeInspectionAppointmentDecisionManagerTests.cs" />

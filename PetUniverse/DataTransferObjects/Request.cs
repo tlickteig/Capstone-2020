@@ -25,5 +25,10 @@ namespace DataTransferObjects
         public int RequestingEmployeeID { get; set; }
         public int ApprovingUserID { get; set; }
         public bool Open { get; set; }
+
+        public DateTime DateCreated { get; set; }
+        public string DisapprovalReason { get; set; }
+        public int ReviewerID { get; set; }
+        public bool Active { get; set; }
     }
 }

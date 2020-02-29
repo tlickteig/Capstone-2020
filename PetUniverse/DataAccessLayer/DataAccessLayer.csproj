@@ -53,6 +53,7 @@
     <Compile Include="DBConnection.cs" />
     <Compile Include="DepartmentAccessor.cs" />
     <Compile Include="ERoleAccessor.cs" />
+    <Compile Include="EventAccessor.cs" />
     <Compile Include="FacilityMaintenanceAccessor.cs" />
     <Compile Include="HomeInspectorAccessor.cs" />
     <Compile Include="InHomeInspectionAppointmentDecisionAccessor.cs" />

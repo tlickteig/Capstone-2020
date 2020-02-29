@@ -15,6 +15,7 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
+using WPFPresentationLayer.RecruitingPages;
 
 namespace WPFPresentationLayer
 {
@@ -413,6 +414,10 @@ namespace WPFPresentationLayer
         /// <param name="e"></param>
         private void BtnRequest_Click(object sender, RoutedEventArgs e)
         {
+            frNewRequestList.Content = new RecruitingPages.ListNewRequests(_user);
+            frActiveRequestList.Content = new RecruitingPages.ListActiveRequests(_user);
+            frCompleteRequestList.Content = new RecruitingPages.ListCompleteRequests(_user);
+
             desiredScreen = "Requests";
             switchScreen(desiredScreen);
         }
@@ -478,6 +483,9 @@ namespace WPFPresentationLayer
         /// <param name="e"></param>
         private void btnDonRec_Click(object sender, RoutedEventArgs e)
         {
+            //Added to allow the user object to be passed to the EventMgmt page
+            fEventMgmt.Content = new EventMgmt(_user);
+
             desiredScreen = "Donations";
             switchScreen(desiredScreen);
         }

@@ -150,5 +150,246 @@ namespace DataAccessLayer
 
 			return requestsChanged;
 		}
-	}
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/13
+        /// Approvor: Derek Taylor
+        ///
+        /// Method for pulling Active Department Requests based on DepartmentIDs
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="deptID"></param>
+        /// <returns></returns>
+        public List<DepartmentRequest> SelectActiveRequestsByDepartmentID(string deptID)
+        {
+            List<DepartmentRequest> requests = new List<DepartmentRequest>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_active_requests_by_departmentID", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DepartmentID", deptID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        DepartmentRequest newRequest = new DepartmentRequest();
+
+                        newRequest.RequestID = reader.GetInt32(0);
+                        newRequest.DateCreated = reader.GetDateTime(1);
+                        newRequest.RequestTypeID = reader.GetString(2);
+                        newRequest.RequestorID = reader.GetInt32(3);
+                        newRequest.RequestorGroupID = reader.GetString(4);
+                        newRequest.RequesteeGroupID = reader.GetString(5);
+                        newRequest.DateAcknowledged = reader.GetDateTime(6);
+                        newRequest.AcknowledgingEmployee = reader.GetInt32(7);
+                        newRequest.Subject = reader.GetString(8);
+                        newRequest.Topic = reader.GetString(9);
+                        newRequest.Body = reader.GetString(10);
+
+                        requests.Add(newRequest);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return requests;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/22
+        /// Approver:  Derek Taylor
+        ///
+        /// Method for querying a list of departmentIDs associated with a userID 
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public List<string> SelectAllEmployeeDepartments(int userID)
+        {
+            List<string> depts = new List<string>();
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("select_all_departments_by_userID", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", userID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string dept = reader.GetString(0);
+                        depts.Add(dept);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return depts;
+
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/13
+        /// Approver: Derek Taylor
+        ///
+        /// Method for pulling Completed Department Requests based on DepartmentIDs
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="deptID"></param>
+        /// <returns></returns>
+        public List<DepartmentRequest> SelectCompleteRequestsByDepartmentID(string deptID)
+        {
+            List<DepartmentRequest> requests = new List<DepartmentRequest>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_completed_requests_by_departmentID", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DepartmentID", deptID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        DepartmentRequest newRequest = new DepartmentRequest();
+
+                        newRequest.RequestID = reader.GetInt32(0);
+                        newRequest.DateCreated = reader.GetDateTime(1);
+                        newRequest.RequestTypeID = reader.GetString(2);
+                        newRequest.RequestorID = reader.GetInt32(3);
+                        newRequest.RequestorGroupID = reader.GetString(4);
+                        newRequest.RequesteeGroupID = reader.GetString(5);
+                        newRequest.DateAcknowledged = reader.GetDateTime(6);
+                        newRequest.AcknowledgingEmployee = reader.GetInt32(7);
+                        newRequest.DateCompleted = reader.GetDateTime(8);
+                        newRequest.CompletedEmployee = reader.GetInt32(9);
+                        newRequest.Subject = reader.GetString(10);
+                        newRequest.Topic = reader.GetString(11);
+                        newRequest.Body = reader.GetString(12);
+
+                        requests.Add(newRequest);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return requests;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/13
+        /// Approvor: Derek Taylor
+        ///
+        /// Method for pulling New Department Requests based on DepartmentIDs
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="deptID"></param>
+        /// <returns></returns>
+        public List<DepartmentRequest> SelectNewRequestsByDepartmentID(string deptID)
+        {
+            List<DepartmentRequest> requests = new List<DepartmentRequest>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_new_requests_by_departmentID", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DepartmentID", deptID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        DepartmentRequest newRequest = new DepartmentRequest();
+
+                        newRequest.RequestID = reader.GetInt32(0);
+                        newRequest.DateCreated = reader.GetDateTime(1);
+                        newRequest.RequestTypeID = reader.GetString(2);
+                        newRequest.RequestorID = reader.GetInt32(3);
+                        newRequest.RequestorGroupID = reader.GetString(4);
+                        newRequest.RequesteeGroupID = reader.GetString(5);
+                        newRequest.Subject = reader.GetString(6);
+                        newRequest.Topic = reader.GetString(7);
+                        newRequest.Body = reader.GetString(8);
+
+                        requests.Add(newRequest);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return requests;
+        }
+
+
+
+    }
 }

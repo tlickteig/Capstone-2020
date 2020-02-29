@@ -51,5 +51,79 @@ namespace DataAccessInterfaces
         /// <param name="requestID"></param>
         /// <param name="userID"></param>
         int ApproveRequest(int requestID, int userID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/13
+        /// Approver: Derek Taylor
+        ///
+        /// This interface method is for selecting New DepartmentRequests
+        /// based on a single DepartmentID
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="deptID"></param>
+        /// <returns></returns>
+        List<DepartmentRequest> SelectNewRequestsByDepartmentID(string deptID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/13
+        /// Approver: Derek Taylor
+        ///
+        /// This interface method is for selecting Active DepartmentRequests
+        /// based on a single DepartmentID
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="deptID"></param>
+        /// <returns></returns>
+        List<DepartmentRequest> SelectActiveRequestsByDepartmentID(string deptID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/13
+        /// Approver:  Derek Taylor
+        ///
+        /// This interface method is for selecting Completed DepartmentRequests
+        /// based on a single DepartmentID
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="deptID"></param>
+        /// <returns></returns>
+        List<DepartmentRequest> SelectCompleteRequestsByDepartmentID(string deptID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/02/22
+        /// Approver:  Derek Taylor
+        ///
+        /// This interface method is for selecting an Employee's departments
+        /// by their userID.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        List<string> SelectAllEmployeeDepartments(int userID);
+
+
     }
 }

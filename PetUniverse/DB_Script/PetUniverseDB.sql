@@ -2616,6 +2616,7 @@ CREATE TABLE [dbo].[request] (
 	[ApprovalDate]			[datetime]						NULL,
 	[RequestingEmployeeID]	[int]						NOT NULL,
 	[ApprovingUserID]		[int]							NULL,
+	[DateCreated]			[Datetime]					NOT NUll,
 	[Open]					[bit]			  NOT NULL DEFAULT 1,
 	CONSTRAINT [pk_RequestID] PRIMARY KEY ([RequestID] ASC),
 	CONSTRAINT [fk_request_requestTypeID] FOREIGN KEY([RequestTypeID])
@@ -3592,6 +3593,792 @@ BEGIN
 SELECT 	[AnimalSpeciesID]
 FROM	[dbo].[AnimalSpecies]
 END
+GO
+
+
+/*****************************************************************************
+******************************************************************************
+*****************************************************************************/
+
+
+
+/*
+Created By: Steve Coonrod
+Date: 		2/9/2020
+Comment:	Table for storing Event Types
+*/
+print '' print '*** Creating EventType Table'
+GO
+CREATE TABLE[dbo].[EventType](
+	[EventTypeID]		[nvarchar](50)							NOT NULL,
+	[Description]		[nvarchar](100)							NOT NULL,--Changed from nvarchar 50 to 100
+	
+	CONSTRAINT [pk_eventTypeID]			PRIMARY KEY([EventTypeID])
+)
+GO
+
+/*
+Created by: Steve Coonrod
+Date: 		2/9/2020
+Comment: 	This is the Event Table. It holds all the needed data for an Event.
+*/
+print '' print '*** Creating Event Table'
+GO
+CREATE TABLE [dbo].[Event](
+	[EventID]			[int]			IDENTITY(1000000,1)		NOT NULL,
+	[CreatedByID]		[int]									NOT NULL,
+	[DateCreated]		[datetime]								NOT NULL,
+	[EventName]			[nvarchar](150)							NOT NULL,
+	[EventTypeID]		[nvarchar](50)							NOT NULL,
+	[EventDateTime]		[datetime]								NOT NULL,
+	[EventAddress]		[nvarchar](200)							NOT NULL,
+	[EventCity]			[nvarchar](50)							NOT NULL,
+	[EventState]		[nvarchar](50)							NOT NULL,
+	[EventZipcode]		[nvarchar](15)							NOT NULL,
+	[EventPictureFileName]	[nvarchar](250)						NOT NULL,
+	[Status]			[nvarchar](50)							NOT NULL,
+	[Description]		[nvarchar](500)							NOT NULL,
+
+	CONSTRAINT [pk_eventID]				PRIMARY KEY([EventID]ASC),
+	--CONSTRAINT [fk_event_user]			FOREIGN KEY([CreatedByID])
+		--REFERENCES [User]([UserID]),
+	CONSTRAINT [fk_event_eventType]		FOREIGN KEY([EventTypeID])
+		REFERENCES [EventType]([EventTypeID]) ON UPDATE CASCADE
+)
+GO
+--Index to search by the event's datetime
+print '' print '  > Adding indexes to Event table'
+GO
+CREATE NONCLUSTERED INDEX [ix_eventDateTime]
+	ON [Event]([EventDateTime]ASC)
+GO
+--Index to search by the events status
+CREATE NONCLUSTERED INDEX [ix_eventStatus]
+	ON [Event]([Status]ASC)
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 		2/9/2020
+	Comment: 	This is the Event Request table. 
+				It is a table for joining an Event to a Request
+				This will be used mostly by the DC to view requests 
+				for events made by other members
+*/
+print '' print '*** Creating EventRequest Table'
+GO
+CREATE TABLE[dbo].[EventRequest](
+	[EventID]			[int]									NOT NULL,
+	[RequestID]			[int]									NOT NULL,
+	[ReviewerID]		[int]									NULL,
+	[DisapprovalReason]	[nvarchar](500)							NULL,
+	[DesiredVolunteers]	[int]									NOT NULL,
+	[Active]			[bit]									NOT NULL 	DEFAULT 1,
+	
+	CONSTRAINT [pk_eventRequest_Event_Request] PRIMARY KEY([EventID],[RequestID]),
+	CONSTRAINT [fk_eventRequest_eventID] FOREIGN KEY([EventID])
+		REFERENCES [Event]([EventID]) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT [fk_eventRequest_requestID] FOREIGN KEY([RequestID])
+		REFERENCES [request]([RequestID]) ON UPDATE CASCADE ON DELETE CASCADE
+	--CONSTRAINT [fk_eventRequest_reviewerID] FOREIGN KEY([ReviewerID])
+		--REFERENCES [Employee]([EmployeeID]) ON UPDATE CASCADE
+)
+GO
+
+--Stored Procedures for Event Processes
+/*
+	Created by: Steve Coonrod
+	Date: 		2/9/2020
+	Comment: 	Stored Procedure for adding a new event to the DB
+*/
+print '' print '*** Creating sp_insert_event'
+GO
+CREATE PROCEDURE [sp_insert_event]
+(
+	@CreatedByID				[int],
+	@DateCreated				[datetime],
+	@EventName					[nvarchar](150),
+	@EventTypeID				[nvarchar](50),
+	@EventDateTime				[datetime],
+	@EventAddress				[nvarchar](200),
+	@EventCity					[nvarchar](50),
+	@EventState					[nvarchar](50),
+	@EventZipcode				[nvarchar](15),
+	@EventPictureFileName		[nvarchar](250),
+	@Status						[nvarchar](50),
+	@Description				[nvarchar](500)
+)
+AS 
+BEGIN
+	INSERT INTO [dbo].[Event]
+		([CreatedByID],[DateCreated],[EventName],[EventTypeID],[EventDateTime],[EventAddress],
+		[EventCity],[EventState],[EventZipcode],[EventPictureFileName],[Status],[Description])
+	VALUES
+		(@CreatedByID,@DateCreated,@EventName,@EventTypeID,@EventDateTime,@EventAddress,
+		@EventCity,@EventState,@EventZipcode,@EventPictureFileName,@Status,@Description)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for editing an event in the DB
+*/
+print '' print '*** Creating sp_update_event'
+GO
+CREATE PROCEDURE [sp_update_event]
+(
+	@EventID					[int],
+	@OldCreatedByID				[int],
+	@OldDateCreated				[datetime],
+	@OldEventName				[nvarchar](150),
+	@OldEventTypeID				[nvarchar](50),
+	@OldEventDateTime			[datetime],
+	@OldEventAddress			[nvarchar](200),
+	@OldEventCity				[nvarchar](50),
+	@OldEventState				[nvarchar](50),
+	@OldEventZipcode			[nvarchar](15),
+	@OldEventPictureFileName	[nvarchar](250),
+	@OldStatus					[nvarchar](50),
+	@OldDescription				[nvarchar](500),
+	@NewCreatedByID				[int],
+	@NewDateCreated				[datetime],
+	@NewEventName				[nvarchar](150),
+	@NewEventTypeID				[nvarchar](50),
+	@NewEventDateTime			[datetime],
+	@NewEventAddress			[nvarchar](200),
+	@NewEventCity				[nvarchar](50),
+	@NewEventState				[nvarchar](50),
+	@NewEventZipcode			[nvarchar](15),
+	@NewEventPictureFileName	[nvarchar](250),
+	@NewStatus					[nvarchar](50),
+	@NewDescription				[nvarchar](500)
+)
+AS
+BEGIN
+UPDATE  	[dbo].[Event]
+	SET		[CreatedByID] = @NewCreatedByID,
+			[DateCreated] = @NewDateCreated,
+			[EventName] = @NewEventName,
+			[EventTypeID] = @NewEventTypeID,
+			[EventDateTime] = @NewEventDateTime,
+			[EventAddress] = @NewEventAddress,
+			[EventCity] = @NewEventCity,
+			[EventState] = @NewEventState,
+			[EventZipcode] = @NewEventZipcode,
+			[EventPictureFileName] = @NewEventPictureFileName,
+			[Status] = @NewStatus,
+			[Description] = @OldDescription
+			
+	WHERE 	[EventID] = @EventID
+		AND	[CreatedByID] = @OldCreatedByID
+		AND	[DateCreated] = @OldDateCreated
+		AND	[EventName] = @OldEventName
+		AND	[EventTypeID] = @OldEventTypeID
+		AND	[EventDateTime] = @OldEventDateTime
+		AND	[EventAddress] = @OldEventAddress
+		AND	[EventCity] = @OldEventCity
+		AND	[EventState] = @OldEventState
+		AND	[EventZipcode] = @OldEventZipcode
+		AND	[EventPictureFileName] = @OldEventPictureFileName
+		AND	[Status] = @OldStatus
+		AND	[Description] = @OldDescription
+	RETURN	@@ROWCOUNT
+END
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for retrieving an Event from the DB
+*/
+print '' print '*** Creating sp_select_event_by_ID'
+GO
+CREATE PROCEDURE [sp_select_event_by_ID]
+(
+	@EventID			[int]
+)
+AS
+BEGIN
+	SELECT [CreatedByID],[DateCreated],[EventName],[EventTypeID],
+		   [EventDateTime],[EventAddress],[EventCity],[EventState],[EventZipcode],
+		   [EventPictureFileName],[Status],[Description]
+	FROM   [dbo].[Event]
+	WHERE  [EventID] = @EventID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for retrieving a List of All Event from the DB
+*/
+print '' print '*** Creating sp_select_all_events'
+GO
+CREATE PROCEDURE [sp_select_all_events]
+AS
+BEGIN
+	SELECT [EventID],[CreatedByID],[DateCreated],[EventName],[EventTypeID],
+		   [EventDateTime],[EventAddress],[EventCity],[EventState],[EventZipcode],
+		   [EventPictureFileName],[Status],[Description]
+	FROM   [dbo].[Event]
+END
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for deleting an Event from the DB 
+		ADMIN ONLY
+*/
+print '' print '*** Creating sp_delete_event'
+GO
+CREATE PROCEDURE [sp_delete_event]
+(
+	@EventID		[int]
+)
+AS
+BEGIN
+	DECLARE @requestID [int]
+	SET @requestID = (SELECT 	[dbo].[EventRequest].[RequestID]
+					  FROM 		[dbo].[EventRequest]
+					  WHERE 	[EventID] = @EventID)
+	
+	DELETE FROM [dbo].[EventRequest] WHERE [EventID] = @EventID
+	DELETE FROM [dbo].[Request] WHERE [RequestID] = @requestID
+	DELETE FROM [dbo].[Event] WHERE [EventID] = @EventID
+	RETURN @@ROWCOUNT
+END
+GO
+
+--EventType Procedures ADMIN ONLY
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for adding a new event type to the DB
+*/
+print '' print '*** Creating sp_insert_event_type'
+GO
+CREATE PROCEDURE [sp_insert_event_type]
+(
+	@EventTypeID				[nvarchar](50),
+	@Description				[nvarchar](100)
+)
+AS 
+BEGIN
+	INSERT INTO [dbo].[EventType]
+		([EventTypeID],[Description])
+	VALUES
+		(@EventTypeID, @Description)
+	RETURN @@ROWCOUNT
+END 
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for retrieving all event types in the DB
+*/
+print '' print '*** Creating sp_select_all_event_types'
+GO
+CREATE PROCEDURE [sp_select_all_event_types]
+AS 
+BEGIN
+	SELECT  [EventTypeID],[Description]
+	FROM	[dbo].[EventType]
+END
+GO
+
+--EventRequest Procedures
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for adding a new Event Request to the DB
+*/
+print '' print '*** Creating sp_insert_event_request'
+GO
+CREATE PROCEDURE [sp_insert_event_request]
+(
+	@EventID					[int],
+	@RequestID					[int],
+	@ReviewerID					[int],
+	@DisapprovalReason			[nvarchar](500),
+	@DesiredVolunteers			[int],
+	@Active						[bit]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[EventRequest]
+		([EventID],[RequestID],[ReviewerID],[DisapprovalReason],[DesiredVolunteers],[Active])
+	VALUES
+		(@EventID, @RequestID, @ReviewerID, @DisapprovalReason, @DesiredVolunteers, @Active)
+	RETURN @@ROWCOUNT
+END
+GO
+
+--Request Procedures
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for adding a new Request to the DB
+*/
+print '' print '*** Creating sp_insert_request'
+GO
+CREATE PROCEDURE [sp_insert_request]
+(
+	@RequestID			[int] OUTPUT,
+	@DateCreated		[datetime],
+	@RequestTypeID		[nvarchar](50)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[request]
+		([DateCreated],[RequestTypeID])
+	VALUES
+		(@DateCreated, @RequestTypeID)
+	SELECT @RequestID = SCOPE_IDENTITY()
+END
+GO
+
+--Event Sample Data
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Sample Data for the EventType Table
+*/
+print '' print '*** Creating Sample Data for the EventType table'
+GO
+INSERT INTO [dbo].[EventType]
+	([EventTypeID],[Description])
+	VALUES
+	('Fundraiser','An event held to raise funding for a specific cause.'),
+	('Awareness','An event held to raise awareness for a specific issue.'),
+	('Adoption','An event held to showcase animals who are available for adoption or sponsorship.')
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Sample Data for the Event Table
+*/
+print '' print '*** Creating Sample Data for the Event table'
+GO
+INSERT INTO [dbo].[Event]
+	([CreatedByID],[DateCreated],[EventName],[EventTypeID],[EventDateTime],[EventAddress],
+	[EventCity],[EventState],[EventZipcode],[EventPictureFileName],[Status],[Description])
+	VALUES
+	(100002, '01/10/18 6:00:00', 'ZappyBs Animal House','Fundraiser','01/23/19 6:30:00.000','123 Doreyme Street',
+		'Boulder','CO','80663','ZappyBsAnimalHouse.jpg','Completed',
+		'ZappyBs Animal House is an annual event that raises funds to sponsor the ABC Animal Shelter.'),
+	(100002, '01/10/18 6:00:00', 'Lets Paws A Minute','Awareness','04/23/19 15:30:00.000','2424 A Street',
+		'Cedar Rapids','IA','52402','default.png','PendingApproval',
+		'Lets Paws A Minute is an event for raising awareness about canine diabetis.')
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Sample Data for the RequestType Table
+*/
+print '' print '*** Creating Sample Data for the RequestType table'
+GO
+INSERT INTO [dbo].[RequestType]
+	([RequestTypeID],[Description])
+	VALUES
+	('Event','A request to host an event sponsored by Pet Universe.')
+GO
+
+/*****************************************************************************
+******************************************************************************
+*****************************************************************************/
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/06
+Comment: General request response table, used to track request comments and respones ************************************************DOUBLE CHECK WITH DEREK
+made by various users
+*/
+print '' print '*** creating request response table'
+GO
+CREATE TABLE [dbo].[RequestResponse] (
+	[RequestID]				[int]						NOT NULL,
+	[UserID]				[int]						NOT NULL,
+	[Response]				[nvarchar](4000)			NOT NULL,
+	[ResponseTimeStamp]		[datetime]					NOT NULL DEFAULT GETDATE(),
+	CONSTRAINT [pk_response_RequestID] PRIMARY KEY([RequestID] ASC),
+	CONSTRAINT [fk_response_RequestID] FOREIGN KEY([RequestID]) REFERENCES [request]([RequestID]),
+	CONSTRAINT [fk_requestResponse_UserID] FOREIGN KEY ([UserID]) REFERENCES[User]([UserID])
+)
+GO
+
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/06
+Comment: Department request table, used to track inter-department requests
+*/
+print '' print '*** creating department request table'
+GO
+CREATE TABLE [dbo].[DepartmentRequest] (
+	[DeptRequestID]			[int]						NOT NULL,
+	[RequestingUserID]		[int]						NOT NULL,
+	[RequestGroupID]		[nvarchar](50)				NOT NULL,
+	[RequestedGroupID]		[nvarchar](50)				NOT NULL,
+	[DateAcknowledged]		[datetime]					NULL,
+	[AcknowledgingUserID]	[int]						NULL,
+	[DateCompleted]			[datetime]					NULL,
+	[CompletedUserID]		[int]						NULL,
+	[RequestSubject]		[nvarchar](100)				NOT NULL,
+	[RequestTopic]			[nvarchar](250)				NOT NULL,
+	[RequestBody]			[nvarchar](4000)			NOT NULL,
+	CONSTRAINT [pk_DeptRequest_RequestID] PRIMARY KEY([DeptRequestID] ASC),
+	CONSTRAINT [fk_DeptartmentRequest_DeptRequestID] FOREIGN KEY([DeptRequestID])
+		REFERENCES [request]([RequestID]),	
+	CONSTRAINT [fk_RequestingUserID] FOREIGN KEY ([RequestingUserID]) REFERENCES[User]([UserID]) ON UPDATE CASCADE,
+	CONSTRAINT [fk_Department_RequestGroupID] FOREIGN KEY([RequestGroupID])
+		REFERENCES [Department]([DepartmentID]),
+	CONSTRAINT [fk_Department_RequestedGroupID] FOREIGN KEY([RequestedGroupID])
+		REFERENCES [Department]([DepartmentID]),
+	CONSTRAINT [fk_UserID_AcknowledgingUserID] FOREIGN KEY([AcknowledgingUserID])
+		REFERENCES [User]([UserID]),
+	CONSTRAINT [fk_UserID_CompletedUserID] FOREIGN KEY([CompletedUserID])
+		REFERENCES [User]([UserID])
+)
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/21
+Comment: EmployeeRole table for linking Employees and Departments
+*/
+print '' print '*** creating EmployeeDepartment table'
+GO
+CREATE TABLE [dbo].[EmployeeDepartment] (
+	[EmployeeID]			[int]						NOT NULL,
+	[DepartmentID]			[nvarchar](50)				NOT NULL,
+	CONSTRAINT [pk_EmployeeDepartment_EmployeeID_DepartmentID] PRIMARY KEY([EmployeeID], [DepartmentID] ASC),
+	CONSTRAINT [fk_EmployeeDepartment_EmployeeID] FOREIGN KEY ([EmployeeID]) REFERENCES[User]([UserID]) ON UPDATE CASCADE,
+	CONSTRAINT [fk_EmployeeDepartment_DepartmentID] FOREIGN KEY ([DepartmentID]) REFERENCES[Department]([DepartmentID]) ON UPDATE CASCADE
+)
+GO
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/21
+Comment: Sample RoleID 'Employee'
+*/
+print '' print '*** Inserting Sample Role record Employee'
+GO
+INSERT INTO [dbo].[Role]
+	([RoleID], [Description])
+	VALUES
+	('Employee', 'A Pet Universe Employee')
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/06
+Comment: Sample Department Data
+*/
+print '' print '*** Inserting Sample Department Records'
+GO
+INSERT INTO [dbo].[Department]
+	([DepartmentID], [Description])
+	VALUES
+	('Management', 'Management Description'),
+	('Inventory', 'Inventory Description'),
+	('CustomerService', 'CustomerService Description')
+GO
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/06
+Comment: Sample RequestType Data
+*/
+print '' print '*** Inserting Sample RequestTpe Records'
+GO
+INSERT INTO [dbo].[RequestType]
+	([RequestTypeID], [Description])
+	VALUES
+	('General', 'Multi-purpose request format'),
+	('TimeOff', 'Schedule time off')
+GO
+
+
+/*
+Created by: Steve Coonrod
+Date: 2020/02/06
+Comment: Sample Employee Data
+*/
+print '' print '*** Inserting Sample Request Records'
+GO
+INSERT INTO [dbo].[Employee]
+	([FirstName])
+	VALUES
+	('Billy')
+GO
+
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/06
+Comment: Sample Request Data
+*/
+print '' print '*** Inserting Sample Request Records'
+GO
+INSERT INTO [dbo].[request]
+	([DateCreated], [RequestTypeID], [EffectiveStart],[RequestingEmployeeID])
+	VALUES
+	('20200206 11:00:00 AM', 'General', GETDATE(), 1000000),
+	('20200207 12:55:01 PM', 'General', GETDATE(), 1000000),
+	('20200208 01:02:03 PM', 'General', GETDATE(), 1000000),
+	('20200207 12:55:01 PM', 'General', GETDATE(), 1000000),
+	('20200208 01:02:03 PM', 'General', GETDATE(), 1000000),
+	('20200206 03:02:03 PM', 'General', GETDATE(), 1000000)
+GO 
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/06
+Comment: Stored Procedure for selecting new requests associated with a DepartmentID
+*/
+print '' print '*** Creating sp_select_new_requests_by_departmentID'
+GO
+CREATE PROCEDURE [sp_select_new_requests_by_departmentID]
+(
+	@DepartmentID				[nvarchar](50)
+)
+AS
+BEGIN
+	SELECT DISTINCT[RequestID], [DateCreated], [RequestTypeID],
+		[RequestingUserID], [RequestGroupID], [RequestedGroupID],
+		[RequestSubject], [RequestTopic], [RequestBody]
+	FROM [request] JOIN [DepartmentRequest] ON
+		[RequestID] = [DeptRequestID]
+	WHERE ([RequestGroupID] = @DepartmentID AND [DateAcknowledged] is NULL) OR
+		([DateAcknowledged] is NULL AND [RequestedGroupID] = @DepartmentID)
+END
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/06
+Comment: Stored Procedure for selecting active requests associated with a DepartmentID
+*/
+print '' print '*** Creating sp_select_active_requests_by_departmentID'
+GO
+CREATE PROCEDURE [sp_select_active_requests_by_departmentID]
+(
+	@DepartmentID				[nvarchar](50)
+)
+AS
+BEGIN
+	SELECT DISTINCT[RequestID], [DateCreated], [RequestTypeID],
+		[RequestingUserID], [RequestGroupID], [RequestedGroupID],
+		[DateAcknowledged], [AcknowledgingUserID], [RequestSubject],
+		[RequestTopic], [RequestBody]
+	FROM [request] JOIN [DepartmentRequest] ON
+		[RequestID] = [DeptRequestID]
+	WHERE ([RequestGroupID] = @DepartmentID OR [RequestedGroupID] = @DepartmentID) AND 
+		([DateAcknowledged] is NOT NULL AND [DateCompleted] is NULL)
+END
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/06
+Comment: Stored Procedure for selecting completed requests associated with a DepartmentID
+*/
+print '' print '*** Creating sp_select_completed_requests_by_departmentID'
+GO
+CREATE PROCEDURE [sp_select_completed_requests_by_departmentID]
+(
+	@DepartmentID				[nvarchar](50)
+)
+AS
+BEGIN
+	SELECT DISTINCT[RequestID], [DateCreated], [RequestTypeID],
+		[RequestingUserID], [RequestGroupID], [RequestedGroupID],
+		[DateAcknowledged], [AcknowledgingUserID], [DateCompleted],
+		[CompletedUserID], [RequestSubject], [RequestTopic], [RequestBody]
+	FROM [request] JOIN [DepartmentRequest] ON
+		[RequestID] = [DeptRequestID]
+	WHERE ([RequestGroupID] = @DepartmentID OR [RequestedGroupID] = @DepartmentID) AND 
+		([DateAcknowledged] is NOT NULL AND [DateCompleted] is NOT NULL)
+END
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/18
+Comment: Stored Procedure for selecting all the Request Types
+*/
+print '' print '*** Creating sp_select_all_request_types'
+GO
+CREATE PROCEDURE [sp_select_all_request_types]
+AS
+BEGIN
+	SELECT [RequestTypeID]
+	FROM [RequestType]
+END
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/18
+Comment: Stored Procedure for selecting all the DepartmentIDs
+*/
+print '' print '*** Creating sp_select_all_departmentIDs'
+GO
+CREATE PROCEDURE [sp_select_all_departmentIDs]
+AS
+BEGIN
+	SELECT [DepartmentID]
+	FROM [Department]
+END
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/18
+Comment: Stored Procedure for selecting employee IDs and names to link data in application
+*/
+print '' print '*** Creating sp_select_all_employee_names'
+GO
+CREATE PROCEDURE [sp_select_all_employee_names]
+AS
+BEGIN
+	SELECT u.[UserID], u.[FirstName], u.[LastName]
+	FROM [User] AS u JOIN [UserRole] AS ur ON 
+	u.[UserID] = ur.[UserID]
+	WHERE ur.[RoleID] = 'Employee'
+END
+GO
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/19
+Comment: Inserts test Employee Users
+*/
+print '' print '*** Insert Into User Table ***'
+GO
+INSERT INTO [dbo].[User]
+([FirstName], 		    
+[LastName],
+[PhoneNumber],
+[Email],
+[Active],
+[City],
+[State],
+[Zipcode]
+)
+VALUES
+('Ryan', 'Morganti', '5554443333', 'ryanm@PetUniverse.com', 1, 'Cedar Rapids', 'IA', '52402'),
+('Derek', 'Taylor', '9992234343', 'derekt@PetUniverse.com', 1, 'Manchester', 'IA', '524404'),
+('Steven', 'Coonrod', '9992555343', 'stevec@PetUniverse.com', 1, 'Hiawatha', 'IA', '524409')
+GO
+print '' print '*** Insert users into User Table ***'
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/19
+Comment: Inserting Employee UserRoles
+*/
+print '' print '*** Insert Into User Role Table ***'
+GO
+INSERT INTO [dbo].[UserRole]
+([UserID],  
+[RoleID]
+)
+VALUES
+(100000, 'Employee'),
+(100003, 'Employee'),
+(100004, 'Employee'),
+(100005, 'Employee')
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/21
+Comment: Sample EmployeeDepartment Records
+*/
+print '' print '*** Instering Samlple Role record Employee'
+GO
+INSERT INTO [dbo].[EmployeeDepartment]
+	([EmployeeID], [DepartmentID])
+	VALUES
+	(100000, 'Management'),
+	(100000, 'Inventory'),
+	(100000, 'CustomerService'),
+	(100003, 'Management'),
+	(100003, 'Inventory'),
+	(100003, 'CustomerService'),
+	(100004, 'Inventory'),
+	(100005, 'CustomerService')
+GO
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/06
+Comment: Sample Request Data
+*/
+print '' print '*** Inserting DepartmentRequest Records'
+GO
+INSERT INTO [dbo].[DepartmentRequest]
+	([DeptRequestID], [RequestingUserID], [RequestGroupID], [RequestedGroupID],
+		[DateAcknowledged], [AcknowledgingUserID], [DateCompleted], [CompletedUserID],
+		 [RequestSubject], [RequestTopic], [RequestBody])
+	VALUES
+	(1000000, 100003, 'Management', 'CustomerService', 
+		NULL, NULL, NULL, NULL, 
+		'subject filler test', 'topic test', 'This is my body, its so testable'),
+	(1000001, 100003, 'Inventory', 'Management', 
+		NULL, NULL, NULL, NULL, 
+		'subject filler test', 'topic test', 'This is my body, its so testable'),
+	(1000002, 100003, 'Inventory', 'Management', 
+		NULL, NULL, NULL, NULL, 'subject filler test', 'topic test',
+		'This is my body, its so testable'),
+	(1000003, 100003, 'Inventory', 'Management', 
+		'20200208 01:02:03 PM', 100003, NULL, NULL, 
+		'subject filler test', 'topic test', 'This is my body, its so testable'),
+	(1000004, 100003, 'Management', 'CustomerService', 
+		'20200208 02:02:03 PM', 100003, '20200209 06:04:03 PM', 100003, 
+		'subject filler test', 'topic test', 'This is my body, its so testable'),
+	(1000005, 100003, 'Management', 'Inventory', 
+		'20200208 09:02:03 PM', 100003, '20200209 02:04:03 PM', 100003, 
+		
+		'subject filler test', 'topic test', 'This is my body, its so testable')			
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/02/22
+Comment: Stored Procedure for retrieving the Departments an employee is associated with
+*/
+print '' print '*** Creating stored procedure select_all_departments_by_userID'
+GO
+CREATE PROCEDURE [select_all_departments_by_userID](
+	@UserID				[int]
+)
+AS
+BEGIN
+	SELECT [DepartmentID]
+	FROM [EmployeeDepartment]
+	WHERE [EmployeeID] = @UserID
+END
+
+
 
 
 
