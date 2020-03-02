@@ -4430,6 +4430,117 @@ GO
 	("Lazer Pointer", "Cat Toys", "Lazer Pointer Description", 40)
 GO
 
+/*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Creates VolunteerEvents Table.
+*/
+print '' print '*** Creating VolunteerEvents Table'
+GO
+CREATE TABLE [dbo].[VolunteerEvents](
+	[VolunteerEventID] 		[int] IDENTITY(1000000,1)	NOT NULL,
+	[EventName]   			[nvarchar](500)           	NOT NULL,
+	[EventDescription]   	[nvarchar](4000)           	NOT NULL,
+	[Active]      			[bit]         				NOT NULL 	DEFAULT 1,
+	CONSTRAINT [pk_VolunteerEventID] PRIMARY KEY([VolunteerEventID] ASC)
+)
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Creates sample Volunteer Events data.
+*/
+print '' print '*** Creating Sample Volunteer Event'
+GO
+INSERT INTO [dbo].[VolunteerEvents]
+	([EventName], [EventDescription], [Active])
+	VALUES
+	('Party For The Dawgs', 'It is just a party for the dogs.', 1),
+	('Party For The Cats', 'It is just a party for the cats.', 0)
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Insert a volunteer event.
+*/
+print '' print '*** Creating sp_insert_volunteer_event'
+GO
+CREATE PROCEDURE [sp_insert_volunteer_event]
+(
+	@EventName	 		[nvarchar](500),
+	@EventDescription	[nvarchar](4000),
+	@Active      		[bit]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[VolunteerEvents]
+		([EventName], [EventDescription], [Active])
+	VALUES
+		(@EventName, @EventDescription, @Active)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Stored procedure for deleting a volunteer event.
+*/
+print '' print '*** Creating procedure sp_delete_volunteer_event'
+GO
+CREATE PROCEDURE [sp_delete_volunteer_event]
+(
+	@VolunteerEventID [int]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[VolunteerEvents]
+	WHERE [VolunteerEventID] = @VolunteerEventID
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Stored procedure for updating a volunteer event.
+*/
+print '' print '*** Creating procedure sp_update_volunteer_event'
+GO
+
+CREATE PROCEDURE [sp_update_volunteer_event]
+(
+	@VolunteerEventID [int],
+	@EventName [nvarchar](500),
+	@EventDescription [nvarchar](4000)
+)
+AS
+BEGIN
+	UPDATE [VolunteerEvents]
+	SET [EventName] = @EventName,
+	[EventDescription] = @EventDescription
+	WHERE [VolunteerEventID] = @VolunteerEventID
+	SELECT @@ROWCOUNT
+END 
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Stored procedure for selecting all volunteer events.
+*/
+print '' print '*** Creating procedure sp_select_all_volunteer_events'
+GO
+CREATE PROCEDURE [sp_select_all_volunteer_events]
+AS BEGIN
+	SELECT
+		[VolunteerEventID], 
+		[EventName],
+		[EventDescription]
+	FROM [dbo].[VolunteerEvents]
+END
+GO
 
 
 

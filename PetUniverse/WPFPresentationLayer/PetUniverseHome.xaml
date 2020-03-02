@@ -244,6 +244,9 @@
                 <TabItem x:Name="CreateEditShift" Header="Volunteer Shifts" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
                     <Frame Source="./VolunteerPages/CreateeditShift.xaml"></Frame>
                 </TabItem>
+                <TabItem x:Name="CreateEditVolunteerEvent" Header="Volunteer Events" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./VolunteerPages/frmCreateEditVolunteerEvent.xaml"></Frame>
+                </TabItem>
             </TabControl>
         </Canvas>
 

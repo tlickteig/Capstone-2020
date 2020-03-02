@@ -68,6 +68,7 @@
     <Compile Include="TrainingVideoAccessor.cs" />
     <Compile Include="TransactionAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
+    <Compile Include="VolunteerEventAccessor.cs" />
     <Compile Include="VolunteerShiftAccessor.cs" />
     <Compile Include="VolunteerTaskAccessor.cs" />
   </ItemGroup>

@@ -67,6 +67,7 @@
     <Compile Include="TrainingVideoManager.cs" />
     <Compile Include="TransactionManager.cs" />
     <Compile Include="UserManager.cs" />
+    <Compile Include="VolunteerEventManager.cs" />
     <Compile Include="VolunteerShiftManager.cs" />
     <Compile Include="VolunteerTaskManager.cs" />
   </ItemGroup>

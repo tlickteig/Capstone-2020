@@ -169,6 +169,9 @@
     <Compile Include="VolunteerPages\CreateEditShift.xaml.cs">
       <DependentUpon>CreateEditShift.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VolunteerPages\frmCreateEditVolunteerEvent.xaml.cs">
+      <DependentUpon>frmCreateEditVolunteerEvent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\TaskControls.xaml.cs">
       <DependentUpon>TaskControls.xaml</DependentUpon>
     </Compile>
@@ -301,6 +304,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="VolunteerPages\CreateEditShift.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\frmCreateEditVolunteerEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -66,6 +66,7 @@
     <Compile Include="FakeTrainingVideoAccessor.cs" />
     <Compile Include="FakeTransactionAccessor.cs" />
     <Compile Include="FakeUserAccessor.cs" />
+    <Compile Include="FakeVolunteerEventAccessor.cs" />
     <Compile Include="FakeVolunteerTaskAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VolunteerShiftAccessorFake.cs" />
