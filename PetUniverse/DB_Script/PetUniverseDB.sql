@@ -35,8 +35,8 @@ CREATE TABLE [dbo].[User](
 [PasswordHash] [nvarchar](100) NOT NULL DEFAULT 
 '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E',
 [Active] [bit] NOT NULL Default 1,
-[addressLineOne] [nvarchar](250),
-[addressLineTwo] [nvarchar](250),
+[addressLineOne] [nvarchar](250) NOT NULL,
+[addressLineTwo] [nvarchar](250) NULL,
 [City] [nvarchar] (20) NOT NULL,
 [State] [nvarchar] (2) NOT NULL,
 [Zipcode] [nvarchar] (15) NOT NULL
@@ -56,7 +56,6 @@ INSERT INTO [dbo].[User]
 [LastName],
 [PhoneNumber],
 [Email],
-[Active],
 [City],
 [State],
 [Zipcode],
@@ -64,28 +63,18 @@ INSERT INTO [dbo].[User]
 [addressLineTwo]
 )
 VALUES
-('Zach', 'Behrensmeyer', '1234567890', 'zbehrens@PetUniverse.com', 1,'Cedar Rapids','IA','52433','J street NE','APT3'),
-('Steven', 'Cardona', '2234567890', 'scardona@PetUniverse.com', 1,'Cedar Rapids','IA','52433','J street NE','APT3'), 
-('Thomas', 'Dupuy', '3234567890', 'tdupuy@PetUniverse.com', 1,'Cedar Rapids','IA','52433','J street NE','APT3'),
-('Mohamed','Elamin' ,'3198376522','moals@PetUniverse.com',1,'Cedar Rapids','IA','52433','J street NE','APT3')
-GO
-print '' print '*** Insert users into User Table ***'
-GO
-/*
-Created by: Austin Gee
-Date: 2/21/2020
-Comment: This adds some ample user records to the database.
-*/
-print '' print '*** Creating Sample User Records'
-GO
-INSERT INTO [dbo].[User]
-	([FirstName],[LastName],[PhoneNumber],[Email],[City],[State],[Zipcode])
-	VALUES
-	('Austin','Gee','1234567890','Austin@email.com','Cedar Rapids','IA','52404'),
-	('Bill','Buffalo','1234567890','Bill@email.com','Cedar Rapids','IA','52404'),
-	('Brad','Bean','1234567890','Brad@email.com','Iowa City','IA','52404'),
-	('Barb','Brinoll','1234567890','Barb@email.com','Cedar Rapids','IA','52404'),	
-	('Awaab','Elamin','3192104964','Awaab@Awaaab.com','Cedar Rapids','IA','52404')
+('Zach', 'Behrensmeyer', '1234567890', 'zbehrens@PetUniverse.com', 'Cedar Rapids','IA','52433','J street NE','APT3'),
+('Steven', 'Cardona', '2234567890', 'scardona@PetUniverse.com', 'Cedar Rapids','IA','52433','J street NE','APT3'), 
+('Thomas', 'Dupuy', '3234567890', 'tdupuy@PetUniverse.com', 'Cedar Rapids','IA','52433','J street NE','APT3'),
+('Mohamed','Elamin' ,'3198376522','moals@PetUniverse.com','Cedar Rapids','IA','52433','J street NE','APT3'),
+('Austin','Gee','1234567890','Austin@email.com','Cedar Rapids','IA','52404','J street NE','APT3'),
+('Bill','Buffalo','1234567890','Bill@email.com','Cedar Rapids','IA','52404','J street NE', null),
+('Brad','Bean','1234567890','Brad@email.com','Iowa City','IA','52404','J street NE','APT3'),
+('Barb','Brinoll','1234567890','Barb@email.com','Cedar Rapids','IA','52404','J street NE',null),	
+('Awaab','Elamin','3192104964','Awaab@Awaaab.com','Cedar Rapids','IA','52404','J street NE','APT3'),
+('Ryan', 'Morganti', '5554443333', 'ryanm@PetUniverse.com', 'Cedar Rapids', 'IA', '52402','J street NE','APT3'),
+('Derek', 'Taylor', '9992234343', 'derekt@PetUniverse.com', 'Manchester', 'IA', '524404','J street NE','APT3'),
+('Steven', 'Coonrod', '9992555343', 'stevec@PetUniverse.com', 'Hiawatha', 'IA', '524409','J street NE','APT3')
 GO
 
 
@@ -277,24 +266,6 @@ INSERT INTO [dbo].[AnimalSpecies]
 	('Rat','The fancy rat')
 GO
 
-/*
-print '' print '*** Creating sample AnimalSpecies records'
-GO
-
-
-Created by: Chuck Baxter
-Date: 2/8/2020
-Comment: Sample Data
-
-INSERT INTO [dbo].[AnimalSpecies]
-	([AnimalSpeciesID])
-	VALUES
-	('A'),
-	('B'),
-	('C'),
-	('D')
-GO
-*/
 
 print '' print '*** Creating table Status'
 GO
@@ -2358,23 +2329,21 @@ BEGIN
 END 
 GO
 
-
-
 /*
 Created by: Austin Gee
 Date: 2/21/2020
 Comment: This adds some ample user records to the database.
 */
-print '' print '*** Creating Sample User Records'
-GO
-INSERT INTO [dbo].[User]
-	([FirstName],[LastName],[PhoneNumber],[Email],[City],[State],[Zipcode])
-	VALUES
-	('Austin','Gee','1234567890','Austin@email.com','Cedar Rapids','IA','52404'),
-	('Bill','Buffalo','1234567890','Bill@email.com','Cedar Rapids','IA','52404'),
-	('Brad','Bean','1234567890','Brad@email.com','Iowa City','IA','52404'),
-	('Barb','Brinoll','1234567890','Barb@email.com','Cedar Rapids','IA','52404')
-GO
+-- print '' print '*** Creating Sample User Records'
+-- GO
+-- INSERT INTO [dbo].[User]
+-- 	([FirstName],[LastName],[PhoneNumber],[Email],[City],[State],[Zipcode])
+-- 	VALUES
+-- 	('Austin','Gee','1234567890','Austin@email.com','Cedar Rapids','IA','52404'),
+-- 	('Bill','Buffalo','1234567890','Bill@email.com','Cedar Rapids','IA','52404'),
+-- 	('Brad','Bean','1234567890','Brad@email.com','Iowa City','IA','52404'),
+-- 	('Barb','Brinoll','1234567890','Barb@email.com','Cedar Rapids','IA','52404')
+-- GO
 
 /*
 Created by: Austin Gee
@@ -2685,12 +2654,7 @@ END
 GO
 
 
-/*
-Created by: Awaab Elamin
-Date: 2/10/2020
-Comment: Create General Questions table that contains the Questionnair qusetions.
-*/
-GO
+
 /*
 Created by: Awaab Elamin
 Date: 2/18/2020
@@ -3595,13 +3559,6 @@ FROM	[dbo].[AnimalSpecies]
 END
 GO
 
-
-/*****************************************************************************
-******************************************************************************
-*****************************************************************************/
-
-
-
 /*
 Created By: Steve Coonrod
 Date: 		2/9/2020
@@ -3990,11 +3947,6 @@ INSERT INTO [dbo].[RequestType]
 	('Event','A request to host an event sponsored by Pet Universe.')
 GO
 
-/*****************************************************************************
-******************************************************************************
-*****************************************************************************/
-
-
 /*
 Created by: Ryan Morganti
 Date: 2020/02/06
@@ -4264,28 +4216,6 @@ END
 GO
 
 
-/*
-Created by: Ryan Morganti
-Date: 2020/02/19
-Comment: Inserts test Employee Users
-*/
-print '' print '*** Insert Into User Table ***'
-GO
-INSERT INTO [dbo].[User]
-([FirstName], 		    
-[LastName],
-[PhoneNumber],
-[Email],
-[Active],
-[City],
-[State],
-[Zipcode]
-)
-VALUES
-('Ryan', 'Morganti', '5554443333', 'ryanm@PetUniverse.com', 1, 'Cedar Rapids', 'IA', '52402'),
-('Derek', 'Taylor', '9992234343', 'derekt@PetUniverse.com', 1, 'Manchester', 'IA', '524404'),
-('Steven', 'Coonrod', '9992555343', 'stevec@PetUniverse.com', 1, 'Hiawatha', 'IA', '524409')
-GO
 print '' print '*** Insert users into User Table ***'
 GO
 
