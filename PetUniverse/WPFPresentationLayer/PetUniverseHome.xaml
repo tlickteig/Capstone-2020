@@ -128,8 +128,11 @@
 
         <Canvas x:Name="canInventory" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
             <TabControl x:Name="tabsetInventory" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewinventory" Header="View Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewitems" Header="View Items" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame   Source="./InventoryPages/ViewItems.xaml"/>
+                </TabItem>
+                <TabItem x:Name="tabViewInventory" Header="View Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame   Source="./InventoryPages/ViewInventory.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </TabControl>
         </Canvas>

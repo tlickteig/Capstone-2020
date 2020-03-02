@@ -109,6 +109,12 @@
     <Compile Include="FMPages\FacilityMaintenanceControls.xaml.cs">
       <DependentUpon>FacilityMaintenanceControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\AddItems.xaml.cs">
+      <DependentUpon>AddItems.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\ViewInventory.xaml.cs">
+      <DependentUpon>ViewInventory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\viewItems.xaml.cs">
       <DependentUpon>viewItems.xaml</DependentUpon>
     </Compile>
@@ -213,6 +219,14 @@
     <Page Include="FMPages\FacilityMaintenanceControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\AddItems.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InventoryPages\ViewInventory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="InventoryPages\viewItems.xaml">
       <Generator>MSBuild:Compile</Generator>

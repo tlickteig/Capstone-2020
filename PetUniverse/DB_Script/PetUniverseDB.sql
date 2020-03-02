@@ -4308,6 +4308,124 @@ BEGIN
 	WHERE [EmployeeID] = @UserID
 END
 
+/*
+Created by: Brandyn T. Coverdill
+Date: 2/22/2020
+Comment: Stored Procedure that adds items to inventory.
+*/
+print '' print '*** Creating sp_add_items'
+GO
+CREATE PROCEDURE sp_add_items(
+	@ItemName nvarchar(50),
+	@ItemQuantity int,
+	@ItemCategoryID nvarchar(50),
+	@ItemDescription nvarchar(250)
+	)
+AS
+BEGIN
+	INSERT INTO Item(
+		ItemName,
+		ItemCategoryID,
+		ItemQuantity,
+		ItemDescription
+		)
+	VALUES(
+		@ItemName,
+		@ItemCategoryID,
+		@ItemQuantity,
+		@ItemDescription
+	)
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2/22/2020
+Comment: Stored Procedure that adds a new item category
+*/
+print '' print '*** Creating sp_add_new_category'
+GO
+CREATE PROCEDURE sp_add_new_category(
+	@ItemCategoryID nvarchar(50),
+	@Description nvarchar(250)
+	)
+AS
+BEGIN
+	INSERT INTO dbo.ItemCategory(
+		ItemCategoryID,
+		Description
+	)
+	VALUES(@ItemCategoryID, @Description)
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2/22/2020
+Comment: Stored Procedure that gets a list of categories.
+*/
+print '' print '*** Creating sp_list_categories'
+GO
+CREATE PROCEDURE sp_list_categories
+AS
+BEGIN
+	SELECT DISTINCT ItemCategoryID
+	FROM dbo.ItemCategory
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2/22/2020
+Comment: Stored Procedure that gets a list of items from inventory.
+*/
+print '' print '*** Creating sp_retrieve_items'
+GO
+CREATE PROCEDURE sp_retrieve_items
+AS
+BEGIN
+	SELECT i.ItemID, i.ItemName, i.ItemQuantity, ic.ItemCategoryID
+	FROM dbo.Item i
+	INNER JOIN dbo.ItemCategory ic
+	ON i.ItemCategoryID = ic.ItemCategoryID
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2/22/2020
+Comment: Adding data to ItemCategory
+*/
+print '' print '*** Adding data to ItemCategory'
+GO
+	INSERT INTO ItemCategory(
+	ItemCategoryID,
+	Description
+	)
+	VALUES
+	("Dog Food", "This is the description for the dog food."),
+	("Cat Toys", "This is the description for the cat toys.")
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2/22/2020
+Comment: Adding data to Item
+*/
+print '' print '*** Adding data to items'
+GO
+	INSERT INTO Item(
+		ItemName,
+		ItemCategoryID,
+		ItemDescription,
+		ItemQuantity
+	)
+	VALUES
+	("Dog Food", "Dog Food", "Dog Food Description", 10),
+	("Cat Food", "Dog Food", "Cat Food Description", 20),
+	("Lazer Pointer", "Cat Toys", "Lazer Pointer Description", 40)
+GO
+
 
 
 

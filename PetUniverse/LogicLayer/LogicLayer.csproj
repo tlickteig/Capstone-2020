@@ -55,6 +55,8 @@
     <Compile Include="HomeInspectorManager.cs" />
     <Compile Include="InHomeInspectionAppointmentDecisionManager.cs" />
     <Compile Include="InventoryItemsManager.cs" />
+    <Compile Include="ItemCategoryManager.cs" />
+    <Compile Include="ItemManager.cs" />
     <Compile Include="LogManager.cs" />
     <Compile Include="ManageBackstockRecords.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

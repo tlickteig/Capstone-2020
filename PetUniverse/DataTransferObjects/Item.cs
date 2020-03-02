@@ -19,8 +19,6 @@ namespace DataTransferObjects
         public string ItemName { get; set; }
         public int ItemQuantity { get; set; }
         public string ItemCategoryID { get; set; }
-
-
         public string Description { get; set; }
 
     }

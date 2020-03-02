@@ -58,6 +58,8 @@
     <Compile Include="IHomeInspectoAccessor.cs" />
     <Compile Include="IInHomeInspectionAppointmentDecisionAccessor.cs" />
     <Compile Include="IInventoryItemsAccessor.cs" />
+    <Compile Include="IItemAccessor.cs" />
+    <Compile Include="IItemCategoryAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
