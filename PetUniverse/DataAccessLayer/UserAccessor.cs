@@ -27,9 +27,9 @@ namespace DataAccessLayer
         /// This method connects to the database and inserts a user via the sp_insert_user stored procedure
         /// </summary>
         /// <remarks>
-        /// Updater: N/A
-        /// Updated: N/A
-        /// Updated: N/A
+        /// Updater: Steven Cardona
+        /// Updated: 03/01/2020
+        /// Update: Added parameters for Address lines         
         /// </remarks>
         /// <param name="petUniverseUser">The user that is going to be inserted into the database</param>
         /// <returns>Returns true if insert is successful else returns false</returns>
@@ -47,6 +47,8 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@LastName", petUniverseUser.LastName);
             cmd.Parameters.AddWithValue("@PhoneNumber", petUniverseUser.PhoneNumber);
             cmd.Parameters.AddWithValue("@Email", petUniverseUser.Email);
+            cmd.Parameters.AddWithValue("@Address1", petUniverseUser.Address1);
+            cmd.Parameters.AddWithValue("@Address2", ((object)petUniverseUser.Address2)?? DBNull.Value);
             cmd.Parameters.AddWithValue("@City", petUniverseUser.City);
             cmd.Parameters.AddWithValue("@State", petUniverseUser.State);
             cmd.Parameters.AddWithValue("@Zipcode", petUniverseUser.ZipCode);
@@ -77,10 +79,9 @@ namespace DataAccessLayer
         /// selects all active users via the sp_select_all_active_users stored procedure
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// APPROVER: NA
+        /// Updater: Steven Cardona
+        /// Updated: 03/01/2020
+        /// Update: Added lines to pull Address lines from reader
         /// </remarks>
         /// <returns>Returns a list of PetUniverseUsers</returns>
         public List<PetUniverseUser> SelectAllActivePetUniverseUsers()
@@ -107,9 +108,11 @@ namespace DataAccessLayer
                         LastName = reader.GetString(2),
                         PhoneNumber = reader.GetString(3),
                         Email = reader.GetString(4),
-                        City = reader.GetString(5),
-                        State = reader.GetString(6),
-                        ZipCode = reader.GetString(7)
+                        Address1 = reader.GetString(5),
+                        Address2 = reader.IsDBNull(6) ? null : reader.GetString(6),
+                        City = reader.GetString(7),
+                        State = reader.GetString(8),
+                        ZipCode = reader.GetString(9)
                     });
                 }
                 reader.Close();

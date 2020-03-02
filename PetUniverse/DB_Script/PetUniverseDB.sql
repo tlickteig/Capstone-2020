@@ -95,6 +95,8 @@ BEGIN
 		[LastName],
 		[PhoneNumber],
 		[Email],
+		[addressLineOne],
+		[addressLineTwo],
 		[City],
 		[State],
 		[Zipcode]
@@ -120,6 +122,8 @@ CREATE PROCEDURE [sp_insert_user]
 	@LastName [nvarchar](50),
 	@PhoneNumber [nvarchar](11),
 	@Email [nvarchar](250),
+	@Address1 [nvarchar](250),
+	@Address2 [nvarchar](250),
 	@City [nvarchar](20),
 	@State [nvarchar](2),
 	@Zipcode [nvarchar](15)
@@ -127,9 +131,9 @@ CREATE PROCEDURE [sp_insert_user]
 AS
 Begin
 	INSERT INTO [dbo].[User]
-		([FirstName], [LastName], [PhoneNumber],[Email],[City],[State],[Zipcode])
+		([FirstName], [LastName],[PhoneNumber],[Email],[addressLineOne],[addressLineTwo],[City],[State],[Zipcode])
 	VALUES
-		(@FirstName, @LastName, @PhoneNumber, @Email, @City, @State, @Zipcode)
+		(@FirstName, @LastName, @PhoneNumber, @Email, @Address1, @Address2, @City, @State, @Zipcode)
 END
 GO
 

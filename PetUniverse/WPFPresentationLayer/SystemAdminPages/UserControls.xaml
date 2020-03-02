@@ -21,7 +21,7 @@
      This window is where the main activity for viewing and adding users will happen-->
     <Canvas x:Name="UserControl" Visibility="Visible">
         <Canvas>
-            <Canvas x:Name="canUserView">
+            <Canvas x:Name="canUserView" Visibility="Visible" >
                 <Grid Height="800" Width="1283">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="13*"/>
@@ -78,7 +78,7 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <Button x:Name="btnBack" Content="Back" FontSize="18" FontWeight="DemiBold" BorderThickness="0" HorizontalAlignment="Left" Background="{x:Null}"  Width="52" Click="btnBack_Click" BorderBrush="{x:Null}" Height="30" VerticalAlignment="Bottom"/>
-                            <Button x:Name="btnSaveUser" Content="Save" Grid.Column="11" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="30" Click="btnSaveUser_Click" Margin="51,0,0,0"/>
+                            <Button x:Name="btnSaveUser" Content="Save" FontSize="18" FontWeight="DemiBold" Grid.Column="11" BorderThickness="0" Background="{x:Null}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="50" Height="30" Click="btnSaveUser_Click" Margin="51,0,0,0"/>
                         </Grid>
                     </StackPanel>
                     <Canvas Grid.Row="2" Grid.ColumnSpan="2" Margin="15,0,30,20" Grid.Column="1">
@@ -87,35 +87,40 @@
                         </Canvas.Effect>
                         <Grid Height="717" Width="1225" Background="LightGray" Canvas.Top="-1">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="245*"/>
-                                <ColumnDefinition Width="245*"/>
-                                <ColumnDefinition Width="245*"/>
-                                <ColumnDefinition Width="245*"/>
-                                <ColumnDefinition Width="218*"/>
-                                <ColumnDefinition Width="27*"/>
+                                <ColumnDefinition Width="245"/>
+                                <ColumnDefinition Width="245"/>
+                                <ColumnDefinition Width="245"/>
+                                <ColumnDefinition Width="245"/>
+                                <ColumnDefinition Width="218"/>
+                                <ColumnDefinition Width="27"/>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="121*"/>
-                                <RowDefinition Height="120*"/>
-                                <RowDefinition Height="120*"/>
-                                <RowDefinition Height="120*"/>
-                                <RowDefinition Height="119*"/>
-                                <RowDefinition Height="120*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
-                            <Label Grid.Row="1" Grid.Column="0" Content="First Name: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
-                            <TextBox x:Name="txtFirstName" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,44,0,45" Grid.ColumnSpan="2"/>
-                            <Label Grid.Row="1" Grid.Column="2" Content="Last Name: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
-                            <TextBox x:Name="txtLastName" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,44,0,45" Grid.ColumnSpan="2"/>
-                            <Label Grid.Row="2" Grid.Column="0" Content="Email: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
-                            <TextBox x:Name="txtEmail" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,45" Grid.ColumnSpan="2"/>
-                            <Label Grid.Row="2" Grid.Column="2" Content="Phone Number: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
-                            <TextBox x:Name="txtPhoneNumber" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,45" Grid.ColumnSpan="2"/>
-                            <Label Grid.Row="3" Grid.Column="0" Content="City: "  FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
-                            <TextBox x:Name="txtCity" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,45" Grid.ColumnSpan="2"/>
-                            <Label Grid.Row="3" Grid.Column="2" Content="State: "  FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
-                            <ComboBox x:Name="cmbState" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="100" Height="30" VerticalContentAlignment="Center" Margin="0,45"/>
-                            <Label Grid.Row="4" Grid.Column="0" Content="Zipcode: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,41" />
-                            <TextBox x:Name="txtZipcode" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left"  HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="250" Height="30" VerticalContentAlignment="Center" Margin="0,45,0,44" Grid.ColumnSpan="2"/>
+                            <Label Grid.Row="1" Grid.Column="0" Content="First Name: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center"  />
+                            <TextBox x:Name="txtFirstName" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="245" Height="30" VerticalContentAlignment="Center"  Grid.ColumnSpan="2"/>
+                            <Label Grid.Row="1" Grid.Column="2" Content="Last Name: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox x:Name="txtLastName" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="245" Height="30" VerticalContentAlignment="Center"  Grid.ColumnSpan="2"/>
+                            <Label Grid.Row="2" Grid.Column="0" Content="Email: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox x:Name="txtEmail" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="245" Height="30" VerticalContentAlignment="Center"  Grid.ColumnSpan="2"/>
+                            <Label Grid.Row="2" Grid.Column="2" Content="Phone Number: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox x:Name="txtPhoneNumber" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="245" Height="30" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                            <Label Grid.Row="3" Grid.Column="0" Content="Address Line 1: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox x:Name="txtAddress1" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="245" Height="30" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                            <Label Grid.Row="3" Grid.Column="2" Content="Address Line 2: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox x:Name="txtAddress2" Grid.Row="3" Grid.Column="3" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="245" Height="30" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                            <Label Grid.Row="4" Grid.Column="0" Content="City: "  FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox x:Name="txtCity" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="245" Height="30" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
+                            <Label Grid.Row="4" Grid.Column="2" Content="State: "  FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <ComboBox x:Name="cmbState" Grid.Row="4" Grid.Column="3" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="100" Height="30" VerticalContentAlignment="Center" />
+                            <Label Grid.Row="5" Grid.Column="0" Content="Zipcode: " FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                            <TextBox x:Name="txtZipcode" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left"  HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="245" Height="30" VerticalContentAlignment="Center" Grid.ColumnSpan="2"/>
                         </Grid>
                     </Canvas>
                 </Grid>

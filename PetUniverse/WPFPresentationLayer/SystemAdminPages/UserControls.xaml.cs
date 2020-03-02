@@ -61,9 +61,9 @@ namespace WPFPresentationLayer.SystemAdminPages
         /// Method of general Error handling.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Steven Cardona 
+        /// Updated: 03/01/2020
+        /// Update: Added columns for Address
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -76,9 +76,11 @@ namespace WPFPresentationLayer.SystemAdminPages
             dgUserList.Columns[2].Header = "Last Name";
             dgUserList.Columns[3].Header = "Phone Number";
             dgUserList.Columns[4].Header = "Email";
-            dgUserList.Columns[5].Header = "City";
-            dgUserList.Columns[6].Header = "State";
-            dgUserList.Columns[7].Header = "ZipCode";
+            dgUserList.Columns[5].Header = "Address Line 1";
+            dgUserList.Columns[6].Header = "Address Line 2";
+            dgUserList.Columns[7].Header = "City";
+            dgUserList.Columns[8].Header = "State";
+            dgUserList.Columns[9].Header = "ZipCode";
 
             // this fill all availalbe space with available columns
             foreach (var column in this.dgUserList.Columns)
@@ -86,8 +88,10 @@ namespace WPFPresentationLayer.SystemAdminPages
                 column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
             }
 
-            dgUserList.Columns[6].Width = 40;
-
+            dgUserList.Columns[0].Width = 60;
+            dgUserList.Columns[3].Width = 95;
+            dgUserList.Columns[8].Width = 40;
+            dgUserList.Columns[9].Width = 60;
         }
 
         /// <summary>
@@ -133,6 +137,7 @@ namespace WPFPresentationLayer.SystemAdminPages
             }
 
         }
+
         /// <summary>
         /// Creator: Steven Cardona
         /// Created: 02/20/2020
@@ -158,31 +163,6 @@ namespace WPFPresentationLayer.SystemAdminPages
             }
         }
 
-        /// <summary>
-        /// Creator: Steven Cardona
-        /// Created: 02/14/2020
-        /// Approver: Zach Behrensmeyer
-        /// 
-        /// Loaded event for User Controls
-        /// </summary>
-        /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                dgUserList.ItemsSource = _userManager.RetrieveAllActivePetUniverseUsers();
-            }
-            catch (Exception ex)
-            {
-                LogicLayerErrorHandler.DataLoadErrorMessage(ex.Message, ex.InnerException.Message);
-            }
-        }
 
         /// <summary>
         /// Creator: Steven Cardona
@@ -192,9 +172,9 @@ namespace WPFPresentationLayer.SystemAdminPages
         /// Create a new user by clicking save
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Steven Cardona
+        /// Updated: 03/01/2020
+        /// Update: Added Address validation checks
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -315,13 +295,58 @@ namespace WPFPresentationLayer.SystemAdminPages
 
             try
             {
+                if (!txtAddress1.Text.IsValidAddress1())
+                {
+                    WPFErrorHandler.ErrorMessage("Invalid Address Line 1", "Validation");
+                    txtAddress1.Text = "";
+                    txtAddress1.Focus();
+                    return;
+                }
+                else
+                {
+                    newUser.Address1 = txtAddress1.Text;
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message, "Validation");
+            }
+
+            try
+            {
+                if (!txtAddress1.Text.IsValidAddress2())
+                {
+                    WPFErrorHandler.ErrorMessage("Invalid Address Line 2", "Validation");
+                    txtAddress2.Text = "";
+                    txtAddress2.Focus();
+                    return;
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(txtAddress2.Text))
+                    {
+                        newUser.Address2 = txtAddress2.Text;
+                    }
+                    else
+                    {
+                        newUser.Address2 = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message, "Validation");
+            }
+
+            try
+            {
                 isCreated = _userManager.CreateNewUser(newUser);
                 if (isCreated)
                 {
                     WPFErrorHandler.SuccessMessage("Create new user was successful");
                 }
-                this.Visibility = Visibility.Hidden;
-                this.Visibility = Visibility.Visible;
+                canAddUser.Visibility = Visibility.Hidden;
+                canUserView.Visibility = Visibility.Visible;
 
                 RefreshDgUserList();
             }

@@ -249,5 +249,58 @@ namespace PresentationUtilityCode
             }
             return result;
         }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 03/01/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// This method checks if the provided Password is at least 7 characters long
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// </remarks>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        public static bool IsValidAddress1(this string address)
+        {
+            bool result = false;
+
+            if(address.Length <= 250)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 03/01/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// This method checks if the provided Password is at least 7 characters long
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// </remarks>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        public static bool IsValidAddress2(this string address)
+        {
+            bool result = false;
+
+            if (address.Length <= 250 || string.IsNullOrEmpty(address))
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
     }
 }
