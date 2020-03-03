@@ -4430,6 +4430,248 @@ GO
 	("Lazer Pointer", "Cat Toys", "Lazer Pointer Description", 40)
 GO
 
+print '' print '*** Creating Volunteer Table'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Table that houses Volunteer Information
+*/
+go
+create table [dbo].[Volunteer](
+	[VolunteerID] 	[int] identity(1000000,1) 	not null,
+	[FirstName]  	[nvarchar](500)           	not null,
+	[LastName]    	[nvarchar](500)         	not null,
+	[Email]    	  	[nvarchar](100)				not null,
+	[PhoneNumber] 	[nvarchar](12) 				not null,
+	[OtherNotes]  	[nvarchar](2000)			null,
+	[PasswordHash]	[nvarchar](100)				not null
+		default '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E',
+	[Active]      	[bit]         				not null default 1,
+	constraint [pk_VolunteerID] primary key([VolunteerID] asc),
+	constraint [ak_Volunteer_Email] unique([Email] asc)
+)
+go
+
+print '' print '*** Creating Sample Volunteer Records'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Sample Active Volunteer records
+*/
+go
+
+insert into [dbo].[Volunteer]
+	([FirstName], [LastName], [Email], [PhoneNumber], [OtherNotes])
+	values
+	('System', 'Admin', 'admin@petuniverse.com', '00000000000', 'Admin Volunteer'),
+	('Ned', 'Flanders', 'diddlydoo@gmail.com', '13192522443', 'Volunteer Notes')
+go
+
+print '' print '*** Creating Sample Deactivated Volunteer'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Sample Deactived Volunteer records
+*/
+go
+
+insert into [dbo].[Volunteer]
+	([FirstName], [LastName], [Email], [PhoneNumber], [OtherNotes], [Active])
+	values
+	('Homer', 'Simpson', 'doofus@gmail.com', '13194568896', 'Terrible worker', 0)
+
+print '' print '*** Creating sp_insert_volunteer'
+GO
+CREATE PROCEDURE [sp_insert_volunteer]
+(
+	@FirstName	 [nvarchar](500),
+	@LastName	 [nvarchar](500),
+	@Email       [nvarchar](100),
+	@PhoneNumber [nvarchar](12),
+	@OtherNotes  [nvarchar](2000)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Volunteer]
+		([FirstName], [LastName], [Email], [PhoneNumber], [OtherNotes])
+	VALUES
+		(@FirstName, @LastName, @Email, @PhoneNumber, @OtherNotes)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+print '' print '*** Creating sp_get_volunteer_by_name'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Gets Volunteers by first and last name
+*/
+go
+create procedure [sp_get_volunteer_by_name]
+(
+	@FirstName [nvarchar](500),
+	@LastName [nvarchar](500)
+)
+as
+begin
+select
+	VolunteerID, FirstName, LastName, Email, PhoneNumber, OtherNotes, Active
+from Volunteer
+where FirstName = @FirstName
+and LastName = @LastName
+end
+go
+
+print '' print '*** Creating VolunteerSkills Table'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Table that houses different skills a volunteer could have 
+*/
+go
+
+create table [dbo].[VolunteerSkills](
+	[SkillID]     			[nvarchar](50)  	not null,
+	[SkillDescription] 		[nvarchar](500) 	not null,
+	constraint [pk_SkillID] primary key([SkillID] asc)
+)
+go
+
+print '' print '*** Creating Sample VolunteerSkills Records'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Sample skills and description
+*/
+go
+
+insert into [dbo].[VolunteerSkills]
+	([SkillID], [SkillDescription])
+	values
+	('Basic Volunteer', 'Standard Volunteer - no particular proficiency'),
+	('Dogwalker', 'Suited to walk dogs'),
+	('Groomer', 'Suited to groom animals'),
+	('Trainer', 'Suited to train animals'),
+	('Transporter', 'Able to transport animals to vet appointments, etc'),
+	('Pet Photographer', 'Takes pictures of animals for websites, fliers, etc'),
+	('Housing Management', 'Suited for managing animal housing, makes sure bedding is clean, housing has adequete food/water'),
+	('Campaigner', 'Suited for promoting marketing campaigns'),
+	('Greeter', 'Guide potential adopters throughout the shelter')
+go
+
+print '' print '*** Creating sp_select_all_skills'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Gets a list of all skills
+*/
+GO
+CREATE PROCEDURE [sp_select_all_skills]
+AS
+BEGIN
+	SELECT [SkillID]
+	FROM [dbo].[VolunteerSkills]
+	ORDER BY [SkillID]
+END
+GO
+
+print '' print '*** Creating VolunteerSkill Table'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Table that ties Volunteers to their skills
+*/
+go
+
+create table [dbo].[VolunteerSkill](
+	[VolunteerID] 	[int]          	not null,
+	[SkillID] 	  	[nvarchar](50) 	not null,
+	constraint [pk_VolunteerID_SkillID] primary key([VolunteerID] asc, [SkillID] asc),
+	constraint [fk_Volunteer_VolunteerID] foreign key([VolunteerID])
+		references [Volunteer]([VolunteerID])on delete cascade,
+    constraint [fk_VolunteerSkills_SkillID] foreign key([SkillID])
+		references [VolunteerSkills]([SkillID]) on update cascade			
+)
+go
+
+print '' print '*** Creating Sample VolunteerSkill Records'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Sample ties between Volunteers and their skills
+*/
+go
+
+insert into [dbo].[VolunteerSkill]
+	([VolunteerID], [SkillID])
+	values 
+	(1000001, 'Greeter'),
+	(1000001, 'Campaigner')
+go
+
+print '' print '*** Creating sp_insert_volunteer_skill'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Give a volunteer new skill
+*/
+GO
+CREATE PROCEDURE [sp_insert_volunteer_skill]
+(
+	@VolunteerID 			[int],
+	@SkillID	 			[nvarchar](50)
+)
+AS
+BEGIN
+INSERT INTO [dbo].[VolunteerSkill]
+	([VolunteerID], [SkillID])
+	VALUES
+	(@VolunteerID, @SkillID)
+END
+GO
+
+print '' print '*** Creating sp_delete_volunteer_skill'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Removes a volunteer's skill
+*/
+GO
+CREATE PROCEDURE [sp_delete_volunteer_skill]
+(
+	@VolunteerID			[int],
+	@SkillID				[nvarchar](50)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[VolunteerSkill]
+	WHERE [VolunteerID] =	@VolunteerID
+	  AND [SkillID] = 		@SkillID
+END
+GO
+
+print '' print '*** Creating sp_select_volunteers_by_active'
+/*
+Created by: Gabi Legrand
+Date: 2/8/2020
+Comment: Gets a list of all active volunteers
+*/
+go
+create procedure [sp_select_volunteers_by_active]
+(
+
+    @Active        [bit]
+
+)
+as
+begin
+    select [VolunteerID], [FirstName], [LastName], [Email], [PhoneNumber], [OtherNotes], [Active]
+    from  [dbo].[Volunteer]
+    where active = 1
+    order by [LastName]
+end
+go
+
 /*
 Created by: Zoey McDonald
 Date: 2/20/2020

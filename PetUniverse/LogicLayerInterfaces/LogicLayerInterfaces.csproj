@@ -67,6 +67,7 @@
     <Compile Include="ITransactionManager.cs" />
     <Compile Include="IUserManager.cs" />
     <Compile Include="IVolunteerEventManager.cs" />
+    <Compile Include="IVolunteerManager.cs" />
     <Compile Include="IVolunteerShiftManager.cs" />
     <Compile Include="IVolunteerTaskManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -166,6 +166,9 @@
     <Compile Include="SystemAdminPages\UserControls.xaml.cs">
       <DependentUpon>UserControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VolunteerPages\AddEditVolunteer.xaml.cs">
+      <DependentUpon>AddEditVolunteer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\CreateEditShift.xaml.cs">
       <DependentUpon>CreateEditShift.xaml</DependentUpon>
     </Compile>
@@ -174,6 +177,9 @@
     </Compile>
     <Compile Include="VolunteerPages\TaskControls.xaml.cs">
       <DependentUpon>TaskControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\ViewVolunteers.xaml.cs">
+      <DependentUpon>ViewVolunteers.xaml</DependentUpon>
     </Compile>
     <Page Include="AdoptionPages\AdoptionApplications.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -303,6 +309,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VolunteerPages\AddEditVolunteer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="VolunteerPages\CreateEditShift.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -314,6 +324,10 @@
     <Page Include="VolunteerPages\TaskControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\ViewVolunteers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -77,6 +77,7 @@
     <Compile Include="TrainingVideo.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="TransactionVM.cs" />
+    <Compile Include="Volunteer.cs" />
     <Compile Include="VolunteerEvent.cs" />
     <Compile Include="VolunteerEventVM.cs" />
     <Compile Include="VolunteerShift.cs" />

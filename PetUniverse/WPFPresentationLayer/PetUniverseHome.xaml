@@ -241,6 +241,9 @@
 
         <Canvas x:Name="canVolHub" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetVolHub" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                <TabItem x:Name="tabViewVolunteers" Header="View Volunteers" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
+                    <Frame NavigationUIVisibility="Hidden" Source="./VolunteerPages/ViewVolunteers.xaml"></Frame>
+                </TabItem>
                 <TabItem x:Name="CreateEditShift" Header="Volunteer Shifts" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
                     <Frame Source="./VolunteerPages/CreateeditShift.xaml"></Frame>
                 </TabItem>
