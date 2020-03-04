@@ -277,5 +277,116 @@ namespace DataAccessLayer
             }
             return species;
         }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/19/2020
+        /// Approver: Austin Gee
+        /// Approver: 
+        /// 
+        /// a data access method for retrieving a list of all animal profiles
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>a list of animal objects</returns>
+        public List<Animal> SelectAllAnimnalProfiles()
+        {
+            List<Animal> animals = new List<Animal>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_all_animal_profiles");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var animal = new Animal();
+                        animal.AnimalID = reader.GetInt32(0);
+                        animal.AnimalName = reader.GetString(1);
+                        animal.ProfileImage = reader.GetString(2);
+                        animal.ProfileDescription = reader.GetString(3);
+
+                        animals.Add(animal);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return animals;
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/19/2020
+        /// Checked By: Austin Gee, 2/21/2020
+        /// 
+        /// This method if for passing the Animal's profile description and image path to the database. It returns True if 1 row is effected
+        /// It will return False if zero rows effected
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update
+        /// </remarks>
+        /// <param name="animal"></param>
+        /// <param name="profileDescription"></param>
+        /// <param name="profileImagePath"></param>
+        /// <returns></returns>
+        public bool UpdateAnimalProfile(int animalID, string profileDescription, string profileImagePath)
+        {
+            bool updateSuccess = false;
+
+            // connection
+            var conn = DBConnection.GetConnection();
+
+            // cmd
+            var cmd = new SqlCommand("sp_update_animal_profile");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // parameters
+            cmd.Parameters.Add("@AnimalID", SqlDbType.Int);
+            cmd.Parameters.Add("@ProfilePhoto", SqlDbType.NVarChar, 50);
+            cmd.Parameters.Add("@ProfileDescription", SqlDbType.NVarChar, 500);
+
+            // values
+            cmd.Parameters["@AnimalID"].Value = animalID;
+            cmd.Parameters["@ProfilePhoto"].Value = profileImagePath;
+            cmd.Parameters["@ProfileDescription"].Value = profileDescription;
+
+            // execute the command
+            try
+            {
+                conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+
+                updateSuccess = (rows == 1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return updateSuccess;
+        }
     }
 }

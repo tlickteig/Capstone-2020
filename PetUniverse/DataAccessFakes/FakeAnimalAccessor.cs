@@ -21,6 +21,8 @@ namespace DataAccessFakes
         private List<Animal> animals;
         private List<Animal> activeAnimals;
         private List<string> species;
+        private Animal _animal;
+        private List<Animal> animalProfiles;
 
         /// <summary>
         /// Creator: Chuck Baxter
@@ -65,6 +67,25 @@ namespace DataAccessFakes
                     AnimalSpeciesID = "B",
                 }
             };
+
+            animalProfiles = new List<Animal>()
+            {
+                new Animal()
+                {
+                    AnimalID = 1,
+                    AnimalName = "A",
+                    ProfileImage = "sample images",
+                    ProfileDescription = "sample description"
+                },
+
+                new Animal()
+                {
+                    AnimalID = 1,
+                    AnimalName = "A",
+                    ProfileImage = "sample images",
+                    ProfileDescription = "sample description"
+                }
+            };
         }
 
         /// <summary>
@@ -94,6 +115,22 @@ namespace DataAccessFakes
                 return 0;
             }
 
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/13/2020
+        /// Approver: Austin Gee
+        /// The fake data access method for selecting all of the animal profiles
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <returns>The default list of animal profiles</returns>
+        public List<Animal> SelectAllAnimnalProfiles()
+        {
+            return animalProfiles;
         }
 
         /// <summary>
@@ -170,6 +207,32 @@ namespace DataAccessFakes
                 activeAnimals = null;
                 return activeAnimals;
             }
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/19/2020
+        /// Approver: Austin Gee
+        /// 
+        /// The fake data access method for updating the animal propfile and descriptiopn
+        /// in the database
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// <param name="animal"></param>
+        /// <param name="profileDescription"></param>
+        /// <param name="profileImagePath"></param>
+        /// <returns></returns>
+        public bool UpdateAnimalProfile(int animalID, string profileDescription, string profileImagePath)
+        {
+            _animal = new Animal()
+            {
+                AnimalID = 100000,
+                ProfileDescription = "This is a fake Pet profile description",
+                ProfileImage = "/images",
+            };
+            return true;
         }
 
         /// <summary>

@@ -53,8 +53,42 @@ namespace DataAccessInterfaces
         /// Update:
         /// </remarks>
         /// <returns>a list of animal objects</returns>
-        List<Animal> SelectAnimalsByActive(bool active = true);
 
+        List<Animal> SelectAnimalsByActive(bool active = true);
+        /// <summary>
+        /// NAME: Michael Thompson
+        /// DATE: 2/20/2020
+        /// CHECKED BY: Austin Gee, 2/21/2020
+        /// 
+        /// Updates the animal with their forward facing description and image
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="animal">The animal.</param>
+        /// <param name="profileDescription">The profile description.</param>
+        /// <param name="profileImagePath">The profile image path.</param>
+        /// <returns>Bool</returns>
+
+        bool UpdateAnimalProfile(int animalID, string profileDescription, string profileImagePath);
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/19/2020
+        /// Approver: Austin Gee
+        /// Approver: 
+        /// 
+        /// a data access Interface for retrieving a list of all animal profiles
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>a list of animal objects</returns>
+        List<Animal> SelectAllAnimnalProfiles();
+        
         /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 2/19/2020

@@ -82,5 +82,34 @@ namespace LogicLayerInterfaces
         /// <returns>a list of animal objects</returns>
         List<string> RetrieveAnimalSpecies();
 
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/19/2020
+        /// Approver: Austin Gee
+        /// 
+        /// Interface to update a anial profile
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <returns>a list of animal objects</returns>
+        bool UpdatePetProfile(int animalID, string profileDescription, String profileImagePath);
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/19/2020
+        /// Approver: Austin Gee
+        /// 
+        /// Interface to get a list of all animal profiles
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <returns>a list of animal objects</returns>
+        List<Animal> RetrieveAllAnimalProfiles();
+
     }
 }

@@ -320,6 +320,12 @@ CREATE TABLE [dbo].[Animal](
 	[Adoptable]			[bit]						NOT NULL	DEFAULT 0,
 	[Active]			[bit]						NOT NULL	DEFAULT 1,
 	[AnimalSpeciesID]	[nvarchar](100)				NOT NULL,
+	/*Create By: Michael Thompson
+	Date 2/7/2020
+	Comment: Adding ProfilePhoto and Description
+	*/
+	[ProfilePhoto]			[nvarchar](50)  DEFAULT "No image found",
+	[ProfileDescription]	[nvarchar](500) DEFAULT "NO description found",
 	CONSTRAINT [pk_AnimalID] PRIMARY KEY([AnimalID] ASC),
 	CONSTRAINT [fk_Animal_AnimalSpeciesID] FOREIGN KEY([AnimalSpeciesID])
 		REFERENCES [AnimalSpecies]([AnimalSpeciesID])
@@ -4786,15 +4792,44 @@ GO
 
 
 
+/*
+Created By: Michael Thompson
+Date: 2/20/2020
+Comment: Stored Procedure to update the animal profiles with forward facing description and photo path
+*/
 
 
+print '' print '*** Creating sp_update_animal_profile'
+GO
+CREATE PROCEDURE [sp_update_animal_profile]
+(
+	@AnimalID			[int],
+	@ProfilePhoto		[nvarchar](50),
+	@ProfileDescription	[nvarchar](500)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Animal]
+		SET [ProfilePhoto] = @ProfilePhoto, 
+			[ProfileDescription] = @ProfileDescription
+	WHERE	[AnimalID] = @AnimalID
+	RETURN @@ROWCOUNT
+END
+GO
 
+/*
+Created By: Michael Thompson
+Date 2/20/2020
+Comment: Stored Procedure to get the animal, profile photo path and description
+*/
 
-
-
-
-
-
-
-
-
+print '' print '*** Creating sp_select_all_animal_profiles'
+GO
+CREATE PROCEDURE [sp_select_all_animal_profiles]
+AS
+BEGIN
+	SELECT [AnimalID],[AnimalName],[ProfilePhoto],[ProfileDescription]
+	FROM [dbo].[Animal]
+	ORDER BY [AnimalID]
+END
+GO
