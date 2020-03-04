@@ -13,9 +13,11 @@ namespace LogicLayerTests
 {
 
     /// <summary>
-    /// CREATOR: Steven Cardona
-    /// DATE: 02/07/2020
-    /// APPROVER: Zach Behrensmeyer
+    /// Creator: Steven Cardona
+    /// Created: 02/07/2020
+    /// Approver: Zach Behrensmeyer
+    /// 
+    /// The tests for the user manager
     /// </summary>
     [TestClass]
     public class UserManagerTests
@@ -25,16 +27,16 @@ namespace LogicLayerTests
         private UserManager _userManager;
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/07/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/07/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
         /// Setup for tests to run
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA        
         /// </remarks>
         [TestInitialize]
         public void TestSetup()
@@ -44,16 +46,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/07/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/07/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
         /// Test for Creating a user
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
         /// </remarks>
         [TestMethod]
         public void TestCreateNewUser()
@@ -70,7 +72,6 @@ namespace LogicLayerTests
                 ZipCode = "52404"
             };
 
-
             bool created = false;
             bool expectedResult = true;
 
@@ -82,16 +83,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/07/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/07/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
         /// Test method to retrieve all Pet Universe Users
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
         /// </remarks>
         [TestMethod]
         public void TestRetrieveAllPetUniverseUsers()
@@ -108,17 +109,17 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/3/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/3/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method hashes the given password for tests
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
         /// 
         /// </remarks>
         /// <param name="source"></param>
@@ -145,19 +146,18 @@ namespace LogicLayerTests
             return result;
         }
 
-
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/3/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/3/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is a passing test for the UserAuthentication() method
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
         /// 
         /// </remarks>        
         [TestMethod]
@@ -173,17 +173,17 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/5/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/3/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is a failing test for the UserAuthentication() method
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
         /// 
         /// </remarks>
         /// </summary>
@@ -202,18 +202,19 @@ namespace LogicLayerTests
             _user = _userManager.AuthenticateUser(email, goodPasswordHash);
             //Assert not needed
         }
+
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/5/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/5/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is a failing test for the UserAuthentication() method
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
         /// 
         /// </remarks>
         /// </summary>
@@ -221,7 +222,6 @@ namespace LogicLayerTests
         [ExpectedException(typeof(ApplicationException))]
         public void TestUserManagerAuthenticationUserNameException()
         {
-
             //Arrange            
             string email = "j.blue@RandoGuy.com";
             //Value you want PasswordHash() to return
@@ -232,6 +232,19 @@ namespace LogicLayerTests
             //Assert not needed   
         }
 
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 2/15/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Tests for an application exception
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// </remarks>
+        /// 
+        /// </summary>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
         public void TestCreateNewUserException()
@@ -248,7 +261,6 @@ namespace LogicLayerTests
                 ZipCode = "52404"
             };
 
-
             bool created = false;
 
             // act
@@ -257,16 +269,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/07/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/07/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
         /// Method to reset all variable for next test run.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA 
         /// </remarks>
         [TestCleanup]
         public void TestTearDown()
@@ -275,6 +287,5 @@ namespace LogicLayerTests
             _userManager = null;
             _user = null;
         }
-
     }
 }

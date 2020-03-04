@@ -8,9 +8,9 @@ using DataTransferObjects;
 namespace PresentationUtilityCode
 {
     /// <summary>
-    /// CREATOR: Steven Cardona
-    /// Date: 02/10/2020
-    /// APPROVER: Zach Behrensmeyer
+    /// Creator: Steven Cardona
+    /// Created: 02/10/2020
+    /// Approver: Zach Behrensmeyer
     ///
     /// Class with validation methods for users
     /// </summary>
@@ -18,18 +18,17 @@ namespace PresentationUtilityCode
     {
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/10/2020
-        /// APPROVER: Zach Behrensmeyer
-        /// 
+        /// Creator: Steven Cardona
+        /// Created: 02/10/2020
+        /// Approver: Zach Behrensmeyer
+        ///
         /// This is to verify that FirstName is not null, blank or a space
         /// </summary>
         /// <remarks>
         /// 
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA        
         /// </remarks>
         /// <param name="firstName">The String that is from the first name text box</param>
         /// <returns>true if firstName meets all if condition else method returns false</returns>
@@ -46,18 +45,17 @@ namespace PresentationUtilityCode
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/10/2020
-        /// APPROVER: Zach Behrensmeyer
-        /// 
+        /// Creator: Steven Cardona
+        /// Created: 02/10/2020
+        /// Approver: Zach Behrensmeyer
+        ///
         /// This is to verify that Last Name is not null, blank or a space
         /// </summary>
         /// <remarks>
         /// 
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
         /// </remarks>
         /// <param name="lastName">The String that is from the last name text box</param>
         /// <returns>true if lastName meets all if condition else method returns false</returns>
@@ -74,17 +72,16 @@ namespace PresentationUtilityCode
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/10/2020
-        /// APPROVER: Zach Behrensmeyer
-        /// 
+        /// Creator: Steven Cardona
+        /// Created: 02/10/2020
+        /// Approver: Zach Behrensmeyer
+        ///
         /// This method checks if provided email address is valid
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
         /// </remarks>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -100,17 +97,16 @@ namespace PresentationUtilityCode
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/10/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/10/2020
+        /// Approver: Zach Behrensmeyer        
         /// 
         /// This method checks if provided phone number is valid
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
         /// </remarks>
         /// <param name="phoneNumber">Phone number provided by textbox input</param>
         /// <returns>return true if phonenumber passes all condition else returns false or throws
@@ -138,22 +134,20 @@ namespace PresentationUtilityCode
                     throw new ApplicationException("Invalid phone number");
                 }
             }
-
             return isValid;
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/11/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/11/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// This method checks if provided phone number is valid
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
         /// </remarks>
         /// <param name="city">String value of city from city textbox</param>
         /// <returns>Returns true if city is less than or equal to 20 characters
@@ -171,17 +165,16 @@ namespace PresentationUtilityCode
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/11/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/11/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// This method checks if provided phone number is valid
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
         /// </remarks>
         /// <param name="state">State value that is being validated</param>
         /// <returns>Return true if state is in Enumeration else returns falsef</returns>
@@ -199,17 +192,16 @@ namespace PresentationUtilityCode
         }
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/11/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/11/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// This method checks if provided phone number is valid
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
         /// </remarks>
         /// <param name="zipcode">Zipcode that is being validated</param>
         /// <returns>Returns true if password is at least 7 characters long</returns>
@@ -234,17 +226,16 @@ namespace PresentationUtilityCode
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 02/11/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Steven Cardona
+        /// Created: 02/11/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// This method checks if the provided Password is at least 7 characters long
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED N/A
-        ///     UPDATE: N/A
-        /// APPROVER: N/A
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
         /// </remarks>
         /// <param name="password"></param>
         /// <returns>Returns true if password is at least 7 characters else return false</returns>
@@ -259,6 +250,57 @@ namespace PresentationUtilityCode
             return result;
         }
 
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 03/01/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// This method checks if the provided Password is at least 7 characters long
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// </remarks>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        public static bool IsValidAddress1(this string address)
+        {
+            bool result = false;
+
+            if(address.Length <= 250)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 03/01/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// This method checks if the provided Password is at least 7 characters long
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// </remarks>
+        /// <param name="address"></param>
+        /// <returns></returns>
+        public static bool IsValidAddress2(this string address)
+        {
+            bool result = false;
+
+            if (address.Length <= 250 || string.IsNullOrEmpty(address))
+            {
+                result = true;
+            }
+
+            return result;
+        }
 
     }
 }

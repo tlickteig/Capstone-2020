@@ -41,14 +41,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoptionApplication.cs" />
+    <Compile Include="AdoptionAppointment.cs" />
+    <Compile Include="AdoptionAppointmentVM.cs" />
+    <Compile Include="AdoptionCustomerVM.cs" />
     <Compile Include="Animal.cs" />
+    <Compile Include="AnimalHandlingNotes.cs" />
+    <Compile Include="AnimalKennel.cs" />
+    <Compile Include="Applicant.cs" />
+    <Compile Include="Appointment.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="CustomerQuestionnar.cs" />
+    <Compile Include="CustomerQuestionnarVM.cs" />
+    <Compile Include="Department.cs" />
+    <Compile Include="DepartmentRequest.cs" />
+    <Compile Include="ERole.cs" />
+    <Compile Include="EventRequest.cs" />
+    <Compile Include="EventType.cs" />
+    <Compile Include="FacilityMaintenance.cs" />
+    <Compile Include="GeneralQuestion.cs" />
+    <Compile Include="HomeInspectorAdoptionAppointmentDecision.cs" />
+    <Compile Include="InventoryItems.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemCategory.cs" />
+    <Compile Include="ItemLocation.cs" />
     <Compile Include="LogItem.cs" />
+    <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PUEvent.cs" />
+    <Compile Include="questionnair.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="RequestVM.cs" />
     <Compile Include="States.cs" />
     <Compile Include="Transaction.cs" />
+    <Compile Include="TrainingVideo.cs" />
+    <Compile Include="Transaction.cs" />
+    <Compile Include="TransactionVM.cs" />
+    <Compile Include="Volunteer.cs" />
+    <Compile Include="VolunteerEvent.cs" />
+    <Compile Include="VolunteerEventVM.cs" />
+    <Compile Include="VolunteerShift.cs" />
+    <Compile Include="VolunteerShiftVM.cs" />
+    <Compile Include="VolunteerTask.cs" />
+    <Compile Include="VolunteerTaskVM.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

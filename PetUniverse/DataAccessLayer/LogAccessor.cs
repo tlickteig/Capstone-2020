@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 namespace DataAccessLayer
 {
     /// <summary>
-    /// NAME: Zach Behrensmeyer
-    /// DATE: 2/11/2020
-    /// CHECKED BY: Steven Cardona
+    /// Creator: Zach Behrensmeyer
+    /// Created: 2/11/2020
+    /// Approver: Steven Cardona
     /// 
     /// This class accesses Log data 
     /// </summary>
@@ -22,16 +22,16 @@ namespace DataAccessLayer
 
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/11/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
         /// 
         /// This method is used to get logs related to login and logouts
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// CHANGE:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <returns>List of Logs</returns>
         public List<LogItem> GetLoginLogout()

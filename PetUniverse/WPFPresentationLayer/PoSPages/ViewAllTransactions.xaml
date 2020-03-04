@@ -1,0 +1,33 @@
+﻿<!-- Creator: Jaeho Kim
+     Created: 2/26/2020
+     Approver: Ethan Holmes
+     
+    Window for displaying all transactions-->
+    <Page x:Class="WPFPresentationLayer.PoSPages.ViewAllTransactions"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WPFPresentationLayer.PoSPages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ViewAllTransactions">
+
+    <Canvas x:Name="canViewInventoryItems" Height="845" Width="1289" Background="AntiqueWhite">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <DataGrid x:Name="dgTransactionsList"  Grid.Row="0" Loaded="dgTransactionsList_Loaded"
+                  Width="1280" Grid.ColumnSpan="1" SelectionMode="Single"
+                  Padding="0" IsReadOnly="True" CanUserResizeRows="False" 
+                  FontSize="12" FontWeight="Medium" CanUserResizeColumns="False" 
+                  CanUserReorderColumns="False" >
+
+            </DataGrid>
+        </Grid>
+    </Canvas>
+</Page>

@@ -141,5 +141,32 @@ namespace LogicLayer
                 throw new ApplicationException("Data not found.", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 2/28/2020
+        /// Approver: Jordan Lindo, 2/28/2020
+        /// Approver: 
+        /// 
+        /// logic method that uses an AnimalAccessor method to get a list of all animal
+        /// species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>a list of strings or an exception if the data wasn't found</returns>
+        public List<string> RetrieveAnimalSpecies()
+        {
+            try
+            {
+                return _animalAccessor.SelectAnimalSpeciesID();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
     }
 }

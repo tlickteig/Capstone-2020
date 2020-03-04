@@ -1,6 +1,7 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using PresentationUtilityCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +31,11 @@ namespace WPFPresentationLayer.PoSPages
 
         public pgCheckOut()
         {
-            _allProducts = _productManager.RetrieveAllProductsByType();
             InitializeComponent();
+            loadProducts();
+
         }
-        
+
         /// <summary>
         /// NAME: Robert Holmes
         /// DATE: 2/18/2020
@@ -94,7 +96,14 @@ namespace WPFPresentationLayer.PoSPages
         /// </remarks>
         private void loadProducts()
         {
-            _allProducts = _productManager.RetrieveAllProductsByType();
+            try
+            {
+                _allProducts = _productManager.RetrieveAllProductsByType();
+            }
+            catch(Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage("There was an issue loading Products");
+            }
             List<ProductViewModel> dgItems = new List<ProductViewModel>();
             if (_transaction.ProductAmounts.Count > 0)
             {

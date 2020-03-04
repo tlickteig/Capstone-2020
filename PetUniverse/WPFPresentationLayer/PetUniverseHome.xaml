@@ -41,6 +41,14 @@
                     </Button.Resources>
                 </Button>
 
+                <Button x:Name="btnFm" Margin="10" Height="40" FontSize="16" Content="Facility Management" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="BtnFm_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
                 <Button x:Name="btnPoS" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnPoS_Click">
                     <TextBlock HorizontalAlignment="Right" Text="Point of Sale" Margin="0,0,22,0"/>
                     <Button.Resources>
@@ -98,7 +106,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="btnLogout" Margin="10 160 10 10" Height="40" FontSize="18" Content="Logout" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnLogout_Click">
+                <Button x:Name="btnLogout" Margin="10 100 10 10" Height="40" FontSize="18" Content="Logout" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnLogout_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
@@ -107,7 +115,7 @@
                 </Button>
             </StackPanel>
         </Grid>
-        
+
         <!-- Name: Zach Behrensmeyer
              Date: 2/8/2020
              CHECKED BY: Steven Cardona
@@ -120,8 +128,11 @@
 
         <Canvas x:Name="canInventory" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
             <TabControl x:Name="tabsetInventory" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewinventory" Header="View Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-
+                <TabItem x:Name="tabViewitems" Header="View Items" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame   Source="./InventoryPages/ViewItems.xaml"/>
+                </TabItem>
+                <TabItem x:Name="tabViewInventory" Header="View Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame   Source="./InventoryPages/ViewInventory.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -138,8 +149,14 @@
 
         <Canvas x:Name="canRequests" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
             <TabControl x:Name="tabsetRequests" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewRequests" Header="View Requests" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-
+                <TabItem x:Name="tabViewNewRequests" Header="New" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frNewRequestList" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="tabViewActiveRequests" Header="Active" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frActiveRequestList" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="tabViewCompletedRequests" Header="Done" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frCompleteRequestList" NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -151,14 +168,38 @@
              
              This canvas will contain the general controls for animal management
               
-             UPDATE BY: NA
-             UPDATED NA
-             CHANGE: NA -->
+             UPDATE BY: Ben Hanna
+             UPDATED 2/22/2020
+             CHANGE: Added 2 more tabs -->
 
         <Canvas x:Name="canAM" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetAM" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewAnimals" Header="View Animals" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AMPages/AnimalControls.xaml"/>
+                </TabItem>
+                <TabItem x:Name="tabViewKennels" Header="View Location Records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AMPages/KennelControls.xaml"/>
+                </TabItem>
+                <TabItem x:Name="tabViewHandling" Header="View Handling Records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AMPages/HandlingControls.xaml"/>
+                </TabItem>
+  
+            </TabControl>
+        </Canvas>
+
+        <!-- Name: Carl Davis
+             Date: 2/21/2020
+             CHECKED BY: Chuck Baxter
+             
+             This canvas will contain the general controls for facility management
+              
+             UPDATE BY: NA
+             UPDATED NA
+             CHANGE: NA -->
+        <Canvas x:Name="canFM" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
+            <TabControl x:Name="tabsetFM" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                <TabItem x:Name="tabViewFacilityMaintenance" Header="View Facility Maintenance" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./FMPages/FacilityMaintenanceControls.xaml"/>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -172,7 +213,7 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-        
+
         <Canvas x:Name="canPoS" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
             <TabControl x:Name="tabsetPoS" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabCheckOut" Header="Check Out" FontSize="18" FontWeight="Bold" Loaded="tabCheckOut_Loaded" >
@@ -180,6 +221,13 @@
                 </TabItem>
                 <TabItem x:Name="tabViewSales" Header="View Sales" FontSize="18" FontWeight="Bold" Background="#fff8e3">
 
+                </TabItem>
+                <TabItem x:Name="InventoryItems" Header="Sale Items Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./PoSPages/InventoryItems.xaml"/>
+                </TabItem>
+
+                <TabItem  x:Name="tabViewTransactions" Header="View Transactions" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./PoSPages/ViewAllTransactions.xaml"/>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -193,11 +241,17 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-        
+
         <Canvas x:Name="canVolHub" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetVolHub" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewVolunteers" Header="View Volunteers" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
-
+                    <Frame NavigationUIVisibility="Hidden" Source="./VolunteerPages/ViewVolunteers.xaml"></Frame>
+                </TabItem>
+                <TabItem x:Name="CreateEditShift" Header="Volunteer Shifts" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
+                    <Frame Source="./VolunteerPages/CreateeditShift.xaml"></Frame>
+                </TabItem>
+                <TabItem x:Name="CreateEditVolunteerEvent" Header="Volunteer Events" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./VolunteerPages/frmCreateEditVolunteerEvent.xaml"></Frame>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -211,11 +265,11 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-        
+
         <Canvas x:Name="canSysAd" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
             <TabControl x:Name="tabsetSysAdmin" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10" >
 
-        <!-- Creator: Steven Cardona
+                <!-- Creator: Steven Cardona
              Date: 2/8/2020
              CHECKED BY: Zach Behrensmeyer
              
@@ -250,7 +304,22 @@
         <Canvas x:Name="canAdoptions" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetAdoptions" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewAdoption" Header="View Adoptions" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-
+                    <Frame Source="./AdoptionPages/AdoptionApplications.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
+                </TabItem>
+                <TabItem x:Name="tabviewHomeInspector" Header="Home Inspection" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/frmHomeInspectionForm.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="AppoimentShedule" Header="Appoiment Shedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/AppointmentSchedule.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="InHomeInspector" Header="Inspection Decision" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/frmInHomeInspectorDecision.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="tabAdoptionCustomers" Header="Adoption Customers" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/pgAdoptionCustomers.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="tabMeetAndGreets" Header="Meet And Greets" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/pgMeetAndGreets.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -264,11 +333,14 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-        
-        <Canvas x:Name="canDonRec" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
-            <TabControl x:Name="tabsetDonRec" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewDonRec" Header="View Donations" FontSize="18" FontWeight="Bold" Background="#fff8e3">
 
+        <Canvas x:Name="canDonRec" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Visible" Grid.Column="1">
+            <TabControl x:Name="tabsetDonRec" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                <TabItem x:Name="tabViewDonRec" Header="Home" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+
+                </TabItem>
+                <TabItem x:Name="tabViewEventManagement" Header="Events" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="fEventMgmt" Source="./RecruitingPages/EventMgmt.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -285,13 +357,58 @@
 
         <Canvas x:Name="canPersonnel" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetPersonnel" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewPersonnel" Header="View Personnel" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-
+                <TabItem x:Name="tabDepartment" Header="Departments" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
+                    <Grid>
+                        <Frame Source="./PersonnelPages/Departments.xaml"/>
+                    </Grid>
                 </TabItem>
+                <TabItem x:Name="tabShiftTimeManager" Header="ShiftTimeManager" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Grid Background="#fff8e3">
+                        <Frame Source="./PersonnelPages/frameShiftTime.xaml"></Frame>
+                    </Grid>
+                </TabItem>
+                <TabItem x:Name="tabTrainingVideos" Header="Training Videos" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./PersonnelPages/frameTrainingVideos.xaml"></Frame>
+                </TabItem>
+
+                <!-- Creator: Kaleb Bachert
+                 Date: 2/23/2020
+                 CHECKED BY: Zach Behrensmeyer
+             
+                 This TabItem takes you to the PersonnelRequests Page
+              
+                 UPDATE BY: NA
+                 UPDATED NA
+                 CHANGE: NA -->
+                <TabItem x:Name="tabViewPersonnelRequests" Header="View Requests" FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="tabViewPersonnelRequests_Loaded">
+                    <Frame x:Name="frmViewPersonnelRequests" HorizontalAlignment="Left" NavigationUIVisibility="Hidden"></Frame>
+                </TabItem>
+
+                <!-- Name: Chase Schulte
+             Date: 2/14/2020
+             CHECKED BY: Kaleb Bachert
+             
+             This tab will show a list of all roles in the db
+              
+             UPDATE BY: NA
+             UPDATE DATE: NA
+             CHANGE: NA -->
+                <TabItem x:Name="tabViewAllERoles" Header="View Roles" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Grid>
+                        <Canvas x:Name="canViewAllRoles">
+                            <Frame Source="./PersonnelPages/ViewAllRoles.xaml"></Frame>
+
+                        </Canvas>
+                    </Grid>
+                </TabItem>
+                
             </TabControl>
         </Canvas>
+
+
 
         <Label x:Name="lblStatusBar" FontSize="15" Content="Hello," Padding="1150 8 0 0"  Background="#2e3137" HorizontalAlignment="Right" Grid.RowSpan="2" Foreground="White" VerticalAlignment="Top" Width="1494" Height="31" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="txtWelcome" Grid.Column="1" HorizontalAlignment="Left" Margin="378,366,0,0" Grid.RowSpan="2" FontSize="23" TextWrapping="Wrap" Text="Hello welcome to the PetUniverse Hub! Please select a button on the sidebar." VerticalAlignment="Top" Height="133" Width="448"/>
     </Grid>
+
 </Window>

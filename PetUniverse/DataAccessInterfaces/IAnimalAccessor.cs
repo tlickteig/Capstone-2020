@@ -70,5 +70,21 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns>a list of animal objects</returns>
         List<Animal> SelectAnimalsByInactive(bool active = false);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 2/28/2020
+        /// Approver: Jordan Lindo, 2/28/2020
+        /// Approver: 
+        /// 
+        /// a data access method for retrieving a list of all animals species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>a list of animal species</returns>
+        List<string> SelectAnimalSpeciesID();
     }
 }

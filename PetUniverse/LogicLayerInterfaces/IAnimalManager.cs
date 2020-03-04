@@ -65,5 +65,22 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <returns>a list of animal objects</returns>
         List<Animal> RetrieveAnimalsByInactive(bool active = false);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 2/28/2020
+        /// Approver: Jordan Lindo, 2/28/2020
+        /// Approver: 
+        /// 
+        /// Interface to get a list of strings of animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <returns>a list of animal objects</returns>
+        List<string> RetrieveAnimalSpecies();
+
     }
 }

@@ -32,3 +32,7 @@ Hassan Karar                    Developer
 Michael Thompson                Developer
 Alex Diers                      Developer
 Rasha Mohammed					Developer
+Josh Jackson          			Developer
+Chase Schulte					Developer
+Ethan Holmes                    Developer
+Zoey McDonald                   Developer Scrum Leader

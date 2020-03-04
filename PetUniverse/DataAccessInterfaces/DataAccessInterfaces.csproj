@@ -41,10 +41,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAdoptionAccessor.cs" />
+    <Compile Include="IAdoptionAppointmentAccessor.cs" />
+    <Compile Include="IAdoptionCustomerAccessor.cs" />
     <Compile Include="IAnimalAccessor.cs" />
+    <Compile Include="IAnimalHandlingAccessor.cs" />
+    <Compile Include="IAnimalKennelAccessor.cs" />
+    <Compile Include="IApplicantAccessor.cs" />
+    <Compile Include="IAppointmentAccessor.cs" />
+    <Compile Include="IbackstockAccessor.cs" />
+    <Compile Include="ICustomerAccessor.cs" />
+    <Compile Include="IDepartmentAccessor.cs" />
+    <Compile Include="IERoleAccessor.cs" />
+    <Compile Include="IEventAccessor.cs" />
+    <Compile Include="IFacilityMaintenanceAccessor.cs" />
+    <Compile Include="IHomeInspectoAccessor.cs" />
+    <Compile Include="IInHomeInspectionAppointmentDecisionAccessor.cs" />
+    <Compile Include="IInventoryItemsAccessor.cs" />
+    <Compile Include="IItemAccessor.cs" />
+    <Compile Include="IItemCategoryAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IProductAccessor.cs" />
+    <Compile Include="IRequestAccessor.cs" />
+    <Compile Include="IShiftTimeAccessor.cs" />
+    <Compile Include="ITrainingVideoAccessor.cs" />
+    <Compile Include="ITransactionAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
+    <Compile Include="IVolunteerAccessor.cs" />
+    <Compile Include="IVolunteerEventAccessor.cs" />
+    <Compile Include="IVolunteerShiftAccessor.cs" />
+    <Compile Include="IVolunteerTaskAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

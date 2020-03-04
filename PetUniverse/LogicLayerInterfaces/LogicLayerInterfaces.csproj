@@ -41,13 +41,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAdoptionAppointmentManager.cs" />
+    <Compile Include="IAdoptionCustomerManager.cs" />
+    <Compile Include="IAdoptionManager.cs" />
+    <Compile Include="IAnimalHandlingManager.cs" />
+    <Compile Include="IAnimalKennelManager.cs" />
     <Compile Include="IAnimalManager.cs" />
+    <Compile Include="IApplicantManager.cs" />
+    <Compile Include="IAppointmentManager.cs" />
+    <Compile Include="ICustomerManager.cs" />
+    <Compile Include="IDepartmentManager.cs" />
+    <Compile Include="IERoleManager.cs" />
+    <Compile Include="IFacilityMaintenanceManager.cs" />
+    <Compile Include="IHomeInspectorManager.cs" />
+    <Compile Include="IInHomeInspectionAppointmentDecisionManager.cs" />
+    <Compile Include="IInventoryItemsManager.cs" />
+    <Compile Include="IItemCategoryManager.cs" />
+    <Compile Include="IItemManager.cs" />
     <Compile Include="ILogManager.cs" />
     <Compile Include="IProductManager.cs" />
+    <Compile Include="IManageBackstockRecords.cs" />
+    <Compile Include="IPUEventManager.cs" />
+    <Compile Include="IRequestManager.cs" />
+    <Compile Include="IShiftTimeManager.cs" />
+    <Compile Include="ITrainingVideoManager.cs" />
+    <Compile Include="ITransactionManager.cs" />
     <Compile Include="IUserManager.cs" />
+    <Compile Include="IVolunteerEventManager.cs" />
+    <Compile Include="IVolunteerManager.cs" />
+    <Compile Include="IVolunteerShiftManager.cs" />
+    <Compile Include="IVolunteerTaskManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataAccessInterfaces\DataAccessInterfaces.csproj">
+      <Project>{c9c0c512-dbd6-4250-b98f-1b50e597bdef}</Project>
+      <Name>DataAccessInterfaces</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataTransferObjects\DataTransferObjects.csproj">
       <Project>{B3679B25-08AD-45B6-9057-5784C8CCF5F7}</Project>
       <Name>DataTransferObjects</Name>

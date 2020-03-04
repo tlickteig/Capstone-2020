@@ -15,24 +15,21 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
+<<<<<<< HEAD
 using WPFPresentationLayer.PoSPages;
+=======
+using WPFPresentationLayer.RecruitingPages;
+>>>>>>> 63ae88aa846dfa3bac4349404bd0cd7c4150bad5
 
 namespace WPFPresentationLayer
 {
     /// <summary>
-    /// NAME: Zach Behrensmeyer
-    /// DATE: 2/5/2020
-    /// CHECKED BY: Steven Cardona
+    /// Creator: Zach Behrensmeyer
+    /// Created: 2/5/2020
+    /// Approver: Steven Cardona
     /// 
     /// This class has interaction logic for the PetUniverseHome window
     /// 
-    /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATED NA
-    /// CHANGE: NA
-    /// 
-    /// </remarks>
     /// </summary>
     public partial class PetUniverseHome : Window
     {
@@ -43,18 +40,18 @@ namespace WPFPresentationLayer
         private ILogManager _logManager = new LogManager();
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This constructor should only be used for testing. We do not want 
         /// to create this without someone properly being logged in.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -64,20 +61,21 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This constructor is passed a userid and roles and will control what the user can see and do
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: Steven Cardona
-        /// UPDATED 02/14/2020
-        /// CHANGE: Initialized new UserManger to private _userManager variable
-        /// CHECKED BY:
+        /// Updater: Steven Cardona
+        /// Updated: 02/14/2020
+        /// Update: Initialized new UserManger to private _userManager variable
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// 
         /// </remarks>
-        /// </summary>
         /// <param name="userID"></param>
         /// <param name="userRoles"></param>
         public PetUniverseHome(PetUniverseUser user, string userRoles)
@@ -91,17 +89,17 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is used for showing the inventory content
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -114,17 +112,17 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is used for showing the animnal management content
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -137,17 +135,17 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is used for showing the point of sale content
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -160,17 +158,17 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is used for showing the volunteer hub content
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -183,17 +181,17 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is used for showing the system admin content
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -206,17 +204,17 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This Method is used for logging the user out
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -232,17 +230,21 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/7/2020
+        /// Approver: Steven Cardona
         /// 
         /// This is a helper method to decide which canvas should be shown.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: Steven Cardona
-        /// UPDATED 02/15/2020
-        /// CHANGE: Added canViewUsers.Visibility = Visibility.Visible; to SysAdmin Case
+        /// Updater: Steven Cardona
+        /// Updated: 02/15/2020
+        /// Update: Added canViewUsers.Visibility = Visibility.Visible; to SysAdmin Case
+        /// 
+        /// Updater: Carl Davis
+        /// Updated: 02/21/2020
+        /// Update: Added facility maintenance switch case
         /// 
         /// </remarks>
         /// </summary>
@@ -256,6 +258,7 @@ namespace WPFPresentationLayer
                 case "Inventory":
                     canInventory.Visibility = Visibility.Visible;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -268,6 +271,20 @@ namespace WPFPresentationLayer
                 case "Animal Management":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Visible;
+                    canFM.Visibility = Visibility.Hidden;
+                    canPoS.Visibility = Visibility.Hidden;
+                    canVolHub.Visibility = Visibility.Hidden;
+                    canRequests.Visibility = Visibility.Hidden;
+                    canSysAd.Visibility = Visibility.Hidden;
+                    canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
+                    txtWelcome.Visibility = Visibility.Hidden;
+                    break;
+                case "Facility Management":
+                    canInventory.Visibility = Visibility.Hidden;
+                    canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Visible;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -280,6 +297,7 @@ namespace WPFPresentationLayer
                 case "Point of Sale":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Visible;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -292,6 +310,7 @@ namespace WPFPresentationLayer
                 case "Volunteer Hub":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Visible;
                     canRequests.Visibility = Visibility.Hidden;
@@ -304,6 +323,7 @@ namespace WPFPresentationLayer
                 case "System Admin":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -316,6 +336,7 @@ namespace WPFPresentationLayer
                 case "Requests":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Visible;
@@ -328,6 +349,7 @@ namespace WPFPresentationLayer
                 case "Adoptions":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -340,6 +362,7 @@ namespace WPFPresentationLayer
                 case "Donations":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -352,6 +375,7 @@ namespace WPFPresentationLayer
                 case "Personnel":
                     canInventory.Visibility = Visibility.Hidden;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -364,6 +388,7 @@ namespace WPFPresentationLayer
                 default:
                     canInventory.Visibility = Visibility.Visible;
                     canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
                     canPoS.Visibility = Visibility.Hidden;
                     canVolHub.Visibility = Visibility.Hidden;
                     canRequests.Visibility = Visibility.Hidden;
@@ -377,37 +402,41 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME : Zach Behrensmeyer
-        /// DATE: 2/11/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
         /// 
         /// This method is called when the request button is clicked
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnRequest_Click(object sender, RoutedEventArgs e)
         {
+            frNewRequestList.Content = new RecruitingPages.ListNewRequests(_user);
+            frActiveRequestList.Content = new RecruitingPages.ListActiveRequests(_user);
+            frCompleteRequestList.Content = new RecruitingPages.ListCompleteRequests(_user);
+
             desiredScreen = "Requests";
             switchScreen(desiredScreen);
         }
 
         /// <summary>
-        /// NAME : Zach Behrensmeyer
-        /// DATE: 2/11/2020
-        /// CHECKED BY: Steven Cardona
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/11/2020
+        /// Approver: Steven Cardona
         /// 
         /// This method is called when the window loads
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -418,17 +447,17 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME: Zach Behrensmeyer
-        /// DATE: 2/20/2020
-        /// CHECKED BY: Michael Thompson
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/20/2020
+        /// Approver: Michael Thompson
         /// 
         /// This is a method to show the adoptions canvas
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// </summary>
@@ -442,37 +471,40 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-        /// NAME : Steven Coonrod
-        /// DATE: 2/20/2020
-        /// CHECKED BY: Zach Behrensmeyer
+        /// Creator: Steven Coonrod
+        /// Created: 2/20/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// This method is called when the donations button is clicked
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnDonRec_Click(object sender, RoutedEventArgs e)
         {
+            //Added to allow the user object to be passed to the EventMgmt page
+            fEventMgmt.Content = new EventMgmt(_user);
+
             desiredScreen = "Donations";
             switchScreen(desiredScreen);
         }
 
         /// <summary>
-        /// NAME : Lane Sandburg
-        /// DATE: 2/20/2020
-        /// CHECKED BY: Zach Behrensmeyer
+        /// Creator: Lane Sandburg
+        /// Creaed: 2/20/2020
+        /// Approver: Zach Behrensmeyer
         /// 
         /// This method is called when the Personnel button is clicked
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -484,6 +516,7 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
+<<<<<<< HEAD
         /// NAME : Robert Holmes
         /// DATE: 2/21/2020
         /// CHECKED BY: 
@@ -494,10 +527,23 @@ namespace WPFPresentationLayer
         /// UPDATED BY: NA
         /// UPDATED NA
         /// CHANGE: NA
+=======
+        /// Creator: Carl Davis
+        /// Created: 2/21/2020
+        /// Approver: Chuck Baxter
+        /// 
+        /// This method is called when the Facility Management button is clicked
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+>>>>>>> 63ae88aa846dfa3bac4349404bd0cd7c4150bad5
         /// 
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+<<<<<<< HEAD
         private void tabCheckOut_Loaded(object sender, RoutedEventArgs e)
         {
             if (frmCheckOut == null)
@@ -509,6 +555,34 @@ namespace WPFPresentationLayer
             {
                 frmCheckOut.Navigate(new pgCheckOut());
             }
+=======
+        private void BtnFm_Click(object sender, RoutedEventArgs e)
+        {
+            desiredScreen = "Facility Management";
+            switchScreen(desiredScreen);
+        }
+
+
+        /// <summary>
+        /// Creator : Kaleb Bachert
+        /// Created: 2/20/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// This method is called when the PersonnelRequests Tab is loaded
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void tabViewPersonnelRequests_Loaded(object sender, RoutedEventArgs e)
+        {
+            frmViewPersonnelRequests.Content = new PersonnelPages.ViewPersonnelRequests(_user);
+>>>>>>> 63ae88aa846dfa3bac4349404bd0cd7c4150bad5
         }
     }
 }

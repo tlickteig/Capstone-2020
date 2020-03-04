@@ -49,11 +49,37 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoptionAppointmentManagerTests.cs" />
+    <Compile Include="AdoptionCustomerManagerTests.cs" />
+    <Compile Include="AnimalHandlingManagerTests.cs" />
+    <Compile Include="AnimalKennelManagerTests.cs" />
     <Compile Include="AnimalManagerTests.cs" />
     <Compile Include="ProductManagerTests.cs" />
+    <Compile Include="ApplicantManagerTests.cs" />
+    <Compile Include="AppointmentManagerTest.cs" />
+    <Compile Include="BackRecordMangerTester.cs" />
+    <Compile Include="CustomerManagerTests.cs" />
+    <Compile Include="DepartmentManagerTests.cs" />
+    <Compile Include="ERoleManagerTests.cs" />
+    <Compile Include="EventManagerTests.cs" />
+    <Compile Include="FacilityMaintenanceManagerTests.cs" />
+    <Compile Include="HomeInspectorManagerTest.cs" />
+    <Compile Include="InHomeInspectionAppointmentDecisionManagerTests.cs" />
+    <Compile Include="InventoryItemsManagerTests.cs" />
+    <Compile Include="ItemCategoryManagerTests.cs" />
+    <Compile Include="ItemManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogManagerTests.cs" />
+    <Compile Include="RequestManagerTests.cs" />
+    <Compile Include="ReviewerManagerTest.cs" />
+    <Compile Include="ShiftTimeManagerTests.cs" />
+    <Compile Include="TrainingVideoTests.cs" />
+    <Compile Include="TransactionManagerTests.cs" />
     <Compile Include="UserManagerTests.cs" />
+    <Compile Include="VolunteerEventTests.cs" />
+    <Compile Include="VolunteerManagerTests.cs" />
+    <Compile Include="VolunteerShiftTests.cs" />
+    <Compile Include="VolunteerTaskManagerTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

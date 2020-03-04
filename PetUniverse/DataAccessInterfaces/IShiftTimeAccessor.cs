@@ -1,0 +1,70 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DataTransferObjects;
+
+namespace DataAccessInterfaces
+{
+    /// <summary>
+    /// Creator: Lane Sandburg
+    /// Created: 02/06/2020
+    /// Approver: Alex Diers
+    /// 
+    /// the shiftTime Accessor Interface.
+    /// </summary>
+    public interface IShiftTimeAccessor
+    {
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2020
+        /// Approver: Alex Diers
+        /// 
+        /// definition for Insert a new ShiftTime
+        /// and sets parameters for insertion
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: (example: Fixed a problem when user inputs bad data)
+        /// </remarks>
+        /// <param name="shiftTime"></param>
+        int InsertShiftTime(PetUniverseShiftTime shiftTime);
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 02/13/2020
+        /// Approver: Alex Diers
+        /// 
+        /// definition for update a new ShiftTime
+        /// and sets parameters for insertion
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: (example: Fixed a problem when user inputs bad data)
+        /// </remarks>
+        /// <param name="oldShiftTime"></param>
+        /// <param name="newShiftTime"></param>
+        int UpdateShiftTime(PetUniverseShiftTime oldShiftTime, PetUniverseShiftTime newShiftTime);
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 02/13/2020
+        /// Approver: Alex Diers
+        /// 
+        /// definition for select all ShiftTime
+        /// and sets parameters for insertion
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: (example: Fixed a problem when user inputs bad data)
+        /// </remarks>
+        List<PetUniverseShiftTime> SelectAllShiftTimes();
+    }
+}
