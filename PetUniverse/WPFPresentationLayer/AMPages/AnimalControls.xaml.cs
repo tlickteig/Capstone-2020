@@ -115,6 +115,15 @@ namespace WPFPresentationLayer.AMPages
         {
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByActive();
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[6]);
+
+            dgActiveAnimals.Columns[0].Header = "Name";
+            dgActiveAnimals.Columns[1].Header = "Date of Birth";
+            dgActiveAnimals.Columns[2].Header = "Breed";
+            dgActiveAnimals.Columns[3].Header = "Arrival Date";
+            dgActiveAnimals.Columns[4].Header = "Currently Housed";
+            dgActiveAnimals.Columns[6].Header = "Species";
+
         }
 
         /// <summary>
@@ -254,6 +263,57 @@ namespace WPFPresentationLayer.AMPages
         {
             canViewAnimalList.Visibility = Visibility.Visible;
             canAddAnimal.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/3/2020
+        /// Approver: Jaeho Kim, 3/3/2020
+        /// Approver: 
+        /// 
+        /// The method that will open a new canvas with the selected animal's information on it
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void DgActiveAnimals_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Animal selectedAnimal = (Animal)dgActiveAnimals.SelectedItem;
+            
+            lblIndividualAnimalName.Content = selectedAnimal.AnimalName;
+            lblIndividualAnimalID.Content = selectedAnimal.AnimalID;
+            lblIndividualAnimalSpecies.Content = selectedAnimal.AnimalSpeciesID;
+            lblIndividualAnimalBreed.Content = selectedAnimal.AnimalBreed;
+            lblIndividualAnimalDob.Content = selectedAnimal.Dob;
+            lblIndividualAnimalArrivalDate.Content = selectedAnimal.ArrivalDate;
+            chkIndvidualActive.IsChecked = selectedAnimal.Active;
+            chkIndvidualAdoptable.IsChecked = selectedAnimal.Adoptable;
+            chkIndvidualCurrentlyHoused.IsChecked = selectedAnimal.CurrentlyHoused;
+
+            canIndividualAnimal.Visibility = Visibility;
+
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/3/2020
+        /// Approver: Jaeho Kim, 3/3/2020
+        /// Approver: 
+        /// 
+        /// The method that will return to the view list of animals from the individual animal 
+        /// detail view
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void BtnReturnViewIndividualAnimal_Click(object sender, RoutedEventArgs e)
+        {
+            canViewAnimalList.Visibility = Visibility.Visible;
+            canIndividualAnimal.Visibility = Visibility.Hidden;
         }
     }
 }
