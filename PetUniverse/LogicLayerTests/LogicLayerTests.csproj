@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AdoptionAppointmentManagerTests.cs" />
     <Compile Include="AdoptionCustomerManagerTests.cs" />
+    <Compile Include="AdoptionInterviewerManagerTestes.cs" />
     <Compile Include="AnimalHandlingManagerTests.cs" />
     <Compile Include="AnimalKennelManagerTests.cs" />
     <Compile Include="AnimalManagerTests.cs" />

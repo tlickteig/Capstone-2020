@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AdoptionAppointmentAccessor.cs" />
     <Compile Include="AdoptionCustomerAccessor.cs" />
+    <Compile Include="AdoptionInterviewerAccessor.cs" />
     <Compile Include="AnimalAccessor.cs" />
     <Compile Include="AnimalHandlingAccessor.cs" />
     <Compile Include="AnimalKennelAccessor.cs" />

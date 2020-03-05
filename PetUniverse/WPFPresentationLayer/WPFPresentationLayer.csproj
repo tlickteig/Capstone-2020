@@ -94,6 +94,12 @@
     <Compile Include="AdoptionPages\pgAdoptionCustomers.xaml.cs">
       <DependentUpon>pgAdoptionCustomers.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdoptionPages\pgAdoptionInterviewer.xaml.cs">
+      <DependentUpon>pgAdoptionInterviewer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdoptionPages\pgAdoptionInterviewerNotes.xaml.cs">
+      <DependentUpon>pgAdoptionInterviewerNotes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdoptionPages\pgAdoptionsAnimalProfile.xaml.cs">
       <DependentUpon>pgAdoptionsAnimalProfile.xaml</DependentUpon>
     </Compile>
@@ -209,6 +215,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdoptionPages\pgAdoptionCustomers.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AdoptionPages\pgAdoptionInterviewer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AdoptionPages\pgAdoptionInterviewerNotes.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

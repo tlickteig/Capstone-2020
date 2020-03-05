@@ -44,6 +44,7 @@
     <Compile Include="BackRecordAccessorFakes.cs" />
     <Compile Include="FakeAdoptionAppointmentAccessor.cs" />
     <Compile Include="FakeAdoptionCustomerAccessor.cs" />
+    <Compile Include="FakeAdoptionInterviewerAccessor.cs" />
     <Compile Include="FakeAnimalAccessor.cs" />
     <Compile Include="FakeAnimalHandlingAccessor.cs" />
     <Compile Include="FakeAnimalKennelAccessor.cs" />

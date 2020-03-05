@@ -1597,6 +1597,48 @@ BEGIN
 	RETURN  @@ROWCOUNT
 END
 GO
+
+/*
+Created by: Mohamed Elamin
+Date: 02/18/2020
+Comment: Sproc to gets ALL Adoption applications where their  Appointment 
+status is Interviewer
+*/
+print '' print '*** Creating sp_select_interviewer_Appointments_by_AppointmentType'
+GO
+CREATE PROCEDURE [sp_select_interviewer_Appointments_by_AppointmentType]	
+AS
+BEGIN
+	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
+			Decision,LocationID
+	FROM 	[dbo].[Appointment]
+	WHERE	[AppointmentTypeID] = "Interviewer"
+END
+GO
+
+/*
+Created by: Mohamed Elamin
+Date: 2/29/2020
+Comment: store Procedure to updates Adoption appointment's notes for the
+Interviewer which he will be enters these notes during the interview with the Customer.
+*/
+print '' print '*** Creating sp_update_Adoption_appointment_notes'
+GO
+CREATE PROCEDURE [sp_update_Adoption_appointment_notes]
+(
+    @AppointmentID	      [int]             ,
+	@NewNotes		      [nvarchar](1000)  ,
+	@OldNotes    		  [nvarchar](1000)  	
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+		SET [Notes] = 	  @NewNotes		
+	WHERE 	[AppointmentID] =	@AppointmentID  
+	  AND	[Notes] = 	@OldNotes 
+	RETURN  @@ROWCOUNT
+END
+GO
 /*
 Created by: Thomas Dupuy
 Date: 2/6/2020
@@ -2396,7 +2438,7 @@ GO
 INSERT INTO [dbo].[AdoptionApplication]
 	([CustomerID],[AnimalID],[Status],[RecievedDate])
 	VALUES
-	(100000,1000000,'Interview Stage','2019-10-9'),
+	(100000,1000000,'Interviewer','2019-10-9'),
 	(100001,1000001,'Reviewing Application','2019-10-9'),
 	(100002,1000002,'Waitng for Pickup','2019-10-9')
 GO
@@ -2412,7 +2454,8 @@ INSERT INTO [dbo].[AppointmentType]
 	([AppointmentTypeID],[Description])
 	VALUES
 	('Meet and Greet','This is where the Adoption Customer will meet the animal while the facilitator is present'),
-	('inHomeInspection','This is where the Interviewer will interview the Adoption Customer')
+	('inHomeInspection','This is where the Interviewer will interview the Adoption Customer'),
+	('Interviewer','This is where the Interviewer will interview the Adoption Customer')
 GO
 
 /*
@@ -2427,7 +2470,7 @@ INSERT INTO [dbo].[Appointment]
 	VALUES
 	(100000,'inHomeInspection','2020-2-22 10am','','',1000000),
 	(100001,'Meet and Greet','2020-2-22 9am','','',1000000),
-	(100002,'inHomeInspection','2020-2-22 12pm','','',1000000)
+	(100002,'Interviewer','2020-2-22 12pm','','',1000000)
 GO
 
 /*
