@@ -116,10 +116,10 @@ namespace WPFPresentationLayer
         /// 
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// 
+        /// Updater: Ben Hanna
+        /// Updated: 3/1/2020
+        /// Update: Now calls a constructor so the user can be tracked.
+        /// Approver: Chuck Baxter, 3/5/2020
         /// </remarks>
         /// </summary>
         /// <param name="sender"></param>
@@ -128,6 +128,7 @@ namespace WPFPresentationLayer
         {
             desiredScreen = "Animal Management";
             switchScreen(desiredScreen);
+            frameViewHandlingNotes.Content = new HandlingControls(_user);
         }
 
         /// <summary>

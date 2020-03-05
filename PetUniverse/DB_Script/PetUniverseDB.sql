@@ -933,27 +933,6 @@ GO
 /*
 Created by: Ben Hanna
 Date: 2/11/2020
-Comment: Sproc to deactivate an animal
-*/
-print '' print '*** Creating sp_deactivate_animal'
-GO
-CREATE PROCEDURE [sp_deactivate_animal]
-(
-    @AnimalID			 [int]
-)
-AS
-BEGIN
-	UPDATE [dbo].[Animal]
-    SET [Active] = 0
-    WHERE [AnimalID] = @AnimalID
-    
-    RETURN @@ROWCOUNT
-END 
-GO
-
-/*
-Created by: Ben Hanna
-Date: 2/11/2020
 Comment: Sproc to reactivate an animal
 */
 print '' print '*** Creating sp_reactivate_animal'
@@ -1106,7 +1085,7 @@ CREATE PROCEDURE [sp_insert_kennel_record]
     @AnimalID           [int],
     @AnimalKennelInfo   [nvarchar](4000), 
     @AnimalKennelDateIn	[date],
-    @UserID           [int]
+    @UserID             [int]
         
 )
 AS
@@ -1144,6 +1123,87 @@ BEGIN
    FROM [dbo].[AnimalHandlingNotes]
    WHERE [AnimalHandlingNotesID] = @AnimalHandlingNotesID
 END
+GO
+                
+/*
+Created by: Ben Hanna
+Date: 2/29/2020
+Comment: Insert a handing notes record
+*/                
+print '' print '*** Creating sp_insert_handling_notes_record'
+GO
+CREATE PROCEDURE [sp_insert_handling_notes_record]
+(
+    
+	@AnimalID              [int],			
+	@UserID			       [int],
+	@AnimalHandlingNotes   [nvarchar](4000),
+	@TemperamentWarning    [nvarchar](1000),
+	@UpdateDate		       [date]      
+        
+)
+AS
+BEGIN
+   INSERT INTO [dbo].[AnimalHandlingNotes] 
+        ([AnimalID], 
+         [UserID], 
+         [AnimalHandlingNotes],
+         [TemperamentWarning],
+         [UpdateDate]
+        )
+   VALUES 
+        (@AnimalID,
+         @UserID,
+         @AnimalHandlingNotes,
+         @TemperamentWarning,
+         @UpdateDate
+         
+        )
+   SELECT SCOPE_IDENTITY()
+END
+GO 
+  
+/*
+Created by: Ben Hanna
+Date: 3/4/2020
+Comment: Update a handing notes record
+*/   
+print '' print '*** Creating sp_update_handling_notes_record'
+GO
+CREATE PROCEDURE [sp_update_handling_notes_record]
+(
+    @AnimalHandlingNotesID			   [int],
+    
+    @NewAnimalID                       [int],
+    @NewUserID                         [int], 
+    @NewAnimalHandlingNotes	           [nvarchar](4000),
+    @NewTemperamentWarning             [nvarchar](1000),
+    @NewUpdateDate                     [date],
+    
+	@OldAnimalID                       [int],
+    @OldUserID                         [int], 
+    @OldAnimalHandlingNotes	           [nvarchar](4000),
+    @OldTemperamentWarning             [nvarchar](1000),
+    @OldUpdateDate                     [date]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalHandlingNotes]
+    SET [AnimalID]                  = @NewAnimalID, 
+        [UserID]                    = @NewUserID,  
+        [AnimalHandlingNotes]       = @NewAnimalHandlingNotes,
+        [TemperamentWarning]        = @NewTemperamentWarning,
+        [UpdateDate]                = @NewUpdateDate
+                
+    WHERE   [AnimalHandlingNotesID] = @AnimalHandlingNotesID
+    AND     [AnimalID]              = @OldAnimalID 
+    AND     [UserID]                = @OldUserID  
+    AND     [AnimalHandlingNotes]   = @OldAnimalHandlingNotes
+    AND     [TemperamentWarning]    = @OldTemperamentWarning
+    AND     [UpdateDate]            = @OldUpdateDate
+    
+    RETURN @@ROWCOUNT
+END 
 GO 
 
 /*

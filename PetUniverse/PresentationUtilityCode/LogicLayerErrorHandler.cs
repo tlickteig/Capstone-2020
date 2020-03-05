@@ -107,6 +107,20 @@ namespace PresentationUtilityCode
         }
 
 
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 02/23/2020
+        /// Approver: 
+        /// 
+        /// Method to handle activate/deactivate errors thrown from the logic layer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="exMessage"></param>
+        /// <param name="exInnerMessage"></param>
         public static void ActivateDeactivateErrorMessage(this string exMessage, string exInnerMessage = null)
         {
             string message = null;
@@ -118,7 +132,35 @@ namespace PresentationUtilityCode
             {
                 message = exMessage;
             }
-            MessageBox.Show(message, "Update Error: Activate/Deactivate", MessageBoxButton.OK, MessageBoxImage.Error);
-        } 
+            MessageBox.Show(message, "Update Error: Activate/Deactivate ", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 02/28/2020
+        /// Approver: Chuck Baxter, 3/5/2020
+        /// 
+        /// Method to handle activate/deactivate errors thrown from the logic layer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="exMessage"></param>
+        /// <param name="exInnerMessage"></param>
+        public static void AddRecordErrorMessage(this string exMessage, string exInnerMessage = null)
+        {
+            string message = null;
+            if (!string.IsNullOrEmpty(exInnerMessage))
+            {
+                message = exInnerMessage + "\n\n" + exInnerMessage;
+            }
+            else
+            {
+                message = exMessage;
+            }
+            MessageBox.Show(message, "Error Adding Data ", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }
