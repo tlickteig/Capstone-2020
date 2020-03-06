@@ -320,6 +320,12 @@ CREATE TABLE [dbo].[Animal](
 	[Adoptable]			[bit]						NOT NULL	DEFAULT 0,
 	[Active]			[bit]						NOT NULL	DEFAULT 1,
 	[AnimalSpeciesID]	[nvarchar](100)				NOT NULL,
+	/*Create By: Michael Thompson
+	Date 2/7/2020
+	Comment: Adding ProfilePhoto and Description
+	*/
+	[ProfilePhoto]			[nvarchar](50)  DEFAULT "No image found",
+	[ProfileDescription]	[nvarchar](500) DEFAULT "NO description found",
 	CONSTRAINT [pk_AnimalID] PRIMARY KEY([AnimalID] ASC),
 	CONSTRAINT [fk_Animal_AnimalSpeciesID] FOREIGN KEY([AnimalSpeciesID])
 		REFERENCES [AnimalSpecies]([AnimalSpeciesID])
@@ -375,26 +381,23 @@ CREATE TABLE [dbo].[AnimalKennel] (
 	CONSTRAINT [ak_AnimalKennelID] UNIQUE([AnimalKennelID] ASC)
 )
 
-print '' print '*** Creating AnimalVetAppointment Table'
-
 /*
 Created by: Daulton Schilling
 Date: 2/8/2020
 Comment: Table that houses Vet appointments
 */
+print '' print '*** Creating AnimalVetAppointment Table'
 GO
 CREATE TABLE [dbo].[AnimalVetAppointment] (
 
 	[AnimalVetAppointmentID]	[int] IDENTITY(1000000,1)			NOT NULL,
 	[AnimalID]					[int]								NOT NULL,
 	[UserID]					[int]								NOT NULL,
-	[AppointmentDate]			[date]								NOT NULL,
-	[AppointmentTime]			[time],	
+	[AppointmentDate]			[datetime]							NOT NULL,
 	[AppointmentDescription]	[nvarchar](4000),
 	[ClinicAddress]				[nvarchar](200),
 	[VetName]					[nvarchar](200),
-	[FollowUpDate]				[date],
-	[FollowUptime]				[time]	
+	[FollowUpDate]				[datetime],	
 
 	CONSTRAINT [pk_AnimalVetAppointmentID] PRIMARY KEY([AnimalVetAppointmentID] ASC),
 
@@ -406,6 +409,24 @@ CREATE TABLE [dbo].[AnimalVetAppointment] (
 
 	CONSTRAINT [ak_AnimalVetAppointmentID] UNIQUE([AnimalVetAppointmentID] ASC)
 )
+GO
+
+print '' print '*** creating sample vet appointment records'
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 2/7/2020
+Comment: Inserts sample animal vet appointment records
+*/
+INSERT INTO [dbo].[AnimalVetAppointment]
+	([AnimalID], [AppointmentDate], [AppointmentDescription],
+	[ClinicAddress], [VetName], [FollowUpDate], [UserID])
+	VALUES
+	(1000000, "2020-02-02 2:00PM", "test", "1234 Test", "test", "2020-02-02 4:00PM", 100000),
+	(1000001, "2020-02-10 4:00PM", "test2", "4321 Test2", "test2", null, 100000),
+	(1000002, "2020-02-15 1:00PM", "test3", "1234 Test3", "test3", "2020-02-20 1:00PM", 100000)
+GO
 
 print '' print '*** Creating AnimalHandlingNotes Table'
 
@@ -475,6 +496,7 @@ GO
 CREATE TABLE [dbo].[AnimalPrescriptions] (
 
 	[AnimalPrescriptionsID]   	[int] IDENTITY(1000000,1)	NOT NULL,
+	[AnimalID]					[int]						NOT NULL,
 	[AnimalVetAppointmentID] 	[int]						NOT NULL,
 	[PrescriptionName]			[nvarchar](50)				NOT NULL,
 	[Dosage]					[decimal]					NOT NULL,
@@ -487,12 +509,16 @@ CREATE TABLE [dbo].[AnimalPrescriptions] (
 	CONSTRAINT [pk_AnimalPrescriptionsID] PRIMARY KEY([AnimalPrescriptionsID] ASC),
 
 	CONSTRAINT [fk_AnimalVetAppointment_AnimalVetAppointmentID] FOREIGN KEY([AnimalVetAppointmentID])
-		REFERENCES [Animal]([AnimalID]) ON UPDATE CASCADE,
+		REFERENCES [AnimalVetAppointment]([AnimalVetAppointmentID]) ON UPDATE CASCADE,
+		
+	CONSTRAINT [fk_Animal_AnimalID___] FOREIGN KEY ([AnimalID])
+		REFERENCES [Animal]([AnimalID]),
 
 	CONSTRAINT [ak_AnimalPrescriptionsID] UNIQUE([AnimalPrescriptionsID] ASC)
 
 
 )
+GO
 
 print '' print '*** Creating FacilityMaintenance Table'
 
@@ -917,7 +943,7 @@ AS
 BEGIN
     SELECT [AnimalVetAppointmentID], [Animal].[AnimalID], [AnimalName],
             [AppointmentDate], [AppointmentDescription],
-            [ClinicAddress], [VetName], [FollowUpDate]
+            [ClinicAddress], [VetName], [FollowUpDate], [UserID]
     FROM [AnimalVetAppointment] INNER JOIN [Animal]
     ON [AnimalVetAppointment].[AnimalID] = [Animal].[AnimalID]
     ORDER BY [AppointmentDate]
@@ -925,24 +951,109 @@ END
 GO
 
 /*
-Created by: Ben Hanna
-Date: 2/11/2020
-Comment: Sproc to deactivate an animal
+Created by: Ethan Murphy
+Date: 2/7/2020
+Comment: Stored procedure for inserting vet appointments
 */
-print '' print '*** Creating sp_deactivate_animal'
+print '' print '*** create sp_create_vet_appointment'
 GO
-CREATE PROCEDURE [sp_deactivate_animal]
+CREATE PROCEDURE [sp_create_vet_appointment]
 (
-    @AnimalID			 [int]
+	@AnimalID					[int],
+	@UserID						[int],
+	@AppointmentDate			[datetime],
+	@AppointmentDescription		[nvarchar](4000),
+	@ClinicAddress				[nvarchar](200),
+	@VetName					[nvarchar](200),
+	@FollowUpDate				[datetime]
 )
 AS
 BEGIN
-	UPDATE [dbo].[Animal]
-    SET [Active] = 0
-    WHERE [AnimalID] = @AnimalID
-    
-    RETURN @@ROWCOUNT
-END 
+INSERT INTO [AnimalVetAppointment]
+	([AnimalID], [AppointmentDate], [AppointmentDescription], 
+	[ClinicAddress], [VetName], [FollowUpDate], [UserID])
+VALUES
+	(@AnimalID, @AppointmentDate, @AppointmentDescription,
+	@ClinicAddress, @VetName, @FollowUpDate, @UserID)
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 3/1/2020
+Comment: Stored procedure for updating
+an existing vet appointment record
+*/
+print '' print '*** creating sp_update_vet_appointment'
+GO
+CREATE PROCEDURE [sp_update_vet_appointment]
+(
+	@AnimalVetAppointmentID		[int],
+	@OldAnimalID				[int],
+	@OldUserID					[int],
+	@OldAppointmentDate			[datetime],
+	@OldAppointmentDescription	[nvarchar](4000),
+	@OldClinicAddress			[nvarchar](200),
+	@OldVetName					[nvarchar](200),
+	
+	@NewAnimalID				[int],
+	@NewUserID					[int],
+	@NewAppointmentDate			[datetime],
+	@NewAppointmentDescription	[nvarchar](4000),
+	@NewClinicAddress			[nvarchar](200),
+	@NewVetName					[nvarchar](200),
+	@NewFollowUpDate			[datetime]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalVetAppointment]
+	SET	[AnimalID] = @NewAnimalID,
+		[UserID] = @NewUserID,
+		[AppointmentDate] = @NewAppointmentDate,
+		[AppointmentDescription] = @NewAppointmentDescription,
+		[ClinicAddress] = @NewClinicAddress,
+		[VetName] = @NewVetName,
+		[FollowUpDate] = @NewFollowUpDate
+	WHERE [AnimalID] = @OldAnimalID
+	AND [AnimalVetAppointmentID] = @AnimalVetAppointmentID
+	AND [UserID] = @OldUserID
+	AND	[AppointmentDate] = @OldAppointmentDate
+	AND [AppointmentDescription] = @OldAppointmentDescription
+	AND	[ClinicAddress] = @OldClinicAddress
+	AND	[VetName] = @OldVetName
+	RETURN @@ROWCOUNT
+END
+
+/*
+Created by: Ethan Murphy
+Date: 2/16/2020
+Comment: Stored procedure for inserting animal prescription records
+*/
+print '' print 'create sp_create_animal_prescription_record'
+GO
+CREATE PROCEDURE [sp_create_animal_prescription_record]
+(
+	@AnimalID					[int],
+	@AnimalVetAppointmentID		[int],
+	@PrescriptionName			[nvarchar](50),
+	@Dosage						[decimal],
+	@MedicationInterval			[nvarchar](250),
+	@AdministrationMethod		[nvarchar](100),
+	@StartDate					[date],
+	@EndDate					[date],
+	@Description				[nvarchar](500)
+)
+AS
+BEGIN
+INSERT INTO [AnimalPrescriptions]
+	([AnimalVetAppointmentID], [PrescriptionName], [Dosage],
+	[Interval], [AdministrationMethod], [AnimalID],
+	[StartDate], [EndDate], [Description])
+VALUES
+	(@AnimalVetAppointmentID, @PrescriptionName, @Dosage,
+	@MedicationInterval, @AdministrationMethod, @AnimalID,
+	@StartDate, @EndDate, @Description)
+END
 GO
 
 /*
@@ -1100,7 +1211,7 @@ CREATE PROCEDURE [sp_insert_kennel_record]
     @AnimalID           [int],
     @AnimalKennelInfo   [nvarchar](4000), 
     @AnimalKennelDateIn	[date],
-    @UserID           [int]
+    @UserID             [int]
         
 )
 AS
@@ -1138,6 +1249,87 @@ BEGIN
    FROM [dbo].[AnimalHandlingNotes]
    WHERE [AnimalHandlingNotesID] = @AnimalHandlingNotesID
 END
+GO
+                
+/*
+Created by: Ben Hanna
+Date: 2/29/2020
+Comment: Insert a handing notes record
+*/                
+print '' print '*** Creating sp_insert_handling_notes_record'
+GO
+CREATE PROCEDURE [sp_insert_handling_notes_record]
+(
+    
+	@AnimalID              [int],			
+	@UserID			       [int],
+	@AnimalHandlingNotes   [nvarchar](4000),
+	@TemperamentWarning    [nvarchar](1000),
+	@UpdateDate		       [date]      
+        
+)
+AS
+BEGIN
+   INSERT INTO [dbo].[AnimalHandlingNotes] 
+        ([AnimalID], 
+         [UserID], 
+         [AnimalHandlingNotes],
+         [TemperamentWarning],
+         [UpdateDate]
+        )
+   VALUES 
+        (@AnimalID,
+         @UserID,
+         @AnimalHandlingNotes,
+         @TemperamentWarning,
+         @UpdateDate
+         
+        )
+   SELECT SCOPE_IDENTITY()
+END
+GO 
+  
+/*
+Created by: Ben Hanna
+Date: 3/4/2020
+Comment: Update a handing notes record
+*/   
+print '' print '*** Creating sp_update_handling_notes_record'
+GO
+CREATE PROCEDURE [sp_update_handling_notes_record]
+(
+    @AnimalHandlingNotesID			   [int],
+    
+    @NewAnimalID                       [int],
+    @NewUserID                         [int], 
+    @NewAnimalHandlingNotes	           [nvarchar](4000),
+    @NewTemperamentWarning             [nvarchar](1000),
+    @NewUpdateDate                     [date],
+    
+	@OldAnimalID                       [int],
+    @OldUserID                         [int], 
+    @OldAnimalHandlingNotes	           [nvarchar](4000),
+    @OldTemperamentWarning             [nvarchar](1000),
+    @OldUpdateDate                     [date]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalHandlingNotes]
+    SET [AnimalID]                  = @NewAnimalID, 
+        [UserID]                    = @NewUserID,  
+        [AnimalHandlingNotes]       = @NewAnimalHandlingNotes,
+        [TemperamentWarning]        = @NewTemperamentWarning,
+        [UpdateDate]                = @NewUpdateDate
+                
+    WHERE   [AnimalHandlingNotesID] = @AnimalHandlingNotesID
+    AND     [AnimalID]              = @OldAnimalID 
+    AND     [UserID]                = @OldUserID  
+    AND     [AnimalHandlingNotes]   = @OldAnimalHandlingNotes
+    AND     [TemperamentWarning]    = @OldTemperamentWarning
+    AND     [UpdateDate]            = @OldUpdateDate
+    
+    RETURN @@ROWCOUNT
+END 
 GO 
 
 /*
@@ -1588,6 +1780,48 @@ BEGIN
 	WHERE 	[AppointmentID] =	@AppointmentID  
 	  AND	[Notes] = 	@OldNotes
 	  AND	[Decision] = 	@OldDecision	 
+	RETURN  @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Mohamed Elamin
+Date: 02/18/2020
+Comment: Sproc to gets ALL Adoption applications where their  Appointment 
+status is Interviewer
+*/
+print '' print '*** Creating sp_select_interviewer_Appointments_by_AppointmentType'
+GO
+CREATE PROCEDURE [sp_select_interviewer_Appointments_by_AppointmentType]	
+AS
+BEGIN
+	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
+			Decision,LocationID
+	FROM 	[dbo].[Appointment]
+	WHERE	[AppointmentTypeID] = "Interviewer"
+END
+GO
+
+/*
+Created by: Mohamed Elamin
+Date: 2/29/2020
+Comment: store Procedure to updates Adoption appointment's notes for the
+Interviewer which he will be enters these notes during the interview with the Customer.
+*/
+print '' print '*** Creating sp_update_Adoption_appointment_notes'
+GO
+CREATE PROCEDURE [sp_update_Adoption_appointment_notes]
+(
+    @AppointmentID	      [int]             ,
+	@NewNotes		      [nvarchar](1000)  ,
+	@OldNotes    		  [nvarchar](1000)  	
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+		SET [Notes] = 	  @NewNotes		
+	WHERE 	[AppointmentID] =	@AppointmentID  
+	  AND	[Notes] = 	@OldNotes 
 	RETURN  @@ROWCOUNT
 END
 GO
@@ -2390,7 +2624,7 @@ GO
 INSERT INTO [dbo].[AdoptionApplication]
 	([CustomerID],[AnimalID],[Status],[RecievedDate])
 	VALUES
-	(100000,1000000,'Interview Stage','2019-10-9'),
+	(100000,1000000,'Interviewer','2019-10-9'),
 	(100001,1000001,'Reviewing Application','2019-10-9'),
 	(100002,1000002,'Waitng for Pickup','2019-10-9')
 GO
@@ -2406,7 +2640,8 @@ INSERT INTO [dbo].[AppointmentType]
 	([AppointmentTypeID],[Description])
 	VALUES
 	('Meet and Greet','This is where the Adoption Customer will meet the animal while the facilitator is present'),
-	('inHomeInspection','This is where the Interviewer will interview the Adoption Customer')
+	('inHomeInspection','This is where the Interviewer will interview the Adoption Customer'),
+	('Interviewer','This is where the Interviewer will interview the Adoption Customer')
 GO
 
 /*
@@ -2421,7 +2656,7 @@ INSERT INTO [dbo].[Appointment]
 	VALUES
 	(100000,'inHomeInspection','2020-2-22 10am','','',1000000),
 	(100001,'Meet and Greet','2020-2-22 9am','','',1000000),
-	(100002,'inHomeInspection','2020-2-22 12pm','','',1000000)
+	(100002,'Interviewer','2020-2-22 12pm','','',1000000)
 GO
 
 /*
@@ -2984,12 +3219,13 @@ Insert INTO [dbo].[TransactionLine]
 	Values
 	(1000, '7084781116', 5),
 	(1000, '2500006153', 3),
+	(1001, '7084781116', 2),
 	(1002, '2500006153', 9)
 Go
 
 /*
 Created by: Jaeho Kim
-Date: 2/27/2020
+Date: 03/05/2020
 Comment: Selects a list of all transactions with join tables for the customer
 */
 print '' print '*** Creating sp_select_all_transactions'
@@ -2998,22 +3234,17 @@ CREATE PROCEDURE sp_select_all_transactions
 AS
 	BEGIN
 		SELECT 	
-		TL.[TransactionID]
-		, TL.[Quantity]
-		, P.[ProductName]
-		, P.[Brand]
-		, P.[Price]
-		, T.[TransactionDate]
-		, T.[TransactionTypeID]
-		, T.[Notes]
-		
-		FROM 	[TransactionLine] TL
-		INNER JOIN [Product] P
-			ON TL.[ProductID] = P.[ProductID]
-		INNER JOIN [Transaction] T
-			ON TL.[TransactionID] = T.[TransactionID]
-		INNER JOIN [TransactionType] TT
-			ON TT.[TransactionTypeID] = T.[TransactionTypeID]
+		 T.[TransactionID]
+		,T.[TransactionDate]
+		,U.[UserID]
+		,U.[FirstName]
+		,U.[LastName]
+		,T.[TransactionTypeID]
+		,T.[TransactionStatusID]
+		,T.[Notes]
+		FROM 	[Transaction] T
+		INNER JOIN [User] U
+			ON T.[EmployeeID] = U.[UserID]
 	END
 GO
 
@@ -4836,15 +5067,110 @@ GO
 
 
 
+/*
+Created By: Michael Thompson
+Date: 2/20/2020
+Comment: Stored Procedure to update the animal profiles with forward facing description and photo path
+*/
 
 
+print '' print '*** Creating sp_update_animal_profile'
+GO
+CREATE PROCEDURE [sp_update_animal_profile]
+(
+	@AnimalID			[int],
+	@ProfilePhoto		[nvarchar](50),
+	@ProfileDescription	[nvarchar](500)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Animal]
+		SET [ProfilePhoto] = @ProfilePhoto, 
+			[ProfileDescription] = @ProfileDescription
+	WHERE	[AnimalID] = @AnimalID
+	RETURN @@ROWCOUNT
+END
+GO
 
+/*
+Created By: Michael Thompson
+Date 2/20/2020
+Comment: Stored Procedure to get the animal, profile photo path and description
+*/
 
+print '' print '*** Creating sp_select_all_animal_profiles'
+GO
+CREATE PROCEDURE [sp_select_all_animal_profiles]
+AS
+BEGIN
+	SELECT [AnimalID],[AnimalName],[ProfilePhoto],[ProfileDescription]
+	FROM [dbo].[Animal]
+	ORDER BY [AnimalID]
+END
+GO
 
+/*
+Created by: Jaeho Kim
+Date: 03/05/2020
+Comment: Selects a single transaction with an TransactionID and displays all 
+of the product details.
+*/
+print '' print '*** Creating sp_select_all_products_by_transaction_id'
+GO
+CREATE PROCEDURE sp_select_all_products_by_transaction_id
+(
+	@TransactionID		[int]
+)
+AS
+	BEGIN
+		SELECT 	
+		 TL.[Quantity]
+		, P.[ProductID]
+		, P.[ProductName]
+		, P.[ProductCategoryID]
+		, P.[ProductTypeID]
+		, P.[Description]
+		, P.[Brand]
+		, P.[Price]
+		
+		FROM 	[TransactionLine] TL
+		INNER JOIN [Product] P
+			ON TL.[ProductID] = P.[ProductID]
+		INNER JOIN [Transaction] T
+			ON TL.[TransactionID] = T.[TransactionID]
+		INNER JOIN [User] U
+			ON T.[EmployeeID] = U.[UserID]
+		INNER JOIN [TransactionType] TT
+			ON TT.[TransactionTypeID] = T.[TransactionTypeID]
+		WHERE @TransactionID = TL.[TransactionID]
+	END
+GO
 
-
-
-
-
-
-
+/*
+Created by: Jaeho Kim
+Date: 03/05/2020
+Comment: Selects a list of all transactions with a specific datetime.
+*/
+print '' print '*** Creating sp_select_transactions_by_datetime'
+GO
+CREATE PROCEDURE sp_select_transactions_by_datetime
+(
+	@TransactionDate	[datetime]
+)
+AS
+	BEGIN
+		SELECT 	
+		 T.[TransactionID]
+		,T.[TransactionDate]
+		,U.[UserID]
+		,U.[FirstName]
+		,U.[LastName]
+		,T.[TransactionTypeID]
+		,T.[TransactionStatusID]
+		,T.[Notes]
+		FROM 	[Transaction] T
+		INNER JOIN [User] U
+			ON T.[EmployeeID] = U.[UserID]
+		WHERE T.[TransactionDate] = @TransactionDate
+	END
+GO

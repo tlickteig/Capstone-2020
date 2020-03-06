@@ -43,9 +43,11 @@
   <ItemGroup>
     <Compile Include="AdoptionAppointmentAccessor.cs" />
     <Compile Include="AdoptionCustomerAccessor.cs" />
+    <Compile Include="AdoptionInterviewerAccessor.cs" />
     <Compile Include="AnimalAccessor.cs" />
     <Compile Include="AnimalHandlingAccessor.cs" />
     <Compile Include="AnimalKennelAccessor.cs" />
+    <Compile Include="AnimalPrescriptionAccessor.cs" />
     <Compile Include="ApplicantAccessor.cs" />
     <Compile Include="AppointmentAccessor.cs" />
     <Compile Include="BackStockAccessor.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="TrainingVideoAccessor.cs" />
     <Compile Include="TransactionAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
+    <Compile Include="VetAppointmentAccessor.cs" />
     <Compile Include="VolunteerAccessor.cs" />
     <Compile Include="VolunteerEventAccessor.cs" />
     <Compile Include="VolunteerShiftAccessor.cs" />

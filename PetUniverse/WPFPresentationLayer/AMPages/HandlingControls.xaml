@@ -11,7 +11,7 @@
       xmlns:local="clr-namespace:WPFPresentationLayer.AMPages"
       mc:Ignorable="d" 
       d:DesignHeight="845" d:DesignWidth="1289"
-      Title="HandlingControls" Loaded="Page_Loaded">
+      Title="HandlingControls" Loaded="Page_Loaded" ShowsNavigationUI="False">
 
     <Canvas x:Name="canViewHandlingList" Height="845" Width="1289" Background="AliceBlue">
         <Grid Height="845" Width="1289">
@@ -33,7 +33,11 @@
             <Label Content="Details" Grid.Column="1" HorizontalAlignment="Center" FontSize="16"></Label>
             <DataGrid x:Name="dgHandlingNotesList" Grid.Row="1" Margin="5" Grid.RowSpan="5" MouseDoubleClick="dgHandlingNotesList_MouseDoubleClick"></DataGrid>
             <TextBox x:Name="txtSearchForHandling" Grid.Row="6" Height="30" Width="200" HorizontalAlignment="Right" Margin="15" Text="Integers Only"/>
-            <Button x:Name="btnSearchForHandling" Grid.Row="6" Height="50" Width="150" HorizontalAlignment="Center" Margin="15" Content="Search by Animal" Click="btnSearchForHandling_Click" FontSize="16"></Button>
+            <Button x:Name="btnAddHandlingRecord" Grid.Row="6" Height="50" Width="160" HorizontalAlignment="Left" Margin="15" Content="New Record" Click="btnAddHandlingRecord_Click" FontSize="16"/>
+            <Button x:Name="btnSubmitHandlingRecord" Grid.Row="6" Height="50" Width="160" HorizontalAlignment="Left" Margin="15" Content="Submit" Click="btnSubmitHandlingRecord_Click" FontSize="16" Visibility="Hidden"/>
+            <Button x:Name="btnSearchForHandling" Grid.Row="6" Height="50" Width="160" HorizontalAlignment="Center" Margin="200 15 15 15" Content="Search by Animal ID" Click="btnSearchForHandling_Click" FontSize="16"></Button>
+            <Button x:Name="btnCancel" Grid.Row="6" Height="50" Width="160" HorizontalAlignment="Center" Margin="15 15 315 15" Content="Cancel" Click="btnCancel_Click" FontSize="16" Visibility="Hidden"></Button>
+            <Button x:Name="btnUpdateRecord" Grid.Row="6" Height="50" Width="160" HorizontalAlignment="Center" Margin="15 15 315 15" Content="Update" Click="btnUpdateRecord_Click" FontSize="16" Visibility="Visible" IsEnabled="False"></Button>
 
 
             <Label FontSize="16" Content="AnimalHandlingNotes ID:" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
@@ -43,82 +47,14 @@
             <Label FontSize="16" Content="Temperment Waring:" Grid.Column="1" Grid.Row="5" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
             <Label FontSize="16" Content="Update Date:" Grid.Column="1" Grid.Row="6" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
             <TextBox IsEnabled="False" x:Name="txtHandlingNotesID" Grid.Row="1" Grid.Column="2" Height="30" Width="200" HorizontalAlignment="Right" Margin="10" IsReadOnly="True"/>
-            <TextBox x:Name="txtAnimalID" Grid.Row="2" Grid.Column="2" Height="30" Width="200" HorizontalAlignment="Right" Margin="10"/>
-            <TextBox x:Name="txtUserID" Grid.Row="3" Grid.Column="2" Height="30" Width="200" HorizontalAlignment="Right" Margin="10"/>
-            <TextBox x:Name="txtHandlingNotes" Grid.Row="4" Grid.Column="2" Height="100" Width="250" HorizontalAlignment="Right" Margin="10" TextWrapping="Wrap"/>
-            <TextBox x:Name="txtTemperment" Grid.Row="5" Grid.Column="2" Height="100" Width="250" HorizontalAlignment="Right" Margin="10" TextWrapping="Wrap"/>
-            <DatePicker x:Name="dpHandlingUpdateDate" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center"/>
+            <TextBox IsEnabled="False" x:Name="txtAnimalID" Grid.Row="2" Grid.Column="2" Height="30" Width="200" HorizontalAlignment="Right" Margin="10"/>
+            <TextBox IsEnabled="False" x:Name="txtUserID" Grid.Row="3" Grid.Column="2" Height="30" Width="200" HorizontalAlignment="Right" Margin="10"/>
+            <TextBox IsEnabled="False" x:Name="txtHandlingNotes" Grid.Row="4" Grid.Column="2" Height="100" Width="250" HorizontalAlignment="Right" Margin="10" TextWrapping="Wrap"/>
+            <TextBox IsEnabled="False" x:Name="txtTemperment" Grid.Row="5" Grid.Column="2" Height="100" Width="250" HorizontalAlignment="Right" Margin="10" TextWrapping="Wrap"/>
+            <DatePicker IsEnabled="False" x:Name="dpHandlingUpdateDate" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center"/>
 
         </Grid>
-        <Canvas Height="845" Width=" 1280" x:Name="canAddHandlingRecord" Background="AntiqueWhite" Visibility="Hidden">
-            <Grid Height="800" Width=" 1280">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="100"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label FontSize="36" VerticalAlignment="Center" Grid.Row="0">Register New Animal</Label>
-                <Grid Grid.Row="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
-                    <Grid Grid.Row="5" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition></RowDefinition>
-                            <RowDefinition Height="80"></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="175"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition Width="175"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <!--Arrival Date-->
-                        <Label x:Name="lblArrivalDate" Grid.Row="0" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
-                       HorizontalAlignment="Center">Arrival Date:</Label>
-                        <Calendar x:Name="cndArrivalDate" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" 
-                          VerticalAlignment="Center"
-                          SelectionMode="SingleDate"/>
-
-                        <!--Leaving Date-->
-                        <Label x:Name="lblLeaving" Grid.Row="0" Grid.Column="2" FontSize="22" VerticalAlignment="Center" 
-                       HorizontalAlignment="Center">Date of Birth:</Label>
-                        <Calendar x:Name="cndLeavingDate" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" 
-                          VerticalAlignment="Center" Margin="0 0 12.5 0"/>
-
-                        <!--Submit-->
-                        <Button x:Name="BtnSubmitHandlingRecordAdd" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
-                        Width="150" FontSize="36" Padding="10"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" >Submit</Button>
-
-                        <!--Cancel-->
-                        <Button x:Name="btnCancelHandlingRecordAdd" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" 
-                        Width="150" FontSize="36" Padding="10"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" >Cancel</Button>
-                    </Grid>
 
 
-                </Grid>
-
-            </Grid>
-        </Canvas>
-        <Canvas Height="845" Width=" 1280" x:Name="can" Background="AntiqueWhite" Visibility="Hidden">
-
-        </Canvas>
     </Canvas>
 </Page>

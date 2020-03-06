@@ -19,7 +19,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeAnimalHandlingAccessor : IAnimalHandlingAccessor
     {
-        private List<AnimalHandlingNotes> notes;
+        private List<AnimalHandlingNotes> _handlingList;
 
         /// <summary>
         /// Creator: Ben Hanna
@@ -36,7 +36,7 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeAnimalHandlingAccessor()
         {
-            notes = new List<AnimalHandlingNotes>()
+            _handlingList = new List<AnimalHandlingNotes>()
             {
                 new AnimalHandlingNotes()
                 {
@@ -48,6 +48,35 @@ namespace DataAccessFakes
                     UpdateDate = DateTime.Now
                 }
             };
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/28/2020
+        /// Approver: Chuck Baxter, 3/5/2020
+        /// Approver:
+        /// 
+        /// Simlates adding a record to the database. Gives a deliberate error depending on the PK value.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="notes"></param>
+        /// <returns> Represents the number of rows effected. </returns>
+        public int InsertAnimalHandlingNotes(AnimalHandlingNotes notes)
+        {
+            if (notes.HandlingNotesID == 1)
+            {
+                _handlingList.Add(notes);
+
+                return 1;
+            }
+            else
+            {
+                throw new ApplicationException("Unit Test Insert Handling Notes Exception");
+            }
         }
 
         /// <summary>
@@ -67,11 +96,11 @@ namespace DataAccessFakes
         /// <returns></returns>
         public List<AnimalHandlingNotes> SelectAllHandlingNotesByAnimalID(int animalID)
         {
-            if ((from a in notes
+            if ((from a in _handlingList
                  where a.AnimalID == animalID
                  select a).Count() >= 1)
             {
-                return notes;
+                return _handlingList;
             }
 
             else
@@ -97,11 +126,43 @@ namespace DataAccessFakes
         /// <returns></returns>
         public AnimalHandlingNotes SelectHandlingNotesByID(int handlingNotesID)
         {
-            if ((from a in notes
+            if ((from a in _handlingList
                  where a.HandlingNotesID == handlingNotesID
                  select a).Count() >= 1)
             {
-                return notes[0];
+                return _handlingList[0];
+            }
+            else
+            {
+                throw new ApplicationException("data not found");
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/29/2020
+        /// Approver: Chuck Baxter, 3/5/2020
+        /// Approver: 
+        /// 
+        /// Simulates a method to Update a an existing handling record.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldNotes"></param>
+        /// <param name="newNotes"></param>
+        /// <returns></returns>
+        public int UpdateAnimalHandlingNotes(AnimalHandlingNotes oldNotes, AnimalHandlingNotes newNotes)
+        {
+            AnimalHandlingNotes note = (_handlingList.Find(n => n.HandlingNotesID == oldNotes.HandlingNotesID));
+            if (note != null)
+            {
+                int i = _handlingList.IndexOf(note);
+                _handlingList[i] = newNotes;
+
+                return 1;
             }
             else
             {

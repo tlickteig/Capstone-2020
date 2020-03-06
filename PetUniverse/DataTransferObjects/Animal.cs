@@ -36,5 +36,13 @@ namespace DataTransferObjects
         public bool Adoptable { get; set; }
         public bool Active { get; set; }
         public string AnimalSpeciesID { get; set; }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/7/2020
+        /// Approver: Austin Gee, 2/21/2020
+        /// adding ProfileDescription and ProfileImage
+        /// </summary>
+        public string ProfileDescription { get; set; }
+        public string ProfileImage { get; set; }
     }
 }

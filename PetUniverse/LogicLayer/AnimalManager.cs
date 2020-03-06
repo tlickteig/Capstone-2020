@@ -168,5 +168,58 @@ namespace LogicLayer
                 throw new ApplicationException("Data not found.", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/19/2020
+        /// Checked By: Austin Gee  
+        /// 
+        /// Logic method to update a Animal Profile 
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>Bool of whether or not the value was successfully updated</returns>
+        public bool UpdatePetProfile(int animalID, string profileDescription, string profileImagePath)
+        {
+            bool result;
+
+            try
+            {
+                result = _animalAccessor.UpdateAnimalProfile(animalID, profileDescription, profileImagePath);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update Failed!", ex);
+            }
+            return result;
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/19/2020
+        /// Approver: Austin Gee
+        /// Approver: 
+        /// 
+        /// logic method that uses an AnimalAccessor method to get a list of all animal profiles
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>a list of animal objects or an exception if the data was not found</returns>
+        public List<Animal> RetrieveAllAnimalProfiles()
+        {
+            try
+            {
+                return _animalAccessor.SelectAllAnimnalProfiles();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
     }
 }

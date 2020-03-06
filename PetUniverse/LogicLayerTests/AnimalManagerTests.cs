@@ -171,6 +171,62 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 2/14/2020
+        /// Approver: Austin Gee
+        /// Approver: 
+        /// 
+        /// Test for getting a list of animal profiles
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestAnimalManagerSelectAllAnimalProfiles()
+        {
+            // arrange
+            List<Animal> testAnimals;
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+
+            // act
+            testAnimals = animalManager.RetrieveAllAnimalProfiles();
+
+            // assert
+            Assert.IsNotNull(testAnimals);
+        }
+
+        /// <summary>
+        /// Creator: michael Thompson
+        /// Created: 2/6/2020
+        /// Approver: Austin Gee
+        /// 
+        /// Test for updating the animal profile
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestAnimalManagerUpdateAnimalProfile()
+        {
+            // arrange
+            bool result = false;
+            int animalID = 100000;
+            string profileDescription = "Test profile";
+            string profileImagePath = "/images";
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+
+            // act
+            result = animalManager.UpdatePetProfile(animalID, profileDescription, profileImagePath);
+
+            // assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 2/6/2020
         /// Approver: Carl Davis, 2/7/2020

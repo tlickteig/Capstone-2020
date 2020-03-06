@@ -9,7 +9,7 @@ namespace DataTransferObjects
     /// <summary>
     ///  Creator: Jaeho Kim
     ///  Created: 2020/02/27
-    ///  Approver: Ethan Holmes
+    ///  Approver: Rasha Mohammed
     ///  
     ///  Transaction Data Transfer Object
     /// </summary>

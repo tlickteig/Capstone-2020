@@ -14,7 +14,7 @@ namespace LogicLayer
     /// <summary>
     ///  Creator: Jaeho Kim
     ///  Created: 2/27/2020
-    ///  Approver: Ethan Holmes
+    ///  Approver: Rasha Mohammed
     ///  
     ///  Manager Class for Transactions
     /// </summary>
@@ -25,7 +25,7 @@ namespace LogicLayer
         /// <summary>
 		///  Creator: Jaeho Kim
 		///  Created: 2/27/2020
-		///  Approver: Ethan Holmes
+		///  Approver: Rasha Mohammed
 		///  
 		///  Default Constructor for instantiating Accessor
 		/// </summary>
@@ -43,7 +43,7 @@ namespace LogicLayer
         /// <summary>
         ///  Creator: Jaeho Kim
         ///  Created: 2/26/2020
-        ///  Approver: Ethan Holmes
+        ///  Approver: Rasha Mohammed
         ///  
         ///  Constructor for passing specific Accessor class
         /// </summary>
@@ -60,20 +60,46 @@ namespace LogicLayer
             _transactionAccessor = transactionAccessor;
         }
 
+        /// <summary>
+        ///  Creator: Jaeho Kim
+        ///  Created: 3/05/2020
+        ///  Approver: Rasha Mohammed
+        ///  
+        ///  This method calls the Select all products with transaction id method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        public List<TransactionVM> RetrieveAllProductsByTransactionID(int transactionID)
+        {
+            try
+            {
+                return _transactionAccessor.SelectAllProductsByTransactionID(transactionID);
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Products Not Found", ex);
+            }
+        }
+
 
         /// <summary>
-		///  Creator: Jaeho Kim
-		///  Created: 2/27/2020
-		///  Approver: Ethan Holmes
-		///  
-		///  This method calls the Select all transactions method in the DataAccessLayer.
-		/// </summary>
-		/// <remarks>
-		/// Updater: NA
-		/// Updated: NA
-		/// Update: NA
-		/// 
-		/// </remarks>
+        ///  Creator: Jaeho Kim
+        ///  Created: 2/27/2020
+        ///  Approver: Rasha Mohammed
+        ///  
+        ///  This method calls the Select all transactions method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         public List<TransactionVM> RetrieveAllTransactions()
         {
             try

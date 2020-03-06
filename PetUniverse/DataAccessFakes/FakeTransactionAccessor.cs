@@ -11,7 +11,7 @@ namespace DataAccessFakes
     /// <summary>
     /// CREATOR: Jaeho Kim
     /// CREATED: 02/27/2020
-    /// APPROVER: Ethan Holmes
+    /// APPROVER: Rasha Mohammed
     /// 
     /// Fake Transaction Accessor Class for Unit Testing
     /// </summary>
@@ -22,14 +22,14 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 2/27/2020
-        /// Approver: Hassan Karar
+        /// Approver: Rasha Mohammed
         /// 
         /// This fake method is called to get a fake Transaction Accessor
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Jaeho Kim
+        /// Updated: 2020/03/05
+        /// Update: Implemented the Select All Products by Transaction ID.
         /// 
         /// </remarks>
         /// <returns>Fake TransactionAccessor</returns>
@@ -40,32 +40,30 @@ namespace DataAccessFakes
                 new TransactionVM()
                 {
                     TransactionID = 1000,
-                    Quantity = 5,
-                    ProductName = "CatNips",
-                    Brand = "GreatFoods",
-                    Price = 40.20M,
                     TransactionDate = DateTime.Now,
-                    TransactionTypeID = "tranTYPE100",
-                    Notes = "FAKETRANSACTIONNOTES"
+                    UserID = 100000,
+                    FirstName = "Bob",
+                    LastName = "Jones",
+                    TransactionTypeID = "FAKE_TYPE_1",
+                    TransactionStatusID = "FAKE_STATUS_1"
                 },
                 new TransactionVM()
                 {
                     TransactionID = 1001,
-                    Quantity = 3,
-                    ProductName = "BigChews",
-                    Brand = "LoneFood",
-                    Price = 40.20M,
                     TransactionDate = DateTime.Now,
-                    TransactionTypeID = "tranTYPE200",
-                    Notes = "FAKETRANSACTIONNOTES2"
+                    UserID = 100001,
+                    FirstName = "Shawn",
+                    LastName = "Gunner",
+                    TransactionTypeID = "FAKE_TYPE_2",
+                    TransactionStatusID = "FAKE_STATUS_2"
                 }
             };
         }
 
         /// <summary>
         /// CREATOR: Jaeho Kim
-        /// CREATED: 2/27/2020
-        /// APPROVER: Hassan Karar
+        /// CREATED: 3/05/2020
+        /// APPROVER: Rasha Mohammed
         /// 
         /// Fake Transaction Accessor Method, uses dummy data for testing.
         /// </summary>
@@ -75,9 +73,47 @@ namespace DataAccessFakes
         /// UPDATE: NA
         /// 
         /// </remarks>
+        public List<TransactionVM> SelectAllProductsByTransactionID(int transactionID)
+        {
+            return (from v in _transactions
+                    where v.TransactionID == 1000
+                    select v).ToList();
+        }
+
+        /// <summary>
+        /// CREATOR: Jaeho Kim
+        /// CREATED: 2/27/2020
+        /// APPROVER: Rasha Mohammed
+        /// 
+        /// Fake Transaction Accessor Method, uses dummy data for testing.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: Jaeho Kim
+        /// UPDATED: 2020/03/03
+        /// UPDATE: Added missing properties from the data transfer object.
+        /// 
+        /// </remarks>
         public List<TransactionVM> SelectAllTransactions()
         {
             return _transactions;
+        }
+
+        /// <summary>
+        /// CREATOR: Jaeho Kim
+        /// CREATED: 3/05/2020
+        /// APPROVER: NA
+        /// 
+        /// Fake Transaction Accessor Method, uses dummy data for testing.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate)
+        {
+            throw new NotImplementedException();
         }
     }
 }

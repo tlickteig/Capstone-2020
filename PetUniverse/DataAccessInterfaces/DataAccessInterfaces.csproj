@@ -44,9 +44,11 @@
     <Compile Include="IAdoptionAccessor.cs" />
     <Compile Include="IAdoptionAppointmentAccessor.cs" />
     <Compile Include="IAdoptionCustomerAccessor.cs" />
+    <Compile Include="IAdoptionInterviewerAccessor.cs" />
     <Compile Include="IAnimalAccessor.cs" />
     <Compile Include="IAnimalHandlingAccessor.cs" />
     <Compile Include="IAnimalKennelAccessor.cs" />
+    <Compile Include="IAnimalPrescriptionAccessor.cs" />
     <Compile Include="IApplicantAccessor.cs" />
     <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IbackstockAccessor.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="ITrainingVideoAccessor.cs" />
     <Compile Include="ITransactionAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
+    <Compile Include="IVetAppointmentAccessor.cs" />
     <Compile Include="IVolunteerAccessor.cs" />
     <Compile Include="IVolunteerEventAccessor.cs" />
     <Compile Include="IVolunteerShiftAccessor.cs" />
