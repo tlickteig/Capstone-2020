@@ -14,7 +14,7 @@ namespace LogicLayer
     /// Creator: Brandyn T. Coverdill
     /// Created: 2020/02/22
     /// Approver: Dalton Reierson
-    /// Approver: 
+    /// Approver:  Jesse Tomash
     ///
     /// The Logic Layer class for Item.
     /// </summary>
@@ -78,6 +78,43 @@ namespace LogicLayer
             }
 
             return items;
+        }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/03/04
+        /// Approver: Dalton Reierson
+        /// Approver:   Jesse Tomash
+        ///
+        /// Method that updates an item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="newDesc"></param>
+        /// <param name="newName"></param>
+        /// <param name="newQuantity"></param>
+        /// <param name="oldDesc"></param>
+        /// <param name="oldName"></param>
+        /// <param name="oldQuantity"></param>
+        public bool editItemDetail(string oldName, string oldDesc, int oldQuantity, string newName, string newDesc, int newQuantity)
+        {
+
+            bool result = false;
+
+            try
+            {
+                result = 1 == _itemAccessor.updateItemDetail(oldName, oldDesc, oldQuantity, newName, newDesc, newQuantity);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update Item Failed.", ex);
+            }
+
+            return result;
         }
 
 

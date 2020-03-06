@@ -109,9 +109,12 @@
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\ViewItemDetail.xaml.cs">
+      <DependentUpon>ViewItemDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\pgCheckOut.xaml.cs">
       <DependentUpon>pgCheckOut.xaml</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="AMPages\HandlingControls.xaml.cs">
       <DependentUpon>HandlingControls.xaml</DependentUpon>
     </Compile>
@@ -247,8 +250,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\ViewItemDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PoSPages\pgCheckOut.xaml">
-		<SubType>Designer</SubType>
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AMPages\HandlingControls.xaml">
@@ -421,11 +428,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdoptionsPages\" />
-    <Folder Include="InventoryPages\" />
-    <Folder Include="PersonnelPages\" />
-	<Folder Include="PoSPages\" />
-    <Folder Include="RecruitingPages\" />
-    <Folder Include="VolunteerPages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

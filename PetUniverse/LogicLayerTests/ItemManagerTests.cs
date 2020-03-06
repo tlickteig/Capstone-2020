@@ -108,6 +108,51 @@ namespace LogicLayerTests
             Assert.AreEqual(expectedResult, items.Count);
         }
 
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/03/04
+        /// Approver: Dalton Reierson
+        /// Approver:  
+        ///
+        /// Test Method that tests editing an item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestEditItem()
+        {
+            // Arrange
+            Item oldItem = new Item()
+            {
+                ItemID = 1000,
+                ItemCategoryID = "ItemID 1",
+                ItemName = "Item 1",
+                ItemQuantity = 20,
+                Description = "Item Description 1"
+            };
+
+            Item newItem = new Item()
+            {
+                ItemID = 1000,
+                ItemCategoryID = "ItemID 1",
+                ItemName = "Item 2",
+                ItemQuantity = 30,
+                Description = "Item Description 2"
+            };
+
+            // Act
+            bool result = false;
+            result = _itemManager.editItemDetail(oldItem.ItemName, oldItem.Description, oldItem.ItemQuantity, newItem.ItemName, newItem.Description, newItem.ItemQuantity);
+
+            // Assert
+            Assert.AreEqual(true, result);
+        }
+
         /// <summary>
         /// Creator: Brandyn T. Coverdill
         /// Created: 2020/02/22

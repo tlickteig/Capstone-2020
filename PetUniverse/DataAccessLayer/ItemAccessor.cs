@@ -77,9 +77,10 @@ namespace DataAccessLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updated By: 
-        /// Updated: 
-        /// Update:
+        /// Updated By: Brandyn T. Coverdill
+        /// Updated: 2020/03/03
+        /// Update: The Item Description was not getting fetched into the datagrid, so I added that field.
+        /// Approver:  Jesse Tomash
         /// </remarks>
         public List<Item> getAllItems()
         {
@@ -103,7 +104,8 @@ namespace DataAccessLayer
                         ItemID = reader.GetInt32(0),
                         ItemName = reader.GetString(1),
                         ItemQuantity = reader.GetInt32(2),
-                        ItemCategoryID = reader.GetString(3)
+                        ItemCategoryID = reader.GetString(3),
+                        Description = reader.GetString(4)
                     });
                 }
 
@@ -119,6 +121,61 @@ namespace DataAccessLayer
             }
 
             return items;
+        }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/03/04
+        /// Approver: 
+        /// Approver:  
+        ///
+        /// Method that updates an item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="newDesc"></param>
+        /// <param name="newName"></param>
+        /// <param name="newQuantity"></param>
+        /// <param name="oldDesc"></param>
+        /// <param name="oldName"></param>
+        /// <param name="oldQuantity"></param>
+        public int updateItemDetail(string oldName, string oldDesc, int oldQuantity, string newName, string newDesc, int newQuantity)
+        {
+            int result = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_specific_item", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@OldItemName", oldName);
+            cmd.Parameters.AddWithValue("@OldItemDescription", oldDesc);
+            cmd.Parameters.AddWithValue("@OldItemQuantity", oldQuantity);
+            cmd.Parameters.AddWithValue("@NewItemName", newName);
+            cmd.Parameters.AddWithValue("@NewItemDescription", newDesc);
+            cmd.Parameters.AddWithValue("@NewItemQuantity", newQuantity);
+
+            try
+            {
+                conn.Open();
+
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                conn.Close();
+            }
+
+            return result;
         }
     }
 }

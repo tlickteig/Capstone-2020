@@ -4619,7 +4619,7 @@ GO
 CREATE PROCEDURE sp_retrieve_items
 AS
 BEGIN
-	SELECT i.ItemID, i.ItemName, i.ItemQuantity, ic.ItemCategoryID
+	SELECT i.ItemID, i.ItemName, i.ItemQuantity, ic.ItemCategoryID, i.ItemDescription
 	FROM dbo.Item i
 	INNER JOIN dbo.ItemCategory ic
 	ON i.ItemCategoryID = ic.ItemCategoryID
@@ -5174,3 +5174,34 @@ AS
 		WHERE T.[TransactionDate] = @TransactionDate
 	END
 GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 3/4/2020
+Comment: Stored Procedure that updates the item name, item count, and item description.
+*/
+print '' print '*** Creating procedure sp_update_specific_item'
+GO
+CREATE PROCEDURE [sp_update_specific_item](
+	@OldItemName nvarchar(50),
+	@OldItemDescription nvarchar(250),
+	@OldItemQuantity int,
+	@NewItemName nvarchar(50),
+	@NewItemDescription nvarchar(250),
+	@NewItemQuantity int
+)
+AS
+BEGIN
+	UPDATE dbo.Item
+	SET ItemName = @NewItemName,
+		ItemDescription = @NewItemDescription,
+		ItemQuantity = @NewItemQuantity
+	WHERE ItemName = @OldItemName
+	AND	  ItemDescription = @OldItemDescription
+	AND	  ItemQuantity = @OldItemQuantity
+	SELECT @@ROWCOUNT
+END
+GO
+
+
+

@@ -93,5 +93,40 @@ namespace DataAccessFakes
 
             return items;
         }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/03/04
+        /// Approver: Dalton Reireson
+        /// Approver:   Jesse Tomash
+        ///
+        /// Method that updates an item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="newDesc"></param>
+        /// <param name="newName"></param>
+        /// <param name="newQuantity"></param>
+        /// <param name="oldDesc"></param>
+        /// <param name="oldName"></param>
+        /// <param name="oldQuantity"></param>
+        public int updateItemDetail(string oldName, string oldDesc, int oldQuantity, string newName, string newDesc, int newQuantity)
+        {
+            int result = 0;
+            oldName = newName;
+            oldDesc = newDesc;
+            oldQuantity = newQuantity;
+
+            if (oldName == newName && oldDesc == newDesc && oldQuantity == newQuantity)
+            {
+                result = 1;
+            }
+
+            return result;
+        }
     }
 }
