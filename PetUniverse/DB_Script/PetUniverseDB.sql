@@ -3093,12 +3093,13 @@ Insert INTO [dbo].[TransactionLine]
 	Values
 	(1000, '7084781116', 5),
 	(1000, '2500006153', 3),
+	(1001, '7084781116', 2),
 	(1002, '2500006153', 9)
 Go
 
 /*
 Created by: Jaeho Kim
-Date: 2/27/2020
+Date: 03/05/2020
 Comment: Selects a list of all transactions with join tables for the customer
 */
 print '' print '*** Creating sp_select_all_transactions'
@@ -3107,22 +3108,17 @@ CREATE PROCEDURE sp_select_all_transactions
 AS
 	BEGIN
 		SELECT 	
-		TL.[TransactionID]
-		, TL.[Quantity]
-		, P.[ProductName]
-		, P.[Brand]
-		, P.[Price]
-		, T.[TransactionDate]
-		, T.[TransactionTypeID]
-		, T.[Notes]
-		
-		FROM 	[TransactionLine] TL
-		INNER JOIN [Product] P
-			ON TL.[ProductID] = P.[ProductID]
-		INNER JOIN [Transaction] T
-			ON TL.[TransactionID] = T.[TransactionID]
-		INNER JOIN [TransactionType] TT
-			ON TT.[TransactionTypeID] = T.[TransactionTypeID]
+		 T.[TransactionID]
+		,T.[TransactionDate]
+		,U.[UserID]
+		,U.[FirstName]
+		,U.[LastName]
+		,T.[TransactionTypeID]
+		,T.[TransactionStatusID]
+		,T.[Notes]
+		FROM 	[Transaction] T
+		INNER JOIN [User] U
+			ON T.[EmployeeID] = U.[UserID]
 	END
 GO
 
@@ -4935,4 +4931,70 @@ BEGIN
 	FROM [dbo].[Animal]
 	ORDER BY [AnimalID]
 END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 03/05/2020
+Comment: Selects a single transaction with an TransactionID and displays all 
+of the product details.
+*/
+print '' print '*** Creating sp_select_all_products_by_transaction_id'
+GO
+CREATE PROCEDURE sp_select_all_products_by_transaction_id
+(
+	@TransactionID		[int]
+)
+AS
+	BEGIN
+		SELECT 	
+		 TL.[Quantity]
+		, P.[ProductID]
+		, P.[ProductName]
+		, P.[ProductCategoryID]
+		, P.[ProductTypeID]
+		, P.[Description]
+		, P.[Brand]
+		, P.[Price]
+		
+		FROM 	[TransactionLine] TL
+		INNER JOIN [Product] P
+			ON TL.[ProductID] = P.[ProductID]
+		INNER JOIN [Transaction] T
+			ON TL.[TransactionID] = T.[TransactionID]
+		INNER JOIN [User] U
+			ON T.[EmployeeID] = U.[UserID]
+		INNER JOIN [TransactionType] TT
+			ON TT.[TransactionTypeID] = T.[TransactionTypeID]
+		WHERE @TransactionID = TL.[TransactionID]
+	END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 03/05/2020
+Comment: Selects a list of all transactions with a specific datetime.
+*/
+print '' print '*** Creating sp_select_transactions_by_datetime'
+GO
+CREATE PROCEDURE sp_select_transactions_by_datetime
+(
+	@TransactionDate	[datetime]
+)
+AS
+	BEGIN
+		SELECT 	
+		 T.[TransactionID]
+		,T.[TransactionDate]
+		,U.[UserID]
+		,U.[FirstName]
+		,U.[LastName]
+		,T.[TransactionTypeID]
+		,T.[TransactionStatusID]
+		,T.[Notes]
+		FROM 	[Transaction] T
+		INNER JOIN [User] U
+			ON T.[EmployeeID] = U.[UserID]
+		WHERE T.[TransactionDate] = @TransactionDate
+	END
 GO

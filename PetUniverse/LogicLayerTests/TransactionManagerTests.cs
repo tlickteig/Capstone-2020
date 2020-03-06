@@ -13,7 +13,7 @@ namespace LogicLayerTests
     /// <summary>
     ///  Creator: Jaeho Kim
     ///  Created: 2/27/2020
-    ///  Approver: Ethan Holmes
+    ///  Approver: Rasha Mohammed
     ///  
     ///  Test Class for TransactionManager
     /// </summary>
@@ -26,7 +26,7 @@ namespace LogicLayerTests
         /// <summary>
         ///  Creator: Jaeho Kim
         ///  Created: 2/27/2020
-        ///  Approver: Ethan Holmes
+        ///  Approver: Rasha Mohammed
         ///  
         ///  Constructor for instantiating FakeTransactionAccessor
         /// </summary>
@@ -44,7 +44,7 @@ namespace LogicLayerTests
         /// <summary>
         ///  Creator: Jaeho Kim
         ///  Created: 2/27/2020
-        ///  Approver: Ethan Holmes
+        ///  Approver: Rasha Mohammed
         ///  
         ///  Test method for retrieving all transactions
         /// </summary>
@@ -66,6 +66,31 @@ namespace LogicLayerTests
 
             //assert
             Assert.AreEqual(2, transactions.Count);
+        }
+
+        /// <summary>
+        ///  Creator: Jaeho Kim
+        ///  Created: 3/05/2020
+        ///  Approver: Rasha Mohammed
+        ///  
+        ///  Test method for retrieving all products using a transactionId
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAllProductsByTransactionID()
+        {
+            // arrange 
+            List<TransactionVM> products;
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+            // Act
+            products = transactionManager.RetrieveAllProductsByTransactionID(1000);
+            // assert
+            Assert.AreEqual(1, products.Count);
         }
     }
 }
