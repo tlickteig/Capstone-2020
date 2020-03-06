@@ -18,6 +18,7 @@ using PresentationUtilityCode;
 using WPFPresentationLayer.PoSPages;
 using WPFPresentationLayer.AMPages;
 using WPFPresentationLayer.RecruitingPages;
+using WPFPresentationLayer.FMPages;
 
 namespace WPFPresentationLayer
 {
@@ -542,6 +543,7 @@ namespace WPFPresentationLayer
             }
         }
 
+        /// <summary>
         /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Chuck Baxter
@@ -549,9 +551,11 @@ namespace WPFPresentationLayer
         /// This method is called when the Facility Management button is clicked
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Carl Davis
+        /// Updated: 3/4/2020
+        /// Update: Passed the logged in user through the constructor
+        /// Approver: Ethan Murphy 3/6/2020
+        /// 
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -559,6 +563,8 @@ namespace WPFPresentationLayer
         {
             desiredScreen = "Facility Management";
             switchScreen(desiredScreen);
+            frameViewFacilityInspection.Content = new FacilityInspectionControls(_user);
+            frameViewFacilityMaintenance.Content = new FacilityMaintenanceControls(_user);
         }
 
 

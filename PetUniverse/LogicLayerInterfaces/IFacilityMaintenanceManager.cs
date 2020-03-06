@@ -48,7 +48,7 @@ namespace LogicLayerInterfaces
         /// Update:
         /// <param name="facilityMaintenanceID"></param>
         /// <returns>FacilityMaintenance object</returns>
-        FacilityMaintenance RetrieveFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID);
+        FacilityMaintenance RetrieveFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID, bool active);
 
         /// <summary>
         /// Creator: Carl Davis
@@ -65,7 +65,7 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <param name="userID"></param>
         /// <returns>List<FacilityMaintenance> objects</returns>
-        List<FacilityMaintenance> RetrieveFacilityMaintenanceByUserID(int userID);
+        List<FacilityMaintenance> RetrieveFacilityMaintenanceByUserID(int userID, bool active);
 
         /// <summary>
         /// Creator: Carl Davis
@@ -82,7 +82,7 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <param name="facilityMaintenanceName"></param>
         /// <returns>List<FacilityMaintenance></returns>
-        List<FacilityMaintenance> RetrieveFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName);
+        List<FacilityMaintenance> RetrieveFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName, bool active);
 
         /// <summary>
         /// Creator: Carl Davis
@@ -98,7 +98,7 @@ namespace LogicLayerInterfaces
         /// Update:
         /// </remarks>
         /// <returns>List<FacilityMaintenance> objects</returns>
-        List<FacilityMaintenance> RetrieveAllFacilityMaintenance();
+        List<FacilityMaintenance> RetrieveAllFacilityMaintenance(bool active);
 
         /// <summary>
         /// Creator: Carl Davis
@@ -117,5 +117,22 @@ namespace LogicLayerInterfaces
         /// <param name="newFacilityMaintenance"></param>
         /// <returns>1 or 0 int depending if record was updated</returns>
         bool EditFacilityMaintenance(FacilityMaintenance oldFacilityMaintenance, FacilityMaintenance newFacilityMaintenance);
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 2/14/2020
+        /// Approver: Ethan Murphy 3/6/2020
+        /// Approver: 
+        /// 
+        /// Method to delete a facility maintenance record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="facilityMaintenanceID"></param>
+        /// <returns>int 1 or 0 depending if record was deleted</returns>
+        bool DeactivateFacilityMaintenance(int facilityMaintenanceID);
     }
 }

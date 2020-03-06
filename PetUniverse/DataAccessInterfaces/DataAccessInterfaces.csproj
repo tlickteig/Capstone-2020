@@ -56,6 +56,7 @@
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IERoleAccessor.cs" />
     <Compile Include="IEventAccessor.cs" />
+    <Compile Include="IFacilityInspectionAccessor.cs" />
     <Compile Include="IFacilityMaintenanceAccessor.cs" />
     <Compile Include="IHomeInspectoAccessor.cs" />
     <Compile Include="IInHomeInspectionAppointmentDecisionAccessor.cs" />

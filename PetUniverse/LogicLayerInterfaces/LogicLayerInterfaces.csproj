@@ -54,6 +54,7 @@
     <Compile Include="ICustomerManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IERoleManager.cs" />
+    <Compile Include="IFacilityInspectionManager.cs" />
     <Compile Include="IFacilityMaintenanceManager.cs" />
     <Compile Include="IHomeInspectorManager.cs" />
     <Compile Include="IInHomeInspectionAppointmentDecisionManager.cs" />

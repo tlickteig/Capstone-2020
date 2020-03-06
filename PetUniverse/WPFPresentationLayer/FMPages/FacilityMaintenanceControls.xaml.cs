@@ -31,6 +31,8 @@ namespace WPFPresentationLayer.FMPages
 
         private IFacilityMaintenanceManager _facilityMaintenanceManager;
 
+        private PetUniverseUser _user;
+
         string[] maintenanceItems =
         {
             "Maintenance ID",
@@ -61,6 +63,27 @@ namespace WPFPresentationLayer.FMPages
 
         /// <summary>
         /// Creator: Carl Davis
+        /// Created: 3/4/2020
+        /// Approver: 
+        /// 
+        /// constructor for facility maintenance controls
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        public FacilityMaintenanceControls(PetUniverseUser user)
+        {
+            InitializeComponent();
+            _facilityMaintenanceManager = new FacilityMaintenanceManager();
+            selectedFacilityMaintenance = new FacilityMaintenance();
+            cmbFacilityMaintenanceFields.ItemsSource = maintenanceItems;
+            _user = user;
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
         /// Created: 2/21/2020
         /// Approver: Steven Cardona
         /// 
@@ -79,7 +102,7 @@ namespace WPFPresentationLayer.FMPages
             {
                 if (dgFacilityMaintenance.ItemsSource == null)
                 {
-                    dgFacilityMaintenance.ItemsSource = _facilityMaintenanceManager.RetrieveAllFacilityMaintenance();
+                    dgFacilityMaintenance.ItemsSource = _facilityMaintenanceManager.RetrieveAllFacilityMaintenance((bool)chkActive.IsChecked);
                     dgFacilityMaintenance.Columns[0].Header = "Maitenance ID";
                     dgFacilityMaintenance.Columns[1].Header = "User ID";
                     dgFacilityMaintenance.Columns[2].Header = "Maitenance Name";
@@ -111,7 +134,7 @@ namespace WPFPresentationLayer.FMPages
         {
             try
             {
-                dgFacilityMaintenance.ItemsSource = _facilityMaintenanceManager.RetrieveAllFacilityMaintenance();
+                dgFacilityMaintenance.ItemsSource = _facilityMaintenanceManager.RetrieveAllFacilityMaintenance((bool)chkActive.IsChecked);
                 dgFacilityMaintenance.Columns[0].Header = "Maitenance ID";
                 dgFacilityMaintenance.Columns[1].Header = "User ID";
                 dgFacilityMaintenance.Columns[2].Header = "Maitenance Name";
@@ -141,6 +164,7 @@ namespace WPFPresentationLayer.FMPages
         /// <param name="e"></param>
         private void BtnAddFacilityMaintenance_Click(object sender, RoutedEventArgs e)
         {
+            txtUserID.Text = _user.PUUserID.ToString();
             //canViewFacilityMaintenance.Visibility = Visibility.Collapsed;
             canAddFacilityMaintenance.Visibility = Visibility.Visible;
         }
@@ -171,7 +195,7 @@ namespace WPFPresentationLayer.FMPages
 
 
                     int maintenanceID = Int32.Parse(txtSearchItem.Text);
-                    facilityMaintenances.Add(_facilityMaintenanceManager.RetrieveFacilityMaintenanceByFacilityMaintenanceID(maintenanceID));
+                    facilityMaintenances.Add(_facilityMaintenanceManager.RetrieveFacilityMaintenanceByFacilityMaintenanceID(maintenanceID, (bool)chkActive.IsChecked));
                     dgFacilityMaintenance.ItemsSource = facilityMaintenances;
                     dgFacilityMaintenance.Columns[0].Header = "Maitenance ID";
                     dgFacilityMaintenance.Columns[1].Header = "User ID";
@@ -190,7 +214,7 @@ namespace WPFPresentationLayer.FMPages
                 try
                 {
                     int userID = Int32.Parse(txtSearchItem.Text);
-                    dgFacilityMaintenance.ItemsSource = _facilityMaintenanceManager.RetrieveFacilityMaintenanceByUserID(userID);
+                    dgFacilityMaintenance.ItemsSource = _facilityMaintenanceManager.RetrieveFacilityMaintenanceByUserID(userID, (bool)chkActive.IsChecked);
                     dgFacilityMaintenance.Columns[0].Header = "Maitenance ID";
                     dgFacilityMaintenance.Columns[1].Header = "User ID";
                     dgFacilityMaintenance.Columns[2].Header = "Maitenance Name";
@@ -205,7 +229,7 @@ namespace WPFPresentationLayer.FMPages
             else if (cmbFacilityMaintenanceFields.Text == maintenanceItems[2])
             {
                 string maintenanceName = txtSearchItem.Text;
-                dgFacilityMaintenance.ItemsSource = _facilityMaintenanceManager.RetrieveFacilityMaintenanceFacilityMaintenanceName(maintenanceName);
+                dgFacilityMaintenance.ItemsSource = _facilityMaintenanceManager.RetrieveFacilityMaintenanceFacilityMaintenanceName(maintenanceName, (bool)chkActive.IsChecked);
                 dgFacilityMaintenance.Columns[0].Header = "Maitenance ID";
                 dgFacilityMaintenance.Columns[1].Header = "User ID";
                 dgFacilityMaintenance.Columns[2].Header = "Maitenance Name";
@@ -327,15 +351,19 @@ namespace WPFPresentationLayer.FMPages
         /// <param name="e"></param>
         private void dgFacilityMaintenance_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            txtUserID.Text = _user.PUUserID.ToString();
             selectedFacilityMaintenance = (FacilityMaintenance)dgFacilityMaintenance.SelectedItem;
-            canAddFacilityMaintenance.Visibility = Visibility.Visible;
-            BtnSubmitMaintenanceRecord.Visibility = Visibility.Hidden;
-            btnUpdateBuildingMaintenanceRecord.Visibility = Visibility.Visible;
-            lblFacilityMaintenance.Content = "Update Facility Maintenance Record";
-            txtUserID.Text = selectedFacilityMaintenance.UserID.ToString();
-            txtMaintenanceName.Text = selectedFacilityMaintenance.MaintenanceName;
-            txtMaintenanceInterval.Text = selectedFacilityMaintenance.MaintenanceInterval;
-            txtMaintenanceDescription.Text = selectedFacilityMaintenance.MaintenanceDescription;
+            if (selectedFacilityMaintenance != null)
+            {
+                canAddFacilityMaintenance.Visibility = Visibility.Visible;
+                BtnSubmitMaintenanceRecord.Visibility = Visibility.Hidden;
+                btnUpdateBuildingMaintenanceRecord.Visibility = Visibility.Visible;
+                lblFacilityMaintenance.Content = "Update Facility Maintenance Record";
+                txtUserID.Text = selectedFacilityMaintenance.UserID.ToString();
+                txtMaintenanceName.Text = selectedFacilityMaintenance.MaintenanceName;
+                txtMaintenanceInterval.Text = selectedFacilityMaintenance.MaintenanceInterval;
+                txtMaintenanceDescription.Text = selectedFacilityMaintenance.MaintenanceDescription;
+            }
         }
 
         /// <summary>
@@ -406,6 +434,77 @@ namespace WPFPresentationLayer.FMPages
             {
                 WPFErrorHandler.ErrorMessage(ex.Message, "Update");
             }
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 2/28/2020
+        /// Approver: Ethan Murphy 3/6/2020
+        /// 
+        /// Submits the updated information to the database
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnDeleteFacilityMaintenance_Click(object sender, RoutedEventArgs e)
+        {
+            selectedFacilityMaintenance = (FacilityMaintenance)dgFacilityMaintenance.SelectedItem;
+            string caption = "";
+            if (MessageBox.Show("Are you sure you want to deactivate this record?", caption, MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    _facilityMaintenanceManager.DeactivateFacilityMaintenance(selectedFacilityMaintenance.FacilityMaintenanceID);
+                    RefreshViewAllList();
+                    MessageBox.Show("Maintenance record successfully deactivated.");
+                }
+                catch (Exception ex)
+                {
+                    WPFErrorHandler.ErrorMessage(ex.Message, "Update");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 2/28/2020
+        /// Approver: Ethan Murphy 3/6/2020
+        /// 
+        /// Refeshes the view all list
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshViewAllList();
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/6/2020
+        /// Approver: Ethan Murphy 3/6/2020
+        /// 
+        /// Refeshes the view all list when chkActive is clicked
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChkActive_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshViewAllList();
         }
     }
 }

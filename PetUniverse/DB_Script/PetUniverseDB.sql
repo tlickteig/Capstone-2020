@@ -534,7 +534,8 @@ CREATE TABLE [dbo].[FacilityMaintenance] (
 	[UserID]					[int]						NOT NULL,
 	[MaintenanceName]			[nvarchar](50)				NOT NULL,
 	[MaintenanceInterval]		[nvarchar](20)				NOT NULL,
-	[MaintenanceDescription]	[nvarchar](250)				NOT NULL
+	[MaintenanceDescription]	[nvarchar](250)				NOT NULL,
+	[Active]					[bit]	   					NOT NULL DEFAULT 1
 
 	CONSTRAINT [pk_FacilityMaintenanceID] PRIMARY KEY([FacilityMaintenanceID] ASC),
 
@@ -542,6 +543,32 @@ CREATE TABLE [dbo].[FacilityMaintenance] (
 		REFERENCES [User]([UserID]) ON UPDATE CASCADE,
 
 	CONSTRAINT [ak_FacilityMaintenanceID] UNIQUE([FacilityMaintenanceID] ASC)
+
+
+)
+
+print '' print '*** Creating FacilityInspection Table'
+/*
+Created by: Carl Davis
+Date: 2/28/2020
+Comment: Table that has the Facility Inspection Information
+*/
+GO
+CREATE TABLE [dbo].[FacilityInspection] (
+
+	[FacilityInspectionID]		[int] IDENTITY(1000000,1)	NOT NULL,
+	[UserID]					[int]						NOT NULL,
+	[InspectorName]				[nvarchar](50)				NOT NULL,
+	[InspectionDate]			[date]						NOT NULL,
+	[InspectionDescription]		[nvarchar](500)				NOT NULL,
+	[InspectionCompleted]		[bit]						NOT NULL DEFAULT 0
+
+	CONSTRAINT [pk_FacilityInspectionID] PRIMARY KEY([FacilityInspectionID] ASC),
+
+	CONSTRAINT [fk_FacilityInspection_UserID] FOREIGN KEY([UserID])
+		REFERENCES [User]([UserID]) ON UPDATE CASCADE,
+
+	CONSTRAINT [ak_FacilityInspectionID] UNIQUE([FacilityInspectionID] ASC)
 
 
 )
@@ -926,6 +953,179 @@ BEGIN
         ([UserID], [MaintenanceName], [MaintenanceInterval], [MaintenanceDescription])
     VALUES
         (@UserID, @MaintenanceName, @MaintenanceInterval, @MaintenanceDescription)
+    RETURN SCOPE_IDENTITY()
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/14/2020
+Comment: Sproc to select facility maintenance by id
+*/
+
+print '' print '*** Creating sp_select_facility_maintenance_by_id'
+GO
+CREATE PROCEDURE [sp_select_facility_maintenance_by_id]
+(
+    @FacilityMaintenanceID                        	[int],
+	@Active 										[bit]
+
+)
+AS
+BEGIN
+    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
+            [MaintenanceInterval], [MaintenanceDescription], [Active]
+    FROM [dbo].[FacilityMaintenance] 
+	WHERE [FacilityMaintenanceID] = @FacilityMaintenanceID
+	AND [Active] = @Active
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/14/2020
+Comment: Sproc to select all facility maintenance
+*/
+print '' print '*** Creating sp_select_all_facility_maintenance'
+GO
+CREATE PROCEDURE [sp_select_all_facility_maintenance]
+(
+	@Active			[bit]
+)
+AS
+BEGIN
+    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
+            [MaintenanceInterval], [MaintenanceDescription], [Active]
+    FROM [dbo].[FacilityMaintenance] 
+	WHERE [Active] = @Active
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/14/2020
+Comment: Sproc to select facility maintenance by user id
+*/
+print '' print '*** Creating sp_select_facility_maintenance_by_user_id'
+GO
+CREATE PROCEDURE [sp_select_facility_maintenance_by_user_id]
+(
+    @UserID                        	[int],
+	@Active							[bit]
+)
+AS
+BEGIN
+    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
+            [MaintenanceInterval], [MaintenanceDescription], [Active]
+    FROM [dbo].[FacilityMaintenance] 
+	WHERE [UserID] = @UserID
+		AND [Active] = @Active
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/14/2020
+Comment: Sproc to select facility maintenance by name
+*/
+print '' print '*** Creating sp_select_facility_maintenance_by_name'
+GO
+CREATE PROCEDURE [sp_select_facility_maintenance_by_name]
+(
+    @MaintenanceName                        	[nvarchar](50),
+	@Active										[bit]
+)
+AS
+BEGIN
+    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
+            [MaintenanceInterval], [MaintenanceDescription], [Active]
+    FROM [dbo].[FacilityMaintenance] 
+	WHERE [MaintenanceName] = @MaintenanceName
+	AND [Active] = @Active
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/14/2020
+Comment: Sproc to update facility maintenance
+*/
+print '' print '*** Creating sp_update_facility_maintenance '
+GO
+CREATE PROCEDURE [sp_update_facility_maintenance]
+(
+	@FacilityMaintenanceID          	[int],
+    @OldUserID                        	[int],
+    @OldMaintenanceName            		[nvarchar](50),
+    @OldMaintenanceInterval         	[nvarchar](20),
+    @OldMaintenanceDescription     		[nvarchar](250),
+	@NewUserID                        	[int],
+    @NewMaintenanceName            		[nvarchar](50),
+    @NewMaintenanceInterval         	[nvarchar](20),
+    @NewMaintenanceDescription     		[nvarchar](250)
+
+)
+AS
+BEGIN
+    UPDATE 	[dbo].[FacilityMaintenance]
+	SET 	[UserID] = @NewUserID,
+			[MaintenanceName] = @NewMaintenanceName,
+			[MaintenanceInterval] = @NewMaintenanceInterval,
+			[MaintenanceDescription] = @NewMaintenanceDescription
+			
+	WHERE   [FacilityMaintenanceID] = @FacilityMaintenanceID
+		AND	[UserID] = @OldUserID
+		AND	[MaintenanceName] = @OldMaintenanceName
+		AND	[MaintenanceInterval] = @OldMaintenanceInterval
+		AND	[MaintenanceDescription] = @OldMaintenanceDescription
+	 RETURN @@ROWCOUNT
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/28/2020
+Comment: Sproc to deactivate facility maintenance
+*/
+print '' print '*** Creating sp_deactivate_facility_maintenance'
+GO
+CREATE PROCEDURE [sp_deactivate_facility_maintenance]
+(
+	@FacilityMaintenanceID					[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[FacilityMaintenance]
+	SET		[Active] = 0
+	WHERE [FacilityMaintenanceID] = @FacilityMaintenanceID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 2/28/2020
+Comment: Sproc to insert facility inspection
+*/
+print '' print '*** Creating sp_insert_facility_inspection'
+GO
+CREATE PROCEDURE [sp_insert_facility_inspection]
+(
+    @UserID                        	[int],
+    @InspectorName            		[nvarchar](150),
+    @InspectionDate         		[date],
+    @InspectionDescription     		[nvarchar](500)
+)
+AS
+BEGIN
+    INSERT INTO [dbo].[FacilityInspection]
+        ([UserID], [InspectorName], [InspectionDate], [InspectionDescription])
+    VALUES
+        (@UserID, @InspectorName, @InspectionDate, @InspectionDescription)
     RETURN SCOPE_IDENTITY()
 
 END
@@ -3316,127 +3516,6 @@ AS
 	SELECT	[TrainingVideoID], [RunTimeMinutes], [RunTimeSeconds], [Description]
 	FROM		[TrainingVideo]
 	ORDER BY [TrainingVideoID]
-END
-GO
-
-/*
-Created by: Carl Davis
-Date: 2/14/2020
-Comment: Sproc to select facility maintenance by id
-*/
-
-print '' print '*** Creating sp_select_facility_maintenance_by_id'
-GO
-CREATE PROCEDURE [sp_select_facility_maintenance_by_id]
-(
-    @FacilityMaintenanceID                        	[int]
-
-)
-AS
-BEGIN
-    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
-            [MaintenanceInterval], [MaintenanceDescription]
-    FROM [dbo].[FacilityMaintenance] 
-	WHERE [FacilityMaintenanceID] = @FacilityMaintenanceID
-
-END
-GO
-
-/*
-Created by: Carl Davis
-Date: 2/14/2020
-Comment: Sproc to select all facility maintenance
-*/
-print '' print '*** Creating sp_select_all_facility_maintenance'
-GO
-CREATE PROCEDURE [sp_select_all_facility_maintenance]
-AS
-BEGIN
-    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
-            [MaintenanceInterval], [MaintenanceDescription]
-    FROM [dbo].[FacilityMaintenance] 
-END
-GO
-
-/*
-Created by: Carl Davis
-Date: 2/14/2020
-Comment: Sproc to select facility maintenance by user id
-*/
-print '' print '*** Creating sp_select_facility_maintenance_by_user_id'
-GO
-CREATE PROCEDURE [sp_select_facility_maintenance_by_user_id]
-(
-    @UserID                        	[int]
-
-)
-AS
-BEGIN
-    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
-            [MaintenanceInterval], [MaintenanceDescription]
-    FROM [dbo].[FacilityMaintenance] 
-	WHERE [UserID] = @UserID
-
-END
-GO
-
-/*
-Created by: Carl Davis
-Date: 2/14/2020
-Comment: Sproc to select facility maintenance by name
-*/
-print '' print '*** Creating sp_select_facility_maintenance_by_name'
-GO
-CREATE PROCEDURE [sp_select_facility_maintenance_by_name]
-(
-    @MaintenanceName                        	[nvarchar](50)
-
-)
-AS
-BEGIN
-    SELECT [FacilityMaintenanceID], [UserID], [MaintenanceName],
-            [MaintenanceInterval], [MaintenanceDescription]
-    FROM [dbo].[FacilityMaintenance] 
-	WHERE [MaintenanceName] = @MaintenanceName
-
-END
-GO
-
-/*
-Created by: Carl Davis
-Date: 2/14/2020
-Comment: Sproc to update facility maintenance
-*/
-print '' print '*** Creating sp_update_facility_maintenance '
-GO
-CREATE PROCEDURE [sp_update_facility_maintenance]
-(
-	@FacilityMaintenanceID          	[int],
-    @OldUserID                        	[int],
-    @OldMaintenanceName            		[nvarchar](50),
-    @OldMaintenanceInterval         	[nvarchar](20),
-    @OldMaintenanceDescription     		[nvarchar](250),
-	@NewUserID                        	[int],
-    @NewMaintenanceName            		[nvarchar](50),
-    @NewMaintenanceInterval         	[nvarchar](20),
-    @NewMaintenanceDescription     		[nvarchar](250)
-
-)
-AS
-BEGIN
-    UPDATE 	[dbo].[FacilityMaintenance]
-	SET 	[UserID] = @NewUserID,
-			[MaintenanceName] = @NewMaintenanceName,
-			[MaintenanceInterval] = @NewMaintenanceInterval,
-			[MaintenanceDescription] = @NewMaintenanceDescription
-			
-	WHERE   [FacilityMaintenanceID] = @FacilityMaintenanceID
-		AND	[UserID] = @OldUserID
-		AND	[MaintenanceName] = @OldMaintenanceName
-		AND	[MaintenanceInterval] = @OldMaintenanceInterval
-		AND	[MaintenanceDescription] = @OldMaintenanceDescription
-	 RETURN @@ROWCOUNT
-
 END
 GO
 

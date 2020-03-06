@@ -109,6 +109,9 @@
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FMPages\FacilityInspectionControls.xaml.cs">
+      <DependentUpon>FacilityInspectionControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\ViewItemDetail.xaml.cs">
       <DependentUpon>ViewItemDetail.xaml</DependentUpon>
     </Compile>
@@ -247,6 +250,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="AMPages\AnimalControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FMPages\FacilityInspectionControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

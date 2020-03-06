@@ -60,6 +60,7 @@
     <Compile Include="ERole.cs" />
     <Compile Include="EventRequest.cs" />
     <Compile Include="EventType.cs" />
+    <Compile Include="FacilityInspection.cs" />
     <Compile Include="FacilityMaintenance.cs" />
     <Compile Include="GeneralQuestion.cs" />
     <Compile Include="HomeInspectorAdoptionAppointmentDecision.cs" />

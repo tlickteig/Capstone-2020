@@ -106,11 +106,11 @@ namespace LogicLayer
         /// Update:
         /// </remarks>
         /// <returns>List<FacilityMaintenance> objects</returns>
-        public List<FacilityMaintenance> RetrieveAllFacilityMaintenance()
+        public List<FacilityMaintenance> RetrieveAllFacilityMaintenance(bool active)
         {
             try
             {
-                return _facilityMaintenanceAccessor.SelectAllFacilityMaintenance();
+                return _facilityMaintenanceAccessor.SelectAllFacilityMaintenance(active);
             }
             catch (Exception ex)
             {
@@ -133,7 +133,7 @@ namespace LogicLayer
         /// Update:
         /// <param name="facilityMaintenanceID"></param>
         /// <returns>FacilityMaintenance object</returns>
-        public FacilityMaintenance RetrieveFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID)
+        public FacilityMaintenance RetrieveFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID, bool active)
         {
             if (facilityMaintenanceID < 1000000)
             {
@@ -141,7 +141,7 @@ namespace LogicLayer
             }
             try
             {
-                return _facilityMaintenanceAccessor.SelectFacilityMaintenanceByFacilityMaintenanceID(facilityMaintenanceID);
+                return _facilityMaintenanceAccessor.SelectFacilityMaintenanceByFacilityMaintenanceID(facilityMaintenanceID, active);
             }
             catch (Exception ex)
             {
@@ -165,7 +165,7 @@ namespace LogicLayer
         /// </remarks>
         /// <param name="userID"></param>
         /// <returns>List<FacilityMaintenance> objects</returns>
-        public List<FacilityMaintenance> RetrieveFacilityMaintenanceByUserID(int userID)
+        public List<FacilityMaintenance> RetrieveFacilityMaintenanceByUserID(int userID, bool active)
         {
             if (userID < 100000)
             {
@@ -173,7 +173,7 @@ namespace LogicLayer
             }
             try
             {
-                return _facilityMaintenanceAccessor.SelectFacilityMaintenanceByUserID(userID);
+                return _facilityMaintenanceAccessor.SelectFacilityMaintenanceByUserID(userID, active);
             }
             catch (Exception ex)
             {
@@ -197,11 +197,11 @@ namespace LogicLayer
         /// </remarks>
         /// <param name="facilityMaintenanceName"></param>
         /// <returns>List<FacilityMaintenance></returns>
-        public List<FacilityMaintenance> RetrieveFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName)
+        public List<FacilityMaintenance> RetrieveFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName, bool active)
         {
             try
             {
-                return _facilityMaintenanceAccessor.SelectFacilityMaintenanceFacilityMaintenanceName(facilityMaintenanceName);
+                return _facilityMaintenanceAccessor.SelectFacilityMaintenanceFacilityMaintenanceName(facilityMaintenanceName, active);
             }
             catch (Exception ex)
             {
@@ -241,6 +241,38 @@ namespace LogicLayer
             {
 
                 throw new ApplicationException("Update Maintenance Record Failed!", ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 2/14/2020
+        /// Approver: Ethan Murphy 3/6/2020
+        /// Approver: 
+        /// 
+        /// Method to delete a facility maintenance record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="facilityMaintenanceID"></param>
+        /// <returns>int 1 or 0 depending if record was deleted</returns>
+        public bool DeactivateFacilityMaintenance(int facilityMaintenanceID)
+        {
+            bool result = false;
+
+            try
+            {
+                result = 1 == _facilityMaintenanceAccessor.DeactivateFacilityMaintenance(facilityMaintenanceID);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Delete Maintenance Record Failed!", ex);
             }
 
             return result;

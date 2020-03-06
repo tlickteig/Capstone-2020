@@ -21,5 +21,6 @@ namespace DataTransferObjects
         public string MaintenanceName { get; set; }
         public string MaintenanceInterval { get; set; }
         public string MaintenanceDescription { get; set; }
+        public bool Active { get; set; }
     }
 }

@@ -90,7 +90,7 @@ namespace DataAccessLayer
         /// Update:
         /// </remarks>
         /// <returns>List<FacilityMaintenance> objects</returns>
-        public List<FacilityMaintenance> SelectAllFacilityMaintenance()
+        public List<FacilityMaintenance> SelectAllFacilityMaintenance(bool active)
         {
             List<FacilityMaintenance> facilityMaintenances = new List<FacilityMaintenance>();
 
@@ -102,6 +102,9 @@ namespace DataAccessLayer
 
             // set the command type
             cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@Active", SqlDbType.Bit);
+            cmd.Parameters["@Active"].Value = active;
 
             try
             {
@@ -122,6 +125,7 @@ namespace DataAccessLayer
                         facilityMaintenance.MaintenanceName = reader.GetString(2);
                         facilityMaintenance.MaintenanceInterval = reader.GetString(3);
                         facilityMaintenance.MaintenanceDescription = reader.GetString(4);
+                        facilityMaintenance.Active = reader.GetBoolean(5);
 
                         facilityMaintenances.Add(facilityMaintenance);
 
@@ -159,7 +163,7 @@ namespace DataAccessLayer
         /// </remarks>
         /// <param name="facilityMaintenanceID"></param>
         /// <returns>FacilityMaintenance object</returns>
-        public FacilityMaintenance SelectFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID)
+        public FacilityMaintenance SelectFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID, bool active)
         {
 
             FacilityMaintenance facilityMaintenance = new FacilityMaintenance();
@@ -176,6 +180,8 @@ namespace DataAccessLayer
             // set the parameters for the sp
             cmd.Parameters.Add("@FacilityMaintenanceID", SqlDbType.Int);
             cmd.Parameters["@FacilityMaintenanceID"].Value = facilityMaintenanceID;
+            cmd.Parameters.Add("@Active", SqlDbType.Bit);
+            cmd.Parameters["@Active"].Value = active;
 
             try
             {
@@ -196,7 +202,7 @@ namespace DataAccessLayer
                         facilityMaintenance.MaintenanceName = reader.GetString(2);
                         facilityMaintenance.MaintenanceInterval = reader.GetString(3);
                         facilityMaintenance.MaintenanceDescription = reader.GetString(4);
-
+                        facilityMaintenance.Active = reader.GetBoolean(5);
                     }
 
                 }
@@ -232,7 +238,7 @@ namespace DataAccessLayer
         /// </remarks>
         /// <param name="userID"></param>
         /// <returns>List<FacilityMaintenance> objects</returns>
-        public List<FacilityMaintenance> SelectFacilityMaintenanceByUserID(int userID)
+        public List<FacilityMaintenance> SelectFacilityMaintenanceByUserID(int userID, bool active)
         {
 
             List<FacilityMaintenance> facilityMaintenances = new List<FacilityMaintenance>();
@@ -249,6 +255,8 @@ namespace DataAccessLayer
             // set the parameters for the sp
             cmd.Parameters.Add("@UserID", SqlDbType.Int);
             cmd.Parameters["@UserID"].Value = userID;
+            cmd.Parameters.Add("@Active", SqlDbType.Bit);
+            cmd.Parameters["@Active"].Value = active;
 
             try
             {
@@ -269,7 +277,7 @@ namespace DataAccessLayer
                         facilityMaintenance.MaintenanceName = reader.GetString(2);
                         facilityMaintenance.MaintenanceInterval = reader.GetString(3);
                         facilityMaintenance.MaintenanceDescription = reader.GetString(4);
-
+                        facilityMaintenance.Active = reader.GetBoolean(5);
                         facilityMaintenances.Add(facilityMaintenance);
 
                     }
@@ -304,7 +312,7 @@ namespace DataAccessLayer
         /// </remarks>
         /// <param name="facilityMaintenanceName"></param>
         /// <returns>List<FacilityMaintenance></returns>
-        public List<FacilityMaintenance> SelectFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName)
+        public List<FacilityMaintenance> SelectFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName, bool active)
         {
             List<FacilityMaintenance> facilityMaintenances = new List<FacilityMaintenance>();
 
@@ -320,6 +328,8 @@ namespace DataAccessLayer
             // set the parameters for the sp
             cmd.Parameters.Add("@MaintenanceName", SqlDbType.NVarChar);
             cmd.Parameters["@MaintenanceName"].Value = facilityMaintenanceName;
+            cmd.Parameters.Add("@Active", SqlDbType.Bit);
+            cmd.Parameters["@Active"].Value = active;
 
             try
             {
@@ -340,7 +350,7 @@ namespace DataAccessLayer
                         facilityMaintenance.MaintenanceName = reader.GetString(2);
                         facilityMaintenance.MaintenanceInterval = reader.GetString(3);
                         facilityMaintenance.MaintenanceDescription = reader.GetString(4);
-
+                        facilityMaintenance.Active = reader.GetBoolean(5);
                         facilityMaintenances.Add(facilityMaintenance);
 
                     }
@@ -428,6 +438,52 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 2/14/2020
+        /// Approver: Ethan Murphy 3/6/2020
+        /// Approver: 
+        /// 
+        /// Method to deactivate a facility maintenance record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="facilityMaintenanceID"></param>
+        /// <returns>int 1 or 0 depending if record was deleted</returns>
+        public int DeactivateFacilityMaintenance(int facilityMaintenanceID)
+        {
+            int result = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_deactivate_facility_maintenance", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@FacilityMaintenanceID", SqlDbType.Int);
+            cmd.Parameters["@FacilityMaintenanceID"].Value = facilityMaintenanceID;
+
+            try
+            {
+                conn.Open();
+
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
             return result;
         }
     }
