@@ -130,6 +130,7 @@ namespace WPFPresentationLayer
             desiredScreen = "Animal Management";
             switchScreen(desiredScreen);
             frameViewHandlingNotes.Content = new HandlingControls(_user);
+            frameViewVetAppointments.Content = new VetAppointmentControls(_user);
         }
 
         /// <summary>

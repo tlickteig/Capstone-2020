@@ -381,26 +381,23 @@ CREATE TABLE [dbo].[AnimalKennel] (
 	CONSTRAINT [ak_AnimalKennelID] UNIQUE([AnimalKennelID] ASC)
 )
 
-print '' print '*** Creating AnimalVetAppointment Table'
-
 /*
 Created by: Daulton Schilling
 Date: 2/8/2020
 Comment: Table that houses Vet appointments
 */
+print '' print '*** Creating AnimalVetAppointment Table'
 GO
 CREATE TABLE [dbo].[AnimalVetAppointment] (
 
 	[AnimalVetAppointmentID]	[int] IDENTITY(1000000,1)			NOT NULL,
 	[AnimalID]					[int]								NOT NULL,
 	[UserID]					[int]								NOT NULL,
-	[AppointmentDate]			[date]								NOT NULL,
-	[AppointmentTime]			[time],	
+	[AppointmentDate]			[datetime]							NOT NULL,
 	[AppointmentDescription]	[nvarchar](4000),
 	[ClinicAddress]				[nvarchar](200),
 	[VetName]					[nvarchar](200),
-	[FollowUpDate]				[date],
-	[FollowUptime]				[time]	
+	[FollowUpDate]				[datetime],	
 
 	CONSTRAINT [pk_AnimalVetAppointmentID] PRIMARY KEY([AnimalVetAppointmentID] ASC),
 
@@ -412,6 +409,24 @@ CREATE TABLE [dbo].[AnimalVetAppointment] (
 
 	CONSTRAINT [ak_AnimalVetAppointmentID] UNIQUE([AnimalVetAppointmentID] ASC)
 )
+GO
+
+print '' print '*** creating sample vet appointment records'
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 2/7/2020
+Comment: Inserts sample animal vet appointment records
+*/
+INSERT INTO [dbo].[AnimalVetAppointment]
+	([AnimalID], [AppointmentDate], [AppointmentDescription],
+	[ClinicAddress], [VetName], [FollowUpDate], [UserID])
+	VALUES
+	(1000000, "2020-02-02 2:00PM", "test", "1234 Test", "test", "2020-02-02 4:00PM", 100000),
+	(1000001, "2020-02-10 4:00PM", "test2", "4321 Test2", "test2", null, 100000),
+	(1000002, "2020-02-15 1:00PM", "test3", "1234 Test3", "test3", "2020-02-20 1:00PM", 100000)
+GO
 
 print '' print '*** Creating AnimalHandlingNotes Table'
 
@@ -481,6 +496,7 @@ GO
 CREATE TABLE [dbo].[AnimalPrescriptions] (
 
 	[AnimalPrescriptionsID]   	[int] IDENTITY(1000000,1)	NOT NULL,
+	[AnimalID]					[int]						NOT NULL,
 	[AnimalVetAppointmentID] 	[int]						NOT NULL,
 	[PrescriptionName]			[nvarchar](50)				NOT NULL,
 	[Dosage]					[decimal]					NOT NULL,
@@ -493,12 +509,16 @@ CREATE TABLE [dbo].[AnimalPrescriptions] (
 	CONSTRAINT [pk_AnimalPrescriptionsID] PRIMARY KEY([AnimalPrescriptionsID] ASC),
 
 	CONSTRAINT [fk_AnimalVetAppointment_AnimalVetAppointmentID] FOREIGN KEY([AnimalVetAppointmentID])
-		REFERENCES [Animal]([AnimalID]) ON UPDATE CASCADE,
+		REFERENCES [AnimalVetAppointment]([AnimalVetAppointmentID]) ON UPDATE CASCADE,
+		
+	CONSTRAINT [fk_Animal_AnimalID___] FOREIGN KEY ([AnimalID])
+		REFERENCES [Animal]([AnimalID]),
 
 	CONSTRAINT [ak_AnimalPrescriptionsID] UNIQUE([AnimalPrescriptionsID] ASC)
 
 
 )
+GO
 
 print '' print '*** Creating FacilityMaintenance Table'
 
@@ -923,10 +943,116 @@ AS
 BEGIN
     SELECT [AnimalVetAppointmentID], [Animal].[AnimalID], [AnimalName],
             [AppointmentDate], [AppointmentDescription],
-            [ClinicAddress], [VetName], [FollowUpDate]
+            [ClinicAddress], [VetName], [FollowUpDate], [UserID]
     FROM [AnimalVetAppointment] INNER JOIN [Animal]
     ON [AnimalVetAppointment].[AnimalID] = [Animal].[AnimalID]
     ORDER BY [AppointmentDate]
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 2/7/2020
+Comment: Stored procedure for inserting vet appointments
+*/
+print '' print '*** create sp_create_vet_appointment'
+GO
+CREATE PROCEDURE [sp_create_vet_appointment]
+(
+	@AnimalID					[int],
+	@UserID						[int],
+	@AppointmentDate			[datetime],
+	@AppointmentDescription		[nvarchar](4000),
+	@ClinicAddress				[nvarchar](200),
+	@VetName					[nvarchar](200),
+	@FollowUpDate				[datetime]
+)
+AS
+BEGIN
+INSERT INTO [AnimalVetAppointment]
+	([AnimalID], [AppointmentDate], [AppointmentDescription], 
+	[ClinicAddress], [VetName], [FollowUpDate], [UserID])
+VALUES
+	(@AnimalID, @AppointmentDate, @AppointmentDescription,
+	@ClinicAddress, @VetName, @FollowUpDate, @UserID)
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 3/1/2020
+Comment: Stored procedure for updating
+an existing vet appointment record
+*/
+print '' print '*** creating sp_update_vet_appointment'
+GO
+CREATE PROCEDURE [sp_update_vet_appointment]
+(
+	@AnimalVetAppointmentID		[int],
+	@OldAnimalID				[int],
+	@OldUserID					[int],
+	@OldAppointmentDate			[datetime],
+	@OldAppointmentDescription	[nvarchar](4000),
+	@OldClinicAddress			[nvarchar](200),
+	@OldVetName					[nvarchar](200),
+	
+	@NewAnimalID				[int],
+	@NewUserID					[int],
+	@NewAppointmentDate			[datetime],
+	@NewAppointmentDescription	[nvarchar](4000),
+	@NewClinicAddress			[nvarchar](200),
+	@NewVetName					[nvarchar](200),
+	@NewFollowUpDate			[datetime]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalVetAppointment]
+	SET	[AnimalID] = @NewAnimalID,
+		[UserID] = @NewUserID,
+		[AppointmentDate] = @NewAppointmentDate,
+		[AppointmentDescription] = @NewAppointmentDescription,
+		[ClinicAddress] = @NewClinicAddress,
+		[VetName] = @NewVetName,
+		[FollowUpDate] = @NewFollowUpDate
+	WHERE [AnimalID] = @OldAnimalID
+	AND [AnimalVetAppointmentID] = @AnimalVetAppointmentID
+	AND [UserID] = @OldUserID
+	AND	[AppointmentDate] = @OldAppointmentDate
+	AND [AppointmentDescription] = @OldAppointmentDescription
+	AND	[ClinicAddress] = @OldClinicAddress
+	AND	[VetName] = @OldVetName
+	RETURN @@ROWCOUNT
+END
+
+/*
+Created by: Ethan Murphy
+Date: 2/16/2020
+Comment: Stored procedure for inserting animal prescription records
+*/
+print '' print 'create sp_create_animal_prescription_record'
+GO
+CREATE PROCEDURE [sp_create_animal_prescription_record]
+(
+	@AnimalID					[int],
+	@AnimalVetAppointmentID		[int],
+	@PrescriptionName			[nvarchar](50),
+	@Dosage						[decimal],
+	@MedicationInterval			[nvarchar](250),
+	@AdministrationMethod		[nvarchar](100),
+	@StartDate					[date],
+	@EndDate					[date],
+	@Description				[nvarchar](500)
+)
+AS
+BEGIN
+INSERT INTO [AnimalPrescriptions]
+	([AnimalVetAppointmentID], [PrescriptionName], [Dosage],
+	[Interval], [AdministrationMethod], [AnimalID],
+	[StartDate], [EndDate], [Description])
+VALUES
+	(@AnimalVetAppointmentID, @PrescriptionName, @Dosage,
+	@MedicationInterval, @AdministrationMethod, @AnimalID,
+	@StartDate, @EndDate, @Description)
 END
 GO
 
