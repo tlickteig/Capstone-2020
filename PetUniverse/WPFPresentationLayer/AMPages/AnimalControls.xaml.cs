@@ -107,22 +107,27 @@ namespace WPFPresentationLayer.AMPages
         /// The method that calls the manager method to get the active data for the data grid
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Chuck Baxter
+        /// Updated: 3/6/2020
+        /// Update: Corrected the data grid column headers
+        /// Approver: Carl Davis, 3/6/2020
         /// </remarks>
         private void refreshActiveData()
         {
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByActive();
+
+
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[6]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
+
 
             dgActiveAnimals.Columns[0].Header = "Name";
             dgActiveAnimals.Columns[1].Header = "Date of Birth";
             dgActiveAnimals.Columns[2].Header = "Breed";
             dgActiveAnimals.Columns[3].Header = "Arrival Date";
             dgActiveAnimals.Columns[4].Header = "Currently Housed";
-            dgActiveAnimals.Columns[6].Header = "Species";
+            dgActiveAnimals.Columns[7].Header = "Species";
 
         }
 
@@ -135,14 +140,26 @@ namespace WPFPresentationLayer.AMPages
         /// The method that calls the manager method to get the inactive data for the data grid
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Chuck Baxter
+        /// Updated: 3/6/2020
+        /// Update: Corrected the data grid column headers
+        /// Approver: Carl Davis, 3/6/2020
         /// </remarks>
         private void refreshInactiveData()
         {
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByInactive();
+
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
+
+
+            dgActiveAnimals.Columns[0].Header = "Name";
+            dgActiveAnimals.Columns[1].Header = "Date of Birth";
+            dgActiveAnimals.Columns[2].Header = "Breed";
+            dgActiveAnimals.Columns[3].Header = "Arrival Date";
+            dgActiveAnimals.Columns[4].Header = "Currently Housed";
+            dgActiveAnimals.Columns[7].Header = "Species";
         }
 
         /// <summary>
