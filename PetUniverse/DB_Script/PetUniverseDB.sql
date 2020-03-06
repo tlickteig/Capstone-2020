@@ -5283,4 +5283,23 @@ END
 GO
 
 
+/*
+Created by: Rasha Mohammed
+Date: 2/10/2020
+Comment: Sproc to delete item from transactionLine
+*/
+print '' print '*** creating sp_delete_item_from_transaction'
+GO
+CREATE PROCEDURE [sp_delete_Item_from_Transaction]
+(
+	@ProductID	[nvarchar](13)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[TransactionLine] 
+	WHERE	[ProductID] = @ProductID
+	select @@rowcount
+END
+GO	
+
 

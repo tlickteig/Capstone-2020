@@ -61,6 +61,33 @@ namespace LogicLayer
         }
 
         /// <summary>
+        /// NAME: Rasha Mohammed
+        /// DATE: 2/21/2020
+        /// CHECKED BY: Jaeho Kim
+        /// 
+        /// Method that delete item.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        public bool DeleteItem(string productID)
+        {
+            bool result = false;
+            try
+            {
+                result = (1 == _transactionAccessor.DeleteItemFromTransaction(productID));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Item not removed!", ex);
+            }
+            return result;
+        }
+
+        /// <summary>
         ///  Creator: Jaeho Kim
         ///  Created: 3/05/2020
         ///  Approver: Rasha Mohammed

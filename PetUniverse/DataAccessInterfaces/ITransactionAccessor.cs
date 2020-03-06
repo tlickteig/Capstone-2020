@@ -58,5 +58,21 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns>returns a list of transactions</returns>
         List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate);
+
+        /// <summary>
+        /// NAME: Rasha Mohammed
+        /// DATE: 2/14/2020
+        /// CHECKED BY: Jaeho Kim
+        /// 
+        /// The method is used to delete the products on the transactionLine by selecting the product ID.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        int DeleteItemFromTransaction(string productID);
+
     }
 }

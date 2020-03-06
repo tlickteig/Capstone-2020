@@ -27,6 +27,7 @@ namespace WPFPresentationLayer.PoSPages
     public partial class ViewAllTransactions : Page
     {
         ITransactionManager _transactionManager;
+        //private ITransactionLineManager _transactionLineManager;
         TransactionVM _transactionVM;
 
         /// <summary>
@@ -45,6 +46,7 @@ namespace WPFPresentationLayer.PoSPages
         public ViewAllTransactions()
         {
             _transactionManager = new TransactionManager();
+            //_transactionLineManager = new TransactionLineManager();
             InitializeComponent();
         }
 
@@ -175,6 +177,21 @@ namespace WPFPresentationLayer.PoSPages
         {
             canViewTransactions.Visibility = Visibility.Visible;
             xTransactionDetails.Visibility = Visibility.Hidden;
+        }
+
+        private void BtnRemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            TransactionVM transaction = (TransactionVM)dgProductList.SelectedItem;
+
+            _transactionManager.DeleteItem(transaction.ProductID);
+
+            if (true)
+            {
+                MessageBox.Show("Are You Sure? The item will be remove");
+                TransactionVM _transaction = (TransactionVM)dgProductList.SelectedItem;
+                populateProductList();
+
+            }
         }
     }
 }

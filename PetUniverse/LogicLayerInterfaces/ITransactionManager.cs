@@ -50,5 +50,21 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <returns>returns a Transaction</returns>
         List<TransactionVM> RetrieveAllProductsByTransactionID(int transactionID);
+
+        /// <summary>
+        /// NAME: Rasha Mohammed
+        /// DATE: 2/25/2020
+        /// CHECKED BY: Jaeho Kim
+        /// 
+        /// Interface to delete product from transactionLine when the productID selected.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        bool DeleteItem(string productID);
+
     }
 }

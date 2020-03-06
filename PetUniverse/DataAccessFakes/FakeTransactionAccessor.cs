@@ -18,6 +18,7 @@ namespace DataAccessFakes
     public class FakeTransactionAccessor : ITransactionAccessor
     {
         private List<TransactionVM> _transactions;
+        private List<TransactionVM> items;
 
         /// <summary>
         /// Creator: Jaeho Kim
@@ -58,6 +59,61 @@ namespace DataAccessFakes
                     TransactionStatusID = "FAKE_STATUS_2"
                 }
             };
+
+            items = new List<TransactionVM>()
+            {
+                new TransactionVM()
+                {
+                    TransactionID = 10000,
+                    ProductID = "tx123hyg",
+                    Quantity = 2,
+
+                },
+                new TransactionVM()
+                {
+                    TransactionID = 10001,
+                    ProductID = "123lok569",
+                    Quantity = 1,
+
+                },
+                new TransactionVM()
+                {
+                    TransactionID = 10001,
+                    ProductID = "123abc456",
+                    Quantity = 3,
+
+                }
+
+            };
+        }
+
+        /// <summary>
+        /// NAME: Rasha Mohammed
+        /// DATE: 2/28/2020
+        /// CHECKED BY:  Jaeho Kim
+        /// 
+        /// Method to test delete item from the transactionLine 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        public int DeleteItemFromTransaction(string productID)
+        {
+            int result = 0;
+            foreach (var item in items)
+            {
+                if (item.ProductID == productID)
+                {
+                    items.Remove(item);
+                    result++;
+                    break;
+                }
+
+            }
+            return result;
         }
 
         /// <summary>
@@ -115,5 +171,6 @@ namespace DataAccessFakes
         {
             throw new NotImplementedException();
         }
+
     }
 }
