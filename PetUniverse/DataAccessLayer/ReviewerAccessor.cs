@@ -32,6 +32,12 @@ namespace DataAccessLayer
 		/// to "Interviewer" or Deny
 		/// According to Reviewer Decision 
 		/// </summary>
+		/// Updater Awaab Elamin
+		/// Updated:  3/3/2020
+		/// Approver: Mohamed Elamin , 3/4/2020
+		/// Update: update the status of the adoption application to any status that include in the 
+		/// AdoptionApplicationTable
+		/// 
 		/// <remarks>
 		/// </remarks>
 		/// <param name="decision"></param>
@@ -48,14 +54,9 @@ namespace DataAccessLayer
 
 			cmd.Parameters["@AdoptionApplicationID"].Value = adoptionApplicationID;
 
-			if (decision == "Approved")
-			{
-				cmd.Parameters["@status"].Value = "Interviewer";
-			}
-			else
-			{
-				cmd.Parameters["@status"].Value = "Deny";
-			}
+		
+				cmd.Parameters["@status"].Value = decision;
+			
 			try
 			{
 				conn.Open();

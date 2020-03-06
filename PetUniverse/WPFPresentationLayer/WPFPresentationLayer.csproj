@@ -91,6 +91,9 @@
     <Compile Include="AdoptionPages\frmInHomeInspectorDecision.xaml.cs">
       <DependentUpon>frmInHomeInspectorDecision.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdoptionPages\InterviewerPage.xaml.cs">
+      <DependentUpon>InterviewerPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdoptionPages\pgAdoptionCustomers.xaml.cs">
       <DependentUpon>pgAdoptionCustomers.xaml</DependentUpon>
     </Compile>
@@ -228,6 +231,10 @@
     <Page Include="AdoptionPages\frmInHomeInspectorDecision.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AdoptionPages\InterviewerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="AdoptionPages\pgAdoptionCustomers.xaml">
       <Generator>MSBuild:Compile</Generator>

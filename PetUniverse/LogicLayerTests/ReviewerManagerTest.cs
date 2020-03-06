@@ -55,7 +55,7 @@ namespace LogicLayerTests
             adoptionApplications = reviewerManager.retrieveCustomersFilledQuestionnair();
             if (adoptionApplications != null)
             {
-                Assert.AreEqual(1, adoptionApplications.Count);
+                Assert.AreEqual(4, adoptionApplications.Count);
             }
 
         }
@@ -111,10 +111,10 @@ namespace LogicLayerTests
         /// <summary>
         /// Test  for SubmitReviewerDecision
         /// to pass the test must retrieve "true"
-        /// (That means the status changed to Interviewer or Deny)
+        /// (That means the status changed to Interviewer)
         /// </summary>
         /// <remarks>
-        /// by Awaab Elamin 4/2/2020
+        /// by Awaab Elamin 2/4/2020
         /// Mohamed Elamin , 2/21/2020
         /// </remarks>
         [TestMethod]
@@ -122,9 +122,48 @@ namespace LogicLayerTests
         {
             // bool (int adoptionApplicationID, string decision);
             int adoptionApplicationID = 10000;
-            string decision = "approved";
+            string Reviewerdecision = "Interviewer";
             bool expect = true;
-            bool result = reviewerManager.SubmitReviewerDecision(adoptionApplicationID, decision);
+            bool result = reviewerManager.SubmitReviewerDecision(adoptionApplicationID, Reviewerdecision);
+            Assert.AreEqual(expect, result);
+        }
+
+        /// <summary>
+        /// Test  for TestSubmitInterviewerDecision
+        /// to pass the test must retrieve "true"
+        /// (That means the status changed to InHomeInspection)
+        /// </summary>
+        /// <remarks>
+        /// by Awaab Elamin 3/3/2020
+        /// Mohamed Elamin , 3/4/2020
+        /// </remarks>
+        [TestMethod]
+        public void TestSubmitInterviewerDecision()
+        {
+            int adoptionApplicationID = 10000;
+            string Interviewerdecision = "InHomeInspection";
+            bool expect = true;
+            bool result = reviewerManager.SubmitReviewerDecision(adoptionApplicationID, Interviewerdecision);
+            Assert.AreEqual(expect, result);
+        }
+
+        /// <summary>
+        /// Test  for TestSubmitDenyDecision
+        /// to pass the test must retrieve "true"
+        /// (That means the status changed to deny)
+        /// </summary>
+        /// <remarks>
+        /// by Awaab Elamin 3/3/2020
+        /// Mohamed Elamin , 3/4/2020
+        /// </remarks>
+        [TestMethod]
+        public void TestSubmitDenyDecision()
+        {
+            // bool (int adoptionApplicationID, string decision);
+            int adoptionApplicationID = 10000;
+            string Denydecision = "Deny";
+            bool expect = true;
+            bool result = reviewerManager.SubmitReviewerDecision(adoptionApplicationID, Denydecision);
             Assert.AreEqual(expect, result);
         }
     }

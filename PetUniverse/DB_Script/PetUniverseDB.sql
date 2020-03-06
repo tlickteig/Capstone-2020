@@ -1793,29 +1793,15 @@ print '' print '*** Creating Customer Table'
 GO
 CREATE TABLE [dbo].[Customer](
 	[CustomerID]					[int]	IDENTITY(100000,1)		NOT NULL,
-	[UserID]						[int]							NOT NULL,
+	[UserID]						[int]	unique						NOT NULL,
 	CONSTRAINT [pk_CustomerID] PRIMARY KEY([CustomerID]),
 	CONSTRAINT [fk_Customer_User_UserID] FOREIGN KEY ([UserID])
 		REFERENCES [User]([UserID])
 )
 GO
-
 /*
-Created by: Mohamed Elamin
-Date: 02/19/2020
-Comment: This is used to insert Sample Customer into the database 
-*/
-print '' print '*** Creating Sample Customer Records'
-GO
-INSERT INTO [dbo].[Customer]
-	([UserID])
-	VALUES
-	(100000)	
-GO
-
-/*
-Created by: Austin Gee
-Date: 2/21/2020
+Created by: Awaab Elamin
+Date: 3/5/2020
 Comment: This adds some sample customer records to the Customer table.
 */
 print '' print '*** Creating Sample Customer Records'
@@ -1823,14 +1809,110 @@ GO
 INSERT INTO [dbo].[Customer]
 	([UserID])
 	VALUES
-	(100000),
+	((SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' )),
 	(100001),
 	(100002),
 	(100003),
-	((SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))
+	(100004),
+	(100005),
+	(100006)
+GO
+/*
+Created by: Mohamed Elamin
+Date: 02/19/2020
+Comment: This is used to insert Sample Customer into the database 
+
+print '' print '*** Creating Sample Customer Records'
+/*GO
+INSERT INTO [dbo].[Customer]
+	([UserID])
+	VALUES
+	(100000)	
+GO
+*/
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This adds some sample customer records to the Customer table.
+
+print '' print '*** Creating Sample Customer Records'
+GO
+INSERT INTO [dbo].[Customer]
+	([UserID])
+	VALUES
+	(100001),
+	(100002),
+	(100003),
+	
+GO
+*/
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This adds some sample customer records to the Customer table.
+
+print '' print '*** Creating Sample Customer Records'
+GO
+/*
+Created by: Mohamed Elamin
+Date: 02/19/2020
+Comment: This is used to insert Sample Customer into the database 
+
+print '' print '*** Creating Sample Customer Records'
+/*GO
+INSERT INTO [dbo].[Customer]
+	([UserID])
+	VALUES
+	(100000)	
+GO
+*/
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This adds some sample customer records to the Customer table.
+
+print '' print '*** Creating Sample Customer Records'
+GO
+INSERT INTO [dbo].[Customer]
+	([UserID])
+	VALUES
+	(100001),
+	(100002),
+	(100003),
+	
+GO
+*/
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: This adds some sample customer records to the Customer table.
+
+print '' print '*** Creating Sample Customer Records'
+GO
+INSERT INTO [dbo].[Customer]
+	([UserID])
+	VALUES
+	((SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' )),
+	(100001),
+	(100002),
+	(100003),
+	(100004),
+	(100005),
+	(100006)
 GO
 
+	([UserID])
+	VALUES
+	((SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' )),
+	(100001),
+	(100002),
+	(100003),
+	(100004),
+	(100005),
+	(100006)
+GO
 
+*/
 /*
 Created by: Mohamed Elamin
 Date: 2/3/2020
@@ -1852,12 +1934,36 @@ CREATE TABLE [dbo].[AdoptionApplication](
 		REFERENCES [Animal]([AnimalID])
 )
 GO
-
+/*
+Created by: Awaab Elamin
+Date: 3/5/2020
+Comment: Adds adoption appliacation records to the AdoptionApplication table.
+Note: "Awaab" is only one who filled the questionnair!
+*/
+print '' print '*** Creating Sample AdoptionApplication Records'
+GO
+INSERT INTO [dbo].[AdoptionApplication]
+	([CustomerID],[AnimalID],[Status],[RecievedDate])
+	VALUES
+	
+	(
+		((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
+		(SELECT [AnimalID]FROM[dbo].[Animal]WHERE [Animal].[AnimalName] = 'Paul'),
+		'Reviewer',
+		'2020-01-01'
+		
+	),
+	
+	(100001,1000001,'Reviewing Application','2019-10-9'),
+	(100002,1000002,'Waitng for Pickup','2019-10-9'),
+	(100003,1000003,'InHomeInspection','2019-10-9')
+GO
 /*
 Created by: Mohamed Elamin
 Date: 02/19/2020
 Comment: This is used to insert Sample AdoptionApplication into the database 
-*/
+
 print '' print '*** Creating Sample AdoptionApplication Records'
 GO
 INSERT INTO [dbo].[AdoptionApplication]
@@ -1865,7 +1971,7 @@ INSERT INTO [dbo].[AdoptionApplication]
 	VALUES
 	(100000,1000000,'InHomeInspection','2019-10-9')
 GO
-
+*/
 /*
 Created by: Mohamed Elamin
 Date: 2/2/2020
@@ -2787,7 +2893,7 @@ Comment: This adds some ample user records to the database.
 Created by: Austin Gee
 Date: 2/21/2020
 Comment: This adds some sample customer records to the Customer table.
-*/
+
 print '' print '*** Creating Sample Customer Records'
 GO
 INSERT INTO [dbo].[Customer]
@@ -2798,7 +2904,7 @@ INSERT INTO [dbo].[Customer]
 	(100002),
 	(100003)
 GO
-
+*/
 /*
 Created by: Austin Gee
 Date: 2/21/2020
@@ -2818,7 +2924,7 @@ GO
 Created by: Austin Gee
 Date: 2/21/2020
 Comment: Adds adoption appliacation records to the AdoptionApplication table.
-*/
+
 print '' print '*** Creating Sample AdoptionApplication Records'
 GO
 INSERT INTO [dbo].[AdoptionApplication]
@@ -2828,7 +2934,7 @@ INSERT INTO [dbo].[AdoptionApplication]
 	(100001,1000001,'Reviewing Application','2019-10-9'),
 	(100002,1000002,'Waitng for Pickup','2019-10-9')
 GO
-
+*/
 /*
 Created by: Austin Gee
 Date: 2/21/2020
@@ -3142,15 +3248,82 @@ CREATE TABLE [dbo].[CustomerAnswer](
 		REFERENCES [dbo].[AdoptionApplication]([AdoptionApplicationID])
 )
 GO
+/*
+Created by: Awaab Elamin
+Date: 2/18/2020
+Comment: Insert samples of CustomerAnswers table .
+*/
+GO
 print '' print '*** Inserting CustomerAnswer records'
 GO
 INSERT INTO [dbo].[CustomerAnswer]
 ([QuestionID],[CustomerID],[AdoptionApplicationID],[Answer])
 VALUES
 (
-	1000000,100000,100000,'Question 1'
+	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 1'),
+	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
+	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+	'Answer1'
+
+),
+(
+	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 2'),
+	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
+	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+	'Answer2'
+),
+(
+	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 3'),
+	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
+	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+	'Answer3'
+),
+(
+	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 4'),
+	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
+	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+	'Answer4'
+),
+(
+	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 5'),
+	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
+	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+	'Answer5'
+),
+(
+	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 6'),
+	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
+	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+	'Answer6'
+),
+(
+	(SELECT [QuestionID]FROM[dbo].[GeneralQusetions]WHERE [GeneralQusetions].[Description] = 'Question 7'),
+	((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))),
+	((SELECT [AdoptionApplicationID] FROM [dbo].[AdoptionApplication] WHERE [dbo].[AdoptionApplication].[CustomerID] =
+	 ((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] = 
+		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = "Awaab" ))))),
+	'Answer7'
+
 )
-GO
 /*
 Created by: Awaab Elamin
 Date: 2/12/2020

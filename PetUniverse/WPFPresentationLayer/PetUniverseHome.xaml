@@ -330,6 +330,9 @@
                 <TabItem x:Name="tabViewAdoption" Header="View Adoptions" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AdoptionApplications.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
                 </TabItem>
+                <TabItem x:Name="tabViewInterviewer" Header="Interviewer" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/InterviewerPage.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
+                </TabItem>
                 <TabItem x:Name="tabviewHomeInspector" Header="Home Inspection" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/frmHomeInspectionForm.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
