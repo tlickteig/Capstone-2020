@@ -170,7 +170,12 @@
               
              UPDATE BY: Ben Hanna
              UPDATED 2/22/2020
-             CHANGE: Added 2 more tabs -->
+             CHANGE: Added 2 more tabs
+        
+             UPDATE BY: Ben Hanna
+             UPDATED 3/1/2020
+             CHANGE: Added a name to the frame so the active user may be passed to it. 
+        -->
 
         <Canvas x:Name="canAM" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetAM" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
@@ -181,9 +186,9 @@
                     <Frame Source="./AMPages/KennelControls.xaml"/>
                 </TabItem>
                 <TabItem x:Name="tabViewHandling" Header="View Handling Records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./AMPages/HandlingControls.xaml"/>
+                    <Frame x:Name="frameViewHandlingNotes" Source="./AMPages/HandlingControls.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-  
+
             </TabControl>
         </Canvas>
 

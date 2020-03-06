@@ -15,6 +15,7 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
+using WPFPresentationLayer.AMPages;
 using WPFPresentationLayer.RecruitingPages;
 
 namespace WPFPresentationLayer
