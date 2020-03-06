@@ -115,6 +115,12 @@
     <Compile Include="AMPages\KennelControls.xaml.cs">
       <DependentUpon>KennelControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AMPages\VetAppointmentControls.xaml.cs">
+      <DependentUpon>VetAppointmentControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AMPages\VetPrescriptionControls.xaml.cs">
+      <DependentUpon>VetPrescriptionControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="FMPages\FacilityMaintenanceControls.xaml.cs">
       <DependentUpon>FacilityMaintenanceControls.xaml</DependentUpon>
     </Compile>
@@ -243,6 +249,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AMPages\KennelControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AMPages\VetAppointmentControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AMPages\VetPrescriptionControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -48,6 +48,7 @@
     <Compile Include="FakeAnimalAccessor.cs" />
     <Compile Include="FakeAnimalHandlingAccessor.cs" />
     <Compile Include="FakeAnimalKennelAccessor.cs" />
+    <Compile Include="FakeAnimalPrescriptionAccessor.cs" />
     <Compile Include="FakeApplicantAccessor.cs" />
     <Compile Include="FakeAppointmentAccessor.cs" />
     <Compile Include="FakeCustomerAccessor.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="FakeTrainingVideoAccessor.cs" />
     <Compile Include="FakeTransactionAccessor.cs" />
     <Compile Include="FakeUserAccessor.cs" />
+    <Compile Include="FakeVetAppointmentAccessor.cs" />
     <Compile Include="FakeVolunteerAccessor.cs" />
     <Compile Include="FakeVolunteerEventAccessor.cs" />
     <Compile Include="FakeVolunteerTaskAccessor.cs" />

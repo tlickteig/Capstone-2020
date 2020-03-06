@@ -47,6 +47,7 @@
     <Compile Include="AnimalHandlingManager.cs" />
     <Compile Include="AnimalKennelManager.cs" />
     <Compile Include="AnimalManager.cs" />
+    <Compile Include="AnimalPrescriptionManager.cs" />
     <Compile Include="ApplicantManager.cs" />
     <Compile Include="AppointmentManager.cs" />
     <Compile Include="CustomerManager.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="TrainingVideoManager.cs" />
     <Compile Include="TransactionManager.cs" />
     <Compile Include="UserManager.cs" />
+    <Compile Include="VetAppointmentManager.cs" />
     <Compile Include="VolunteerEventManager.cs" />
     <Compile Include="VolunteerManager.cs" />
     <Compile Include="VolunteerShiftManager.cs" />

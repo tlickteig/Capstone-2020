@@ -49,6 +49,7 @@
     <Compile Include="LogicLayerErrorHandler.cs" />
     <Compile Include="RequestUtilities.cs" />
     <Compile Include="ValidateERole.cs" />
+    <Compile Include="ValidateVetAppointmentForm.cs" />
     <Compile Include="WPFErrorHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ValidateUserForm.cs" />
