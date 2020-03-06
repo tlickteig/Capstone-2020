@@ -11,31 +11,31 @@ using System.Data;
 namespace DataAccessLayer
 {
     /// <summary>
-    /// NAME: Robert Holmes
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Cash Carlson
+    /// Creator: Robert Holmes
+    /// Created: 2/14/2020
+    /// Approver: Cash Carlson
     /// 
     /// Retrieves records from permanent storage for products.
     /// </summary>
     /// <remarks>
-    /// UPDATED BY:
-    /// UPDATED DATE: 
-    /// CHANGES: 
+    /// Updater:
+    /// Updated: 
+    /// Update: 
     /// 
     /// </remarks>
     public class ProductAccessor : IProductAccessor
     {
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2/21/2020
+        /// Approver: Cash Carlson
         /// 
         /// Queries the SQL database for a list of products that match the supplied type (or all if no type is supplied).
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         public List<Product> SelectProductByType(string type = "All")

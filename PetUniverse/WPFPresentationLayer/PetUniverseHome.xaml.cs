@@ -15,11 +15,8 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
-<<<<<<< HEAD
 using WPFPresentationLayer.PoSPages;
-=======
 using WPFPresentationLayer.RecruitingPages;
->>>>>>> 63ae88aa846dfa3bac4349404bd0cd7c4150bad5
 
 namespace WPFPresentationLayer
 {
@@ -516,34 +513,19 @@ namespace WPFPresentationLayer
         }
 
         /// <summary>
-<<<<<<< HEAD
-        /// NAME : Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: 
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Approver: Cash Carlson 
         /// 
         /// Loads check out page into the frame.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
-=======
-        /// Creator: Carl Davis
-        /// Created: 2/21/2020
-        /// Approver: Chuck Baxter
-        /// 
-        /// This method is called when the Facility Management button is clicked
-        /// </summary>
-        /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
->>>>>>> 63ae88aa846dfa3bac4349404bd0cd7c4150bad5
-        /// 
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-<<<<<<< HEAD
         private void tabCheckOut_Loaded(object sender, RoutedEventArgs e)
         {
             if (frmCheckOut == null)
@@ -555,7 +537,21 @@ namespace WPFPresentationLayer
             {
                 frmCheckOut.Navigate(new pgCheckOut());
             }
-=======
+        }
+
+        /// Creator: Carl Davis
+        /// Created: 2/21/2020
+        /// Approver: Chuck Baxter
+        /// 
+        /// This method is called when the Facility Management button is clicked
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnFm_Click(object sender, RoutedEventArgs e)
         {
             desiredScreen = "Facility Management";
@@ -582,7 +578,6 @@ namespace WPFPresentationLayer
         private void tabViewPersonnelRequests_Loaded(object sender, RoutedEventArgs e)
         {
             frmViewPersonnelRequests.Content = new PersonnelPages.ViewPersonnelRequests(_user);
->>>>>>> 63ae88aa846dfa3bac4349404bd0cd7c4150bad5
         }
     }
 }

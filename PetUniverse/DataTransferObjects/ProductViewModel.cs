@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace DataTransferObjects
 {
     /// <summary>
-    /// NAME: Robert Holmes
-    /// DATE: 2/21/2020
-    /// CHECKED BY: Cash Carlson
+    /// Creator: Robert Holmes
+    /// Created: 2020/02/21
+    /// Approver: Cash Carlson
     /// 
     /// Holds the values of interest for display in a datagrid.
     /// </summary>
     /// <remarks>
-    /// UPDATED BY:
-    /// UPDATED DATE: 
-    /// CHANGES: 
+    /// Updater:
+    /// Updated: 
+    /// Update: 
     /// 
     /// </remarks>
     public class ProductViewModel
@@ -27,16 +27,16 @@ namespace DataTransferObjects
         public int Quantity { get; set; }
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY:  Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Approver:  Cash Carlson
         /// 
         /// Default constructor.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         public ProductViewModel() { }

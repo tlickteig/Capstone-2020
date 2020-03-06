@@ -11,16 +11,16 @@ using DataAccessLayer;
 namespace LogicLayer
 {
     /// <summary>
-    /// NAME: Robert Holmes
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Cash Carlson
+    /// Creator: Robert Holmes
+    /// Created: 2020/02/14
+    /// Approver: Cash Carlson
     /// 
     /// Handles data requests from the presentation layer by requesting data from the data access layer.
     /// </summary>
     /// <remarks>
-    /// UPDATED BY:
-    /// UPDATED DATE: 
-    /// CHANGES: 
+    /// Updater:
+    /// Updated: 
+    /// Update: 
     /// 
     /// </remarks>
     public class ProductManager : IProductManager
@@ -28,16 +28,16 @@ namespace LogicLayer
         private IProductAccessor _productAccessor;
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Approver: Cash Carlson
         /// 
         /// Instanciates product accessor with real data.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         public ProductManager()
@@ -46,16 +46,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Approver: Cash Carlson
         /// 
         /// Instanciates product accessor with custom defined data for testing.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         /// <param name="productAccessor">Product accessor class to use</param>
@@ -65,16 +65,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Approver: Cash Carlson
         /// 
         /// Retrieves a list of all the products that match a certain type (or all if no type is provided)
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         /// /// <param name="type">Product type to search by</param>

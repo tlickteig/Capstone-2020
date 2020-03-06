@@ -9,16 +9,16 @@ using DataAccessInterfaces;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Robert Holmes
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Cash Carlson
+    /// Creator: Robert Holmes
+    /// Created: 2020/02/14
+    /// Approver: Cash Carlson
     /// 
     /// Fake product accessor for testing purposes.
     /// </summary>
     /// <remarks>
-    /// UPDATED BY:
-    /// UPDATED DATE: 
-    /// CHANGES: 
+    /// Updater:
+    /// Updated: 
+    /// Update: 
     /// 
     /// </remarks>
     public class FakeProductAccessor : IProductAccessor
@@ -26,16 +26,16 @@ namespace DataAccessFakes
         private List<Product> products;
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Approver: Cash Carlson
         /// 
         /// Sets up fake data for testing purposes.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         public FakeProductAccessor()
@@ -70,9 +70,9 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/14
+        /// Approver: Cash Carlson
         /// 
         /// Returns dummy data for testing.
         /// </summary>

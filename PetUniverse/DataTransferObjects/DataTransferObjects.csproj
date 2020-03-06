@@ -76,7 +76,6 @@
     <Compile Include="Request.cs" />
     <Compile Include="RequestVM.cs" />
     <Compile Include="States.cs" />
-    <Compile Include="Transaction.cs" />
     <Compile Include="TrainingVideo.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="TransactionVM.cs" />

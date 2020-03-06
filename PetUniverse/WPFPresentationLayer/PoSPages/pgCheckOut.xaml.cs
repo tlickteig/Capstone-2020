@@ -168,9 +168,9 @@ namespace WPFPresentationLayer.PoSPages
                         {
                             if (key.ProductID.Equals(ProductID))
                             {
-                                _transaction.ProductAmounts.TryGetValue(key, out int amount);
+                                _transaction.ProductAmounts.TryGetValue(key, out int qty);
                                 _transaction.ProductAmounts.Remove(key);
-                                _transaction.ProductAmounts.Add(p, ++amount);
+                                _transaction.ProductAmounts.Add(p, qty);
                                 alreadyAdded = true;
                                 break;
                             }

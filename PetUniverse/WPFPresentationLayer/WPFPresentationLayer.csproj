@@ -384,7 +384,6 @@
       <Name>PresentationUtilityCode</Name>
     </ProjectReference>
   </ItemGroup>
-<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="AdoptionsPages\" />
     <Folder Include="InventoryPages\" />

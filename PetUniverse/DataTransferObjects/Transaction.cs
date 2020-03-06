@@ -6,49 +6,6 @@ using System.Threading.Tasks;
 
 namespace DataTransferObjects
 {
-<<<<<<< HEAD
-    /// <summary>
-    /// NAME: Robert Holmes
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Cash Carlson
-    /// 
-    /// Holds data relevent to a transaction.
-    /// </summary>
-    /// <remarks>
-    /// UPDATED BY:
-    /// UPDATED DATE: 
-    /// CHANGES: 
-    /// 
-    /// </remarks>
-    public class Transaction
-    {
-        public int TransactionID { get; set; }
-        public List<Pair<Product, int>> ProductAmounts { get; set; }
-        public DateTime Date { get; set; }
-        public string Status { get; set; }
-        public string Type { get; set; }
-        public string Notes { get; set; }
-        public int EmployeeID { get; set; }
-
-        /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
-        /// 
-        /// Initiates transaction with a not null empty dictionary of products and ints.
-        /// </summary>
-        /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
-        /// </remarks>
-        public Transaction()
-        {
-            ProductAmounts = new Dictionary<Product, int>();
-        }
-=======
-
     /// <summary>
     ///  Creator: Jaeho Kim
     ///  Created: 2020/02/27
@@ -56,17 +13,37 @@ namespace DataTransferObjects
     ///  
     ///  Transaction Data Transfer Object
     /// </summary>
-	/// <remarks>
-    ///  Updated by: Robert Holmes
-    ///  Updated date: 2020/3/3
-    ///  Changes: Added fields for 
-    /// 
+    /// <remarks>
+    /// Updated by: Robert Holmes
+    /// Updated on: 2020/03/03
+    /// Changes: Added ProductAmounts, Date, Status, and Type fields and constructor.
     /// </remarks>
     public class Transaction
     {
         public int TransactionID { get; set; }
         public int EmployeeID { get; set; }
         public string Notes { get; set; }
->>>>>>> 63ae88aa846dfa3bac4349404bd0cd7c4150bad5
+        public Dictionary<Product, int> ProductAmounts { get; set; }
+        public DateTime Date { get; set; }
+        public string Status { get; set; }
+        public string Type { get; set; }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Approver: Cash Carlson
+        /// 
+        /// Initiates transaction with a not null empty dictionary of products and ints.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        public Transaction()
+        {
+            ProductAmounts = new Dictionary<Product, int>();
+        }
     }
 }

@@ -13,16 +13,16 @@ using LogicLayerInterfaces;
 namespace LogicLayerTests
 {
     /// <summary>
-    /// NAME: Robert Holmes
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Cash Carlson
+    /// Creator: Robert Holmes
+    /// Created: 2020/02/14
+    /// Approver: Cash Carlson
     /// 
     /// Holds tests for product manager class.
     /// </summary>
     /// <remarks>
-    /// UPDATED BY:
-    /// UPDATED DATE: 
-    /// CHANGES: 
+    /// Updater:
+    /// Updated: 
+    /// Update: 
     /// 
     /// </remarks>
     [TestClass]
@@ -31,16 +31,16 @@ namespace LogicLayerTests
         private IProductAccessor _productAccessor;
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Approver: Cash Carlson
         /// 
         /// Load fake product accessor for testing purposes
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         [TestInitialize]
@@ -50,16 +50,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/14
+        /// Approver: Cash Carlson
         /// 
         /// Tests whether the Product Manager is able to retrieve products from the database.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         [TestMethod]
@@ -79,16 +79,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Approver: Cash Carlson
         /// 
         /// Tests whether the Product Manager is able to retrieve all products from the database.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         [TestMethod]
@@ -107,16 +107,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Approver: Cash Carlson
         /// 
         /// Tests whether the Product Manager is able to retrieve products with a mismatched type.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         [TestMethod]
@@ -135,16 +135,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2020/02/21
+        /// Appprover: Cash Carlson
         /// 
         /// Tests whether the Product Manager is able to catch a thrown application exception.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         [TestMethod]
@@ -162,16 +162,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2/21/2020/02/21
+        /// Approver: Cash Carlson
         /// 
         /// Nullifies variables to set up for next run.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         [TestCleanup]

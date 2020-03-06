@@ -4784,6 +4784,56 @@ AS BEGIN
 END
 GO
 
+/*
+Created by: Robert Holmes
+Date: 2/18/2020
+Comment: Stored procedure for selecting all products of a particular type.
+*/
+print '' print '*** Creating stored procedure sp_select_products_by_type'
+GO
+CREATE PROCEDURE [sp_select_products_by_type]
+(
+	@ProductTypeID	[NVARCHAR](20)
+)
+AS
+	BEGIN
+	SELECT		[ProductID]
+			,	[ItemID]
+			,	[ProductName]
+			,	[ProductCategoryID]
+			,	[ProductTypeID]
+			,	[Description]
+			,	[Price]
+			,	[Brand]
+			,	[Taxable]
+	FROM	[dbo].[Product]
+	WHERE	[ProductTypeID] LIKE @ProductTypeID
+END
+GO
+
+/*
+Created by: Robert Holmes
+Date: 2/18/2020
+Comment: Stored procedure for selecting all products.
+*/
+print '' print'*** Creating stored procedure sp_select_all_products'
+GO
+CREATE PROCEDURE [sp_select_all_products]
+AS
+	BEGIN
+	SELECT		[ProductID]
+			,	[ItemID]
+			,	[ProductName]
+			,	[ProductCategoryID]
+			,	[ProductTypeID]
+			,	[Description]
+			,	[Price]
+			,	[Brand]
+			,	[Taxable]
+	FROM	[dbo].[Product]
+END
+GO
+
 
 
 

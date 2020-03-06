@@ -216,6 +216,16 @@
 
         <Canvas x:Name="canPoS" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
             <TabControl x:Name="tabsetPoS" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
+                
+                <!-- Creator: Robert Holmes
+                     Created: 2020/02/14
+                     Approver: Cash Carlson
+                
+                     Tab for checking out customers
+                
+                     Updater:
+                     Updated:
+                     Update: -->
                 <TabItem x:Name="tabCheckOut" Header="Check Out" FontSize="18" FontWeight="Bold" Loaded="tabCheckOut_Loaded" >
                     <Frame x:Name="frmCheckOut" />
                 </TabItem>

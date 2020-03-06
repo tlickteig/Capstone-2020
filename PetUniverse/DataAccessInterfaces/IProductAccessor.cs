@@ -8,16 +8,16 @@ using DataTransferObjects;
 namespace DataAccessInterfaces
 {
     /// <summary>
-    /// NAME: Robert Holmes
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Cash Carlson
+    /// Creator: Robert Holmes
+    /// Created: 2020/02/14
+    /// Approver: Cash Carlson
     /// 
     /// Interface for product data accessor to facilitate loose coupling.
     /// </summary>
     /// <remarks>
-    /// UPDATED BY:
-    /// UPDATED DATE: 
-    /// CHANGES: 
+    /// Updater:
+    /// Updated: 
+    /// Update: 
     /// 
     /// </remarks>
     public interface IProductAccessor

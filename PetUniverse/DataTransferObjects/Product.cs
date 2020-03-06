@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace DataTransferObjects
 {
     /// <summary>
-    /// NAME: Robert Holmes
-    /// DATE: 2/14/2020
-    /// CHECKED BY: Cash Carlson
+    /// Creator: Robert Holmes
+    /// Created: 2/14/2020
+    /// Approver: Cash Carlson
     /// 
     /// Holds data relevant to a Product.
     /// </summary>
     /// <remarks>
-    /// UPDATED BY:
-    /// UPDATED DATE: 
-    /// CHANGES: 
+    /// Updater:
+    /// Updated: 
+    /// Update: 
     /// 
     /// </remarks>
     public class Product
@@ -32,16 +32,16 @@ namespace DataTransferObjects
         public Boolean Taxable { get; set; }
 
         /// <summary>
-        /// NAME: Robert Holmes
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Cash Carlson
+        /// Creator: Robert Holmes
+        /// Created: 2/21/2020
+        /// Approver: Cash Carlson
         /// 
         /// Default constructor.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         public Product()
