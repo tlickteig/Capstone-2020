@@ -81,7 +81,7 @@
              UPDATED: NA
              UPDATE: NA
         -->
-        <Canvas x:Name="xTransactionDetails" Visibility="Hidden">
+        <Canvas x:Name="xTransactionDetails" Visibility="Visible">
             <!--Complete Data Grid-->
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -149,35 +149,46 @@
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
-                        <ColumnDefinition Width="400"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0">Products:</Label>
-                    <DataGrid x:Name="dgProductList" Grid.Row="1"
-                               Grid.ColumnSpan="2" SelectionMode="Single"
+
+                    <Grid Grid.Row="0" Grid.Column="0" Width="1000" Margin="10 10 10 10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0">Products:</Label>
+                        <DataGrid x:Name="dgProductList" Grid.Row="1"
+                              SelectionMode="Single"
                               Padding="0" IsReadOnly="True" CanUserResizeRows="False" 
                               FontSize="12" FontWeight="Medium" CanUserResizeColumns="False" 
-                              CanUserReorderColumns="False" Grid.RowSpan="3" Margin="10,0,0,-130" />
+                              CanUserReorderColumns="False"/>
+                    </Grid>
 
+                    <Grid Grid.Row="1" Grid.Column="1" Margin="10 10 10 10">
 
-                    <!-- Creator: Rasha Mohammed
-             Date: 2/15/2020
-             CHECKED BY: Jaeho Kim
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+
+                        <!-- Creator: Rasha Mohammed
+                         Date: 2/15/2020
+                         CHECKED BY: Jaeho Kim
              
-             This button will delete the item you selected when you click on it
-             UPDATE BY: NA
-             UPDATED NA
-             CHANGE: NA -->
-                    <Button Grid.Row="1" Grid.Column="2" Content="Remove Item" x:Name="btnRemoveItem" Margin="48,10" Click="BtnRemoveItem_Click"/>
-
-
-                    <Button x:Name="btnBack" Grid.Row="2" Grid.Column="2" Content="Back" Margin="50,10" Click="BtnBack_Click"/>
+                         This button will delete the item you selected when you click on it
+                         UPDATE BY: NA
+                         UPDATED NA
+                         CHANGE: NA -->
+                        <Button Grid.Row="1" Content="Remove Item" x:Name="btnRemoveItem" Height="50" Width="150" Click="BtnRemoveItem_Click"/>
+                        <Button x:Name="btnBack" Grid.Row="3" Content="Back" Height="50" Width="150" Click="BtnBack_Click"/>
+                    </Grid>
                 </Grid>
             </Grid>
         </Canvas>
