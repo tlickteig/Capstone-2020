@@ -81,7 +81,7 @@
              UPDATED: NA
              UPDATE: NA
         -->
-        <Canvas x:Name="xTransactionDetails" Visibility="Visible">
+        <Canvas x:Name="xTransactionDetails" Visibility="Hidden">
             <!--Complete Data Grid-->
             <Grid>
                 <Grid.ColumnDefinitions>
