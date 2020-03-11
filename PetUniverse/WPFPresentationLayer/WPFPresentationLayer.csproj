@@ -94,6 +94,9 @@
     <Compile Include="AdoptionPages\InterviewerPage.xaml.cs">
       <DependentUpon>InterviewerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdoptionPages\pgAdoptionAnimalList.xaml.cs">
+      <DependentUpon>pgAdoptionAnimalList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdoptionPages\pgAdoptionCustomers.xaml.cs">
       <DependentUpon>pgAdoptionCustomers.xaml</DependentUpon>
     </Compile>
@@ -233,6 +236,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AdoptionPages\InterviewerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AdoptionPages\pgAdoptionAnimalList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

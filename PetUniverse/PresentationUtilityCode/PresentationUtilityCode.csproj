@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GenericValidationMethods.cs" />
     <Compile Include="LogHelper.cs" />
     <Compile Include="LogicLayerErrorHandler.cs" />
     <Compile Include="RequestUtilities.cs" />

@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoptionAnimalManagerTests.cs" />
     <Compile Include="AdoptionAppointmentManagerTests.cs" />
     <Compile Include="AdoptionCustomerManagerTests.cs" />
     <Compile Include="AdoptionInterviewerManagerTestes.cs" />

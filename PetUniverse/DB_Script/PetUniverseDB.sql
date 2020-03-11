@@ -5475,4 +5475,126 @@ BEGIN
 END
 GO	
 
+/*
+Created by: Austin Gee
+Date: 3/4/2020
+Comment: Stored Procedure that selects adoption appointment by appointment id.
+*/
+print '' print '*** Creating sp_select_adoption_appointment_by_appointment_id'
+GO
+CREATE PROCEDURE [sp_select_adoption_appointment_by_appointment_id]
+(
+	@AppointmentID [int]
+)
+AS
+BEGIN
+	SELECT 
+	[AppointmentID]
+	,[AdoptionApplication].[AdoptionApplicationID]
+	,[Appointment].[AppointmentTypeID]
+	,[Appointment].[DateTime]
+	,[Appointment].[Notes]
+	,[Appointment].[Decision]
+	,[Location].[LocationID]
+	,[Appointment].[Active]
+	,[Customer].[CustomerID]
+	,[Animal].[AnimalID]
+	,[AdoptionApplication].[Status]
+	,[AdoptionApplication].[RecievedDate]
+	,[Location].[Name]
+	,[Location].[Address1]
+	,[Location].[Address2]
+	,[Location].[City]
+	,[Location].[State]
+	,[Location].[Zip]
+	,[Customer].[UserID]
+	,[User].[FirstName]
+	,[User].[LastName]
+	,[User].[PhoneNumber]
+	,[User].[Email]
+	,[User].[Active]
+	,[User].[City]
+	,[User].[State]
+	,[User].[Zipcode]
+	,[Animal].[AnimalName]
+	,[Animal].[Dob]
+	,[Animal].[AnimalSpeciesID]
+	,[Animal].[AnimalBreed]
+	,[Animal].[ArrivalDate]
+	,[Animal].[CurrentlyHoused]
+	,[Animal].[Adoptable]
+	,[Animal].[Active]
+	FROM [Appointment] JOIN [AdoptionApplication] ON [AdoptionApplication].[AdoptionApplicationID] = [Appointment].[AdoptionApplicationID]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	JOIN [Customer] ON [AdoptionApplication].[CustomerID] = [Customer].[CustomerID]
+	JOIN [Animal] ON [AdoptionApplication].[AnimalID] = [Animal].[AnimalID]
+	JOIN [User] ON [Customer].[UserID] = [User].[UserID]
+	WHERE [Appointment].[AppointmentID] = @AppointmentID
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
 
+
+print '' print '*** Creating AnimalStatus Table'
+GO
+/*
+Created by: Austin Gee
+Date: 3/5/2020
+Comment: lookup table to match a certain animal with any number of statuses
+*/
+CREATE TABLE [dbo].[AnimalStatus](
+	[AnimalID]	[int]				NOT NULL,
+	[StatusID] 	[nvarchar](100)		NOT NULL,
+	CONSTRAINT [pk_AnimalID_StatusID] PRIMARY KEY ([AnimalID] ASC, [StatusID] ASC),
+	CONSTRAINT [fk_animal_status_animal_animalID] FOREIGN KEY ([AnimalID])
+		REFERENCES [Animal]([AnimalID]),
+	CONSTRAINT [fk_animal_status_status_statusID] FOREIGN KEY ([StatusID])
+		REFERENCES [Status]([StatusID])
+)
+GO
+
+/*
+Created by: Austin Gee
+Date: 3/5/2020
+Comment: Stored Procedure that selects all AnimalVMs by active
+*/
+print '' print '*** Creating sp_select_adoption_animals_by_active'
+GO
+CREATE PROCEDURE [sp_select_adoption_animals_by_active]
+(
+	@Active [bit]
+)
+AS
+BEGIN
+	SELECT
+		[Animal].[AnimalID]
+		,[AnimalName]
+		,[Dob]
+		,[AnimalBreed]
+		,[ArrivalDate]
+		,[CurrentlyHoused]
+		,[Adoptable]
+		,[Animal].[Active]
+		,[AnimalSpeciesID]
+		,[AnimalKennelID]
+		,[AnimalKennelInfo]
+		,[AnimalMedicalInfoID]
+		,[Spayed/Neutered]
+		,[AdoptionApplicationID]
+		,[AdoptionApplication].[CustomerID]
+		,[Customer].[UserID]
+		,[FirstName]
+		,[LastName]
+		,[AnimalHandlingNotesID]
+		,[AnimalHandlingNotes]
+		,[TemperamentWarning]
+	FROM [Animal]
+	LEFT JOIN [AnimalKennel] ON [Animal].[AnimalID] = [AnimalKennel].[AnimalID]
+	LEFT JOIN [AnimalHandlingNotes] ON [Animal].[AnimalID] = [AnimalHandlingNotes].[AnimalID]
+	LEFT JOIN [AnimalMedicalInfo] ON [Animal].[AnimalID] = [AnimalMedicalInfo].[AnimalID]
+	LEFT JOIN [AdoptionApplication] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
+	LEFT JOIN [Customer] ON [AdoptionApplication].[CustomerID] = [Customer].[CustomerID]
+	LEFT JOIN [User] ON [Customer].[UserID] = [User].[UserID]
+	WHERE [Animal].[Active] = @Active
+END
+GO

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdoptionAccessor.cs" />
+    <Compile Include="IAdoptionAnimalAccessor.cs" />
     <Compile Include="IAdoptionAppointmentAccessor.cs" />
     <Compile Include="IAdoptionCustomerAccessor.cs" />
     <Compile Include="IAdoptionInterviewerAccessor.cs" />

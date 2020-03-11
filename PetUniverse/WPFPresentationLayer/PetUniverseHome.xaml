@@ -354,6 +354,9 @@
                 <TabItem x:Name="tabInterviewer" Header="Interviewer Note" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionInterviewer.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
+                <TabItem x:Name="tabAdoptionAnimals" Header="Adoption Animals" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/pgAdoptionAnimalList.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
             </TabControl>
         </Canvas>
 

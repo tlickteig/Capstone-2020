@@ -12,7 +12,7 @@ namespace DataAccessLayer
 {
     /// <summary>
     /// NAME: Austin Gee
-    /// DATE: 2/6/202
+    /// DATE: 2/6/2020
     /// CHECKED BY: Mohamed Elamin, 02/07/2020
     /// 
     /// This data access class is used to access data that pertains to the Adoption customer.
@@ -27,7 +27,7 @@ namespace DataAccessLayer
     {
         /// <summary>
         /// NAME: Austin Gee
-        /// DATE: 2/6/202
+        /// DATE: 2/6/2020
         /// CHECKED BY: Mohamed Elamin, 02/07/2020
         /// 
         /// This method retrieves a list of AdoptionCustomerVMs from the database and returns it.

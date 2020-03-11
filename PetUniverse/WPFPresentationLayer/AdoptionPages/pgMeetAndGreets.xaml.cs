@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using PresentationUtilityCode;
 
 namespace WPFPresentationLayer.AdoptionPages
 {
@@ -26,15 +27,21 @@ namespace WPFPresentationLayer.AdoptionPages
     /// This class is contains the code for the pgMeetAndGreets page
     /// </summary>
     /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
+    /// UPDATED BY: Austin Gee
+    /// UPDATE DATE: 3/4/2020
+    /// WHAT WAS CHANGED: _addModeNotes and _homeInspectorManager were added
     /// 
     /// </remarks>
     public partial class pgMeetAndGreets : Page
     {
         IAdoptionAppointmentManager _adoptionAppointmentManager;
+        IInHomeInspectionAppointmentDecisionManager _homeInspectorManager;
+
         AdoptionAppointmentVM _adoptionAppointment;
+
+        
+
+        DataGrid _clearedDataGrid;
 
         /// <summary>
         /// NAME: Austin Gee
@@ -44,16 +51,21 @@ namespace WPFPresentationLayer.AdoptionPages
         /// This is the no-argeument constructor
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// UPDATED BY: Austin Gee
+        /// UPDATE DATE: 3/4/2020
+        /// WHAT WAS CHANGED: _homeInspectorManager added.
         /// 
         /// </remarks>
         public pgMeetAndGreets()
         {
+
             InitializeComponent();
             _adoptionAppointmentManager = new AdoptionAppointmentManager();
+            _homeInspectorManager = new InHomeInspectionAppointmentDecisionManager();
+            _clearedDataGrid = dgAppointments;
             populateAppointmentDataGrid();
+            
+
         }
 
         /// <summary>
@@ -64,14 +76,24 @@ namespace WPFPresentationLayer.AdoptionPages
         /// This private method populates Appoinments data grid with the appropriate data
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// UPDATED BY: Austin Gee
+        /// UPDATE DATE: 3/4/2020
+        /// WHAT WAS CHANGED: Try catch was added to prevent program crash in case of inability to access datat store
         /// 
         /// </remarks>
         private void populateAppointmentDataGrid()
         {
-            dgAppointments.ItemsSource = _adoptionAppointmentManager.RetrieveAdoptionApplicationsByActiveAndType(true, "Meet and Greet");
+            try
+            {
+                dgAppointments = _clearedDataGrid;
+                dgAppointments.ItemsSource = _adoptionAppointmentManager.RetrieveAdoptionAppointmentsByActiveAndType(true, "Meet and Greet");
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Appoinment information cannot be found.\n\n" + ex.InnerException.Message);
+            }
+            
         }
 
         /// <summary>
@@ -147,10 +169,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// </remarks>
         private void dgAppointments_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            canMeetAndGreetSchedule.Visibility = Visibility.Hidden;
-            canAppointmentDetails.Visibility = Visibility.Visible;
-            _adoptionAppointment = (AdoptionAppointmentVM)dgAppointments.SelectedItem;
-            populateTextBoxes();
+            selectAppointmentDetails();
         }
 
         /// <summary>
@@ -170,29 +189,38 @@ namespace WPFPresentationLayer.AdoptionPages
         /// </remarks>
         private void populateTextBoxes()
         {
-            txtAppointmentID.Text = _adoptionAppointment.AppointmentID.ToString();
-            txtAppointmentType.Text = _adoptionAppointment.AppointmentTypeID;
-            dpAppointmentDate.SelectedDate = _adoptionAppointment.AppointmentDateTime;
-            txtAppointmentTime.Text = _adoptionAppointment.AppointmentDateTime.ToShortTimeString();
-            txtDecision.Text = _adoptionAppointment.Decision;
-            txtLocationName.Text = _adoptionAppointment.LocationName;
-            txtLocationAddress1.Text = _adoptionAppointment.LocationAddress1;
-            txtLocationAddress2.Text = _adoptionAppointment.LocationAddress2;
-            txtLocationCity.Text = _adoptionAppointment.LocationCity;
-            txtLocationState.Text = _adoptionAppointment.LocationState;
-            txtLocationZip.Text = _adoptionAppointment.LocationZip;
-            txtCustomerFirstName.Text = _adoptionAppointment.UserFirstName;
-            txtCustomerLastName.Text = _adoptionAppointment.UserLastName;
-            txtCustomerPhoneNumber.Text = _adoptionAppointment.UserPhoneNumber;
-            txtCustomerEmail.Text = _adoptionAppointment.UserEmail;
-            txtAnimalName.Text = _adoptionAppointment.AnimalName;
-            txtAnimalDob.Text = _adoptionAppointment.AnimalDob.ToShortDateString();
-            txtAnimalSpecies.Text = _adoptionAppointment.AnimalSpeciesID;
-            txtAnimalBreed.Text = _adoptionAppointment.AnimalBreed;
-
-            if (txtDecision.Text == "")
+            try
             {
-                txtDecision.Text = "Undecided";
+
+
+                txtAppointmentID.Text = _adoptionAppointment.AppointmentID.ToString();
+                txtAppointmentType.Text = _adoptionAppointment.AppointmentTypeID;
+                dpAppointmentDate.SelectedDate = _adoptionAppointment.AppointmentDateTime;
+                txtAppointmentTime.Text = _adoptionAppointment.AppointmentDateTime.ToShortTimeString();
+                txtDecision.Text = _adoptionAppointment.Decision;
+                txtLocationName.Text = _adoptionAppointment.LocationName;
+                txtLocationAddress1.Text = _adoptionAppointment.LocationAddress1;
+                txtLocationAddress2.Text = _adoptionAppointment.LocationAddress2;
+                txtLocationCity.Text = _adoptionAppointment.LocationCity;
+                txtLocationState.Text = _adoptionAppointment.LocationState;
+                txtLocationZip.Text = _adoptionAppointment.LocationZip;
+                txtCustomerFirstName.Text = _adoptionAppointment.UserFirstName;
+                txtCustomerLastName.Text = _adoptionAppointment.UserLastName;
+                txtCustomerPhoneNumber.Text = _adoptionAppointment.UserPhoneNumber;
+                txtCustomerEmail.Text = _adoptionAppointment.UserEmail;
+                txtAnimalName.Text = _adoptionAppointment.AnimalName;
+                txtAnimalDob.Text = _adoptionAppointment.AnimalDob.ToShortDateString();
+                txtAnimalSpecies.Text = _adoptionAppointment.AnimalSpeciesID;
+                txtAnimalBreed.Text = _adoptionAppointment.AnimalBreed;
+
+                if (txtDecision.Text == "")
+                {
+                    txtDecision.Text = "Undecided";
+                }
+            }
+            catch(Exception)
+            {
+                WPFErrorHandler.ErrorMessage("You must select an item from the list");
             }
         }
 
@@ -204,16 +232,15 @@ namespace WPFPresentationLayer.AdoptionPages
         /// This method is fired when the back button is clicked. It causes this form to be closed.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// UPDATED BY: Austin Gee
+        /// UPDATE DATE: 3/4/2020
+        /// WHAT WAS CHANGED: Extracted helper method to just show meet and greet schedule
         /// 
         /// 
         /// </remarks>
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            canAppointmentDetails.Visibility = Visibility.Hidden;
-            canMeetAndGreetSchedule.Visibility = Visibility.Visible;
+            showMeetAndGreetSchedule();
         }
 
         /// <summary>
@@ -224,16 +251,340 @@ namespace WPFPresentationLayer.AdoptionPages
         /// This method is fired when the page is loaded. It resets the view of the Meet and greet view.
         /// </summary>
         /// <remarks>
+        /// UPDATED BY: Austin Gee
+        /// UPDATE DATE: 3/4/2020
+        /// WHAT WAS CHANGED: 
+        /// - Added disable notes method
+        /// - reset visibity of edit and save buttons for meet and greet notes page
+        /// - included add mode set to false
+        /// 
+        /// </remarks>
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            showMeetAndGreetSchedule();
+            disableNotes();
+
+            btnEditNotes.Visibility = Visibility.Visible;
+            btnSaveNotes.Visibility = Visibility.Hidden;
+            cmbDecision.Items.Clear();
+            
+
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// Helper method that makes the meet and greet notes text box and the decision combo 
+        /// box read only.
+        /// </summary>
+        /// <remarks>
         /// UPDATED BY: NA
         /// UPDATE DATE: NA
         /// WHAT WAS CHANGED: NA
         /// 
         /// 
         /// </remarks>
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private void disableNotes()
+        {
+            txtNotesMeetAndGreet.IsReadOnly = true;
+            cmbDecision.IsEnabled = false;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// Helper method that makes only the Meet And Greet Schedule page visible
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        private void showMeetAndGreetSchedule()
         {
             canAppointmentDetails.Visibility = Visibility.Hidden;
             canMeetAndGreetSchedule.Visibility = Visibility.Visible;
+            canMeetAndGreetNotes.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// This event handler is fired when the notes button is clicked. it will then display a page which contains the notes for
+        /// the displayed meet and greet. This will also be the place where a Facilitator can write notes about how the appointment went.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        private void btnNotes_Click(object sender, RoutedEventArgs e)
+        {
+            showMeetAndGreetNotes();
+
+            populateNoteFields();
+
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// Helper method that makes only the Meat And Greet Notes page visible
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        private void showMeetAndGreetNotes()
+        {
+            canAppointmentDetails.Visibility = Visibility.Hidden;
+            canMeetAndGreetSchedule.Visibility = Visibility.Hidden;
+            canMeetAndGreetNotes.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// Helper method that populates the fields on the notes page
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        private void populateNoteFields()
+        {
+            lblNotesTitle.Content = "Adoption Notes";
+            txtNotesAnimalName.Text = _adoptionAppointment.AnimalName;
+            txtNotesCustomerName.Text = _adoptionAppointment.UserFirstName + " " + _adoptionAppointment.UserLastName;
+            txtNotesMeetAndGreet.Text = _adoptionAppointment.Notes;
+            
+            cmbDecision.Items.Add("Approved");
+            cmbDecision.Items.Add("Denied");
+
+            cmbDecision.SelectedItem = _adoptionAppointment.Decision;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// This event handler is fired when the editNotes button is clicked, it enables the notes and decicision
+        /// section of the page so that they can be edited and then saved
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        private void btnEditNotes_Click(object sender, RoutedEventArgs e)
+        {
+            btnEditNotes.Visibility = Visibility.Hidden;
+            btnSaveNotes.Visibility = Visibility.Visible;
+            enableNotes();
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// Helper method that makes the meet and greet notes text box and the decision combo 
+        /// box not read only.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        private void enableNotes()
+        {
+            txtNotesMeetAndGreet.IsReadOnly = false;
+            cmbDecision.IsEnabled = true;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// This event handler is fired when the Notes Back button is clicked. It takes the user back to the Appointment
+        /// details page.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        private void btnBackFromNotes_Click(object sender, RoutedEventArgs e)
+        {
+            
+            showAppointmentDetails();
+            cmbDecision.Items.Clear();
+            disableNotes();
+            btnEditNotes.Visibility = Visibility.Visible;
+            btnSaveNotes.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// Helper method that makes only the Meat And Greet Details page visible
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        private void showAppointmentDetails()
+        {
+            
+            canAppointmentDetails.Visibility = Visibility.Visible;
+            canMeetAndGreetSchedule.Visibility = Visibility.Hidden;
+            canMeetAndGreetNotes.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// Event handler that is fired when the save button is clicked. validates input, then updates appointment decision and notes
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        private void btnSaveNotes_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (!txtNotesMeetAndGreet.Text.IsValidString())
+            {
+                WPFErrorHandler.ErrorMessage("You must enter Valid notes.");
+                txtNotesMeetAndGreet.Focus();
+                return;
+            }
+            if (!cmbDecision.Text.IsValidString())
+            {
+                WPFErrorHandler.ErrorMessage("You Must enter a valid decision.");
+                cmbDecision.Focus();
+                return;
+            }
+            HomeInspectorAdoptionAppointmentDecision oldAppointment = new HomeInspectorAdoptionAppointmentDecision
+            {
+                Active = _adoptionAppointment.AppointmentActive,
+                AdoptionApplicationID = _adoptionAppointment.AdoptionApplicationID,
+                AppointmentID = _adoptionAppointment.AppointmentID,
+                AppointmentTypeID = _adoptionAppointment.AppointmentTypeID,
+                Decision = _adoptionAppointment.Decision,
+                DateTime = _adoptionAppointment.AppointmentDateTime,
+                LocationID = _adoptionAppointment.LocationID,
+                Notes = _adoptionAppointment.Notes
+            };
+            HomeInspectorAdoptionAppointmentDecision newAppointment = new HomeInspectorAdoptionAppointmentDecision
+            {
+                Active = _adoptionAppointment.AppointmentActive,
+                AdoptionApplicationID = _adoptionAppointment.AdoptionApplicationID,
+                AppointmentID = _adoptionAppointment.AppointmentID,
+                AppointmentTypeID = _adoptionAppointment.AppointmentTypeID,
+                Decision = cmbDecision.SelectedItem.ToString(),
+                DateTime = _adoptionAppointment.AppointmentDateTime,
+                LocationID = _adoptionAppointment.LocationID,
+                Notes = txtNotesMeetAndGreet.Text
+            };
+            try
+            {
+                _homeInspectorManager.EditAppointment(oldAppointment, newAppointment);
+            }
+            catch (Exception)
+            {
+                WPFErrorHandler.ErrorMessage("Appointment update failed");
+                
+            }
+            dgAppointments.Items.Refresh();
+            _adoptionAppointment = _adoptionAppointmentManager.RetrieveAdoptionAppointmentByAppointmentID(_adoptionAppointment.AppointmentID);
+            populateNoteFields();
+            populateTextBoxes();
+
+            disableNotes();
+            btnEditNotes.Visibility = Visibility.Visible;
+            btnSaveNotes.Visibility = Visibility.Hidden;
+            return;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/3/2020
+        /// CHECKED BY: NA
+        /// 
+        /// This event handler is fired whenthe view button si clicked. It then opens
+        /// a new form containing the appointment details form
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnView_Click(object sender, RoutedEventArgs e)
+        {
+            selectAppointmentDetails();
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/3/2020
+        /// CHECKED BY: NA
+        /// 
+        /// Helper method that is responsible for what happens after an appoinment selection is made
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        private void selectAppointmentDetails()
+        {
+            showAppointmentDetails();
+            AdoptionAppointmentVM adoptionAppointment = (AdoptionAppointmentVM)dgAppointments.SelectedItem;
+            _adoptionAppointment = _adoptionAppointmentManager.RetrieveAdoptionAppointmentByAppointmentID(adoptionAppointment.AppointmentID);
+            populateTextBoxes();
         }
     }
 }
