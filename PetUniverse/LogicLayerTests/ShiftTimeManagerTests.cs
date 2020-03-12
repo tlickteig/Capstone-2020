@@ -85,6 +85,58 @@ namespace LogicLayerTests
         /// /// <summary>
         /// Creator: Lane Sandburg
         /// Created: 02/07/2019
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Test of the Shift Time insert Method
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        #region Additional test attributes
+        //
+        // You can use the following additional attributes as you write your tests:
+        //
+        // Use ClassInitialize to run code before running the first test in the class
+        // [ClassInitialize()]
+        // public static void MyClassInitialize(TestContext testContext) { }
+        //
+        // Use ClassCleanup to run code after all tests in a class have run
+        // [ClassCleanup()]
+        // public static void MyClassCleanup() { }
+        //
+        // Use TestInitialize to run code before running each test 
+        // [TestInitialize()]
+        // public void MyTestInitialize() { }
+        //
+        // Use TestCleanup to run code after each test has run
+        // [TestCleanup()]
+        // public void MyTestCleanup() { }
+        //
+        #endregion
+
+        [TestMethod]
+        public void TestShiftTimeManagerDeletetShiftTimeTests()
+        {
+
+            //arrange
+            int shiftTimeID = 100001;
+            bool test;
+            IShiftTimeManager shiftTimeManager = new ShiftTimeManager(_shiftTimeAccessor);
+            bool expectedResult = true;
+
+            //act
+            test = shiftTimeManager.DeleteShiftTime(shiftTimeID);
+
+            //assert
+            Assert.AreEqual(test, expectedResult);
+
+        }
+
+        /// /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 02/07/2019
         /// Approver: Alex Diers
         /// 
         /// Test of the Shift Time Edit Method

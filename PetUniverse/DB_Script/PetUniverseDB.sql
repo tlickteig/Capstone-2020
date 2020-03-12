@@ -1782,6 +1782,28 @@ BEGIN
 END
 GO
 
+/*
+Sproc for Retreiveing Departments
+
+Author: Lane Sandburg 
+03/05/2020
+
+*/
+print '' print '*** creating sp_delete_shiftTime'
+GO
+CREATE PROCEDURE [sp_delete_shiftTime](
+		@ShiftTimeID [int]
+			
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[ShiftTime]
+	WHERE [ShiftTimeID] = @ShiftTimeID
+	RETURN @@ROWCOUNT
+	
+END
+GO
+
 
 /*
 Created by: Mohamed Elamin

@@ -27,6 +27,48 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Lane Sandburg
+        /// Created: 03/05/2020
+        /// Approver:Kaleb Bachert
+        /// 
+        /// Opens DB Connection to delete an exixting ShiftTime
+        /// and sets parameters for insertion
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: (example: Fixed a problem when user inputs bad data)
+        /// </remarks>
+        /// <param name="shiftTime"></param>
+        public int DeleteShiftTime(int shiftTimeID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_delete_shiftTime", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ShiftTimeID", shiftTimeID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
         /// Created: 02/07/2020
         /// Approver:Alex Diers
         /// 
