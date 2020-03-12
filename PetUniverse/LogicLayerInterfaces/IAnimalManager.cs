@@ -96,6 +96,7 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <returns>a list of animal objects</returns>
         bool UpdatePetProfile(int animalID, string profileDescription, String profileImagePath);
+
         /// <summary>
         /// Creator: Michael Thompson
         /// Created: 2/19/2020
@@ -111,5 +112,21 @@ namespace LogicLayerInterfaces
         /// <returns>a list of animal objects</returns>
         List<Animal> RetrieveAllAnimalProfiles();
 
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/12/2020
+        /// Approver:  Austin Gee, 3/12/2020
+        /// 
+        /// Interface to update an animal
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="oldAnimal"></param>
+        /// <param name="newAnimal"></param>
+        /// <returns></returns>
+        bool EditAnimal(Animal oldAnimal, Animal newAnimal);
     }
 }

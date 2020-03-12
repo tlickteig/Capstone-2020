@@ -1782,6 +1782,27 @@ BEGIN
 END
 GO
 
+/*
+Sproc for Retreiveing Departments
+
+Author: Lane Sandburg 
+03/05/2020
+
+*/
+print '' print '*** creating sp_delete_shiftTime'
+GO
+CREATE PROCEDURE [sp_delete_shiftTime](
+		@ShiftTimeID [int]
+			
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[ShiftTime]
+	WHERE [ShiftTimeID] = @ShiftTimeID
+	RETURN @@ROWCOUNT
+	
+END
+GO
 
 /*
 Created by: Mohamed Elamin
@@ -5637,5 +5658,44 @@ BEGIN
 	SELECT [DepartmentID]
 	FROM [dbo].[Department]
 	WHERE [Active] = 0
+END
+GO
+
+/*
+Created by: Chuck Baxter
+Date: 3/12/2020
+Comment: Stored Procedure that updates an animal
+*/
+print '' print '*** Creating sp_update_animal'
+Go
+CREATE PROCEDURE [sp_update_animal]
+(
+	@AnimalID				[int],
+	@OldAnimalName			[nvarchar](100),
+	@OldDob					[DateTime],
+	@OldAnimalBreed			[nvarchar](100),
+	@OldArrivalDate			[DateTime],
+	@OldAnimalSpeciesID		[nvarchar](100),
+	@NewAnimalName			[nvarchar](100),
+	@NewDob					[DateTime],
+	@NewAnimalBreed			[nvarchar](100),
+	@NewArrivalDate			[DateTime],
+	@NewAnimalSpeciesID		[nvarchar](100)
+)
+AS
+BEGIN
+	UPDATE	[dbo].[Animal]
+	SET 	[AnimalName] 		= 	@NewAnimalName,
+			[Dob]				=	@NewDob,
+			[AnimalBreed]		=	@NewAnimalBreed,
+			[ArrivalDate]		=	@NewArrivalDate,
+			[AnimalSpeciesID]	=	@NewAnimalSpeciesID
+	WHERE	[AnimalID]			=	@AnimalID
+	  AND	[AnimalName]		=	@OldAnimalName	
+	  AND	[Dob]				=	@OldDob
+	  AND	[AnimalBreed]		=	@OldAnimalBreed
+ 	  AND	[ArrivalDate]		=	@OldArrivalDate
+	  AND	[AnimalSpeciesID]	=	@OldAnimalSpeciesID
+	  RETURN @@ROWCOUNT
 END
 GO

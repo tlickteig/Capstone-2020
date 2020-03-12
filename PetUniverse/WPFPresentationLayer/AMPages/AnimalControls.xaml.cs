@@ -253,6 +253,7 @@ namespace WPFPresentationLayer.AMPages
                     canViewAnimalList.Visibility = Visibility.Visible;
                     canAddAnimal.Visibility = Visibility.Hidden;
                     refreshActiveData();
+                    chkActive.IsChecked = false;
                 }
             }
             catch (Exception ex)
@@ -331,6 +332,135 @@ namespace WPFPresentationLayer.AMPages
         {
             canViewAnimalList.Visibility = Visibility.Visible;
             canIndividualAnimal.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/11/2020
+        /// Approver: Austin Gee, 3/12/2020
+        /// Approver: 
+        /// 
+        /// The method that will open a new canvas with the selected animal's information on it
+        /// and can be edited.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void BtnEditIndividualAnimal_Click(object sender, RoutedEventArgs e)
+        {
+            canEditAnimal.Visibility = Visibility.Visible;
+            canIndividualAnimal.Visibility = Visibility.Hidden;
+
+            Animal selectedAnimal = (Animal)dgActiveAnimals.SelectedItem;
+
+            lblEditAnimalID.Content = selectedAnimal.AnimalID;
+            txtEditAnimalName.Text = selectedAnimal.AnimalName;
+            cmbEditAnimalSpecies.SelectedItem = selectedAnimal.AnimalSpeciesID;
+            txtEditAnimalBreed.Text = selectedAnimal.AnimalBreed;
+            cndEditDob.SelectedDate = selectedAnimal.Dob;
+            cndEditDob.DisplayDate = selectedAnimal.Dob;
+            cndEditArrivalDate.SelectedDate = selectedAnimal.ArrivalDate;
+            cndEditArrivalDate.DisplayDate = selectedAnimal.ArrivalDate;
+            chkEditActive.IsChecked = selectedAnimal.Active;
+            chkEditAdoptable.IsChecked = selectedAnimal.Adoptable;
+            chkEditCurrentlyHoused.IsChecked = selectedAnimal.CurrentlyHoused;
+            cmbEditAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/12/2020
+        /// Approver: Austin Gee, 3/12/2020
+        /// Approver: 
+        /// 
+        /// The method that cancels the edit animal
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void BtnCancelAnimalEdit_Click(object sender, RoutedEventArgs e)
+        {
+            canEditAnimal.Visibility = Visibility.Hidden;
+            canIndividualAnimal.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/12/2020
+        /// Approver: Austin Gee, 3/12/2020
+        /// Approver: 
+        /// 
+        /// The method that saves the edits to the animal
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void BtnSubmitAnimalEdit_Click(object sender, RoutedEventArgs e)
+        {
+            Animal selectedAnimal = (Animal)dgActiveAnimals.SelectedItem;
+            string arrival = cndEditArrivalDate.SelectedDate.ToString();
+            string dob = cndEditDob.SelectedDate.ToString();
+            if (String.IsNullOrEmpty(txtEditAnimalName.Text))
+            {
+                MessageBox.Show("Please enter the animal's name");
+                return;
+            }
+            if (String.IsNullOrEmpty(txtEditAnimalBreed.Text))
+            {
+                MessageBox.Show("Please enter the animal's breed");
+                return;
+            }
+            if (String.IsNullOrEmpty(cmbEditAnimalSpecies.Text))
+            {
+                MessageBox.Show("Please enter the animal's species");
+                return;
+            }
+            if (String.IsNullOrEmpty(arrival))
+            {
+                MessageBox.Show("Please enter the animal's arrival date");
+                return;
+            }
+            if (String.IsNullOrEmpty(dob))
+            {
+                cndDob.SelectedDate = DateTime.Parse("01/01/2000");
+                return;
+            }
+
+            Animal newAnimal = new Animal();
+
+            newAnimal.AnimalName = txtEditAnimalName.Text;
+            newAnimal.AnimalSpeciesID = cmbEditAnimalSpecies.Text;
+            newAnimal.AnimalBreed = txtEditAnimalBreed.Text;
+            newAnimal.ArrivalDate = (DateTime)cndEditArrivalDate.SelectedDate;
+            newAnimal.Dob = (DateTime)cndEditDob.SelectedDate;
+
+            try
+            {
+                if (_animalManager.EditAnimal(selectedAnimal, newAnimal))
+                {
+                    WPFErrorHandler.SuccessMessage("Animal Successfully Updated");
+
+                    canViewAnimalList.Visibility = Visibility.Visible;
+                    canEditAnimal.Visibility = Visibility.Hidden;
+                    refreshActiveData();
+                    chkActive.IsChecked = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
+                canIndividualAnimal.Visibility = Visibility.Visible;
+                canEditAnimal.Visibility = Visibility.Hidden;
+                refreshActiveData();
+                chkActive.IsChecked = false;
+            }
         }
     }
 }
