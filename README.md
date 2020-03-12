@@ -1,5 +1,7 @@
 # Capstone-2020
 
+[![Build Status](https://dev.azure.com/k0497302/Capstone-2020/_apis/build/status/jimglasgow.Capstone-2020?branchName=master)](https://dev.azure.com/k0497302/Capstone-2020/_build/latest?definitionId=5&branchName=master)
+
 The following are the members of the 
 Kirkwood Computer Software Development
 Capstone Project Team for 2020:
