@@ -86,7 +86,7 @@ namespace PresentationUtilityCode
         public static bool checkDescription(this string description)
         {
             bool isValid = false;
-            if (description.Length < 250)
+            if (description.Length < 200)
             {
 
                 isValid = true;

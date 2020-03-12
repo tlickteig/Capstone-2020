@@ -86,12 +86,13 @@ namespace DataAccessInterfaces
         /// <returns>int</returns>
         int UpdateDepartment(Department oldDepartment, Department newDepartment);
 
+
         /// <summary>
         /// Creator: Jordan Lindo
-        /// Created: 2/14/2020
-        /// Approver: Alex Diers
+        /// Created: 2/29/2020
+        /// Approver:
         /// 
-        /// This is an interface method for deleting a department.
+        /// This is an interface method for changing the active value of a department.
         /// </summary>
         /// <remarks>
         /// Updater: NA
@@ -99,9 +100,26 @@ namespace DataAccessInterfaces
         /// Update: NA    
         /// </remarks>
         /// 
-        /// <param name="departmentId"></param>
-        /// <returns>int</returns>
-        int DeleteDepartment(string departmentId);
+        /// <param name="departmentID"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        int UpdateDepartmentActive(string departmentID, bool active);
 
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 2/29/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is an interface method selecting all inactive departmentIDs.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA    
+        /// </remarks>
+        /// 
+        /// <returns>List<Department></DepartmentsV></returns>
+        List<string> SelectDeactivatedDepartments();
     }
 }

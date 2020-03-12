@@ -1823,7 +1823,7 @@ Date: 02/19/2020
 Comment: This is used to insert Sample Customer into the database 
 
 print '' print '*** Creating Sample Customer Records'
-/*GO
+GO
 INSERT INTO [dbo].[Customer]
 	([UserID])
 	VALUES
@@ -1853,13 +1853,13 @@ Comment: This adds some sample customer records to the Customer table.
 
 print '' print '*** Creating Sample Customer Records'
 GO
-/*
+
 Created by: Mohamed Elamin
 Date: 02/19/2020
 Comment: This is used to insert Sample Customer into the database 
 
 print '' print '*** Creating Sample Customer Records'
-/*GO
+GO
 INSERT INTO [dbo].[Customer]
 	([UserID])
 	VALUES
@@ -5596,5 +5596,46 @@ BEGIN
 	LEFT JOIN [Customer] ON [AdoptionApplication].[CustomerID] = [Customer].[CustomerID]
 	LEFT JOIN [User] ON [Customer].[UserID] = [User].[UserID]
 	WHERE [Animal].[Active] = @Active
+END
+GO
+
+
+
+/*
+Created by: Jordan Lindo
+Date: 2/29/2020
+Comment: set the active field
+*/
+print '' print '*** Creating sp_set_department_active_by_id'
+GO
+
+CREATE PROCEDURE [sp_deactivate_department_by_id]
+(
+	 @DepartmentID		[nvarchar](50)
+	,@Active			[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Department]
+	SET [Active] = @Active
+	WHERE [DepartmentID] = @DepartmentID
+END
+GO
+
+
+/*
+Created by: Jordan Lindo
+Date: 2/29/2020
+Comment: selects departments that are deactivated
+*/
+print '' print '*** Creating sp_select_deactivated_departments'
+GO
+
+CREATE PROCEDURE [sp_select_deactivated_departments]
+AS
+BEGIN
+	SELECT [DepartmentID]
+	FROM [dbo].[Department]
+	WHERE [Active] = 0
 END
 GO

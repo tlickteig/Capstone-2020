@@ -17,7 +17,8 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeDepartmentAccessor : IDepartmentAccessor
     {
-        private List<Department> departments;
+        private List<Department> _departments;
+        private List<string> _deactivatedDepartmentIDs;
 
         /// <summary>
         /// Creator: Jordan Lindo
@@ -34,7 +35,7 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeDepartmentAccessor()
         {
-            departments = new List<Department>()
+            _departments = new List<Department>()
             {
                 new Department()
                 {
@@ -42,12 +43,37 @@ namespace DataAccessFakes
                     Description ="Fake Description"
                 }
             };
+
+            _deactivatedDepartmentIDs = new List<string>
+            {
+                "DeactivatedID1",
+                "DeactivatedID2",
+                "DeactivatedID3"
+            };
         }
 
-        public int DeleteDepartment(string departmentId)
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 2/6/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a DataAccessFake change active used for unit testing.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <param name="active"></param>
+        /// <returns> An int of rows effected.</returns>
+        public int UpdateDepartmentActive(string departmentID, bool active = false)
         {
-            throw new NotImplementedException();
+            return 1;
         }
+
+
 
         /// <summary>
         /// Creator: Jordan Lindo
@@ -71,9 +97,9 @@ namespace DataAccessFakes
                 Description = description
             };
 
-            departments.Add(department);
+            _departments.Add(department);
 
-            if (departments.Contains(department))
+            if (_departments.Contains(department))
             {
                 rows = 1;
             }
@@ -95,7 +121,7 @@ namespace DataAccessFakes
         /// </remarks>
         public List<Department> SelectAllDepartments()
         {
-            return departments;
+            return _departments;
         }
 
         /// <summary>
@@ -114,7 +140,7 @@ namespace DataAccessFakes
         public Department SelectDepartmentByID(string departmentId)
         {
             Department department = null;
-            foreach (var aDepartment in departments)
+            foreach (var aDepartment in _departments)
             {
                 if (aDepartment.DepartmentID.Equals(departmentId))
                 {
@@ -141,6 +167,24 @@ namespace DataAccessFakes
         {
             int rows = 1;
             return rows;
+        }
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 2/29/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is the data access fake for selecting deactivated departments
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        public List<string> SelectDeactivatedDepartments()
+        {
+            return _deactivatedDepartmentIDs;
         }
     }
 }

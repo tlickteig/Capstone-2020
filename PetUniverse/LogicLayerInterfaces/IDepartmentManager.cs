@@ -85,12 +85,13 @@ namespace LogicLayerInterfaces
         /// <returns>bool</returns>
         bool EditDepartment(Department oldDepartment, Department newDepartment);
 
+
         /// <summary>
         /// Creator: Jordan Lindo
-        /// Created: 2/6/2020
+        /// Created: 2/29/2020
         /// Approver: Alex Diers
         /// 
-        /// This is an interface method for deleting a department.
+        /// This is an interface method update a department active field.
         /// </summary>
         /// <remarks>
         /// Updater: NA
@@ -98,8 +99,9 @@ namespace LogicLayerInterfaces
         /// Approver: NA
         /// 
         /// </remarks>
-        /// <param name="departmentId"></param>
-        /// <returns>bool</returns>
-        bool DeleteDepartment(string departmentId);
+        /// <param name="departmentID"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        bool EditDepartmentActive(string departmentID, bool active);
     }
 }

@@ -99,6 +99,10 @@
       <Project>{ababe315-2fff-4c0b-ae80-1d1c90eb1fa4}</Project>
       <Name>LogicLayerInterfaces</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PresentationUtilityCode\PresentationUtilityCode.csproj">
+      <Project>{ec9bf040-a08b-495f-85b0-2de9e6feb64c}</Project>
+      <Name>PresentationUtilityCode</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
