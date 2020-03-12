@@ -45,6 +45,36 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Lane Sandburg
+        /// Created: 03/05/2019
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Fake Logic for deleting a shift time
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        public int DeleteShiftTime(int shiftTimeID)
+        {
+            PetUniverseShiftTime shiftTime = null;
+            foreach (var s in shiftTimes)
+            {
+                if (shiftTimeID == s.ShiftTimeID)
+                {
+                    shiftTime = s;
+                }
+            }
+
+            if (shiftTime == null)
+            {
+                return 0;
+            }
+            return 1;
+        }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
         /// Created: 02/07/2019
         /// Approver: Alex Diers
         /// 

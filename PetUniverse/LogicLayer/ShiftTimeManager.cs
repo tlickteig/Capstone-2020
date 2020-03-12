@@ -62,6 +62,35 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Lane Sandburg
+        /// Created: 02/05/2019
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Logic for Deleteing a shift time,
+        /// returns true/false if shift time was added
+        /// takes a shiftTimeID as a parameter.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="shiftTime"></param>
+        public bool DeleteShiftTime(int shiftTimeID)
+        {
+            bool result = true;
+            try
+            {
+                result = _shiftTimeAccessor.DeleteShiftTime(shiftTimeID) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("ShiftTime not added", ex);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
         /// Created: 02/13/2019
         /// Approver: Alex Diers
         /// 

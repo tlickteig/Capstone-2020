@@ -108,6 +108,8 @@ namespace WPFPresentationLayer.PersonnelPages
         private void btnShiftTimeCancel_Click(object sender, RoutedEventArgs e)
         {
             ResetControls();
+            btnShiftTimeSave.IsEnabled = false;
+            this.btnShiftTimeDelete.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -147,12 +149,22 @@ namespace WPFPresentationLayer.PersonnelPages
         {
             cboShiftTimeDepartment.Items.Clear();
             List<Department> departments = new List<Department>();
-            departments = _departmentManager.RetrieveAllDepartments();
-
-            foreach (Department department in departments)
+            try
             {
-                cboShiftTimeDepartment.Items.Add(department.DepartmentID);
+                departments = _departmentManager.RetrieveAllDepartments();
+                foreach (Department department in departments)
+                {
+                    cboShiftTimeDepartment.Items.Add(department.DepartmentID);
+                }
             }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message + "\n" + ex.InnerException.Message);
+            }
+
+
+
         }
 
         /// <summary>
@@ -169,10 +181,21 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </remarks>
         private void PopulateShiftTimes()
         {
-            dgShiftTime.ItemsSource = _shiftTimeManager.RetrieveShiftTimes();
-            dgShiftTime.Columns[0].Header = "DepartmentID";
-            dgShiftTime.Columns[1].Header = "StartTime";
-            dgShiftTime.Columns[2].Header = "EndTime";
+
+            try
+            {
+                dgShiftTime.ItemsSource = _shiftTimeManager.RetrieveShiftTimes();
+                dgShiftTime.Columns[0].Header = "DepartmentID";
+                dgShiftTime.Columns[1].Header = "StartTime";
+                dgShiftTime.Columns[2].Header = "EndTime";
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message + "\n" + ex.InnerException.Message);
+            }
+
+
         }
 
         /// <summary>
@@ -199,7 +222,9 @@ namespace WPFPresentationLayer.PersonnelPages
             TPEndTime.IsReadOnly = true;
             btnShiftTimeAdd.IsEnabled = true;
             btnShiftTimeEdit.IsEnabled = true;
+            btnShiftTimeSave.IsEnabled = false;
             dgShiftTime.IsReadOnly = true;
+            this.btnShiftTimeDelete.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -216,7 +241,8 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </remarks>
         private void btnShiftTimeSave_Click(object sender, RoutedEventArgs e)
         {
-
+            DateTime startTime = (DateTime)TPStartTime.Value;
+            DateTime endTime = (DateTime)TPEndTime.Value;
             MessageBoxResult result = MessageBox.Show("Are You Sure?", "Pet Universe", MessageBoxButton.YesNoCancel);
             switch (result)
             {
@@ -234,7 +260,7 @@ namespace WPFPresentationLayer.PersonnelPages
                     }
                     if (TPEndTime.Text.ToString() == "" || TPEndTime.Text.ToString() == null)
                     {
-                        MessageBox.Show("Please Select a Shift Start Time.");
+                        MessageBox.Show("Please Select a Shift End Time.");
                         TPEndTime.Focus();
                         return;
                     }
@@ -244,6 +270,13 @@ namespace WPFPresentationLayer.PersonnelPages
                         TPStartTime.Focus();
                         return;
                     }
+                    if (endTime < startTime.AddHours(1))
+                    {
+                        MessageBox.Show("Shifts must be at least 1Hour.");
+                        TPStartTime.Focus();
+                        return;
+                    }
+
 
                     PetUniverseShiftTime shiftTime = new PetUniverseShiftTime()
                     {
@@ -312,6 +345,7 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </remarks>
         private void btnShiftTimeAdd_Click(object sender, RoutedEventArgs e)
         {
+            btnShiftTimeSave.IsEnabled = true;
             btnShiftTimeEdit.IsEnabled = false;
             btnShiftTimeCancel.IsEnabled = true;
             TPStartTime.IsReadOnly = false;
@@ -356,12 +390,17 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </remarks>
         private void btnShiftTimeEdit_Click(object sender, RoutedEventArgs e)
         {
+
             string time = null;
 
             PetUniverseShiftTime shiftTime = (PetUniverseShiftTime)dgShiftTime.SelectedItem;
 
             if (shiftTime != null)
             {
+                this.btnShiftTimeDelete.Visibility = Visibility.Visible;
+                dgShiftTime.Focus();
+
+                btnShiftTimeSave.IsEnabled = true;
                 btnShiftTimeAdd.IsEnabled = false;
                 btnShiftTimeCancel.IsEnabled = true;
                 cboShiftTimeDepartment.IsEnabled = true;
@@ -401,6 +440,47 @@ namespace WPFPresentationLayer.PersonnelPages
         {
             return DateTime.ParseExact(time, "HH:mm:ss",
                                         CultureInfo.InvariantCulture);
+        }
+
+
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 03/05/2019
+        /// Approver: Kaleb Bachert
+        ///
+        /// logic for the delete button press. to delete a record
+        ///
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        private void btnShiftTimeDelete_Click(object sender, RoutedEventArgs e)
+        {
+            PetUniverseShiftTime shiftTime = (PetUniverseShiftTime)dgShiftTime.SelectedItem;
+
+            if (shiftTime != null)
+            {
+                var deleteERole = MessageBox.Show("Are you sure you want to delete " + shiftTime.ShiftTimeID, "Confirm Delete", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                if (deleteERole == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        _shiftTimeManager.DeleteShiftTime(shiftTime.ShiftTimeID);
+                        PopulateShiftTimes();
+                        ResetControls();
+
+                    }
+                    catch (Exception ex)
+                    {
+
+                        MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
+                    }
+                }
+            }
+
         }
     }
 }
