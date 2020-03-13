@@ -26,6 +26,50 @@ namespace DataAccessLayer
     /// </remarks>
     public class TransactionAccessor : ITransactionAccessor
     {
+        /// <summary>
+        /// NAME: Rasha Mohammed
+        /// DATE: 2/21/2020
+        /// CHECKED BY: Jaeho Kim
+        /// 
+        /// Queries the SQL database for a delete item from trnsactionLine when that match the productID  .
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        public int DeleteItemFromTransaction(string productID)
+        {
+            int rows = 0;
+
+            string cmdText = "sp_delete_Item_from_Transaction";
+
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ProductID", productID);
+
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
 
         /// <summary>
         /// CREATOR: Jaeho Kim

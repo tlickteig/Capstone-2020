@@ -32,6 +32,7 @@ namespace WPFPresentationLayer.AdoptionPages
         private string customerLastName;
         private ReviewerManager reviewerManager;
         private Customer customer;
+        private List<Customer> customers;
 
         /// <summary>
         /// Creator: Awaab Elamin
@@ -44,6 +45,7 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             InitializeComponent();
             adoptionManager = new ReviewerManager();
+            customers = new List<Customer>();
         }
 
         /// <summary>
@@ -87,6 +89,7 @@ namespace WPFPresentationLayer.AdoptionPages
                     this.customerLastName = adoptionApplication.CustomerName;
                     reviewerManager = new ReviewerManager();
                     customer = reviewerManager.retrieveCustomerByCustomerName(customerLastName);
+                    
                     List<CustomerQuestionnarVM> customerQuestionnar= reviewerManager.retrieveCustomerQuestionnar(customer.CustomerID);
                     lblCustomerName.Content = customerQuestionnar[0].CustomerLastName;
                     foreach (CustomerQuestionnarVM customerQuestionnarVM in customerQuestionnar)
@@ -113,8 +116,8 @@ namespace WPFPresentationLayer.AdoptionPages
             }
             catch (Exception)
             {
-
-                lblAdoptionApplicationErrorMessage.Content = "Please select a customer";
+                lblAdoptionApplicationErrorMessage.Content = "This customer did not fill the questionnar!";
+                
             }
            
             
@@ -161,22 +164,45 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="sender"></param>
         private void btnSubmitDecision_Click(object sender, RoutedEventArgs e)
         {
-            if (Approve.IsSelected)
+            
+            if (Interviewer.IsSelected)
             {
 
-                if (adoptionManager.SubmitReviewerDecision(adoptionApplication.AdoptionApplicationID, "Approved"))
+                if (adoptionManager.SubmitReviewerDecision(adoptionApplication.AdoptionApplicationID, Interviewer.Content.ToString()))
                 {
-                    lblDecisionErrorMessage.Content = "Approved";
+                    lblDecisionErrorMessage.Content = Interviewer.Content.ToString();
+                    lblAdoptionApplicationDecision.Content = Interviewer.Content.ToString();
                     DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
+                    ReviewerDecission.Visibility = Visibility.Hidden;
+                    ViewAdoptionApplications.Visibility = Visibility.Visible;
+                    CustomerQustionnair.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    lblDecisionErrorMessage.Content = "Please choose a decision";
+                    ReviewerDecission.Visibility = Visibility.Visible;
+                    ViewAdoptionApplications.Visibility = Visibility.Hidden;
+                    CustomerQustionnair.Visibility = Visibility.Hidden;
                 }
 
             }
             else if (Deny.IsSelected)
             {
-                if (adoptionManager.SubmitReviewerDecision(adoptionApplication.AdoptionApplicationID, "Deny"))
+                if (adoptionManager.SubmitReviewerDecision(adoptionApplication.AdoptionApplicationID, Deny.Content.ToString()))
                 {
-                    lblDecisionErrorMessage.Content = "Deny";
+                    lblDecisionErrorMessage.Content = Deny.Content.ToString();
+                    lblAdoptionApplicationDecision.Content = Deny.Content.ToString();
                     DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
+                    ReviewerDecission.Visibility = Visibility.Hidden;
+                    ViewAdoptionApplications.Visibility = Visibility.Visible;
+                    CustomerQustionnair.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    lblDecisionErrorMessage.Content = "Please choose a decision";
+                    ReviewerDecission.Visibility = Visibility.Visible;
+                    ViewAdoptionApplications.Visibility = Visibility.Hidden;
+                    CustomerQustionnair.Visibility = Visibility.Hidden;
                 }
             }
             else

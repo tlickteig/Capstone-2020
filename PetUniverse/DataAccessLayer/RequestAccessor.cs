@@ -26,130 +26,114 @@ namespace DataAccessLayer
 {
 	public class RequestAccessor : IRequestAccessor
 	{
-		/// <summary>
-		///  Creator: Kaleb Bachert
-		///  Created: 2/9/2020
-		///  Approver: Zach Behrensmeyer
-		///  
-		///  This method retrieves all Requests from the Database.
-		///  
-		///  Reader can't Get values if they're null, 
-		///  if a value is null, it's saved as an empty string or 0
-		/// 
-		/// </summary>
-		/// <remarks>
-		/// Updater: Kaleb Bachert
-		/// Updated: 2/14/2020
-		/// Update: Converts the Request to a View Model to allow blank DateTime fields
-		/// 
-		/// </remarks>
-		public List<RequestVM> SelectAllRequests()
-		{
-			List<RequestVM> requests = new List<RequestVM>();
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/9
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method retrieves all Requests from the Database by status.
+        ///  
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: Kaleb Bachert
+        /// UPDATED: 2020/3/6
+        /// UPDATE: Changed the Request DTO, updated fields here
+        /// 
+        /// </remarks>
+        public List<Request> SelectRequestsByStatus(bool open)
+        {
+            List<Request> requests = new List<Request>();
 
-			var conn = DBConnection.GetConnection();
-			var cmd = new SqlCommand("sp_select_all_requests", conn);
-			cmd.CommandType = CommandType.StoredProcedure;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_requests_by_status", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("OpenStatus", open);
 
-			try
-			{
-				conn.Open();
-				var reader = cmd.ExecuteReader();
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
 
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
-						RequestVM request = new RequestVM();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        Request request = new Request();
 
-						request.RequestID = reader.GetInt32(0);
-						request.RequestTypeID = reader.GetString(1);
-						request.EffectiveStart = reader.GetDateTime(2).ToString();
-						if (!reader.IsDBNull(3))
-						{
-							request.EffectiveEnd = reader.GetDateTime(3).ToString();
-						}
-						else
-						{
-							request.EffectiveEnd = "";
-						}
-						if (!reader.IsDBNull(4))
-						{
-							request.ApprovalDate = reader.GetDateTime(4).ToString();
-						}
-						else
-						{
-							request.ApprovalDate = "";
-						}
-						request.RequestingEmployeeID = reader.GetInt32(5);
-						if (!reader.IsDBNull(6))
-						{
-							request.ApprovingUserID = reader.GetInt32(6);
-						}
-						else
-						{
-							request.ApprovingUserID = 0;
-						}
+                        request.RequestID = reader.GetInt32(0);
+                        request.RequestTypeID = reader.GetString(1);
+                        request.RequestingUserID = reader.GetInt32(2);
+                        request.DateCreated = reader.GetDateTime(3);
 
-						requests.Add(request);
-					}
-					reader.Close();
-				}
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
-			finally
-			{
-				conn.Close();
-			}
+                        requests.Add(request);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
 
-			return requests;
-		}
+            return requests;
+        }
 
-		/// <summary>
-		///  Creator: Kaleb Bachert
-		///  Created: 2/19/2020
-		///  Approver: Zach Behrensmeyer
-		///  
-		///  This method approves a currently unapproved, and open request in the database
-		/// </summary>
-		/// <remarks>
-		/// Updater: NA
-		/// Updated: NA
-		/// Update: NA
-		/// 
-		/// </remarks>
-		/// <param name="requestID"></param>
-		/// <param name="userID"></param>
-		public int ApproveRequest(int requestID, int userID)
-		{
-			int requestsChanged = 0;
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/19
+        ///  APPROVER: NA
+        ///  
+        ///  This method approves a currently unapproved, and open request in the database
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: Kaleb Bachert
+        /// UPDATED: 2020/3/7
+        /// UPDATE: Changes Stored Procedure name based on requestType
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <param name="userID"></param>
+        public int ApproveRequest(int requestID, int userID, string requestType)
+        {
+            int requestsChanged = 0;
 
-			var conn = DBConnection.GetConnection();
-			var cmd = new SqlCommand("sp_approve_request", conn);
-			cmd.CommandType = CommandType.StoredProcedure;
+            var conn = DBConnection.GetConnection();
+            SqlCommand cmd;
 
-			cmd.Parameters.AddWithValue("RequestID", requestID);
-			cmd.Parameters.AddWithValue("UserID", userID);
+            switch (requestType)
+            {
+                case "Time Off":
+                    cmd = new SqlCommand("sp_approve_time_off_request", conn);
+                    break;
+                default:
+                    throw new ApplicationException("Request Type has no method for approving requests.");
+            }
+            cmd.CommandType = CommandType.StoredProcedure;
 
-			try
-			{
-				conn.Open();
-				requestsChanged = Convert.ToInt32(cmd.ExecuteScalar());
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
-			finally
-			{
-				conn.Close();
-			}
+            cmd.Parameters.AddWithValue("RequestID", requestID);
+            cmd.Parameters.AddWithValue("UserID", userID);
 
-			return requestsChanged;
-		}
+            try
+            {
+                conn.Open();
+                requestsChanged = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return requestsChanged;
+        }
 
         /// <summary>
         /// Creator: Ryan Morganti
@@ -389,7 +373,104 @@ namespace DataAccessLayer
             return requests;
         }
 
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/3
+        ///  APPROVER: NA
+        ///  
+        ///  This method creates a Time Off Request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <param name="userID"></param>
+        public int InsertTimeOffRequest(TimeOffRequest request, int requestingUserID)
+        {
+            int rows = 0;
 
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_time_off_request", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@EffectiveStart", request.EffectiveStart);
+            cmd.Parameters.AddWithValue("@EffectiveEnd", request.EffectiveEnd);
+            cmd.Parameters.AddWithValue("@RequestingUserID", requestingUserID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/7
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method gets a TimeOffRequest by RequestID
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <param name="userID"></param>
+        public TimeOffRequestVM SelectTimeOffRequestByRequestID(int requestID)
+        {
+            TimeOffRequestVM request = null;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_time_off_request_by_requestid", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("RequestID", requestID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    {
+                        request = new TimeOffRequestVM();
+
+                        request.TimeOffRequestID = reader.GetInt32(0);
+                        request.EffectiveStart = reader.GetDateTime(1).ToString();
+                        request.EffectiveEnd = reader.IsDBNull(2) ? "" : reader.GetDateTime(2).ToString();
+                        request.ApprovalDate = reader.IsDBNull(3) ? "" : reader.GetDateTime(3).ToString();
+                        request.ApprovingUserID = reader.IsDBNull(4) ? 0 : reader.GetInt32(4);
+                        request.RequestID = reader.GetInt32(5);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return request;
+        }
 
     }
 }

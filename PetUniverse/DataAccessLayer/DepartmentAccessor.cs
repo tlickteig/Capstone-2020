@@ -25,9 +25,45 @@ namespace DataAccessLayer
     /// </remarks>
     public class DepartmentAccessor : IDepartmentAccessor
     {
-        public int DeleteDepartment(string departmentId)
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 2/29/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a method for changing the active status.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// <param name="departmentID"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public int UpdateDepartmentActive(string departmentID, bool active)
         {
-            throw new NotImplementedException();
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_deactivate_department_by_id", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DepartmentID", departmentID);
+            cmd.Parameters.AddWithValue("@Active", active);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
         }
 
         /// <summary>
@@ -209,6 +245,51 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return rows;
+        }
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 2/29/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is the method for deactivating a department in the tsql database.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        public List<string> SelectDeactivatedDepartments()
+        {
+            List<string> departmentIDs = new List<string>();
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_deactivated_departments", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        departmentIDs.Add(reader.GetString(0));
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return departmentIDs;
         }
     }
 }

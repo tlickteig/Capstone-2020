@@ -16,13 +16,14 @@ namespace DataTransferObjects
         /// This class defines the Transfer Objects for TrainingVideo
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// UPDATED BY: Chase Schulte
+        /// UPDATED DATE: 03/01
+        /// WHAT WAS CHANGED: Added active field
         /// </remarks>
         public string TrainingVideoID { get; set; }
         public int RunTimeMinutes { get; set; }
         public int RunTimeSeconds { get; set; }
         public string Description { get; set; }
+        public bool Active { get; set; }
     }
 }

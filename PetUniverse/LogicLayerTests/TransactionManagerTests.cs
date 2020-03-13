@@ -23,6 +23,8 @@ namespace LogicLayerTests
 
         private ITransactionAccessor _transactionAccessor;
 
+        private TransactionManager _transactionManager;
+
         /// <summary>
         ///  Creator: Jaeho Kim
         ///  Created: 2/27/2020
@@ -39,6 +41,26 @@ namespace LogicLayerTests
         public TransactionManagerTests()
         {
             _transactionAccessor = new FakeTransactionAccessor();
+        }
+
+        /// <summary>
+        /// NAME: Rasha Mohammed
+        /// DATE: 2/26/2020
+        /// CHECKED BY: Jaeho Kim
+        /// 
+        /// Load fake transcationLine accessor for testing purposes
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        [TestInitialize]
+        public void TestSetup()
+        {
+            _transactionAccessor = new FakeTransactionAccessor();
+            _transactionManager = new TransactionManager(_transactionAccessor);
         }
 
         /// <summary>
@@ -91,6 +113,34 @@ namespace LogicLayerTests
             products = transactionManager.RetrieveAllProductsByTransactionID(1000);
             // assert
             Assert.AreEqual(1, products.Count);
+        }
+
+        /// <summary>
+        /// NAME: Rasha Mohammed
+        /// DATE: 2/28/2020
+        /// CHECKED BY: Jaeho Kim
+        /// 
+        /// Tests whether the transaction Manager is able to delete the item from transactionLine.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestDeleteItemt()
+        {
+            // arrange
+            string productID = "123abc456";
+            bool result = false;
+
+            // act
+            result = _transactionManager.DeleteItem(productID);
+
+            // assert
+            Assert.AreEqual(true, result);
+
         }
     }
 }

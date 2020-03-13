@@ -10,7 +10,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFPresentationLayer"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen"
-        Title="PetUniverse" Height="900" Width="1500" ResizeMode="NoResize" Background="#fff8e3" Loaded="Window_Loaded">
+        Title="PetUniverse" Height="900" Width="1500" Background="#fff8e3" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid MinHeight="4" Margin="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -203,13 +203,17 @@
              
              This canvas will contain the general controls for facility management
               
-             UPDATE BY: NA
-             UPDATED NA
-             CHANGE: NA -->
+             UPDATE BY: Carl
+             UPDATED 3/4/2020
+             CHANGE: Changed the frame to an id
+             Checked By: Ethan Murphy 3/6/2020-->
         <Canvas x:Name="canFM" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetFM" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabViewFacilityMaintenance" Header="View Facility Maintenance" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./FMPages/FacilityMaintenanceControls.xaml"/>
+                    <Frame x:Name="frameViewFacilityMaintenance"></Frame>
+                </TabItem>
+                <TabItem x:Name="tabViewFacilityInspection" Header="View Facility Inspection" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewFacilityInspection"></Frame>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -330,6 +334,9 @@
                 <TabItem x:Name="tabViewAdoption" Header="View Adoptions" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AdoptionApplications.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
                 </TabItem>
+                <TabItem x:Name="tabViewInterviewer" Header="Interviewer" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/InterviewerPage.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
+                </TabItem>
                 <TabItem x:Name="tabviewHomeInspector" Header="Home Inspection" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/frmHomeInspectionForm.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
@@ -350,6 +357,9 @@
                 </TabItem>
                 <TabItem x:Name="tabInterviewer" Header="Interviewer Note" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionInterviewer.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="tabAdoptionAnimals" Header="Adoption Animals" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/pgAdoptionAnimalList.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </TabControl>
         </Canvas>

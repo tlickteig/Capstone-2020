@@ -108,7 +108,7 @@ namespace DataAccessFakes
         /// Update:
         /// <param name="facilityMaintenanceID"></param>
         /// <returns>FacilityMaintenance object</returns>
-        public FacilityMaintenance SelectFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID)
+        public FacilityMaintenance SelectFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID, bool active)
         {
             if (facilityMaintenanceID == _facilityMaintenance.FacilityMaintenanceID)
             {
@@ -142,7 +142,7 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="userID"></param>
         /// <returns>List<FacilityMaintenance> objects</returns>
-        public List<FacilityMaintenance> SelectFacilityMaintenanceByUserID(int userID)
+        public List<FacilityMaintenance> SelectFacilityMaintenanceByUserID(int userID, bool active)
         {
             var selectedFacilityMaintenances = (from f in facilityMaintenances
                                                 where f.UserID == userID
@@ -166,7 +166,7 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="facilityMaintenanceName"></param>
         /// <returns>List<FacilityMaintenance></returns>
-        public List<FacilityMaintenance> SelectFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName)
+        public List<FacilityMaintenance> SelectFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName, bool active)
         {
             var selectedFacilityMaintenances = (from f in facilityMaintenances
                                                 where f.MaintenanceName == facilityMaintenanceName
@@ -189,7 +189,7 @@ namespace DataAccessFakes
         /// Update:
         /// </remarks>
         /// <returns>List<FacilityMaintenance> objects</returns>
-        public List<FacilityMaintenance> SelectAllFacilityMaintenance()
+        public List<FacilityMaintenance> SelectAllFacilityMaintenance(bool active)
         {
             var selectedFacilityMaintenances = (from f in facilityMaintenances
                                                 select f).ToList();
@@ -220,6 +220,41 @@ namespace DataAccessFakes
             if (oldFacilityMaintenance.Equals(newFacilityMaintenance))
             {
                 return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 2/14/2020
+        /// Approver: Ethan Murphy 3/6/2020
+        /// Approver: 
+        /// 
+        /// Method to deactivate a facility maintenance record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="facilityMaintenanceID"></param>
+        /// <returns>int 1 or 0 depending if record was deleted</returns>
+        public int DeactivateFacilityMaintenance(int facilityMaintenanceID)
+        {
+            if (facilityMaintenanceID == _facilityMaintenance.FacilityMaintenanceID)
+            {
+                _facilityMaintenance.Active = false;
+                if (_facilityMaintenance.Active)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
             else
             {

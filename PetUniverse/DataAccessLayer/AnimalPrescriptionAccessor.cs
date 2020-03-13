@@ -67,5 +67,61 @@ namespace DataAccessLayer
 
             return result;
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/9/2020
+        /// Approver: Carl Davis 3/13/2020
+        /// 
+        /// Selects all animal prescription records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>List of animal prescriptions</returns>
+        public List<AnimalPrescriptions> SelectAllAnimalPrescriptionRecords()
+        {
+            List<AnimalPrescriptions> animalPrescriptions = new List<AnimalPrescriptions>();
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_all_animal_prescriptions", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    while (reader.Read())
+                    {
+                        AnimalPrescriptions animalPrescription = new AnimalPrescriptions()
+                        {
+                            AnimalPrescriptionID = reader.GetInt32(0),
+                            AnimalID = reader.GetInt32(1),
+                            AnimalVetAppointmentID = reader.GetInt32(2),
+                            PrescriptionName = reader.GetString(3),
+                            Dosage = reader.GetDecimal(4),
+                            Interval = reader.GetString(5),
+                            AdministrationMethod = reader.GetString(6),
+                            StartDate = reader.GetDateTime(7),
+                            EndDate = reader.GetDateTime(8),
+                            Description = reader.GetString(9),
+                            AnimalName = reader.GetString(10)
+                        };
+                        animalPrescriptions.Add(animalPrescription);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return animalPrescriptions;
+        }
     }
 }

@@ -60,17 +60,44 @@ namespace LogicLayerTests
         /// 
         /// </remarks>
         [TestMethod]
-        public void TestAdoptionApplicationRetrievesActiveAdoptionAppointments()
+        public void TestAdoptionAppointmentRetrievesActiveAdoptionAppointments()
         {
             // arange
             List<AdoptionAppointmentVM> adoptionAppointmentVMs;
             IAdoptionAppointmentManager adoptionAppointmentManager = new AdoptionAppointmentManager(_adoptionAppointmentAccessor);
 
             // act
-            adoptionAppointmentVMs = adoptionAppointmentManager.RetrieveAdoptionApplicationsByActiveAndType(true, "Meet and Greet");
+            adoptionAppointmentVMs = adoptionAppointmentManager.RetrieveAdoptionAppointmentsByActiveAndType(true, "Meet and Greet");
 
             // assert
             Assert.AreEqual(1, adoptionAppointmentVMs.Count);
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Thomas Dupuy
+        /// 
+        /// Tests the retrieves Adoption Appointment VMs by appointment ID method
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionAppointmentRetrievesAdoptionAppointmentByAppointmentID()
+        {
+            // arrange
+            AdoptionAppointmentVM adoptionAppointmentVM;
+            IAdoptionAppointmentManager adoptionAppointmentManager = new AdoptionAppointmentManager(_adoptionAppointmentAccessor);
+
+            // act
+            adoptionAppointmentVM = adoptionAppointmentManager.RetrieveAdoptionAppointmentByAppointmentID(000);
+
+            // assert
+            Assert.AreEqual(000, adoptionAppointmentVM.AppointmentID);
         }
     }
 }

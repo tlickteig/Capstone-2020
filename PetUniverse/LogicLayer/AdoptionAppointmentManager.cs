@@ -71,6 +71,36 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: Thomas Dupuy
+        /// 
+        /// Gets an Adoption AppointmentVM by AppointmentID
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="appointmentID"></param>
+        /// <returns></returns>
+        public AdoptionAppointmentVM RetrieveAdoptionAppointmentByAppointmentID(int appointmentID)
+        {
+            
+            try
+            {
+                return _adoptionAppointmentAccessor.SelectAdoptionAppointmentByAppointmentID(appointmentID);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 2/10/2020
         /// CHECKED BY: Thomas Dupuy
         /// 
@@ -84,7 +114,7 @@ namespace LogicLayer
         /// 
         /// </remarks>
         /// <returns>adoptionAppointmentVMs</returns>
-        public List<AdoptionAppointmentVM> RetrieveAdoptionApplicationsByActiveAndType(bool active, String typeID)
+        public List<AdoptionAppointmentVM> RetrieveAdoptionAppointmentsByActiveAndType(bool active, String typeID)
         {
             List<AdoptionAppointmentVM> adoptionAppointmentVMs = new List<AdoptionAppointmentVM>();
             try

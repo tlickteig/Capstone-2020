@@ -12,16 +12,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using PresentationUtilityCode;
 
 namespace WPFPresentationLayer.InventoryPages.Items
 {
     /// <summary>
     /// Creator: Brandyn T. Coverdill
     /// Created: 2020/02/22
-    /// Approver: 
-    /// Approver: 
+    /// Approver: Dalton Reierson
+    /// Approver:  Jesse Tomash
     ///
     /// Page class that handles viewing Inventory.
     /// </summary>
@@ -39,16 +41,17 @@ namespace WPFPresentationLayer.InventoryPages.Items
         /// <summary>
         /// Creator: Brandyn T. Coverdill
         /// Created: 2020/02/23
-        /// Approver: 
-        /// Approver:  
+        /// Approver: Dalton Reierson
+        /// Approver:   Jesse Tomash
         ///
         /// Method that generates the columns for the view inventory datagrid.
         /// </summary>
         ///
         /// <remarks>
-        /// Updated By: 
-        /// Updated: 
-        /// Update:
+        /// Updated By: Brandyn T. Coverdill
+        /// Updated: 2020/03/03
+        /// Update: The Description field was blank, so I modified it to where it gives a description of the item.
+        /// Approver: Dalton Reierson
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -58,6 +61,7 @@ namespace WPFPresentationLayer.InventoryPages.Items
             dgViewInventory.Columns[1].Header = "Item Name";
             dgViewInventory.Columns[2].Header = "Item Quantity";
             dgViewInventory.Columns[3].Header = "Category";
+            dgViewInventory.Columns[4].Header = "Description";
 
             foreach (var column in this.dgViewInventory.Columns)
             {
@@ -68,8 +72,8 @@ namespace WPFPresentationLayer.InventoryPages.Items
         /// <summary>
         /// Creator: Brandyn T. Coverdill
         /// Created: 2020/02/23
-        /// Approver: 
-        /// Approver:  
+        /// Approver: Dalton Reierson
+        /// Approver:   Jesse Tomash
         ///
         /// When datagrid is loaded, add items to the datagrid.
         /// </summary>
@@ -91,8 +95,8 @@ namespace WPFPresentationLayer.InventoryPages.Items
         /// <summary>
         /// Creator: Brandyn T. Coverdill
         /// Created: 2020/03/01
-        /// Approver: 
-        /// Approver:  
+        /// Approver: Dalton Reierson
+        /// Approver:  Jesse Tomash
         ///
         /// This Button shows the Add Item Screen.
         /// </summary>
@@ -107,6 +111,65 @@ namespace WPFPresentationLayer.InventoryPages.Items
         private void btnAddItems_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService?.Navigate(new AddItems());
+        }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/03/03
+        /// Approver: Dalton Reierson
+        /// Approver:  Jesse Tomash
+        ///
+        /// This click event opens the view item detail screen.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnViewItem_Click(object sender, RoutedEventArgs e)
+        {
+            Item item = (Item) dgViewInventory.SelectedItem;
+            if (dgViewInventory.SelectedItem != null)
+            {
+                this.NavigationService?.Navigate(new ViewItemDetail(item));
+            }
+            else
+            {
+                "Please pick an item to view.".ErrorMessage();
+            }
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/13
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesee Tomash
+        ///
+        /// Click event for deactivate button
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeactivateItem_Click(object sender, RoutedEventArgs e)
+        {
+            Item item = (Item)dgViewInventory.SelectedItem;
+            if (dgViewInventory.SelectedItem != null)
+            {
+                _itemManager.deactivateItem(item);
+                dgViewInventory.ItemsSource = _itemManager.retrieveItemsByActive(true);
+            }
+            else
+            {
+                "Please pick an item to view.".ErrorMessage();
+            }
         }
     }
 }

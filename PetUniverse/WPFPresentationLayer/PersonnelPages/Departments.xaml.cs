@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using LogicLayerInterfaces;
 using DataTransferObjects;
 using LogicLayer;
+using PresentationUtilityCode;
 
 namespace WPFPresentationLayer.PersonnelPages
 {
@@ -51,7 +52,7 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </remarks>
         private void btnAddDepartment_Click(object sender, RoutedEventArgs e)
         {
-           canDepartmentList.Visibility = Visibility.Hidden;
+            canDepartmentList.Visibility = Visibility.Hidden;
             canAddDepartment.Visibility = Visibility.Visible;
         }
 
@@ -82,7 +83,7 @@ namespace WPFPresentationLayer.PersonnelPages
             catch (Exception ex)
             {
 
-                MessageBox.Show("Data not found. " + ex.InnerException);
+                WPFErrorHandler.ErrorMessage("Data not found. " + ex.InnerException);
             }
         }
 
@@ -150,26 +151,35 @@ namespace WPFPresentationLayer.PersonnelPages
         {
             string departmentID = txtAddDepartmentDepartmentName.Text;
             string description = txtAddDepartmentDescription.Text;
-
-            try
-            {
-                bool result = _departmentManager.AddDepartment(departmentID, description);
-                if (result)
+            if (ValidateERole.checkDepartmentID(departmentID) && ValidateERole.checkDescription(description))
+                try
                 {
-                    MessageBox.Show("Department Added.");
-                    canAddDepartment.Visibility = Visibility.Hidden;
-                    canDepartmentList.Visibility = Visibility.Visible;
-                    showDGDepartments();
+                    if (_departmentManager.AddDepartment(departmentID, description))
+                    {
+                        WPFErrorHandler.SuccessMessage("Department added.");
+                        canAddDepartment.Visibility = Visibility.Hidden;
+                        canDepartmentList.Visibility = Visibility.Visible;
+                        showDGDepartments();
+                    } 
+                    else
+                    {
+                        WPFErrorHandler.ErrorMessage("Department not added.");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Department Not Added.");
+                    WPFErrorHandler.ErrorMessage("Department failed to save. " + ex.Message);
                 }
-            }
-            catch (Exception ex)
-            {
+                finally
+                {
+                    txtAddDepartmentDepartmentName.Text = "";
+                    txtAddDepartmentDescription.Text = "";
+                }
+            
 
-                MessageBox.Show("Department failed to save." + ex.Message);
+            else
+            {
+                WPFErrorHandler.ErrorMessage("Department failed to save.");
             }
         }
 
@@ -185,6 +195,7 @@ namespace WPFPresentationLayer.PersonnelPages
         /// Updater: Jordan Lindo
         /// Updated: 2/26/2020
         /// Update: Clears text box.
+        /// Approver: Alex Diers
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -192,7 +203,8 @@ namespace WPFPresentationLayer.PersonnelPages
         private void btnAddDepartmentCancel_Click(object sender, RoutedEventArgs e)
         {
             canAddDepartment.Visibility = Visibility.Hidden;
-            txtEditDepartmentDescription.Text = "";
+            txtAddDepartmentDepartmentName.Text = "";
+            txtAddDepartmentDescription.Text = "";
             canDepartmentList.Visibility = Visibility.Visible;
         }
 
@@ -228,8 +240,12 @@ namespace WPFPresentationLayer.PersonnelPages
                 catch (Exception ex)
                 {
 
-                    MessageBox.Show("Edit failed. " + ex.InnerException);
+                    WPFErrorHandler.ErrorMessage("Edit failed. " + ex.InnerException);
                 }
+            }
+            else
+            {
+                WPFErrorHandler.ErrorMessage("Please select a department to Edit.");
             }
         }
 
@@ -260,20 +276,21 @@ namespace WPFPresentationLayer.PersonnelPages
 
                 if (result)
                 {
-                    MessageBox.Show("The changes were successfully made.");
+                    WPFErrorHandler.SuccessMessage("The changes were successfully made.");
                     txtEditDepartmentDescription.Text = "";
                     canEditDepartment.Visibility = Visibility.Hidden;
                     canDepartmentList.Visibility = Visibility.Visible;
+                    showDGDepartments();
                 }
                 else
                 {
-                    MessageBox.Show("Your changes were not made.");
+                    WPFErrorHandler.ErrorMessage("Your changes were not made.");
                 }
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show("Unable to save. ", ex.InnerException.Message);
+                WPFErrorHandler.ErrorMessage("Unable to save. " + ex.InnerException.Message);
             }
         }
 
@@ -290,11 +307,55 @@ namespace WPFPresentationLayer.PersonnelPages
         /// Update: NA
         /// 
         /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnEditDepartmentCancel_Click(object sender, RoutedEventArgs e)
         {
             txtEditDepartmentDescription.Text = "";
             canEditDepartment.Visibility = Visibility.Hidden;
             canDepartmentList.Visibility = Visibility.Visible;
+        }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 2/29/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a method for clicking cancel.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRemoveDepartment_Click(object sender, RoutedEventArgs e)
+        {
+            if (!dgDepartment.SelectedIndex.Equals(-1))
+            {
+                try
+                {
+                    _department = (Department)dgDepartment.SelectedItem;
+                    if (_departmentManager.EditDepartmentActive(_department.DepartmentID, false))
+                    {
+                        showDGDepartments();
+                        WPFErrorHandler.SuccessMessage("Department Removed");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+
+                    WPFErrorHandler.ErrorMessage("Removal failed. " + ex.InnerException);
+                }
+            }
+            else
+            {
+                WPFErrorHandler.ErrorMessage("Please select a department to Remove.");
+            }
         }
     }
 }

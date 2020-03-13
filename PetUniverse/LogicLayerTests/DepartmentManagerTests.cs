@@ -21,6 +21,7 @@ namespace LogicLayerTests
     public class DepartmentManagerTests
     {
         private IDepartmentAccessor _departmentAccessor;
+        private IDepartmentAccessor _brokenDepartmentAccessor;
 
 
         /// <summary>
@@ -31,14 +32,15 @@ namespace LogicLayerTests
         /// This is a unit test constructor DepartmentManager.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
+        /// Updater: Jordan Lindo
+        /// Updated: Added failed connection fake.
         /// Approver: NA
         /// 
         /// </remarks>
         public DepartmentManagerTests()
         {
             _departmentAccessor = new FakeDepartmentAccessor();
+            _brokenDepartmentAccessor = new FakeDepartmentAccessorFailedConnection();
         }
 
         /// <summary>
@@ -360,7 +362,7 @@ namespace LogicLayerTests
         /// Created: 2/15/2020
         /// Approver: Alex Diers
         /// 
-        /// This is a unit test for DepartmentManager one char to long description.
+        /// This is a unit test for DepartmentManager one char too long description.
         /// </summary>
         /// <remarks>
         /// Updater: NA
@@ -394,7 +396,7 @@ namespace LogicLayerTests
         /// Created: 2/15/2020
         /// Approver: Alex Diers
         /// 
-        /// This is a unit test for DepartmentManager one char to long id.
+        /// This is a unit test for DepartmentManager one char too long id.
         /// </summary>
         /// <remarks>
         /// Updater: NA
@@ -420,5 +422,249 @@ namespace LogicLayerTests
             bool result = departmentManager.EditDepartment(department, anotherDepartment);
             Assert.AreEqual(false, result);
         }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 2/29/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a unit test for DepartmentManager good deactivate.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void EditDepartmentActiveGoodDeactivate()
+        {
+            IDepartmentManager departmentManager = new DepartmentManager(_departmentAccessor);
+            string goodDepartmentID = "Fake Department";
+            bool active = false;
+            bool result = departmentManager.EditDepartmentActive(goodDepartmentID, active);
+
+            Assert.AreEqual(true, result);
+        }
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 2/29/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a unit test for DepartmentManager good deactivate.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void EditDepartmentActiveBadDeactivate()
+        {
+            IDepartmentManager departmentManager = new DepartmentManager(_departmentAccessor);
+            string badDepartmentID = "Bad Fake Department";
+            bool active = false;
+            bool result = departmentManager.EditDepartmentActive(badDepartmentID, active);
+
+            Assert.AreEqual(false, result);
+        }
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 2/29/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a unit test for DepartmentManager good reactivate.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void EditDepartmentActiveGoodActivate()
+        {
+            IDepartmentManager departmentManager = new DepartmentManager(_departmentAccessor);
+            string goodDepartmentID = "DeactivatedID1";
+            bool active = true;
+            bool result = departmentManager.EditDepartmentActive(goodDepartmentID, active);
+
+            Assert.AreEqual(true, result);
+        }
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 2/29/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a unit test for DepartmentManager bad reactivate.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void EditDepartmentActiveBaddActivate()
+        {
+            IDepartmentManager departmentManager = new DepartmentManager(_departmentAccessor);
+            string badDepartmentID = "Not DeactivatedID1";
+            bool active = true;
+            bool result = departmentManager.EditDepartmentActive(badDepartmentID, active);
+
+            Assert.AreEqual(false, result);
+        }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/1/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a unit test for failed connection.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestFailedConnectionAddDepatrment()
+        {
+            IDepartmentManager departmentManager = new DepartmentManager(_brokenDepartmentAccessor);
+            string goodID = "Fake";
+            string goodDescription = "Fake Description";
+
+
+            departmentManager.AddDepartment(goodID, goodDescription);
+
+        }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/1/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a unit test for failed connection.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestFailedConnectionEditDepatrment()
+        {
+            IDepartmentManager departmentManager = new DepartmentManager(_brokenDepartmentAccessor);
+            string goodID = "Fake";
+            string goodDescription = "Fake Description";
+            string otherDescription = "Other Words";
+
+
+
+            departmentManager.EditDepartment(
+                new Department
+                {
+                    DepartmentID = goodID,
+                    Description = goodDescription
+                },
+                new Department
+                {
+                    DepartmentID = goodID,
+                    Description = otherDescription
+                }
+            );
+
+        }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/1/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a unit test for failed connection.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestFailedConnectionEditDepatrmentActive()
+        {
+            IDepartmentManager departmentManager = new DepartmentManager(_brokenDepartmentAccessor);
+            string goodID = "Fake";
+            bool active = false;
+
+            departmentManager.EditDepartmentActive(goodID, active);
+
+        }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/1/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a unit test for failed connection.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestFailedConnectionRetrieveAllDepartments()
+        {
+            IDepartmentManager departmentManager = new DepartmentManager(_brokenDepartmentAccessor);
+
+
+            departmentManager.RetrieveAllDepartments();
+
+        }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/1/2020
+        /// Approver: Alex Diers
+        /// 
+        /// This is a unit test for failed connection.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestFailedConnectionRetrieveDepartmentByID()
+        {
+            IDepartmentManager departmentManager = new DepartmentManager(_brokenDepartmentAccessor);
+            string goodID = "Fake";
+
+            departmentManager.RetrieveDepartmentByID(goodID);
+
+        }
+
+
+
+
     }
 }

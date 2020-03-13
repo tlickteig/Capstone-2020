@@ -35,14 +35,7 @@ namespace LogicLayer
         /// </remarks>
         public ERoleManager()
         {
-            try
-            {
-                _eRoleAccessor = new ERoleAccessor();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            _eRoleAccessor = new ERoleAccessor();
         }
         /// <summary>
         /// Creator: Chase Schulte

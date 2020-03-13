@@ -109,7 +109,7 @@ namespace LogicLayerTests
             FacilityMaintenance result = new FacilityMaintenance();
 
             // act
-            result = _facilityMaintenanceManager.RetrieveFacilityMaintenanceByFacilityMaintenanceID(facilityMaintenance.FacilityMaintenanceID);
+            result = _facilityMaintenanceManager.RetrieveFacilityMaintenanceByFacilityMaintenanceID(facilityMaintenance.FacilityMaintenanceID, true);
 
             // assert
             Assert.AreEqual(facilityMaintenance.FacilityMaintenanceID, result.FacilityMaintenanceID);
@@ -144,7 +144,7 @@ namespace LogicLayerTests
             List<FacilityMaintenance> result = new List<FacilityMaintenance>();
 
             // act
-            result = _facilityMaintenanceManager.RetrieveFacilityMaintenanceByUserID(facilityMaintenance.UserID);
+            result = _facilityMaintenanceManager.RetrieveFacilityMaintenanceByUserID(facilityMaintenance.UserID, true);
 
 
             // assert
@@ -180,7 +180,7 @@ namespace LogicLayerTests
             List<FacilityMaintenance> result = new List<FacilityMaintenance>();
 
             // act
-            result = _facilityMaintenanceManager.RetrieveFacilityMaintenanceFacilityMaintenanceName(facilityMaintenance.MaintenanceName);
+            result = _facilityMaintenanceManager.RetrieveFacilityMaintenanceFacilityMaintenanceName(facilityMaintenance.MaintenanceName, true);
 
             // assert
             Assert.AreEqual(1, result.Count);
@@ -215,7 +215,7 @@ namespace LogicLayerTests
             List<FacilityMaintenance> result = new List<FacilityMaintenance>();
 
             // act
-            result = _facilityMaintenanceManager.RetrieveAllFacilityMaintenance();
+            result = _facilityMaintenanceManager.RetrieveAllFacilityMaintenance(true);
 
             // assert
             Assert.AreEqual(2, result.Count);
@@ -265,6 +265,41 @@ namespace LogicLayerTests
 
         }
 
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 2/14/2020
+        /// Approver: Ethan Murphy 3/6/2020
+        /// Approver: 
+        /// 
+        /// Method to test the DeactivateFacilityMaintenance in the Logic layer
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeactivateFacilityMaintenance()
+        {
+            // arrange
+            FacilityMaintenance facilityMaintenance = new FacilityMaintenance()
+            {
+                FacilityMaintenanceID = 1000000,
+                UserID = 1000000,
+                MaintenanceName = "Window",
+                MaintenanceInterval = "5 hours",
+                MaintenanceDescription = "Fix cracked window"
+            };
+
+            bool result = false;
+
+            // act
+            result = _facilityMaintenanceManager.DeactivateFacilityMaintenance(facilityMaintenance.FacilityMaintenanceID);
+
+            // assert
+            Assert.IsFalse(result);
+
+        }
 
 
         /// <summary>

@@ -388,5 +388,56 @@ namespace DataAccessLayer
 
             return updateSuccess;
         }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/12/2020
+        /// Approver: Austin Gee, 3/12/2020
+        /// Approver:  
+        ///
+        /// a data access method that uses a stored procedure to update an animal in the database
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimal"></param>
+        /// <param name="newAnimal"></param>
+        /// <returns>int</returns>
+        public int UpdateAnimal(Animal oldAnimal, Animal newAnimal)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_animal", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@AnimalID", oldAnimal.AnimalID);
+
+            cmd.Parameters.AddWithValue("@OldAnimalName", oldAnimal.AnimalName);
+            cmd.Parameters.AddWithValue("@OldDob", oldAnimal.Dob);
+            cmd.Parameters.AddWithValue("@OldAnimalBreed", oldAnimal.AnimalBreed);
+            cmd.Parameters.AddWithValue("@OldArrivalDate", oldAnimal.ArrivalDate);
+            cmd.Parameters.AddWithValue("@OldAnimalSpeciesID", oldAnimal.AnimalSpeciesID);
+
+            cmd.Parameters.AddWithValue("@NewAnimalName", newAnimal.AnimalName);
+            cmd.Parameters.AddWithValue("@NewDob", newAnimal.Dob);
+            cmd.Parameters.AddWithValue("@NewAnimalBreed", newAnimal.AnimalBreed);
+            cmd.Parameters.AddWithValue("@NewArrivalDate", newAnimal.ArrivalDate);
+            cmd.Parameters.AddWithValue("@NewAnimalSpeciesID", newAnimal.AnimalSpeciesID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return rows;
+        }
     }
 }

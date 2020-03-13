@@ -91,6 +91,12 @@
     <Compile Include="AdoptionPages\frmInHomeInspectorDecision.xaml.cs">
       <DependentUpon>frmInHomeInspectorDecision.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdoptionPages\InterviewerPage.xaml.cs">
+      <DependentUpon>InterviewerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdoptionPages\pgAdoptionAnimalList.xaml.cs">
+      <DependentUpon>pgAdoptionAnimalList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdoptionPages\pgAdoptionCustomers.xaml.cs">
       <DependentUpon>pgAdoptionCustomers.xaml</DependentUpon>
     </Compile>
@@ -111,6 +117,11 @@
     </Compile>
     <Compile Include="PoSPages\pgAddEditViewPromotion.xaml.cs">
       <DependentUpon>pgAddEditViewPromotion.xaml</DependentUpon>
+    <Compile Include="FMPages\FacilityInspectionControls.xaml.cs">
+      <DependentUpon>FacilityInspectionControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\ViewItemDetail.xaml.cs">
+      <DependentUpon>ViewItemDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\pgCheckOut.xaml.cs">
       <DependentUpon>pgCheckOut.xaml</DependentUpon>
@@ -229,6 +240,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="AdoptionPages\InterviewerPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AdoptionPages\pgAdoptionAnimalList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AdoptionPages\pgAdoptionCustomers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -256,6 +275,14 @@
     <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FMPages\FacilityInspectionControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\ViewItemDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PoSPages\pgCheckOut.xaml">
       <SubType>Designer</SubType>

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackRecordAccessorFakes.cs" />
+    <Compile Include="FakeAdoptionAnimalAccessor.cs" />
     <Compile Include="FakeAdoptionAppointmentAccessor.cs" />
     <Compile Include="FakeAdoptionCustomerAccessor.cs" />
     <Compile Include="FakeAdoptionInterviewerAccessor.cs" />
@@ -53,8 +54,10 @@
     <Compile Include="FakeAppointmentAccessor.cs" />
     <Compile Include="FakeCustomerAccessor.cs" />
     <Compile Include="FakeDepartmentAccessor.cs" />
+    <Compile Include="FakeDepartmentAccessorFailedConnection.cs" />
     <Compile Include="FakeERoleAccessor.cs" />
     <Compile Include="FakeEventAccessor.cs" />
+    <Compile Include="FakeFacilityInspectionAccessor.cs" />
     <Compile Include="FakeFacilityMaintenanceAccessor.cs" />
     <Compile Include="FakeHomeInspectorAccessor.cs" />
     <Compile Include="FakeInHomeInspectionAppointmentDecisionAccessor.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="FakeItemAccessor.cs" />
     <Compile Include="FakeItemCategoryAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
+    <Compile Include="FakePetUniverseUserERolesAccessor.cs" />
     <Compile Include="FakeProductAccessor.cs" />
     <Compile Include="FakePromotionAccessor.cs" />
     <Compile Include="FakeRequestAccessor.cs" />

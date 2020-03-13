@@ -48,9 +48,9 @@ namespace DataAccessFakes
             //Fake data for ERoles
             eRoles = new List<ERole>()
             {
-                new ERole(){ERoleID="Manager",EDepartmentID="A", Description="", Active = false },
-                new ERole(){ERoleID="Scheduler",EDepartmentID="A", Description="", Active = true },
-                new ERole(){ERoleID="Planner",EDepartmentID="A", Description="", Active = true }
+                new ERole(){ERoleID="Manager",DepartmentID="A", Description="", EActive = false },
+                new ERole(){ERoleID="Scheduler",DepartmentID="A", Description="", EActive = true },
+                new ERole(){ERoleID="Planner",DepartmentID="A", Description="", EActive = true }
             };
         }
 
@@ -95,9 +95,9 @@ namespace DataAccessFakes
             }
 
             //Activate it
-            eRole.Active = true;
+            eRole.EActive = true;
 
-            if (eRole.Active == true)
+            if (eRole.EActive == true)
             {
                 return 1;
             }
@@ -145,9 +145,9 @@ namespace DataAccessFakes
             }
 
             //Deactivate it
-            eRole.Active = false;
+            eRole.EActive = false;
 
-            if (eRole.Active == false)
+            if (eRole.EActive == false)
             {
                 return 1;
             }
@@ -219,23 +219,23 @@ namespace DataAccessFakes
             }
 
             //Check if new eRole.DepartmentID is null
-            if (eRole.EDepartmentID == null)
+            if (eRole.DepartmentID == null)
             {
                 throw new Exception();
             }
-            
+
             //Check if eRole.ERoleID exceeds maximum length
             if (eRole.ERoleID.Length > 50)
             {
                 throw new Exception();
             }
-            
+
             //Check if eRole.DepartmentID exceeds maximum length
-            if (eRole.EDepartmentID.Length > 50)
+            if (eRole.DepartmentID.Length > 50)
             {
                 throw new Exception();
             }
-            
+
             //Check if eRole.Description exceeds maximum char length
             if (eRole.Description != null)
             {
@@ -244,13 +244,13 @@ namespace DataAccessFakes
                     throw new Exception();
                 }
             }
-            
+
             //Check if new eRoleID is a duplicate of pre-existing eRoleID
             if (eRoles.Find(r => r.ERoleID == eRole.ERoleID) != null)
             {
                 throw new Exception();
             }
-            
+
             //returns fake rows effected if it passed all tests
             return 1;
 
@@ -295,7 +295,7 @@ namespace DataAccessFakes
             List<ERole> newERoles = new List<ERole>();
             foreach (var role in eRoles)
             {
-                if (role.Active == active)
+                if (role.EActive == active)
                 {
                     newERoles.Add(role);
                 }
@@ -332,7 +332,7 @@ namespace DataAccessFakes
             //Check that eRole is in list, if so assign it, else fail
             foreach (var r in eRoles)
             {
-                if (oldERole.ERoleID == r.ERoleID && oldERole.EDepartmentID == r.EDepartmentID && oldERole.Description == r.Description && r != null)
+                if (oldERole.ERoleID == r.ERoleID && oldERole.DepartmentID == r.DepartmentID && oldERole.Description == r.Description && r != null)
                 {
                     eRoleTrue = true;
                 }
@@ -351,8 +351,23 @@ namespace DataAccessFakes
                 throw new Exception();
             }
 
+            //Check if eRole.DepartmentID exceeds maximum length
+            if (newERole.DepartmentID.Length > 50)
+            {
+                throw new Exception();
+            }
+
+            //Check if eRole.Description exceeds maximum char length
+            if (newERole.Description != null)
+            {
+                if (newERole.Description.Length > 200)
+                {
+                    throw new Exception();
+                }
+            }
+
             //Check if the dept ID is invalid
-            if (deptIDs.Find(dp => dp == newERole.EDepartmentID) != null)
+            if (deptIDs.Find(dp => dp == newERole.DepartmentID) != null)
             {
                 deptTrue = true;
             }

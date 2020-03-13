@@ -49,12 +49,15 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoptionAnimalManagerTests.cs" />
     <Compile Include="AdoptionAppointmentManagerTests.cs" />
     <Compile Include="AdoptionCustomerManagerTests.cs" />
     <Compile Include="AdoptionInterviewerManagerTestes.cs" />
     <Compile Include="AnimalHandlingManagerTests.cs" />
     <Compile Include="AnimalKennelManagerTests.cs" />
     <Compile Include="AnimalManagerTests.cs" />
+    <Compile Include="FacilityInspectionManagerTests.cs" />
+    <Compile Include="PetUniverseUserERolesManagerTests.cs" />
     <Compile Include="ProductManagerTests.cs" />
     <Compile Include="AnimalPrescriptionManagerTests.cs" />
     <Compile Include="ApplicantManagerTests.cs" />

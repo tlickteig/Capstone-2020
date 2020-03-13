@@ -87,5 +87,58 @@ namespace LogicLayer
                 throw new ApplicationException("Failed to create record", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/9/2020
+        /// Approver: Carl Davis 3/13/2020
+        /// 
+        /// Retrieves all animal prescription records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>List of animal prescriptions</returns>
+        public List<AnimalPrescriptions> RetrieveAllAnimalPrescriptions()
+        {
+            try
+            {
+                return _animalPrescriptionsAccessor.SelectAllAnimalPrescriptionRecords();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/9/2020
+        /// Approver: Carl Davis 3/13/2020
+        /// 
+        /// Retrieves all animal prescription records for a
+        /// specific animal
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>List of animal prescriptions</returns>
+        public List<AnimalPrescriptions> RetrievePrescriptionsByAnimalName(string animalName)
+        {
+            try
+            {
+                return (from p in RetrieveAllAnimalPrescriptions()
+                        where p.AnimalName.ToLower() == animalName.ToLower()
+                        select p).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found", ex);
+            }
+        }
     }
 }

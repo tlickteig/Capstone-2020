@@ -63,7 +63,48 @@ namespace LogicLayer
             _trainingVideoAccessor = trainingVideoAccessor;
         }
 
+        public bool ActivateTrainingVideo(TrainingVideo video)
+        {
+            bool result = true;
+            try
+            {
+                result = _trainingVideoAccessor.ActivateTrainingVideo(video) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Video not activate", ex);
+            }
+            return result;
+        }
 
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/02/05
+        /// Approver: Jordan Lindo
+        /// 
+        /// Deactivate a Training Video
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="video"></param>
+        /// <returns></returns>
+        public bool DeactivateTrainingVideo(TrainingVideo video)
+        {
+            bool result = true;
+            try
+            {
+                result = _trainingVideoAccessor.DeactivateTrainingVideo(video) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Video not deactivated", ex);
+            }
+            return result;
+        }
 
         /// <summary>
         /// NAME: Alex Diers
@@ -132,9 +173,9 @@ namespace LogicLayer
         /// WHAT WAS CHANGED: NA
         /// </remarks>
         /// <returns></returns>
-        public bool UpdateTrainingVideo(TrainingVideo oldVideo, TrainingVideo newVideo)
+        public bool EditTrainingVideo(TrainingVideo oldVideo, TrainingVideo newVideo)
         {
-            bool result = true;
+            bool result = false;
             try
             {
                 result = _trainingVideoAccessor.UpdateTrainingVideo(oldVideo, newVideo) > 0;
@@ -144,6 +185,31 @@ namespace LogicLayer
                 throw new ApplicationException("Update failed", ex);
             }
             return result;
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/03/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// Find videos based on active state
+        /// </summary>
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public List<TrainingVideo> RetrieveTrainingVideosByActive(bool active = true)
+        {
+            try
+            {
+                return _trainingVideoAccessor.SelectTrainingVideosByActive(active);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace LogicLayer
     /// Creator: Brandyn T. Coverdill
     /// Created: 2020/02/22
     /// Approver: Dalton Reierson
-    /// Approver: 
+    /// Approver:  Jesse Tomash
     ///
     /// The Logic Layer class for Item.
     /// </summary>
@@ -80,6 +80,105 @@ namespace LogicLayer
             return items;
         }
 
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/03/04
+        /// Approver: Dalton Reierson
+        /// Approver:   Jesse Tomash
+        ///
+        /// Method that updates an item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="newDesc"></param>
+        /// <param name="newName"></param>
+        /// <param name="newQuantity"></param>
+        /// <param name="oldDesc"></param>
+        /// <param name="oldName"></param>
+        /// <param name="oldQuantity"></param>
+        public bool editItemDetail(string oldName, string oldDesc, int oldQuantity, string newName, string newDesc, int newQuantity)
+        {
+
+            bool result = false;
+
+            try
+            {
+                result = 1 == _itemAccessor.updateItemDetail(oldName, oldDesc, oldQuantity, newName, newDesc, newQuantity);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update Item Failed.", ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/09
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesee Tomash
+        ///
+        /// The method that retrieves all items in inventory by active
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public List<Item> retrieveItemsByActive(bool active)
+        {
+            List<Item> itemList = new List<Item>();
+
+            try
+            {
+                itemList = _itemAccessor.getAllItemsByActive(active);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Items not found.", ex);
+            }
+
+            return itemList;
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/13
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesee Tomash
+        ///
+        /// Method to deactivate item
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public bool deactivateItem(Item item)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _itemAccessor.deactivateItem(item));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Deactivate Item Failed.", ex);
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill

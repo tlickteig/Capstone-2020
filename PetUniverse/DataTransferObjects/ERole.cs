@@ -16,8 +16,8 @@ namespace DataTransferObjects
     public class ERole
     {
         public string ERoleID { get; set; }
-        public string EDepartmentID { get; set; }
+        public string DepartmentID { get; set; }
         public string Description { get; set; }
-        public bool Active { get; set; }
+        public bool EActive { get; set; }
     }
 }

@@ -64,6 +64,53 @@ namespace LogicLayerInterfaces
         /// UPDATED DATE: NA
         /// WHAT WAS CHANGED: NA
         /// </remarks>
-        bool UpdateTrainingVideo(TrainingVideo oldVideo, TrainingVideo newVideo);
+        bool EditTrainingVideo(TrainingVideo oldVideo, TrainingVideo newVideo);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/03/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// Deactivate a video
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="video"></param>
+        /// <returns></returns>
+        bool DeactivateTrainingVideo(TrainingVideo video);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/03/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// Activate a video
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        bool ActivateTrainingVideo(TrainingVideo video);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/03/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// Find videos based on active state
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        List<TrainingVideo> RetrieveTrainingVideosByActive(bool active = true);
     }
+
 }

@@ -19,38 +19,36 @@ namespace DataAccessInterfaces
     public interface IRequestAccessor
     {
         /// <summary>
-        ///  Creatpr: Kaleb Bachert
-        ///  Created: 2/7/2020
-        ///  Approver: Jordan Lindo
-        ///  Approver: Zach Behrensmeyer 
-        /// 
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/7
+        ///  APPROVER: Jordan Lindo
+        ///  
         ///  Interface method for retrieving all requests.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
         /// 
         /// </remarks>
-        List<RequestVM> SelectAllRequests();
+        List<Request> SelectRequestsByStatus(bool open);
 
         /// <summary>
-        ///  Creator: Kaleb Bachert
-        ///  Created: 2020/2/7
-        ///  Approver: Jordan Lindo
-        ///  Approver: Zach Behrensmeyer 
-        /// 
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/7
+        ///  APPROVER: Jordan Lindo
+        ///  
         ///  Interface method for approving a request.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
         /// 
         /// </remarks>
         /// <param name="requestID"></param>
         /// <param name="userID"></param>
-        int ApproveRequest(int requestID, int userID);
+        int ApproveRequest(int requestID, int userID, string requestType);
 
         /// <summary>
         /// Creator: Ryan Morganti
@@ -124,6 +122,38 @@ namespace DataAccessInterfaces
         /// <returns></returns>
         List<string> SelectAllEmployeeDepartments(int userID);
 
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/3
+        ///  APPROVER: NA
+        ///  
+        ///  Interface method for creating a timeoff request.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <param name="userID"></param>
+        int InsertTimeOffRequest(TimeOffRequest request, int requestingUserID);
 
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/7
+        ///  APPROVER: NA
+        ///  
+        ///  Interface method for getting the TimeOffRequest associated with a Request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <param name="userID"></param>
+        TimeOffRequestVM SelectTimeOffRequestByRequestID(int requestID);
     }
 }

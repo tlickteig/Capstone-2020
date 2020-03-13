@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IAdoptionAnimalManager.cs" />
     <Compile Include="IAdoptionAppointmentManager.cs" />
     <Compile Include="IAdoptionCustomerManager.cs" />
     <Compile Include="IAdoptionInterviewerManager.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="ICustomerManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IERoleManager.cs" />
+    <Compile Include="IFacilityInspectionManager.cs" />
     <Compile Include="IFacilityMaintenanceManager.cs" />
     <Compile Include="IHomeInspectorManager.cs" />
     <Compile Include="IInHomeInspectionAppointmentDecisionManager.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="IItemCategoryManager.cs" />
     <Compile Include="IItemManager.cs" />
     <Compile Include="ILogManager.cs" />
+    <Compile Include="IPetUniverseUserERolesManager.cs" />
     <Compile Include="IProductManager.cs" />
     <Compile Include="IManageBackstockRecords.cs" />
     <Compile Include="IPUEventManager.cs" />

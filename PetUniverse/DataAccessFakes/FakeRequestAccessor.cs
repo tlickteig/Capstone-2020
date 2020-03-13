@@ -18,8 +18,9 @@ namespace DataAccessFakes
 {
     public class FakeRequestAccessor : IRequestAccessor
     {
-        private List<RequestVM> requests;
-
+        private List<Request> requests;
+        private List<TimeOffRequest> timeOffRequests;
+        private List<TimeOffRequestVM> timeOffRequestVMs;
         /// <summary>
         ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/2/7
@@ -35,24 +36,59 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeRequestAccessor()
         {
-            requests = new List<RequestVM>()
+            requests = new List<Request>()
             {
-                new RequestVM()
+                new Request()
                 {
                     RequestID = 1000000,
                     RequestTypeID = "Time Off",
-                    EffectiveStart = DateTime.Now.AddDays(14).ToString(),
-                    EffectiveEnd = DateTime.Now.AddDays(21).ToString(),
-                    ApprovalDate = DateTime.Now.ToString(),
-                    RequestingEmployeeID = 1000001,
-                    ApprovingUserID = 1000000
+                    RequestingUserID = 1000001,
+                    DateCreated = DateTime.Now.AddDays(-5),
+                    Open = true
                 },
-                new RequestVM()
+                new Request()
                 {
                     RequestID = 1000001,
-                    RequestTypeID = "Schedule Change",
-                    EffectiveStart = DateTime.Now.AddDays(1).ToString(),
-                    RequestingEmployeeID = 1000001
+                    RequestTypeID = "Time Off",
+                    RequestingUserID = 1000001,
+                    DateCreated = DateTime.Now.AddDays(-3),
+                    Open = true
+                }
+            };
+
+            timeOffRequestVMs = new List<TimeOffRequestVM>()
+            {
+                new TimeOffRequestVM()
+                {
+                    TimeOffRequestID = 1000000,
+                    EffectiveStart = DateTime.Now.ToString(),
+                    EffectiveEnd = DateTime.Now.AddDays(1).ToString(),
+                    RequestID = 1000000
+                },
+                new TimeOffRequestVM()
+                {
+                    TimeOffRequestID = 1000001,
+                    EffectiveStart = DateTime.Now.ToString(),
+                    EffectiveEnd = DateTime.Now.AddDays(7).ToString(),
+                    RequestID = 1000001
+                }
+            };
+
+            timeOffRequests = new List<TimeOffRequest>()
+            {
+                new TimeOffRequest()
+                {
+                    TimeOffRequestID = 1000000,
+                    EffectiveStart = DateTime.Now,
+                    EffectiveEnd = DateTime.Now.AddDays(1),
+                    RequestID = 1000000
+                },
+                new TimeOffRequest()
+                {
+                    TimeOffRequestID = 1000001,
+                    EffectiveStart = DateTime.Now,
+                    EffectiveEnd = DateTime.Now.AddDays(7),
+                    RequestID = 1000001
                 }
             };
         }
@@ -236,9 +272,10 @@ namespace DataAccessFakes
         /// UPDATE: NA
         /// 
         /// </remarks>
-        public List<RequestVM> SelectAllRequests()
+        public List<Request> SelectRequestsByStatus(bool open)
         {
             return (from r in requests
+                    where r.Open = open
                     select r).ToList();
         }
 
@@ -255,16 +292,52 @@ namespace DataAccessFakes
         /// UPDATE: NA
         /// 
         /// </remarks>
-        public int ApproveRequest(int requestID, int userID)
+        public int ApproveRequest(int requestID, int userID, string requestType)
         {
-            requests[1].ApprovingUserID = userID;
-            requests[1].ApprovalDate = DateTime.Now.ToString();
+            timeOffRequests[1].ApprovingUserID = userID;
+            timeOffRequests[1].ApprovalDate = DateTime.Now;
 
             return 1;
         }
 
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/3
+        ///  APPROVER: NA
+        ///  
+        ///   Method that inserts a dummy Request, for testing
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public int InsertTimeOffRequest(TimeOffRequest request, int requestingUserID)
+        {
+            int oldCount = timeOffRequests.Count;
 
+            timeOffRequests.Add(request);
 
+            return timeOffRequests.Count - oldCount;
+        }
 
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/5
+        ///  APPROVER: NA
+        ///  
+        ///   Method that retrieves a dummy request by ID
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public TimeOffRequestVM SelectTimeOffRequestByRequestID(int RequestID)
+        {
+            return timeOffRequestVMs.Where(request => request.RequestID == RequestID).First();
+        }
     }
 }

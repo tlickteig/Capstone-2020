@@ -81,7 +81,8 @@ namespace LogicLayerTests
         #endregion
 
         /// <summary>
-        /// Creator: Chase Schulte
+        /// Creator: Chase 
+        /// 
         /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
@@ -97,7 +98,7 @@ namespace LogicLayerTests
         public void TestInsertSuccess()
         {
             //Arrange
-            ERole eRole = new ERole() { ERoleID = "ANewEmployee", EDepartmentID = "A", Description = "", Active = true };
+            ERole eRole = new ERole() { ERoleID = "ANewEmployee", DepartmentID = "A", Description = "", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             bool expectResult = true;
             //Act
@@ -123,7 +124,7 @@ namespace LogicLayerTests
         public void TestInsertSuccessWithNullDescription()
         {
             //Arrange
-            ERole eRole = new ERole() { ERoleID = "ANewEmployee", EDepartmentID = "A", Description = null, Active = true };
+            ERole eRole = new ERole() { ERoleID = "ANewEmployee", DepartmentID = "A", Description = null, EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             bool expectResult = true;
             //Act
@@ -150,7 +151,7 @@ namespace LogicLayerTests
         public void TestSameERoleID()
         {
             //Arrange
-            ERole eRole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = "", Active = false };
+            ERole eRole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.AddERole(eRole);
@@ -174,7 +175,7 @@ namespace LogicLayerTests
         public void TestERoleIDOverCharacterLimit()
         {
             //Arrange
-            ERole eRole = new ERole() { ERoleID = "123456789112345678911234567891123456789112345678910", EDepartmentID = "A", Description = "", Active = true };
+            ERole eRole = new ERole() { ERoleID = "123456789112345678911234567891123456789112345678910", DepartmentID = "A", Description = "", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.AddERole(eRole);
@@ -185,7 +186,7 @@ namespace LogicLayerTests
         /// Created: 02/07/2020
         /// Approver: Kaleb Bachert
         /// 
-        /// Test Insert ERole ID over char limit from "FakeERoleAccessor"
+        /// Test Insert Dept ID over char limit from "FakeERoleAccessor"
         /// </summary>
         ///
         /// <remarks>
@@ -195,10 +196,10 @@ namespace LogicLayerTests
         /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
-        public void TestEDepartmentIDOverCharacterLimit()
+        public void TestDepartmentIDOverCharacterLimit()
         {
             //Arrange
-            ERole eRole = new ERole() { ERoleID = "AERoleID", EDepartmentID = "123456789112345678911234567891123456789112345678910", Description = "", Active = true };
+            ERole eRole = new ERole() { ERoleID = "AERoleID", DepartmentID = "123456789112345678911234567891123456789112345678910", Description = "", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.AddERole(eRole);
@@ -222,7 +223,7 @@ namespace LogicLayerTests
         public void TestDescriptionOverCharacterLimit()
         {
             //Arrange
-            ERole eRole = new ERole() { ERoleID = "AERoleID", EDepartmentID = "A", Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", Active = true };
+            ERole eRole = new ERole() { ERoleID = "AERoleID", DepartmentID = "A", Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.AddERole(eRole);
@@ -246,7 +247,7 @@ namespace LogicLayerTests
         public void TestERoleIDEmpty()
         {
             //Arrange
-            ERole eRole = new ERole() { ERoleID = "", EDepartmentID = "A", Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", Active = true };
+            ERole eRole = new ERole() { ERoleID = "", DepartmentID = "A", Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.AddERole(eRole);
@@ -270,7 +271,7 @@ namespace LogicLayerTests
         public void TestEDepartmentIDEmpty()
         {
             //Arrange
-            ERole eRole = new ERole() { ERoleID = "AERoleID", EDepartmentID = "", Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", Active = true };
+            ERole eRole = new ERole() { ERoleID = "AERoleID", DepartmentID = "", Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.AddERole(eRole);
@@ -294,7 +295,7 @@ namespace LogicLayerTests
         public void TestERoleIDNull()
         {
             //Arrange
-            ERole eRole = new ERole() { ERoleID = null, EDepartmentID = "A", Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", Active = true };
+            ERole eRole = new ERole() { ERoleID = null, DepartmentID = "A", Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.AddERole(eRole);
@@ -318,7 +319,7 @@ namespace LogicLayerTests
         public void TestEDepartmentIDNull()
         {
             //Arrange
-            ERole eRole = new ERole() { ERoleID = "AERoleID", EDepartmentID = null, Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", Active = true };
+            ERole eRole = new ERole() { ERoleID = "AERoleID", DepartmentID = null, Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.AddERole(eRole);
@@ -366,8 +367,8 @@ namespace LogicLayerTests
         public void TestUpdateERoleSuccess()
         {
             //Arrange
-            ERole oldERole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = "", Active = false };
-            ERole newERole = new ERole() { ERoleID = "Manager", EDepartmentID = "B", Description = "ANewDesc", Active = true };
+            ERole oldERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
+            ERole newERole = new ERole() { ERoleID = "Manager", DepartmentID = "B", Description = "ANewDesc", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             bool expectedResults = true;
@@ -393,8 +394,8 @@ namespace LogicLayerTests
         public void TestUpdateERoleNoChanges()
         {
             //Arrange
-            ERole oldERole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = "", Active = false };
-            ERole newERole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = "", Active = false };
+            ERole oldERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
+            ERole newERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             bool expectedResults = true;
@@ -421,8 +422,8 @@ namespace LogicLayerTests
         public void TestUpdateERoleNullDescription()
         {
             //Arrange
-            ERole oldERole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = "", Active = false };
-            ERole newERole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = null, Active = true };
+            ERole oldERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
+            ERole newERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = null, EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             bool expectedResults = true;
@@ -450,8 +451,58 @@ namespace LogicLayerTests
         public void TestUpdateERoleNullOldERoleIncorrect()
         {
             //Arrange
-            ERole oldERole = new ERole() { ERoleID = "AManager", EDepartmentID = "A", Description = "", Active = false };
-            ERole newERole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = "", Active = false };
+            ERole oldERole = new ERole() { ERoleID = "AManager", DepartmentID = "A", Description = "", EActive = false };
+            ERole newERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
+            IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
+            //Act
+            _eRoleManager.EditERole(oldERole, newERole);
+        }
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/03/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// Test Update Dept ID over char limit from "FakeERoleAccessor"
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestUpdateDepartmentIDOverCharacterLimit()
+        {
+            //Arrange
+            ERole oldERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
+            ERole newERole = new ERole() { ERoleID = "AERoleID", DepartmentID = "123456789112345678911234567891123456789112345678910", Description = "", EActive = true };
+            IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
+            //Act
+            _eRoleManager.EditERole(oldERole, newERole);
+        }
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/03/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// Test Update ERole description over limit from "FakeERoleAccessor"
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestUpdateDescriptionOverCharacterLimit()
+        {
+            //Arrange
+            ERole oldERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
+            ERole newERole = new ERole() { ERoleID = "AERoleID", DepartmentID = "A", Description = "123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678911234567891123456789112345678910", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.EditERole(oldERole, newERole);
@@ -476,7 +527,7 @@ namespace LogicLayerTests
         {
             //Arrange
             ERole oldERole = null;
-            ERole newERole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = "", Active = false };
+            ERole newERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.EditERole(oldERole, newERole);
@@ -500,8 +551,8 @@ namespace LogicLayerTests
         public void TestUpdateERoleNullNewDeptID()
         {
             //Arrange
-            ERole oldERole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = "", Active = false };
-            ERole newERole = new ERole() { ERoleID = "Manager", EDepartmentID = null, Description = "", Active = true };
+            ERole oldERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
+            ERole newERole = new ERole() { ERoleID = "Manager", DepartmentID = null, Description = "", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.EditERole(oldERole, newERole);
@@ -526,7 +577,7 @@ namespace LogicLayerTests
         {
             //Arrange
             ERole oldERole = null;
-            ERole newERole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = "", Active = false };
+            ERole newERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.EditERole(oldERole, newERole);
@@ -550,8 +601,8 @@ namespace LogicLayerTests
         public void TestUpdateERoleChangedPK()
         {
             //Arrange
-            ERole oldERole = new ERole() { ERoleID = "Manager", EDepartmentID = "A", Description = "", Active = false };
-            ERole newERole = new ERole() { ERoleID = "AManager", EDepartmentID = "A", Description = "", Active = true };
+            ERole oldERole = new ERole() { ERoleID = "Manager", DepartmentID = "A", Description = "", EActive = false };
+            ERole newERole = new ERole() { ERoleID = "AManager", DepartmentID = "A", Description = "", EActive = true };
             IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
             //Act
             _eRoleManager.EditERole(oldERole, newERole);

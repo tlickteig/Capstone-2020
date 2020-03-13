@@ -57,7 +57,7 @@ namespace PresentationUtilityCode
         /// </remarks>
         /// <param name="dept"></param>
         /// <returns></returns>
-        public static bool checkEDepartmentID(this string dept)
+        public static bool checkDepartmentID(this string dept)
         {
             bool isValid = false;
 
@@ -86,7 +86,7 @@ namespace PresentationUtilityCode
         public static bool checkDescription(this string description)
         {
             bool isValid = false;
-            if (description.Length < 250)
+            if (description.Length < 200)
             {
 
                 isValid = true;

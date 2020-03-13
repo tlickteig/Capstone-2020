@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoptionAnimalAccessor.cs" />
     <Compile Include="AdoptionAppointmentAccessor.cs" />
     <Compile Include="AdoptionCustomerAccessor.cs" />
     <Compile Include="AdoptionInterviewerAccessor.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="DepartmentAccessor.cs" />
     <Compile Include="ERoleAccessor.cs" />
     <Compile Include="EventAccessor.cs" />
+    <Compile Include="FacilityInspectionAccessor.cs" />
     <Compile Include="FacilityMaintenanceAccessor.cs" />
     <Compile Include="HomeInspectorAccessor.cs" />
     <Compile Include="InHomeInspectionAppointmentDecisionAccessor.cs" />
@@ -63,6 +65,7 @@
     <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemCategoryAccessor.cs" />
     <Compile Include="LogAccessor.cs" />
+    <Compile Include="PetUniverseERolesAccessor.cs" />
     <Compile Include="ProductAccessor.cs" />
     <Compile Include="PromotionAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

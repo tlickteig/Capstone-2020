@@ -221,5 +221,30 @@ namespace LogicLayer
                 throw new ApplicationException("Data not found.", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/12/2020
+        /// Approver: Austin Gee, 3/12/2020  
+        /// 
+        /// Logic method to update an Animal
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>Bool of whether or not the value was successfully updated</returns>
+        public bool EditAnimal(Animal oldAnimal, Animal newAnimal)
+        {
+            try
+            {
+                return 1 == _animalAccessor.UpdateAnimal(oldAnimal, newAnimal);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update Failed!", ex);
+            }
+        }
     }
 }

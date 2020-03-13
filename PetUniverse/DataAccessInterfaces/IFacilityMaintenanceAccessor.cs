@@ -48,7 +48,7 @@ namespace DataAccessInterfaces
         /// Update:
         /// <param name="facilityMaintenanceID"></param>
         /// <returns>FacilityMaintenance object</returns>
-        FacilityMaintenance SelectFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID);
+        FacilityMaintenance SelectFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID, bool active);
 
         /// <summary>
         /// Creator: Carl Davis
@@ -65,7 +65,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="userID"></param>
         /// <returns>List<FacilityMaintenance> objects</returns>
-        List<FacilityMaintenance> SelectFacilityMaintenanceByUserID(int userID);
+        List<FacilityMaintenance> SelectFacilityMaintenanceByUserID(int userID, bool active);
 
         /// <summary>
         /// Creator: Carl Davis
@@ -82,7 +82,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="facilityMaintenanceName"></param>
         /// <returns>List<FacilityMaintenance></returns>
-        List<FacilityMaintenance> SelectFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName);
+        List<FacilityMaintenance> SelectFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName, bool active);
 
         /// <summary>
         /// Creator: Carl Davis
@@ -98,7 +98,7 @@ namespace DataAccessInterfaces
         /// Update:
         /// </remarks>
         /// <returns>List<FacilityMaintenance> objects</returns>
-        List<FacilityMaintenance> SelectAllFacilityMaintenance();
+        List<FacilityMaintenance> SelectAllFacilityMaintenance(bool active);
 
         /// <summary>
         /// Creator: Carl Davis
@@ -118,7 +118,22 @@ namespace DataAccessInterfaces
         /// <returns>1 or 0 int depending if record was updated</returns>
         int UpdateFacilityMaintenance(FacilityMaintenance oldFacilityMaintenance, FacilityMaintenance newFacilityMaintenance);
 
-
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 2/14/2020
+        /// Approver: Ethan Murphy 3/6/2020
+        /// Approver: 
+        /// 
+        /// Method to deactivate a facility maintenance record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="facilityMaintenanceID"></param>
+        /// <returns>int 1 or 0 depending if record was deleted</returns>
+        int DeactivateFacilityMaintenance(int facilityMaintenanceID);
 
 
     }

@@ -45,12 +45,13 @@ namespace DataAccessFakes
                     AnimalPrescriptionID = 1,
                     AnimalVetAppointmentID = 1,
                     PrescriptionName = "test",
-                    Dosage = 2.0,
+                    Dosage = 2.0M,
                     Interval = "2 times a day",
                     AdministrationMethod = "Oral",
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(2),
-                    Description = "test"
+                    Description = "test",
+                    AnimalName = "fawuief"
                 },
                 new AnimalPrescriptions()
                 {
@@ -58,12 +59,13 @@ namespace DataAccessFakes
                     AnimalPrescriptionID = 2,
                     AnimalVetAppointmentID = 2,
                     PrescriptionName = "test2",
-                    Dosage = 2.0,
+                    Dosage = 2.0M,
                     Interval = "2 times a day",
                     AdministrationMethod = "Oral",
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(2),
-                    Description = "test2"
+                    Description = "test2",
+                    AnimalName = "sgadgase"
                 },
                 new AnimalPrescriptions()
                 {
@@ -71,12 +73,13 @@ namespace DataAccessFakes
                     AnimalPrescriptionID = 3,
                     AnimalVetAppointmentID = 3,
                     PrescriptionName = "test3",
-                    Dosage = 2.0,
+                    Dosage = 2.0M,
                     Interval = "2 times a day",
                     AdministrationMethod = "Oral",
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(2),
-                    Description = "test3"
+                    Description = "test3",
+                    AnimalName = "hrehara"
                 },
                 new AnimalPrescriptions()
                 {
@@ -84,12 +87,13 @@ namespace DataAccessFakes
                     AnimalPrescriptionID = 4,
                     AnimalVetAppointmentID = 4,
                     PrescriptionName = "test4",
-                    Dosage = 2.0,
+                    Dosage = 2.0M,
                     Interval = "2 times a day",
                     AdministrationMethod = "Oral",
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(2),
-                    Description = "test4"
+                    Description = "test4",
+                    AnimalName = "weaagw"
                 }
             };
         }
@@ -120,6 +124,24 @@ namespace DataAccessFakes
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/9/2020
+        /// Approver: Carl Davis 3/13/2020
+        /// 
+        /// Selects all fake animal prescription records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>List of animal prescription fakes</returns>
+        public List<AnimalPrescriptions> SelectAllAnimalPrescriptionRecords()
+        {
+            return animalPrescriptions;
         }
     }
 }

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdoptionAnimalManager.cs" />
     <Compile Include="AdoptionAppointmentManager.cs" />
     <Compile Include="AdoptionCustomerManager.cs" />
     <Compile Include="AdoptionInterviewerManager.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="CustomerManager.cs" />
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="ERoleManager.cs" />
+    <Compile Include="FacilityInspectionManager.cs" />
     <Compile Include="FacilityMaintenanceManager.cs" />
     <Compile Include="HomeInspectorManager.cs" />
     <Compile Include="InHomeInspectionAppointmentDecisionManager.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="ItemCategoryManager.cs" />
     <Compile Include="ItemManager.cs" />
     <Compile Include="LogManager.cs" />
+    <Compile Include="PetUniverseUserERolesManager.cs" />
     <Compile Include="ProductManager.cs" />
     <Compile Include="ManageBackstockRecords.cs" />
     <Compile Include="PromotionManager.cs" />
@@ -97,6 +100,10 @@
     <ProjectReference Include="..\LogicLayerInterfaces\LogicLayerInterfaces.csproj">
       <Project>{ababe315-2fff-4c0b-ae80-1d1c90eb1fa4}</Project>
       <Name>LogicLayerInterfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PresentationUtilityCode\PresentationUtilityCode.csproj">
+      <Project>{ec9bf040-a08b-495f-85b0-2de9e6feb64c}</Project>
+      <Name>PresentationUtilityCode</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

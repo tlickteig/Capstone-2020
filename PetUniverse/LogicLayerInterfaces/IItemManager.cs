@@ -11,7 +11,7 @@ namespace LogicLayerInterfaces
     /// Creator: Brandyn T. Coverdill
     /// Created: 2020/02/22
     /// Approver: Dalton Reierson
-    /// Approver: 
+    /// Approver:  Jesse Tomash
     ///
     /// The Logic Layer Interface for object Item.
     /// </summary>
@@ -38,7 +38,7 @@ namespace LogicLayerInterfaces
         /// Creator: Brandyn T. Coverdill
         /// Created: 2020/02/23
         /// Approver: Dalton Reierson
-        /// Approver:  
+        /// Approver:  Jesse Tomash
         ///
         /// Interface method that gets a list of items from inventory.
         /// </summary>
@@ -49,5 +49,56 @@ namespace LogicLayerInterfaces
         /// Update:
         /// </remarks>
         List<Item> retrieveItems();
+
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/03/04
+        /// Approver: Dalton Reierson
+        /// Approver:  Jesse Tomash
+        ///
+        /// Interface method that updates an item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        bool editItemDetail(string oldName, string oldDesc, int oldQuantity, string newName, string newDesc, int newQuantity);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/09
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesse Tomash
+        ///
+        /// Interface method that gets a list of items from inventory by their active field.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="active"></param>
+        List<Item> retrieveItemsByActive(bool active);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/09
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesse Tomash
+        ///
+        /// Interface method that sets an items active field to 0
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        bool deactivateItem(Item item);
     }
 }

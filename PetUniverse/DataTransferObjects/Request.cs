@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 namespace DataTransferObjects
 {
     /// <summary>
-    ///  Creator: Kaleb Bachert
-    ///  Created: 2020/2/7
-    ///  Approver: Jordan Lindo
-    ///  Approver: Zach Behrensmeyer
+    ///  CREATOR: Kaleb Bachert
+    ///  CREATED: 2020/2/7
+    ///  APPROVER: Jordan Lindo
     ///  
     ///  Request Data Transfer Object
     /// </summary>
@@ -18,17 +17,13 @@ namespace DataTransferObjects
     public class Request
     {
         public int RequestID { get; set; }
+
         public string RequestTypeID { get; set; }
-        public DateTime EffectiveStart { get; set; }
-        public DateTime EffectiveEnd { get; set; }
-        public DateTime ApprovalDate { get; set; }
-        public int RequestingEmployeeID { get; set; }
-        public int ApprovingUserID { get; set; }
-        public bool Open { get; set; }
 
         public DateTime DateCreated { get; set; }
-        public string DisapprovalReason { get; set; }
-        public int ReviewerID { get; set; }
-        public bool Active { get; set; }
+
+        public int RequestingUserID { get; set; }
+
+        public bool Open { get; set; }
     }
 }
