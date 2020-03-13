@@ -117,6 +117,7 @@
     </Compile>
     <Compile Include="PoSPages\pgAddEditViewPromotion.xaml.cs">
       <DependentUpon>pgAddEditViewPromotion.xaml</DependentUpon>
+	</Compile>
     <Compile Include="FMPages\FacilityInspectionControls.xaml.cs">
       <DependentUpon>FacilityInspectionControls.xaml</DependentUpon>
     </Compile>
