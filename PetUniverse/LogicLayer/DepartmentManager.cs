@@ -85,7 +85,7 @@ namespace LogicLayer
             bool added = false;
 
 
-            if (null != departmentId && ValidateERole.checkEDepartmentID(departmentId) && ValidateERole.checkDescription(description))
+            if (null != departmentId && ValidateERole.checkDepartmentID(departmentId) && ValidateERole.checkDescription(description))
             {
 
                 try
@@ -202,8 +202,8 @@ namespace LogicLayer
             bool result = false;
 
             if (oldDepartment.DepartmentID.Equals(newDepartment.DepartmentID)
-                && ValidateERole.checkEDepartmentID(oldDepartment.DepartmentID)
-                && ValidateERole.checkEDepartmentID(newDepartment.DepartmentID)
+                && ValidateERole.checkDepartmentID(oldDepartment.DepartmentID)
+                && ValidateERole.checkDepartmentID(newDepartment.DepartmentID)
                 && ValidateERole.checkDescription(oldDepartment.Description)
                 && ValidateERole.checkDescription(newDepartment.Description))
             {

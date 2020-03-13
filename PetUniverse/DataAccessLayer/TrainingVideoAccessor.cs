@@ -26,6 +26,94 @@ namespace DataAccessLayer
     public class TrainingVideoAccessor : ITrainingVideoAccessor
     {
         /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/03/01
+        /// Approver:
+        /// 
+        /// Activate a Training Video
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="video"></param>
+        /// <returns></returns>
+        public int ActivateTrainingVideo(TrainingVideo video)
+        {
+            int videoID = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_reactivate_trainer_video", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@TrainingVideoID", video.TrainingVideoID);
+
+
+            try
+            {
+                conn.Open();
+                videoID = Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return videoID;
+        }
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/03/01
+        /// Approver:
+        /// 
+        /// Deactivate a Training Video
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="video"></param>
+        /// <returns></returns>
+        public int DeactivateTrainingVideo(TrainingVideo video)
+        {
+            int videoID = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_deactivate_training_video", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@TrainingVideoID", video.TrainingVideoID);
+
+
+            try
+            {
+                conn.Open();
+                videoID = Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return videoID;
+        }
+
+        /// <summary>
         /// NAME: Alex Diers
         /// DATE: 2/6/2020
         /// CHECKED BY: Lane Sandburg
@@ -69,6 +157,61 @@ namespace DataAccessLayer
 
             return videoID;
         }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/03/2020
+        /// Approver: 
+        /// 
+        /// Find videos based on active state
+        /// </summary>
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public List<TrainingVideo> SelectTrainingVideosByActive(bool active = true)
+        {
+            List<TrainingVideo> videos = new List<TrainingVideo>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_videos_by_active", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Active", active);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        videos.Add(new TrainingVideo()
+                        {
+                            TrainingVideoID = reader.GetString(0),
+                            RunTimeMinutes = reader.GetInt32(1),
+                            RunTimeSeconds = reader.GetInt32(2),
+                            Description = reader.GetString(3),
+                            Active = reader.GetBoolean(4)
+                        });
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return videos;
+        }
 
 
         /// <summary>
@@ -106,7 +249,8 @@ namespace DataAccessLayer
                             TrainingVideoID = reader.GetString(0),
                             RunTimeMinutes = reader.GetInt32(1),
                             RunTimeSeconds = reader.GetInt32(2),
-                            Description = reader.GetString(3)
+                            Description = reader.GetString(3),
+                            Active = reader.GetBoolean(4)
                         });
                     }
                     reader.Close();
@@ -144,10 +288,10 @@ namespace DataAccessLayer
 
             var conn = DBConnection.GetConnection();
 
-            var cmd = new SqlCommand("sp_update_training_video", conn);
+            var cmd = new SqlCommand("sp_update_trainer_video", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@NewTrainingVideoID", newVideo.TrainingVideoID);
+
             cmd.Parameters.AddWithValue("@NewRunTimeMinutes", newVideo.RunTimeMinutes);
             cmd.Parameters.AddWithValue("@NewRunTimeSeconds", newVideo.RunTimeSeconds);
             cmd.Parameters.AddWithValue("@NewDescription", newVideo.Description);

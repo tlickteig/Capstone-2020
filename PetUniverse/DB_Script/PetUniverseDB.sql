@@ -1782,6 +1782,27 @@ BEGIN
 END
 GO
 
+/*
+Sproc for Retreiveing Departments
+
+Author: Lane Sandburg 
+03/05/2020
+
+*/
+print '' print '*** creating sp_delete_shiftTime'
+GO
+CREATE PROCEDURE [sp_delete_shiftTime](
+		@ShiftTimeID [int]
+			
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[ShiftTime]
+	WHERE [ShiftTimeID] = @ShiftTimeID
+	RETURN @@ROWCOUNT
+	
+END
+GO
 
 /*
 Created by: Mohamed Elamin
@@ -2524,38 +2545,7 @@ END
 /*
 Created by: Chase Schulte
 Date: 02/05/2020
-Comment: Test dummy for department  
-*/
-drop table if exists [dbo].[EDepartment]
-
-print '' print '*** Create Department Table'
-GO
-Create Table [dbo].[EDepartment](
-	[EDepartmentID]	[nvarchar](50) 							not Null,
-	Constraint	[pk_EDepartmentID] 	PRIMARY KEY([EDepartmentID] ASC)
-)
-GO
-
-/*
-Created by: Chase Schulte
-Date: 02/05/2020
-Comment: Inserts test data for the EDepartment Table
-*/
-print ''  print '*** Insert EDepartment into EDepartment Table'
-GO
-
-Insert INTO [dbo].[EDepartment]
-	([EDepartmentID])
-	Values
-	('a'),
-	('b')
-Go
-
-
-/*
-Created by: Chase Schulte
-Date: 02/05/2020
-Comment: Inserts test data for the ERole Table
+Comment: Inserts table for the ERole Table
 */
 drop table if exists [dbo].[ERole]
 
@@ -2563,12 +2553,12 @@ print ''  print '*** Creating Table ERole Table'
 GO
 Create Table [dbo].[ERole](
 	[ERoleID]	[nvarchar](50) 							not Null,
-	[EDepartmentID] nvarchar(50)							Not Null,
-	[Description] [nvarchar](250)						Null,
+	[DepartmentID] nvarchar(50)							Not Null,
+	[Description] [nvarchar](200)						Null,
 	[Active]		[bit]			Not Null Default 1,
 	Constraint	[pk_ERoleID] 	PRIMARY KEY([ERoleID] ASC),
-	Constraint	[fk_ERole_EDepartmentID] Foreign Key([EDepartmentID])
-		REFERENCES [EDepartment]([EDepartmentID] ) On UPDATE CASCADE
+	Constraint	[fk_ERole_DepartmentID] Foreign Key([DepartmentID])
+		REFERENCES [department]([DepartmentID] ) On UPDATE CASCADE
 )
 GO
 
@@ -2582,10 +2572,10 @@ print ''  print '*** Insert eRoles into ERole Table'
 GO
 
 Insert INTO [dbo].[ERole]
-	([ERoleID],[EDepartmentID],[Description])
+	([ERoleID],[DepartmentID],[Description])
 	Values
-	('Cashier','a','Handles customer'),
-	('Manager','b','Handles internal operations like employee records and payment info')
+	('Cashier','Fake1','Handles customer'),
+	('Manager','Fake2','Handles internal operations like employee records and payment info')
 Go
 
 
@@ -2601,7 +2591,7 @@ CREATE PROCEDURE sp_select_all_eRoles
 	
 AS
 	BEGIN
-		SELECT 	[ERoleID],[EDepartmentID],[Description],[Active]
+		SELECT 	[ERoleID],[DepartmentID],[Description],[Active]
 		FROM 	[ERole]
 	
 	END
@@ -2662,13 +2652,13 @@ GO
 CREATE PROCEDURE [sp_update_eRole]
 (
 	@OldERoleID	[nvarchar](50),
-	@OldEDepartmentID nvarchar(50),
-	@OldDescription [nvarchar](250),
+	@OldDepartmentID nvarchar(50),
+	@OldDescription [nvarchar](200),
 	
 	
 	--New rows
-	@NewEDepartmentID nvarchar(50),
-	@NewDescription [nvarchar](250)
+	@NewDepartmentID nvarchar(50),
+	@NewDescription [nvarchar](200)
 	
 	
 )
@@ -2676,10 +2666,10 @@ AS
 BEGIN
 	Update [dbo].[ERole]
 	Set
-	[EDepartmentID]=@NewEDepartmentID,
+	[DepartmentID]=@NewDepartmentID,
 	[Description]=@NewDescription
 	Where [ERoleID] = @OldERoleID
-	And [EDepartmentID] = @OldEDepartmentID
+	And [DepartmentID] = @OldDepartmentID
 	And [Description] = @OldDescription
 	Return @@ROWCOUNT
 END
@@ -2696,15 +2686,15 @@ GO
 CREATE PROCEDURE [sp_insert_eRole]
 (
 	@ERoleID[nvarchar](50),
-	@EDepartmentID[nvarchar](50),
-	@Description[nvarchar](250)
+	@DepartmentID[nvarchar](50),
+	@Description[nvarchar](200)
 )
 AS
 BEGIN
 	Insert Into [dbo].[ERole]
-		([ERoleID],[EDepartmentID],[Description])
+		([ERoleID],[DepartmentID],[Description])
 	VALUES
-		(@ERoleID,@EDepartmentID,@Description)
+		(@ERoleID,@DepartmentID,@Description)
 		
 END
 GO
@@ -2745,9 +2735,87 @@ CREATE PROCEDURE [sp_select_all_active_eRoles]
 	)
 AS
 BEGIN
-	select [ERoleID],[EDepartmentID],[Description],[Active]
+	select [ERoleID],[DepartmentID],[Description],[Active]
 	FROM [dbo].[ERole]
 	WHERE [Active] = @Active
+END
+GO
+/*
+Created by: Chase Schulte
+Date: 02/28/2020
+Comment: Create UserERole Table
+*/
+print '' print '*** Creating table UserERole'
+GO
+Create Table [dbo].[UserERole](
+	[UserID]	[int] 									NOT NULL,
+	[ERoleID]	[nvarchar](50) 							Not Null,
+	
+	Constraint	[pk_UserERole_UserID_RoleID] 	PRIMARY KEY([UserID] ASC, [ERoleID] Asc),
+	Constraint	[fk_UserERole_UserID] Foreign Key([UserID])
+		REFERENCES [User]([UserID]),
+	Constraint	[fk_UserERole_RoleID] 	Foreign KEY([ERoleID])
+		REFERENCES [ERole]([ERoleID]) On UPDATE CASCADE
+	
+	)
+Go
+
+
+/*
+Created by: Chase Schulte
+Date: 02/28/2020
+Comment: Select UserERole by userID
+*/
+print '' print '*** Creating sp_select_user_eRole_by_user_id'
+GO
+CREATE PROCEDURE sp_select_user_eRole_by_user_id
+	(
+		@UserID		[int]
+	)
+AS
+	BEGIN
+		SELECT [ERoleID]
+		FROM 	[UserERole]
+		WHERE 	[UserID] = @UserID
+	END
+GO
+/*
+Created by: Chase Schulte
+Date: 02/28/2020
+Comment: Add a UserERole
+*/
+print ''  print '*** Creating sp_insert_user_eRole'
+GO
+CREATE PROCEDURE [sp_insert_user_eERole]
+(
+	@UserID			[int],
+	@ERoleID		[nvarchar](50)
+)
+AS
+BEGIN
+INSERT INTO [dbo].[UserERole]
+	([UserID], [ERoleID])
+	VALUES
+	(@UserID, @ERoleID)
+END
+GO
+/*
+Created by: Chase Schulte
+Date: 02/28/2020
+Comment: Delete a UserERole 
+*/
+print '' print '*** Creating sp_delete_user_eRole'
+GO
+CREATE PROCEDURE sp_delete_user_eRole
+	(
+	@UserID			[int],
+	@ERoleID				[nvarchar](50)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[UserERole]
+	WHERE [UserID] =	@UserID
+	  AND [ERoleID] = 		@ERoleID
 END
 GO
 
@@ -3634,6 +3702,7 @@ CREATE TABLE [dbo].[TrainingVideo](
 	[RunTimeMinutes] 		[int] 						NOT NULL,
 	[RunTimeSeconds] 		[int] 						NOT NULL,
 	[Description] 			[nvarchar] (1000) 			NOT NULL,
+	[Active] 				[bit] 						NOT NULL Default 1,
 	CONSTRAINT [pk_TrainingVideoID] 			PRIMARY KEY ([TrainingVideoID] ASC)
 )
 GO
@@ -3688,6 +3757,107 @@ AS
 	BEGIN
 	SELECT	[TrainingVideoID], [RunTimeMinutes], [RunTimeSeconds], [Description]
 	FROM		[TrainingVideo]
+	ORDER BY [TrainingVideoID]
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 2/28/2020
+Comment: Stored procedure to update a training video
+*/
+print '' print '*** Creating sp_update_trainer_video'
+Go
+CREATE PROCEDURE [sp_update_trainer_video]
+(
+	@OldTrainingVideoID	[nvarchar](150),
+	@OldRunTimeMinutes	[int],
+	@OldRunTimeSeconds 	[int],
+	@OldDescription 	[nvarchar](1000),
+	
+	
+	--New rows
+	@NewRunTimeMinutes	[int],
+	@NewRunTimeSeconds 	[int],
+	@NewDescription 	[nvarchar](1000)
+	
+	
+)
+AS
+BEGIN
+	Update [dbo].[TrainingVideo]
+	Set
+	[RunTimeMinutes]=@NewRunTimeMinutes,
+	[RunTimeSeconds]=@NewRunTimeSeconds,
+	[Description]=@NewDescription
+	Where [TrainingVideoID] = @OldTrainingVideoID
+	And [RunTimeMinutes] = @OldRunTimeMinutes
+	And [RunTimeSeconds] = @OldRunTimeSeconds
+	And [Description] = @OldDescription
+	Return @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 2/28/2020
+Comment: Stored procedure to deactivate a training video
+*/
+print '' print '*** Creating sp_deactivate_trainer_video'
+GO
+CREATE PROCEDURE [sp_deactivate_training_video]
+(
+	@TrainingVideoID	[nvarchar](150)
+)
+AS
+BEGIN
+	Update [dbo].[TrainingVideo]
+	Set
+	[Active]=0
+	Where [TrainingVideoID] = @TrainingVideoID
+	
+	Return @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 2/28/2020
+Comment: Stored procedure to activate a training video
+*/
+print '' print '*** Creating sp_reactivate_trainer_video '
+GO
+CREATE PROCEDURE [sp_reactivate_trainer_video ]
+(
+	@TrainingVideoID	[nvarchar](150)
+)
+AS
+BEGIN
+	Update [dbo].[TrainingVideo]
+	Set
+	[Active]=1
+	Where [TrainingVideoID] = @TrainingVideoID
+	
+	Return @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 3/03/2020
+Comment: Stored procedure to select the videos to watch by their active state
+*/
+print '' print '*** Creating sp_select_videos_by_active'
+GO
+CREATE PROCEDURE [sp_select_videos_by_active]
+(
+	@Active 	[bit]
+)
+AS
+	BEGIN
+	SELECT	[TrainingVideoID], [RunTimeMinutes], [RunTimeSeconds], [Description],[Active]
+	FROM		[TrainingVideo]
+	Where [Active] = @Active
 	ORDER BY [TrainingVideoID]
 END
 GO
@@ -5637,5 +5807,44 @@ BEGIN
 	SELECT [DepartmentID]
 	FROM [dbo].[Department]
 	WHERE [Active] = 0
+END
+GO
+
+/*
+Created by: Chuck Baxter
+Date: 3/12/2020
+Comment: Stored Procedure that updates an animal
+*/
+print '' print '*** Creating sp_update_animal'
+Go
+CREATE PROCEDURE [sp_update_animal]
+(
+	@AnimalID				[int],
+	@OldAnimalName			[nvarchar](100),
+	@OldDob					[DateTime],
+	@OldAnimalBreed			[nvarchar](100),
+	@OldArrivalDate			[DateTime],
+	@OldAnimalSpeciesID		[nvarchar](100),
+	@NewAnimalName			[nvarchar](100),
+	@NewDob					[DateTime],
+	@NewAnimalBreed			[nvarchar](100),
+	@NewArrivalDate			[DateTime],
+	@NewAnimalSpeciesID		[nvarchar](100)
+)
+AS
+BEGIN
+	UPDATE	[dbo].[Animal]
+	SET 	[AnimalName] 		= 	@NewAnimalName,
+			[Dob]				=	@NewDob,
+			[AnimalBreed]		=	@NewAnimalBreed,
+			[ArrivalDate]		=	@NewArrivalDate,
+			[AnimalSpeciesID]	=	@NewAnimalSpeciesID
+	WHERE	[AnimalID]			=	@AnimalID
+	  AND	[AnimalName]		=	@OldAnimalName	
+	  AND	[Dob]				=	@OldDob
+	  AND	[AnimalBreed]		=	@OldAnimalBreed
+ 	  AND	[ArrivalDate]		=	@OldArrivalDate
+	  AND	[AnimalSpeciesID]	=	@OldAnimalSpeciesID
+	  RETURN @@ROWCOUNT
 END
 GO

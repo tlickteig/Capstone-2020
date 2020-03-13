@@ -50,7 +50,7 @@ namespace DataAccessInterfaces
         /// UPDATED DATE: NA
         /// WHAT WAS CHANGED: NA
         /// </remarks>
-        List<TrainingVideo> SelectTrainingVideosByEmployee ();
+        List<TrainingVideo> SelectTrainingVideosByEmployee();
 
         /// <summary>
         /// NAME: Alex Diers
@@ -65,5 +65,53 @@ namespace DataAccessInterfaces
         /// WHAT WAS CHANGED: NA
         /// </remarks>
         int UpdateTrainingVideo(TrainingVideo oldVideo, TrainingVideo newVideo);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/01/2020
+        /// Approver: 
+        /// 
+        /// Activate a video
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="videoID"></param>
+        /// <returns></returns>
+        int DeactivateTrainingVideo(TrainingVideo video);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/01/2020
+        /// Approver: 
+        /// 
+        /// Activate a video
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="video"></param>
+        /// <returns></returns>
+        int ActivateTrainingVideo(TrainingVideo video);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/03/2020
+        /// Approver: 
+        /// 
+        /// Find videos based on active state
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        List<TrainingVideo> SelectTrainingVideosByActive(bool active = true);
     }
 }

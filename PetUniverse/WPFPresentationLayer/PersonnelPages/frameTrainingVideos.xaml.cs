@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PresentationUtilityCode;
 
 namespace WPFPresentationLayer.PersonnelPages
 {
@@ -23,6 +24,9 @@ namespace WPFPresentationLayer.PersonnelPages
     /// </summary>
     public partial class frameTrainingVideos : Page
     {
+        private TrainingVideo _trainingVideo;
+        private bool _editMode = false;
+        bool _insertMode = false;
         private ITrainingVideoManager _videoManager = new TrainingVideoManager();
 
         public frameTrainingVideos()
@@ -30,7 +34,7 @@ namespace WPFPresentationLayer.PersonnelPages
             InitializeComponent();
         }
 
-        
+
 
         /// <summary>
         /// NAME : Alex Diers
@@ -49,18 +53,11 @@ namespace WPFPresentationLayer.PersonnelPages
         /// <param name="e"></param>
         private void tabTrainingVideos_GotFocus(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                if (dgVideoList.ItemsSource == null)
-                {
-                    populateVideoList();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
-            }
+            populateVideoList();
+            dgVideoList.Columns.RemoveAt(0);
         }
+
+
 
         /// <summary>
         /// NAME : Alex Diers
@@ -77,41 +74,51 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </remarks>
         private void populateVideoList()
         {
-            dgVideoList.ItemsSource = _videoManager.RetrieveTrainingVideosByEmployee();
-            dgVideoList.Columns.RemoveAt(0);
+            dgVideoList.ItemsSource = _videoManager.RetrieveTrainingVideosByActive((bool)chkVideosActive.IsChecked);
+
         }
 
         /// <summary>
         /// NAME : Alex Diers
         /// DATE: 2/20/2020
-        /// CHECKED BY:
+        /// CHECKED BY: Jordan Lindo
         /// 
         /// Event handler for the Add button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// UPDATED BY: Chase Schulte
+        /// UPDATE DATE: 03/03/2020
+        /// CHANGE: Added boolean insert mode and edit mode
         /// 
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddVideo_Click(object sender, RoutedEventArgs e)
         {
+            _trainingVideo = null;
+            _editMode = true;
+            _insertMode = true;
             showPrompt();
+            txtVideoID.IsReadOnly = false;
+            txtRunTimeM.Text = "";
+            txtRunTimeS.Text = "";
+            txtVideoDesc.Text = "";
+            txtVideoID.Text = "";
+            chkVideoActive.IsChecked = true;
+            chkVideoActive.IsEnabled = false;
         }
 
         /// <summary>
         /// NAME : Alex Diers
         /// DATE: 2/20/2020
-        /// CHECKED BY:
+        /// CHECKED BY: Jordan Lindo
         /// 
         /// Helper method for showing the Add/Edit form on the page
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// UPDATED BY: Chase Schulte
+        /// UPDATE DATE: 03/01/2020
+        /// CHANGE: Added edit mode if/else, show checkbox for sorting by active, hide checkbox for deactivating/activating videos
         /// 
         /// </remarks>
 
@@ -122,7 +129,12 @@ namespace WPFPresentationLayer.PersonnelPages
             btnViewVideo.Visibility = Visibility.Hidden;
             btnSaveVideo.Visibility = Visibility.Visible;
             btnCancel.Visibility = Visibility.Visible;
+            chkVideoActive.Visibility = Visibility.Visible;
+            chkVideosActive.Visibility = Visibility.Hidden;
 
+            dgVideoList.Visibility = Visibility.Hidden;
+            lblActiveVideos.Visibility = Visibility.Hidden;
+            lblActive.Visibility = Visibility.Visible;
             lblVideoID.Visibility = Visibility.Visible;
             lblRunTimeM.Visibility = Visibility.Visible;
             lblRunTimeS.Visibility = Visibility.Visible;
@@ -131,19 +143,35 @@ namespace WPFPresentationLayer.PersonnelPages
             txtRunTimeM.Visibility = Visibility.Visible;
             txtRunTimeS.Visibility = Visibility.Visible;
             txtVideoDesc.Visibility = Visibility.Visible;
+            if (_editMode == true)
+            {
+                txtVideoID.IsReadOnly = false;
+                txtRunTimeM.IsReadOnly = false;
+                txtRunTimeS.IsReadOnly = false;
+                txtVideoDesc.IsReadOnly = false;
+                chkVideoActive.IsEnabled = true;
+            }
+            else if (_editMode == false)
+            {
+                txtVideoID.IsReadOnly = true;
+                txtRunTimeM.IsReadOnly = true;
+                txtRunTimeS.IsReadOnly = true;
+                txtVideoDesc.IsReadOnly = true;
+                chkVideoActive.IsEnabled = false;
+            }
         }
 
         /// <summary>
         /// NAME : Alex Diers
         /// DATE: 2/20/2020
-        /// CHECKED BY:
+        /// CHECKED BY: Jordan Lindo
         /// 
         /// Event handler for the Save button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// UPDATED BY: Chase Schulte
+        /// UPDATE DATE: 03/01/2020
+        /// CHANGE: Added update mode functionality
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -155,39 +183,63 @@ namespace WPFPresentationLayer.PersonnelPages
             newVideo.RunTimeMinutes = Convert.ToInt32(txtRunTimeM.Text);
             newVideo.RunTimeSeconds = Convert.ToInt32(txtRunTimeS.Text);
             newVideo.Description = txtVideoDesc.Text;
-
-            try
+            if (_insertMode == true)
             {
-                bool result = _videoManager.InsertTrainingVideo(newVideo);
-                if (result)
+                try
                 {
-                    MessageBox.Show("Video Added.");
-                    hidePrompt();
-                    populateVideoList();
+                    bool result = _videoManager.InsertTrainingVideo(newVideo);
+                    if (result)
+                    {
+                        MessageBox.Show("Video Added.");
+                        hidePrompt();
+                        populateVideoList();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Video Not Added.");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Video Not Added.");
+
+                    MessageBox.Show("Video failed to save." + ex.Message);
                 }
             }
-            catch (Exception ex)
+            if (_insertMode == false)
             {
+                try
+                {
+                    bool result = _videoManager.EditTrainingVideo(_trainingVideo, newVideo);
+                    if (result)
+                    {
+                        MessageBox.Show("Video Modified.");
+                        hidePrompt();
+                        populateVideoList();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Video Not Added.");
+                    }
+                }
+                catch (Exception ex)
+                {
 
-                MessageBox.Show("Video failed to save." + ex.Message);
+                    MessageBox.Show("Video failed to save." + ex.Message);
+                }
             }
         }
 
         /// <summary>
         /// NAME : Alex Diers
         /// DATE: 2/20/2020
-        /// CHECKED BY:
+        /// CHECKED BY: Jordan Lindo
         /// 
         /// Helper method to hide the Add/Edit form on the page
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// UPDATED BY: Chase Schulte
+        /// UPDATE DATE: 03/03/2020
+        /// CHANGE: Added Hide for Actie for datagrid checkbox and Edit button for  
         /// 
         /// </remarks>
         private void hidePrompt()
@@ -197,7 +249,12 @@ namespace WPFPresentationLayer.PersonnelPages
             btnViewVideo.Visibility = Visibility.Visible;
             btnSaveVideo.Visibility = Visibility.Hidden;
             btnCancel.Visibility = Visibility.Hidden;
+            chkVideoActive.Visibility = Visibility.Hidden;
+            chkVideosActive.Visibility = Visibility.Visible;
 
+            dgVideoList.Visibility = Visibility.Visible;
+            lblActiveVideos.Visibility = Visibility.Visible;
+            lblActive.Visibility = Visibility.Hidden;
             lblVideoID.Visibility = Visibility.Hidden;
             lblRunTimeM.Visibility = Visibility.Hidden;
             lblRunTimeS.Visibility = Visibility.Hidden;
@@ -241,6 +298,127 @@ namespace WPFPresentationLayer.PersonnelPages
             {
                 MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
             }
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/01/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// Edit a specific video
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: Chase Schulte
+        /// Updated: 03/06/2020
+        /// Update: Added visibility not visible for datagrid
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEditVideo_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgVideoList.SelectedItem != null)
+            {
+                _editMode = true;
+                _insertMode = false;
+                _trainingVideo = (TrainingVideo)dgVideoList.SelectedItem;
+                showPrompt();
+                txtVideoID.IsReadOnly = true;
+                txtRunTimeM.Text = _trainingVideo.RunTimeMinutes.ToString();
+                txtRunTimeS.Text = _trainingVideo.RunTimeSeconds.ToString();
+                txtVideoDesc.Text = _trainingVideo.Description.ToString();
+                txtVideoID.Text = _trainingVideo.TrainingVideoID.ToString();
+            }
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/01/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// View a specific video
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnViewVideo_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgVideoList.SelectedItem != null)
+            {
+                _editMode = false;
+                _insertMode = false;
+                _trainingVideo = (TrainingVideo)dgVideoList.SelectedItem;
+                showPrompt();
+                txtRunTimeM.Text = _trainingVideo.RunTimeMinutes.ToString();
+                txtRunTimeS.Text = _trainingVideo.RunTimeSeconds.ToString();
+                txtVideoDesc.Text = _trainingVideo.Description.ToString();
+                txtVideoID.Text = _trainingVideo.TrainingVideoID.ToString();
+                chkVideoActive.IsChecked = _trainingVideo.Active;
+                btnSaveVideo.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                WPFErrorHandler.ErrorMessage("Select a video");
+            }
+
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/01/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// Activate/Deactivate a video
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChkVideoActive_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!(bool)chkVideoActive.IsChecked)
+                {
+                    _videoManager.DeactivateTrainingVideo(_trainingVideo);
+                    populateVideoList();
+
+                }
+                else if ((bool)chkVideoActive.IsChecked)
+                {
+                    _videoManager.ActivateTrainingVideo(_trainingVideo);
+                    populateVideoList();
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.ToString());
+            }
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 03/01/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// Sort by active/inactive videos
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChkVideosActive_Click(object sender, RoutedEventArgs e)
+        {
+            populateVideoList();
         }
     }
 }

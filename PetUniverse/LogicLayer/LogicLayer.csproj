@@ -62,6 +62,7 @@
     <Compile Include="ItemCategoryManager.cs" />
     <Compile Include="ItemManager.cs" />
     <Compile Include="LogManager.cs" />
+    <Compile Include="PetUniverseUserERolesManager.cs" />
     <Compile Include="ProductManager.cs" />
     <Compile Include="ManageBackstockRecords.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

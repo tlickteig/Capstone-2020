@@ -140,7 +140,7 @@ namespace DataAccessLayer
         /// Update: 
         /// </remarks>
         /// <param name="eRoleID"></param>
-        /// <param name="EDepartmentID"></param>
+        /// <param name="DepartmentID"></param>
         /// <param name="description"></param>
         /// <returns></returns>
         public int InsertERole(ERole eRole)
@@ -156,7 +156,7 @@ namespace DataAccessLayer
 
             //Param
             cmd.Parameters.AddWithValue("@ERoleID", eRole.ERoleID);
-            cmd.Parameters.AddWithValue("@EDepartmentID", eRole.EDepartmentID);
+            cmd.Parameters.AddWithValue("@DepartmentID", eRole.DepartmentID);
             cmd.Parameters.AddWithValue("@Description", eRole.Description);
 
             //Execute Command
@@ -211,9 +211,9 @@ namespace DataAccessLayer
                         eRoles.Add(new ERole()
                         {
                             ERoleID = reader.GetString(0),
-                            EDepartmentID = reader.GetString(1),
+                            DepartmentID = reader.GetString(1),
                             Description = reader.GetString(2),
-                            Active = reader.GetBoolean(3)
+                            EActive = reader.GetBoolean(3)
 
 
                         });
@@ -266,9 +266,9 @@ namespace DataAccessLayer
                         eRoles.Add(new ERole()
                         {
                             ERoleID = reader.GetString(0),
-                            EDepartmentID = reader.GetString(1),
+                            DepartmentID = reader.GetString(1),
                             Description = reader.GetString(2),
-                            Active = reader.GetBoolean(3)
+                            EActive = reader.GetBoolean(3)
                         });
                     }
                     reader.Close();
@@ -310,10 +310,10 @@ namespace DataAccessLayer
 
             //Vals
             cmd.Parameters.AddWithValue("OldERoleID", oldERole.ERoleID);
-            cmd.Parameters.AddWithValue("OldEDepartmentID", oldERole.EDepartmentID);
+            cmd.Parameters.AddWithValue("OldDepartmentID", oldERole.DepartmentID);
             cmd.Parameters.AddWithValue("OldDescription", oldERole.Description);
 
-            cmd.Parameters.AddWithValue("NewEDepartmentID", newERole.EDepartmentID);
+            cmd.Parameters.AddWithValue("NewDepartmentID", newERole.DepartmentID);
             cmd.Parameters.AddWithValue("NewDescription", newERole.Description);
 
             //Execute Command

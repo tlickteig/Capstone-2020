@@ -7,55 +7,72 @@
       mc:Ignorable="d" 
       Title="frameTrainingVideos" Height="600" Width="1280">
 
-    
-        
-        <Grid Grid.Column="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="450"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition/>
-                <RowDefinition />
+
+
+    <Grid Grid.Column="2" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="450"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition />
         </Grid.RowDefinitions>
         <DataGrid x:Name="dgVideoList" Margin="17,10,10,250" SelectionMode="Single" IsReadOnly="True" Grid.ColumnSpan="2" Grid.Column="1" Loaded="DgVideoList_Loaded" />
+        <CheckBox Margin="60,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="True" Grid.Column="0" Grid.Row="3" x:Name="chkVideosActive" Visibility="Visible" Click="ChkVideosActive_Click" >
+            <CheckBox.LayoutTransform>
+                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+            </CheckBox.LayoutTransform>
+        </CheckBox>
+        <Label x:Name="lblActiveVideos" Grid.Row="3" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Column="0" HorizontalAlignment="left" Visibility="Visible">Active</Label>
         <Label x:Name="lblVideoID" Visibility="Hidden" Grid.Row="1" Grid.Column="0" Content="URL:" FontSize="18" HorizontalAlignment="Right"></Label>
-            <Label x:Name="lblRunTimeM" Visibility="Hidden" Grid.Row="2" Grid.Column="0" Content="Run Time:" FontSize="18" HorizontalAlignment="Right"></Label>
-            <Label x:Name="lblRunTimeS" Visibility="Hidden" Grid.Row="2" Grid.Column="1" Content=":" FontSize="18" HorizontalAlignment="Right" Margin="0,0,176,0"></Label>
-            <Label x:Name="lblVideoDesc" Visibility="Hidden" Grid.Row="1" Grid.Column="2" Content="Video Title:" FontSize="18" HorizontalAlignment="Right"></Label>
-            <TextBox x:Name="txtVideoID" Visibility="Hidden" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Top" Width="300"></TextBox>
-            <TextBox x:Name="txtRunTimeM" Visibility="Hidden" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Top" Width="100"></TextBox>
-            <TextBox x:Name="txtRunTimeS" Visibility="Hidden" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" Width="100" Margin="123,0,70,0"></TextBox>
-            <TextBox x:Name="txtVideoDesc" Visibility="Hidden" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Top" Width="250"></TextBox>
-            <Grid Grid.Row="3" Grid.ColumnSpan="3">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="210"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="btnViewVideo" Grid.ColumnSpan="1"
+        <Label x:Name="lblRunTimeM" Visibility="Hidden" Grid.Row="2" Grid.Column="0" Content="Run Time:" FontSize="18" HorizontalAlignment="Right"></Label>
+        <Label x:Name="lblRunTimeS" Visibility="Hidden" Grid.Row="2" Grid.Column="1" Content=":" FontSize="18" HorizontalAlignment="Right" Margin="0,0,176,0"></Label>
+        <Label x:Name="lblVideoDesc" Visibility="Hidden" Grid.Row="1" Grid.Column="2" Content="Video Title:" FontSize="18" HorizontalAlignment="Right"></Label>
+        <TextBox x:Name="txtVideoID" Visibility="Hidden" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Top" Width="300"></TextBox>
+        <TextBox x:Name="txtRunTimeM" Visibility="Hidden" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Top" Width="100"></TextBox>
+        <TextBox x:Name="txtRunTimeS" Visibility="Hidden" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" Width="100" Margin="123,0,70,0"></TextBox>
+        <TextBox x:Name="txtVideoDesc" Visibility="Hidden" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Left" FontSize="18" VerticalAlignment="Top" Width="250"></TextBox>
+        <CheckBox Margin="60,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Column="3" Grid.Row="2" x:Name="chkVideoActive" Visibility="Hidden" Click="ChkVideoActive_Click">
+            <CheckBox.LayoutTransform>
+                <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
+            </CheckBox.LayoutTransform>
+        </CheckBox>
+        <Label x:Name="lblActive" Grid.Row="2" Margin="0,0,0,0" VerticalAlignment="Center" Grid.Column="3" HorizontalAlignment="left" Visibility="Hidden">Active</Label>
+        <Grid Grid.Row="3" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="50"></ColumnDefinition>
+                <ColumnDefinition Width="210"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btnViewVideo" Grid.ColumnSpan="1"
                             HorizontalAlignment="Right" Width="150"
                             Content="View This Video" 
-                            Margin="30 5 30 5"  />
-                <Button x:Name="btnSaveVideo" Grid.ColumnSpan="1"
+                            Margin="30 5 30 5" Click="BtnViewVideo_Click"  />
+            <Button x:Name="btnSaveVideo" Grid.ColumnSpan="1"
                             HorizontalAlignment="Right" Width="150"
                             Content="Save" Visibility="Hidden"
                             Margin="30 5 30 5" Click="btnSaveVideo_Click"  />
-                <Button x:Name="btnAddVideo"  Width="150"
+            <Button x:Name="btnAddVideo"  Width="150"
                             Content="Add" 
                             Margin="30 5 30 5" Click="btnAddVideo_Click"  />
-                <Button x:Name="btnEditVideo"  Width="150"
+            <Button x:Name="btnEditVideo"  Width="150" Grid.ColumnSpan="3"
                             Content="Edit" 
-                            Margin="638,5,235,5"  />
-                <Button x:Name="btnCancel" Grid.Column="0" Visibility="Hidden"  Width="150"
+                            Margin="700,5,30,5" Click="BtnEditVideo_Click"  />
+            <Button x:Name="btnCancel" Grid.Column="0" Visibility="Hidden"  Width="150"
                             Content="Cancel" 
                             Margin="83,5,467,5" Click="btnCancel_Click" />
-            </Grid>
+
+
+
         </Grid>
-        
-    
+
+    </Grid>
+
+
 </Page>
