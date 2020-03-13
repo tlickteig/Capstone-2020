@@ -469,7 +469,7 @@ CREATE TABLE [dbo].[AnimalMedicalInfo] (
 	[AnimalMedicalInfoID]		[int] IDENTITY(1000000,1)  NOT NULL,
 	[AnimalID]					[int]					   NOT NULL,
 	[UserID]					[int]					   NOT NULL,
-	[Spayed/Neutered]			[bit]					   NOT NULL,
+	[SpayedNeutered]			[bit]					   NOT NULL,
 	[Vaccinations]				[nvarchar](250)			   NOT NULL,
 	[MostRecentVaccinationDate]	[Date]					   NOT NULL,
 	[AdditionalNotes]			[nvarchar](500)
@@ -695,7 +695,7 @@ VALUES
 
 	('Feeding','Feed the Animals')
 
-	SET IDENTITY_INSERT AnimalActivity ON
+	
 GO
 
 
@@ -712,7 +712,7 @@ INSERT INTO [dbo].[AnimalActivity]
 VALUES
 
 (1, 1000000,'Feeding', 2020-2-2, 100000)
-	SET IDENTITY_INSERT AnimalActivity OFF
+	
 GO
 
 
@@ -794,47 +794,8 @@ BEGIN
 END
 GO
 
-/*
-Created by: Daulton Schilling
-Date: 2/11/2020
-Comment: Sproc to pull list of animal feeding records
-*/
-print '' print '*** sp_Select_Animal_Feeding_Records'
-GO
-CREATE PROCEDURE [sp_Select_Animal_Feeding_Records]
-AS
-BEGIN
-SELECT
-[AnimalActivityID],
-[AnimalID],
-[UserID],
-[AnimalActivityTypeID],
-[ActivityDateTime]
 
-From [AnimalActivity]
-END;
 
-/*
-Created by: Daulton Schilling
-Date: 2/11/2020
-Comment: Sproc to select specific animal by ud
-*/
-print '' print '*** sp_Select_Animal_By_AnimalID'
-GO
-CREATE PROCEDURE [sp_Select_Animal_By_AnimalID]
-(
-  @AnimalID [int]
-)
-AS
-BEGIN
-SELECT
-[AnimalID]
-
-From [Animal]
-WHERE[AnimalID] = @AnimalID
-END;
-
-SET IDENTITY_INSERT AnimalActivity ON
 
 /*
 Created by: Daulton Schilling
@@ -860,7 +821,7 @@ BEGIN
 		(@AnimalActivityID,@AnimalID,@AnimalActivityTypeID,@ActivityDateTime)
 	RETURN SCOPE_IDENTITY()
 END;
-SET IDENTITY_INSERT AnimalActivity OFF
+
 
 /*
 Created by: Daulton Schilling
@@ -5906,7 +5867,7 @@ BEGIN
 		,[AnimalKennelID]
 		,[AnimalKennelInfo]
 		,[AnimalMedicalInfoID]
-		,[Spayed/Neutered]
+		,[SpayedNeutered]
 		,[AdoptionApplicationID]
 		,[AdoptionApplication].[CustomerID]
 		,[Customer].[UserID]
@@ -6565,3 +6526,247 @@ GO
 
 
 
+
+
+
+CREATE PROCEDURE [sp_Select_NewAnimalCheckList_By_AnimalID]
+(
+  @AnimalID [int]
+)
+AS
+BEGIN
+SELECT 
+	Animal.AnimalID,
+	Animal.AnimalName,  	
+	Animal.Dob,				
+	Animal.AnimalSpeciesID,		
+	Animal.AnimalBreed,			
+	Animal.ArrivalDate,			
+	Animal.CurrentlyHoused,		
+	Animal.Adoptable,
+	AnimalHandlingNotes.AnimalHandlingNotes,	
+	AnimalHandlingNotes.TemperamentWarning,
+	AnimalMedicalInfo.SpayedNeutered,				
+	AnimalMedicalInfo.Vaccinations,				
+	AnimalMedicalInfo.MostRecentVaccinationDate,	
+	AnimalMedicalInfo.AdditionalNotes	
+FROM
+  [Animal] 
+  INNER JOIN 
+  AnimalHandlingNotes
+  ON AnimalHandlingNotes.AnimalID = Animal.AnimalID
+  INNER JOIN 
+  AnimalMedicalInfo
+  ON
+  AnimalMedicalInfo.AnimalID = Animal.AnimalID
+
+WHERE Animal.AnimalID = @AnimalID
+AND 
+AnimalHandlingNotes.AnimalID = @AnimalID
+AND 
+AnimalMedicalInfo.AnimalID = @AnimalID
+
+END;
+
+GO
+
+
+
+CREATE PROCEDURE [SP_Select_Medication_By_Low_Qauntity]
+AS
+BEGIN
+SELECT 
+[ItemID],
+[ItemQuantity],				
+[ItemName]			
+			
+From [Item] 
+WHERE[ItemCategoryID] = 'Medication'
+AND
+[ItemQuantity] < 5
+END;
+
+GO
+
+
+CREATE PROCEDURE [SP_Select_Medication_By_Empty_Qauntity]
+AS
+BEGIN
+SELECT 
+[ItemID],
+[ItemQuantity],				
+[ItemName]			
+			
+From [Item] 
+WHERE[ItemCategoryID] = 'Medication'
+AND
+[ItemQuantity] = 0
+END;
+
+GO
+
+print '' print '*** sp_Select_Animal_Feeding_Records'
+GO
+CREATE PROCEDURE [sp_Select_Animal_Feeding_Records]
+AS
+BEGIN
+SELECT 
+[AnimalActivityID],
+[AnimalID],
+[UserID],
+[AnimalActivityTypeID],
+[ActivityDateTime]
+
+From [AnimalActivity]
+END;
+
+GO
+
+
+
+
+print '' print '*** SP_Create_SpecialOrder'
+GO
+CREATE PROCEDURE [SP_Create_SpecialOrder]
+AS
+BEGIN
+SELECT 
+[ItemID],
+[ItemName],
+[ItemQuantity],
+[ItemCategoryID]
+
+
+From [Item]
+END;
+
+GO
+
+
+CREATE PROCEDURE [sp_Select_Animal_By_AnimalID]
+(
+  @AnimalID [int]
+)
+AS
+BEGIN
+SELECT 
+[AnimalID],
+[AnimalName],  	
+[Dob],				
+[AnimalSpeciesID],		
+[AnimalBreed],			
+[ArrivalDate],			
+[CurrentlyHoused],		
+[Adoptable]		
+
+From [Animal] 
+WHERE[AnimalID] = @AnimalID
+END;
+
+GO
+
+
+
+print '' print '*** Creating sample AnimalActivity records'
+GO
+INSERT INTO [dbo].[AnimalActivity]
+	([AnimalID], [UserID], [AnimalActivityTypeID], [ActivityDateTime])
+	VALUES
+	(1000000, 100000, 'Feeding', '09-08-2016')
+	
+GO	
+	
+CREATE PROCEDURE [SP_Select_Items_By_ItemCategoryID]
+AS
+BEGIN
+SELECT 
+[ItemID],
+[ItemQuantity],				
+[ItemName]			
+			
+From [dbo].[Item] 
+WHERE[ItemCategoryID] = 'Medication'
+END;
+
+GO
+
+
+INSERT INTO [dbo].[Item]
+([ItemQuantity], [ItemName], [ItemCategoryID], [ItemDescription])
+	VALUES
+	(4,' Medication1', 'Medical', ''),
+	(4,' Medication2', 'Medical', '')	
+GO
+
+
+
+INSERT INTO [dbo].[AnimalMedicalInfo]
+([AnimalID], [UserID],[SpayedNeutered], [Vaccinations], [MostRecentVaccinationDate], [AdditionalNotes])
+VALUES
+	(1000000,100000,1, 'Ebola', '09-08-2016', 'None'),
+	(1000001,100000,0, 'None', '10-01-2012', 'None'),
+	(1000002,100000,1, 'Corona', '04-15-1998', 'None'),
+	(1000003,100000,1, 'Ebola', '09-08-2016', 'None'),
+	(1000004,100000,0, 'None', '10-01-2012', 'None'),
+	(1000005,100000,1, 'Corona', '04-15-1998', 'None'),
+	(1000006,100000,1, 'Corona', '04-15-1998', 'None'),
+	(1000007,100000,1, 'Corona', '04-15-1998', 'None'),
+	(1000008,100000,1, 'Corona', '04-15-1998', 'None')
+	
+GO	
+	/*
+Created by: Ben Hanna
+Date: 2/18/2020
+Comment: Sample animal handling notes record
+*/                
+print '' print '*** Creating Sample Animal Handling Records'
+GO
+INSERT INTO [dbo].[AnimalHandlingNotes]
+	([AnimalID], [UserID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate])
+    
+	VALUES
+	(1000000,100000,'Notes', 'Warning', '2020-01-22'),
+	(1000001,100000,'Notes', 'Warning', '2020-01-22'),
+	(1000002,100000,'Notes', 'Warning', '2020-01-22'),
+	(1000003,100000,'Notes', 'Warning', '2020-01-22'),
+	(1000004,100000,'Notes', 'Warning', '2020-01-22'),
+	(1000005,100000,'Notes', 'Warning', '2020-01-22'),
+	(1000006,100000,'Notes', 'Warning', '2020-01-22'),
+	(1000007,100000,'Notes', 'Warning', '2020-01-22'),
+	(1000008,100000,'Notes', 'Warning', '2020-01-22') 
+GO
+
+
+
+CREATE PROCEDURE [sp_Select_AnimalMedicalHistory_By_AnimalID]
+(
+  @AnimalID [int]
+)
+AS
+BEGIN
+SELECT 
+	Animal.AnimalID,
+	Animal.AnimalName, 
+    Animal.AnimalSpeciesID,	 			
+	AnimalMedicalInfo.Vaccinations,
+    AnimalMedicalInfo.SpayedNeutered,	
+	AnimalMedicalInfo.MostRecentVaccinationDate,	
+	AnimalMedicalInfo.AdditionalNotes	
+FROM
+  [Animal] 
+  INNER JOIN 
+  AnimalHandlingNotes
+  ON AnimalHandlingNotes.AnimalID = Animal.AnimalID
+  INNER JOIN 
+  AnimalMedicalInfo
+  ON
+  AnimalMedicalInfo.AnimalID = Animal.AnimalID
+
+WHERE Animal.AnimalID = @AnimalID
+AND 
+AnimalHandlingNotes.AnimalID = @AnimalID
+AND 
+AnimalMedicalInfo.AnimalID = @AnimalID
+
+END;
+GO

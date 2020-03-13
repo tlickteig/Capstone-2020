@@ -53,11 +53,15 @@
     <Compile Include="AdoptionAppointmentManagerTests.cs" />
     <Compile Include="AdoptionCustomerManagerTests.cs" />
     <Compile Include="AdoptionInterviewerManagerTestes.cs" />
+    <Compile Include="AnimalActivityManagerTests.cs" />
+    <Compile Include="AnimalChecklistManagerTests.cs" />
     <Compile Include="AnimalHandlingManagerTests.cs" />
     <Compile Include="AnimalKennelManagerTests.cs" />
     <Compile Include="AnimalManagerTests.cs" />
+    <Compile Include="AnimalMedicalHistoryManagerTests.cs" />
     <Compile Include="AnimalStatusManagerTests.cs" />
     <Compile Include="FacilityInspectionManagerTests.cs" />
+    <Compile Include="MedicationManagerTests.cs" />
     <Compile Include="PetUniverseUserERolesManagerTests.cs" />
     <Compile Include="ProductManagerTests.cs" />
     <Compile Include="AnimalPrescriptionManagerTests.cs" />

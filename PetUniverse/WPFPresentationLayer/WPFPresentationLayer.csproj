@@ -115,9 +115,18 @@
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AMPages\AnimalFeedingRecords.xaml.cs">
+      <DependentUpon>AnimalFeedingRecords.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AMPages\AnimalManagementInventory.xaml.cs">
+      <DependentUpon>AnimalManagementInventory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AMPages\AnimalRecords.xaml.cs">
+      <DependentUpon>AnimalRecords.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\pgAddEditViewPromotion.xaml.cs">
       <DependentUpon>pgAddEditViewPromotion.xaml</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="FMPages\FacilityInspectionControls.xaml.cs">
       <DependentUpon>FacilityInspectionControls.xaml</DependentUpon>
     </Compile>
@@ -272,6 +281,18 @@
     <Page Include="AMPages\AnimalControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AMPages\AnimalFeedingRecords.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AMPages\AnimalManagementInventory.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AMPages\AnimalRecords.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
       <SubType>Designer</SubType>
@@ -463,6 +484,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdoptionsPages\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Arrow.png" />
+    <Resource Include="Resources\ArrowHover.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

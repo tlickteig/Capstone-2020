@@ -47,8 +47,10 @@
     <Compile Include="IAdoptionCustomerAccessor.cs" />
     <Compile Include="IAdoptionInterviewerAccessor.cs" />
     <Compile Include="IAnimalAccessor.cs" />
+    <Compile Include="IAnimalActivityAccessor.cs" />
     <Compile Include="IAnimalHandlingAccessor.cs" />
     <Compile Include="IAnimalKennelAccessor.cs" />
+    <Compile Include="IAnimalMedicalHistoryAccessor.cs" />
     <Compile Include="IAnimalPrescriptionAccessor.cs" />
     <Compile Include="IAnimalStatusAccessor.cs" />
     <Compile Include="IApplicantAccessor.cs" />
@@ -67,6 +69,8 @@
     <Compile Include="IItemCategoryAccessor.cs" />
     <Compile Include="ILocationAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
+    <Compile Include="IMedicationAccessor.cs" />
+    <Compile Include="INewAnimalChecklistAccessor.cs" />
     <Compile Include="IPetUniverseUserERolesAccessor.cs" />
     <Compile Include="IProductAccessor.cs" />
     <Compile Include="IPromotionAccessor.cs" />

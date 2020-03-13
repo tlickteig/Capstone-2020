@@ -47,6 +47,7 @@
     <Compile Include="FakeAdoptionCustomerAccessor.cs" />
     <Compile Include="FakeAdoptionInterviewerAccessor.cs" />
     <Compile Include="FakeAnimalAccessor.cs" />
+    <Compile Include="FakeAnimalActivityAccessor.cs" />
     <Compile Include="FakeAnimalHandlingAccessor.cs" />
     <Compile Include="FakeAnimalKennelAccessor.cs" />
     <Compile Include="FakeAnimalPrescriptionAccessor.cs" />
@@ -66,6 +67,9 @@
     <Compile Include="FakeItemAccessor.cs" />
     <Compile Include="FakeItemCategoryAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
+    <Compile Include="FakeMedicalHistoryAccessor.cs" />
+    <Compile Include="FakeMedicationAccessor.cs" />
+    <Compile Include="FakeNewAnimalChecklistAccessor.cs" />
     <Compile Include="FakePetUniverseUserERolesAccessor.cs" />
     <Compile Include="FakeProductAccessor.cs" />
     <Compile Include="FakePromotionAccessor.cs" />

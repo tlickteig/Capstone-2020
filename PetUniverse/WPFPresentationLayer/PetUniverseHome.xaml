@@ -9,7 +9,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFPresentationLayer"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowState="Maximized"
         Title="PetUniverse" Height="900" Width="1500" Background="#fff8e3" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid MinHeight="4" Margin="0">
         <Grid.ColumnDefinitions>
@@ -193,6 +193,18 @@
                 </TabItem>
                 <TabItem x:Name="tabViewAnimalPrescriptions" Header="View Animal Prescriptions" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AMPages/VetPrescriptionControls.xaml"></Frame>
+                </TabItem>
+
+                <TabItem x:Name="tabViewFeedingRecords" Header="View Feeding records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AMPages/AnimalFeedingRecords.xaml"/>
+                </TabItem>
+
+                <TabItem x:Name="tabViewAMInventory" Header="View Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AMPages/AnimalManagementInventory.xaml"/>
+                </TabItem>
+
+                <TabItem x:Name="tabViewAnimalRecords" Header="View Animal Records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AMPages/AnimalRecords.xaml"></Frame>
                 </TabItem>
             </TabControl>
         </Canvas>

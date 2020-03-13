@@ -45,9 +45,11 @@
     <Compile Include="AdoptionAppointmentManager.cs" />
     <Compile Include="AdoptionCustomerManager.cs" />
     <Compile Include="AdoptionInterviewerManager.cs" />
+    <Compile Include="AnimalActivityManager.cs" />
     <Compile Include="AnimalHandlingManager.cs" />
     <Compile Include="AnimalKennelManager.cs" />
     <Compile Include="AnimalManager.cs" />
+    <Compile Include="AnimalMedicalHistoryManager.cs" />
     <Compile Include="AnimalPrescriptionManager.cs" />
     <Compile Include="AnimalStatusManager.cs" />
     <Compile Include="ApplicantManager.cs" />
@@ -63,6 +65,8 @@
     <Compile Include="ItemCategoryManager.cs" />
     <Compile Include="ItemManager.cs" />
     <Compile Include="LogManager.cs" />
+    <Compile Include="MedicationManager.cs" />
+    <Compile Include="NewAnimalChecklistManager.cs" />
     <Compile Include="PetUniverseUserERolesManager.cs" />
     <Compile Include="ProductManager.cs" />
     <Compile Include="ManageBackstockRecords.cs" />
