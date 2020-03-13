@@ -128,5 +128,103 @@ namespace DataAccessFakes
 
             return result;
         }
+
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/10
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        ///
+        /// Method that deactivates an item
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public int deactivateItem(Item item)
+        {
+            int rowsAffected = 0;
+
+            Item testItem = new Item();
+            testItem.ItemID = 100000;
+            testItem.ItemName = "Dog Food";
+            testItem.ItemCategoryID = "Dog Food";
+            testItem.Description = "Dog Food Description";
+            testItem.ItemQuantity = 10;
+            testItem.Active = true;
+
+            if (item.ItemID == testItem.ItemID &&
+               item.ItemName == testItem.ItemName &&
+               item.ItemCategoryID == testItem.ItemCategoryID &&
+               item.Description == testItem.Description &&
+               item.ItemQuantity == testItem.ItemQuantity &&
+               item.Active == item.Active)
+            {
+                item.Active = false;
+                rowsAffected = 1;
+            }
+
+            return rowsAffected;
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/10
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesse Tomash
+        ///
+        /// Method that returns all items with desired active state
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="active"></param>
+        public List<Item> getAllItemsByActive(bool active)
+        {
+            List<Item> itemList = new List<Item>();
+            List<Item> filterItemList = new List<Item>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                Item item = new Item();
+                item.ItemID = 100000;
+                item.ItemName = "Name";
+                item.ItemQuantity = 10;
+                item.ItemCategoryID = "100000";
+                item.Description = "Test";
+                item.Active = true;
+                itemList.Add(item);
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                Item item = new Item();
+                item.ItemID = 100000;
+                item.ItemName = "Name";
+                item.ItemQuantity = 10;
+                item.ItemCategoryID = "100000";
+                item.Description = "Test";
+                item.Active = false;
+                itemList.Add(item);
+            }
+
+            var results = from item in itemList
+                          where item.Active == true
+                          select item;
+
+            foreach (Item i in results)
+            {
+                filterItemList.Add(i);
+            }
+
+            return filterItemList;
+        }
     }
 }

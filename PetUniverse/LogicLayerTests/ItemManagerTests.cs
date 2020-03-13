@@ -154,6 +154,70 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/13
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesse Tomash
+        ///
+        /// Test Method for deactivateing items 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeactivateItem()
+        {
+            // Arrange
+            bool result = false;
+            Item item = new Item();
+            item.ItemID = 100000;
+            item.ItemName = "Dog Food";
+            item.ItemCategoryID = "Dog Food";
+            item.Description = "Dog Food Description";
+            item.ItemQuantity = 10;
+            item.Active = true;
+
+
+            // Act
+            result = _itemManager.deactivateItem(item);
+
+            // Assert
+            Assert.AreEqual(true, result);
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/13
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesse Tomash
+        ///
+        /// Test Method that retreives items by active status
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveItemsByActive()
+        {
+            // Arrange
+            int rowsAffected = 0;
+            List<Item> itemList = new List<Item>();
+
+            // Act
+            itemList = _fakeItemAccessor.getAllItemsByActive(true);
+            rowsAffected = itemList.Count;
+
+            // Assert
+            Assert.AreEqual(5, rowsAffected);
+        }
+
+        /// <summary>
         /// Creator: Brandyn T. Coverdill
         /// Created: 2020/02/22
         /// Approver: Dalton Reierson
