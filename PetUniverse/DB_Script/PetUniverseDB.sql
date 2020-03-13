@@ -3152,20 +3152,6 @@ BEGIN
 END
 GO
 
-/*
-Created by: Kaleb Bachert
-Date: 2/13/2020
-Comment: Employee table
-*/
-print '' print '*** Creating employee table'
-GO
-CREATE TABLE [dbo].[employee] (
-	[EmployeeID]	[int]IDENTITY(1000000,1)	NOT NULL,
-	[FirstName]		[nvarchar](50)				NOT NULL
-	CONSTRAINT [pk_EmployeeID] PRIMARY KEY ([EmployeeID] ASC)
-)
-GO
-
 
 
 
@@ -3193,36 +3179,100 @@ GO
 CREATE TABLE [dbo].[request] (
 	[RequestID]				[int]IDENTITY(1000000,1)	NOT NULL,
 	[RequestTypeID]			[nvarchar](50)				NOT NULL,
-	[EffectiveStart]		[datetime]					NOT NULL,
-	[EffectiveEnd]			[datetime]						NULL,
-	[ApprovalDate]			[datetime]						NULL,
-	[RequestingEmployeeID]	[int]						NOT NULL,
-	[ApprovingUserID]		[int]							NULL,
-	[DateCreated]			[Datetime]					NOT NUll,
+	[DateCreated]			[datetime]					NOT NULL,
+	[RequestingUserID]		[int]						NOT NULL,
 	[Open]					[bit]			  NOT NULL DEFAULT 1,
 	CONSTRAINT [pk_RequestID] PRIMARY KEY ([RequestID] ASC),
 	CONSTRAINT [fk_request_requestTypeID] FOREIGN KEY([RequestTypeID])
 		REFERENCES [requestType]([RequestTypeID]) ON UPDATE CASCADE,
-	CONSTRAINT [fk_request_requestingEmployeeID] FOREIGN KEY ([RequestingEmployeeID])
-		REFERENCES [employee]([EmployeeID]),
-	CONSTRAINT [fk_request_approvingUserID] FOREIGN KEY ([ApprovingUserID])
+	CONSTRAINT [fk_request_requestingUserD] FOREIGN KEY ([RequestingUserID])
 		REFERENCES [user]([UserID])
 )
 GO
 
 /*
 Created by: Kaleb Bachert
-Date: 2/13/2020
-Comment: Method to retrieve all submitted requests
+Date: 3/6/2020
+Comment: Table that holds each submitted time off request
 */
-print '' print '*** Creating sp_select_all_requests'
+print '' print '*** Creating timeOffRequest table'
 GO
-CREATE PROCEDURE [sp_select_all_requests]
+CREATE TABLE [dbo].[timeOffRequest] (
+	[TimeOffRequestID]		[int]IDENTITY(1000000,1)	NOT NULL,
+	[EffectiveStart]		[datetime]					NOT NULL,
+	[EffectiveEnd]			[datetime]						NULL,
+	[ApprovalDate]			[datetime]						NULL,
+	[ApprovingUserID]		[int]							NULL,
+	[RequestID]				[int]						NOT NULL,
+	CONSTRAINT [pk_TimeOffRequestID] PRIMARY KEY ([TimeOffRequestID] ASC),
+	CONSTRAINT [fk_timeOffRequest_RequestID] FOREIGN KEY ([RequestID])
+		REFERENCES [request]([RequestID]),
+	CONSTRAINT [fk_timeOffRequest_ApprovingUserID] FOREIGN KEY ([ApprovingUserID])
+		REFERENCES [user]([UserID])
+)
+
+/*
+Created by: Kaleb Bachert
+Date: 3/3/2020
+Comment: Procedure to add a Time Off Request
+*/
+print '' print '*** Creating sp_insert_time_off_request'
+GO
+CREATE PROCEDURE [sp_insert_time_off_request]
+(
+	@EffectiveStart			[datetime],
+	@EffectiveEnd			[datetime],
+	@RequestingUserID		[int]
+)
 AS
 BEGIN
-	SELECT [RequestID], [RequestTypeID], [EffectiveStart], [EffectiveEnd], 
-		   [ApprovalDate], [RequestingEmployeeID], [ApprovingUserID]
+	INSERT INTO [dbo].[request]
+	([RequestTypeID], [DateCreated], [RequestingUserID])
+	VALUES
+	('Time Off', GETDATE(), @RequestingUserID)
+
+	INSERT INTO [dbo].[timeOffRequest]
+	([EffectiveStart], [EffectiveEnd], [RequestID])
+	VALUES
+	(@EffectiveStart, @EffectiveEnd, SCOPE_IDENTITY())
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Method to retrieve all submitted requests by status
+*/
+print '' print '*** Creating sp_select_requests_by_status'
+GO
+CREATE PROCEDURE [sp_select_requests_by_status]
+(
+	@OpenStatus			[bit]
+)
+AS
+BEGIN
+	SELECT [RequestID], [RequestTypeID], [RequestingUserID], [DateCreated]
 	FROM [dbo].[request]
+	WHERE [Open] = @OpenStatus
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Method to retrieve a TimeOffRequest with a specified RequestID
+*/
+print '' print '*** Creating sp_select_time_off_request_by_requestid'
+GO
+CREATE PROCEDURE [sp_select_time_off_request_by_requestid]
+(
+	@RequestID			[int]
+)
+AS
+BEGIN
+	SELECT [TimeOffRequestID], [EffectiveStart], [EffectiveEnd], [ApprovalDate], [ApprovingUserID], [RequestID]
+	FROM [dbo].[timeOffRequest]
+	WHERE [RequestID] = @RequestID
 END
 GO
 
@@ -3231,19 +3281,26 @@ Created by: Kaleb Bachert
 Date: 2/19/2020
 Comment: Method to approve a specified request
 */
-print '' print '*** Creating sp_approve_request'
+print '' print '*** Creating sp_approve_time_off_request'
 GO
-CREATE PROCEDURE [sp_approve_request]
+CREATE PROCEDURE [sp_approve_time_off_request]
+(
 	@RequestID		[int],
 	@UserID			[int]
+)
 AS
 BEGIN
-	UPDATE [dbo].[request]
+	UPDATE [dbo].[timeOffRequest]
 	SET [ApprovingUserID] = @UserID,
 		[ApprovalDate] = GETDATE()
 	WHERE [RequestID] = @RequestID
 	AND [ApprovingUserID] IS NULL
+
+	UPDATE [dbo].[request]
+	SET [Open] = 0
+	WHERE [RequestID] = @RequestID
 	AND [Open] = 1
+	
 	SELECT @@ROWCOUNT
 END
 GO
@@ -4720,20 +4777,6 @@ INSERT INTO [dbo].[RequestType]
 GO
 
 
-/*
-Created by: Steve Coonrod
-Date: 2020/02/06
-Comment: Sample Employee Data
-*/
-print '' print '*** Inserting Sample Request Records'
-GO
-INSERT INTO [dbo].[Employee]
-	([FirstName])
-	VALUES
-	('Billy')
-GO
-
-
 
 /*
 Created by: Ryan Morganti
@@ -4743,14 +4786,14 @@ Comment: Sample Request Data
 print '' print '*** Inserting Sample Request Records'
 GO
 INSERT INTO [dbo].[request]
-	([DateCreated], [RequestTypeID], [EffectiveStart],[RequestingEmployeeID])
+	([DateCreated], [RequestTypeID], [RequestingUserID])
 	VALUES
-	('20200206 11:00:00 AM', 'General', GETDATE(), 1000000),
-	('20200207 12:55:01 PM', 'General', GETDATE(), 1000000),
-	('20200208 01:02:03 PM', 'General', GETDATE(), 1000000),
-	('20200207 12:55:01 PM', 'General', GETDATE(), 1000000),
-	('20200208 01:02:03 PM', 'General', GETDATE(), 1000000),
-	('20200206 03:02:03 PM', 'General', GETDATE(), 1000000)
+	('20200206 11:00:00 AM', 'General',  100000),
+	('20200207 12:55:01 PM', 'General',  100000),
+	('20200208 01:02:03 PM', 'General',  100000),
+	('20200207 12:55:01 PM', 'General',  100000),
+	('20200208 01:02:03 PM', 'General',  100000),
+	('20200206 03:02:03 PM', 'General',  100000)
 GO 
 
 
@@ -4767,10 +4810,10 @@ CREATE PROCEDURE [sp_select_new_requests_by_departmentID]
 )
 AS
 BEGIN
-	SELECT DISTINCT[RequestID], [DateCreated], [RequestTypeID],
-		[RequestingUserID], [RequestGroupID], [RequestedGroupID],
-		[RequestSubject], [RequestTopic], [RequestBody]
-	FROM [request] JOIN [DepartmentRequest] ON
+	SELECT DISTINCT r.[RequestID], r.[DateCreated], r.[RequestTypeID],
+		r.[RequestingUserID], dr.[RequestGroupID], dr.[RequestedGroupID],
+		dr.[RequestSubject], dr.[RequestTopic], dr.[RequestBody]
+	FROM [request] AS r JOIN [DepartmentRequest] AS dr ON
 		[RequestID] = [DeptRequestID]
 	WHERE ([RequestGroupID] = @DepartmentID AND [DateAcknowledged] is NULL) OR
 		([DateAcknowledged] is NULL AND [RequestedGroupID] = @DepartmentID)
@@ -4790,11 +4833,11 @@ CREATE PROCEDURE [sp_select_active_requests_by_departmentID]
 )
 AS
 BEGIN
-	SELECT DISTINCT[RequestID], [DateCreated], [RequestTypeID],
-		[RequestingUserID], [RequestGroupID], [RequestedGroupID],
-		[DateAcknowledged], [AcknowledgingUserID], [RequestSubject],
-		[RequestTopic], [RequestBody]
-	FROM [request] JOIN [DepartmentRequest] ON
+	SELECT DISTINCT r.[RequestID], r.[DateCreated], r.[RequestTypeID],
+		r.[RequestingUserID], dr.[RequestGroupID], dr.[RequestedGroupID],
+		dr.[DateAcknowledged], dr.[AcknowledgingUserID], dr.[RequestSubject],
+		dr.[RequestTopic], dr.[RequestBody]
+	FROM [request] AS r JOIN [DepartmentRequest] AS dr ON
 		[RequestID] = [DeptRequestID]
 	WHERE ([RequestGroupID] = @DepartmentID OR [RequestedGroupID] = @DepartmentID) AND 
 		([DateAcknowledged] is NOT NULL AND [DateCompleted] is NULL)
@@ -4814,11 +4857,11 @@ CREATE PROCEDURE [sp_select_completed_requests_by_departmentID]
 )
 AS
 BEGIN
-	SELECT DISTINCT[RequestID], [DateCreated], [RequestTypeID],
-		[RequestingUserID], [RequestGroupID], [RequestedGroupID],
-		[DateAcknowledged], [AcknowledgingUserID], [DateCompleted],
-		[CompletedUserID], [RequestSubject], [RequestTopic], [RequestBody]
-	FROM [request] JOIN [DepartmentRequest] ON
+	SELECT DISTINCT r.[RequestID], r.[DateCreated], r.[RequestTypeID],
+		r.[RequestingUserID], dr.[RequestGroupID], dr.[RequestedGroupID],
+		dr.[DateAcknowledged], dr.[AcknowledgingUserID], dr.[DateCompleted],
+		dr.[CompletedUserID], dr.[RequestSubject], dr.[RequestTopic], dr.[RequestBody]
+	FROM [request] AS r JOIN [DepartmentRequest] AS dr ON
 		[RequestID] = [DeptRequestID]
 	WHERE ([RequestGroupID] = @DepartmentID OR [RequestedGroupID] = @DepartmentID) AND 
 		([DateAcknowledged] is NOT NULL AND [DateCompleted] is NOT NULL)
@@ -5847,4 +5890,41 @@ BEGIN
 	  AND	[AnimalSpeciesID]	=	@OldAnimalSpeciesID
 	  RETURN @@ROWCOUNT
 END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Inserting Sample Data for RequestType
+*/
+INSERT INTO [dbo].[requestType]
+	([RequestTypeID])
+	VALUES
+	('Time Off'), ('Availability Change')
+GO
+	
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Inserting Sample Data for Request
+*/
+INSERT INTO [dbo].[request]
+	([RequestTypeID], [RequestingUserID], [DateCreated], [Open])
+	VALUES
+	('Time Off', 100001, '2020-3-1 10:12:21', 1),
+	('Time Off', 100000, '2020-2-11 12:33:25', 1),
+	('Availability Change', 100001, GETDATE(), 0),
+	('Availability Change', 100002, GETDATE(), 1)
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Inserting Sample Data for Request
+*/
+INSERT INTO [dbo].[timeOffRequest]
+	([EffectiveStart], [EffectiveEnd], RequestID)
+	VALUES
+	('2020-3-25 12:11:10', '2020-4-10 11:31:15', 1000006),
+	('2020-4-6 11:10:9', '2020-4-12 11:13:51', 1000007)
 GO

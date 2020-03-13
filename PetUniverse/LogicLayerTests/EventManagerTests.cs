@@ -754,7 +754,7 @@ namespace LogicLayerTests
             {
                 DateCreated = DateTime.Now,
                 RequestTypeID = "Event",
-                ReviewerID = 1000000
+                RequestingUserID = 1000000
             };
             //Act
             int requestID = _eventManager.AddRequest(newRequest);

@@ -14,37 +14,36 @@ namespace LogicLayer
     public interface IRequestManager
     {
         /// <summary>
-		///  Creator: Kaleb Bachert
-		///  Created: 2/9/2020
-        ///  Approver: Jordan Lindo
-		///  Approver: Zach Behrensmeyer
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/9
+        ///  APPROVER: Jordan Lindo
         ///  
         ///  Interface method for retrieving all requests
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
         /// 
         /// </remarks>
-        List<RequestVM> RetrieveAllRequests();
+        List<Request> RetrieveRequestsByStatus(bool open);
 
         /// <summary>
-		///  Creator: Kaleb Bachert
-		///  Created: 2/19/2020
-		///  Approver: Zach Behrensmeyer
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/19
+        ///  APPROVER: NA
         ///  
         ///  Interface method for approving a request
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
         /// 
         /// </remarks>
         /// <param name="requestID"></param>
         /// <param name="userID"></param>
-        int ApproveRequest(int requestID, int userID);
+        int ApproveRequest(int requestID, int userID, string requestType);
 
         /// <summary>
         /// Creator: Ryan Morganti
@@ -117,7 +116,37 @@ namespace LogicLayer
         /// <returns></returns>
         List<string> RetrieveAllDepartmentIDsByUserID(int userId);
 
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/3
+        ///  APPROVER: NA
+        ///  
+        ///  Interface method for adding a TimeOff Request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <param name="userID"></param>
+        bool AddTimeOffRequest(TimeOffRequest request, int RequestingEmployeeID);
 
-
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/7
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for retrieving a TimeOffRequest by RequestID
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        TimeOffRequestVM RetrieveTimeOffRequestByRequestID(int requestID);
     }
+
 }

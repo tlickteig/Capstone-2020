@@ -25,6 +25,23 @@ namespace LogicLayerTests
         private IRequestAccessor _fakeRequestAccessor;
         private RequestManager _requestManager;
 
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/9
+        ///  APPROVER: Jordan Lindo
+        ///  
+        ///  Constructor for instantiating FakeRequestAccessor
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public RequestManagerTests()
+        {
+            _requestAccessor = new FakeRequestAccessor();
+        }
 
         [TestInitialize]
         public void TestSetup()
@@ -34,44 +51,70 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        ///  Creator: Kaleb Bachert
-        ///  Created: 2/9/2020
-        ///  Approver: Zach Behrensmeyer
-        ///  Approver: Jordan Lindo
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/9
+        ///  APPROVER: Jordan Lindo
         ///  
-        ///  Test method for retrieving all requests
+        ///  Test method for retrieving all open requests
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
         /// 
         /// </remarks>
         [TestMethod]
-        public void TestRetrieveAllRequests()
+        public void TestRetrieveRequestsByStatusOpen()
         {
             //arrange
-            List<RequestVM> requests;
-            //IRequestManager requestManager = new RequestManager(_requestAccessor);
+            List<Request> requests;
+            IRequestManager requestManager = new RequestManager(_requestAccessor);
 
             //act
-            requests = _requestManager.RetrieveAllRequests();
+            requests = requestManager.RetrieveRequestsByStatus(true);
 
             //assert
             Assert.AreEqual(2, requests.Count);
         }
 
         /// <summary>
-        ///  Creator: Kaleb Bachert
-        ///  Created: 2/19/2020
-        ///  Approver: Zach Behrensmeyer
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/9
+        ///  APPROVER: Jordan Lindo
+        ///  
+        ///  Test method for retrieving all closed requests
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveRequestsByStatusClosed()
+        {
+            //arrange
+            List<Request> requests;
+            IRequestManager requestManager = new RequestManager(_requestAccessor);
+
+            //act
+            requests = requestManager.RetrieveRequestsByStatus(false);
+
+            //assert
+            Assert.AreEqual(0, requests.Count);
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/19
+        ///  APPROVER: NA
         ///  
         ///  Test method for approving a request
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// UPDATER: Kaleb Bachert
+        /// UPDATED: 2020/3/7
+        /// UPDATE: Added parameter for RequestType
         /// 
         /// </remarks>
         [TestMethod]
@@ -79,10 +122,10 @@ namespace LogicLayerTests
         {
             //arrange
             int requestsChanged;
-            //IRequestManager requestManager = new RequestManager(_requestAccessor);
+            IRequestManager requestManager = new RequestManager(_requestAccessor);
 
             //act
-            requestsChanged = _requestManager.ApproveRequest(1000001, 1000000);
+            requestsChanged = requestManager.ApproveRequest(1000001, 1000000, "Time Off");
 
             //assert
             Assert.AreEqual(1, requestsChanged);
@@ -293,6 +336,66 @@ namespace LogicLayerTests
             // assert
             Assert.AreEqual(3, deptIDs.Count);
 
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/19
+        ///  APPROVER: NA
+        ///  
+        ///  Test method for creating a request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestCreateTimeOffRequest()
+        {
+            //arrange
+            bool singleRequestAdded;
+            IRequestManager requestManager = new RequestManager(_requestAccessor);
+
+            //act
+            singleRequestAdded = requestManager.AddTimeOffRequest(new TimeOffRequest()
+            {
+                TimeOffRequestID = 1000002,
+                EffectiveStart = DateTime.Now.AddDays(1),
+                EffectiveEnd = DateTime.Now.AddDays(2),
+                RequestID = 1000002
+            }, 1000000);
+
+            //assert
+            Assert.AreEqual(true, singleRequestAdded);
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/19
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Test method for retrieving a TimeOffRequestByRequestID
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveTimeOffRequestByRequestID()
+        {
+            // arrange
+            TimeOffRequestVM request = null;
+            IRequestManager requestManager = new RequestManager(_requestAccessor);
+
+            // act
+            request = requestManager.RetrieveTimeOffRequestByRequestID(1000000);
+
+            // assert
+            Assert.IsNotNull(request);
         }
 
         [TestCleanup]
