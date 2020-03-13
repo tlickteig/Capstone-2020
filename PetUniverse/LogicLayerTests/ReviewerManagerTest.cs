@@ -55,7 +55,7 @@ namespace LogicLayerTests
             adoptionApplications = reviewerManager.retrieveCustomersFilledQuestionnair();
             if (adoptionApplications != null)
             {
-                Assert.AreEqual(4, adoptionApplications.Count);
+                Assert.AreEqual(1, adoptionApplications.Count);
             }
 
         }
