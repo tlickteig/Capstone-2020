@@ -228,6 +228,56 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Chuck Baxter
+        /// Created: 3/12/2020
+        /// Approver: Austin Gee, 3/12/2020
+        /// 
+        /// Test for updating an animal
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestAnimalManagerEditAnimal()
+        {
+            // arrange
+            bool result = false;
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+
+            // act
+            Animal animal1 = new Animal()
+            {
+                AnimalID = 1,
+                AnimalName = "D",
+                Dob = DateTime.Now.Date,
+                AnimalBreed = "D",
+                ArrivalDate = DateTime.Now.Date,
+                CurrentlyHoused = true,
+                Adoptable = true,
+                Active = true,
+                AnimalSpeciesID = "D"
+            };
+            Animal animal2 = new Animal()
+            {
+                AnimalID = 1,
+                AnimalName = "D",
+                Dob = DateTime.Now.Date,
+                AnimalBreed = "D",
+                ArrivalDate = DateTime.Now.Date,
+                CurrentlyHoused = true,
+                Adoptable = true,
+                Active = true,
+                AnimalSpeciesID = "D"
+            };
+            result = animalManager.EditAnimal(animal1, animal2);
+
+            // assert
+            Assert.AreEqual(true, result);
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
         /// Created: 2/6/2020
         /// Approver: Carl Davis, 2/7/2020
         /// Approver: Daulton Schilling, 2/7/2020 

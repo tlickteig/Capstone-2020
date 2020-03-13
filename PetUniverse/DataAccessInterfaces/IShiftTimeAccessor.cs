@@ -66,5 +66,22 @@ namespace DataAccessInterfaces
         /// Update: (example: Fixed a problem when user inputs bad data)
         /// </remarks>
         List<PetUniverseShiftTime> SelectAllShiftTimes();
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 03/05/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// definition for Deleteing a new ShiftTime
+        /// and sets parameters for delete
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: (example: Fixed a problem when user inputs bad data)
+        /// </remarks>
+        /// <param name="shiftTime"></param>
+        int DeleteShiftTime(int shiftTimeID);
     }
 }

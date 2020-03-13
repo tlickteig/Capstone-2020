@@ -116,6 +116,7 @@ namespace DataAccessFakes
             }
 
         }
+
         /// <summary>
         /// Creator: Michael Thompson
         /// Created: 2/13/2020
@@ -208,6 +209,7 @@ namespace DataAccessFakes
                 return activeAnimals;
             }
         }
+
         /// <summary>
         /// Creator: Michael Thompson
         /// Created: 2/19/2020
@@ -279,6 +281,33 @@ namespace DataAccessFakes
                 "Cat"
             };
             return species;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/12/2020
+        /// Approver: Austin Gee, 3/12/2020
+        /// 
+        /// Fake data access that returns 1 if the ids match, otherwise returns 0
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimal"></param>
+        /// <param name="newAnimal"></param>
+        /// <returns></returns>
+        public int UpdateAnimal(Animal oldAnimal, Animal newAnimal)
+        {
+            foreach (Animal animal in animals)
+            {
+                if (animal.AnimalID == oldAnimal.AnimalID)
+                {
+                    return 1;
+                }
+            }
+            return 0;
         }
     }
 }

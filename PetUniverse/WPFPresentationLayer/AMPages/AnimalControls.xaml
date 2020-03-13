@@ -133,7 +133,7 @@
 
             </Grid>
         </Canvas>
-        
+
         <!--Name: Chuck Baxter
             Date: 3/3/2020
             CHECKED BY: Jaeho Kim, 3/3/2020
@@ -169,7 +169,7 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                
+
                 <!--Name-->
                 <Label Grid.Row="0" Content="Name:" HorizontalContentAlignment="Right"
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
@@ -187,25 +187,25 @@
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
                 <Label x:Name="lblIndividualAnimalSpecies" Grid.Row="2" Grid.Column="1" Content="" 
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
-                
+
                 <!--Breed-->
                 <Label Grid.Row="3" Content="Breed:" HorizontalContentAlignment="Right"
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
                 <Label x:Name="lblIndividualAnimalBreed" Grid.Row="3" Grid.Column="1" Content="" 
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
-                
+
                 <!--Dob-->
                 <Label Grid.Row="4" Content="Date of Birth:" HorizontalContentAlignment="Right"
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
                 <Label x:Name="lblIndividualAnimalDob" Grid.Row="4" Grid.Column="1" Content="" 
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
-                
+
                 <!--Arrival Date-->
                 <Label Grid.Row="5" Content="Arrival Date:" HorizontalContentAlignment="Right"
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
                 <Label x:Name="lblIndividualAnimalArrivalDate" Grid.Row="5" Grid.Column="1" Content="" 
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
-                
+
                 <!--Check Boxes-->
                 <Grid Grid.Row="6" Grid.ColumnSpan="2">
                     <Grid.ColumnDefinitions>
@@ -214,7 +214,7 @@
                         <ColumnDefinition></ColumnDefinition>
 
                     </Grid.ColumnDefinitions>
-                    
+
                     <!--Active-->
                     <CheckBox x:Name="chkIndvidualActive" Grid.Row="0" Grid.Column="0" 
                               VerticalAlignment="Center" VerticalContentAlignment="Center"
@@ -247,7 +247,7 @@
                     </CheckBox>
 
                 </Grid>
-                
+
                 <!--Return & Edit-->
                 <Button x:Name="BtnReturnViewIndividualAnimal" Grid.Row="7" Grid.Column="0"
                         Width="150" FontSize="36" Padding="10"
@@ -255,9 +255,149 @@
                         Click="BtnReturnViewIndividualAnimal_Click">Return</Button>
                 <Button x:Name="BtnEditIndividualAnimal" Grid.Row="7" Grid.Column="1"
                         Width="150" FontSize="36" Padding="10"
-                        VerticalAlignment="Center" HorizontalAlignment="Center">Edit</Button>
+                        VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Click="BtnEditIndividualAnimal_Click">Edit</Button>
+            </Grid>
+        </Canvas>
+
+        <!--Name: Chuck Baxter
+            Date: 3/11/2020
+            CHECKED BY: Austin Gee, 3/12/2020
+            CHECKED BY:
+            XAML for editing an animal 
+    
+            Updater:
+            Updated:
+            Update:
+            Approver:
+        -->
+        <Canvas Height="845" Width=" 1280" x:Name="canEditAnimal" Background="AntiqueWhite" Visibility="Hidden">
+            <Grid Height="800" Width=" 1280">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label FontSize="36" VerticalAlignment="Center" Grid.Row="0">Edit Animal</Label>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <!--ID-->
+                    <Label Grid.Row="0"  HorizontalAlignment="Right" FontSize="22" VerticalAlignment="Center">Animal ID:</Label>
+                    <Label x:Name="lblEditAnimalID" Grid.Row="0" Grid.Column="1" Content="" 
+                           FontSize="16" VerticalContentAlignment="Center" Margin="25 0 25 0"></Label>
+
+                    <!--Edit Animal Name-->
+                    <Label x:Name="lblEditAnimalName" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Name:</Label>
+                    <TextBox x:Name="txtEditAnimalName"  Grid.Row="1" Grid.Column="1" Background="LightGray" Height="30" 
+                             Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+
+                    <!--Edit Animal Species-->
+                    <Label x:Name="lblEditAnimalSpecies" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Species:</Label>
+                    <ComboBox x:Name="cmbEditAnimalSpecies" Grid.Row="2" Grid.Column="1" Height="30" 
+                              Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></ComboBox>
+
+                    <!--Edit Animal Breed-->
+                    <Label x:Name="lblEditAnimalBreed" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Breed:</Label>
+                    <TextBox  x:Name="txtEditAnimalBreed" Grid.Row="3" Grid.Column="1" Background="LightGray" Height="30" 
+                              Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+
+                    <!--Edit Check Boxes-->
+                    <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+
+                        </Grid.ColumnDefinitions>
+
+                        <!--Edit Active-->
+                        <CheckBox x:Name="chkEditActive" Grid.Row="0" Grid.Column="0" 
+                              VerticalAlignment="Center" VerticalContentAlignment="Center"
+                              HorizontalAlignment="Center" IsEnabled="True"
+                              FontSize="22" Content="Active" Margin="10">
+                            <CheckBox.LayoutTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2" />
+                            </CheckBox.LayoutTransform>
+                        </CheckBox>
+
+
+                        <!--Edit CurrentlyHoused-->
+                        <CheckBox x:Name="chkEditCurrentlyHoused" Grid.Row="0" Grid.Column="1" 
+                              VerticalAlignment="Center" VerticalContentAlignment="Center"
+                              HorizontalAlignment="Center" IsEnabled="True"
+                              FontSize="22" Content="Currently Housed" Margin="10">
+                            <CheckBox.LayoutTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2" />
+                            </CheckBox.LayoutTransform>
+                        </CheckBox>
+
+                        <!--Edit Adoptable-->
+                        <CheckBox x:Name="chkEditAdoptable" Grid.Row="0" Grid.Column="2" 
+                              VerticalAlignment="Center" VerticalContentAlignment="Center"
+                              HorizontalAlignment="Center" IsEnabled="True"
+                              FontSize="22" Content="Adoptable" Margin="10">
+                            <CheckBox.LayoutTransform>
+                                <ScaleTransform ScaleX="2" ScaleY="2" />
+                            </CheckBox.LayoutTransform>
+                        </CheckBox>
+
+                    </Grid>
+
+                    <Grid Grid.Row="5" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition Height="80"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="175"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="175"></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Edit Arrival Date-->
+                        <Label x:Name="lblEditArrivalDate" Grid.Row="0" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center">Arrival Date:</Label>
+                        <Calendar x:Name="cndEditArrivalDate" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center"
+                                  SelectionMode="SingleDate"/>
+
+                        <!-- Edit Date of Birth-->
+                        <Label x:Name="lblEditDob" Grid.Row="0" Grid.Column="2" FontSize="22" VerticalAlignment="Center" 
+                               HorizontalAlignment="Center">Date of Birth:</Label>
+                        <Calendar x:Name="cndEditDob" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" 
+                                  VerticalAlignment="Center" Margin="0 0 12.5 0"/>
+
+                        <!--Edit Submit-->
+                        <Button x:Name="BtnSubmitAnimalEdit" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
+                                Width="150" FontSize="36" Padding="10"
+                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Click="BtnSubmitAnimalEdit_Click">Submit</Button>
+
+                        <!--Edit Cancel-->
+                        <Button x:Name="btnCancelAnimalEdit" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" 
+                                Width="150" FontSize="36" Padding="10"
+                                VerticalAlignment="Center" HorizontalAlignment="Center"
+                                Click="BtnCancelAnimalEdit_Click">Cancel</Button>
+                    </Grid>
+                </Grid>
             </Grid>
         </Canvas>
     </Canvas>
-
 </Page>

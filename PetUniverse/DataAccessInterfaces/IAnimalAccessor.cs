@@ -120,5 +120,21 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns>a list of animal species</returns>
         List<string> SelectAnimalSpeciesID();
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/12/2020
+        /// Approver: Austin Gee, 3/12/2020
+        /// Approver: 
+        /// 
+        /// a data access method for updating an animal
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>an int</returns>
+        int UpdateAnimal(Animal oldAnimal, Animal newAnimal);
     }
 }
