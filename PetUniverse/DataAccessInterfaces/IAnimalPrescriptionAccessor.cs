@@ -21,7 +21,6 @@ namespace DataAccessInterfaces
         /// Creator: Ethan Murphy
         /// Created: 2/16/2020
         /// Approver: Carl Davis 2/21/2020
-        /// Approver:
         /// 
         /// Creates an animal prescription record
         /// </summary>
@@ -33,5 +32,20 @@ namespace DataAccessInterfaces
         /// <param name="animalPrescription">An AnimalPrescription object</param>
         /// <returns>Creation succesful</returns>
         bool CreateAnimalPrescriptionRecord(AnimalPrescriptions animalPrescription);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/9/2020
+        /// Approver: Carl Davis 3/13/2020
+        /// 
+        /// Selects all animal prescription records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>List of animal prescriptions</returns>
+        List<AnimalPrescriptions> SelectAllAnimalPrescriptionRecords();
     }
 }

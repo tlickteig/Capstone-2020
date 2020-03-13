@@ -1241,6 +1241,25 @@ END
 GO
 
 /*
+Create by: Ethan Murphy
+Date: 3/9/2020
+Comment: Procedure to select all animal prescription records
+*/
+print '' print '*** creating sp_select_all_animal_prescriptions'
+GO
+CREATE PROCEDURE [sp_select_all_animal_prescriptions]
+AS
+BEGIN
+	SELECT [AnimalPrescriptionsID], [Animal].[AnimalID], [AnimalVetAppointmentID],
+			[PrescriptionName], [Dosage], [Interval], [AdministrationMethod],
+			[StartDate], [EndDate], [Description], [AnimalName]
+	FROM [AnimalPrescriptions] INNER JOIN [Animal]
+    ON [AnimalPrescriptions].[AnimalID] = [Animal].[AnimalID]
+	ORDER BY [AnimalName]
+END
+GO
+
+/*
 Created by: Ethan Murphy
 Date: 2/7/2020
 Comment: Stored procedure for inserting vet appointments
