@@ -65,6 +65,7 @@
     <Compile Include="FakeItemAccessor.cs" />
     <Compile Include="FakeItemCategoryAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
+    <Compile Include="FakePetUniverseUserERolesAccessor.cs" />
     <Compile Include="FakeProductAccessor.cs" />
     <Compile Include="FakeRequestAccessor.cs" />
     <Compile Include="FakeReviewerAccessor.cs" />

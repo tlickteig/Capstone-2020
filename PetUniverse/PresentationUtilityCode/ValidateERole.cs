@@ -57,7 +57,7 @@ namespace PresentationUtilityCode
         /// </remarks>
         /// <param name="dept"></param>
         /// <returns></returns>
-        public static bool checkEDepartmentID(this string dept)
+        public static bool checkDepartmentID(this string dept)
         {
             bool isValid = false;
 

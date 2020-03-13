@@ -151,7 +151,7 @@ namespace WPFPresentationLayer.PersonnelPages
         {
             string departmentID = txtAddDepartmentDepartmentName.Text;
             string description = txtAddDepartmentDescription.Text;
-            if (ValidateERole.checkEDepartmentID(departmentID) && ValidateERole.checkDescription(description))
+            if (ValidateERole.checkDepartmentID(departmentID) && ValidateERole.checkDescription(description))
                 try
                 {
                     if (_departmentManager.AddDepartment(departmentID, description))
