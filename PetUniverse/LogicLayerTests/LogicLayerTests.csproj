@@ -77,6 +77,7 @@
     <Compile Include="ShiftTimeManagerTests.cs" />
     <Compile Include="TrainingVideoTests.cs" />
     <Compile Include="TransactionManagerTests.cs" />
+    <Compile Include="PromotionManagerTests.cs" />
     <Compile Include="UserManagerTests.cs" />
     <Compile Include="VetAppointmentManagerTests.cs" />
     <Compile Include="VolunteerEventTests.cs" />

@@ -72,6 +72,7 @@
     <Compile Include="PetUniverseUser.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductViewModel.cs" />
+    <Compile Include="Promotion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PUEvent.cs" />
     <Compile Include="questionnair.cs" />

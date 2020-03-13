@@ -100,7 +100,7 @@ namespace WPFPresentationLayer.PoSPages
             {
                 _allProducts = _productManager.RetrieveAllProductsByType();
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 WPFErrorHandler.ErrorMessage("There was an issue loading Products");
             }
@@ -147,9 +147,9 @@ namespace WPFPresentationLayer.PoSPages
         /// Adds a product to a transaction.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater: Robert Holmes
+        /// Updated: 2020/03/13
+        /// Update: Changed error handling to be more user friendly.
         /// 
         /// </remarks>
         /// <param name="ProductID"></param>
@@ -190,7 +190,7 @@ namespace WPFPresentationLayer.PoSPages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\n" + ex.StackTrace);
+                WPFErrorHandler.ErrorMessage("Unable to load products", ex.GetType().ToString());
             }
         }
 
@@ -202,9 +202,9 @@ namespace WPFPresentationLayer.PoSPages
         /// Does math and displays totals for the transaction.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated:
+        /// Update:
         /// 
         /// </remarks>
         private void updateTotals()

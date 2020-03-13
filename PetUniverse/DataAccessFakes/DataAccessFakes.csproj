@@ -63,6 +63,7 @@
     <Compile Include="FakeItemCategoryAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
     <Compile Include="FakeProductAccessor.cs" />
+    <Compile Include="FakePromotionAccessor.cs" />
     <Compile Include="FakeRequestAccessor.cs" />
     <Compile Include="FakeReviewerAccessor.cs" />
     <Compile Include="FakeShiftTimeAccessor.cs" />

@@ -64,6 +64,7 @@
     <Compile Include="IItemCategoryAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IProductAccessor.cs" />
+    <Compile Include="IPromotionAccessor.cs" />
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="ITrainingVideoAccessor.cs" />

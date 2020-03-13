@@ -582,5 +582,33 @@ namespace WPFPresentationLayer
         {
             frmViewPersonnelRequests.Content = new PersonnelPages.ViewPersonnelRequests(_user);
         }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/10
+        /// Approver: 
+        /// 
+        /// Method to load the promotions page into the frame.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tabPromotions_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (frmPromotions == null)
+            {
+                frmPromotions = new Frame();
+                tabPromotions.Content = frmPromotions;
+            }
+            if (frmPromotions.Content == null)
+            {
+                frmPromotions.Navigate(new pgPromotion(frmPromotions));
+            }
+        }
     }
 }

@@ -74,6 +74,7 @@
     <Compile Include="IVolunteerManager.cs" />
     <Compile Include="IVolunteerShiftManager.cs" />
     <Compile Include="IVolunteerTaskManager.cs" />
+    <Compile Include="IPromotionManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

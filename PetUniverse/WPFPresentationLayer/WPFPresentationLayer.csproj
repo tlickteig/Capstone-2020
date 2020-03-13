@@ -109,9 +109,12 @@
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PoSPages\pgAddEditViewPromotion.xaml.cs">
+      <DependentUpon>pgAddEditViewPromotion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\pgCheckOut.xaml.cs">
       <DependentUpon>pgCheckOut.xaml</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="AMPages\HandlingControls.xaml.cs">
       <DependentUpon>HandlingControls.xaml</DependentUpon>
     </Compile>
@@ -153,6 +156,9 @@
     </Compile>
     <Compile Include="PoSPages\InventoryItems.xaml.cs">
       <DependentUpon>InventoryItems.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PoSPages\pgPromotion.xaml.cs">
+      <DependentUpon>pgPromotion.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\ViewAllTransactions.xaml.cs">
       <DependentUpon>ViewAllTransactions.xaml</DependentUpon>
@@ -247,8 +253,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PoSPages\pgCheckOut.xaml">
-		<SubType>Designer</SubType>
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AMPages\HandlingControls.xaml">
@@ -306,6 +316,10 @@
     <Page Include="PoSPages\InventoryItems.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PoSPages\pgPromotion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\ViewAllTransactions.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -421,11 +435,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AdoptionsPages\" />
-    <Folder Include="InventoryPages\" />
-    <Folder Include="PersonnelPages\" />
-	<Folder Include="PoSPages\" />
-    <Folder Include="RecruitingPages\" />
-    <Folder Include="VolunteerPages\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
