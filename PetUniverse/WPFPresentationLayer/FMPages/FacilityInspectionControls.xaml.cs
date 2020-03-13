@@ -127,17 +127,17 @@ namespace WPFPresentationLayer.FMPages
             }
             if (string.IsNullOrEmpty(txtInspectorName.Text))
             {
-                MessageBox.Show("Please enter the maintenance name");
+                MessageBox.Show("Please enter the inspector name");
                 return;
             }
             if (string.IsNullOrEmpty(cndInspectionDate.SelectedDate.ToString()))
             {
-                MessageBox.Show("Please enter the maintenance interval");
+                MessageBox.Show("Please enter the inspection date");
                 return;
             }
             if (string.IsNullOrEmpty(txtInspectionDescription.Text))
             {
-                MessageBox.Show("Please enter the maintenance description");
+                MessageBox.Show("Please enter the inspection description");
                 return;
             }
 
@@ -154,7 +154,7 @@ namespace WPFPresentationLayer.FMPages
                 {
                     MessageBox.Show("Inspection record successfully added.");
                     canAddFacilityInspection.Visibility = Visibility.Hidden;
-                    // RefreshViewAllList();
+                    RefreshViewAllList();
                     txtUserID.Text = "";
                     txtInspectorName.Text = "";
                     txtInspectionDescription.Text = "";
@@ -197,6 +197,184 @@ namespace WPFPresentationLayer.FMPages
                 BtnSubmitInspectionRecord.Visibility = Visibility.Visible;
             }
             canAddFacilityInspection.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/12/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// 
+        /// method to load facility maintenance data
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgFacilityInspection_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (dgFacilityInspection.ItemsSource == null)
+                {
+                    dgFacilityInspection.ItemsSource = _facilityInspectionManager.RetrieveAllFacilityInspection((bool)chkInspected.IsChecked);
+                    dgFacilityInspection.Columns[0].Header = "Facility Inspection ID";
+                    dgFacilityInspection.Columns[1].Header = "User ID";
+                    dgFacilityInspection.Columns[2].Header = "Inspector Name";
+                    dgFacilityInspection.Columns[3].Header = "Inspection Date";
+                    dgFacilityInspection.Columns[4].Header = "Inspection Description";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                WPFErrorHandler.ErrorMessage(ex.Message, "Retrive");
+            }
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/12/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// 
+        /// method to refresh the data grid items
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RefreshViewAllList()
+        {
+            try
+            {
+                dgFacilityInspection.ItemsSource = _facilityInspectionManager.RetrieveAllFacilityInspection((bool)chkInspected.IsChecked);
+                dgFacilityInspection.Columns[0].Header = "Facility Inspection ID";
+                dgFacilityInspection.Columns[1].Header = "User ID";
+                dgFacilityInspection.Columns[2].Header = "Inspector Name";
+                dgFacilityInspection.Columns[3].Header = "Inspection Date";
+                dgFacilityInspection.Columns[4].Header = "Inspection Description";
+
+            }
+            catch (Exception ex)
+            {
+
+                WPFErrorHandler.ErrorMessage(ex.Message, "Retrieve");
+            }
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/12/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// 
+        /// Refeshes the view all list when chkActive is clicked
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkInspected_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshViewAllList();
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/12/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// 
+        /// Refeshes the view all list
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            RefreshViewAllList();
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/12/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// 
+        /// searches the item inputed by the user and displays it on the screen
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        {
+            if (cmbFacilityInspectionFields.Text == inspectionItems[0])
+            {
+                try
+                {
+                    int inspectionID = Int32.Parse(txtSearchItem.Text);
+                    dgFacilityInspection.ItemsSource = _facilityInspectionManager.RetrieveFacilityInspectionByID(inspectionID, (bool)chkInspected.IsChecked);
+                    dgFacilityInspection.Columns[0].Header = "Facility Inspection ID";
+                    dgFacilityInspection.Columns[1].Header = "User ID";
+                    dgFacilityInspection.Columns[2].Header = "Inspector Name";
+                    dgFacilityInspection.Columns[3].Header = "Inspection Date";
+                    dgFacilityInspection.Columns[4].Header = "Inspection Description";
+                }
+                catch (Exception ex)
+                {
+
+                    WPFErrorHandler.ErrorMessage(ex.Message, "Retrieve");
+                }
+            }
+            else if (cmbFacilityInspectionFields.Text == inspectionItems[1])
+            {
+                try
+                {
+                    int userID = Int32.Parse(txtSearchItem.Text);
+                    dgFacilityInspection.ItemsSource = _facilityInspectionManager.RetrieveFacilityInspectionByUserID(userID, (bool)chkInspected.IsChecked);
+                    dgFacilityInspection.Columns[0].Header = "Facility Inspection ID";
+                    dgFacilityInspection.Columns[1].Header = "User ID";
+                    dgFacilityInspection.Columns[2].Header = "Inspector Name";
+                    dgFacilityInspection.Columns[3].Header = "Inspection Date";
+                    dgFacilityInspection.Columns[4].Header = "Inspection Description";
+                }
+                catch (Exception ex)
+                {
+
+                    WPFErrorHandler.ErrorMessage(ex.Message, "Retrieve");
+                }
+            }
+            else if (cmbFacilityInspectionFields.Text == inspectionItems[2])
+            {
+                try
+                {
+                    string inspectorName = txtSearchItem.Text;
+                    dgFacilityInspection.ItemsSource = _facilityInspectionManager.RetrieveFacilityInspectionByInspectorName(inspectorName, (bool)chkInspected.IsChecked);
+                    dgFacilityInspection.Columns[0].Header = "Facility Inspection ID";
+                    dgFacilityInspection.Columns[1].Header = "User ID";
+                    dgFacilityInspection.Columns[2].Header = "Inspector Name";
+                    dgFacilityInspection.Columns[3].Header = "Inspection Date";
+                    dgFacilityInspection.Columns[4].Header = "Inspection Description";
+                }
+                catch (Exception ex)
+                {
+
+                    WPFErrorHandler.ErrorMessage(ex.Message, "Retrieve");
+                }
+            }
         }
     }
 }

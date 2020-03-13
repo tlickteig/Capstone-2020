@@ -1132,6 +1132,96 @@ END
 GO
 
 /*
+Created by: Carl Davis
+Date: 3/11/2020
+Comment: Sproc to select all facility inspections
+*/
+print '' print '*** Creating sp_select_all_facility_inspection'
+GO
+CREATE PROCEDURE [sp_select_all_facility_inspection]
+(
+	@InspectionCompleted			[bit]
+)
+AS
+BEGIN
+    SELECT [FacilityInspectionID], [UserID], [InspectorName],
+            [InspectionDate], [InspectionDescription], [InspectionCompleted]
+    FROM [dbo].[FacilityInspection] 
+	WHERE [InspectionCompleted] = @InspectionCompleted
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 3/11/2020
+Comment: Sproc to select facility inspection by id
+*/
+
+print '' print '*** Creating sp_select_facility_inspection_by_id'
+GO
+CREATE PROCEDURE [sp_select_facility_inspection_by_id]
+(
+    @FacilityInspectionID                        	[int],
+	@InspectionCompleted 							[bit]
+
+)
+AS
+BEGIN
+    SELECT [FacilityInspectionID], [UserID], [InspectorName],
+            [InspectionDate], [InspectionDescription], [InspectionCompleted]
+    FROM [dbo].[FacilityInspection] 
+	WHERE [FacilityInspectionID] = @FacilityInspectionID
+	AND [InspectionCompleted] = @InspectionCompleted
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 3/11/2020
+Comment: Sproc to select facility inspection by user id
+*/
+print '' print '*** Creating sp_select_facility_inspection_by_user_id'
+GO
+CREATE PROCEDURE [sp_select_facility_inspection_by_user_id]
+(
+    @UserID           								[int],
+	@InspectionCompleted							[bit]
+)
+AS
+BEGIN
+    SELECT [FacilityInspectionID], [UserID], [InspectorName],
+            [InspectionDate], [InspectionDescription], [InspectionCompleted]
+    FROM [dbo].[FacilityInspection] 
+	WHERE [UserID] = @UserID
+		AND [InspectionCompleted] = @InspectionCompleted
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 3/11/2020
+Comment: Sproc to select facility inspection by inspector name
+*/
+print '' print '*** Creating sp_select_facility_inspection_by_inspector_name'
+GO
+CREATE PROCEDURE [sp_select_facility_inspection_by_inspector_name]
+(
+    @InspectorName                        	[nvarchar](50),
+	@InspectionCompleted					[bit]
+)
+AS
+BEGIN
+    SELECT [FacilityInspectionID], [UserID], [InspectorName],
+            [InspectionDate], [InspectionDescription], [InspectionCompleted]
+    FROM [dbo].[FacilityInspection] 
+	WHERE [InspectorName] = @InspectorName
+	AND [InspectionCompleted] = @InspectionCompleted
+END
+GO
+
+/*
 Created by: Ethan Murphy
 Date: 2/11/2020
 Comment: Sproc to Select all vet appointments
