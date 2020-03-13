@@ -28,6 +28,49 @@ namespace DataAccessLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 3/12/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This is used to insert appointments into the database
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        public int InsertAdoptionApplication(AdoptionAppointment adoptionAppointment)
+        {
+            int rows = 0;
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_insert_appointment", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@AdoptionApplicationID", adoptionAppointment.AdoptionApplicationID);
+            cmd.Parameters.AddWithValue("@AppointmentTypeID", adoptionAppointment.AppointmentTypeID);
+            cmd.Parameters.AddWithValue("@DateTime", adoptionAppointment.AppointmentDateTime);
+            cmd.Parameters.AddWithValue("@LocationID", adoptionAppointment.LocationID);
+            
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 3/4/2020
         /// CHECKED BY: Thomas Dupuy
         /// 

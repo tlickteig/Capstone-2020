@@ -50,6 +50,7 @@
     <Compile Include="IAnimalKennelManager.cs" />
     <Compile Include="IAnimalManager.cs" />
     <Compile Include="IAnimalPrescriptionManager.cs" />
+    <Compile Include="IAnimalStatusManager.cs" />
     <Compile Include="IApplicantManager.cs" />
     <Compile Include="IAppointmentManager.cs" />
     <Compile Include="ICustomerManager.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="IPUEventManager.cs" />
     <Compile Include="IRequestManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
+    <Compile Include="IStatusManager.cs" />
     <Compile Include="ITrainingVideoManager.cs" />
     <Compile Include="ITransactionManager.cs" />
     <Compile Include="IUserManager.cs" />

@@ -49,6 +49,7 @@
     <Compile Include="AnimalHandlingAccessor.cs" />
     <Compile Include="AnimalKennelAccessor.cs" />
     <Compile Include="AnimalPrescriptionAccessor.cs" />
+    <Compile Include="AnimalStatusAccessor.cs" />
     <Compile Include="ApplicantAccessor.cs" />
     <Compile Include="AppointmentAccessor.cs" />
     <Compile Include="BackStockAccessor.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="InventoryItemsAccessor.cs" />
     <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemCategoryAccessor.cs" />
+    <Compile Include="LocationAccessor.cs" />
     <Compile Include="LogAccessor.cs" />
     <Compile Include="PetUniverseERolesAccessor.cs" />
     <Compile Include="ProductAccessor.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="RequestAccessor.cs" />
     <Compile Include="ReviewerAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
+    <Compile Include="StatusAccessor.cs" />
     <Compile Include="TrainingVideoAccessor.cs" />
     <Compile Include="TransactionAccessor.cs" />
     <Compile Include="UserAccessor.cs" />

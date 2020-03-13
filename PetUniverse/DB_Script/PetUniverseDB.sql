@@ -5862,66 +5862,6 @@ BEGIN
 END
 GO
 
-/*
-Created by: Austin Gee
-Date: 3/4/2020
-Comment: Stored Procedure that selects adoption appointment by appointment id.
-*/
-print '' print '*** Creating sp_select_adoption_appointment_by_appointment_id'
-GO
-CREATE PROCEDURE [sp_select_adoption_appointment_by_appointment_id]
-(
-	@AppointmentID [int]
-)
-AS
-BEGIN
-	SELECT
-	[AppointmentID]
-	,[AdoptionApplication].[AdoptionApplicationID]
-	,[Appointment].[AppointmentTypeID]
-	,[Appointment].[DateTime]
-	,[Appointment].[Notes]
-	,[Appointment].[Decision]
-	,[Location].[LocationID]
-	,[Appointment].[Active]
-	,[Customer].[CustomerID]
-	,[Animal].[AnimalID]
-	,[AdoptionApplication].[Status]
-	,[AdoptionApplication].[RecievedDate]
-	,[Location].[Name]
-	,[Location].[Address1]
-	,[Location].[Address2]
-	,[Location].[City]
-	,[Location].[State]
-	,[Location].[Zip]
-	,[Customer].[UserID]
-	,[User].[FirstName]
-	,[User].[LastName]
-	,[User].[PhoneNumber]
-	,[User].[Email]
-	,[User].[Active]
-	,[User].[City]
-	,[User].[State]
-	,[User].[Zipcode]
-	,[Animal].[AnimalName]
-	,[Animal].[Dob]
-	,[Animal].[AnimalSpeciesID]
-	,[Animal].[AnimalBreed]
-	,[Animal].[ArrivalDate]
-	,[Animal].[CurrentlyHoused]
-	,[Animal].[Adoptable]
-	,[Animal].[Active]
-	FROM [Appointment] JOIN [AdoptionApplication] ON [AdoptionApplication].[AdoptionApplicationID] = [Appointment].[AdoptionApplicationID]
-	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
-	JOIN [Customer] ON [AdoptionApplication].[CustomerID] = [Customer].[CustomerID]
-	JOIN [Animal] ON [AdoptionApplication].[AnimalID] = [Animal].[AnimalID]
-	JOIN [User] ON [Customer].[UserID] = [User].[UserID]
-	WHERE [Appointment].[AppointmentID] = @AppointmentID
-	ORDER BY [Appointment].[DateTime] DESC
-END
-GO
-
-
 print '' print '*** Creating AnimalStatus Table'
 GO
 /*
@@ -6284,3 +6224,344 @@ AS
 		(@PromotionID, @ProductID)
 	END
 GO
+
+/*
+Created by: Austin Gee
+Date: 3/4/2020
+Comment: Stored Procedure that selects adoption appointment by appointment id.
+*/
+print '' print '*** Creating sp_select_adoption_appointment_by_appointment_id'
+GO
+CREATE PROCEDURE [sp_select_adoption_appointment_by_appointment_id]
+(
+	@AppointmentID [int]
+)
+AS
+BEGIN
+	SELECT 
+	[AppointmentID]
+	,[AdoptionApplication].[AdoptionApplicationID]
+	,[Appointment].[AppointmentTypeID]
+	,[Appointment].[DateTime]
+	,[Appointment].[Notes]
+	,[Appointment].[Decision]
+	,[Location].[LocationID]
+	,[Appointment].[Active]
+	,[Customer].[CustomerID]
+	,[Animal].[AnimalID]
+	,[AdoptionApplication].[Status]
+	,[AdoptionApplication].[RecievedDate]
+	,[Location].[Name]
+	,[Location].[Address1]
+	,[Location].[Address2]
+	,[Location].[City]
+	,[Location].[State]
+	,[Location].[Zip]
+	,[Customer].[UserID]
+	,[User].[FirstName]
+	,[User].[LastName]
+	,[User].[PhoneNumber]
+	,[User].[Email]
+	,[User].[Active]
+	,[User].[City]
+	,[User].[State]
+	,[User].[Zipcode]
+	,[Animal].[AnimalName]
+	,[Animal].[Dob]
+	,[Animal].[AnimalSpeciesID]
+	,[Animal].[AnimalBreed]
+	,[Animal].[ArrivalDate]
+	,[Animal].[CurrentlyHoused]
+	,[Animal].[Adoptable]
+	,[Animal].[Active]
+	FROM [Appointment] JOIN [AdoptionApplication] ON [AdoptionApplication].[AdoptionApplicationID] = [Appointment].[AdoptionApplicationID]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	JOIN [Customer] ON [AdoptionApplication].[CustomerID] = [Customer].[CustomerID]
+	JOIN [Animal] ON [AdoptionApplication].[AnimalID] = [Animal].[AnimalID]
+	JOIN [User] ON [Customer].[UserID] = [User].[UserID]
+	WHERE [Appointment].[AppointmentID] = @AppointmentID
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 3/11/2020
+Comment: Sproc to create a status
+*/
+print '' print '*** creating sp_insert_status'
+GO
+CREATE PROCEDURE [sp_insert_status]
+(
+	@StatusID	[nvarchar](100)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Status]
+		([StatusID])
+	VALUES
+		(@StatusID)
+	RETURN @@ROWCOUNT
+END
+GO	
+
+/*
+Created by: Austin Gee
+Date: 3/11/2020
+Comment: Sproc to select all statuses
+*/
+print '' print '*** creating sp_select_all_statuses'
+GO
+CREATE PROCEDURE [sp_select_all_statuses]
+AS
+BEGIN
+	SELECT
+		[StatusID]
+	FROM
+		[dbo].[Status]
+	ORDER BY [StatusID] ASC
+END
+GO	
+
+/*
+Created by: Austin Gee
+Date: 3/11/2020
+Comment: Sproc to insert an Animal status
+*/
+print '' print '*** creating sp_insert_animal_status'
+GO
+CREATE PROCEDURE [sp_insert_animal_status]
+(
+	@StatusID	[nvarchar](100),
+	@AnimalID	[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[AnimalStatus]
+		([AnimalID], [StatusID])
+	VALUES
+		(@AnimalID, @StatusID)
+	RETURN @@ROWCOUNT
+END
+GO	
+
+/*
+Created by: Austin Gee
+Date: 3/11/2020
+Comment: Sproc to select an animal status by animal ID
+*/
+print '' print '*** creating sp_select_animal_status_by_animal_id'
+GO
+CREATE PROCEDURE [sp_select_animal_status_ids_by_animal_id]
+(
+	@AnimalID	[int]
+)
+AS
+BEGIN
+	SELECT [StatusID]
+	FROM [dbo].[AnimalStatus]
+	WHERE [AnimalID] = @AnimalID
+	ORDER BY [StatusID] ASC
+END
+GO	
+
+/*
+Created by: Austin Gee
+Date: 3/11/2020
+Comment: Sproc to delete an Animal status
+*/
+print '' print '*** creating sp_delete_animal_status'
+GO
+CREATE PROCEDURE [sp_delete_animal_status]
+(
+	@StatusID	[nvarchar](100),
+	@AnimalID	[int]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[AnimalStatus]
+	WHERE [AnimalID] = @AnimalID
+	AND [StatusID] = @StatusID
+	RETURN @@ROWCOUNT
+END
+GO	
+
+/*
+Created by: Austin Gee
+Date: 3/11/2020
+Comment: Sproc to insert an appointment
+*/
+print '' print '*** creating sp_insert_appointment'
+GO
+CREATE PROCEDURE [sp_insert_appointment]
+(
+	@AdoptionApplicationID	[int],
+	@AppointmentTypeID		[nvarchar](100),
+	@DateTime				[datetime],
+	@LocationID				[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Appointment]
+		([AdoptionApplicationID], [AppointmentTypeID], [DateTime], [LocationID])
+	VALUES
+		(@AdoptionApplicationID, @AppointmentTypeID, @DateTime, @LocationID)
+	RETURN @@ROWCOUNT
+END
+GO	
+
+/*
+Created by: Austin Gee
+Date: 3/12/2020
+Comment: Sproc to insert a location
+*/
+print '' print '*** creating sp_insert_location'
+GO
+CREATE PROCEDURE [sp_insert_location]
+(
+	@Name			[nvarchar](100),
+	@Address1		[nvarchar](100),
+	@Address2		[nvarchar](100),
+	@City			[nvarchar](100),
+	@State			[nvarchar](2),
+	@Zip			[nvarchar](20)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Location]
+		([Name], [Address1], [Address2], [City], [State], [Zip])
+	VALUES
+		(@Name, @Address1, @Address2, @City, @State, @Zip)
+	RETURN @@ROWCOUNT
+END
+GO	
+
+/*
+Created by: Austin Gee
+Date: 3/12/2020
+Comment: Sproc to select all location
+*/
+print '' print '*** creating sp_select_all_locations'
+GO
+CREATE PROCEDURE [sp_select_all_locations]
+AS
+BEGIN
+	SELECT
+		[LocationID]
+		,[Name]
+		,[Address1]
+		,[Address2]
+		,[City]
+		,[State]
+		,[Zip]
+	FROM [dbo].[Location]
+	ORDER BY [Name] ASC
+END
+GO	
+
+/*
+Created by: Austin Gee
+Date: 3/12/2020
+Comment: Sproc to select location by location ID
+*/
+print '' print '*** creating sp_select_location_by_location_id'
+GO
+CREATE PROCEDURE [sp_select_location_by_location_id]
+(
+	@LocationID [int]
+)
+AS
+BEGIN
+	SELECT
+		[LocationID]
+		,[Name]
+		,[Address1]
+		,[Address2]
+		,[City]
+		,[State]
+		,[Zip]
+	FROM [dbo].[Location]
+	WHERE [LocationID] = @LocationID
+END
+GO	
+
+/*
+Created by: Austin Gee
+Date: 3/12/2020
+Comment: Sproc to update location
+*/
+print '' print '*** creating sp_update_location'
+GO
+CREATE PROCEDURE [sp_update_location]
+(
+	@LocationID			[int],
+	
+	@OldName			[nvarchar](100),
+	@OldAddress1		[nvarchar](100),
+	@OldAddress2		[nvarchar](100),
+	@OldCity			[nvarchar](100),
+	@OldState			[nvarchar](2),
+	@OldZip				[nvarchar](20),
+	
+	@NewName			[nvarchar](100),
+	@NewAddress1		[nvarchar](100),
+	@NewAddress2		[nvarchar](100),
+	@NewCity			[nvarchar](100),
+	@NewState			[nvarchar](2),
+	@NewZip				[nvarchar](20)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Location]
+	SET 	[Name]		 = @NewName,
+			[Address1]	 = @NewAddress1,
+			[Address2]	 = @NewAddress2,
+			[City]		 = @NewCity,
+			[State]		 = @NewState,
+			[Zip]		 = @NewZip
+			
+	WHERE	[LocationID] = @LocationID	
+	AND 	[Name]		 = @OldName
+	AND		[Address1]	 = @OldAddress1
+	AND		[Address2]	 = @OldAddress2
+	AND		[City]		 = @OldCity
+	AND		[State]		 = @OldState
+	AND		[Zip]		 = @OldZip
+	RETURN @@ROWCOUNT
+END
+GO	
+
+/*
+Created by: Austin Gee
+Date: 3/12/2020
+Comment: Sproc to delete location
+*/
+print '' print '*** creating sp_delete_location'
+GO
+CREATE PROCEDURE [sp_delete_location]
+(
+	@LocationID			[int],
+	
+	@Name			[nvarchar](100),
+	@Address1		[nvarchar](100),
+	@Address2		[nvarchar](100),
+	@City			[nvarchar](100),
+	@State			[nvarchar](2),
+	@Zip			[nvarchar](20)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[Location]
+	WHERE	[LocationID] = @LocationID
+	AND 	[Name]		 = @Name
+	AND		[Address1]	 = @Address1
+	AND		[Address2]	 = @Address2
+	AND		[City]		 = @City
+	AND		[State]		 = @State
+	AND		[Zip]		 = @Zip
+	RETURN @@ROWCOUNT
+END
+GO	
+
+
+

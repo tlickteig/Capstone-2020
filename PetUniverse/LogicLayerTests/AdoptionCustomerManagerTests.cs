@@ -16,31 +16,13 @@ namespace LogicLayerTests
     /// 
     /// This class is used to unit test the AdopterCustomerManager
     /// </summary>
-    /// 
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// </remarks>
 
     [TestClass]
     public class AdoptionCustomerManagerTests
     {
         private IAdoptionCustomerAccessor _adoptionCustomerAccessor;
 
-        /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Mohamed Elamin, 02/07/2020
-        /// 
-        /// This is the standard constructor for this class
-        /// </summary>
-        /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// 
-        /// </remarks>
+        
         public AdoptionCustomerManagerTests()
         {
             _adoptionCustomerAccessor = new FakeAdoptionCustomerAccessor();

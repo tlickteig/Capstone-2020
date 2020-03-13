@@ -57,5 +57,22 @@ using DataTransferObjects;
         /// <param name="appointmentID"></param>
         /// <returns></returns>
         AdoptionAppointmentVM SelectAdoptionAppointmentByAppointmentID(int appointmentID);
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/12/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Data Access Inteface that is used to inser Adoption Appointments
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="adoptionAppointment"></param>
+        /// <returns></returns>
+        int InsertAdoptionApplication(AdoptionAppointment adoptionAppointment);
     }
 }

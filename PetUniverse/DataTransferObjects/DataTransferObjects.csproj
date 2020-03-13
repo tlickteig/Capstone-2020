@@ -54,6 +54,7 @@
     <Compile Include="AnimalHandlingNotes.cs" />
     <Compile Include="AnimalKennel.cs" />
     <Compile Include="AnimalPrescriptions.cs" />
+    <Compile Include="AnimalStatus.cs" />
     <Compile Include="AnimalVetAppointments.cs" />
     <Compile Include="Applicant.cs" />
     <Compile Include="Appointment.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Item.cs" />
     <Compile Include="ItemCategory.cs" />
     <Compile Include="ItemLocation.cs" />
+    <Compile Include="Location.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />

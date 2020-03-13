@@ -59,6 +59,25 @@ namespace LogicLayerInterfaces
         /// <param name="appointmentID"></param>
         /// <returns></returns>
         AdoptionAppointmentVM RetrieveAdoptionAppointmentByAppointmentID(int appointmentID);
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/12/2020
+        /// CHECKED BY: Thomas Dupuy
+        /// 
+        /// passes an adoption appointment to the data acces layer
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="appointmentID"></param>
+        /// <returns></returns>
+        /// <param name="adoptionAppointment"></param>
+        /// <returns></returns>
+        bool AddAdoptionAppointment(AdoptionAppointment adoptionAppointment);
     }
 }
 

@@ -71,6 +71,35 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 3/12/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// passes an adoption appointment to the data acces layer
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="adoptionAppointment"></param>
+        /// <returns></returns>
+        public bool AddAdoptionAppointment(AdoptionAppointment adoptionAppointment)
+        {
+            bool result = false;
+            try
+            {
+                result = 1 == _adoptionAppointmentAccessor.InsertAdoptionApplication(adoptionAppointment);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 3/4/2020
         /// CHECKED BY: Thomas Dupuy
         /// 
@@ -86,17 +115,14 @@ namespace LogicLayer
         /// <returns></returns>
         public AdoptionAppointmentVM RetrieveAdoptionAppointmentByAppointmentID(int appointmentID)
         {
-            
             try
             {
                 return _adoptionAppointmentAccessor.SelectAdoptionAppointmentByAppointmentID(appointmentID);
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-            
         }
 
         /// <summary>
@@ -116,17 +142,14 @@ namespace LogicLayer
         /// <returns>adoptionAppointmentVMs</returns>
         public List<AdoptionAppointmentVM> RetrieveAdoptionAppointmentsByActiveAndType(bool active, String typeID)
         {
-            List<AdoptionAppointmentVM> adoptionAppointmentVMs = new List<AdoptionAppointmentVM>();
             try
             {
-                adoptionAppointmentVMs = _adoptionAppointmentAccessor.SelectAdoptionAppointmentsByActiveAndType(active = true, typeID);
+                return _adoptionAppointmentAccessor.SelectAdoptionAppointmentsByActiveAndType(active = true, typeID);
             }
             catch (Exception ex)
             {
-
                 throw ex;
-            }
-            return adoptionAppointmentVMs;
+            }   
         }
     }
 }

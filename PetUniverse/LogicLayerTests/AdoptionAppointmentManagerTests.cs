@@ -99,5 +99,43 @@ namespace LogicLayerTests
             // assert
             Assert.AreEqual(000, adoptionAppointmentVM.AppointmentID);
         }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/12/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Tests the Insert appointment method
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionAppointmentAddAdoptionAppointment()
+        {
+            // arrange
+            bool result = false;
+            var adoptionAppointment = new AdoptionAppointment()
+            {
+                AdoptionApplicationID = 000,
+                AppointmentActive = true,
+                AppointmentDateTime = DateTime.Now,
+                AppointmentID = 000,
+                AppointmentTypeID = "Fake",
+                Decision = "Fake",
+                LocationID = 000,
+                Notes = "Fake"
+            };
+            IAdoptionAppointmentManager adoptionAppointmentManager = new AdoptionAppointmentManager(_adoptionAppointmentAccessor);
+
+            // act
+            result = adoptionAppointmentManager.AddAdoptionAppointment(adoptionAppointment);
+
+            // assert
+            Assert.IsTrue(result);
+        }
     }
 }

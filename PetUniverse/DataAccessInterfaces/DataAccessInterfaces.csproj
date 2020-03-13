@@ -50,6 +50,7 @@
     <Compile Include="IAnimalHandlingAccessor.cs" />
     <Compile Include="IAnimalKennelAccessor.cs" />
     <Compile Include="IAnimalPrescriptionAccessor.cs" />
+    <Compile Include="IAnimalStatusAccessor.cs" />
     <Compile Include="IApplicantAccessor.cs" />
     <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IbackstockAccessor.cs" />
@@ -64,12 +65,14 @@
     <Compile Include="IInventoryItemsAccessor.cs" />
     <Compile Include="IItemAccessor.cs" />
     <Compile Include="IItemCategoryAccessor.cs" />
+    <Compile Include="ILocationAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IPetUniverseUserERolesAccessor.cs" />
     <Compile Include="IProductAccessor.cs" />
     <Compile Include="IPromotionAccessor.cs" />
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
+    <Compile Include="IStatusAccessor.cs" />
     <Compile Include="ITrainingVideoAccessor.cs" />
     <Compile Include="ITransactionAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />

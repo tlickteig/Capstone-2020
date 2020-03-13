@@ -25,7 +25,7 @@ namespace DataAccessFakes
     public class FakeAdoptionAppointmentAccessor : IAdoptionAppointmentAccessor
     {
         private List<AdoptionAppointmentVM> adoptionAppointmentVMs;
-
+        private List<AdoptionAppointment> _adoptionAppointments = new List<AdoptionAppointment>();
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 2/10/2020
@@ -83,6 +83,36 @@ namespace DataAccessFakes
                     AnimalActive = true
                 }
             };
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/12/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This method inserts a Adoption Appointment into the Fake
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="adoptionAppointment"></param>
+        /// <returns></returns>
+        public int InsertAdoptionApplication(AdoptionAppointment adoptionAppointment)
+        {
+            int rows = 0;
+            try
+            {
+                _adoptionAppointments.Add(adoptionAppointment);
+                rows = 1;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return rows;
         }
 
         /// <summary>
