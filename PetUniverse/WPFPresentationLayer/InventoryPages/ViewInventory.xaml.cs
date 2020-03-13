@@ -141,5 +141,35 @@ namespace WPFPresentationLayer.InventoryPages.Items
                 "Please pick an item to view.".ErrorMessage();
             }
         }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/13
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesee Tomash
+        ///
+        /// Click event for deactivate button
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeactivateItem_Click(object sender, RoutedEventArgs e)
+        {
+            Item item = (Item)dgViewInventory.SelectedItem;
+            if (dgViewInventory.SelectedItem != null)
+            {
+                _itemManager.deactivateItem(item);
+                dgViewInventory.ItemsSource = _itemManager.retrieveItemsByActive(true);
+            }
+            else
+            {
+                "Please pick an item to view.".ErrorMessage();
+            }
+        }
     }
 }

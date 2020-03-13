@@ -117,6 +117,68 @@ namespace LogicLayer
             return result;
         }
 
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/09
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesee Tomash
+        ///
+        /// The method that retrieves all items in inventory by active
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public List<Item> retrieveItemsByActive(bool active)
+        {
+            List<Item> itemList = new List<Item>();
+
+            try
+            {
+                itemList = _itemAccessor.getAllItemsByActive(active);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Items not found.", ex);
+            }
+
+            return itemList;
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/13
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesee Tomash
+        ///
+        /// Method to deactivate item
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public bool deactivateItem(Item item)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _itemAccessor.deactivateItem(item));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Deactivate Item Failed.", ex);
+            }
+
+            return result;
+        }
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill

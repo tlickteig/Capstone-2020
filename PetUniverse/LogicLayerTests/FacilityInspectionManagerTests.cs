@@ -28,7 +28,7 @@ namespace LogicLayerTests
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 2/28/2020
-        /// Approver: 
+        /// Approver: Ethan Murphy 3/6/2020
         /// Approver: 
         /// 
         /// Method to set up the objects for the test
@@ -83,9 +83,131 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Carl Davis
+        /// Created: 3/11/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// Approver: 
+        /// 
+        /// Method to test the RetrieveAllFacilityInspection in the Logic layer
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAllFacilityInspection()
+        {
+            // arrange
+
+            bool inspectionComplete = false;
+
+            // act
+            List<FacilityInspection> inspections = _facilityInspectionManager.RetrieveAllFacilityInspection(inspectionComplete);
+
+            int count = inspections.Count;
+
+            // assert
+            Assert.AreEqual(3, count);
+
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/11/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// Approver: 
+        /// 
+        /// Method to test the RetrieveFacilityInspectionByID in the Logic layer
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveFacilityInspectionByID()
+        {
+            // arrange
+
+            bool inspectionComplete = false;
+            int facilityInspectionID = 1000000;
+
+            // act
+            List<FacilityInspection> inspections = _facilityInspectionManager.RetrieveFacilityInspectionByID(facilityInspectionID, inspectionComplete);
+
+            int count = inspections.Count;
+
+            // assert
+            Assert.AreEqual(1, count);
+
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/11/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// Approver: 
+        /// 
+        /// Method to test the RetrieveFacilityInspectionByUserID in the Logic layer
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveFacilityInspectionByUserID()
+        {
+            // arrange
+
+            bool inspectionComplete = false;
+            int userID = 100000;
+
+            // act
+            List<FacilityInspection> inspections = _facilityInspectionManager.RetrieveFacilityInspectionByUserID(userID, inspectionComplete);
+
+            int count = inspections.Count;
+
+            // assert
+            Assert.AreEqual(2, count);
+
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/11/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// Approver: 
+        /// 
+        /// Method to test the RetrieveFacilityInspectionByInspectorName in the Logic layer
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveFacilityInspectionByInspectorName()
+        {
+            // arrange
+
+            bool inspectionComplete = false;
+            string inspectorName = "Bob";
+
+            // act
+            List<FacilityInspection> inspections = _facilityInspectionManager.RetrieveFacilityInspectionByInspectorName(inspectorName, inspectionComplete);
+
+            int count = inspections.Count;
+
+            // assert
+            Assert.AreEqual(3, count);
+
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
         /// Created: 2/28/2020
         /// Approver: Ethan Murphy 3/6/2020
-        /// Approver:
         /// 
         /// Method to tear down the test and clear memory
         /// </summary>

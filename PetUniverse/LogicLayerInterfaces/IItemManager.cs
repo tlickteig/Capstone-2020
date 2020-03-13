@@ -66,5 +66,39 @@ namespace LogicLayerInterfaces
         /// Update:
         /// </remarks>
         bool editItemDetail(string oldName, string oldDesc, int oldQuantity, string newName, string newDesc, int newQuantity);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/09
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesse Tomash
+        ///
+        /// Interface method that gets a list of items from inventory by their active field.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="active"></param>
+        List<Item> retrieveItemsByActive(bool active);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/09
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesse Tomash
+        ///
+        /// Interface method that sets an items active field to 0
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        bool deactivateItem(Item item);
     }
 }

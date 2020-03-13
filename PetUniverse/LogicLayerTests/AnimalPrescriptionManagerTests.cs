@@ -68,12 +68,13 @@ namespace LogicLayerTests
                 AnimalPrescriptionID = 5,
                 AnimalVetAppointmentID = 5,
                 PrescriptionName = "test5",
-                Dosage = 2.0,
+                Dosage = 2.0M,
                 Interval = "2 times a day",
                 AdministrationMethod = "Oral",
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddDays(2),
-                Description = "test5"
+                Description = "test5",
+                AnimalName = "wefyawaw"
             };
 
             // Act
@@ -81,6 +82,97 @@ namespace LogicLayerTests
 
             // Assert
             Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/9/2020
+        /// Approver: Carl Davis 3/13/2020
+        /// 
+        /// Tests retrieving all animal prescription records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestSelectingAllAnimalPrescriptionRecords()
+        {
+            // Arrange
+            List<AnimalPrescriptions> animalPrescriptions =
+                new List<AnimalPrescriptions>();
+            IAnimalPrescriptionManager animalPrescriptionManager =
+                new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
+
+            // Act
+            animalPrescriptions = animalPrescriptionManager.RetrieveAllAnimalPrescriptions();
+
+            // Assert
+            Assert.AreEqual(4, animalPrescriptions.Count);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/9/2020
+        /// Approver: Carl Davis 3/13/2020
+        /// 
+        /// Tests retrieving animal prescription records
+        /// for a specific animal
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestSelectPrescriptionRecordsByValidAnimalName()
+        {
+            // Arrange
+            List<AnimalPrescriptions> animalPrescriptions =
+                new List<AnimalPrescriptions>();
+            IAnimalPrescriptionManager animalPrescriptionManager =
+                new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
+            string animalName = "fawuief";
+
+            // Act
+            animalPrescriptions =
+                animalPrescriptionManager.RetrievePrescriptionsByAnimalName(animalName);
+
+            // Assert
+            Assert.AreEqual(1, animalPrescriptions.Count);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/9/2020
+        /// Approver: Carl Davis 3/13/2020
+        /// 
+        /// Tests retrieving animal prescription records
+        /// for a specific animal that doesn't exist.
+        /// Result should be 0
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestSelectPrescriptionRecordsByAnInvalidAnimalName()
+        {
+            // Arrange
+            List<AnimalPrescriptions> animalPrescriptions =
+                new List<AnimalPrescriptions>();
+            IAnimalPrescriptionManager animalPrescriptionManager =
+                new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
+            string animalName = "hrehahsea";
+
+            // Act
+            animalPrescriptions =
+                animalPrescriptionManager.RetrievePrescriptionsByAnimalName(animalName);
+
+            // Assert
+            Assert.AreEqual(0, animalPrescriptions.Count);
         }
     }
 }

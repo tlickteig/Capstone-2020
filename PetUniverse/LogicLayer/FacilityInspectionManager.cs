@@ -91,5 +91,120 @@ namespace LogicLayer
 
             return result;
         }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/11/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// Approver: 
+        /// 
+        /// Method to retrieve all FacilityInspection Records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="inspectionComplete"></param>
+        /// <returns>List<FacilityMaintenance></returns>
+        public List<FacilityInspection> RetrieveAllFacilityInspection(bool inspectionComplete)
+        {
+            try
+            {
+                return _facilityInspectionAccessor.SelectAllFacilityInspection(inspectionComplete);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Failed to retrieve record!", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/11/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// Approver: 
+        /// 
+        /// Method to retrieve FacilityInspection Records by id
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="facilityInspectionID"></param>
+        /// <param name="inspectionComplete"></param>
+        /// <returns>List<FacilityMaintenance></returns>
+        public List<FacilityInspection> RetrieveFacilityInspectionByID(int facilityInspectionID, bool inspectionComplete)
+        {
+            try
+            {
+                return _facilityInspectionAccessor.SelectFacilityInspectionByID(facilityInspectionID, inspectionComplete);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Failed to retrieve record!", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/11/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// Approver: 
+        /// 
+        /// Method to retrieve FacilityInspection Records by inspector name
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="inspectorName"></param>
+        /// <param name="inspectionComplete"></param>
+        /// <returns>List<FacilityMaintenance></returns>
+        public List<FacilityInspection> RetrieveFacilityInspectionByInspectorName(string inspectorName, bool inspectionComplete)
+        {
+            try
+            {
+                return _facilityInspectionAccessor.SelectFacilityInspectionByInspectorName(inspectorName, inspectionComplete);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Failed to retrieve record!", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/11/2020
+        /// Approver: Ethan Murphy 3/13/2020
+        /// Approver: 
+        /// 
+        /// Method to retrieve FacilityInspection Records by userID
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="inspectionComplete"></param>
+        /// <returns>List<FacilityMaintenance></returns>
+        public List<FacilityInspection> RetrieveFacilityInspectionByUserID(int userID, bool inspectionComplete)
+        {
+            try
+            {
+                return _facilityInspectionAccessor.SelectFacilityInspectionByUserID(userID, inspectionComplete);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Failed to retrieve record!", ex);
+            }
+        }
     }
 }

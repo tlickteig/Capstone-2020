@@ -177,5 +177,110 @@ namespace DataAccessLayer
 
             return result;
         }
+
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/09
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesee Tomash
+        ///
+        /// Method to select all items by active field
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public List<Item> getAllItemsByActive(bool active)
+        {
+            List<Item> itemList = new List<Item>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_items_by_active", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Active", active);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Item item = new Item();
+                    item.ItemID = reader.GetInt32(0);
+                    item.ItemName = reader.GetString(1);
+                    item.ItemQuantity = reader.GetInt32(2);
+                    item.ItemCategoryID = reader.GetString(3);
+                    item.Description = reader.GetString(4);
+                    //item.Active = reader.GetBoolean(5);
+                    itemList.Add(item);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return itemList;
+        }
+
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/09
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesee Tomash
+        ///
+        /// Method to set active to 0 for one item
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public int deactivateItem(Item item)
+        {
+            int rowsAffected = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_deactivate_item", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ItemID", item.ItemID);
+            cmd.Parameters.AddWithValue("@ItemName", item.ItemName);
+            cmd.Parameters.AddWithValue("@ItemCategoryID", item.ItemCategoryID);
+            cmd.Parameters.AddWithValue("@ItemDescription", item.Description);
+            cmd.Parameters.AddWithValue("@ItemQuantity", item.ItemQuantity);
+
+            try
+            {
+                conn.Open();
+
+                rowsAffected = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                conn.Close();
+            }
+
+            return rowsAffected;
+        }
     }
 }

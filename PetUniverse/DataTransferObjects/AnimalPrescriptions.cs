@@ -18,9 +18,10 @@ namespace DataTransferObjects
     {
         public int AnimalPrescriptionID { get; set; }
         public int AnimalID { get; set; }
+        public string AnimalName { get; set; }
         public int AnimalVetAppointmentID { get; set; }
         public string PrescriptionName { get; set; }
-        public double Dosage { get; set; }
+        public decimal Dosage { get; set; }
         public string Interval { get; set; }
         public string AdministrationMethod { get; set; }
         public DateTime StartDate { get; set; }

@@ -73,5 +73,39 @@ namespace DataAccessInterfaces
         /// <param name="oldName"></param>
         /// <param name="oldQuantity"></param>
         int updateItemDetail(string oldName, string oldDesc, int oldQuantity, string newName, string newDesc, int newQuantity);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/03/09
+        /// Approver: Brandyn T. Coverdill
+        /// Approver:   Jesse Tomash
+        ///
+        /// Interface method that selects all items by their active field
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="active"></param>
+        List<Item> getAllItemsByActive(bool active);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/09
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Jesse Tomash
+        ///
+        /// Interface method that sets the active field to 0
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        int deactivateItem(Item item);
     }
 }
