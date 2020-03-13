@@ -21,7 +21,7 @@ namespace DataTransferObjects
         public int UserID { get; set; }
         public string AnimalKennelInfo { get; set; }
         public DateTime AnimalKennelDateIn { get; set; }
-        public DateTime AnimalKennelDateOut { get; set; }
+        public DateTime? AnimalKennelDateOut { get; set; }
 
     }
 }

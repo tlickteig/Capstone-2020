@@ -277,6 +277,350 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Activate animal, pass a good value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestActivateAnimalGoodValue()
+        {
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = true;
+
+            //act
+            bool actualResult = animalManager.SetAnimalActiveState(true, 1);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Activate animal, pass a bad value
+        /// </summary>
+        /// <remarks>
+        /// Coded by Ben Hanna - 2/5/2020
+        /// reviewed by Carl Davis 2/7/2020
+        /// reviewed by Chuck Baxter 2/7/2020
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestActivateAnimalBadValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = false;
+
+            //act
+            bool actualResult = animalManager.SetAnimalActiveState(true, 0);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Deactivate animal, pass a good value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeactivateAnimalGoodValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = true;
+
+            //act
+            bool actualResult = animalManager.SetAnimalActiveState(false, 1);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Dectivate animal, pass a bad value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestDeactivateAnimalBadValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = false;
+
+            //act
+            bool actualResult = animalManager.SetAnimalActiveState(false, 0);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// House animal, pass a good value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestActivateHousedGoodValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = true;
+
+            //act
+            bool actualResult = animalManager.SetAnimalHousedState(true, 1);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// House animal, pass a bad value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestActivateHousedBadValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = false;
+
+            //act
+            bool actualResult = animalManager.SetAnimalHousedState(true, 0);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Unhouse animal, pass a good value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeactivateHousedGoodValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = true;
+
+            //act
+            bool actualResult = animalManager.SetAnimalHousedState(false, 1);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Unhouse animal, pass a bad value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestDeactivateHousedBadValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = false;
+
+            //act
+            bool actualResult = animalManager.SetAnimalHousedState(false, 0);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Set adoptable, pass a good value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestActivateAdoptableGoodValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = true;
+
+            //act
+            bool actualResult = animalManager.SetAnimalAdoptableState(true, 1);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Set adoptable, pass a bad value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestActivateAdoptableBadValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = false;
+
+            //act
+            bool actualResult = animalManager.SetAnimalAdoptableState(true, 0);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Unset adoptable, pass a good value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeactivateAdoptableGoodValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = true;
+
+            //act
+            bool actualResult = animalManager.SetAnimalAdoptableState(false, 1);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Unset adoptable, pass a good value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestDeactivateAdoptableBadValue()
+        {
+
+            //arrange
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+            const bool expectedResult = false;
+
+            //act
+            bool actualResult = animalManager.SetAnimalAdoptableState(false, 0);
+
+            //Assert
+            Assert.AreEqual(expectedResult, actualResult);
+        }
+
+        /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 2/6/2020
         /// Approver: Carl Davis, 2/7/2020

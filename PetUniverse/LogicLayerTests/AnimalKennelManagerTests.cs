@@ -5,6 +5,7 @@ using DataAccessFakes;
 using DataTransferObjects;
 using LogicLayerInterfaces;
 using LogicLayer;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -95,6 +96,34 @@ namespace LogicLayerTests
             //Act
             kennelManager.AddKennelRecord(kennel);
             //Assert
+        }
+
+        /// <summary>
+        /// 
+        /// Creator: Ben Hanna
+        /// Created: 3/12/2020
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// Test for getting a list of kennel record.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestGetKennelRecords()
+        {
+            //Arrange
+            List<AnimalKennel> kennelRecords = new List<AnimalKennel>();
+            IAnimalKennelManager kennelManager = new AnimalKennelManager(_kennelAccessor);
+
+            //Act
+            kennelRecords = kennelManager.GetAllAnimalKennels();
+
+            //Assert
+            Assert.AreEqual(2, kennelRecords.Count);
         }
 
         /// <summary>

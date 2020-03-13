@@ -128,5 +128,64 @@ namespace LogicLayerInterfaces
         /// <param name="newAnimal"></param>
         /// <returns></returns>
         bool EditAnimal(Animal oldAnimal, Animal newAnimal);
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/1/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Changes the animal's Active state
+        /// </summary>
+        /// <remarks>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="active"> The state Active is being changed to </param>
+        /// <param name="animalID"> The primary key identifying the animal </param>
+        /// <returns> Boolean value representig if the method succeeded or not. True is success. </returns>
+        bool SetAnimalActiveState(bool active, int animalID);
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/1/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Changes the animal's Adoptable state
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver:
+        /// </remarks>
+        /// <param name="adoptable"> The state Adoptable is being changed to </param>
+        /// <param name="animalID"> The primary key identifying the animal </param>
+        /// <returns> Boolean value representig if the method succeeded or not. True is success. </returns>
+        bool SetAnimalAdoptableState(bool adoptable, int animalID);
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/1/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Changes the animal's CurrentlyHoused state
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="housed"> The state Active is being changed to </param>
+        /// <param name="animalID"> The primary key identifying the animal </param>
+        /// <returns> Boolean value representig if the method succeeded or not. True is success. </returns>
+        bool SetAnimalHousedState(bool housed, int animalID);
     }
 }

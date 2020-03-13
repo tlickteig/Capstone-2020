@@ -89,5 +89,31 @@ namespace LogicLayer
 
             return result;
         }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/13/2020
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// Gets all kennel records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns></returns>
+        public List<AnimalKennel> GetAllAnimalKennels()
+        {
+            try
+            {
+                return _kennelAccessor.RetriveAllAnimalKennels();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Kennel Records not Found", ex);
+            }
+        }
     }
 }

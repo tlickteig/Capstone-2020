@@ -16,6 +16,7 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using Microsoft.VisualBasic;
+using PresentationUtilityCode;
 
 namespace WPFPresentationLayer.AMPages
 {
@@ -69,6 +70,12 @@ namespace WPFPresentationLayer.AMPages
         private void btnAddLocationRecord_Click(object sender, RoutedEventArgs e)
         {
             canAddRecord.Visibility = Visibility.Visible;
+
+            txtAnimalID.IsEnabled = true;
+            txtDateIn.IsEnabled = true;
+            txtDateOut.IsEnabled = true;
+            txtKennelInfo.IsEnabled = true;
+            txtUserID.IsEnabled = true;
         }
 
 
@@ -91,6 +98,16 @@ namespace WPFPresentationLayer.AMPages
         {
             canViewKennelList.Visibility = Visibility.Visible;
             canAddRecord.Visibility = Visibility.Hidden;
+
+            txtAnimalID.Text = "";
+            txtDateIn.Text = "";
+            txtDateOut.Text = "";
+            txtKennelID.Text = "";
+            txtKennelInfo.Text = "";
+            txtUserID.Text = "";
+
+            lblTitle.Content = "Register New Kennel Record";
+            RefreshData();
         }
 
         /// <summary>
@@ -112,16 +129,10 @@ namespace WPFPresentationLayer.AMPages
         {
             int userID;
             int animalID;
-            int kennelID;
 
             if (String.IsNullOrEmpty(txtAnimalID.Text))
             {
                 MessageBox.Show("Please enter the animal's ID");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtKennelID.Text))
-            {
-                MessageBox.Show("Please enter the kennel's ID");
                 return;
             }
             if (String.IsNullOrEmpty(txtUserID.Text))
@@ -130,11 +141,6 @@ namespace WPFPresentationLayer.AMPages
                 return;
             }
             if (!int.TryParse(txtAnimalID.Text, out animalID))
-            {
-                MessageBox.Show("ID fields may not contain anything but an integer number");
-                return;
-            }
-            else if (!int.TryParse(txtKennelID.Text, out kennelID))
             {
                 MessageBox.Show("ID fields may not contain anything but an integer number");
                 return;
@@ -151,13 +157,98 @@ namespace WPFPresentationLayer.AMPages
                 {
                     AnimalID = animalID,
                     UserID = userID,
-                    AnimalKennelID = kennelID,
                     AnimalKennelInfo = txtKennelInfo.Text,
                     AnimalKennelDateIn = DateTime.Now
                 };
 
-                _kennelManager.AddKennelRecord(kennel);
+                try
+                {
+                    _kennelManager.AddKennelRecord(kennel);
+                    WPFErrorHandler.SuccessMessage("Kennel Record Successfully Added");
+                    RefreshData();
+                }
+                catch (Exception ex)
+                {
+                    WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
+                }
             }
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/13/2020
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// triggers the datagrid to refresh
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgAllKennels_Loaded(object sender, RoutedEventArgs e)
+        {
+            RefreshData();
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/13/2020
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// Refreshes the datagrid
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void RefreshData()
+        {
+            try
+            {
+                dgAllKennels.ItemsSource = _kennelManager.GetAllAnimalKennels();
+            }
+            catch (Exception ex)
+            {
+
+                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/13/2020
+        /// Approver:  Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// Selects a single kennel record for viewing.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgAllKennels_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            AnimalKennel selectedKennel = (AnimalKennel)dgAllKennels.SelectedItem;
+
+            txtAnimalID.Text = selectedKennel.AnimalID.ToString();
+            txtKennelID.Text = selectedKennel.AnimalKennelID.ToString();
+            txtUserID.Text = selectedKennel.UserID.ToString();
+            txtKennelInfo.Text = selectedKennel.AnimalKennelInfo.ToString();
+            txtDateIn.Text = selectedKennel.AnimalKennelDateIn.ToString();
+            txtDateOut.Text = selectedKennel.AnimalKennelDateOut.ToString();
+
+            lblTitle.Content = "View Kennel Record Details";
+
+            canAddRecord.Visibility = Visibility.Visible;
         }
     }
 }

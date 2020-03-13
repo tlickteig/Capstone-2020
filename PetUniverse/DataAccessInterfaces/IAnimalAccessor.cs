@@ -88,7 +88,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns>a list of animal objects</returns>
         List<Animal> SelectAllAnimnalProfiles();
-        
+
         /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 2/19/2020
@@ -136,5 +136,113 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns>an int</returns>
         int UpdateAnimal(Animal oldAnimal, Animal newAnimal);
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/1/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Sets the animal's Active state to 'true'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        int ActivateAnimal(int AnimalID);
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/1/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Sets the animal's Active state to 'false'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        int DeactivateAnimal(int AnimalID);
+
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/1/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Sets the animal's Adoptable state to 'true'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        int ActivateAdoptable(int AnimalID);
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/1/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Sets the animal's Adoptable state to 'false'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        int DeactivateAdoptable(int AnimalID);
+
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/1/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Sets the animal's CurrentlyHoused state to 'true'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        int ActivateCurrentlyHoused(int AnimalID);
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/1/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Sets the animal's CurrentlyHoused state to 'False'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        int DeactivateCurrentlyHoused(int AnimalID);
     }
 }

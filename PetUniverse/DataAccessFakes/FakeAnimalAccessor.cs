@@ -238,28 +238,6 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// Creator: Ben Hanna
-        /// Created: 2/5/2020
-        /// Approver: Carl Davis, 2/7/2020
-        /// Approver: Chuck Baxter, 2/7/2020
-        /// 
-        /// Dummy method that returns the result as if the real method had succeded.
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="AnimalID">Primary key that identifies the animal</param>
-        /// <returns>The number of animals that match the supplied primary key. Should either be 0 (fail) or 1 (success)</returns>
-        public int ActivateAdoptable(int animalID)
-        {
-            return (from a in animals
-                    where a.AnimalID == animalID
-                    select a).Count();
-        }
-
-        /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 2/28/2020
         /// Approver: Jordan Lindo, 2/28/2020
@@ -308,6 +286,154 @@ namespace DataAccessFakes
                 }
             }
             return 0;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Dummy method that returns the result as if the real method had succeded.
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver:
+        /// </remarks>
+        /// <param name="AnimalID">Primary key that identifies the animal</param>
+        /// <returns>The number of animals that match the supplied primary key. Should either be 0 (fail) or 1 (success)</returns>
+        public int ActivateAdoptable(int animalID)
+        {
+            int animalIndex = animals.FindIndex(a => a.AnimalID == animalID);
+
+            Animal animal = animals[animalIndex];
+
+            animal.Adoptable = true;
+
+            animals[animalIndex] = animal;
+
+            return (from a in animals
+                    where a.AnimalID == animalID && a.Adoptable == true
+                    select a).Count();
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Dummy method that returns the result as if the real method had succeded.
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> Primary key that identifies the animal </param>
+        /// <returns>The number of animals that match the supplied primary key. Should either be 0 (fail) or 1 (success)</returns>
+        public int ActivateAnimal(int animalID)
+        {
+            return (from a in animals
+                    where a.AnimalID == animalID
+                    select a).Count();
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Dummy method that returns the result as if the real method had succeded.
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> Primary key that identifies the animal </param>
+        /// <returns>The number of animals that match the supplied primary key. Should either be 0 (fail) or 1 (success)</returns>
+        public int ActivateCurrentlyHoused(int animalID)
+        {
+            return (from a in animals
+                    where a.AnimalID == animalID
+                    select a).Count();
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Dummy method that returns the result as if the real method had succeded.
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> Primary key that identifies the animal </param>
+        /// <returns>The number of animals that match the supplied primary key. Should either be 0 (fail) or 1 (success)</returns>
+        public int DeactivateAdoptable(int animalID)
+        {
+            return (from a in animals
+                    where a.AnimalID == animalID
+                    select a).Count();
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Dummy method that returns the result as if the real method had succeded.
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> Primary key that identifies the animal </param>
+        /// <returns>The number of animals that match the supplied primary key. Should either be 0 (fail) or 1 (success)</returns>
+        public int DeactivateAnimal(int animalID)
+        {
+
+
+            return (from a in animals
+                    where a.AnimalID == animalID
+                    select a).Count();
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Dummy method that returns the result as if the real method had succeded.
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> Primary key that identifies the animal </param>
+        /// <returns>The number of animals that match the supplied primary key. Should either be 0 (fail) or 1 (success)</returns>
+        public int DeactivateCurrentlyHoused(int animalID)
+        {
+            return (from a in animals
+                    where a.AnimalID == animalID
+                    select a).Count();
         }
     }
 }

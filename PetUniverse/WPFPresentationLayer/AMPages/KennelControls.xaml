@@ -24,16 +24,18 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label Content="No 'View all animal location records' method yet, so this is what you get." FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+            <Label Content="Datagrid failed to render." FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
             <DataGrid x:Name="dgAllKennels" Grid.Row="0" Width="1280" Grid.ColumnSpan="2" SelectionMode="Single"
                        Padding="0"
                       IsReadOnly="True" CanUserResizeRows="False" 
-                      CanUserResizeColumns="False" CanUserReorderColumns="False"  Visibility="Hidden">
+                      CanUserResizeColumns="False" CanUserReorderColumns="False"  Visibility="Visible" Loaded="dgAllKennels_Loaded" MouseDoubleClick="dgAllKennels_MouseDoubleClick">
             </DataGrid>
 
             <Button x:Name="btnAddLocationRecord" Margin="5"  Grid.Row="1" Grid.Column="0" Width="200" Height="50" FontSize="16" Click="btnAddLocationRecord_Click">ADD KENNEL RECORD</Button>
 
         </Grid>
+
+        <!--Add new record-->
         <Canvas Height="845" Width=" 1280" x:Name="canAddRecord" Background="AntiqueWhite" Visibility="Hidden">
             <Grid Height="800" Width=" 1280">
                 <Grid.RowDefinitions>
@@ -43,9 +45,10 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">Register New Kennel Record</Label>
+                <Label Name="lblTitle" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">Register New Kennel Record</Label>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
@@ -62,22 +65,32 @@
                     <!--Animal ID-->
                     <Label x:Name="lblAnimalID" Grid.Row="0" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal ID:</Label>
                     <TextBox x:Name="txtAnimalID"  Grid.Row="0" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
 
                     <!--User ID-->
                     <Label x:Name="lblUserID" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">User ID:</Label>
                     <TextBox x:Name="txtUserID"  Grid.Row="1" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
 
                     <!--Kennel ID-->
                     <Label x:Name="lblKennelID" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">KennelID:</Label>
                     <TextBox x:Name="txtKennelID"  Grid.Row="2" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" ></TextBox>
+                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
 
                     <!--Kennel Info-->
                     <Label x:Name="lblKennelInfo" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Kennel Info:</Label>
                     <TextBox x:Name="txtKennelInfo"  Grid.Row="3" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" ></TextBox>
+                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
+
+                    <!--Date in-->
+                    <Label x:Name="lblDateIn" Grid.Row="4" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Date In:</Label>
+                    <TextBox x:Name="txtDateIn"  Grid.Row="4" Grid.Column="1" Background="LightGray" Height="30" 
+                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
+
+                    <!--Date out-->
+                    <Label x:Name="lblDateOut" Grid.Row="5" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Date Out:</Label>
+                    <TextBox x:Name="txtDateOut"  Grid.Row="5" Grid.Column="1" Background="LightGray" Height="30" 
+                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
 
 
                     <Grid Grid.Row="5" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">

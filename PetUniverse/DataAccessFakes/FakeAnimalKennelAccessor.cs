@@ -39,7 +39,27 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeAnimalKennelAccessor()
         {
-            records = new List<AnimalKennel>();
+            records = new List<AnimalKennel>()
+            {
+                new AnimalKennel()
+                {
+                    AnimalKennelID = 1,
+                    AnimalID = 1,
+                    UserID = 1,
+                    AnimalKennelInfo = "info info info",
+                    AnimalKennelDateIn = new DateTime(2019, 5, 24),
+                    AnimalKennelDateOut = new DateTime(2020, 2, 24)
+                },
+
+                new AnimalKennel()
+                {
+                    AnimalKennelID = 2,
+                    AnimalID = 1,
+                    UserID = 1,
+                    AnimalKennelInfo = "info info info",
+                    AnimalKennelDateIn = new DateTime(2020, 2, 25)
+                }
+            };
         }
 
         /// <summary>
@@ -71,6 +91,25 @@ namespace DataAccessFakes
                 throw new Exception("Test exception");
             }
 
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/12/2020
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// Gets all kennel records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns></returns>
+        public List<AnimalKennel> RetriveAllAnimalKennels()
+        {
+            return records;
         }
     }
 }

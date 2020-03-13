@@ -266,9 +266,9 @@
             CHECKED BY:
             XAML for editing an animal 
     
-            Updater:
-            Updated:
-            Update:
+            Updater: Ben Hanna
+            Updated: 3/13/2020
+            Update: Added click events
             Approver:
         -->
         <Canvas Height="845" Width=" 1280" x:Name="canEditAnimal" Background="AntiqueWhite" Visibility="Hidden">
@@ -330,7 +330,7 @@
                         <CheckBox x:Name="chkEditActive" Grid.Row="0" Grid.Column="0" 
                               VerticalAlignment="Center" VerticalContentAlignment="Center"
                               HorizontalAlignment="Center" IsEnabled="True"
-                              FontSize="22" Content="Active" Margin="10">
+                              FontSize="22" Content="Active" Margin="10" Click="ChkEditActive_Click">
                             <CheckBox.LayoutTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2" />
                             </CheckBox.LayoutTransform>
@@ -341,7 +341,7 @@
                         <CheckBox x:Name="chkEditCurrentlyHoused" Grid.Row="0" Grid.Column="1" 
                               VerticalAlignment="Center" VerticalContentAlignment="Center"
                               HorizontalAlignment="Center" IsEnabled="True"
-                              FontSize="22" Content="Currently Housed" Margin="10">
+                              FontSize="22" Content="Currently Housed" Margin="10" Click="ChkEditCurrentlyHoused_Click">
                             <CheckBox.LayoutTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2" />
                             </CheckBox.LayoutTransform>
@@ -351,7 +351,7 @@
                         <CheckBox x:Name="chkEditAdoptable" Grid.Row="0" Grid.Column="2" 
                               VerticalAlignment="Center" VerticalContentAlignment="Center"
                               HorizontalAlignment="Center" IsEnabled="True"
-                              FontSize="22" Content="Adoptable" Margin="10">
+                              FontSize="22" Content="Adoptable" Margin="10" Click="ChkEditAdoptable_Click">
                             <CheckBox.LayoutTransform>
                                 <ScaleTransform ScaleX="2" ScaleY="2" />
                             </CheckBox.LayoutTransform>

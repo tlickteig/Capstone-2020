@@ -1381,9 +1381,30 @@ BEGIN
 	UPDATE [dbo].[Animal]
     SET [Active] = 1
     WHERE [AnimalID] = @AnimalID
-
+    
     RETURN @@ROWCOUNT
-END
+END 
+GO
+
+/*
+Created by: Ben Hanna
+Date: 2/11/2020
+Comment: Sproc to reactivate an animal
+*/
+print '' print '*** Creating sp_deactivate_animal'
+GO
+CREATE PROCEDURE [sp_deactivate_animal]
+(
+    @AnimalID			 [int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Animal]
+    SET [Active] = 0
+    WHERE [AnimalID] = @AnimalID
+    
+    RETURN @@ROWCOUNT
+END 
 GO
 
 /*
@@ -1402,9 +1423,9 @@ BEGIN
 	UPDATE [dbo].[Animal]
     SET [CurrentlyHoused] = 0
     WHERE [AnimalID] = @AnimalID
-
+    
     RETURN @@ROWCOUNT
-END
+END 
 GO
 
 /*
@@ -1423,9 +1444,9 @@ BEGIN
 	UPDATE [dbo].[Animal]
     SET [CurrentlyHoused] = 1
     WHERE [AnimalID] = @AnimalID
-
+    
     RETURN @@ROWCOUNT
-END
+END 
 GO
 
 /*
@@ -1444,9 +1465,9 @@ BEGIN
 	UPDATE [dbo].[Animal]
     SET [Adoptable] = 0
     WHERE [AnimalID] = @AnimalID
-
+    
     RETURN @@ROWCOUNT
-END
+END 
 GO
 
 /*
@@ -1465,33 +1486,33 @@ BEGIN
 	UPDATE [dbo].[Animal]
     SET [Adoptable] = 1
     WHERE [AnimalID] = @AnimalID
-
+    
     RETURN @@ROWCOUNT
-END
+END 
 GO
-
+                
 
 /*
 Created by: Ben Hanna
 Date: 2/18/2020
 Comment: Sample animal handling notes record
-*/
+*/                
 print '' print '*** Creating Sample Animal Handling Records'
 GO
 INSERT INTO [dbo].[AnimalHandlingNotes]
-	([AnimalID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID]
+	([AnimalID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID] 
     )
 	VALUES
 	(1000000,
-     'test test test', 'hubba hubba', '2020-01-22',
+     'test test test', 'hubba hubba', '2020-01-22', 
      100000)
 GO
-
+                
 /*
 Created by: Ben Hanna
 Date: 2/18/2020
 Comment: Sets an animal's adoptable state to false
-*/
+*/ 
 print '' print '*** Creating sp_select_handling_notes_by_animal_id'
 GO
 CREATE PROCEDURE [sp_select_handling_notes_by_animal_id]
@@ -1500,38 +1521,38 @@ CREATE PROCEDURE [sp_select_handling_notes_by_animal_id]
 )
 AS
 BEGIN
-   SELECT [AnimalHandlingNotesID],[AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID]
-
+   SELECT [AnimalHandlingNotesID],[AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID] 
+                
    FROM [dbo].[AnimalHandlingNotes]
    WHERE [AnimalID] = @AnimalID
    ORDER BY [UpdateDate]
 END
 GO
-
+                
 /*
 Created by: Ben Hanna
 Date: 2/9/2020
 Comment: Insert a kennel record
-*/
+*/                
 print '' print '*** Creating sp_insert_kennel_record'
 GO
 CREATE PROCEDURE [sp_insert_kennel_record]
 (
     @AnimalID           [int],
-    @AnimalKennelInfo   [nvarchar](4000),
+    @AnimalKennelInfo   [nvarchar](4000), 
     @AnimalKennelDateIn	[date],
     @UserID             [int]
-
+        
 )
 AS
 BEGIN
-   INSERT INTO [dbo].[AnimalKennel]
-        ([AnimalID],
-         [AnimalKennelInfo],
+   INSERT INTO [dbo].[AnimalKennel] 
+        ([AnimalID], 
+         [AnimalKennelInfo], 
          [AnimalKennelDateIn],
          [UserID]
         )
-   VALUES
+   VALUES 
         (@AnimalID,
          @AnimalKennelInfo,
          @AnimalKennelDateIn
@@ -1540,12 +1561,55 @@ BEGIN
    SELECT SCOPE_IDENTITY()
 END
 GO
+                
+/*
+Created by: Ben Hanna
+Date: 03/12/2020
+Comment: This is used to select all kennel records fron the animal kennel table
+*/
+print '' print '*** Creating sp_select_all_kennel_records'
+GO
+
+CREATE PROCEDURE [sp_select_all_kennel_records]
+AS
+BEGIN
+	SELECT 
+    [AnimalKennelID],		
+	[AnimalID],				
+	[UserID],				
+	[AnimalKennelInfo],		
+	[AnimalKennelDateIn],	
+	[AnimalKennelDateOut]
+                
+	FROM [dbo].[AnimalKennel]
+END
+GO
+                
+/*
+Created by: Ben Hanna
+Date: 3/12/2020
+Comment: Sample animal kennel records
+*/                
+print '' print '*** Creating Sample Animal Kennel Records'
+GO
+INSERT INTO [dbo].[AnimalKennel]
+	([AnimalID],				
+	[UserID],				
+	[AnimalKennelInfo],		
+	[AnimalKennelDateIn],	
+	[AnimalKennelDateOut]
+    )
+	VALUES
+	(1000000, 100000, 'test test test', '2020-01-22', '2020-02-22'),
+    (1000001, 100000, 'test test test 2', '2020-01-22', '2020-02-22')
+GO
+      
 
 /*
 Created by: Ben Hanna
 Date: 2/18/2020
 Comment: Sets an animal's adoptable state to false
-*/
+*/                
 print '' print '*** Creating sp_select_handling_notes_by_id'
 GO
 CREATE PROCEDURE [sp_select_handling_notes_by_id]
@@ -1554,69 +1618,69 @@ CREATE PROCEDURE [sp_select_handling_notes_by_id]
 )
 AS
 BEGIN
-   SELECT [AnimalID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID]
+   SELECT [AnimalID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID] 
    FROM [dbo].[AnimalHandlingNotes]
    WHERE [AnimalHandlingNotesID] = @AnimalHandlingNotesID
 END
 GO
-
+                
 /*
 Created by: Ben Hanna
 Date: 2/29/2020
 Comment: Insert a handing notes record
-*/
+*/                
 print '' print '*** Creating sp_insert_handling_notes_record'
 GO
 CREATE PROCEDURE [sp_insert_handling_notes_record]
 (
-
-	@AnimalID              [int],
+    
+	@AnimalID              [int],			
 	@UserID			       [int],
 	@AnimalHandlingNotes   [nvarchar](4000),
 	@TemperamentWarning    [nvarchar](1000),
-	@UpdateDate		       [date]
-
+	@UpdateDate		       [date]      
+        
 )
 AS
 BEGIN
-   INSERT INTO [dbo].[AnimalHandlingNotes]
-        ([AnimalID],
-         [UserID],
+   INSERT INTO [dbo].[AnimalHandlingNotes] 
+        ([AnimalID], 
+         [UserID], 
          [AnimalHandlingNotes],
          [TemperamentWarning],
          [UpdateDate]
         )
-   VALUES
+   VALUES 
         (@AnimalID,
          @UserID,
          @AnimalHandlingNotes,
          @TemperamentWarning,
          @UpdateDate
-
+         
         )
    SELECT SCOPE_IDENTITY()
 END
-GO
-
+GO 
+  
 /*
 Created by: Ben Hanna
 Date: 3/4/2020
 Comment: Update a handing notes record
-*/
+*/   
 print '' print '*** Creating sp_update_handling_notes_record'
 GO
 CREATE PROCEDURE [sp_update_handling_notes_record]
 (
     @AnimalHandlingNotesID			   [int],
-
+    
     @NewAnimalID                       [int],
-    @NewUserID                         [int],
+    @NewUserID                         [int], 
     @NewAnimalHandlingNotes	           [nvarchar](4000),
     @NewTemperamentWarning             [nvarchar](1000),
     @NewUpdateDate                     [date],
-
+    
 	@OldAnimalID                       [int],
-    @OldUserID                         [int],
+    @OldUserID                         [int], 
     @OldAnimalHandlingNotes	           [nvarchar](4000),
     @OldTemperamentWarning             [nvarchar](1000),
     @OldUpdateDate                     [date]
@@ -1624,23 +1688,22 @@ CREATE PROCEDURE [sp_update_handling_notes_record]
 AS
 BEGIN
 	UPDATE [dbo].[AnimalHandlingNotes]
-    SET [AnimalID]                  = @NewAnimalID,
-        [UserID]                    = @NewUserID,
+    SET [AnimalID]                  = @NewAnimalID, 
+        [UserID]                    = @NewUserID,  
         [AnimalHandlingNotes]       = @NewAnimalHandlingNotes,
         [TemperamentWarning]        = @NewTemperamentWarning,
         [UpdateDate]                = @NewUpdateDate
-
+                
     WHERE   [AnimalHandlingNotesID] = @AnimalHandlingNotesID
-    AND     [AnimalID]              = @OldAnimalID
-    AND     [UserID]                = @OldUserID
+    AND     [AnimalID]              = @OldAnimalID 
+    AND     [UserID]                = @OldUserID  
     AND     [AnimalHandlingNotes]   = @OldAnimalHandlingNotes
     AND     [TemperamentWarning]    = @OldTemperamentWarning
     AND     [UpdateDate]            = @OldUpdateDate
-
+    
     RETURN @@ROWCOUNT
-END
-GO
-
+END 
+GO 
 /*
  * Created by: Jordan Lindo
  * Date: 2/5/2020

@@ -246,5 +246,131 @@ namespace LogicLayer
                 throw new ApplicationException("Update Failed!", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Calls either the ActivateAnimal or DeactivateAnimal method based on the boolean value supplied
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="active"> Boolean value representing the value to change the active state to </param>
+        /// <param name="animalID"> The primary key identifying the animal </param>
+        /// <returns> Boolean value representing if the method succeeded or not. True = success. </returns>
+        public bool SetAnimalActiveState(bool active, int animalID)
+        {
+            bool result = false;
+            try
+            {
+                if (active)
+                {
+                    result = 1 == _animalAccessor.ActivateAnimal(animalID);
+                }
+                else
+                {
+                    result = 1 == _animalAccessor.DeactivateAnimal(animalID);
+                }
+                if (result == false)
+                {
+                    throw new ApplicationException("Error: Active state not changed.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update failed!", ex);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Calls either the ActivateAnimal or DeactivateAnimal method based on the boolean value supplied
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="adoptable"> Boolean value representing the value to change the adoptable state to </param>
+        /// <param name="animalID"> The primary key identifying the animal </param>
+        /// <returns> Boolean value representing if the method succeeded or not. True = success. </returns>
+        public bool SetAnimalAdoptableState(bool adoptable, int animalID)
+        {
+            bool result = false;
+            try
+            {
+                if (adoptable)
+                {
+                    result = 1 == _animalAccessor.ActivateAdoptable(animalID);
+                }
+                else
+                {
+                    result = 1 == _animalAccessor.DeactivateAdoptable(animalID);
+                }
+                if (result == false)
+                {
+                    throw new ApplicationException("Error: Adoptable state not changed.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update failed!", ex);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/5/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Calls either the ActivateAnimal or DeactivateAnimal method based on the boolean value supplied
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="housed"> Boolean value representing the value to change the Housed state to </param>
+        /// <param name="animalID"> The primary key identifying the animal </param>
+        /// <returns> Boolean value representing if the method succeeded or not. True = success. </returns>
+        public bool SetAnimalHousedState(bool housed, int animalID)
+        {
+            bool result = false;
+            try
+            {
+                if (housed)
+                {
+                    result = 1 == _animalAccessor.ActivateCurrentlyHoused(animalID);
+                }
+                else
+                {
+                    result = 1 == _animalAccessor.DeactivateCurrentlyHoused(animalID);
+                }
+                if (result == false)
+                {
+                    throw new ApplicationException("Error: Housed state not changed.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update failed!", ex);
+            }
+            return result;
+        }
     }
 }

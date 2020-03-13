@@ -57,6 +57,7 @@ namespace WPFPresentationLayer.AMPages
         }
 
         private IAnimalManager _animalManager;
+        private Animal selectedAnimal;
 
         /// <summary>
         /// Creator: Chuck Baxter
@@ -298,8 +299,8 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void DgActiveAnimals_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Animal selectedAnimal = (Animal)dgActiveAnimals.SelectedItem;
-            
+            selectedAnimal = (Animal)dgActiveAnimals.SelectedItem;
+
             lblIndividualAnimalName.Content = selectedAnimal.AnimalName;
             lblIndividualAnimalID.Content = selectedAnimal.AnimalID;
             lblIndividualAnimalSpecies.Content = selectedAnimal.AnimalSpeciesID;
@@ -404,7 +405,6 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void BtnSubmitAnimalEdit_Click(object sender, RoutedEventArgs e)
         {
-            Animal selectedAnimal = (Animal)dgActiveAnimals.SelectedItem;
             string arrival = cndEditArrivalDate.SelectedDate.ToString();
             string dob = cndEditDob.SelectedDate.ToString();
             if (String.IsNullOrEmpty(txtEditAnimalName.Text))
@@ -460,6 +460,156 @@ namespace WPFPresentationLayer.AMPages
                 canEditAnimal.Visibility = Visibility.Hidden;
                 refreshActiveData();
                 chkActive.IsChecked = false;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/7/2020
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// Toggles the animal's Active state.
+        /// detail view
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChkEditActive_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string caption = (bool)chkEditActive.IsChecked ? "Reactivate Animal" :
+                    "Dectivate Animal";
+                if (MessageBox.Show("Are you sure?", caption,
+                    MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                    == MessageBoxResult.No)
+                {
+                    chkEditActive.IsChecked = !(bool)chkEditActive.IsChecked;
+                    return;
+                }
+
+                if (_animalManager.SetAnimalActiveState((bool)chkEditActive.IsChecked, (int)lblEditAnimalID.Content))
+                {
+                    MessageBox.Show("Record Edited Successfully.", "Result");
+                }
+
+                if ((bool)chkEditActive.IsChecked)
+                {
+                    refreshActiveData();
+                }
+                else
+                {
+                    refreshInactiveData();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogicLayerErrorHandler.ActivateDeactivateErrorMessage(ex.Message + "\n\n" + ex.InnerException);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/7/2020
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// Toggles the animal's Housed state.
+        /// detail view
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChkEditCurrentlyHoused_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string caption = (bool)chkEditCurrentlyHoused.IsChecked ? "Set Housed" :
+                    "Set Non-Housed";
+                if (MessageBox.Show("Are you sure?", caption,
+                    MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                    == MessageBoxResult.No)
+                {
+                    chkEditCurrentlyHoused.IsChecked = !(bool)chkEditCurrentlyHoused.IsChecked;
+                    return;
+                }
+
+                if (_animalManager.SetAnimalHousedState((bool)chkEditCurrentlyHoused.IsChecked, (int)lblEditAnimalID.Content))
+                {
+                    MessageBox.Show("Record Edited Successfully.", "Result");
+                }
+
+                if ((bool)chkEditActive.IsChecked)
+                {
+                    refreshActiveData();
+                }
+                else
+                {
+                    refreshInactiveData();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogicLayerErrorHandler.ActivateDeactivateErrorMessage(ex.Message + "\n\n" + ex.InnerException);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/7/2020
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// Toggles the animal's Adoptable state.
+        /// detail view
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChkEditAdoptable_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string caption = (bool)chkEditAdoptable.IsChecked ? "Set Adoptable" :
+                    "Set Non-Adoptable";
+                if (MessageBox.Show("Are you sure?", caption,
+                    MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                    == MessageBoxResult.No)
+                {
+                    chkEditAdoptable.IsChecked = !(bool)chkEditAdoptable.IsChecked;
+                    return;
+                }
+
+                if (_animalManager.SetAnimalAdoptableState((bool)chkEditAdoptable.IsChecked, (int)lblEditAnimalID.Content))
+                {
+                    MessageBox.Show("Record Edited Successfully.", "Result");
+                }
+
+                if ((bool)chkEditActive.IsChecked)
+                {
+                    refreshActiveData();
+                }
+                else
+                {
+                    refreshInactiveData();
+                }
+            }
+            catch (Exception ex)
+            {
+                LogicLayerErrorHandler.ActivateDeactivateErrorMessage(ex.Message + "\n\n" + ex.InnerException);
             }
         }
     }

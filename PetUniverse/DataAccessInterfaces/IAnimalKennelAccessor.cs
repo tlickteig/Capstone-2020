@@ -33,5 +33,22 @@ namespace DataAccessInterfaces
         /// <param name="kennel"></param>
         /// <returns> Integer representing how many rows were effected. Should be exactly 1 </returns>
         int InsertKennelRecord(AnimalKennel kennel);
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/12/2020
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// Gets a list of all the kennel records in the database
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// </summary>
+        /// <returns> List of kennel records </returns>
+        List<AnimalKennel> RetriveAllAnimalKennels();
     }
 }

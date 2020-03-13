@@ -439,5 +439,251 @@ namespace DataAccessLayer
             }
             return rows;
         }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/7/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Sets the animal's Adoptable state to 'true'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        public int ActivateAdoptable(int AnimalID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_set_animal_adoptable", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalID", AnimalID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/7/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Sets the animal's Active state to 'True'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        public int ActivateAnimal(int AnimalID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_reactivate_animal", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalID", AnimalID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/7/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Set's the animal's CurrentlyHoused state to 'True'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        public int ActivateCurrentlyHoused(int AnimalID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_house_animal", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalID", AnimalID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/7/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Sets the animal's Adoptable state to 'false'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        public int DeactivateAdoptable(int AnimalID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_deset_animal_adoptable", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalID", AnimalID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/7/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Sets the animal's Active state to 'false'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        public int DeactivateAnimal(int AnimalID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_deactivate_animal", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalID", AnimalID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 2/7/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Chuck Baxter, 2/7/2020
+        /// 
+        /// Set's the animal's CurrentlyHoused state to 'True'
+        /// </summary>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 3/7/2020
+        /// Update: Reimplemented method after bugfixes
+        /// Approver: Carl Davis, 3/13/2020
+        /// </remarks>
+        /// <param name="AnimalID"> The primary key that identifies the animal. </param>
+        /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
+        public int DeactivateCurrentlyHoused(int AnimalID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_dehouse_animal", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalID", AnimalID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
     }
 }

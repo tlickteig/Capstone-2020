@@ -65,5 +65,62 @@ namespace DataAccessLayer
 
             return animalKennelID;
         }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/12/2020
+        /// Approver: Carl Davis, 3/13/2020
+        /// Approver: 
+        /// 
+        /// Gets all kennel records and returns them to the up layers
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<AnimalKennel> RetriveAllAnimalKennels()
+        {
+            List<AnimalKennel> kennels = new List<AnimalKennel>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_all_kennel_records");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var note = new AnimalKennel();
+                        note.AnimalKennelID = reader.GetInt32(0);
+                        note.AnimalID = reader.GetInt32(1);
+                        note.UserID = reader.GetInt32(2);
+                        note.AnimalKennelInfo = reader.GetString(3);
+                        note.AnimalKennelDateIn = reader.GetDateTime(4);
+                        note.AnimalKennelDateOut = reader[5] as DateTime?;
+                        kennels.Add(note);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return kennels;
+        }
     }
 }
