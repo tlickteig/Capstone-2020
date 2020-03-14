@@ -19,8 +19,8 @@ namespace DataTransferObjects
         private static string connectionString =
 
 
-        // Connection String for home
-        @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=PetUniverseDB; Integrated Security = True";
+        //// Connection String for home
+        @"Data Source = dbpetuniverse.database.windows.net; Initial Catalog = PetUniverseDB; User ID = csdadmin; Password=********;Connect Timeout = 60; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
 
 
         //Connection string for school
@@ -29,7 +29,30 @@ namespace DataTransferObjects
 
         //@"Data Source=LAPTOP-T3PUJGNB\SQLEXPRESS;Initial Catalog=PetUniverseDB;Integrated Security=True";
 
+        //private static string createConnectionString()
+        //{
+        //    var sqlConnectionSB = new SqlConnectionStringBuilder();
 
+        //    // Change these values to your values.  
+        //    sqlConnectionSB.DataSource = "tcp:dbpetuniverse.database.windows.net"; //["Server"]  
+        //    sqlConnectionSB.InitialCatalog = "PetUniverseDB"; //["Database"]  
+
+        //    sqlConnectionSB.UserID = "csdadmin"; // "@yourservername"  as suffix sometimes.  
+        //    sqlConnectionSB.Password = "Kirkwood01";
+        //    sqlConnectionSB.IntegratedSecurity = false;
+
+        //    // Adjust these values if you like. (ADO.NET 4.5.1 or later.)  
+        //    sqlConnectionSB.ConnectRetryCount = 3;
+        //    sqlConnectionSB.ConnectRetryInterval = 10; // Seconds.  
+
+        //    // Leave these values as they are.  
+        //    sqlConnectionSB.IntegratedSecurity = false;
+        //    sqlConnectionSB.Encrypt = true;
+        //    sqlConnectionSB.ConnectTimeout = 30;
+
+        //    return sqlConnectionSB.ToString();
+
+        //}
 
         /// <summary>
         /// NAME: Zach Behrensmeyer
