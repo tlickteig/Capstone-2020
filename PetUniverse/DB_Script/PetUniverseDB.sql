@@ -1,20 +1,20 @@
 /* Check whether the database already exists */
-IF EXISTS (SELECT 1 FROM master.dbo.sysdatabases WHERE name= 'PetUniverseDB2')
+IF EXISTS (SELECT 1 FROM master.dbo.sysdatabases WHERE name= 'PetUniverseDB')
 BEGIN
-	DROP DATABASE [PetUniverseDB2]
-	PRINT '' PRINT '*** Dropping PetUniverseDB2'
+	DROP DATABASE [PetUniverseDB]
+	PRINT '' PRINT '*** Dropping PetUniverseDB'
 END
 GO
 PRINT '' PRINT '*** Creating Database'
 GO
 
-CREATE DATABASE [PetUniverseDB2]
+CREATE DATABASE [PetUniverseDB]
 GO
 
 PRINT '' PRINT '*** Using Database'
 GO
 
-USE PetUniverseDB2
+USE PetUniverseDB
 GO
 
 /*
