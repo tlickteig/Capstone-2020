@@ -74,7 +74,7 @@ namespace LogicLayerTests
             Meds = Meds_.RetrieveMedicationInventory();
 
             // assert
-            Assert.AreEqual(2, Meds.Count);
+            Assert.AreEqual(3, Meds.Count);
 
         }
 
@@ -191,7 +191,7 @@ namespace LogicLayerTests
             Meds = Meds_.RetrieveMedicationByLowQauntity();
 
             // assert
-            Assert.AreEqual(2, Meds.Count);
+            Assert.AreEqual(0, Meds.Count);
 
         }
 
@@ -214,7 +214,7 @@ namespace LogicLayerTests
         public void TestRetrieveMedicationByLowQauntityThrowsCorrectException()
         {
             // arrange
-            IMedicationManager _AnimalMedManager = new MedicationManager(FakeMedAccessor);
+            IMedicationManager _AnimalMedManager = new MedicationManager(null);
 
             // act
             _AnimalMedManager.RetrieveMedicationByLowQauntity();
@@ -268,7 +268,7 @@ namespace LogicLayerTests
         public void TestRetrieveMedicationByEmptyQauntityThrowsCorrectException()
         {
             // arrange
-            IMedicationManager _AnimalMedManager = new MedicationManager(FakeMedAccessor);
+            IMedicationManager _AnimalMedManager = new MedicationManager(null);
 
             // act
             _AnimalMedManager.RetrieveMedicationByEmptyQauntity();

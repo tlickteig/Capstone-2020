@@ -95,14 +95,14 @@ namespace LogicLayerTests
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
-        public void TestRetrieveAnimalByAnimalIDThrowsCorrectException()
+        public void TestRetrieveNewAnimalChecklistByAnimalIDThrowsCorrectException()
         {
             // arrange
             INewAnimalChecklistManager _AnimalChecklistManager = new NewAnimalChecklistManager(_animalChecklistAccessor);
-            int TestValue = -100;
+            
 
             // act
-            _AnimalChecklistManager.RetrieveNewAnimalChecklistByAnimalID(TestValue);
+            _AnimalChecklistManager.RetrieveNewAnimalChecklistByAnimalID(-1);
 
         }
 

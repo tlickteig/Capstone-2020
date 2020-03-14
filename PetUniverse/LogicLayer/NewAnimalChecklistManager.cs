@@ -86,25 +86,22 @@ namespace LogicLayer
         {
 
             List<NewAnimalChecklist> records = null;
+            if (AnimalID < 1)
+            {
+                throw new ArgumentOutOfRangeException();
+
+            }
+
             try
             {
-                if (AnimalID < 1)
-                {
-                    throw new ArgumentOutOfRangeException();
 
-                }
+                records = _newAnimalChecklistAccessor.GetNewAnimalChecklistByAnimalID(AnimalID);
 
-                try
-                {
-                    records = _newAnimalChecklistAccessor.GetNewAnimalChecklistByAnimalID(AnimalID);
-
-                }
-                catch (ArgumentOutOfRangeException ex)
-                {
-                    throw new ArgumentOutOfRangeException("Animal with ID " + AnimalID + " not found", ex);
-                }
             }
-            catch (Exception ex) { }
+            catch (Exception ex)
+            {
+                throw new ArgumentOutOfRangeException("Animal with ID " + AnimalID + " not found", ex);
+            }
             return records;
 
         }
