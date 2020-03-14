@@ -60,13 +60,32 @@ CREATE TABLE [dbo].[Customer](
 [PhoneNumber] [nvarchar](11) NOT NULL,
 [PasswordHash] [nvarchar](100) NOT NULL DEFAULT
 '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E',
-[addressLineOne] [nvarchar](250) NOT NULL,
-[addressLineTwo] [nvarchar](250) NULL,
+[AddressLineOne] [nvarchar](250) NOT NULL,
+[AddressLineTwo] [nvarchar](250) NULL,
 [City] [nvarchar] (20) NOT NULL,
 [State] [nvarchar] (2) NOT NULL,
 [Zipcode] [nvarchar] (15) NOT NULL,
 [Active] [bit] NOT NULL Default 1
 )
+GO
+
+/*
+Created by: Austin Gee
+Date: 3/13/2020
+Comment: Inserts some test Customers
+*/
+print '' print '*** Insert Into Customer Table ***'
+GO
+INSERT INTO [dbo].[Customer]
+([Email], [FirstName], [LastName], [PhoneNumber],[addressLineOne],[addressLineTwo],[City],[State],[Zipcode])
+VALUES
+('zbehrens@PetUniverse.com', 'Zach', 'Behrensmeyer', '1234567890', 'J street NE','APT3','Cedar Rapids','IA','52433'),
+('scardona@PetUniverse.com', 'Steven', 'Cardona', '1234567890', 'J street NE','APT3','Cedar Rapids','IA','52433'),
+('tdupuy@PetUniverse.com', 'Thomas', 'Dupuy', '1234567890', 'J street NE','APT3','Cedar Rapids','IA','52433'),
+('moals@PetUniverse.com', 'Mohamed', 'Elamin', '1234567890', 'J street NE','APT3','Cedar Rapids','IA','52433'),
+('Austin@email.com', 'Austin', 'Gee', '1234567890', 'J street NE','APT3','Cedar Rapids','IA','52433'),
+('Bill@email.com', 'Bill', 'Buffalo', '1234567890', 'J street NE','APT3','Cedar Rapids','IA','52433'),
+('Brad@email.com', 'Brad', 'Bean', '1234567890', 'J street NE','APT3','Cedar Rapids','IA','52433')
 GO
 
 /*
@@ -1971,13 +1990,13 @@ print '' print '*** Creating AdoptionApplication Table'
 GO
 CREATE TABLE [dbo].[AdoptionApplication](
 	[AdoptionApplicationID]		[int]	IDENTITY(100000,1)		NOT NULL,
-	[CustomerID]				[int]							NOT NULL,
+	[Email]						[nvarchar]		(250) 			NOT NULL,
 	[AnimalID]					[int]									,
-	[Status]					[nvarchar]	(1000)						,
+	[Status]					[nvarchar]		(1000)					,
 	[RecievedDate]				[datetime]						NOT NULL,
 	CONSTRAINT [pk_AdoptionApplicationID] PRIMARY KEY ([AdoptionApplicationID]),
-	CONSTRAINT [fk_AdoptionApplication_Customer_CustomerID] FOREIGN KEY ([CustomerID])
-		REFERENCES [Customer]([CustomerID]),
+	CONSTRAINT [fk_AdoptionApplication_Customer_Email] FOREIGN KEY ([Email])
+		REFERENCES [Customer]([Email]),
 	CONSTRAINT [fk_AdoptionApplication_Animal_AnimalID] FOREIGN KEY ([AnimalID])
 		REFERENCES [Animal]([AnimalID])
 )
@@ -1991,21 +2010,11 @@ Note: "Awaab" is only one who filled the questionnair!
 print '' print '*** Creating Sample AdoptionApplication Records'
 GO
 INSERT INTO [dbo].[AdoptionApplication]
-	([CustomerID],[AnimalID],[Status],[RecievedDate])
+	([Email],[AnimalID],[Status],[RecievedDate])
 	VALUES
-
-	(
-		((SELECT [CustomerID]FROM[dbo].[Customer]WHERE [Customer].[UserID] =
-		(SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' ))),
-		(SELECT [AnimalID]FROM[dbo].[Animal]WHERE [Animal].[AnimalName] = 'Paul'),
-		'Reviewer',
-		'2020-01-01'
-
-	),
-
-	(100001,1000001,'Reviewing Application','2019-10-9'),
-	(100002,1000002,'Waitng for Pickup','2019-10-9'),
-	(100003,1000003,'InHomeInspection','2019-10-9')
+	('zbehrens@PetUniverse.com',1000000,'Reviewing Application','2019-10-9'),
+	('scardona@PetUniverse.com',1000001,'Waitng for Pickup','2019-10-9'),
+	('tdupuy@PetUniverse.com',1000002,'InHomeInspection','2019-10-9')
 GO
 
 /*
@@ -2019,7 +2028,7 @@ GO
 CREATE PROCEDURE [sp_select_AdoptionApplication_by_Status]
 AS
 BEGIN
-	SELECT 	AdoptionApplicationID,AnimalID,CustomerID,Status,RecievedDate
+	SELECT 	[AdoptionApplicationID],[AnimalID],[Email],[Status],[RecievedDate]
 	FROM 	[dbo].[AdoptionApplication]
 	WHERE	[Status] = 'InHomeInspection'
 END
@@ -2050,19 +2059,19 @@ GO
 Created by: Mohamed Elamin
 Date: 2/2/2020
 Comment: Sproc to find Customer name by Customer ID from the User Table.
+
 */
-print '' print '*** Creating sp_select_CustomerName_by_CustomerID'
+print '' print '*** Creating sp_select_CustomerName_by_Email'
 GO
-CREATE PROCEDURE [sp_select_CustomerName_by_CustomerID]
+CREATE PROCEDURE [sp_select_CustomerName_by_Email]
 (
-	@CustomerID 		[int]
+	@Email 		[int]
 )
 AS
 BEGIN
-	SELECT 	firstName,lastName
-	FROM 	[dbo].[User]
-	JOIN [Customer] ON [Customer].[UserID] = [User].[USERID]
-	WHERE	[Customer].[CustomerID] = @CustomerID
+	SELECT 	[firstName],[lastName]
+	FROM 	[dbo].[Customer]
+	WHERE	[Email] = @Email
 END
 GO
 
@@ -3018,17 +3027,18 @@ CREATE PROCEDURE [sp_select_adoption_customers_by_active]
 AS
 BEGIN
 	SELECT
-	[User].[UserID]
+	[Customer].[Email]
 	,[FirstName]
 	,[LastName]
 	,[PhoneNumber]
-	,[Email]
-	,[User].[Active]
-	,[City],[State]
+	,[AddressLineOne]
+	,[AddressLineTwo]
+	,[City]
+	,[State]
 	,[Zipcode]
-	,[Customer].[CustomerID]
 	,[Animal].[AnimalID]
-	,[Status],[AdoptionApplication].[RecievedDate]
+	,[Status]
+	,[AdoptionApplication].[RecievedDate]
 	,[AnimalName]
 	,[AnimalBreed]
 	,[Animal].[ArrivalDate]
@@ -3037,11 +3047,10 @@ BEGIN
 	,[Animal].[Active]
 	,[AdoptionApplication].[AdoptionApplicationID]
 	,[AnimalSpeciesID]
-	FROM [User] JOIN [Customer] ON [User].[UserID] = [Customer].[UserID]
-	JOIN [AdoptionApplication] ON [Customer].[CustomerID] = [AdoptionApplication].[CustomerID]
+	FROM [Customer] 
+	JOIN [AdoptionApplication] ON [Customer].[Email] = [AdoptionApplication].[Email]
 	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
-	WHERE [Customer].[UserID] IS NOT NULL
-	AND [User].[Active] = @Active
+	AND  [Customer].[Active] = @Active
 END
 GO
 
@@ -3068,7 +3077,6 @@ BEGIN
 	,[Appointment].[Decision]
 	,[Location].[LocationID]
 	,[Appointment].[Active]
-	,[Customer].[CustomerID]
 	,[Animal].[AnimalID]
 	,[AdoptionApplication].[Status]
 	,[AdoptionApplication].[RecievedDate]
@@ -3078,15 +3086,14 @@ BEGIN
 	,[Location].[City]
 	,[Location].[State]
 	,[Location].[Zip]
-	,[Customer].[UserID]
-	,[User].[FirstName]
-	,[User].[LastName]
-	,[User].[PhoneNumber]
-	,[User].[Email]
-	,[User].[Active]
-	,[User].[City]
-	,[User].[State]
-	,[User].[Zipcode]
+	,[Customer].[FirstName]
+	,[Customer].[LastName]
+	,[Customer].[PhoneNumber]
+	,[Customer].[Email]
+	,[Customer].[Active]
+	,[Customer].[City]
+	,[Customer].[State]
+	,[Customer].[Zipcode]
 	,[Animal].[AnimalName]
 	,[Animal].[Dob]
 	,[Animal].[AnimalSpeciesID]
@@ -3097,9 +3104,8 @@ BEGIN
 	,[Animal].[Active]
 	FROM [Appointment] JOIN [AdoptionApplication] ON [AdoptionApplication].[AdoptionApplicationID] = [Appointment].[AdoptionApplicationID]
 	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
-	JOIN [Customer] ON [AdoptionApplication].[CustomerID] = [Customer].[CustomerID]
+	JOIN [Customer] ON [AdoptionApplication].[Email] = [Customer].[Email]
 	JOIN [Animal] ON [AdoptionApplication].[AnimalID] = [Animal].[AnimalID]
-	JOIN [User] ON [Customer].[UserID] = [User].[UserID]
 	WHERE [Appointment].[Active] = @Active
 	AND	[Appointment].[AppointmentTypeID] = @AppointmentTypeID
 	ORDER BY [Appointment].[DateTime] DESC
@@ -5707,8 +5713,8 @@ BEGIN
 		,[AnimalMedicalInfoID]
 		,[SpayedNeutered]
 		,[AdoptionApplicationID]
-		,[AdoptionApplication].[CustomerID]
-		,[Customer].[UserID]
+		,[AdoptionApplication].[Email]
+		,[Customer].[Email]
 		,[FirstName]
 		,[LastName]
 		,[AnimalHandlingNotesID]
@@ -5719,8 +5725,7 @@ BEGIN
 	LEFT JOIN [AnimalHandlingNotes] ON [Animal].[AnimalID] = [AnimalHandlingNotes].[AnimalID]
 	LEFT JOIN [AnimalMedicalInfo] ON [Animal].[AnimalID] = [AnimalMedicalInfo].[AnimalID]
 	LEFT JOIN [AdoptionApplication] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
-	LEFT JOIN [Customer] ON [AdoptionApplication].[CustomerID] = [Customer].[CustomerID]
-	LEFT JOIN [User] ON [Customer].[UserID] = [User].[UserID]
+	LEFT JOIN [Customer] ON [AdoptionApplication].[Email] = [Customer].[Email]
 	WHERE [Animal].[Active] = @Active
 END
 GO
@@ -6036,7 +6041,7 @@ CREATE PROCEDURE [sp_select_adoption_appointment_by_appointment_id]
 )
 AS
 BEGIN
-	SELECT 
+	SELECT
 	[AppointmentID]
 	,[AdoptionApplication].[AdoptionApplicationID]
 	,[Appointment].[AppointmentTypeID]
@@ -6045,7 +6050,6 @@ BEGIN
 	,[Appointment].[Decision]
 	,[Location].[LocationID]
 	,[Appointment].[Active]
-	,[Customer].[CustomerID]
 	,[Animal].[AnimalID]
 	,[AdoptionApplication].[Status]
 	,[AdoptionApplication].[RecievedDate]
@@ -6055,15 +6059,14 @@ BEGIN
 	,[Location].[City]
 	,[Location].[State]
 	,[Location].[Zip]
-	,[Customer].[UserID]
-	,[User].[FirstName]
-	,[User].[LastName]
-	,[User].[PhoneNumber]
-	,[User].[Email]
-	,[User].[Active]
-	,[User].[City]
-	,[User].[State]
-	,[User].[Zipcode]
+	,[Customer].[FirstName]
+	,[Customer].[LastName]
+	,[Customer].[PhoneNumber]
+	,[Customer].[Email]
+	,[Customer].[Active]
+	,[Customer].[City]
+	,[Customer].[State]
+	,[Customer].[Zipcode]
 	,[Animal].[AnimalName]
 	,[Animal].[Dob]
 	,[Animal].[AnimalSpeciesID]
@@ -6074,11 +6077,9 @@ BEGIN
 	,[Animal].[Active]
 	FROM [Appointment] JOIN [AdoptionApplication] ON [AdoptionApplication].[AdoptionApplicationID] = [Appointment].[AdoptionApplicationID]
 	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
-	JOIN [Customer] ON [AdoptionApplication].[CustomerID] = [Customer].[CustomerID]
+	JOIN [Customer] ON [AdoptionApplication].[Email] = [Customer].[Email]
 	JOIN [Animal] ON [AdoptionApplication].[AnimalID] = [Animal].[AnimalID]
-	JOIN [User] ON [Customer].[UserID] = [User].[UserID]
 	WHERE [Appointment].[AppointmentID] = @AppointmentID
-	ORDER BY [Appointment].[DateTime] DESC
 END
 GO
 
