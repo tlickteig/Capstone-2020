@@ -23,7 +23,7 @@ Date: 2/3/2020
 Comment: General user table, this is used for logging in and finding information about that user.
 */
 drop table if exists [dbo].[User]
-
+GO
 print '' print '*** Create User Table ***'
 GO
 CREATE TABLE [dbo].[User](
@@ -41,6 +41,31 @@ CREATE TABLE [dbo].[User](
 [State] [nvarchar] (2) NOT NULL,
 [Zipcode] [nvarchar] (15) NOT NULL
 
+)
+GO
+
+/*
+Created by: Steven Cardona
+Date: 2/3/2020
+Comment: General user table, this is used for logging in and finding information about that user.
+*/
+drop table if exists [dbo].[Customer]
+GO
+print '' print '*** Create Customer Table ***'
+GO
+CREATE TABLE [dbo].[Customer](
+[Email] [nvarchar](250) NOT NULL PRIMARY KEY,
+[FirstName] [nvarchar](50) NOT NULL,
+[LastName] [nvarchar](50) NOT NULL,
+[PhoneNumber] [nvarchar](11) NOT NULL,
+[PasswordHash] [nvarchar](100) NOT NULL DEFAULT
+'9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E',
+[addressLineOne] [nvarchar](250) NOT NULL,
+[addressLineTwo] [nvarchar](250) NULL,
+[City] [nvarchar] (20) NOT NULL,
+[State] [nvarchar] (2) NOT NULL,
+[Zipcode] [nvarchar] (15) NOT NULL,
+[Active] [bit] NOT NULL Default 1
 )
 GO
 
@@ -142,7 +167,7 @@ GO
 Created by: Zach Behrensmeyer
 Date: 2/3/2020
 Comment: This is used to store the roles of the different users
-such as admin, manager, customer etc.
+such as admin, manager, etc.
 */
 drop table if exists [dbo].[Role]
 
@@ -167,7 +192,6 @@ INSERT INTO [dbo].[Role]
 )
 VALUES
 ('Admin', 'User that has elevated privelages'),
-('Customer', 'Person who can buys stuff'),
 ('Volunteer', 'Person who does volunteer work')
 GO
 print '' print '*** Insert inactive user into User Table ***'
@@ -209,7 +233,6 @@ INSERT INTO [dbo].[UserRole]
 )
 VALUES
 (100000, 'Admin'),
-(100001, 'Customer'),
 (100002, 'Volunteer')
 GO
 
@@ -1937,136 +1960,7 @@ BEGIN
 END
 GO
 
-/*
-Created by: Mohamed Elamin
-Date: 2/3/2020
-Comment: Customer table.
-*/
-drop table if exists [dbo].[Customer]
-print '' print '*** Creating Customer Table'
-GO
-CREATE TABLE [dbo].[Customer](
-	[CustomerID]					[int]	IDENTITY(100000,1)		NOT NULL,
-	[UserID]						[int]	unique						NOT NULL,
-	CONSTRAINT [pk_CustomerID] PRIMARY KEY([CustomerID]),
-	CONSTRAINT [fk_Customer_User_UserID] FOREIGN KEY ([UserID])
-		REFERENCES [User]([UserID])
-)
-GO
-/*
-Created by: Awaab Elamin
-Date: 3/5/2020
-Comment: This adds some sample customer records to the Customer table.
-*/
-print '' print '*** Creating Sample Customer Records'
-GO
-INSERT INTO [dbo].[Customer]
-	([UserID])
-	VALUES
-	((SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' )),
-	(100001),
-	(100002),
-	(100003),
-	(100004),
-	(100005),
-	(100006)
-GO
-/*
-Created by: Mohamed Elamin
-Date: 02/19/2020
-Comment: This is used to insert Sample Customer into the database
 
-print '' print '*** Creating Sample Customer Records'
-GO
-INSERT INTO [dbo].[Customer]
-	([UserID])
-	VALUES
-	(100000)
-GO
-*/
-/*
-Created by: Austin Gee
-Date: 2/21/2020
-Comment: This adds some sample customer records to the Customer table.
-
-print '' print '*** Creating Sample Customer Records'
-GO
-INSERT INTO [dbo].[Customer]
-	([UserID])
-	VALUES
-	(100001),
-	(100002),
-	(100003),
-
-GO
-*/
-/*
-Created by: Austin Gee
-Date: 2/21/2020
-Comment: This adds some sample customer records to the Customer table.
-
-print '' print '*** Creating Sample Customer Records'
-GO
-
-Created by: Mohamed Elamin
-Date: 02/19/2020
-Comment: This is used to insert Sample Customer into the database
-
-print '' print '*** Creating Sample Customer Records'
-GO
-INSERT INTO [dbo].[Customer]
-	([UserID])
-	VALUES
-	(100000)
-GO
-*/
-/*
-Created by: Austin Gee
-Date: 2/21/2020
-Comment: This adds some sample customer records to the Customer table.
-
-print '' print '*** Creating Sample Customer Records'
-GO
-INSERT INTO [dbo].[Customer]
-	([UserID])
-	VALUES
-	(100001),
-	(100002),
-	(100003),
-
-GO
-*/
-/*
-Created by: Austin Gee
-Date: 2/21/2020
-Comment: This adds some sample customer records to the Customer table.
-
-print '' print '*** Creating Sample Customer Records'
-GO
-INSERT INTO [dbo].[Customer]
-	([UserID])
-	VALUES
-	((SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' )),
-	(100001),
-	(100002),
-	(100003),
-	(100004),
-	(100005),
-	(100006)
-GO
-
-	([UserID])
-	VALUES
-	((SELECT userID FROM [dbo].[User] WHERE [dbo].[User].[FirstName] = 'Awaab' )),
-	(100001),
-	(100002),
-	(100003),
-	(100004),
-	(100005),
-	(100006)
-GO
-
-*/
 /*
 Created by: Mohamed Elamin
 Date: 2/3/2020
@@ -2113,19 +2007,7 @@ INSERT INTO [dbo].[AdoptionApplication]
 	(100002,1000002,'Waitng for Pickup','2019-10-9'),
 	(100003,1000003,'InHomeInspection','2019-10-9')
 GO
-/*
-Created by: Mohamed Elamin
-Date: 02/19/2020
-Comment: This is used to insert Sample AdoptionApplication into the database
 
-print '' print '*** Creating Sample AdoptionApplication Records'
-GO
-INSERT INTO [dbo].[AdoptionApplication]
-	([CustomerID],[AnimalID],[Status],[RecievedDate])
-	VALUES
-	(100000,1000000,'InHomeInspection','2019-10-9')
-GO
-*/
 /*
 Created by: Mohamed Elamin
 Date: 2/2/2020
@@ -3075,38 +2957,7 @@ BEGIN
 END
 GO
 
-/*
-Created by: Austin Gee
-Date: 2/21/2020
-Comment: This adds some ample user records to the database.
-*/
--- print '' print '*** Creating Sample User Records'
--- GO
--- INSERT INTO [dbo].[User]
--- 	([FirstName],[LastName],[PhoneNumber],[Email],[City],[State],[Zipcode])
--- 	VALUES
--- 	('Austin','Gee','1234567890','Austin@email.com','Cedar Rapids','IA','52404'),
--- 	('Bill','Buffalo','1234567890','Bill@email.com','Cedar Rapids','IA','52404'),
--- 	('Brad','Bean','1234567890','Brad@email.com','Iowa City','IA','52404'),
--- 	('Barb','Brinoll','1234567890','Barb@email.com','Cedar Rapids','IA','52404')
--- GO
 
-/*
-Created by: Austin Gee
-Date: 2/21/2020
-Comment: This adds some sample customer records to the Customer table.
-
-print '' print '*** Creating Sample Customer Records'
-GO
-INSERT INTO [dbo].[Customer]
-	([UserID])
-	VALUES
-	(100000),
-	(100001),
-	(100002),
-	(100003)
-GO
-*/
 /*
 Created by: Austin Gee
 Date: 2/21/2020
@@ -3122,21 +2973,7 @@ INSERT INTO [dbo].[Animal]
 	('Simon','07-12-1984','Rat','Siamese','10-10-2019')
 GO
 
-/*
-Created by: Austin Gee
-Date: 2/21/2020
-Comment: Adds adoption appliacation records to the AdoptionApplication table.
 
-print '' print '*** Creating Sample AdoptionApplication Records'
-GO
-INSERT INTO [dbo].[AdoptionApplication]
-	([CustomerID],[AnimalID],[Status],[RecievedDate])
-	VALUES
-	(100000,1000000,'Interviewer','2019-10-9'),
-	(100001,1000001,'Reviewing Application','2019-10-9'),
-	(100002,1000002,'Waitng for Pickup','2019-10-9')
-GO
-*/
 /*
 Created by: Austin Gee
 Date: 2/21/2020
@@ -3507,6 +3344,7 @@ CREATE TABLE [dbo].[CustomerAnswer](
 		REFERENCES [dbo].[AdoptionApplication]([AdoptionApplicationID])
 )
 GO
+
 /*
 Created by: Awaab Elamin
 Date: 2/18/2020
@@ -6003,7 +5841,6 @@ INSERT INTO [dbo].[timeOffRequest]
 	('2020-3-25 12:11:10', '2020-4-10 11:31:15', 1000006),
 	('2020-4-6 11:10:9', '2020-4-12 11:13:51', 1000007)
 GO
-=======
 
 /*
 Created by: Dalton Reierson
