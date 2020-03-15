@@ -71,7 +71,7 @@ namespace DataTransferObjects
         /// <returns>SQL Connection String</returns>
         public static SqlConnection GetConnection()
         {
-            var conn = new SqlConnection(createConnectionString());
+            var conn = new SqlConnection(connectionString);
             return conn;
         }
     }
