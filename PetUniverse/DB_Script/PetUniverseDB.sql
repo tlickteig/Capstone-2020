@@ -5707,6 +5707,117 @@ END
 GO
 
 /*
+Created by: Zach Behrensmeyer
+Date: 03/02/2020
+Comment: This is used to check that the email exists
+*/
+DROP PROCEDURE IF EXISTS [sp_check_email_exists]
+GO
+print '' print '*** Creating sp_check_email_exists ***'
+GO
+CREATE PROCEDURE [sp_check_email_exists]
+(
+@Email [NVARCHAR](250)
+)  
+AS     
+BEGIN     
+SELECT COUNT(*) 
+FROM [dbo].[User] 
+WHERE Email = @Email
+END    
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 03/02/2020
+Comment: This is used to check that the email exists
+*/
+DROP PROCEDURE IF EXISTS [sp_get_unlock_date]
+GO
+print '' print '*** Creating sp_get_unlock_date ***'
+GO
+CREATE PROCEDURE [sp_get_unlock_date]
+(
+@Email [NVARCHAR](250)
+)  
+AS     
+BEGIN     
+SELECT UnlockDate
+FROM [dbo].[User] 
+WHERE Email = @Email
+END    
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 03/02/2020
+Comment: This is used to check that the user is locked
+*/
+DROP PROCEDURE IF EXISTS [sp_check_user_is_locked]
+GO
+print '' print '*** Creating sp_check_user_is_locked ***'
+GO
+CREATE PROCEDURE [sp_check_user_is_locked]
+(
+@Email [NVARCHAR](250)
+)  
+AS     
+BEGIN     
+SELECT COUNT(*) 
+FROM [dbo].[User] 
+WHERE Email = @Email
+AND Locked = 1
+END    
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 03/02/2020
+Comment: This is used to unlock a user if the date and time they were locked out at is ahead of that time
+*/
+DROP PROCEDURE IF EXISTS [sp_unlock_user_by_date]
+GO
+print '' print '*** Creating sp_unlock_user_by_date ***'
+GO
+CREATE PROCEDURE [sp_unlock_user_by_date]
+(
+@Email [NVARCHAR](250)
+)  
+AS     
+BEGIN     
+UPDATE [dbo].[User]
+SET Locked = 0, UnlockDate = null
+WHERE Email = @Email 
+AND UnlockDate < GETDATE()
+RETURN @@ROWCOUNT
+END    
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 03/02/2020
+Comment: This is used to check that the email exists
+*/
+DROP PROCEDURE IF EXISTS [sp_lockout_user]
+GO
+print '' print '*** Creating sp_lockout_user ***'
+GO
+Create Procedure [sp_lockout_user]
+(
+@Email [NVARCHAR](250),
+@UnlockDate [DateTime],
+@LockDate [DateTime]
+)  
+AS     
+BEGIN     
+UPDATE [dbo].[User]
+	SET Locked = 1, UnlockDate = @UnlockDate, LockDate = @LockDate
+	WHERE Email = @Email
+	RETURN @@ROWCOUNT
+END    
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'

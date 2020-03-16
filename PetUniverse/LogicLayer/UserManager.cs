@@ -80,7 +80,7 @@ namespace LogicLayer
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Unable to create new user", ex) ;
+                throw new ApplicationException("Unable to create new user", ex);
             }
         }
 
@@ -109,7 +109,6 @@ namespace LogicLayer
             {
                 throw new ApplicationException("No Users Found", ex);
             }
-
             return users;
         }
 
@@ -182,10 +181,127 @@ namespace LogicLayer
             {
                 s.Append(data[i].ToString("x2"));
             }
-
             result = s.ToString().ToUpper();
-
             return result;
+        }
+
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to confirm user exists
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>        
+        /// <returns>Returns Valid User Info</returns>
+        public bool CheckIfUserExists(string Email)
+        {
+            bool exists;
+
+            try
+            {
+                exists = _userAccessor.CheckIfUserExists(Email);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No Users Found", ex);
+            }
+            return exists;
+        }
+
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to Lockout a user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>        
+        /// <returns>Returns Valid User Info</returns>
+        public bool LockoutUser(string Email, DateTime currentDate, DateTime unlockDate)
+        {
+            bool isLocked;
+
+            try
+            {
+                isLocked = _userAccessor.LockoutUser(Email, currentDate, unlockDate);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No Users Found", ex);
+            }
+            return isLocked;
+        }
+
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to unlock user if they haven't been
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>        
+        /// <returns>Returns Valid User Info</returns>
+        public bool UnlockUserByTime(string Email)
+        {
+            bool isUnlocked;
+
+            try
+            {
+                isUnlocked = _userAccessor.TimeoutUserUnlock(Email);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No Users Found", ex);
+            }
+            return isUnlocked;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to unlock user if they haven't been
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>        
+        /// <returns>Returns Valid User Info</returns>
+        public DateTime fetchUnlockDate(string userName)
+        {
+            DateTime unlockDate;
+            try
+            {
+                unlockDate = _userAccessor.getUnlockDate(userName);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No user found", ex);
+            }
+            return unlockDate;
         }
     }
 }

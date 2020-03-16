@@ -110,8 +110,8 @@ namespace DataAccessFakes
             };
 
             users = (from user in users
-                where user.Active == true
-                select user).ToList();
+                     where user.Active == true
+                     select user).ToList();
 
             return users;
         }
@@ -157,6 +157,145 @@ namespace DataAccessFakes
             {
                 throw new ApplicationException("Invalid User");
             }
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/4/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to test if a user exists
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="userName"></param>
+        /// <returns>Boolean existance of user</returns>
+        public bool CheckIfUserExists(string userName)
+        {
+            bool exists = false;
+            if (userName.Equals("j.doe@RandoGuy.com"))
+            {
+                exists = true;
+            }
+            else
+            {
+                throw new ApplicationException("User not found");
+            }
+            return exists;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/4/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to test lockout a user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="userName"></param>
+        /// <returns>Boolean lockout of user</returns>
+        public bool LockoutUser(string userName, DateTime currentDate, DateTime lockDate)
+        {
+            bool isLocked = false;
+            if (userName.Equals("j.doe@RandoGuy.com") && currentDate > lockDate)
+            {
+                isLocked = true;
+            }
+            else
+            {
+                throw new ApplicationException("User not found");
+            }
+            return isLocked;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/4/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to check if a user is locked
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="userName"></param>
+        /// <returns>Lock status of user</returns>
+        public bool CheckIfUserIsLocked(string userName)
+        {
+            bool isLocked = false;
+            if (userName.Equals("j.doe@RandoGuy.com"))
+            {
+                isLocked = true;
+            }
+            else
+            {
+                throw new ApplicationException("User not found");
+            }
+            return isLocked;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/4/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to unlock a fake user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="userName"></param>
+        /// <returns>Lock status of user</returns>
+        public bool TimeoutUserUnlock(string userName)
+        {
+            bool isLocked = false;
+            if (userName.Equals("j.doe@RandoGuy.com"))
+            {
+                isLocked = true;
+            }
+            else
+            {
+                throw new ApplicationException("User not found");
+            }
+            return isLocked;
+        }
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to get a fake unlock date
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public DateTime getUnlockDate(string userName)
+        {
+            DateTime unlockDate;
+            if (userName.Equals("j.doe@RandoGuy.com"))
+            {
+                unlockDate = DateTime.Now;
+            }
+            else
+            {
+                throw new ApplicationException("User not found");
+            }
+            return unlockDate;
         }
     }
 }

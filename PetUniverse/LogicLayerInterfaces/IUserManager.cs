@@ -66,5 +66,72 @@ namespace LogicLayerInterfaces
         /// <returns>Returns Valid User Info</returns>
         PetUniverseUser AuthenticateUser(string email, string password);
 
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to confirm user exists
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>        
+        /// <returns>Returns Valid User Info</returns>
+        bool CheckIfUserExists(string Email);
+
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to Lockout a user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>        
+        /// <returns>Returns Valid User Info</returns>
+        bool LockoutUser(string Email, DateTime currentDate, DateTime unlockDate);
+
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to unlock user if they haven't been
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>        
+        /// <returns>Returns Valid User Info</returns>
+        bool UnlockUserByTime(string Email);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to unlock user if they haven't been
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>        
+        /// <returns>Returns Valid User Info</returns>
+        DateTime fetchUnlockDate(string userName);
     }
 }

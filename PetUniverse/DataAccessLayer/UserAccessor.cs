@@ -48,7 +48,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@PhoneNumber", petUniverseUser.PhoneNumber);
             cmd.Parameters.AddWithValue("@Email", petUniverseUser.Email);
             cmd.Parameters.AddWithValue("@Address1", petUniverseUser.Address1);
-            cmd.Parameters.AddWithValue("@Address2", ((object)petUniverseUser.Address2)?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@Address2", ((object)petUniverseUser.Address2) ?? DBNull.Value);
             cmd.Parameters.AddWithValue("@City", petUniverseUser.City);
             cmd.Parameters.AddWithValue("@State", petUniverseUser.State);
             cmd.Parameters.AddWithValue("@Zipcode", petUniverseUser.ZipCode);
@@ -91,7 +91,7 @@ namespace DataAccessLayer
             var conn = DBConnection.GetConnection();
             var cmd = new SqlCommand("sp_select_all_active_users", conn)
             {
-                CommandType =  CommandType.StoredProcedure
+                CommandType = CommandType.StoredProcedure
             };
 
             try
@@ -124,7 +124,7 @@ namespace DataAccessLayer
             finally
             {
                 conn.Close();
-            }            
+            }
             return users;
         }
 
@@ -268,6 +268,183 @@ namespace DataAccessLayer
                 throw ex;
             }
             return user;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to check if provided email exists
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userName"></param>
+        /// <returns>bool if user exists</returns>
+        public bool CheckIfUserExists(string userName)
+        {
+            bool exists = false;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_check_email_exists");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+
+            cmd.Parameters["@Email"].Value = userName;
+            try
+            {
+                conn.Open();
+                var rows = 0;
+                rows = Convert.ToInt32(cmd.ExecuteScalar());
+                exists = (rows == 1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return exists;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to lock out the user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userName"></param>
+        /// <param name="currentDate"></param>
+        /// <param name="unlockDate"></param>
+        /// <returns>bool if locked</returns>
+        public bool LockoutUser(string userName, DateTime currentDate, DateTime unlockDate)
+        {
+            bool isLocked = false;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_lockout_user");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+            cmd.Parameters.Add("@UnlockDate", SqlDbType.DateTime);
+            cmd.Parameters.Add("@LockDate", SqlDbType.DateTime);
+
+            cmd.Parameters["@Email"].Value = userName;
+            cmd.Parameters["@UnlockDate"].Value = unlockDate;
+            cmd.Parameters["@LockDate"].Value = currentDate;
+            try
+            {
+                conn.Open();
+                var rows = 0;
+                rows = cmd.ExecuteNonQuery();
+                isLocked = (rows == 1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return isLocked;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to unlock the user based on time
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userName"></param>
+        /// <returns>bool if user is unlocked</returns>
+        public bool TimeoutUserUnlock(string userName)
+        {
+            bool isUnlocked = false;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_unlock_user_by_date");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+
+            cmd.Parameters["@Email"].Value = userName;
+            try
+            {
+                conn.Open();
+                var rows = 0;
+                rows = cmd.ExecuteNonQuery();
+                isUnlocked = (rows == 1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return isUnlocked;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to retrieve the unlock date
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public DateTime getUnlockDate(string userName)
+        {
+
+            DateTime unlockDate = new DateTime();
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_get_unlock_date");
+
+            cmd.Connection = conn;
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+            cmd.Parameters["@Email"].Value = userName;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    unlockDate = reader.IsDBNull(0) ? DateTime.Now.AddMinutes(-5) : reader.GetDateTime(0);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return unlockDate;
         }
     }
 }

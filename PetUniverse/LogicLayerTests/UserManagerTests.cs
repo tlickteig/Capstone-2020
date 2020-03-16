@@ -174,6 +174,240 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method is a passing test for the TestCheckIfUserExists() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks> 
+        [TestMethod]
+        public void TestCheckIfUserExists()
+        {
+            //Arrange
+            string Email = "j.doe@RandoGuy.com";
+            bool exists = false;
+            //Act
+            exists = _userManager.CheckIfUserExists(Email);
+            //Assert
+            Assert.IsTrue(exists);
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method is a passing test for the TestCheckIfUserExistsException() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestCheckIfUserExistsException()
+        {
+            //Arrange            
+            string email = "zbehrens@RandoGuy.com";
+            bool exists = false;
+            //Act
+            exists = _userManager.CheckIfUserExists(email);
+            //Assert not needed
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method is a passing test for the TestLockoutUser() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestLockoutUser()
+        {
+            //Arrange
+            string Email = "j.doe@RandoGuy.com";
+            bool isLocked = false;
+            //Act
+            isLocked = _userManager.LockoutUser(Email, DateTime.Now.AddMinutes(15), DateTime.Now);
+            //Assert
+            Assert.IsTrue(isLocked);
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method is a passing test for the TestLockoutUserException() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestLockoutUserException()
+        {
+            //Arrange            
+            string email = "zbehrens@RandoGuy.com";
+            bool isLocked = false;
+            //Act
+            isLocked = _userManager.LockoutUser(email, DateTime.Now, DateTime.Now.AddMinutes(15));
+            //Assert not needed
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method is a passing test for the TestLockoutUserBadCurrentDateException() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestLockoutUserBadCurrentDateException()
+        {
+            //Arrange            
+            string email = "zbehrens@RandoGuy.com";
+            bool isLocked = false;
+            //Act
+            isLocked = _userManager.LockoutUser(email, DateTime.Now.AddMinutes(15), DateTime.Now);
+            //Assert not needed
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method is a passing test for the TestUnlockUserByTime() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestUnlockUserByTime()
+        {
+            //Arrange
+            string Email = "j.doe@RandoGuy.com";
+            bool isLocked = false;
+            //Act
+            isLocked = _userManager.CheckIfUserExists(Email);
+            //Assert
+            Assert.IsTrue(isLocked);
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method is a passing test for the TestFetchUnlockDate() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestFetchUnlockDate()
+        {
+            //Arrange
+            string Email = "j.doe@RandoGuy.com";
+            DateTime date = DateTime.Now;
+            //Act
+            DateTime unlockdate = _userManager.fetchUnlockDate(Email);
+            //Assert
+            Assert.AreEqual(date, unlockdate);
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method is a passing test for the TestFetchUnlockDateException() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestFetchUnlockDateException()
+        {
+            //Arrange            
+            string Email = "zbehrens@RandoGuy.com";
+            DateTime date = DateTime.Now;
+            //Act
+            DateTime unlockDate = _userManager.fetchUnlockDate(Email);
+            //Assert not needed
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method is a passing test for the TestUnlockUserByTimeException() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestUnlockUserByTimeException()
+        {
+            //Arrange            
+            string email = "zbehrens@RandoGuy.com";
+            bool isLocked = false;
+            //Act
+            isLocked = _userManager.UnlockUserByTime(email);
+            //Assert not needed
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
         /// Created: 2/3/2020
         /// Approver: Steven Cardona
         /// 
