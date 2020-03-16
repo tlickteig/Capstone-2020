@@ -33,19 +33,22 @@ GO
 print '' print '*** Create User Table ***'
 GO
 CREATE TABLE [dbo].[User](
-    [UserID] [int] NOT NULL Identity(100000, 1) PRIMARY KEY,
-    [FirstName] [nvarchar](50) NOT NULL,
-    [LastName] [nvarchar](50) NOT NULL,
-    [PhoneNumber] [nvarchar](11) NOT NULL,
-    [Email] [nvarchar](250) NOT NULL,
-    [PasswordHash] [nvarchar](100) NOT NULL DEFAULT
-    '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E',
-    [Active] [bit] NOT NULL Default 1,
-    [addressLineOne] [nvarchar](250) NOT NULL,
-    [addressLineTwo] [nvarchar](250) NULL,
-    [City] [nvarchar] (20) NOT NULL,
-    [State] [nvarchar] (2) NOT NULL,
-    [Zipcode] [nvarchar] (15) NOT NULL
+[UserID] [int] NOT NULL Identity(100000, 1) PRIMARY KEY,
+[FirstName] [nvarchar](50) NOT NULL,
+[LastName] [nvarchar](50) NOT NULL,
+[PhoneNumber] [nvarchar](11) NOT NULL,
+[Email] [nvarchar](250) NOT NULL,
+[PasswordHash] [nvarchar](100) NOT NULL DEFAULT 
+'9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E',
+[Active] [bit] NOT NULL Default 1,
+[addressLineOne] [nvarchar](250) NOT NULL,
+[addressLineTwo] [nvarchar](250) NULL,
+[City] [nvarchar] (20) NOT NULL,
+[State] [nvarchar] (2) NOT NULL,
+[Zipcode] [nvarchar] (15) NOT NULL,
+[Locked] [bit] NOT NULL Default 0,
+[LockDate] [DateTime] NULL,
+[UnlockDate] [DateTime] NULL
 )
 GO
 
