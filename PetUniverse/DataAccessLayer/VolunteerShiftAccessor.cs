@@ -84,6 +84,51 @@ namespace DataAccessLayer
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-08
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="volunteerID">The volunteerID to use</param>
+        /// <param name="volunteerShiftID">The volunteerShiftID to use</param>
+        /// <returns>The number of rows affected</returns>
+        public int CancelVolunteerShift(int volunteerID, int volunteerShiftID)
+        {
+            //Declare variables
+            int rows = 0;
+            var cmd = new SqlCommand("sp_cancel_volunteer_shift");
+            var conn = DBConnection.GetConnection();
+
+            //Setup cmd object
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = conn;
+
+            //Add parameters
+            cmd.Parameters.Add("@VolunteerID", SqlDbType.Int);
+            cmd.Parameters.Add("@VolunteerShiftID", SqlDbType.Int);
+
+            //Set parameter values
+            cmd.Parameters["@VolunteerID"].Value = volunteerID;
+            cmd.Parameters["@VolunteerShiftID"].Value = volunteerShiftID;
+
+            //Try to execute the query
+            try
+            {
+                conn.Open();
+                rows = Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
         ///     DATE: 2020-02-05
         ///     CHECKED BY: Zoey McDonald
         ///     Method for removing a shift from the DB
@@ -174,9 +219,159 @@ namespace DataAccessLayer
             return shifts;
         }
 
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-01
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="volunteerID">The volunteerID to query</param>
+        /// <returns>A list of shifts from the database</returns>
+        public List<VolunteerShift> SelectAllShiftsForAVolunteer(int volunteerID)
+        {
+            //Declare variables
+            List<VolunteerShift> shifts = new List<VolunteerShift>();
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_shifts_for_a_volunteer");
+
+            //Setup cmd object
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = conn;
+
+            //Add paramaters
+            cmd.Parameters.Add("@VolunteerID", SqlDbType.Int);
+            cmd.Parameters["@VolunteerID"].Value = volunteerID;
+
+            //Try to execute the query
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    VolunteerShift shift = new VolunteerShift();
+                    shift.VolunteerShiftID = reader.GetInt32(0);
+                    shift.ShiftDescription = reader.GetString(1);
+                    shift.ShiftTitle = reader.GetString(2);
+                    shift.VolunteerShiftDate = reader.GetDateTime(3);
+                    shift.ShiftStartTime = reader.GetTimeSpan(4);
+                    shift.ShiftEndTime = reader.GetTimeSpan(5);
+                    shift.Recurrance = reader.GetString(6);
+                    shift.IsSpecialEvent = reader.GetBoolean(7);
+                    shift.ShiftNotes = reader.GetString(8);
+                    shift.ScheduleID = reader.GetInt32(9);
+                    shift.VolunteerID = volunteerID;
+                    shifts.Add(shift);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return shifts;
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-01
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="shiftID">The shiftID to query</param>
+        /// <returns>A shift from the database</returns>
         public VolunteerShift SelectShift(int shiftID)
         {
-            throw new NotImplementedException();
+            //Declare variables
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_volunteer_shift");
+            VolunteerShift shift = new VolunteerShift();
+
+            //Setup cmd object
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            //Add parameter
+            cmd.Parameters.Add("@VolunteerShiftID", SqlDbType.Int);
+            cmd.Parameters["@VolunteerShiftID"].Value = shiftID;
+
+            //Try to execute the query
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.Read()) {
+                    shift.VolunteerShiftID = reader.GetInt32(0);
+                    shift.ShiftDescription = reader.GetString(1);
+                    shift.ShiftTitle = reader.GetString(2);
+                    shift.VolunteerShiftDate = reader.GetDateTime(3);
+                    shift.ShiftStartTime = reader.GetTimeSpan(4);
+                    shift.ShiftEndTime = reader.GetTimeSpan(5);
+                    shift.Recurrance = reader.GetString(6);
+                    shift.IsSpecialEvent = reader.GetBoolean(7);
+                    shift.ShiftNotes = reader.GetString(8);
+                    shift.ScheduleID = reader.GetInt32(9);
+                    shift.VolunteerID = reader.IsDBNull(10) 
+                        ? 0 : reader.GetInt32(10);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return shift;
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-02
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="volunteerID">The volunteerID to use</param>
+        /// <param name="volunteerShiftID">The volunteerShiftID to use</param>
+        /// <returns>The number of rows affected</returns>
+        public int SignVolunteerUpForShift(int volunteerID, int volunteerShiftID)
+        {
+            //Declare variables
+            int rows = 0;
+            var cmd = new SqlCommand("sp_sign_volunteer_up_for_shift");
+            var conn = DBConnection.GetConnection();
+
+            //Setup cmd object
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Connection = conn;
+
+            //Add parameters
+            cmd.Parameters.Add("@VolunteerID", SqlDbType.Int);
+            cmd.Parameters.Add("@VolunteerShiftID", SqlDbType.Int);
+
+            //Set parameter values
+            cmd.Parameters["@VolunteerID"].Value = volunteerID;
+            cmd.Parameters["@VolunteerShiftID"].Value = volunteerShiftID;
+
+            //Try to execute the query
+            try
+            {
+                conn.Open();
+                rows = Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
         }
 
         /// <summary>

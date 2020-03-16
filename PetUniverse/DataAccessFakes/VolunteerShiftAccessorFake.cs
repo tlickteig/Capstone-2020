@@ -80,6 +80,26 @@ namespace DataAccessFakes
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-08
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="volunteerID">The volunteerID to use</param>
+        /// <param name="volunteerShiftID">The volunteerShiftID to use</param>
+        /// <returns>The number of rows affected</returns>
+        public int CancelVolunteerShift(int volunteerID, int volunteerShiftID)
+        {
+            foreach (VolunteerShift shift in _volunteerShifts)
+            {
+                if (volunteerShiftID == shift.VolunteerShiftID)
+                {
+                    shift.VolunteerID = 0;
+                }
+            }
+            return 1;
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
         ///     DATE: 2020-02-08
         ///     CHECKED BY: Zoey McDonald
         /// </summary>
@@ -109,13 +129,72 @@ namespace DataAccessFakes
         /// </summary>        
         /// <returns>A list of shifts from the list</returns>
         public List<VolunteerShift> SelectAllShifts()
-        {
+        {            
             return _volunteerShifts;
         }
 
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-01
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="volunteerID">The volunteerID to query</param>
+        /// <returns>A list of shifts from the emulated database</returns>
+        public List<VolunteerShift> SelectAllShiftsForAVolunteer(int volunteerID)
+        {
+            List<VolunteerShift> tempList = new List<VolunteerShift>();
+
+            foreach (VolunteerShift shift in _volunteerShifts)
+            {
+                if (shift.VolunteerID == volunteerID)
+                {
+                    tempList.Add(shift);
+                }
+            }
+
+            return tempList;
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-01
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="shiftID">The shiftID to query</param>
+        /// <returns>A shift from the emulated database</returns>
         public VolunteerShift SelectShift(int shiftID)
         {
-            throw new NotImplementedException();
+            VolunteerShift shift = new VolunteerShift();
+
+            foreach (VolunteerShift shift2 in _volunteerShifts)
+            {
+                if (shift2.VolunteerShiftID == shiftID)
+                {
+                    shift = shift2;
+                }
+            }
+
+            return shift;
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-02
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="volunteerID">The volunteerID to use</param>
+        /// <param name="volunteerShiftID">The volunteerShiftID to use</param>
+        /// <returns>The simluated number of rows affected</returns>
+        public int SignVolunteerUpForShift(int volunteerID, int volunteerShiftID)
+        {
+            foreach (VolunteerShift shift in _volunteerShifts)
+            {
+                if (volunteerShiftID == shift.VolunteerShiftID)
+                {
+                    shift.VolunteerID = volunteerID;
+                }
+            }
+            return 1;
         }
 
         /// <summary>

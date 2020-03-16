@@ -293,6 +293,27 @@
                 <TabItem x:Name="CreateEditVolunteerEvent" Header="Volunteer Events" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./VolunteerPages/frmCreateEditVolunteerEvent.xaml"></Frame>
                 </TabItem>
+                <TabItem x:Name="VolunteerSchedule"
+                         Header="Volunteer Schedule"
+                         FontSize="18"
+                         FontWeight="Bold"
+                         Background="#fff8e3">
+                    <Frame Source="./VolunteerPages/VolunteerSchedule.xaml"></Frame>
+                </TabItem>
+                <TabItem x:Name="PrintVolunteerShifts"
+                         Header="Print Shifts"
+                         FontSize="18"
+                         FontWeight="Bold"
+                         Background="#fff8e3">
+                    <Frame Source="./VolunteerPages/PrintVolunteerShifts.xaml"></Frame>
+                </TabItem>
+                <TabItem x:Name="Medicine"
+                         Header="Medicine"
+                         FontSize="18"
+                         FontWeight="Bold"
+                         Background="#fff8e3">
+                    <Frame Source="./VolunteerPages/ViewDeleteCreateMedicine.xaml"></Frame>
+                </TabItem>
             </TabControl>
         </Canvas>
 

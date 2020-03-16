@@ -1431,6 +1431,43 @@ CREATE TABLE [dbo].[PromoProductLine](
 GO
 
 /*
+Created By: Timothy Lickteig
+Date: 3/01/2020
+Comment: Table for storing instances of people signed up for shifts
+*/
+print '' print '*** Creating ShiftRecord Table'
+go
+create table [dbo].[ShiftRecord](
+	
+	VolunteerID [int] not null,
+	VolunteerShiftID [int] not null,
+	constraint [pk_ShiftRecord_VolunteerID_VolunteerShiftID] 
+		primary key([VolunteerID], [VolunteerShiftID]),
+	constraint [fk_VolunteerShift_VolunteerShiftID] foreign key([VolunteerShiftID])
+		references [VolunteerShift]([VolunteerShiftID]),
+	constraint [fk_ShiftRecord_VolunteerID] foreign key([VolunteerID])
+		references [Volunteer]([VolunteerID])
+)
+go
+
+/*
+Author: Timothy Lickteig
+Date: 2020/03/09
+Comment: Creating table for Medicine
+*/
+print '' print '*** Creating Medicine table'
+GO
+CREATE TABLE [dbo].[Medicine] (
+
+	[MedicineID] [int] identity(1000000, 1) not null,
+	[MedicineName] [nvarchar](300) not null,
+	[MedicineDosage] [nvarchar](300) not null,
+	[MedicineDescription] [nvarchar](500),
+	constraint [pk_Medicine_MedicineID] primary key([MedicineID] asc)
+)
+GO
+
+/*
  ******************************* Create Procedures *****************************
 */
 PRINT '' PRINT '******************* Create Procedures *********************'
@@ -5821,6 +5858,91 @@ END
 GO
 
 /*
+Author: Timothy Lickteig
+Date: 2020/03/01
+Comment: Stored Procedure for selecting all signed up shifts for a volunteer
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shifts_for_a_volunteer]
+GO
+print '' print '*** Creating stored procedure sp_select_shifts_for_a_volunteer'
+GO
+CREATE PROCEDURE [sp_select_shifts_for_a_volunteer](
+	@VolunteerID [int]
+)
+AS
+BEGIN
+	SELECT [VolunteerShift].[VolunteerShiftID], [ShiftDescription], 
+		[ShiftTitle], [ShiftDate], [ShiftStartTime],
+		[ShiftEndTime], [Recurrance], [IsSpecialEvent],
+		[ShiftNotes], [ScheduleID]
+	FROM [ShiftRecord] 
+	JOIN [VolunteerShift] ON 
+		([VolunteerShift].[VolunteerShiftID] = [ShiftRecord].[VolunteerShiftID])
+	WHERE [ShiftRecord].[VolunteerID] = @VolunteerID
+END
+GO
+
+/*
+Author: Timothy Lickteig
+Date: 2020/03/09
+Comment: Creating procedure for checking Medicine in
+*/
+print '' print '*** Creating sp_select_all_medicine'
+GO
+CREATE PROCEDURE [sp_select_all_medicine]
+AS
+BEGIN
+	select
+		[MedicineID], [MedicineName], 
+		[MedicineDosage], [MedicineDescription]
+	from [dbo].[Medicine]
+END
+GO
+
+/*
+Author: Timothy Lickteig
+Date: 2020/03/09
+Comment: Creating procedure for checking Medicine in
+*/
+print '' print '*** Creating sp_insert_medicine'
+GO
+CREATE PROCEDURE [sp_insert_medicine] (
+
+	@MedicineName [nvarchar](300),
+	@MedicineDosage [nvarchar](300),
+	@MedicineDescription [nvarchar](500)
+)
+AS
+BEGIN
+
+	insert into [dbo].[Medicine]
+	([MedicineName], [MedicineDosage], [MedicineDescription])
+	values
+	(@MedicineName, @MedicineDosage, @MedicineDescription)
+END
+GO
+
+/*
+Author: Timothy Lickteig
+Date: 2020/03/09
+Comment: Creating procedure for checking Medicine out
+*/
+print '' print '*** Creating sp_delete_medicine'
+GO
+CREATE PROCEDURE [sp_delete_medicine] (
+
+	@MedicineID [int]
+)
+AS
+BEGIN
+
+	delete from [dbo].[Medicine]
+	where [MedicineID] = @MedicineID
+	return @@ROWCOUNT
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -6948,4 +7070,32 @@ INSERT INTO [dbo].[AnimalHandlingNotes]
 	(1000006,100000,'Notes', 'Warning', '2020-01-22'),
 	(1000007,100000,'Notes', 'Warning', '2020-01-22'),
 	(1000008,100000,'Notes', 'Warning', '2020-01-22') 
+GO
+
+/*
+Created By: Timothy Lickteig
+Date: 3/01/2020
+Comment: Sample data for volunteer shift records
+*/
+print '' print '*** Creating Shift Record records'
+go
+insert into [dbo].[ShiftRecord]
+	(VolunteerID, VolunteerShiftID)
+	values
+		(1000000, 1000000),
+		(1000000, 1000001)
+go
+
+/*
+Author: Timothy Lickteig
+Date: 2020/03/09
+Comment: Creating sample data for the medicine table
+*/
+print '' print '*** Creating Medicine table data'
+GO
+INSERT INTO [dbo].[Medicine]
+([MedicineName], [MedicineDosage], [MedicineDescription])
+VALUES
+("This is the first one", "This is the first dosage", "This is the first description"),
+("This is the second one", "This is the second dosage", "This is the third description")
 GO

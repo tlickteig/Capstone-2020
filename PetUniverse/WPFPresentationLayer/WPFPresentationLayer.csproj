@@ -228,14 +228,26 @@
     <Compile Include="VolunteerPages\CreateEditShift.xaml.cs">
       <DependentUpon>CreateEditShift.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VolunteerPages\frmAddMedicine.xaml.cs">
+      <DependentUpon>frmAddMedicine.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\frmCreateEditVolunteerEvent.xaml.cs">
       <DependentUpon>frmCreateEditVolunteerEvent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\PrintVolunteerShifts.xaml.cs">
+      <DependentUpon>PrintVolunteerShifts.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\TaskControls.xaml.cs">
       <DependentUpon>TaskControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VolunteerPages\ViewDeleteCreateMedicine.xaml.cs">
+      <DependentUpon>ViewDeleteCreateMedicine.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\ViewVolunteers.xaml.cs">
       <DependentUpon>ViewVolunteers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\VolunteerSchedule.xaml.cs">
+      <DependentUpon>VolunteerSchedule.xaml</DependentUpon>
     </Compile>
     <Page Include="AdoptionPages\AdoptionApplications.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -433,7 +445,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VolunteerPages\frmAddMedicine.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="VolunteerPages\frmCreateEditVolunteerEvent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\PrintVolunteerShifts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -441,9 +461,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VolunteerPages\ViewDeleteCreateMedicine.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="VolunteerPages\ViewVolunteers.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="VolunteerPages\VolunteerSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

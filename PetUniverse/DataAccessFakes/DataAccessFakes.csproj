@@ -79,6 +79,7 @@
     <Compile Include="FakeLogAccessor.cs" />
     <Compile Include="FakeMedicalHistoryAccessor.cs" />
     <Compile Include="FakeMedicationAccessor.cs" />
+    <Compile Include="FakeMedicineAccessor.cs" />
     <Compile Include="FakeNewAnimalChecklistAccessor.cs" />
     <Compile Include="FakePetUniverseUserERolesAccessor.cs" />
     <Compile Include="FakeProductAccessor.cs" />

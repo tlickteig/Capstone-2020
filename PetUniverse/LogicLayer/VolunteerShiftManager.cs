@@ -35,7 +35,7 @@ namespace LogicLayer
         /// <returns>VolunteerShiftManager object</returns>
         public VolunteerShiftManager()
         {
-            _accessor = new VolunteerShiftAccessorFake();
+            _accessor = new VolunteerShiftAccessor();
         }
 
         /// <summary>
@@ -135,6 +135,84 @@ namespace LogicLayer
             }
 
             return shifts;
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-01
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="shiftID">The shiftID to query</param>
+        /// <returns>A list of shifts</returns>
+        public VolunteerShift SelectVolunteerShift(int shiftID)
+        {
+            try
+            {
+                return _accessor.SelectShift(shiftID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-01
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="volunteerID">The volunteer ID number</param>
+        /// <returns>A list of shifts</returns>
+        public List<VolunteerShift> ReturnAllVolunteerShiftsForAVolunteer(int volunteerID)
+        {
+            try
+            {
+                return _accessor.SelectAllShiftsForAVolunteer(volunteerID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-02
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="volunteerID">The volunteerID to use</param>
+        /// <param name="volunteerShiftID">The volunteerShiftID to use</param>
+        /// <returns>The number of rows affected</returns>
+        public int SignVolunteerUpForShift(int volunteerID, int volunteerShiftID)
+        {
+            try
+            {
+                return _accessor.SignVolunteerUpForShift(volunteerID, volunteerShiftID);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-08
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>        
+        /// <param name="volunteerID">The volunteerID to use</param>
+        /// <param name="volunteerShiftID">The volunteerShiftID to use</param>
+        /// <returns>The number of rows affected</returns>
+        public int CancelVolunteerShift(int volunteerID, int volunteerShiftID)
+        {
+            try
+            {
+                return _accessor.CancelVolunteerShift(volunteerID, volunteerShiftID);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

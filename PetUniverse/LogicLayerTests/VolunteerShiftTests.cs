@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
@@ -173,6 +174,75 @@ namespace LogicLayerTests
             int count = manager.ReturnAllVolunteerShifts().Count;
 
             Assert.AreEqual(true, count > 1);
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-01
+        ///     CHECKED BY: Zoey McDonald
+        ///     Test method for the VolunteerShiftManager 
+        ///         SelectVolunteerShift method
+        /// </summary>
+        [TestMethod]
+        public void testVolunteerShiftManagerSelectShift()
+        {
+            IVolunteerShiftManager manager = new VolunteerShiftManager();            
+
+            int shiftID = manager.SelectVolunteerShift(1).VolunteerShiftID;
+
+            Assert.AreEqual(shiftID, 1);
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-01
+        ///     CHECKED BY: Zoey McDonald
+        ///     Test method for the VolunteerShiftManager 
+        ///         ReturnAllVolunteerShiftsForAVolunteer method
+        /// </summary>
+        [TestMethod]
+        public void testVolunteerShiftManagerReturnAllShiftsForAVolunteer()
+        {
+            IVolunteerShiftManager manager = new VolunteerShiftManager();
+
+            List<VolunteerShift> shifts =
+                manager.ReturnAllVolunteerShiftsForAVolunteer(1);
+
+            Assert.AreEqual(true, shifts.Count > 0);
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-02
+        ///     CHECKED BY: Zoey McDonald
+        ///     Test method for the volunteerShiftManager
+        ///         SignVolunteerUpForShift method
+        /// </summary>                       
+        [TestMethod]
+        public void testVolunteerShiftManagerSignVolunteerUpForShift()
+        {
+            IVolunteerShiftManager manager = new VolunteerShiftManager();
+
+            int rows = manager.SignVolunteerUpForShift(1000001, 1000001);
+
+            Assert.AreEqual(1, rows);
+        }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-08
+        ///     CHECKED BY: Zoey McDonald
+        ///     Test method for the volunteerShiftManager
+        ///         CancelVolunteerShift method
+        /// </summary>                       
+        [TestMethod]
+        public void testVolunteerShiftManagerCancelVolunteerShift()
+        {
+            IVolunteerShiftManager manager = new VolunteerShiftManager();
+
+            int rows = manager.CancelVolunteerShift(1000001, 1000001);
+
+            Assert.AreEqual(1, rows);
         }
     }
 }

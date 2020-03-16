@@ -77,6 +77,7 @@
     <Compile Include="IItemManager.cs" />
     <Compile Include="ILogManager.cs" />
     <Compile Include="IMedicationManager.cs" />
+    <Compile Include="IMedicineManager.cs" />
     <Compile Include="INewAnimalChecklistManager.cs" />
     <Compile Include="IPetUniverseUserERolesManager.cs" />
     <Compile Include="IProductManager.cs" />

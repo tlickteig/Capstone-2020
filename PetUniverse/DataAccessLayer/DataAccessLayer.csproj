@@ -80,6 +80,7 @@
     <Compile Include="LocationAccessor.cs" />
     <Compile Include="LogAccessor.cs" />
     <Compile Include="MedicationAccessor.cs" />
+    <Compile Include="MedicineAccessor.cs" />
     <Compile Include="NewAnimalChecklistAccessor.cs" />
     <Compile Include="PetUniverseERolesAccessor.cs" />
     <Compile Include="ProductAccessor.cs" />
