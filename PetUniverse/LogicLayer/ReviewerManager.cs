@@ -59,21 +59,31 @@ namespace LogicLayer
         /// </remarks>
         public List<AdoptionApplication> retrieveCustomersFilledQuestionnair()
         {
+
             List<AdoptionApplication> adoptionApplications = new List<AdoptionApplication>();
             List<AdoptionApplication> customersFilledQuestionnair = new List<AdoptionApplication>();
             List<CustomerQuestionnarVM> customerQuestionnarVMs = new List<CustomerQuestionnarVM>();
-            adoptionApplications = adoptionAccessor.getAllAdoptionApplication();
-            customer = new Customer();
-            foreach (AdoptionApplication adoptionApplication in adoptionApplications)
+            try
             {
-                customer = retrieveCustomerByCustomerName(adoptionApplication.CustomerName);
-                customerQuestionnarVMs = retrieveCustomerQuestionnar(customer.CustomerID);
-                if (null != customerQuestionnarVMs && customerQuestionnarVMs.Count >= 1)
+                adoptionApplications = adoptionAccessor.getAllAdoptionApplication();
+                customer = new Customer();
+                foreach (AdoptionApplication adoptionApplication in adoptionApplications)
                 {
+                    customer = retrieveCustomerByCustomerName(adoptionApplication.CustomerName);
+                    customerQuestionnarVMs = retrieveCustomerQuestionnar(customer.CustomerID);
+                    if (null != customerQuestionnarVMs && customerQuestionnarVMs.Count >= 1)
+                    {
 
-                    customersFilledQuestionnair.Add(adoptionApplication);
+                        customersFilledQuestionnair.Add(adoptionApplication);
+                    }
                 }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
 
 
             return customersFilledQuestionnair;

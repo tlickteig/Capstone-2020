@@ -60,7 +60,16 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="sender"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
+            try
+            {
+                DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
+            }
+            catch (Exception)
+            {
+
+                
+            }
+            
             ReviewerDecission.Visibility = Visibility.Hidden;
             ViewAdoptionApplications.Visibility = Visibility.Visible;
             CustomerQustionnair.Visibility = Visibility.Hidden;
@@ -89,8 +98,17 @@ namespace WPFPresentationLayer.AdoptionPages
                     this.customerLastName = adoptionApplication.CustomerName;
                     reviewerManager = new ReviewerManager();
                     customer = reviewerManager.retrieveCustomerByCustomerName(customerLastName);
+                    List<CustomerQuestionnarVM> customerQuestionnar = new List<CustomerQuestionnarVM>();
+                    try
+                    {
+                        customerQuestionnar = reviewerManager.retrieveCustomerQuestionnar(customer.CustomerID);
+                    }
+                    catch (Exception)
+                    {
+
+                        
+                    }
                     
-                    List<CustomerQuestionnarVM> customerQuestionnar= reviewerManager.retrieveCustomerQuestionnar(customer.CustomerID);
                     lblCustomerName.Content = customerQuestionnar[0].CustomerLastName;
                     foreach (CustomerQuestionnarVM customerQuestionnarVM in customerQuestionnar)
                     {
@@ -214,7 +232,16 @@ namespace WPFPresentationLayer.AdoptionPages
 
         private void DGViewData_Loaded(object sender, RoutedEventArgs e)
         {
-            DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
+            try
+            {
+                DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
+            }
+            catch (Exception)
+            {
+
+                
+            }
+            
         }
 
         private void btnBackToQuestionnair_Click(object sender, RoutedEventArgs e)

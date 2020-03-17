@@ -75,7 +75,16 @@ namespace WPFPresentationLayer.AdoptionPages
         /// </remarks>
         private void populateCustomerDataGrid()
         {
-            dgCustomers.ItemsSource = _adoptionCustomerManager.RetrieveAdoptionCustomersByActive(true);
+            try
+            {
+                dgCustomers.ItemsSource = _adoptionCustomerManager.RetrieveAdoptionCustomersByActive(true);
+            }
+            catch (Exception)
+            {
+
+                
+            }
+            
         }
 
         /// <summary>
