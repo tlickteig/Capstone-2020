@@ -41,7 +41,7 @@
                 <Button x:Name="btnSearch" Grid.Row="0" Grid.Column="2" Width="100" Margin="5" HorizontalAlignment="Left" Click="btnSearch_Click">Search</Button>
 
             </Grid>
-            <DataGrid x:Name="dgFacilityInspection" Grid.Row="1" Width="1280" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True" Loaded="dgFacilityInspection_Loaded"></DataGrid>
+            <DataGrid x:Name="dgFacilityInspection" Grid.Row="1" Width="1280" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True" Loaded="dgFacilityInspection_Loaded" MouseDoubleClick="dgFacilityInspection_MouseDoubleClick"></DataGrid>
 
             <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -73,7 +73,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="lblFacilityMaintenance" FontSize="36" VerticalAlignment="Center" Grid.Row="0">Enter Facility Inspection Record</Label>
+                <Label x:Name="lblFacilityInspection" FontSize="36" VerticalAlignment="Center" Grid.Row="0">Enter Facility Inspection Record</Label>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
@@ -111,6 +111,9 @@
                     <TextBox  x:Name="txtInspectionDescription" Grid.Row="3" Grid.Column="1" Background="LightGray" Height="30" 
                       Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
 
+                    <Label x:Name="lblInspectionCompleted" Grid.Row="4" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="Hidden">Inspection Completed:</Label>
+                    <CheckBox x:Name="chkInspectionCompleted" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="False" Visibility="Hidden"></CheckBox>
+
 
 
                     <!--Submit-->
@@ -121,7 +124,7 @@
                     <!--Update-->
                     <Button x:Name="btnUpdateBuildingInspectionRecord" Grid.Row="7" Grid.Column="0" 
                     Width="150" FontSize="36" Padding="10" Visibility="Hidden"
-                    VerticalAlignment="Center" HorizontalAlignment="Center">Update</Button>
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnUpdateBuildingInspectionRecord_Click">Update</Button>
 
                     <!--Cancel-->
                     <Button x:Name="btnCancelInspectionRecord" Grid.Row="7" Grid.Column="1" 

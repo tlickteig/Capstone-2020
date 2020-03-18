@@ -190,11 +190,13 @@ namespace WPFPresentationLayer.FMPages
             txtUserID.Text = "";
             txtInspectorName.Text = "";
             txtInspectionDescription.Text = "";
-            lblFacilityMaintenance.Content = "Enter Facility Inspection Record";
+            lblFacilityInspection.Content = "Enter Facility Inspection Record";
             if (btnUpdateBuildingInspectionRecord.Visibility == Visibility.Visible)
             {
                 btnUpdateBuildingInspectionRecord.Visibility = Visibility.Hidden;
                 BtnSubmitInspectionRecord.Visibility = Visibility.Visible;
+                lblInspectionCompleted.Visibility = Visibility.Hidden;
+                chkInspectionCompleted.Visibility = Visibility.Hidden;
             }
             canAddFacilityInspection.Visibility = Visibility.Hidden;
         }
@@ -374,6 +376,112 @@ namespace WPFPresentationLayer.FMPages
 
                     WPFErrorHandler.ErrorMessage(ex.Message, "Retrieve");
                 }
+            }
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/18/2020
+        /// Approver: Chuck Baxter, 3/18/2020
+        /// 
+        /// brings up update window
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgFacilityInspection_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            txtUserID.Text = _user.PUUserID.ToString();
+            selectedFacilityInspection = (FacilityInspection)dgFacilityInspection.SelectedItem;
+            if (selectedFacilityInspection != null)
+            {
+                canAddFacilityInspection.Visibility = Visibility.Visible;
+                BtnSubmitInspectionRecord.Visibility = Visibility.Hidden;
+                btnUpdateBuildingInspectionRecord.Visibility = Visibility.Visible;
+                lblInspectionCompleted.Visibility = Visibility.Visible;
+                chkInspectionCompleted.Visibility = Visibility.Visible;
+                lblFacilityInspection.Content = "Update Facility Inspection Record";
+                txtUserID.Text = selectedFacilityInspection.UserID.ToString();
+                txtInspectorName.Text = selectedFacilityInspection.InspectorName;
+                txtInspectionDescription.Text = selectedFacilityInspection.InspectionDescription;
+                cndInspectionDate.SelectedDate = selectedFacilityInspection.InspectionDate;
+                chkInspectionCompleted.IsChecked = selectedFacilityInspection.InspectionCompleted;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/18/2020
+        /// Approver: Chuck Baxter, 3/18/2020
+        /// 
+        /// Submits the updated information to the database
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnUpdateBuildingInspectionRecord_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtUserID.Text) || !long.TryParse(txtUserID.Text, out long num))
+            {
+                MessageBox.Show("Please enter a valid user id");
+                return;
+            }
+            if (string.IsNullOrEmpty(txtInspectorName.Text))
+            {
+                MessageBox.Show("Please enter the inspector name");
+                return;
+            }
+            if (string.IsNullOrEmpty(cndInspectionDate.SelectedDate.ToString()))
+            {
+                MessageBox.Show("Please enter the inspection date");
+                return;
+            }
+            if (string.IsNullOrEmpty(txtInspectionDescription.Text))
+            {
+                MessageBox.Show("Please enter the inspection description");
+                return;
+            }
+
+            try
+            {
+                FacilityInspection facilityInspection = new FacilityInspection
+                {
+                    UserID = Int32.Parse(txtUserID.Text),
+                    InspectorName = txtInspectorName.Text,
+                    InspectionDate = (DateTime)cndInspectionDate.SelectedDate,
+                    InspectionDescription = txtInspectionDescription.Text,
+                    InspectionCompleted = (bool)chkInspectionCompleted.IsChecked
+                };
+                if (_facilityInspectionManager.EditFacilityInspection(selectedFacilityInspection ,facilityInspection))
+                {
+                    MessageBox.Show("Inspection record successfully updated.");
+                    canAddFacilityInspection.Visibility = Visibility.Hidden;
+                    BtnSubmitInspectionRecord.Visibility = Visibility.Visible;
+                    btnUpdateBuildingInspectionRecord.Visibility = Visibility.Hidden;
+                    lblInspectionCompleted.Visibility = Visibility.Hidden;
+                    chkInspectionCompleted.Visibility = Visibility.Hidden;
+                    RefreshViewAllList();
+                    txtUserID.Text = "";
+                    txtInspectorName.Text = "";
+                    txtInspectionDescription.Text = "";
+                }
+                else
+                {
+                    MessageBox.Show("Inspection record was not updated.");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                WPFErrorHandler.ErrorMessage(ex.Message, "Save");
             }
         }
     }

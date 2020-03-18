@@ -94,6 +94,38 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Carl Davis
+        /// Created: 3/13/2020
+        /// Approver: Chuck Baxter, 3/18/2020
+        /// 
+        /// Method to Edit a facility inspection record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldFacilityInspection"></param>
+        /// <param name="newFacilityInspection"></param>
+        /// <returns>bool depending if record was successfully updated</returns>
+        public bool EditFacilityInspection(FacilityInspection oldFacilityInspection, FacilityInspection newFacilityInspection)
+        {
+            bool result = false;
+
+            try
+            {
+                result = 1 == _facilityInspectionAccessor.UpdateFacilityInspection(oldFacilityInspection, newFacilityInspection);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Update Inspection Record Failed!", ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
         /// Created: 3/11/2020
         /// Approver: Ethan Murphy 3/13/2020
         /// Approver: 

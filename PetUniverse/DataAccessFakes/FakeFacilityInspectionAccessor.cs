@@ -178,5 +178,34 @@ namespace DataAccessFakes
 
             return selectedFacilityInspections;
         }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/13/2020
+        /// Approver: Chuck Baxter, 3/18/2020
+        /// 
+        /// Method to update a facility maintenance record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldFacilityInspection"></param>
+        /// <param name="newFacilityInspection"></param>
+        /// <returns>1 or 0 int if they are equal</returns>
+        public int UpdateFacilityInspection(FacilityInspection oldFacilityInspection, FacilityInspection newFacilityInspection)
+        {
+            oldFacilityInspection = newFacilityInspection;
+
+            if (oldFacilityInspection.Equals(newFacilityInspection))
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

@@ -368,5 +368,71 @@ namespace DataAccessLayer
 
             return facilityInspections;
         }
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/13/2020
+        /// Approver: Chuck Baxter, 3/18/2020
+        /// 
+        /// Method to update a facility inspection record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldFacilityInspection"></param>
+        /// <param name="newFacilityInspection"></param>
+        /// <returns>1 or 0 int depending if record was updated</returns>
+        public int UpdateFacilityInspection(FacilityInspection oldFacilityInspection, FacilityInspection newFacilityInspection)
+        {
+            int result = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_facility_inspection", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            cmd.Parameters.AddWithValue("@FacilityInspectionID", oldFacilityInspection.FacilityInspectionID);
+
+
+            cmd.Parameters.AddWithValue("@OldUserID", oldFacilityInspection.UserID);
+
+            cmd.Parameters.AddWithValue("@OldInspectorName", oldFacilityInspection.InspectorName);
+
+            cmd.Parameters.AddWithValue("@OldInspectionDate", oldFacilityInspection.InspectionDate);
+
+            cmd.Parameters.AddWithValue("@OldInspectionDescription", oldFacilityInspection.InspectionDescription);
+
+            cmd.Parameters.AddWithValue("@OldInspectionComplete", oldFacilityInspection.InspectionCompleted);
+
+            cmd.Parameters.AddWithValue("@NewUserID", newFacilityInspection.UserID);
+
+            cmd.Parameters.AddWithValue("@NewInspectorName", newFacilityInspection.InspectorName);
+
+            cmd.Parameters.AddWithValue("@NewInspectionDate", newFacilityInspection.InspectionDate);
+
+            cmd.Parameters.AddWithValue("@NewInspectionDescription", newFacilityInspection.InspectionDescription);
+
+            cmd.Parameters.AddWithValue("@NewInspectionComplete", newFacilityInspection.InspectionCompleted);
+
+            try
+            {
+                conn.Open();
+
+                result = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
+        }
     }
 }

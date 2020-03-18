@@ -1998,6 +1998,50 @@ END
 GO
 
 /*
+Created by: Carl Davis
+Date: 3/13/2020
+Comment: Sproc to update facility inspection
+*/
+DROP PROCEDURE IF EXISTS [sp_update_facility_inspection]
+GO
+print '' print '*** Creating sp_update_facility_inspection'
+GO
+CREATE PROCEDURE [sp_update_facility_inspection]
+(
+	@FacilityInspectionID          		[int],
+    @OldUserID                        	[int],
+    @OldInspectorName            		[nvarchar](50),
+    @OldInspectionDate         			[date],
+    @OldInspectionDescription    		[nvarchar](250),
+	@OldInspectionComplete				[bit],
+	@NewUserID                        	[int],
+    @NewInspectorName           		[nvarchar](50),
+    @NewInspectionDate         			[date],
+    @NewInspectionDescription     		[nvarchar](250),
+	@NewInspectionComplete				[bit]
+
+)
+AS
+BEGIN
+    UPDATE 	[dbo].[FacilityInspection]
+	SET 	[UserID] = @NewUserID,
+			[InspectorName] = @NewInspectorName,
+			[InspectionDate] = @NewInspectionDate,
+			[InspectionDescription] = @NewInspectionDescription,
+			[InspectionCompleted] = @NewInspectionComplete
+			
+	WHERE   [FacilityInspectionID] = @FacilityInspectionID
+		AND	[UserID] = @OldUserID
+		AND	[InspectorName] = @OldInspectorName
+		AND	[InspectionDate] = @OldInspectionDate
+		AND	[InspectionDescription] = @OldInspectionDescription
+		AND [InspectionCompleted] = @OldInspectionComplete
+	 RETURN @@ROWCOUNT
+
+END
+GO
+
+/*
 Created by: Ethan Murphy
 Date: 2/11/2020
 Comment: Sproc to Select all vet appointments

@@ -206,6 +206,50 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Carl Davis
+        /// Created: 3/13/2020
+        /// Approver: Chuck Baxter, 3/18/2020
+        /// 
+        /// Method to test the EditFacilityInspection in the Logic layer
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestEditFacilityInspection()
+        {
+            // arrange
+            FacilityInspection oldFacilityInspection = new FacilityInspection()
+            {
+                FacilityInspectionID = 1000000,
+                UserID = 100000,
+                InspectorName = "Bob",
+                InspectionDate = new DateTime(2018, 7, 10, 7, 10, 24),
+                InspectionDescription = "Inspect cracked window",
+                InspectionCompleted = false
+            };
+            FacilityInspection newFacilityInspection = new FacilityInspection()
+            {
+                FacilityInspectionID = 1000000,
+                UserID = 100000,
+                InspectorName = "Jim",
+                InspectionDate = new DateTime(2018, 7, 10, 7, 10, 24),
+                InspectionDescription = "Inspect cracked window",
+                InspectionCompleted = false
+            };
+            bool result = false;
+
+            // act
+            result = _facilityInspectionManager.EditFacilityInspection(oldFacilityInspection, newFacilityInspection);
+
+            // assert
+            Assert.IsTrue(result);
+
+        }
+
+        /// <summary>
+        /// Creator: Carl Davis
         /// Created: 2/28/2020
         /// Approver: Ethan Murphy 3/6/2020
         /// 

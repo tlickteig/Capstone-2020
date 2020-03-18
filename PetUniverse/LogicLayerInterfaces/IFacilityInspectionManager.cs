@@ -105,5 +105,22 @@ namespace LogicLayerInterfaces
         /// <param name="inspectionComplete"></param>
         /// <returns>List<FacilityMaintenance></returns>
         List<FacilityInspection> RetrieveFacilityInspectionByInspectorName(string inspectorName, bool inspectionComplete);
+
+        /// <summary>
+        /// Creator: Carl Davis
+        /// Created: 3/13/2020
+        /// Approver: Chuck Baxter, 3/18/2020
+        /// 
+        /// Method to Edit a facility inspection record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldFacilityInspection"></param>
+        /// <param name="newFacilityInspection"></param>
+        /// <returns>bool depending if record was successfully updated</returns>
+        bool EditFacilityInspection(FacilityInspection oldFacilityInspection, FacilityInspection newFacilityInspection);
     }
 }
