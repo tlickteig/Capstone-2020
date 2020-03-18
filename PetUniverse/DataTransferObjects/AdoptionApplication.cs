@@ -16,7 +16,7 @@ namespace DataTransferObjects
     public class AdoptionApplication
     {
         public int AdoptionApplicationID { get; set; }
-        public string CustomerName { get; set; }
+        public string CustomerEmail { get; set; }
         public string AnimalName { get; set; }
         public string Status { get; set; }
         public DateTime RecievedDate { get; set; }

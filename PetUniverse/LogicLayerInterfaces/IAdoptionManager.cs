@@ -18,9 +18,9 @@ namespace LogicLayerInterfaces
     {
 
         List<AdoptionApplication> retrieveCustomersFilledQuestionnair();
-        Customer retrieveCustomerByCustomerName(string customerLastName);
-        AdoptionApplication retrieveCustomerAdoptionApplicaionByCustomerID(int customerID);
+        AdoptionCustomer retrieveCustomerByCustomerName(string customerLastName);
+        AdoptionApplication retrieveCustomerAdoptionApplicaionByCustomerEmail(string customerID);
         bool SubmitReviewerDecision(int adoptionApplicationID, string decision);
-        List<CustomerQuestionnarVM> retrieveCustomerQuestionnar(int customerID);
+        List<CustomerQuestionnar> retrieveCustomerQuestionnar(string customerEmail);
     }
 }

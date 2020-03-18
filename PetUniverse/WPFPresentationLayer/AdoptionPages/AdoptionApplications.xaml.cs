@@ -29,10 +29,10 @@ namespace WPFPresentationLayer.AdoptionPages
     {
         private IAdoptionManager adoptionManager;
         private AdoptionApplication adoptionApplication;
-        private string customerLastName;
+        private string customerEmail;
         private ReviewerManager reviewerManager;
-        private Customer customer;
-        private List<Customer> customers;
+        private AdoptionCustomer customer;
+        private List<AdoptionCustomer> customers;
 
         /// <summary>
         /// Creator: Awaab Elamin
@@ -45,7 +45,7 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             InitializeComponent();
             adoptionManager = new ReviewerManager();
-            customers = new List<Customer>();
+            customers = new List<AdoptionCustomer>();
         }
 
         /// <summary>
@@ -60,16 +60,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="sender"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
-            }
-            catch (Exception)
-            {
-
-                
-            }
-            
+            DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
             ReviewerDecission.Visibility = Visibility.Hidden;
             ViewAdoptionApplications.Visibility = Visibility.Visible;
             CustomerQustionnair.Visibility = Visibility.Hidden;
@@ -95,31 +86,14 @@ namespace WPFPresentationLayer.AdoptionPages
                 if (adoptionApplication != null)
                 {
 
-                    this.customerLastName = adoptionApplication.CustomerName;
+                    this.customerEmail = adoptionApplication.CustomerEmail;
                     reviewerManager = new ReviewerManager();
-                    customer = reviewerManager.retrieveCustomerByCustomerName(customerLastName);
-                    List<CustomerQuestionnarVM> customerQuestionnar = new List<CustomerQuestionnarVM>();
-                    try
-                    {
-                        customerQuestionnar = reviewerManager.retrieveCustomerQuestionnar(customer.CustomerID);
-                    }
-                    catch (Exception)
-                    {
-
-                        
-                    }
+                    customer = reviewerManager.retrieveCustomerByCustomerName(this.customerEmail);
                     
-                    lblCustomerName.Content = customerQuestionnar[0].CustomerLastName;
-                    foreach (CustomerQuestionnarVM customerQuestionnarVM in customerQuestionnar)
-                    {
-                        Questionnair questionnair = new Questionnair()
-                        {
-                            question = customerQuestionnarVM.QuestionDescription,
-                            answer = customerQuestionnarVM.CustomerAnswer,
-                        };
-                        questionnairs.Add(questionnair);
-                    }
-                    DGViewQuestionnair.ItemsSource = questionnairs;
+                    List<CustomerQuestionnar> customerQuestionnars= reviewerManager.retrieveCustomerQuestionnar(this.customerEmail);
+                    lblCustomerName.Content = adoptionApplication.CustomerEmail;
+                    
+                    DGViewQuestionnair.ItemsSource = customerQuestionnars;
                     adoptionApplication = new AdoptionApplication();
 
                     ReviewerDecission.Visibility = Visibility.Hidden;
@@ -154,20 +128,38 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="sender"></param>
         private void btnReviewerDecisionView_Click(object sender, RoutedEventArgs e)
         {
-            if (customer != null)
+            
+            if (DGViewData.SelectedItem != null)
             {
-                adoptionApplication = reviewerManager.retrieveCustomerAdoptionApplicaionByCustomerID(customer.CustomerID);
+                AdoptionApplication selectedAdoptionApplication = (AdoptionApplication)DGViewData.SelectedItem;
+                //adoptionApplication = reviewerManager.retrieveCustomerAdoptionApplicaionByCustomerEmail(selectedAdoptionApplication.CustomerEmail);
                 txtAdoptionApplicationID.IsReadOnly = true;
                 txtCustomerLastName.IsReadOnly = true;
                 txtAnimalName.IsReadOnly = true;
-                txtAdoptionApplicationID.Text = adoptionApplication.AdoptionApplicationID.ToString();
-                txtCustomerLastName.Text = adoptionApplication.CustomerName;
-                txtAnimalName.Text = adoptionApplication.AnimalName;
+                txtAdoptionApplicationID.Text = selectedAdoptionApplication.AdoptionApplicationID.ToString();
+                txtCustomerLastName.Text = selectedAdoptionApplication.CustomerEmail;
+                txtAnimalName.Text = selectedAdoptionApplication.AnimalName;
                 
 
                 ReviewerDecission.Visibility = Visibility.Visible;
                 ViewAdoptionApplications.Visibility = Visibility.Hidden;
                 CustomerQustionnair.Visibility = Visibility.Hidden;
+                lblAdoptionApplicationErrorMessage.Content = "";
+            }
+            else
+            {
+                txtAdoptionApplicationID.Text = "";
+                txtCustomerLastName.Text = "";
+                txtAnimalName.Text = "";
+
+                txtAdoptionApplicationID.IsReadOnly = true;
+                txtCustomerLastName.IsReadOnly = true;
+                txtAnimalName.IsReadOnly = true;
+
+                ReviewerDecission.Visibility = Visibility.Hidden;
+                ViewAdoptionApplications.Visibility = Visibility.Visible;
+                CustomerQustionnair.Visibility = Visibility.Hidden;
+                lblAdoptionApplicationErrorMessage.Content = "Please Select Adoption Application"; 
             }
         }
 
@@ -182,7 +174,8 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="sender"></param>
         private void btnSubmitDecision_Click(object sender, RoutedEventArgs e)
         {
-            
+            adoptionApplication = (AdoptionApplication)DGViewData.SelectedItem;
+
             if (Interviewer.IsSelected)
             {
 
@@ -232,16 +225,7 @@ namespace WPFPresentationLayer.AdoptionPages
 
         private void DGViewData_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
-            }
-            catch (Exception)
-            {
-
-                
-            }
-            
+            DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
         }
 
         private void btnBackToQuestionnair_Click(object sender, RoutedEventArgs e)

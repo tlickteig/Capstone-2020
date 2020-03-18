@@ -21,7 +21,7 @@ namespace LogicLayer
     {
         private IAdoptionAccessor adoptionAccessor;
         private AdoptionApplication adoptionApplication = new AdoptionApplication();
-        private Customer customer;
+        private AdoptionCustomer customer;
 
         /// <summary>
         /// default constructor intial adoptionAccessor to
@@ -57,33 +57,28 @@ namespace LogicLayer
         /// created: Awaab Elamin 4/2/2020
         /// Mohamed Elamin , 2/21/2020
         /// </remarks>
+        /// <remark>
+        /// Updated by Awaab Elamin
+        /// Date: 3/15/2020
+        /// According to DB update, change customer id to be customer Email
+        /// </remark>
         public List<AdoptionApplication> retrieveCustomersFilledQuestionnair()
         {
-
             List<AdoptionApplication> adoptionApplications = new List<AdoptionApplication>();
             List<AdoptionApplication> customersFilledQuestionnair = new List<AdoptionApplication>();
-            List<CustomerQuestionnarVM> customerQuestionnarVMs = new List<CustomerQuestionnarVM>();
-            try
+            List<CustomerQuestionnar> customerQuestionnar = new List<CustomerQuestionnar>();
+            adoptionApplications = adoptionAccessor.getAllAdoptionApplication();
+            
+            foreach (AdoptionApplication adoptionApplication in adoptionApplications)
             {
-                adoptionApplications = adoptionAccessor.getAllAdoptionApplication();
-                customer = new Customer();
-                foreach (AdoptionApplication adoptionApplication in adoptionApplications)
+               
+                customerQuestionnar = adoptionAccessor.getCustomerQuestionnair(adoptionApplication.CustomerEmail);
+                if (null != customerQuestionnar && customerQuestionnar.Count >= 1)
                 {
-                    customer = retrieveCustomerByCustomerName(adoptionApplication.CustomerName);
-                    customerQuestionnarVMs = retrieveCustomerQuestionnar(customer.CustomerID);
-                    if (null != customerQuestionnarVMs && customerQuestionnarVMs.Count >= 1)
-                    {
 
-                        customersFilledQuestionnair.Add(adoptionApplication);
-                    }
+                    customersFilledQuestionnair.Add(adoptionApplication);
                 }
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            
 
 
             return customersFilledQuestionnair;
@@ -95,24 +90,29 @@ namespace LogicLayer
         /// by Awaab Elamin 4/2/2020
         /// Mohamed Elamin , 2/21/2020
         /// </remarks>
-        public List<CustomerQuestionnarVM> retrieveCustomerQuestionnar(int customerID)
+        /// <remark>
+        /// Updated by: Awaab Elamin
+        /// Date: 3/15/2020
+        /// After DB updated in Customer Table, We don't need to below method
+        /// </remark>
+        public List<CustomerQuestionnar> retrieveCustomerQuestionnar(string customerEmail)
         {
-            List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-            customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerID);
-            List<CustomerQuestionnarVM> customerQuestionnarVMs = new List<CustomerQuestionnarVM>();
-            foreach (CustomerQuestionnar customerQ in customerQuestionnars)
-            {
-                CustomerQuestionnarVM customerQuestionnarVM = new CustomerQuestionnarVM();
-                customerQuestionnarVM.AdoptionApplicationID = customerQ.AdoptionApplication;
-                customerQuestionnarVM.CustomerLastName =
-                    adoptionAccessor.getCustomerLastName(customerQ.CustomerID);
-                customerQuestionnarVM.QuestionDescription =
-                    adoptionAccessor.getQestionDescription(customerQ.QuestionID);
-                customerQuestionnarVM.CustomerAnswer = customerQ.Answer;
-                customerQuestionnarVMs.Add(customerQuestionnarVM);
+           List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
+            customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerEmail);
+          // List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
+        //    foreach (CustomerQuestionnar customerQ in customerQuestionnars)
+        //    {
+        //        CustomerQuestionnarVM customerQuestionnarVM = new CustomerQuestionnarVM();
+        //        customerQuestionnarVM.AdoptionApplicationID = customerQ.AdoptionApplication;
+        //        customerQuestionnarVM.CustomerLastName =
+        //            adoptionAccessor.getCustomerLastName(customerQ.CustomerID);
+        //        customerQuestionnarVM.QuestionDescription =
+        //            adoptionAccessor.getQestionDescription(customerQ.QuestionID);
+        //        customerQuestionnarVM.CustomerAnswer = customerQ.Answer;
+        //        customerQuestionnarVMs.Add(customerQuestionnarVM);
 
-            }
-            return customerQuestionnarVMs;
+        //    }
+           return customerQuestionnars;
         }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace LogicLayer
         /// by Awaab Elamin 4/2/2020
         /// Mohamed Elamin , 2/21/2020
         /// </remarks>
-        public Customer retrieveCustomerByCustomerName(string customerLastName)
+        public AdoptionCustomer retrieveCustomerByCustomerName(string customerLastName)
         {
             customer = adoptionAccessor.getCustomerByCustomerName(customerLastName);
 
@@ -136,9 +136,9 @@ namespace LogicLayer
         /// by Awaab Elamin 4/2/2020
         /// Mohamed Elamin , 2/21/2020
         /// </remarks>
-        public AdoptionApplication retrieveCustomerAdoptionApplicaionByCustomerID(int customerID)
+        public AdoptionApplication retrieveCustomerAdoptionApplicaionByCustomerEmail(string customerEmail)
         {
-            adoptionApplication = adoptionAccessor.getAdoptionApplicationByCustomerID(customerID);
+            adoptionApplication = adoptionAccessor.getAdoptionApplicationByCustomerEmail(customerEmail);
             return adoptionApplication;
         }
 
@@ -160,5 +160,7 @@ namespace LogicLayer
 
             return result;
         }
+
+       
     }
 }

@@ -37,7 +37,7 @@ namespace DataAccessInterfaces
         /// <remarks>
         /// </remarks>
         /// <param name="customerLastName"></param>
-        Customer getCustomerByCustomerName(string customerLastName);
+        AdoptionCustomer getCustomerByCustomerName(string customerLastName);
 
         /// <summary>
         /// Creator: Awaab Elamin
@@ -73,9 +73,9 @@ namespace DataAccessInterfaces
         /// <remarks>
         /// </remarks>
         /// <param name="customerID"></param>
-        AdoptionApplication getAdoptionApplicationByCustomerID(int customerID);
+        AdoptionApplication getAdoptionApplicationByCustomerEmail(string customerEmail);
 
-        List<CustomerQuestionnar> getCustomerQuestionnair(int customerID);
+        List<CustomerQuestionnar> getCustomerQuestionnair(string customerEmail);
 
         /// <summary>
         /// Creator: Awaab Elamin

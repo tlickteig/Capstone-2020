@@ -87,46 +87,46 @@ namespace DataAccessLayer
 		/// </summary>
 		/// <remarks>
 		/// </remarks>
-		/// <param name="customerID"></param>
-		public AdoptionApplication getAdoptionApplicationByCustomerID(int customerID)
+		/// <param name="customerEmail"></param>
+		public AdoptionApplication getAdoptionApplicationByCustomerEmail(string customerEmail)
 		{
 			AdoptionApplication adoptionApplication = new AdoptionApplication();
 
-			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_get_Adoption_Application_By_CustomerID";
-			var cmd = new SqlCommand(cmdText, conn);
-			cmd.CommandType = CommandType.StoredProcedure;
+		//	var conn = DBConnection.GetConnection();
+		//	string cmdText = @"sp_get_Adoption_Application_By_CustomerID";
+		//	var cmd = new SqlCommand(cmdText, conn);
+		//	cmd.CommandType = CommandType.StoredProcedure;
 
-			cmd.Parameters.Add("@customerID", SqlDbType.Int);
-			cmd.Parameters["@customerID"].Value = customerID;
+		//	cmd.Parameters.Add("@customerID", SqlDbType.Int);
+		//	cmd.Parameters["@customerID"].Value = customerID;
 
-			try
-			{
-				conn.Open();
-				SqlDataReader reader = cmd.ExecuteReader();
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
+		//	try
+		//	{
+		//		conn.Open();
+		//		SqlDataReader reader = cmd.ExecuteReader();
+		//		if (reader.HasRows)
+		//		{
+		//			while (reader.Read())
+		//			{
 
-						adoptionApplication.AdoptionApplicationID = reader.GetInt32(0);
-						adoptionApplication.CustomerName = getCustomerLastName(customerID);
-						adoptionApplication.AnimalName = getAnimalName(reader.GetInt32(1));
-						adoptionApplication.Status = reader.GetString(2);
-						adoptionApplication.RecievedDate = reader.GetDateTime(3);
-					}
-					reader.Close();
-				}
-			}
-			catch (Exception)
-			{
+		//				adoptionApplication.AdoptionApplicationID = reader.GetInt32(0);
+		//				adoptionApplication.CustomerName = getCustomerLastName(customerID);
+		//				adoptionApplication.AnimalName = getAnimalName(reader.GetInt32(1));
+		//				adoptionApplication.Status = reader.GetString(2);
+		//				adoptionApplication.RecievedDate = reader.GetDateTime(3);
+		//			}
+		//			reader.Close();
+		//		}
+		//	}
+		//	catch (Exception)
+		//	{
 
-				throw;
-			}
-			finally
-			{
-				conn.Close();
-			}
+		//		throw;
+		//	}
+		//	finally
+		//	{
+		//		conn.Close();
+		//	}
 			return adoptionApplication;
 		}
 
@@ -159,8 +159,8 @@ namespace DataAccessLayer
 					{
 						AdoptionApplication adoptionApplication = new AdoptionApplication();
 						adoptionApplication.AdoptionApplicationID = reader.GetInt32(0);
-						adoptionApplication.CustomerName = getCustomerLastName(reader.GetInt32(1));
-						adoptionApplication.AnimalName = getAnimalName(reader.GetInt32(2));
+						adoptionApplication.CustomerEmail = reader.GetString(1);
+						adoptionApplication.AnimalName = reader.GetString(2);
 						adoptionApplication.Status = reader.GetString(3);
 						adoptionApplication.RecievedDate = reader.GetDateTime(4);
 						adoptionApplications.Add(adoptionApplication);
@@ -241,52 +241,52 @@ namespace DataAccessLayer
 		/// <remarks>
 		/// </remarks>
 		/// <param name="customerLastName"></param>
-		public Customer getCustomerByCustomerName(string customerLastName)
+		public AdoptionCustomer getCustomerByCustomerName(string customerLastName)
 		{
-			Customer ourCustomer = new Customer();
-			List<Customer> customers = new List<Customer>();
-			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_select_all_active_users";
-			var cmd = new SqlCommand(cmdText, conn);
-			cmd.CommandType = CommandType.StoredProcedure;
-			try
-			{
-				conn.Open();
-				SqlDataReader reader = cmd.ExecuteReader();
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
-						Customer activeCustomer = new Customer();
-						activeCustomer.CustomerID = reader.GetInt32(0);
-						activeCustomer.FirstName = reader.GetString(1);
-						activeCustomer.LastName = reader.GetString(2);
-						activeCustomer.PhoneNumber = reader.GetString(3);
-						activeCustomer.Email = reader.GetString(4);
-						activeCustomer.Active = true;
-						customers.Add(activeCustomer);
-					}
-					reader.Close();
-				}
-				foreach (Customer customer in customers)
-				{
-					if (customer.LastName == customerLastName)
-					{
-						int customerID = getCustomerID(customer.CustomerID);
-						ourCustomer = customer;
-						ourCustomer.CustomerID = customerID;
-					}
-				}
-			}
-			catch (Exception)
-			{
+			AdoptionCustomer ourCustomer = new AdoptionCustomer();
+			//List<AdoptionCustomer> customers = new List<AdoptionCustomer>();
+			//var conn = DBConnection.GetConnection();
+			//string cmdText = @"sp_select_all_active_users";
+			//var cmd = new SqlCommand(cmdText, conn);
+			//cmd.CommandType = CommandType.StoredProcedure;
+			//try
+			//{
+			//	conn.Open();
+			//	SqlDataReader reader = cmd.ExecuteReader();
+			//	if (reader.HasRows)
+			//	{
+			//		while (reader.Read())
+			//		{
+			//			AdoptionCustomer activeCustomer = new AdoptionCustomer();
+			//			activeCustomer.CustomerID = reader.GetInt32(0);
+			//			activeCustomer.FirstName = reader.GetString(1);
+			//			activeCustomer.LastName = reader.GetString(2);
+			//			activeCustomer.PhoneNumber = reader.GetString(3);
+			//			activeCustomer.Email = reader.GetString(4);
+			//			activeCustomer.Active = true;
+			//			customers.Add(activeCustomer);
+			//		}
+			//		reader.Close();
+			//	}
+			//	foreach (AdoptionCustomer customer in customers)
+			//	{
+			//		if (customer.LastName == customerLastName)
+			//		{
+			//			int customerID = getCustomerID(customer.CustomerID);
+			//			ourCustomer = customer;
+			//			ourCustomer.CustomerID = customerID;
+			//		}
+			//	}
+			//}
+			//catch (Exception)
+			//{
 
-				throw;
-			}
-			finally
-			{
-				conn.Close();
-			}
+			//	throw;
+			//}
+			//finally
+			//{
+			//	conn.Close();
+			//}
 			return ourCustomer;
 		}
 
@@ -297,43 +297,46 @@ namespace DataAccessLayer
 		/// retrieve Customer id from customer table by his userID
 		/// </summary>
 		/// <remarks>
+		/// Updated by : Awaab Elamin
+		/// Date: 3/16/2020
+		/// After Customer Table updated in DB, we don not need to below method
 		/// </remarks>
 		/// <param name="customerLastName"></param>
-		private int getCustomerID(int userID)
-		{
-			int customerID = 0;
-			List<Customer> customers = new List<Customer>();
-			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_get_CustomerID_By_User_ID";
-			var cmd = new SqlCommand(cmdText, conn);
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@UserID", SqlDbType.Int);
-			cmd.Parameters["@UserID"].Value = userID;
-			try
-			{
-				conn.Open();
-				SqlDataReader reader = cmd.ExecuteReader();
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
-						customerID = reader.GetInt32(0);
-					}
-					reader.Close();
-				}
+		//private int getCustomerID(int userID)
+		//{
+		//	int customerID = 0;
+		//	List<AdoptionCustomer> customers = new List<AdoptionCustomer>();
+		//	var conn = DBConnection.GetConnection();
+		//	string cmdText = @"sp_get_CustomerID_By_User_ID";
+		//	var cmd = new SqlCommand(cmdText, conn);
+		//	cmd.CommandType = CommandType.StoredProcedure;
+		//	cmd.Parameters.Add("@UserID", SqlDbType.Int);
+		//	cmd.Parameters["@UserID"].Value = userID;
+		//	try
+		//	{
+		//		conn.Open();
+		//		SqlDataReader reader = cmd.ExecuteReader();
+		//		if (reader.HasRows)
+		//		{
+		//			while (reader.Read())
+		//			{
+		//				customerID = reader.GetInt32(0);
+		//			}
+		//			reader.Close();
+		//		}
 
-			}
-			catch (Exception)
-			{
+		//	}
+		//	catch (Exception)
+		//	{
 
-				throw;
-			}
-			finally
-			{
-				conn.Close();
-			}
-			return customerID;
-		}
+		//		throw;
+		//	}
+		//	finally
+		//	{
+		//		conn.Close();
+		//	}
+		//	return customerID;
+		//}
 
 		/// <summary>
 		/// retrieve the customer full name "first and last
@@ -428,14 +431,14 @@ namespace DataAccessLayer
 		/// <remarks>
 		/// </remarks>
 		/// <param name="customerID"></param>
-		public List<CustomerQuestionnar> getCustomerQuestionnair(int customerID)
+		public List<CustomerQuestionnar> getCustomerQuestionnair(string customerEmail)
 		{
 			List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
 			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_get_Customer_Answer_By_CustomrID";
+			string cmdText = @"sp_get_Customer_Answer_By_CustomrEmail";
 			var cmd = new SqlCommand(cmdText, conn);
 			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.AddWithValue("@CustomerID", customerID);
+			cmd.Parameters.AddWithValue("@CustomerEmail", customerEmail);
 			try
 			{
 				conn.Open();
@@ -446,11 +449,8 @@ namespace DataAccessLayer
 					{
 						CustomerQuestionnar customerQuestionnar
 							= new CustomerQuestionnar();
-
-						customerQuestionnar.AdoptionApplication = reader.GetInt32(0);
-						customerQuestionnar.CustomerID = customerID;
-						customerQuestionnar.QuestionID = reader.GetInt32(1);
-						customerQuestionnar.Answer = reader.GetString(2);
+						customerQuestionnar.QuestionDescription= reader.GetString(0);
+						customerQuestionnar.Answer = reader.GetString(1);
 						customerQuestionnars.Add(customerQuestionnar);
 					}
 					reader.Close();
@@ -467,5 +467,7 @@ namespace DataAccessLayer
 			}
 			return customerQuestionnars;
 		}
+
+		
 	}
 }
