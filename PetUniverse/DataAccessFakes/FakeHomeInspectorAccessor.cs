@@ -43,7 +43,7 @@ namespace DataAccessFakes
                 new AdoptionApplication()
                 {
                 AdoptionApplicationID = 10001,
-                CustomerName = "Romaine",
+                CustomerEmail = "Romaine",
                 AnimalName = "Pepe",
                 Status = "inHomeInspection",
                 RecievedDate = DateTime.Now
@@ -51,7 +51,7 @@ namespace DataAccessFakes
                   new AdoptionApplication()
                   {
                   AdoptionApplicationID = 10002,
-                  CustomerName = "Jarvis",
+                  CustomerEmail = "Jarvis",
                   AnimalName = "Pete",
                   Status = "facilitator",
                   RecievedDate = DateTime.Now
@@ -59,7 +59,7 @@ namespace DataAccessFakes
                     new AdoptionApplication()
                     {
                     AdoptionApplicationID = 10007,
-                    CustomerName = "Jane",
+                    CustomerEmail = "Jane",
                     AnimalName = "Kadeeesa",
                     Status = "inHomeInspection",
                     RecievedDate = DateTime.Now

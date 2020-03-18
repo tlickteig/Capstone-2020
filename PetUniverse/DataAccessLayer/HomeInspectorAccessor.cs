@@ -162,7 +162,7 @@ namespace DataAccessLayer
                         {
                             AdoptionApplicationID = reader.GetInt32(0),
                             AnimalName = SelectAnimalNameByAnimalID(reader.GetInt32(1)),
-                            CustomerName = GetCustomerNameByCustomerID(reader.GetInt32(2)),
+                            CustomerEmail = GetCustomerNameByCustomerID(reader.GetInt32(2)),
                             Status = reader.GetString(3),
                             RecievedDate = reader.GetDateTime(4)
                         };
