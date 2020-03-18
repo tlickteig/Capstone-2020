@@ -153,7 +153,7 @@ namespace WPFPresentationLayer.AdoptionPages
             else
             {
                 this.NavigationService?.Navigate(new CustomerDetail
-                    (adoptionApplication.CustomerName));
+                    (adoptionApplication.CustomerEmail));
                 populatedgAdoptionApplicationsList();
             }
         }
