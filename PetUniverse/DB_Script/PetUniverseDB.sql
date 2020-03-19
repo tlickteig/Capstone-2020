@@ -195,7 +195,7 @@ CREATE TABLE [dbo].[Animal](
 	[ProfileDescription]	[nvarchar](500) DEFAULT "NO description found",
 	CONSTRAINT [pk_AnimalID] PRIMARY KEY([AnimalID] ASC),
 	CONSTRAINT [fk_Animal_AnimalSpeciesID] FOREIGN KEY([AnimalSpeciesID])
-		REFERENCES [AnimalSpecies]([AnimalSpeciesID])
+		REFERENCES [AnimalSpecies]([AnimalSpeciesID]) ON UPDATE CASCADE
 )
 GO
 
@@ -5985,6 +5985,79 @@ BEGIN
 	delete from [dbo].[Medicine]
 	where [MedicineID] = @MedicineID
 	return @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Chuck Baxter
+Date: 3/13/2020
+Comment: Sproc to insert Animal species
+*/
+print '' print'*** Creating sp_insert_animal_species'
+GO
+
+DROP PROCEDURE IF EXISTS [sp_insert_animal_species]
+GO
+
+CREATE PROCEDURE [sp_insert_animal_species]
+(
+	@AnimalSpeciesID	[nvarchar](100),
+	@Description		[nvarchar](1000)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[AnimalSpecies]
+		([AnimalSpeciesID],[Description])
+	VALUES
+		(@AnimalSpeciesID, @Description)
+	RETURN SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Chuck Baxter
+Date: 3/18/2020
+Comment: Sproc to delete animal species
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_animal_species]
+GO
+PRINT '' PRINT '*** creating sp_delete_animal_species'
+GO
+CREATE PROCEDURE [sp_delete_animal_species](
+		@AnimalSpeciesID [nvarchar](100)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[AnimalSpecies]
+	WHERE [AnimalSpeciesID] = @AnimalSpeciesID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Chuck Baxter
+Date: 3/18/2020
+Comment: Sproc to update animal species
+*/
+print '' print'*** Creating sp_update_animal_species'
+GO
+
+DROP PROCEDURE IF EXISTS [sp_update_animal_species]
+GO
+
+CREATE PROCEDURE [sp_update_animal_species]
+(
+	@OldAnimalSpeciesID	[nvarchar](100),
+	@NewAnimalSpeciesID	[nvarchar](100),
+	@NewDescription		[nvarchar](1000)
+)
+AS
+BEGIN
+	UPDATE	[dbo].[AnimalSpecies]
+	SET 	[AnimalSpeciesID]	= 	@NewAnimalSpeciesID,
+			[Description]		=	@NewDescription
+	WHERE	[AnimalSpeciesID]	=	@OldAnimalSpeciesID
+	RETURN  @@ROWCOUNT
 END
 GO
 

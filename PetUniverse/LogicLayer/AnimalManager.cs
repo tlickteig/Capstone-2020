@@ -372,5 +372,93 @@ namespace LogicLayer
             }
             return result;
         }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/13/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// logic method that passes an animal species and description to the accessor method
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalSpecies"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        public bool AddNewAnimalSpecies(string animalSpecies, string description)
+        {
+            bool result = true;
+            try
+            {
+                result = _animalAccessor.InsertAnimalSpecies(animalSpecies, description) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Animal not added.", ex);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// logic method that passes an animal species to the accessor method for deletion
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalSpeciesID"></param>
+        /// <returns></returns>
+        public bool DeleteAnimalSpecies(string animalSpeciesID)
+        {
+            bool result = true;
+            try
+            {
+                result = _animalAccessor.DeleteAnimalSpecies(animalSpeciesID) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Animal Species not deleted", ex);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// logic method that passes an animal species to the accessor method for update
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="oldAnimalSpeciesID"></param>
+        /// <param name="newAnimalSpeciesID"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        public bool EditAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description)
+        {
+            try
+            {
+                return 1 == _animalAccessor.UpdateAnimalSpecies(oldAnimalSpeciesID, newAnimalSpeciesID, description);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update Failed!", ex);
+            }
+        }
     }
 }

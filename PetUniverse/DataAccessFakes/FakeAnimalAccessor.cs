@@ -23,6 +23,7 @@ namespace DataAccessFakes
         private List<string> species;
         private Animal _animal;
         private List<Animal> animalProfiles;
+        private List<string> animalSpeciesList;
 
         /// <summary>
         /// Creator: Chuck Baxter
@@ -85,6 +86,12 @@ namespace DataAccessFakes
                     ProfileImage = "sample images",
                     ProfileDescription = "sample description"
                 }
+            };
+
+            animalSpeciesList = new List<string>()
+            {
+                "Dog",
+                "Doggo"
             };
         }
 
@@ -434,6 +441,100 @@ namespace DataAccessFakes
             return (from a in animals
                     where a.AnimalID == animalID
                     select a).Count();
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020
+        /// Approver:
+        /// 
+        /// The fake data access method for adding a new animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalSpecies"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        public int InsertAnimalSpecies(string animalSpecies, string description)
+        {
+            try
+            {
+                animalSpeciesList.Add(animalSpecies);
+                animalSpeciesList.Add(description);
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver:
+        /// 
+        /// The fake data access method for deleting an animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalSpeciesID"></param>
+        /// <returns></returns
+        public int DeleteAnimalSpecies(string animalSpeciesID)
+        {
+            foreach (string species in animalSpeciesList)
+            {
+                if (animalSpeciesID == species)
+                {
+                    try
+                    {
+                        animalSpeciesList.Remove(species);
+                        return 1;
+                    }
+                    catch
+                    {
+                        return 0;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver:
+        /// 
+        /// The fake data access method for updating an animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="oldAnimalSpeciesID"></param>
+        /// <param name="newAnimalSpeciesID"></param>
+        /// <param name="description"></param>
+        /// <returns></returns
+        public int UpdateAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description)
+        {
+            foreach (string animalSpeciesID in animalSpeciesList)
+            {
+                if (oldAnimalSpeciesID == animalSpeciesID)
+                {
+                    return 1;
+                }
+            }
+            return 0;
         }
     }
 }

@@ -685,5 +685,131 @@ namespace DataAccessLayer
             }
             return rows;
         }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/13/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        ///
+        /// a data access method that uses a stored procedure to add a new animal species to the database
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animal"></param>
+        /// <returns>int</returns>
+        public int InsertAnimalSpecies(string animalSpecies, string description)
+        {
+            int speciesID = 0;
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_insert_animal_species", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@AnimalSpeciesID", animalSpecies);
+            cmd.Parameters.AddWithValue("@Description", description);
+
+            try
+            {
+                conn.Open();
+                speciesID = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return speciesID;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        ///
+        /// a data access method that uses a stored procedure to delete an animal species from the database
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalSpeciesID"></param>
+        /// <returns>int</returns
+        public int DeleteAnimalSpecies(string animalSpeciesID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_delete_animal_species", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalSpeciesID", animalSpeciesID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        ///
+        /// a data access method that uses a stored procedure to update an animal species in the database
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalSpeciesID"></param>
+        /// <param name="newAnimalSpeciesID"></param>
+        /// <param name="description"></param>
+        /// <returns>int</returns
+        public int UpdateAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_animal_species", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@OldAnimalSpeciesID", oldAnimalSpeciesID);
+            cmd.Parameters.AddWithValue("@NewAnimalSpeciesID", newAnimalSpeciesID);
+            cmd.Parameters.AddWithValue("@NewDescription", description);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return rows;
+        }
     }
 }

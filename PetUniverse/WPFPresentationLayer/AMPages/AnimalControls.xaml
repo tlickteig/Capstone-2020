@@ -27,10 +27,10 @@
       mc:Ignorable="d" 
       d:DesignHeight="845" d:DesignWidth="1289"
       Title="AnimalControls">
-    <Canvas x:Name="canViewAnimalList" Height="845" Width="1289">
+    <Canvas x:Name="canViewAnimalList" Height="800" Width="1289">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="725"></RowDefinition>
+                <RowDefinition Height="700"></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -44,8 +44,8 @@
                       MouseDoubleClick="DgActiveAnimals_MouseDoubleClick">
             </DataGrid>
 
-            <Button x:Name="btnAddAnimal" Margin="5"  Grid.Row="1" Grid.Column="0" Width="150" Height="50" FontSize="16" Click="BtnAddAnimal_Click">ADD ANIMAL</Button>
-            <CheckBox x:Name="chkActive" Grid.Row="1" Grid.Column="1" 
+            <Button x:Name="btnAddAnimal" Margin="15"  Grid.Row="1" Grid.Column="0" Width="150" Height="50" FontSize="16" Click="BtnAddAnimal_Click">ADD ANIMAL</Button>
+            <CheckBox x:Name="chkActive" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" HorizontalContentAlignment="Center"
                       VerticalAlignment="Center" VerticalContentAlignment="Center"
                       FontSize="8" Content="View Inactive Animals" Click="chkActive_Click" Margin="5">
                 <CheckBox.LayoutTransform>
@@ -53,8 +53,8 @@
                 </CheckBox.LayoutTransform>
             </CheckBox>
         </Grid>
-        <Canvas Height="845" Width=" 1280" x:Name="canAddAnimal" Background="AntiqueWhite" Visibility="Hidden">
-            <Grid Height="800" Width=" 1280">
+        <Canvas Height="800" Width=" 1280" x:Name="canAddAnimal" Background="AntiqueWhite" Visibility="Hidden">
+            <Grid Height="775" Width=" 1280">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -145,8 +145,8 @@
             Update:
             Approver:
         -->
-        <Canvas Height="845" Width=" 1280" x:Name="canIndividualAnimal" Background="AntiqueWhite" Visibility="Hidden">
-            <Grid Height="800" Width="1280">
+        <Canvas Height="800" Width=" 1280" x:Name="canIndividualAnimal" Background="AntiqueWhite" Visibility="Hidden">
+            <Grid Height="775" Width="1280">
                 <Grid.RowDefinitions>
                     <!--name-->
                     <RowDefinition></RowDefinition>
@@ -172,39 +172,39 @@
 
                 <!--Name-->
                 <Label Grid.Row="0" Content="Name:" HorizontalContentAlignment="Right"
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
                 <Label x:Name="lblIndividualAnimalName" Grid.Row="0" Grid.Column="1" Content="" 
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
                 <!--ID-->
                 <Label Grid.Row="1" Content="Animal ID Number:" HorizontalContentAlignment="Right"
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
                 <Label x:Name="lblIndividualAnimalID" Grid.Row="1" Grid.Column="1" Content="" 
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
                 <!--Species-->
                 <Label Grid.Row="2" Content="Species:" HorizontalContentAlignment="Right"
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
                 <Label x:Name="lblIndividualAnimalSpecies" Grid.Row="2" Grid.Column="1" Content="" 
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
                 <!--Breed-->
                 <Label Grid.Row="3" Content="Breed:" HorizontalContentAlignment="Right"
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
                 <Label x:Name="lblIndividualAnimalBreed" Grid.Row="3" Grid.Column="1" Content="" 
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
                 <!--Dob-->
                 <Label Grid.Row="4" Content="Date of Birth:" HorizontalContentAlignment="Right"
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
                 <Label x:Name="lblIndividualAnimalDob" Grid.Row="4" Grid.Column="1" Content="" 
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
                 <!--Arrival Date-->
                 <Label Grid.Row="5" Content="Arrival Date:" HorizontalContentAlignment="Right"
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
                 <Label x:Name="lblIndividualAnimalArrivalDate" Grid.Row="5" Grid.Column="1" Content="" 
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="25"></Label>
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
                 <!--Check Boxes-->
                 <Grid Grid.Row="6" Grid.ColumnSpan="2">
@@ -271,8 +271,8 @@
             Update: Added click events
             Approver:
         -->
-        <Canvas Height="845" Width=" 1280" x:Name="canEditAnimal" Background="AntiqueWhite" Visibility="Hidden">
-            <Grid Height="800" Width=" 1280">
+        <Canvas Height="800" Width=" 1280" x:Name="canEditAnimal" Background="AntiqueWhite" Visibility="Hidden">
+            <Grid Height="775" Width=" 1280">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -295,27 +295,30 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="75"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <!--ID-->
                     <Label Grid.Row="0"  HorizontalAlignment="Right" FontSize="22" VerticalAlignment="Center">Animal ID:</Label>
                     <Label x:Name="lblEditAnimalID" Grid.Row="0" Grid.Column="1" Content="" 
-                           FontSize="16" VerticalContentAlignment="Center" Margin="25 0 25 0"></Label>
+                           FontSize="16" VerticalContentAlignment="Center"  Grid.ColumnSpan="2" Margin="25 0 25 0"></Label>
 
                     <!--Edit Animal Name-->
                     <Label x:Name="lblEditAnimalName" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Name:</Label>
-                    <TextBox x:Name="txtEditAnimalName"  Grid.Row="1" Grid.Column="1" Background="LightGray" Height="30" 
+                    <TextBox x:Name="txtEditAnimalName"  Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="2" Background="LightGray" Height="30" 
                              Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
 
                     <!--Edit Animal Species-->
                     <Label x:Name="lblEditAnimalSpecies" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Species:</Label>
                     <ComboBox x:Name="cmbEditAnimalSpecies" Grid.Row="2" Grid.Column="1" Height="30" 
                               Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></ComboBox>
+                    <Button x:Name="btnSpecies" Grid.Row="2" Grid.Column="2" Width="50" Height="50" HorizontalAlignment="Right"
+                            Margin="0 0 25 0" Click="btnSpecies_Click">Edit</Button>
 
                     <!--Edit Animal Breed-->
                     <Label x:Name="lblEditAnimalBreed" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal Breed:</Label>
                     <TextBox  x:Name="txtEditAnimalBreed" Grid.Row="3" Grid.Column="1" Background="LightGray" Height="30" 
-                              Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+                              Margin="25 0 25 0" VerticalContentAlignment="Center"  Grid.ColumnSpan="2" FontSize="16"></TextBox>
 
                     <!--Edit Check Boxes-->
                     <Grid Grid.Row="4" Grid.ColumnSpan="2">
@@ -396,6 +399,141 @@
                                 VerticalAlignment="Center" HorizontalAlignment="Center"
                                 Click="BtnCancelAnimalEdit_Click">Cancel</Button>
                     </Grid>
+                </Grid>
+            </Grid>
+        </Canvas>
+
+        <!--Name: Chuck Baxter
+            Date: 3/18/2020
+            CHECKED BY: Carl Davis, 3/18/2020
+            CHECKED BY:
+            XAML for editing an animal species
+        
+            Approver:
+        -->
+        <Canvas Height="800" Width=" 1280" x:Name="canEditAnimalSpecies" Background="AntiqueWhite" Visibility="Hidden">
+            <Grid Height="775" Width=" 1280">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label FontSize="36" VerticalAlignment="Center" Grid.Row="0">Edit Animal Species</Label>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+
+                    <!--Add New-->
+                    <CheckBox x:Name="chkAddSpecies" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                              VerticalAlignment="Center" VerticalContentAlignment="Center"
+                              HorizontalAlignment="Center" IsEnabled="True"
+                              FontSize="18" Content="Add New Species" Margin="10"
+                              Checked="chkAddSpecies_Checked" Unchecked="chkAddSpecies_Unchecked">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="2" ScaleY="2" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+
+                    <!--Edit Existing-->
+                    <CheckBox x:Name="chkEditSpecies" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"
+                              VerticalAlignment="Center" VerticalContentAlignment="Center"
+                              HorizontalAlignment="Center" IsEnabled="True"
+                              FontSize="18" Content="Edit Existing Species" Margin="10"
+                              Checked="chkEditSpecies_Checked" Unchecked="chkEditSpecies_Unchecked">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="2" ScaleY="2" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+
+                    <!--Delete Existing-->
+                    <CheckBox x:Name="chkDeleteSpecies" Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2"
+                              VerticalAlignment="Center" VerticalContentAlignment="Center"
+                              HorizontalAlignment="Center" IsEnabled="True"
+                              FontSize="18" Content="Delete Existing Species" Margin="10"
+                              Checked="chkDeleteSpecies_Checked" Unchecked="chkDeleteSpecies_Unchecked">
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="2" ScaleY="2" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
+
+                    <!--Edit Species Select-->
+                    <Label x:Name="lblEditSpecies" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                           HorizontalAlignment="Right" Visibility="Hidden">Animal Species:</Label>
+                    <ComboBox x:Name="cmbEditSpecies" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Height="30" 
+                              Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"
+                              SelectionChanged="cmbEditSpecies_SelectionChanged"></ComboBox>
+
+                    <!--Edit Animal Species Name-->
+                    <Label x:Name="lblEditAnimalSpeciesID" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                           HorizontalAlignment="Right" Visibility="Hidden">Animal Species:</Label>
+                    <TextBox x:Name="txtEditAnimalSpecies"  Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="5" Background="LightGray" Height="30" 
+                             Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"></TextBox>
+
+                    <!--Edit Animal Species Description-->
+                    <Label x:Name="lblEditAnimalSpeciesDescription" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                           HorizontalAlignment="Right" Visibility="Hidden">Species Description:</Label>
+                    <TextBox x:Name="txtEditAnimalSpeciesDescription"  Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="5" Background="LightGray" Height="30" 
+                             Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"></TextBox>
+
+                    <!--Delete Species Select-->
+                    <Label x:Name="lblDeleteSpecies" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                           HorizontalAlignment="Right" Visibility="Hidden">Animal Species:</Label>
+                    <ComboBox x:Name="cmbDeleteSpecies" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Height="30" 
+                              Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"></ComboBox>
+
+                    <!--Add Animal Species Name-->
+                    <Label x:Name="lblNewAnimalSpecies" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                           HorizontalAlignment="Right" Visibility="Hidden">New Animal Species:</Label>
+                    <TextBox x:Name="txtNewAnimalSpecies"  Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="5" Background="LightGray" Height="30" 
+                             Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"></TextBox>
+
+                    <!--Add Animal Species Description-->
+                    <Label x:Name="lblNewAnimalSpeciesDescription" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                           HorizontalAlignment="Right" Visibility="Hidden">Species Description:</Label>
+                    <TextBox x:Name="txtNewAnimalSpeciesDescription"  Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="5" Background="LightGray" Height="30" 
+                             Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"></TextBox>
+
+                    <!--Add Species Submit-->
+                    <Button x:Name="BtnSubmitAnimalAddSpecies" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" 
+                            Width="150" FontSize="36" Padding="10" Visibility="Hidden"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"
+                            Click="BtnSubmitAnimalAddSpecies_Click">Add</Button>
+
+                    <!--Edit Species Submit-->
+                    <Button x:Name="BtnSubmitAnimalEditSpecies" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" 
+                            Width="150" FontSize="36" Padding="10" Visibility="Hidden"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"
+                            Click="BtnSubmitAnimalEditSpecies_Click">Update</Button>
+
+                    <!--Delete Species Submit-->
+                    <Button x:Name="BtnSubmitAnimalDeleteSpecies" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" 
+                            Width="150" FontSize="36" Padding="10" Visibility="Hidden"
+                            VerticalAlignment="Center" HorizontalAlignment="Center"
+                            Click="BtnSubmitAnimalDeleteSpecies_Click">Delete</Button>
+
+                    <!--Edit Species Cancel-->
+                    <Button x:Name="btnCancelAnimalEditSpecies" Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="3" 
+                            Width="150" FontSize="36" Padding="10"
+                            VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnCancelAnimalEditSpecies_Click">Cancel</Button>
                 </Grid>
             </Grid>
         </Canvas>
