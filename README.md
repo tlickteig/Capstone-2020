@@ -39,3 +39,4 @@ Capstone Project Team for 2020:
 |Ethan Holmes             | Developer                                 |
 |Zoey McDonald            | Developer Scrum Leader                    |
 |Dalton Reierson          |Developer|
+|Levi Toomsen			  |Developer|
