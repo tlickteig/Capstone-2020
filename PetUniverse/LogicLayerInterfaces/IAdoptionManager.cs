@@ -22,5 +22,7 @@ namespace LogicLayerInterfaces
         AdoptionApplication retrieveCustomerAdoptionApplicaionByCustomerEmail(string customerID);
         bool SubmitReviewerDecision(int adoptionApplicationID, string decision);
         List<CustomerQuestionnar> retrieveCustomerQuestionnar(string customerEmail);
+        bool addAdoptionApplication(MVCAdoptionApplication adoptionApplication);
+       // List<string> retrieveCustomerQuestionnar();
     }
 }

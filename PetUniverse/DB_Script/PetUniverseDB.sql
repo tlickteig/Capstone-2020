@@ -6060,7 +6060,31 @@ BEGIN
 	RETURN  @@ROWCOUNT
 END
 GO
-
+/*
+Created by: Awaab Elamin
+Date: 3/18/2020
+Comment: Create SP sp_add_new_adoptionApplication
+Updated By: Awaab Elamin
+*/
+GO
+DROP PROCEDURE IF EXISTS [sp_add_new_adoptionApplication]
+GO
+CREATE PROCEDURE [dbo].[sp_add_new_adoptionApplication]
+(
+	@CustomerEmail	[nvarchar](250),
+	@RecievedDate	[datetime],
+	@Status		[nvarchar]	(1000),
+	@AnimalID	[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[AdoptionApplication]
+([CustomerEmail],[RecievedDate],[Status],[AnimalID])
+VALUES
+(@CustomerEmail,@RecievedDate,@Status,@AnimalID)
+END
+GO
+/*
 /*
  ******************************* Inserting Sample Data *****************************
 */

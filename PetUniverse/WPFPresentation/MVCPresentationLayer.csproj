@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdoptionController.cs" />
     <Compile Include="Controllers\CareersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -240,6 +241,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Careers\ApplicantList.cshtml" />
     <Content Include="Views\Shared\_CareersLayout.cshtml" />
+    <Content Include="Views\Adoption\AdoptionApplication.cshtml" />
+    <Content Include="Views\Adoption\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

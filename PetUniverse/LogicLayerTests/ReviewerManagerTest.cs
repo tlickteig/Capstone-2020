@@ -166,5 +166,29 @@ namespace LogicLayerTests
             bool result = reviewerManager.SubmitReviewerDecision(adoptionApplicationID, Denydecision);
             Assert.AreEqual(expect, result);
         }
+
+        //public bool addAdoptionApplication(MVCAdoptionApplication adoptionApplication)
+        /// <summary>
+        /// Test  for addAdoptionApplication
+        /// to pass the test must retrieve "true"
+        /// (That means the application added correctly)
+        /// </summary>
+        /// <remarks>
+        /// by Awaab Elamin 3/3/2020
+        /// Mohamed Elamin , 3/4/2020
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionApplication()
+        {
+            MVCAdoptionApplication adoptionApplication = new MVCAdoptionApplication();
+            adoptionApplication.AdoptionApplicationID = 10003;
+            adoptionApplication.CustomerEmail = "Awaab@PetUnviesal.com";
+            adoptionApplication.AnimalID = 10004;
+            adoptionApplication.RecievedDate = DateTime.Now;
+            adoptionApplication.Status = "Reviewer";
+            bool expect = true;
+            bool result = reviewerManager.addAdoptionApplication(adoptionApplication);
+            Assert.AreEqual(expect, result);
+        }
     }
 }

@@ -88,6 +88,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="decision"></param>
         int changeAdoptionApplicationStatus(int adoptionApplicationID, string decision);
-
+      
+        bool insertAdoptionApplication(MVCAdoptionApplication adoptionApplication);
     }
 }

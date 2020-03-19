@@ -98,7 +98,15 @@ namespace LogicLayer
         public List<CustomerQuestionnar> retrieveCustomerQuestionnar(string customerEmail)
         {
            List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-            customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerEmail);
+            if (customerEmail !=null && customerEmail != "")
+            {
+                customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerEmail);
+            }
+            else
+            {
+                //customerQuestionnars = adoptionAccessor.getAllQuestions();
+            }
+           
           // List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
         //    foreach (CustomerQuestionnar customerQ in customerQuestionnars)
         //    {
@@ -161,6 +169,42 @@ namespace LogicLayer
             return result;
         }
 
-       
+        public bool addAdoptionApplication(MVCAdoptionApplication adoptionApplication)
+        {
+            bool result = false;
+            try
+            {
+                if (adoptionAccessor.insertAdoptionApplication(adoptionApplication))
+                {
+                    result = true;
+                } 
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return result;
+        }
+
+        //public List<string> retrieveCustomerQuestionnar()
+        //{
+        //    List<string> questionnairs = new List<string>();
+        //    List<CustomerQuestionnar> customerQuestions = new List<CustomerQuestionnar>();
+        //    try
+        //    {
+        //        customerQuestions = adoptionAccessor.getAllQuestions();
+        //        foreach (var item in customerQuestions)
+        //        {
+        //            questionnairs.Add(item.QuestionDescription);
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        throw;
+        //    }
+        //    return questionnairs;
+        //}
     }
 }

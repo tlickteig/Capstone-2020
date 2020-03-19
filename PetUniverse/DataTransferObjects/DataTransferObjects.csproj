@@ -92,6 +92,7 @@
     <Compile Include="Medication.cs" />
     <Compile Include="MedicationOrder.cs" />
     <Compile Include="Medicine.cs" />
+    <Compile Include="MVCAdoptionApplication.cs" />
     <Compile Include="NewAnimalChecklist.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />

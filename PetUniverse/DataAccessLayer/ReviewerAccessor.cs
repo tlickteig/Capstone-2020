@@ -468,6 +468,71 @@ namespace DataAccessLayer
 			return customerQuestionnars;
 		}
 
+		public List<CustomerQuestionnar> getAllQuestions()
+		{
+			List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
+			var conn = DBConnection.GetConnection();
+			string cmdText = @"sp_get_all_General_Questions";
+			var cmd = new SqlCommand(cmdText, conn);
+			cmd.CommandType = CommandType.StoredProcedure;
+			try
+			{
+				conn.Open();
+				SqlDataReader reader = cmd.ExecuteReader();
+				if (reader.HasRows)
+				{
+					while (reader.Read())
+					{
+						CustomerQuestionnar customerQuestionnar
+							= new CustomerQuestionnar();
+						customerQuestionnar.QuestionDescription = reader.GetString(0);
+						customerQuestionnars.Add(customerQuestionnar);
+					}
+					reader.Close();
+				}
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return customerQuestionnars;
+		}
+
+		public bool insertAdoptionApplication(MVCAdoptionApplication adoptionApplication)
+		{
+			bool result = false;
+			var conn = DBConnection.GetConnection();
+			var cmd = new SqlCommand("sp_add_new_adoptionApplication", conn);
+			cmd.CommandType = CommandType.StoredProcedure;
+			cmd.Parameters.AddWithValue("@CustomerEmail", adoptionApplication.CustomerEmail);
+			cmd.Parameters.AddWithValue("@RecievedDate", adoptionApplication.RecievedDate);
+			cmd.Parameters.AddWithValue("@Status", adoptionApplication.Status);
+			cmd.Parameters.AddWithValue("@AnimalID", adoptionApplication.AnimalID);
+			try
+			{
+				conn.Open();
+				if ((int)cmd.ExecuteNonQuery() == 1)
+				{
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return result;
+		}
+
 		
 	}
 }

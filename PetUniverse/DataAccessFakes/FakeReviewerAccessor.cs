@@ -370,17 +370,19 @@ namespace DataAccessFakes
         return adoptionApplications;
     }
 
-    /// <summary>
-    /// Creator: Awaab Elamin
-    /// Created: 2020/02/15
-    /// Approver: Mohamed Elamin , 2/21/2020
-    /// 
-    /// select the customer record from the customer list
-    /// </summary>
-    /// <remarks>
-    /// </remarks>
-    /// <param name="customerLastName"></param>
-    public AdoptionCustomer getCustomerByCustomerName(string customerLastName)
+      
+
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/15
+        /// Approver: Mohamed Elamin , 2/21/2020
+        /// 
+        /// select the customer record from the customer list
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="customerLastName"></param>
+        public AdoptionCustomer getCustomerByCustomerName(string customerLastName)
     {
         AdoptionCustomer ReturnCustomer = new AdoptionCustomer();
         foreach (AdoptionCustomer customer in customers)
@@ -459,5 +461,24 @@ namespace DataAccessFakes
         }
         return returnQDescription;
     }
-}
+
+        public bool insertAdoptionApplication(MVCAdoptionApplication adoptionApplication)
+        {
+            bool result = false;
+            int count = adoptionApplications.Count;
+            AdoptionApplication adoption = new AdoptionApplication();
+            adoption.AdoptionApplicationID = adoptionApplication.AdoptionApplicationID;
+            adoption.CustomerEmail = adoptionApplication.CustomerEmail;
+            adoption.AnimalName = adoptionApplication.AnimalID.ToString();
+            adoption.RecievedDate = adoptionApplication.RecievedDate;
+            adoption.Status = adoptionApplication.Status;
+            adoptionApplications.Add(adoption);
+            if (adoptionApplications.Count > count)
+            {
+                result = true;
+            }
+
+            return result;
+        }
+    }
 }
