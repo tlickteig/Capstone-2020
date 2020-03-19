@@ -73,6 +73,7 @@
     <Compile Include="FacilityInspectionManagerTests.cs" />
     <Compile Include="MedicationManagerTests.cs" />
     <Compile Include="MedicineManagerTests.cs" />
+    <Compile Include="OrderManagerTests.cs" />
     <Compile Include="PetUniverseUserERolesManagerTests.cs" />
     <Compile Include="ProductManagerTests.cs" />
     <Compile Include="AnimalPrescriptionManagerTests.cs" />

@@ -7382,3 +7382,133 @@ VALUES
 ("This is the first one", "This is the first dosage", "This is the first description"),
 ("This is the second one", "This is the second dosage", "This is the third description")
 GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: Order table
+*/
+print '' print '*** Creating Order Table'
+GO
+CREATE TABLE [dbo].[orders] (
+	[OrderID]					[int] IDENTITY(100000, 1) 	NOT NULL,
+	[EmployeeID]				[int]						NOT NULL,
+	[Active]					[BIT] 						NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_OrderID] PRIMARY KEY([OrderID] ASC)
+)
+GO
+
+print '' print '*** Creating sp_insert_order'
+GO
+CREATE PROCEDURE sp_insert_order
+	(
+        @EmployeeID					[int],
+		@Active						[bit]
+	)
+AS
+	BEGIN
+		INSERT INTO [orders]
+			([EmployeeID], [Active])
+		VALUES
+			(@EmployeeID, @Active)
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+print '' print '*** Creating sp_retrieve_all_orders'
+GO
+create PROCEDURE sp_retrieve_all_orders
+AS
+	BEGIN
+		SELECT [OrderID], [EmployeeID]
+		FROM [orders]
+		Order BY [OrderID]
+	END
+GO
+
+print '' print '*** Creating sp_retrieve_order_by_id'
+GO
+CREATE PROCEDURE sp_retrieve_order_by_id
+	(
+		@OrderID		[int]
+	)
+AS
+	BEGIN
+		SELECT [OrderID], [EmployeeID]
+		FROM [Orders]
+		WHERE [OrderID] = @OrderID
+	END
+GO
+
+print '' print '*** Creating sp_update_order_by_id'
+GO
+CREATE PROCEDURE sp_update_order_by_id
+	(
+		@OrderID					[int],
+        @EmployeeID					[int],
+		@Active						[bit],
+		
+		@OldOrderID					[int],
+        @OldEmployeeID				[int],
+		@OldActive					[bit]
+	)
+AS
+	BEGIN
+		UPDATE  [orders]
+		SET 	[EmployeeID] = @EmployeeID,
+				[Active] = @Active
+		WHERE 	[OrderID] = @OldOrderID
+		  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+print '' print '*** Creating sp_deactivate_order_by_id'
+GO
+CREATE PROCEDURE sp_deactivate_order_by_id
+	(
+		@OrderID					[int]
+	)
+AS
+	BEGIN
+		UPDATE  [orders]  
+		SET 	[Active] = 0
+		WHERE 	[OrderID] = @OrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+print '' print '*** Creating sp_delete_order_by_id'
+GO
+CREATE PROCEDURE sp_delete_order_by_id
+	(
+		@OrderID				[int]
+	)
+AS
+	BEGIN
+		DELETE  
+		FROM 	[orders]
+		WHERE 	[OrderID] = @OrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+print '' print '*** Creating sp_activate_order_by_id'
+GO
+CREATE PROCEDURE sp_activate_order_by_id
+	(
+		@OrderID				[int]
+	)
+AS
+	BEGIN
+		UPDATE  [orders]  
+		SET 	[Active] = 1
+		WHERE 	[OrderID] = @OrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO

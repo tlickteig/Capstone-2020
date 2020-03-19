@@ -136,6 +136,12 @@
     <Compile Include="AMPages\AnimalRecords.xaml.cs">
       <DependentUpon>AnimalRecords.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\ViewAddOrder.xaml.cs">
+      <DependentUpon>ViewAddOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\ViewOrders.xaml.cs">
+      <DependentUpon>ViewOrders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\pgAddEditViewPromotion.xaml.cs">
       <DependentUpon>pgAddEditViewPromotion.xaml</DependentUpon>
     </Compile>
@@ -317,6 +323,14 @@
     <Page Include="AMPages\AnimalRecords.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InventoryPages\ViewAddOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\ViewOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
       <SubType>Designer</SubType>
