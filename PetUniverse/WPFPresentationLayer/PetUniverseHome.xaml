@@ -318,6 +318,9 @@
                          Background="#fff8e3">
                     <Frame Source="./VolunteerPages/ViewDeleteCreateMedicine.xaml"></Frame>
                 </TabItem>
+                <TabItem x:Name="tabViewTasks" Header="Tasks" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
+                    <Frame x:Name="ViewTasks" Source="./VolunteerPages/TaskControls.xaml"/>
+                </TabItem>
             </TabControl>
         </Canvas>
 

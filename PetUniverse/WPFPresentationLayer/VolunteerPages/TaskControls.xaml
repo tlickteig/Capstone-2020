@@ -10,7 +10,7 @@
       Loaded="Window_Loaded">
 
     <Canvas x:Name="canTaskControls">
-        <Canvas x:Name="canViewTasks">
+        <Canvas x:Name="canViewTasks" Visibility="Visible">
             <Grid>
 
                 <Grid.ColumnDefinitions>
@@ -24,6 +24,8 @@
                   HorizontalAlignment="Left" Height="480" Margin="10,10,0,0" 
                   VerticalAlignment="Top" Width="865" Grid.ColumnSpan="2" Loaded="DgVolTaskList_Loaded"/>
                 <Button x:Name="btnEditVolunteerTask" Content="Edit" HorizontalAlignment="Left" Margin="768,435,0,0" VerticalAlignment="Top" Width="88" Height="34" Click="btnEditVolunteerTask_Click" Grid.ColumnSpan="2"/>
+                <Button x:Name="btnDeleteVolunteerTask" Content="Delete" HorizontalAlignment="Left" Margin="451,435,0,0" VerticalAlignment="Top" Width="88" Height="34" Grid.Column="1" Click="btnDeleteVolunteerTask_Click"/>
+                <Button x:Name="btnAddTask" Content="Create" Grid.Column="1" HorizontalAlignment="Left" Margin="307,435,0,0" VerticalAlignment="Top" Width="90" Height="35" Click="BtnAddTask_Click"/>
 
             </Grid>
         </Canvas>
@@ -62,5 +64,6 @@
                 <Button x:Name="btnSave" Content="Save" Visibility="Hidden" Grid.Column="1" HorizontalAlignment="Left" Height="35" Margin="265,108,-30,-52" Grid.Row="5" VerticalAlignment="Top" Width="66" Click="btnSave_Click"/>
             </Grid>
         </Canvas>
+
     </Canvas>
 </Page>

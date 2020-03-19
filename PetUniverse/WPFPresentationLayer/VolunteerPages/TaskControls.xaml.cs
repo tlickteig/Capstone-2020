@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -103,13 +104,13 @@ namespace WPFPresentationLayer.VolunteerPages
                 else
                 {
 
-                    MessageBox.Show("No data retrieved", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    System.Windows.MessageBox.Show("No data retrieved", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     //MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
+                System.Windows.MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
                 return;
             }
 
@@ -179,7 +180,7 @@ namespace WPFPresentationLayer.VolunteerPages
                 }
                 else
                 {
-                    MessageBox.Show("TaskName must not be empty.");
+                    System.Windows.MessageBox.Show("TaskName must not be empty.");
                     return;
                 }
 
@@ -191,7 +192,7 @@ namespace WPFPresentationLayer.VolunteerPages
                 }
                 else
                 {
-                    MessageBox.Show("TaskType must not be empty.");
+                    System.Windows.MessageBox.Show("TaskType must not be empty.");
                     return;
                 }
 
@@ -203,7 +204,7 @@ namespace WPFPresentationLayer.VolunteerPages
                 }
                 else
                 {
-                    MessageBox.Show("Assignment Group must not be empty.");
+                    System.Windows.MessageBox.Show("Assignment Group must not be empty.");
                     return;
                 }
 
@@ -215,7 +216,7 @@ namespace WPFPresentationLayer.VolunteerPages
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a valid date..");
+                    System.Windows.MessageBox.Show("Please enter a valid date..");
                     return;
                 }
 
@@ -225,10 +226,18 @@ namespace WPFPresentationLayer.VolunteerPages
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
+                System.Windows.MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
                 //this.DialogResult = false;
             }
-
+            txtTaskName.Text = "";
+            txtVolunteerTaskDate.Text = "";
+            txtVolunteerTaskDescription.Text = "";
+            comboAssignmentGroup.Text = "";
+            comboTaskType.Text = "";
+            dgVolTaskList.ItemsSource = null;
+            dgVolTaskList.ItemsSource = _volunteerTaskManager.GetAllVolunteerTasks();
+            canCreateTask.Visibility = Visibility.Hidden;
+            canViewTasks.Visibility = Visibility.Visible;
 
             //this.Close();
         }
@@ -250,8 +259,42 @@ namespace WPFPresentationLayer.VolunteerPages
 
             //this.Close();
 
+            canCreateTask.Visibility = Visibility.Hidden;
+            dgVolTaskList.ItemsSource = null;
+            dgVolTaskList.ItemsSource = _volunteerTaskManager.GetAllVolunteerTasks();
+            canViewTasks.Visibility = Visibility.Visible;
+            
+            
 
+        }
 
+        private void btnDeleteVolunteerTask_Click(object sender, RoutedEventArgs e)
+        {
+            VolunteerTaskVM selectedTaskVM = (VolunteerTaskVM)dgVolTaskList.SelectedItem;
+            VolunteerTask selectedTask = _volunteerTaskManager.GetVolunteerTaskByName(selectedTaskVM.TaskName.ToString());
+
+            
+            DialogResult dialogResult = System.Windows.Forms.MessageBox.Show("Deleting this record is permenant, are you sure?", "WARNING", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                int result = _volunteerTaskManager.DeleteVolunteerTask(selectedTask.TaskName.ToString());
+                dgVolTaskList.ItemsSource = null;
+                dgVolTaskList.ItemsSource = _volunteerTaskManager.GetAllVolunteerTasks();
+            }
+            else if (dialogResult == DialogResult.No)
+            {
+                return;
+            }
+
+            dgVolTaskList.ItemsSource = null;
+            dgVolTaskList.ItemsSource = _volunteerTaskManager.GetAllVolunteerTasks();
+        }
+
+        private void BtnAddTask_Click(object sender, RoutedEventArgs e)
+        {
+            canViewTasks.Visibility = Visibility.Hidden;
+            
+            canCreateTask.Visibility = Visibility.Visible;
         }
     }
 }

@@ -9,6 +9,7 @@ namespace DataTransferObjects
     /// <summary>
     /// NAME: Ethan Holmes
     /// DATE: 2/6/2020
+    /// APPROVER: Josh Jackson, Timothy Licktieg
     /// 
     /// This is the VolunteerTaskVM object which returns the contents
     /// of the VolunteerTask excluding the VolunteerTaskID

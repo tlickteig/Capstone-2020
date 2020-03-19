@@ -13,6 +13,7 @@ namespace DataAccessLayer
     /// <summary>
     /// NAME: Ethan Holmes
     /// DATE: 2/6/2020
+    /// APPROVER: Josh Jackson, Timothy Licktieg
     /// 
     /// This DataAccessLayer Class implements the interface IVolunteerTaskAccessor
     /// and contains the methods used for accessing VolunteerTask data.
@@ -31,6 +32,7 @@ namespace DataAccessLayer
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// 
         /// This data access class contains the class CreateVolunteerTask()
         /// Which will insert VolunteerTask data into the database.
@@ -45,7 +47,7 @@ namespace DataAccessLayer
         {
             int rows = 0;
 
-            
+
 
             var conn = DBConnection.GetConnection();
             var cmd = new SqlCommand("sp_insert_volunteer_task", conn);
@@ -55,8 +57,8 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@AssignmentGroup", assignmentGroup);
             cmd.Parameters.AddWithValue("@TaskDescription", taskDescription);
             cmd.Parameters.AddWithValue("@DueDate", dueDate);
-            
-            
+
+
 
             try
             {
@@ -66,7 +68,8 @@ namespace DataAccessLayer
             catch (Exception ex)
             {
                 throw ex;
-            } finally
+            }
+            finally
             {
                 conn.Close();
             }
@@ -77,6 +80,7 @@ namespace DataAccessLayer
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// 
         /// This data access class contains the class GetVolunteerTaskByName()
         /// Which will return a VolunteerTask Object by name.
@@ -116,7 +120,8 @@ namespace DataAccessLayer
                     throw new ApplicationException("Volunteer Task Not found.");
                 }
                 reader.Close();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -126,6 +131,7 @@ namespace DataAccessLayer
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// 
         /// This GetAllVolunteerTasks() method will return all existing
         /// VolunteerTaskVM objects within the database or throw an error
@@ -154,17 +160,18 @@ namespace DataAccessLayer
                     while (reader.Read())
                     {
                         vTasks.Add(new VolunteerTaskVM()
-                        {                           
+                        {
                             TaskName = reader.GetString(0),
                             TaskType = reader.GetString(1),
                             AssignmentGroup = reader.GetString(2),
                             DueDate = reader.GetDateTime(3).ToString(),
                             TaskDescription = reader.GetString(4)
-                        }); 
+                        });
                     }
                     reader.Close();
                 }
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -178,6 +185,7 @@ namespace DataAccessLayer
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// 
         /// Updates a task record.
         /// </summary>
@@ -204,7 +212,8 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 rows = cmd.ExecuteNonQuery();
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -215,5 +224,42 @@ namespace DataAccessLayer
 
             return rows;
         }
+
+        /// <summary>
+        /// NAME: Ethan Holmes
+        /// DATE: 2/6/2020
+        /// APPROVER:
+        /// 
+        /// Deletes a volunteer task record
+        /// </summary>
+        /// <param name="taskName"></param>
+        /// <returns></returns>
+        public int DeleteVolunteerTask(string taskName)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_delete_volunteer_task", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@TaskName", taskName);
+
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
     }
 }

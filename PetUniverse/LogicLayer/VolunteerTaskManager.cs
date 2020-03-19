@@ -13,6 +13,7 @@ namespace LogicLayer
     /// <summary>
     /// NAME: Ethan Holmes
     /// DATE: 2/6/2020
+    /// APPROVER: Josh Jackson, Timothy Licktieg
     /// 
     /// This Logic Layer class contains a logic layer access method CreateVolunteerTask()
     /// Which passes parameters to the DataAccessLayer via the interface.
@@ -38,6 +39,7 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// 
         /// This method will Insert a VolunteerTask Object into 
         /// the database.
@@ -54,10 +56,11 @@ namespace LogicLayer
 
             try
             {
-                
+
                 rows = _volunteerTaskAccessor.CreateVolunteerTask(taskName, taskType, assignmentGroup, taskDescription, dueDate);
 
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new ApplicationException("Insert Failed.", ex);
             }
@@ -67,6 +70,7 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// 
         /// This method will retrieve a VolunteerTask() object by TaskName.
         /// </summary>
@@ -78,7 +82,8 @@ namespace LogicLayer
             try
             {
                 result = _volunteerTaskAccessor.GetVolunteerTaskByName(volunteerTaskName);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -88,6 +93,7 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// 
         /// This method will return a list of all VolunteerTaskVM's existing
         /// in the database.
@@ -101,11 +107,12 @@ namespace LogicLayer
         {
             List<VolunteerTaskVM> results = new List<VolunteerTaskVM>();
             try
-            {   
-                results = _volunteerTaskAccessor.GetAllVolunteerTasks();
-            } catch(Exception ex)
             {
-                
+                results = _volunteerTaskAccessor.GetAllVolunteerTasks();
+            }
+            catch (Exception ex)
+            {
+
                 throw new ApplicationException("No Data", ex);
 
             }
@@ -115,6 +122,8 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
+        /// 
         /// Updates a task record.
         /// </summary>
         /// <param name="taskName"></param>
@@ -130,16 +139,40 @@ namespace LogicLayer
             try
             {
                 rows = _volunteerTaskAccessor.UpdateVolunteerTask(taskName, taskType, assignmentGroup, dueDate, taskDescription);
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new ApplicationException("Update failed.", ex);
             }
             return rows;
         }
 
+        /// <summary>
+        /// NAME: Ethan Holmes
+        /// DATE: 2/6/2020
+        /// APPROVER:
+        /// 
+        /// Deletes a task record
+        /// </summary>
+        /// <param name="taskName"></param>
+        /// <returns></returns>
+        public int DeleteVolunteerTask(string taskName)
+        {
+            int rows = 0;
+
+            try
+            {
+                rows = _volunteerTaskAccessor.DeleteVolunteerTask(taskName);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Delete failed.", ex);
+            }
+            return rows;
+        }
     }
 
 }
-    
-   
+
+
 

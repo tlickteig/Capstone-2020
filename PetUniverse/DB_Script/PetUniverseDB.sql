@@ -3297,6 +3297,27 @@ GO
 /*
 Created by: Ethan Holmes
 Date: 02/16/2020
+Comment: Create volunteer task table
+*/
+DROP TABLE IF EXISTS [dbo].[VolunteerTask]
+GO
+print '' print '*** Creating VolunteerTask Table'
+GO
+CREATE TABLE [dbo].[VolunteerTask](
+	[VolunteerTaskID] 		[int] IDENTITY(1000000,1) 	NOT NULL,
+	[TaskName]				[NVARCHAR](100)				NOT NULL,
+	[TaskType]				[NVARCHAR](100)				NOT NULL,
+	[AssignmentGroup]		[NVARCHAR](100)				NOT NULL,
+	[TaskDescription] 		[NVARCHAR](1080) 			    NULL,
+	[DueDate] 				[DATE]						NOT NULL,
+	
+	CONSTRAINT [pk_VolunteerTaskID] PRIMARY KEY([VolunteerTaskID] ASC),
+)
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 02/16/2020
 Comment: Insert a volunteer task record
 */
 DROP PROCEDURE IF EXISTS [sp_INSERT_volunteer_task]
@@ -3398,6 +3419,28 @@ BEGIN
 		[TaskDescription] = @TaskDescription
 	WHERE [TaskName] = @TaskName
 	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created By: Ethan Holmes
+Date 3/6/2020
+Comment: Stored Procedure to delete a volunteer task by name
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_volunteer_task]
+GO
+print '' print '*** Creating sp_delete_volunteer_task'
+GO
+CREATE PROCEDURE [sp_delete_volunteer_task]
+(
+	@TaskName [nvarchar](100)
+)
+AS
+BEGIN
+	DELETE 
+	FROM [dbo].[VolunteerTask]
+	WHERE [TaskName] = @TaskName
+	SELECT @@ROWCOUNT
 END
 GO
 

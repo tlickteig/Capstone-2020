@@ -23,6 +23,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// 
         /// This method creates the volunteer task.
         /// </summary>
@@ -37,6 +38,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// 
         /// Gets volunteer task by taskname.
         /// </summary>
@@ -56,6 +58,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// NAME: Ethan Holmes
         /// DATE: 2/6/2020
+        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// 
         /// Interface definition for update a task record.
         /// </summary>
@@ -66,5 +69,15 @@ namespace LogicLayerInterfaces
         /// <param name="taskDescription"></param>
         /// <returns></returns>
         int UpdateVolunteerTask(string taskName, string taskType, string assignmentGroup, DateTime dueDate, string taskDescription);
+
+        /// <summary>
+        /// NAME: Ethan Holmes
+        /// DATE: 2/6/2020
+        /// APPROVER:
+        /// 
+        /// </summary>
+        /// <param name="taskName"></param>
+        /// <returns></returns>
+        int DeleteVolunteerTask(string taskName);
     }
 }
