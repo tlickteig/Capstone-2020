@@ -22,6 +22,47 @@ namespace DataAccessLayer
     {
         /// <summary>
         /// Creator: Ben Hanna
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver: 
+        /// 
+        /// Adds a date out to the object in the database
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="kennel"></param>
+        /// <returns></returns>
+        public int AddDateOut(AnimalKennel kennel)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_add_date_out", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalKennelID", kennel.AnimalKennelID);
+            cmd.Parameters.AddWithValue("@AnimalKennelDateOut", kennel.AnimalKennelDateOut);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
         /// Created: 2/12/2020
         /// Approver: Carl Davis, 2/14/2020
         /// Approver: Chuck Baxter, 2/14/2020
@@ -79,8 +120,8 @@ namespace DataAccessLayer
         /// Updated:
         /// Update:
         /// 
-        /// </summary>
-        /// <returns></returns>
+        /// </remarks>
+        /// <returns> a list of all kennel records in the DB </returns>
         public List<AnimalKennel> RetriveAllAnimalKennels()
         {
             List<AnimalKennel> kennels = new List<AnimalKennel>();
@@ -121,6 +162,130 @@ namespace DataAccessLayer
             }
 
             return kennels;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/17/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver: 
+        /// 
+        /// Updates a single kennel record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// 
+        /// </remarks>
+        /// <param name="oldKennel"></param>
+        /// <param name="newKennel"></param>
+        /// <returns> Number of database rows effected. Should always be 1. </returns>
+        public int UpdateKennelRecord(AnimalKennel oldKennel, AnimalKennel newKennel)
+        {
+            int rows = 0;
+
+            // connecttion
+            var conn = DBConnection.GetConnection();
+
+            // cmd
+            var cmd = new SqlCommand("sp_update_kennel_record");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            //Automatically assumes the value is an int32. Decimal and money are more ambiguous
+            cmd.Parameters.AddWithValue("@AnimalKennelID", oldKennel.AnimalKennelID);
+
+            cmd.Parameters.AddWithValue("@NewAnimalID", newKennel.AnimalID);
+            cmd.Parameters.AddWithValue("@NewUserID", newKennel.UserID);
+            cmd.Parameters.AddWithValue("@NewAnimalKennelInfo", newKennel.AnimalKennelInfo);
+            cmd.Parameters.AddWithValue("@NewAnimalKennelDateIn", newKennel.AnimalKennelDateIn);
+            cmd.Parameters.AddWithValue("@NewAnimalKennelDateOut", newKennel.AnimalKennelDateOut);
+
+
+            cmd.Parameters.AddWithValue("@OldAnimalID", oldKennel.AnimalID);
+            cmd.Parameters.AddWithValue("@OldUserID", oldKennel.UserID);
+            cmd.Parameters.AddWithValue("@OldAnimalKennelInfo", oldKennel.AnimalKennelInfo);
+            cmd.Parameters.AddWithValue("@OldAnimalKennelDateIn", oldKennel.AnimalKennelDateIn);
+            cmd.Parameters.AddWithValue("@OldAnimalKennelDateOut", oldKennel.AnimalKennelDateOut);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/17/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver: 
+        /// 
+        /// Updates a single kennel record without a DateOut value
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// 
+        /// </remarks>
+        /// <param name="oldKennel"></param>
+        /// <param name="newKennel"></param>
+        /// <returns> Number of database rows effected. Should always be 1. </returns>
+        public int UpdateKennelRecordNoDateOut(AnimalKennel oldKennel, AnimalKennel newKennel)
+        {
+            int rows = 0;
+
+            // connecttion
+            var conn = DBConnection.GetConnection();
+
+            // cmd
+            var cmd = new SqlCommand("sp_update_kennel_record_no_date_out");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            //Automatically assumes the value is an int32. Decimal and money are more ambiguous
+            cmd.Parameters.AddWithValue("@AnimalKennelID", oldKennel.AnimalKennelID);
+
+            cmd.Parameters.AddWithValue("@NewAnimalID", newKennel.AnimalID);
+            cmd.Parameters.AddWithValue("@NewUserID", newKennel.UserID);
+            cmd.Parameters.AddWithValue("@NewAnimalKennelInfo", newKennel.AnimalKennelInfo);
+            cmd.Parameters.AddWithValue("@NewAnimalKennelDateIn", newKennel.AnimalKennelDateIn);
+
+
+            cmd.Parameters.AddWithValue("@OldAnimalID", oldKennel.AnimalID);
+            cmd.Parameters.AddWithValue("@OldUserID", oldKennel.UserID);
+            cmd.Parameters.AddWithValue("@OldAnimalKennelInfo", oldKennel.AnimalKennelInfo);
+            cmd.Parameters.AddWithValue("@OldAnimalKennelDateIn", oldKennel.AnimalKennelDateIn);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
         }
     }
 }

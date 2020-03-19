@@ -174,7 +174,11 @@
         
              UPDATE BY: Ben Hanna
              UPDATED 3/1/2020
-             CHANGE: Added a name to the frame so the active user may be passed to it. 
+             CHANGE: Added a name to the handling frame so the active user may be passed to it. 
+        
+             UPDATE BY: Ben Hanna
+             UPDATED 3/19/2020
+             CHANGE: Added a name to the kennel frame so the active user may be passed to it. 
         -->
 
         <Canvas x:Name="canAM" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
@@ -183,7 +187,7 @@
                     <Frame Source="./AMPages/AnimalControls.xaml"/>
                 </TabItem>
                 <TabItem x:Name="tabViewKennels" Header="View Location Records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./AMPages/KennelControls.xaml"/>
+                    <Frame x:Name="frameViewKennelRecords" Source="./AMPages/KennelControls.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <TabItem x:Name="tabViewHandling" Header="View Handling Records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frameViewHandlingNotes" Source="./AMPages/HandlingControls.xaml" NavigationUIVisibility="Hidden"/>

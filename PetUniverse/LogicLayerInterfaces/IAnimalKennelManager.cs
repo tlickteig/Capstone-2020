@@ -48,8 +48,42 @@ namespace LogicLayerInterfaces
         /// Updated:
         /// Update:
         /// </remarks>
-        /// </summary>
         /// <returns> List of kennel records </returns>
         List<AnimalKennel> GetAllAnimalKennels();
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver: 
+        /// 
+        /// Updates a single kennel record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldNotes"></param>
+        /// <param name="newNotes"></param>
+        /// <returns> true represents a successful action </returns>
+        bool EditKennelRecord(AnimalKennel oldKennel, AnimalKennel newKennel);
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver: 
+        /// 
+        /// Changes the value of the date out field
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="kennel"></param>
+        /// <returns> True represents a successful action </returns>
+        bool SetDateOut(AnimalKennel kennel);
     }
 }

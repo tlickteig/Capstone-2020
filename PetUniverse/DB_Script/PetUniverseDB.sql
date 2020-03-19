@@ -1153,7 +1153,7 @@ CREATE TABLE [dbo].[Event](
 )
 GO
 
---Index to search by the event's datetime
+--Index to search by the events datetime
 PRINT '' PRINT '  > Adding indexes to Event table'
 GO
 CREATE NONCLUSTERED INDEX [ix_eventDateTime]
@@ -2196,6 +2196,7 @@ VALUES
 END
 GO
 
+
 /*
 Created by: Ben Hanna
 Date: 2/11/2020
@@ -2359,11 +2360,11 @@ Created by: Ben Hanna
 Date: 2/9/2020
 Comment: Insert a kennel record
 */
-DROP PROCEDURE IF EXISTS [sp_INSERT_kennel_record]
+DROP PROCEDURE IF EXISTS [sp_insert_kennel_record]
 GO                
-PRINT '' PRINT '*** Creating sp_INSERT_kennel_record'
+PRINT '' PRINT '*** Creating sp_insert_kennel_record'
 GO
-CREATE PROCEDURE [sp_INSERT_kennel_record]
+CREATE PROCEDURE [sp_insert_kennel_record]
 (
     @AnimalID           [int],
     @AnimalKennelInfo   [nvarchar](4000), 
@@ -2410,7 +2411,113 @@ BEGIN
 	[AnimalKennelDateOut]
  	FROM [dbo].[AnimalKennel]
 END
+GO 
+   
+/*
+Created by: Ben Hanna
+Date: 3/17/2020
+Comment: Update a handing notes record
+*/ 
+DROP PROCEDURE IF EXISTS [sp_update_kennel_record_no_date_out]
 GO     
+PRINT '' PRINT '*** Creating sp_update_kennel_record_no_date_out'
+GO
+CREATE PROCEDURE [sp_update_kennel_record_no_date_out]
+(
+    @AnimalKennelID			           [int],
+    
+    @NewAnimalID                       [int],
+    @NewUserID                         [int], 
+    @NewAnimalKennelInfo	           [nvarchar](4000),
+    @NewAnimalKennelDateIn             [date],
+    
+	@OldAnimalID                       [int],
+    @OldUserID                         [int], 
+    @OldAnimalKennelInfo               [nvarchar](4000),
+    @OldAnimalKennelDateIn             [date]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalKennel]
+    SET [AnimalID]                  = @NewAnimalID, 
+        [UserID]                    = @NewUserID,  
+        [AnimalKennelInfo]          = @NewAnimalKennelInfo,
+        [AnimalKennelDateIn]        = @NewAnimalKennelDateIn       
+    WHERE   [AnimalKennelID]        = @AnimalKennelID
+    AND     [AnimalID]              = @OldAnimalID 
+    AND     [UserID]                = @OldUserID  
+    AND     [AnimalKennelInfo]      = @OldAnimalKennelInfo
+    AND     [AnimalKennelDateIn]    = @OldAnimalKennelDateIn        
+    RETURN @@ROWCOUNT
+END 
+GO 
+                
+/*
+Created by: Ben Hanna
+Date: 3/17/2020
+Comment: Update a handing notes record
+*/ 
+DROP PROCEDURE IF EXISTS [sp_update_kennel_record]
+GO     
+PRINT '' PRINT '*** Creating sp_update_kennel_record'
+GO
+CREATE PROCEDURE [sp_update_kennel_record]
+(
+    @AnimalKennelID			           [int],
+    
+    @NewAnimalID                       [int],
+    @NewUserID                         [int], 
+    @NewAnimalKennelInfo	           [nvarchar](4000),
+    @NewAnimalKennelDateIn             [date],
+    @NewAnimalKennelDateOut            [date],
+    
+	@OldAnimalID                       [int],
+    @OldUserID                         [int], 
+    @OldAnimalKennelInfo               [nvarchar](4000),
+    @OldAnimalKennelDateIn             [date],
+    @OldAnimalKennelDateOut            [date]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalKennel]
+    SET [AnimalID]                  = @NewAnimalID, 
+        [UserID]                    = @NewUserID,  
+        [AnimalKennelInfo]          = @NewAnimalKennelInfo,
+        [AnimalKennelDateIn]        = @NewAnimalKennelDateIn,
+        [AnimalKennelDateOut]       = @NewAnimalKennelDateOut        
+    WHERE   [AnimalKennelID]        = @AnimalKennelID
+    AND     [AnimalID]              = @OldAnimalID 
+    AND     [UserID]                = @OldUserID  
+    AND     [AnimalKennelInfo]      = @OldAnimalKennelInfo
+    AND     [AnimalKennelDateIn]    = @OldAnimalKennelDateIn
+    AND     [AnimalKennelDateOut]   = @OldAnimalKennelDateOut        
+    RETURN @@ROWCOUNT
+END 
+GO 
+                
+/*
+Created by: Ben Hanna
+Date: 3/18/2020
+Comment: Sproc to add date out data to the record
+*/
+DROP PROCEDURE IF EXISTS [sp_add_date_out]
+GO
+PRINT '' PRINT '*** Creating sp_add_date_out'
+GO
+CREATE PROCEDURE [sp_add_date_out]
+(
+    @AnimalKennelID			 [int],
+    @AnimalKennelDateOut     [date]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalKennel]
+    SET [AnimalKennelDateOut] = @AnimalKennelDateOut
+    WHERE [AnimalKennelID] = @AnimalKennelID
+    
+    RETURN @@ROWCOUNT
+END 
+GO
 
 /*
 Created by: Ben Hanna
@@ -2438,11 +2545,11 @@ Created by: Ben Hanna
 Date: 2/29/2020
 Comment: Insert a handing notes record
 */
-DROP PROCEDURE IF EXISTS [sp_INSERT_handling_notes_record]
+DROP PROCEDURE IF EXISTS [sp_insert_handling_notes_record]
 GO                  
 PRINT '' PRINT '*** Creating sp_INSERT_handling_notes_record'
 GO
-CREATE PROCEDURE [sp_INSERT_handling_notes_record]
+CREATE PROCEDURE [sp_insert_handling_notes_record]
 (
     
 	@AnimalID              [int],			
@@ -2472,6 +2579,49 @@ BEGIN
    SELECT SCOPE_IDENTITY()
 END
 GO 
+  
+/*
+Created by: Ben Hanna
+Date: 3/4/2020
+Comment: Update a handing notes record
+*/ 
+DROP PROCEDURE IF EXISTS [sp_update_handling_notes_record]
+GO     
+PRINT '' PRINT '*** Creating sp_update_handling_notes_record'
+GO
+CREATE PROCEDURE [sp_update_handling_notes_record]
+(
+    @AnimalHandlingNotesID			   [int],
+    
+    @NewAnimalID                       [int],
+    @NewUserID                         [int], 
+    @NewAnimalHandlingNotes	           [nvarchar](4000),
+    @NewTemperamentWarning             [nvarchar](1000),
+    @NewUpdateDate                     [date],
+    
+	@OldAnimalID                       [int],
+    @OldUserID                         [int], 
+    @OldAnimalHandlingNotes	           [nvarchar](4000),
+    @OldTemperamentWarning             [nvarchar](1000),
+    @OldUpdateDate                     [date]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalHandlingNotes]
+    SET [AnimalID]                  = @NewAnimalID, 
+        [UserID]                    = @NewUserID,  
+        [AnimalHandlingNotes]       = @NewAnimalHandlingNotes,
+        [TemperamentWarning]        = @NewTemperamentWarning,
+        [UpdateDate]                = @NewUpdateDate        
+    WHERE   [AnimalHandlingNotesID] = @AnimalHandlingNotesID
+    AND     [AnimalID]              = @OldAnimalID 
+    AND     [UserID]                = @OldUserID  
+    AND     [AnimalHandlingNotes]   = @OldAnimalHandlingNotes
+    AND     [TemperamentWarning]    = @OldTemperamentWarning
+    AND     [UpdateDate]            = @OldUpdateDate
+    RETURN @@ROWCOUNT
+END 
+GO
   
 /*
 Created by: Ben Hanna

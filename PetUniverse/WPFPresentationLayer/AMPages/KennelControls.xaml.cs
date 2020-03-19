@@ -32,6 +32,9 @@ namespace WPFPresentationLayer.AMPages
     public partial class KennelControls : Page
     {
         private IAnimalKennelManager _kennelManager;
+        private bool addMode;
+        private AnimalKennel oldKennel;
+        private PetUniverseUser _user;
 
         /// <summary>
         /// Creator: Ben Hanna
@@ -50,6 +53,30 @@ namespace WPFPresentationLayer.AMPages
         {
             InitializeComponent();
             _kennelManager = new AnimalKennelManager();
+
+            addMode = false;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/17/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver:
+        /// 
+        /// Constructor for this page. Passes the user so the ID can auto-populate
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        public KennelControls(PetUniverseUser user)
+        {
+            InitializeComponent();
+            this._user = user;
+            _kennelManager = new AnimalKennelManager();
+
+            addMode = false;
         }
 
         /// <summary>
@@ -70,12 +97,32 @@ namespace WPFPresentationLayer.AMPages
         private void btnAddLocationRecord_Click(object sender, RoutedEventArgs e)
         {
             canAddRecord.Visibility = Visibility.Visible;
+            EnableEditingFields();
+            addMode = true;
+            lblTitle.Content = "Register New Kennel Record";
+            txtUserID.Text = _user.PUUserID.ToString();
+        }
 
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/17/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver:
+        /// 
+        /// Extracted method to enable all of the editing fields
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void EnableEditingFields()
+        {
             txtAnimalID.IsEnabled = true;
-            txtDateIn.IsEnabled = true;
-            txtDateOut.IsEnabled = true;
             txtKennelInfo.IsEnabled = true;
             txtUserID.IsEnabled = true;
+
+
         }
 
 
@@ -88,9 +135,10 @@ namespace WPFPresentationLayer.AMPages
         /// Return to previous page.
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Ben Hanna
+        /// Updated: 3/19/2020
+        /// Update: Disables the AddDatOutButton now  
+        /// Approver: Carl Davis, 3/19/2020
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -106,8 +154,16 @@ namespace WPFPresentationLayer.AMPages
             txtKennelInfo.Text = "";
             txtUserID.Text = "";
 
-            lblTitle.Content = "Register New Kennel Record";
+            txtAnimalID.IsEnabled = false;
+            txtDateIn.IsEnabled = false;
+            txtDateOut.IsEnabled = false;
+            txtKennelInfo.IsEnabled = false;
+            txtUserID.IsEnabled = false;
+            btnAddDateOut.IsEnabled = false;
+
+            addMode = false;
             RefreshData();
+            oldKennel = null;
         }
 
         /// <summary>
@@ -119,9 +175,9 @@ namespace WPFPresentationLayer.AMPages
         /// Add animal kennel location record to the database 
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Ben Hanna
+        /// Updated: 3/17/2020
+        /// Update: Added an extra code path for editing as opposed to adding.
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -153,23 +209,37 @@ namespace WPFPresentationLayer.AMPages
             else
             {
 
-                AnimalKennel kennel = new AnimalKennel()
+                AnimalKennel newKennel = new AnimalKennel()
                 {
                     AnimalID = animalID,
                     UserID = userID,
-                    AnimalKennelInfo = txtKennelInfo.Text,
-                    AnimalKennelDateIn = DateTime.Now
+                    AnimalKennelInfo = txtKennelInfo.Text
                 };
 
                 try
                 {
-                    _kennelManager.AddKennelRecord(kennel);
-                    WPFErrorHandler.SuccessMessage("Kennel Record Successfully Added");
-                    RefreshData();
+                    if (addMode)
+                    {
+                        newKennel.AnimalKennelDateIn = DateTime.Now;
+                        _kennelManager.AddKennelRecord(newKennel);
+                        WPFErrorHandler.SuccessMessage("Kennel Record Successfully Added");
+                    }
+                    else
+                    {
+                        newKennel.AnimalKennelDateIn = oldKennel.AnimalKennelDateIn;
+                        newKennel.AnimalKennelDateOut = oldKennel.AnimalKennelDateOut;
+                        _kennelManager.EditKennelRecord(oldKennel, newKennel);
+                        WPFErrorHandler.SuccessMessage("Kennel Record Successfully Edited");
+                    }
                 }
                 catch (Exception ex)
                 {
                     WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
+                }
+                finally
+                {
+                    oldKennel = null;
+                    RefreshData();
                 }
             }
         }
@@ -237,18 +307,88 @@ namespace WPFPresentationLayer.AMPages
         /// <param name="e"></param>
         private void dgAllKennels_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            AnimalKennel selectedKennel = (AnimalKennel)dgAllKennels.SelectedItem;
+            oldKennel = (AnimalKennel)dgAllKennels.SelectedItem;
 
-            txtAnimalID.Text = selectedKennel.AnimalID.ToString();
-            txtKennelID.Text = selectedKennel.AnimalKennelID.ToString();
-            txtUserID.Text = selectedKennel.UserID.ToString();
-            txtKennelInfo.Text = selectedKennel.AnimalKennelInfo.ToString();
-            txtDateIn.Text = selectedKennel.AnimalKennelDateIn.ToString();
-            txtDateOut.Text = selectedKennel.AnimalKennelDateOut.ToString();
+            txtAnimalID.Text = oldKennel.AnimalID.ToString();
+            txtKennelID.Text = oldKennel.AnimalKennelID.ToString();
+            txtUserID.Text = oldKennel.UserID.ToString();
+            txtKennelInfo.Text = oldKennel.AnimalKennelInfo.ToString();
+            txtDateIn.Text = oldKennel.AnimalKennelDateIn.ToString();
+            txtDateOut.Text = oldKennel.AnimalKennelDateOut.ToString();
+
+            BtnSubmitkennelAdd.Visibility = Visibility.Hidden;
+            BtnEditKennelAdd.Visibility = Visibility.Visible;
 
             lblTitle.Content = "View Kennel Record Details";
 
             canAddRecord.Visibility = Visibility.Visible;
+            if (oldKennel.AnimalKennelDateOut == null)
+            {
+                btnAddDateOut.Visibility = Visibility.Visible;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/17/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver: 
+        /// 
+        /// Edit button for enabling editing
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEditKennelAdd_Click(object sender, RoutedEventArgs e)
+        {
+
+            BtnSubmitkennelAdd.Visibility = Visibility.Visible;
+            BtnEditKennelAdd.Visibility = Visibility.Hidden;
+
+            lblTitle.Content = "Editing Kennel Record Details";
+
+            EnableEditingFields();
+
+            btnAddDateOut.IsEnabled = (null == oldKennel.AnimalKennelDateOut);
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver: 
+        /// 
+        /// Triggers the logic to add the DateOut field to the record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddDateOut_Click(object sender, RoutedEventArgs e)
+        {
+            oldKennel.AnimalKennelDateOut = DateTime.Now;
+
+            try
+            {
+                if (_kennelManager.SetDateOut(oldKennel))
+                {
+                    btnAddDateOut.IsEnabled = false;
+                    txtDateOut.Text = oldKennel.AnimalKennelDateOut.ToString();
+
+                    WPFErrorHandler.SuccessMessage("Date Out successfully addded.");
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException);
+            }
         }
     }
 }

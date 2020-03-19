@@ -92,6 +92,41 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Ben Hanna
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver: 
+        /// 
+        /// Updates a single kennel record in the database
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldKennel"></param>
+        /// <param name="newKennel"></param>
+        /// <returns> Returns true if record was updated successfully </returns>
+        public bool EditKennelRecord(AnimalKennel oldKennel, AnimalKennel newKennel)
+        {
+            try
+            {
+                if (oldKennel.AnimalKennelDateOut != null)
+                {
+                    return 1 == _kennelAccessor.UpdateKennelRecord(oldKennel, newKennel);
+                }
+                else
+                {
+                    return 1 == _kennelAccessor.UpdateKennelRecordNoDateOut(oldKennel, newKennel);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update Failed: Kennel Record not Found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
         /// Created: 3/13/2020
         /// Approver: Carl Davis, 3/13/2020
         /// Approver: 
@@ -103,7 +138,7 @@ namespace LogicLayer
         /// Updated:
         /// Update:
         /// </remarks>
-        /// <returns></returns>
+        /// <returns> A list of all of the kennel records in the database </returns>
         public List<AnimalKennel> GetAllAnimalKennels()
         {
             try
@@ -113,6 +148,33 @@ namespace LogicLayer
             catch (Exception ex)
             {
                 throw new ApplicationException("Kennel Records not Found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/19/2020
+        /// Approver: 
+        /// 
+        /// Chnges the value of the dateout field
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="kennel"></param>
+        /// <returns> True represents a successful action </returns>
+        public bool SetDateOut(AnimalKennel kennel)
+        {
+            try
+            {
+                return 1 == _kennelAccessor.AddDateOut(kennel);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Date update failed", ex);
             }
         }
     }

@@ -1,7 +1,14 @@
 ﻿<!-- Name: Ben Hanna
      Date: 2/22/2020
      CHECKED BY: Steven Cardona
-     CHECKED BY: 
+     CHECKED BY:
+    
+     UPDATER: Ben Hanna
+     UPDATED: 3/19/2020
+     UPDATE: Added a button to add the DateOut data
+     CHECKED BY: Carl Davis
+     
+    
      XAML for animal handling notes controls tab page -->
 <Page x:Class="WPFPresentationLayer.AMPages.KennelControls"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -84,13 +91,15 @@
 
                     <!--Date in-->
                     <Label x:Name="lblDateIn" Grid.Row="4" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Date In:</Label>
-                    <TextBox x:Name="txtDateIn"  Grid.Row="4" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
+                    <TextBox x:Name="txtDateIn"  Grid.Row="4" Grid.Column="1" Background="LightGray" Height="30" Width="800" 
+                     Margin="25 0 25 0" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="16" IsEnabled="False"></TextBox>
 
                     <!--Date out-->
                     <Label x:Name="lblDateOut" Grid.Row="5" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Date Out:</Label>
-                    <TextBox x:Name="txtDateOut"  Grid.Row="5" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
+                    <TextBox x:Name="txtDateOut"  Grid.Row="5" Grid.Column="1" Background="LightGray" Height="30" Width="800"
+                     Margin="25 0 25 0" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="16" IsEnabled="False"></TextBox>
+                    <Button x:Name="btnAddDateOut"  Grid.Row="5" Grid.Column="1" Height="30" HorizontalAlignment="Right" 
+                            Margin="25 0 75 0" Width="150" FontSize="16" IsEnabled="False" Visibility="Hidden" Click="btnAddDateOut_Click">Add Date Out</Button>
 
 
                     <Grid Grid.Row="5" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
@@ -110,6 +119,11 @@
                         <Button x:Name="BtnSubmitkennelAdd" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
                         Width="150" FontSize="36" Padding="10"
                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitKennelAdd_Click">Submit</Button>
+
+                        <!--Edit-->
+                        <Button x:Name="BtnEditKennelAdd" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
+                        Width="150" FontSize="36" Padding="10"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnEditKennelAdd_Click" Visibility="Hidden">Edit</Button>
 
                         <!--Cancel-->
                         <Button x:Name="btnCancelKennelAdd" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" 

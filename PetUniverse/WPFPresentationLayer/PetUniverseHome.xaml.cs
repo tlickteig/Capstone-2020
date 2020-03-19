@@ -123,6 +123,11 @@ namespace WPFPresentationLayer
         /// Updated: 3/1/2020
         /// Update: Now calls a constructor so the user can be tracked.
         /// Approver: Chuck Baxter, 3/5/2020
+        /// 
+        /// Updater: Ben Hanna
+        /// Updated: 3/19/2020
+        /// Update Added constructor for the kennel records frame for passing the user.
+        /// 
         /// </remarks>
         /// </summary>
         /// <param name="sender"></param>
@@ -131,6 +136,7 @@ namespace WPFPresentationLayer
         {
             desiredScreen = "Animal Management";
             switchScreen(desiredScreen);
+            frameViewKennelRecords.Content = new KennelControls(_user);
             frameViewHandlingNotes.Content = new HandlingControls(_user);
             frameViewVetAppointments.Content = new VetAppointmentControls(_user);
         }
