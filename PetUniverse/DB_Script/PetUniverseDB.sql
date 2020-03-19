@@ -24,6 +24,22 @@ PRINT '' PRINT '******************* CREATE TABLEs *********************'
 GO
 
 /*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: Order table
+*/
+print '' print '*** Creating Order Table'
+GO
+CREATE TABLE [dbo].[orders] (
+	[OrderID]					[int] IDENTITY(100000, 1) 	NOT NULL,
+	[EmployeeID]				[int]						NOT NULL,
+	[Active]					[BIT] 						NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_OrderID] PRIMARY KEY([OrderID] ASC)
+)
+GO
+
+/*
 Created by: Zach Behrensmeyer
 Date: 2/3/2020
 Comment: General user table, this is used for logging in and finding information about that user.
@@ -7386,19 +7402,8 @@ GO
 /*
 Created by: Jesse Tomash
 Date: 3/10/2020
-Comment: Order table
+Comment: insert order sp
 */
-print '' print '*** Creating Order Table'
-GO
-CREATE TABLE [dbo].[orders] (
-	[OrderID]					[int] IDENTITY(100000, 1) 	NOT NULL,
-	[EmployeeID]				[int]						NOT NULL,
-	[Active]					[BIT] 						NOT NULL DEFAULT 1
-	
-	CONSTRAINT [pk_OrderID] PRIMARY KEY([OrderID] ASC)
-)
-GO
-
 print '' print '*** Creating sp_insert_order'
 GO
 CREATE PROCEDURE sp_insert_order
@@ -7417,6 +7422,11 @@ AS
 	END
 GO
 
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: retrieves all orders
+*/
 print '' print '*** Creating sp_retrieve_all_orders'
 GO
 create PROCEDURE sp_retrieve_all_orders
@@ -7428,6 +7438,11 @@ AS
 	END
 GO
 
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: retrieves order by id
+*/
 print '' print '*** Creating sp_retrieve_order_by_id'
 GO
 CREATE PROCEDURE sp_retrieve_order_by_id
@@ -7442,6 +7457,11 @@ AS
 	END
 GO
 
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: updates an order
+*/
 print '' print '*** Creating sp_update_order_by_id'
 GO
 CREATE PROCEDURE sp_update_order_by_id
@@ -7465,6 +7485,11 @@ AS
 	END
 GO
 
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: deactivates an order
+*/
 print '' print '*** Creating sp_deactivate_order_by_id'
 GO
 CREATE PROCEDURE sp_deactivate_order_by_id
@@ -7481,6 +7506,11 @@ AS
 	END
 GO
 
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: Delets an order
+*/
 print '' print '*** Creating sp_delete_order_by_id'
 GO
 CREATE PROCEDURE sp_delete_order_by_id
@@ -7497,6 +7527,11 @@ AS
 	END
 GO
 
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: activates an order
+*/
 print '' print '*** Creating sp_activate_order_by_id'
 GO
 CREATE PROCEDURE sp_activate_order_by_id
