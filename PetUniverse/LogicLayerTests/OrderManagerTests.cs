@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessFakes;
 
 namespace LogicLayerTests
 {
@@ -39,9 +40,9 @@ namespace LogicLayerTests
         {
             bool result = false;
 
-            OrderManager _orderManager = new OrderManager();
+            FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();
 
-            result = _orderManager.RetrieveOrders().Any();
+            result = _orderAccessor.SelectOrders().Any();
 
             Assert.AreEqual(result, true);
         }
@@ -74,9 +75,9 @@ namespace LogicLayerTests
                 EmployeeID = 557
             };
 
-            OrderManager _orderManager = new OrderManager();
+            FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();
 
-            result = _orderManager.EditOrder(oldOrder, editedOrder);
+            result = _orderAccessor.UpdateOrder(oldOrder, editedOrder) == 1;
 
             Assert.AreEqual(result, true);
         }
@@ -99,13 +100,12 @@ namespace LogicLayerTests
 
             Order newOrder = new Order()
             {
-                OrderID = 1,
                 EmployeeID = 346
             };
 
-            OrderManager _orderManager = new OrderManager();
+            FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();
 
-            result = _orderManager.AddOrder(newOrder);
+            result = _orderAccessor.InsertOrder(newOrder) == 1;
 
             Assert.AreEqual(result, true);
         }
@@ -132,9 +132,9 @@ namespace LogicLayerTests
                 EmployeeID = 3462
             };
 
-            OrderManager _orderManager = new OrderManager();
+            FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();
 
-            result = _orderManager.DeleteOrder(newOrder.OrderID);
+            result = _orderAccessor.DeleteOrder(newOrder.OrderID) == 1;
 
             Assert.AreEqual(result, true);
         }

@@ -21,7 +21,7 @@ namespace LogicLayer
     /// UPDATE DATE:
     /// WHAT WAS CHANGED:
     /// </remarks>
-    public class OrderManager : IOrderManager
+    public class OrderAccessor : IOrderManager
     {
         /// <summary>
         /// NAME: Jesse Tomash
@@ -47,9 +47,9 @@ namespace LogicLayer
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        public OrderManager()
+        public OrderAccessor()
         {
-            _orderAccessor = new OrderAccessor();
+            _orderAccessor = new DataAccessLayer.OrderAccessor();
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace LogicLayer
         /// WHAT WAS CHANGED:
         /// </remarks>
         /// <param name="orderAccessor"></param>
-        public OrderManager(IOrderAccessor orderInvoiceAccessor)
+        public OrderAccessor(IOrderAccessor orderInvoiceAccessor)
         {
             _orderAccessor = orderInvoiceAccessor;
         }

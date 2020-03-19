@@ -23,18 +23,18 @@ namespace WPFPresentationLayer.InventoryPages
     /// </summary>
     public partial class ViewAddOrder : Page
     {
-        OrderManager _orderManager;
+        OrderAccessor _orderManager;
         Order _order;
         public ViewAddOrder()
         {
             InitializeComponent();
-            _orderManager = new OrderManager();
+            _orderManager = new OrderAccessor();
             _order = new Order();
         }
 
         private void btnSaveOrder_Click_1(object sender, RoutedEventArgs e)
         {
-            OrderManager _orderManager = new OrderManager();
+            OrderAccessor _orderManager = new OrderAccessor();
             try
             {
                 if (txtEmployeeID.Text == "")

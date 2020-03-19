@@ -22,7 +22,7 @@ namespace WPFPresentationLayer.InventoryPages
     /// </summary>
     public partial class ViewOrders : Page
     {
-        private OrderManager _orderManager = new OrderManager();
+        private OrderAccessor _orderManager = new OrderAccessor();
         private List<Order> _orders;
         private List<Order> _currentOrders;
 

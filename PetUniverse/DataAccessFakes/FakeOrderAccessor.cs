@@ -116,7 +116,7 @@ namespace DataAccessFakes
         /// </summary>
         /// <param name="orderInvoiceID">The ID of the invoice to be deleted</param>
         /// <returns></returns>
-        public int DeleteOrderInvoice(string orderID)
+        public int DeleteOrder(int orderID)
         {
             int result = 0;
             FakeOrderAccessor fakeOrderAccessor = new FakeOrderAccessor();
