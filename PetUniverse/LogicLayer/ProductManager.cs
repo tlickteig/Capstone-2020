@@ -89,5 +89,67 @@ namespace LogicLayer
                 throw new ApplicationException("Data not found.", ex);
             }
         }
+
+        /// <summary>
+        /// CREATOR: Rasha Mohammed
+        /// CREATED: 3/1/2020
+        /// APPROVER: Robert Holmes
+        /// 
+        /// Update a field of the product .
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        public bool EditProduct(Product oldProduct, Product newProduct)
+        {
+            bool result = false;
+
+            try
+            {
+                result = _productAccessor.UpdateProduct(oldProduct, newProduct) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update failed", ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// CREATOR: Rasha Mohammed
+        /// CREATED: 3/3/2020
+        /// APPROVER: Robert Holmes
+        /// 
+        /// Retrieves a list of all the products .
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        /// 
+        public List<Product> RetrieveAllProducts()
+        {
+            List<Product> result = null;
+            try
+            {
+
+                result = _productAccessor.SelectAllProducts();
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+
+            }
+
+        }
+
     }
 }

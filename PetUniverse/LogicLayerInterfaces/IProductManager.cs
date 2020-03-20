@@ -37,5 +37,35 @@ namespace LogicLayerInterfaces
         /// </remarks>
         List<Product> RetrieveAllProductsByType(string type = "All");
 
+        /// <summary>
+        /// Creator: Rasha Mohammed
+        /// Created: 3/1/2020
+        /// Approver: Robert Holmes
+        /// 
+        /// Interface to update product value from product from old one to new one.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        bool EditProduct(Product oldProduct, Product newProduct);
+
+        /// <summary>
+        /// CREATOR: Rasha Mohammed
+        /// CREATED: 3/1/2020
+        /// APPROVER: Robert Holmes
+        /// 
+        /// Interface to retrieve all products.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        List<Product> RetrieveAllProducts();
+
     }
 }

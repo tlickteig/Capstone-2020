@@ -7635,3 +7635,75 @@ AS
 		RETURN @@ROWCOUNT
 	END
 GO
+
+/*
+Created by: Rasha Mohammed
+Date: 3/3/2020
+Comment: Sproc to select all products on product
+*/
+print '' print '*** creating sp_select_all_product_in_product'
+GO
+CREATE PROCEDURE [sp_select_all_product_in_product]
+AS
+BEGIN
+	SELECT  [ProductID],[ItemID], [ProductName], [ProductCategoryID],
+			[ProductTypeID], [Description], [Price], [Brand], [Taxable] 	
+	FROM	[dbo].[Product] 
+	
+END
+GO	
+
+/*
+Created by: Rasha Mohammed
+Date: 2/29/2020
+Comment: Sproc to update Product price
+*/
+print '' print '*** Creating sp_update_product_price'
+GO
+CREATE PROCEDURE [sp_update_product_price]
+(
+	@ProductID				[NVARCHAR](13),
+
+	@NewItemID				[INT],
+	@NewProductName			[NVARCHAR](50),
+	@NewProductCategoryID 	[NVARCHAR](20),
+	@NewProductTypeID 		[NVARCHAR](20),
+	@NewDescription  		[NVARCHAR](500),
+	@NewPrice				[DECIMAL](10,2),
+	@NewBrand				[NVARCHAR](20),
+	@NewTaxable				[BIT],	
+	
+	@OldItemID				[INT],
+	@OldProductName			[NVARCHAR](50),
+	@OldProductCategoryID 	[NVARCHAR](20),
+	@OldProductTypeID 		[NVARCHAR](20),
+	@OldDescription  		[NVARCHAR](500),
+	@OldPrice				[DECIMAL](10,2),
+	@OldBrand				[NVARCHAR](20),
+	@OldTaxable				[BIT]	
+)
+AS
+BEGIN
+	UPDATE [dbo].[Product]
+		SET [ItemID] 	  	  	= @NewItemID,
+			[ProductName] 	  	= @NewProductName,
+			[ProductCategoryID] = @NewProductCategoryID,
+			[ProductTypeID] 	=	@NewProductTypeID,
+			[Description]	  = @NewDescription,
+			[Price]			  = @NewPrice,
+			[Brand]		      = @NewBrand,
+			[Taxable] 		  = @NewTaxable
+			
+	WHERE 	[ProductID] 	  =	@ProductID 
+	  AND	[ItemID] 	  	  = @OldItemID
+	  AND	[ProductName]     = @OldProductName
+	  AND	[ProductCategoryID] = @OldProductCategoryID
+	  AND	[ProductTypeID]     = @OldProductTypeID
+	  AND	[Description] 	  = @OldDescription
+	  AND	[Price]    	      = @OldPrice
+	  AND	[Brand]           = @OldBrand
+	  AND	[Taxable]         = @OldTaxable
+	 
+	RETURN @@ROWCOUNT
+END
+GO

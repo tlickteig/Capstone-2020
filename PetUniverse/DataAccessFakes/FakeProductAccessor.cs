@@ -104,5 +104,67 @@ namespace DataAccessFakes
                 throw new ApplicationException("Failed to Load Products");
             }
         }
+
+        /// <summary>
+        /// CREATOR: Rasha Mohammed
+        /// CREATED: 3/13/2020
+        /// APPROVER: Robert Holmes
+        /// 
+        /// Fake Product Accessor Method, return list of product for testing.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public List<Product> SelectAllProducts()
+        {
+            return products;
+        }
+
+        /// <summary>
+        /// CREATOR: Rasha Mohammed
+        /// CREATED: 3/13/2020
+        /// APPROVER: Robert Holmes
+        /// 
+        /// Fake Product Accessor Method to update the product, for testing.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public int UpdateProduct(Product oldProduct, Product newProduct)
+        {
+            int rows = 0;
+
+            foreach (Product product in products)
+            {
+                if (
+                    product.ProductID == oldProduct.ProductID &&
+                    product.ItemID == oldProduct.ItemID &&
+                    product.Category == oldProduct.Category &&
+                    product.Type == oldProduct.Type &&
+                    product.Name == oldProduct.Name &&
+                    product.Price == oldProduct.Price &&
+                    product.Taxable == oldProduct.Taxable
+
+                  )
+                {
+                    product.ProductID = oldProduct.ProductID;
+                    product.ItemID = newProduct.ItemID;
+                    product.Category = newProduct.Category;
+                    product.Type = newProduct.Type;
+                    product.Name = newProduct.Name;
+                    product.Price = newProduct.Price;
+                    product.Taxable = newProduct.Taxable;
+
+                    rows++;
+                }
+            }
+            return rows;
+        }
     }
 }

@@ -23,5 +23,36 @@ namespace DataAccessInterfaces
     public interface IProductAccessor
     {
         List<Product> SelectProductByType(string type = "All");
+
+        /// <summary>
+        /// CREATOR: Rasha Mohammed
+        /// CREATED: 3/1/2020
+        /// APPROVER: Robert Holmes
+        /// 
+        /// 
+        /// The method is used to update the product.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        int UpdateProduct(Product oldProduct, Product newProduct);
+
+        /// <summary>
+        /// CREATOR: Rasha Mohammed
+        /// CREATED: 3/1/2020
+        /// APPROVER: Robert Holmes
+        /// 
+        /// The method is used to select all the products on the product.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED DATE: 
+        /// CHANGES: 
+        /// 
+        /// </remarks>
+        List<Product> SelectAllProducts();
     }
 }

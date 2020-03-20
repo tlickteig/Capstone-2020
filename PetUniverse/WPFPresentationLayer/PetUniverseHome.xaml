@@ -10,7 +10,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFPresentationLayer"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
-        Title="PetUniverse" Height="900" Width="1500" Background="#fff8e3" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="PetUniverse" Height="800" Width="1400" Background="#fff8e3" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid MinHeight="4" Margin="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -275,6 +275,10 @@
 
                 <TabItem x:Name="tabPromotions" Header="Promotions" FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="tabPromotions_Loaded">
                     <Frame x:Name="frmPromotions" NavigationUIVisibility="Hidden" />
+                </TabItem>
+
+                <TabItem x:Name="tabProduct" Header="Product" FontSize="18" FontWeight="Bold" Background="#fff8e3" >
+                    <Frame Source="./PoSPages/Product.xaml"/>
                 </TabItem>
             </TabControl>
         </Canvas>

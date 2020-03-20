@@ -29,7 +29,8 @@ namespace LogicLayerTests
     public class ProductManagerTests
     {
         private IProductAccessor _productAccessor;
-
+        private IProductAccessor _fakeProductAccessor;
+        private IProductManager _productManager;
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/02/21
@@ -47,6 +48,8 @@ namespace LogicLayerTests
         public void TestSetup()
         {
             _productAccessor = new FakeProductAccessor();
+            _fakeProductAccessor = new FakeProductAccessor();
+            _productManager = new ProductManager(_fakeProductAccessor);
         }
 
         /// <summary>
@@ -162,6 +165,56 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// CREATOR: Rasha Mohammed
+        /// CREATED: 3/13/2020
+        /// APPROVER: Robert Holmes
+        /// 
+        /// Test method for the EditProduct  method
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestEditProduct()
+        { 
+            // arrange, the attribute that need
+            Product oldProduct = new Product();
+            Product newProduct = new Product();
+            bool result = false;
+            bool expected = true;
+
+            //act
+            oldProduct.ProductID = "1234567890120";
+            oldProduct.ItemID = 0;
+            oldProduct.Name = "Test";
+            oldProduct.Category = "Test Category";
+            oldProduct.Type = "Test Type";
+            oldProduct.Description = "A test product description.";
+            oldProduct.Price = 0.50M;
+            oldProduct.Brand = "Test Brand";
+            oldProduct.Taxable = true;
+
+            newProduct.ProductID = "1234567890120";
+            newProduct.ItemID = 0;
+            newProduct.Name = "Test";
+            newProduct.Category = "Test Category";
+            newProduct.Type = "Test Type";
+            newProduct.Description = "A test product description.";
+            newProduct.Price = 10.00M;
+            newProduct.Brand = "Test Brand";
+            newProduct.Taxable = true;
+
+            result = _productManager.EditProduct(oldProduct, newProduct);
+
+            // Assert
+            Assert.AreEqual(expected, result);
+
+        }
+
+        /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2/21/2020/02/21
         /// Approver: Cash Carlson
@@ -178,6 +231,7 @@ namespace LogicLayerTests
         public void TestCleanup()
         {
             _productAccessor = null;
+            _fakeProductAccessor = null;
         }
     }
 }
