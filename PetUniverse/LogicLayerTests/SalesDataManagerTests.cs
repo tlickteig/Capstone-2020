@@ -17,7 +17,7 @@ namespace LogicLayerTests
 		/// <summary>
 		/// Creator: Cash Carlson
 		/// Created: 2020/03/19
-		/// Approver: 
+		/// Approver: Rob Holmes
 		///
 		/// Passing in SalesDataFakes at the start of every test
 		/// </summary>
@@ -49,7 +49,7 @@ namespace LogicLayerTests
 		/// <summary>
 		/// Creator: Cash Carlson
 		/// Created: 2020/03/19
-		/// Approver: 
+		/// Approver: Rob Holmes
 		///
 		/// Tear down method that resets the accessor class
 		/// </summary>

@@ -12,7 +12,7 @@ namespace DataAccessFakes
 	/// <summary>
 	/// Creator: Cash Carlson
 	/// Date: 03/19/2020
-	/// Approver: 
+	/// Approver: Rob Holmes
 	/// 
 	/// This class is used to create fake sales data for testing.
 	/// </summary>
@@ -20,6 +20,13 @@ namespace DataAccessFakes
 	{
 		private List<SalesDataVM> salesDataVMs;
 
+		/// <summary>
+		/// Creator: Cash Carlson
+		/// Created: 03/19/2020
+		/// Approver: Rob Holmes
+		/// 
+		/// Constructor loading in fake data for testing
+		/// </summary>
 		public SalesDataFakes()
 		{
 			salesDataVMs = new List<SalesDataVM>() 
@@ -39,7 +46,7 @@ namespace DataAccessFakes
 		/// <summary>
 		/// Creator: Cash Carlson
 		/// Created: 03/19/2020
-		/// Approver: 
+		/// Approver: Rob Holmes
 		/// 
 		/// Return all total sales data accessor.
 		/// </summary>

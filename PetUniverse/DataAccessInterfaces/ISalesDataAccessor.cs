@@ -10,7 +10,7 @@ namespace DataAccessInterfaces
 	/// <summary>
 	/// Name: Cash Carlson
 	/// Date: 03/19/2020
-	/// Approver:
+	/// Approver: Rob Holmes
 	/// 
 	/// An interface For Sales Data
 	/// </summary>
@@ -19,7 +19,7 @@ namespace DataAccessInterfaces
 		/// <summary>
 		/// Name: Cash Carlson
 		/// Date: 03/19/2020
-		/// Approver:
+		/// Approver: Rob Holmes
 		/// 
 		/// A data access method of getting all total product sales data
 		/// </summary>

@@ -10,7 +10,7 @@ namespace LogicLayerInterfaces
 	/// <summary>
 	/// Creator: Cash Carlson
 	/// Created: 03/19/2020
-	/// Approver: 
+	/// Approver: Rob Holmes
 	///
 	/// An interface for Sales Data Logic Manager
 	/// </summary>
@@ -19,7 +19,7 @@ namespace LogicLayerInterfaces
 		/// <summary>
 		/// Creator: Cash Carlson
 		/// Created: 03/19/2020
-		/// Approver: 
+		/// Approver: Rob Holmes
 		///
 		/// Interface for a method that gets a list of all Total Sales Data from an accessor
 		/// </summary>

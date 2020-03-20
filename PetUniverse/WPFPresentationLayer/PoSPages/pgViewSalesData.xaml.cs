@@ -20,7 +20,7 @@ namespace WPFPresentationLayer.PoSPages
 	/// <summary>
 	/// Creator: Cash Carlson
 	/// Created: 03/19/2020
-	/// Approver: 
+	/// Approver: Rob Holmes
 	///
 	/// 
 	/// Interaction logic for pgViewSalesData.xaml
@@ -32,7 +32,7 @@ namespace WPFPresentationLayer.PoSPages
 		/// <summary>
 		/// Creator: Cash Carlson
 		/// Created: 03/19/2020
-		/// Approver: 
+		/// Approver: Rob Holmes
 		///
 		/// Default Constructor for InventoryItems Page
 		/// </summary>
@@ -45,7 +45,7 @@ namespace WPFPresentationLayer.PoSPages
 		/// <summary>
 		/// Creator: Cash Carlson
 		/// Created: 03/19/2020
-		/// Approver: 
+		/// Approver: Rob Holmes
 		///
 		/// Event Handler when the page loads
 		/// </summary>
@@ -59,7 +59,7 @@ namespace WPFPresentationLayer.PoSPages
 		/// <summary>
 		/// Creator: Cash Carlson
 		/// Created: 03/19/2020
-		/// Approver: 
+		/// Approver: Rob Holmes
 		///
 		/// Refresh method to be called on when is needed.
 		/// 

@@ -13,7 +13,7 @@ namespace DataAccessLayer
     /// <summary>
     /// Name: Cash Carlson
     /// Date: 03/19/2020
-    /// Approver: 
+    /// Approver: Rob Holmes
     /// 
     /// This class is used to call Sales Data from the database and all things
     /// related.
@@ -23,7 +23,7 @@ namespace DataAccessLayer
         /// <summary>
         /// Name: Cash Carlson
         /// Date: 03/19/2020
-        /// Approver:
+        /// Approver: Rob Holmes
         /// 
         /// A method to call to the database to get all product sales data
         /// </summary>

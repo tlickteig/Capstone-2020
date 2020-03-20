@@ -9,7 +9,7 @@ namespace DataTransferObjects
 	/// <summary>
 	/// Name: Cash Carlson
 	/// Date: 03/19/2020
-	/// Approver: 
+	/// Approver: Rob Holmes
 	/// 
 	/// This is the SalesDataVM object in which the End User 
 	/// will see. It contains data that the end user can understand.
