@@ -96,6 +96,7 @@
     <Compile Include="FakeVolunteerEventAccessor.cs" />
     <Compile Include="FakeVolunteerTaskAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesDataFakes.cs" />
     <Compile Include="VolunteerShiftAccessorFake.cs" />
   </ItemGroup>
   <ItemGroup>

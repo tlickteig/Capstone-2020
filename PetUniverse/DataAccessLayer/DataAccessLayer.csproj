@@ -88,6 +88,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestAccessor.cs" />
     <Compile Include="ReviewerAccessor.cs" />
+    <Compile Include="SalesDataAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
     <Compile Include="StatusAccessor.cs" />
     <Compile Include="TrainingVideoAccessor.cs" />

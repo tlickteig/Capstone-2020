@@ -260,8 +260,8 @@
                     <Frame x:Name="frmCheckOut" />
                 </TabItem>
                 <TabItem x:Name="tabViewSales" Header="View Sales" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-
-                </TabItem>
+					<Frame Source="./PoSPages/pgViewSalesData.xaml"/>
+				</TabItem>
                 <TabItem x:Name="InventoryItems" Header="Sale Items Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PoSPages/InventoryItems.xaml"/>
                 </TabItem>

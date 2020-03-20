@@ -86,6 +86,7 @@
     <Compile Include="IProductAccessor.cs" />
     <Compile Include="IPromotionAccessor.cs" />
     <Compile Include="IRequestAccessor.cs" />
+    <Compile Include="ISalesDataAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="IStatusAccessor.cs" />
     <Compile Include="ITrainingVideoAccessor.cs" />
