@@ -127,7 +127,7 @@ namespace LogicLayer
         public List<AnimalVetAppointment> RetrieveAppointmentsByAnimalName(string animalName)
         {
             return (from b in _vetAppointments
-                    where b.AnimalName == animalName
+                    where b.AnimalName.ToLower() == animalName.ToLower()
                     select b).ToList();
         }
 
@@ -312,10 +312,32 @@ namespace LogicLayer
             {
                 return _vetAppointmentAccessor.UpdateVetAppointment(oldVetAppointment, newVetAppointment);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new ApplicationException("Failed to update record", ex);
             }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Retrieves vet appointments that contain part
+        /// of the supplied animal name. Used for searching
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalName">Animal name to search</param>
+        /// <returns>List of animal vet appointments</returns>
+        public List<AnimalVetAppointment> RetrieveAppointmentsByPartialAnimalName(string animalName)
+        {
+            return (from b in _vetAppointments
+                    where b.AnimalName.ToLower().IndexOf(animalName.ToLower()) > -1
+                    select b).ToList();
         }
     }
 }

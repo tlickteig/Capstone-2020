@@ -2212,6 +2212,64 @@ VALUES
 END
 GO
 
+/*
+Created by: Ethan Murphy
+Date: 3/13/2020
+Comment: Stored procedure for updating
+an existing animal prescription record
+*/
+DROP PROCEDURE IF EXISTS [sp_update_animal_prescription]
+GO
+print '' print '*** creating sp_update_animal_prescription'
+GO
+CREATE PROCEDURE [sp_update_animal_prescription]
+(
+	@OldAnimalPrescriptionID	[int],
+	@OldAnimalID				[int],
+	@OldAnimalVetAppointmentID	[int],
+	@OldPrescriptionName		[nvarchar](50),
+	@OldDosage					[decimal],
+	@OldInterval				[nvarchar](250),
+	@OldAdministrationMethod	[nvarchar](100),
+	@OldStartDate				[date],
+	@OldEndDate					[date],
+	@OldDescription				[nvarchar](500),
+	
+	@NewAnimalID				[int],
+	@NewAnimalVetAppointmentID	[int],
+	@NewPrescriptionName		[nvarchar](50),
+	@NewDosage					[decimal],
+	@NewInterval				[nvarchar](250),
+	@NewAdministrationMethod	[nvarchar](100),
+	@NewStartDate				[date],
+	@NewEndDate					[date],
+	@NewDescription				[nvarchar](500)
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalPrescriptions]
+	SET	[AnimalID] = @NewAnimalID,
+		[AnimalVetAppointmentID] = @NewAnimalVetAppointmentID,
+		[PrescriptionName] = @NewPrescriptionName,
+		[Dosage] = @NewDosage,
+		[Interval] = @NewInterval,
+		[AdministrationMethod] = @NewAdministrationMethod,
+		[StartDate] = @NewStartDate,
+		[EndDate] = @NewEndDate,
+		[Description] = @NewDescription
+	WHERE 	[AnimalPrescriptionsID] = @OldAnimalPrescriptionID
+	AND	  	[AnimalID] = @OldAnimalID
+	AND		[AnimalVetAppointmentID] = @OldAnimalVetAppointmentID
+	AND		[PrescriptionName] = @OldPrescriptionName
+	AND		[Dosage] = @OldDosage
+	AND		[Interval] = @OldInterval
+	AND		[AdministrationMethod] = @OldAdministrationMethod
+	AND		[StartDate] = @OldStartDate
+	AND		[EndDate] = @OldEndDate
+	AND		[Description] = @OldDescription
+	RETURN @@ROWCOUNT
+END
+GO
 
 /*
 Created by: Ben Hanna

@@ -76,7 +76,7 @@ namespace LogicLayer
         /// </remarks>
         /// <param name="animalPrescription">An AnimalPrescription object</param>
         /// <returns>Creation succesful</returns>
-        public bool AddAnimalPrescriptionRecord(AnimalPrescriptions animalPrescription)
+        public bool AddAnimalPrescriptionRecord(AnimalPrescriptionVM animalPrescription)
         {
             try
             {
@@ -101,7 +101,7 @@ namespace LogicLayer
         /// Update:
         /// </remarks>
         /// <returns>List of animal prescriptions</returns>
-        public List<AnimalPrescriptions> RetrieveAllAnimalPrescriptions()
+        public List<AnimalPrescriptionVM> RetrieveAllAnimalPrescriptions()
         {
             try
             {
@@ -127,7 +127,7 @@ namespace LogicLayer
         /// Update:
         /// </remarks>
         /// <returns>List of animal prescriptions</returns>
-        public List<AnimalPrescriptions> RetrievePrescriptionsByAnimalName(string animalName)
+        public List<AnimalPrescriptionVM> RetrievePrescriptionsByAnimalName(string animalName)
         {
             try
             {
@@ -138,6 +138,35 @@ namespace LogicLayer
             catch (Exception ex)
             {
                 throw new ApplicationException("Data not found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Edits an existing animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalPrescription">Existing record</param>
+        /// <param name="newAnimalPrescription">Updated record</param>
+        /// <returns>Edit successful</returns>
+        public bool EditAnimalPrescriptionRecord(AnimalPrescriptionVM oldAnimalPrescription,
+            AnimalPrescriptionVM newAnimalPrescription)
+        {
+            try
+            {
+                return _animalPrescriptionsAccessor.UpdateAnimalPrescriptionRecord(
+                    oldAnimalPrescription, newAnimalPrescription);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to update record", ex);
             }
         }
     }

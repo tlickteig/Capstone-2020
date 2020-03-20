@@ -31,7 +31,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="animalPrescription">An AnimalPrescription object</param>
         /// <returns>Creation succesful</returns>
-        bool CreateAnimalPrescriptionRecord(AnimalPrescriptions animalPrescription);
+        bool CreateAnimalPrescriptionRecord(AnimalPrescriptionVM animalPrescription);
 
         /// <summary>
         /// Creator: Ethan Murphy
@@ -46,6 +46,24 @@ namespace DataAccessInterfaces
         /// Update:
         /// </remarks>
         /// <returns>List of animal prescriptions</returns>
-        List<AnimalPrescriptions> SelectAllAnimalPrescriptionRecords();
+        List<AnimalPrescriptionVM> SelectAllAnimalPrescriptionRecords();
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Updates an existing animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalPrescription">Existing record</param>
+        /// <param name="newAnimalPrescription">Record to replace the existing one</param>
+        /// <returns>Update successful</returns>
+        bool UpdateAnimalPrescriptionRecord(AnimalPrescriptionVM oldAnimalPrescription,
+            AnimalPrescriptionVM newAnimalPrescription);
     }
 }

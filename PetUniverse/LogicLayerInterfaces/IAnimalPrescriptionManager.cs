@@ -32,7 +32,7 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <param name="animalPrescription">An AnimalPrescription object</param>
         /// <returns>Creation succesful</returns>
-        bool AddAnimalPrescriptionRecord(AnimalPrescriptions animalPrescription);
+        bool AddAnimalPrescriptionRecord(AnimalPrescriptionVM animalPrescription);
 
         /// <summary>
         /// Creator: Ethan Murphy
@@ -47,7 +47,7 @@ namespace LogicLayerInterfaces
         /// Update:
         /// </remarks>
         /// <returns>List of animal prescriptions</returns>
-        List<AnimalPrescriptions> RetrieveAllAnimalPrescriptions();
+        List<AnimalPrescriptionVM> RetrieveAllAnimalPrescriptions();
 
         /// <summary>
         /// Creator: Ethan Murphy
@@ -63,6 +63,24 @@ namespace LogicLayerInterfaces
         /// Update:
         /// </remarks>
         /// <returns>List of animal prescriptions</returns>
-        List<AnimalPrescriptions> RetrievePrescriptionsByAnimalName(string animalName);
+        List<AnimalPrescriptionVM> RetrievePrescriptionsByAnimalName(string animalName);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Edits an existing animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalPrescription">Existing record</param>
+        /// <param name="newAnimalPrescription">Updated record</param>
+        /// <returns>Edit successful</returns>
+        bool EditAnimalPrescriptionRecord(AnimalPrescriptionVM oldAnimalPrescription,
+            AnimalPrescriptionVM newAnimalPrescription);
     }
 }

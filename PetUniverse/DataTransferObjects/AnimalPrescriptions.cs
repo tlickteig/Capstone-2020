@@ -14,18 +14,10 @@ namespace DataTransferObjects
     /// 
     /// A data object for animal prescription records
     /// </summary>
-    public class AnimalPrescriptions
+    public class AnimalPrescription
     {
         public int AnimalPrescriptionID { get; set; }
         public int AnimalID { get; set; }
-        public string AnimalName { get; set; }
         public int AnimalVetAppointmentID { get; set; }
-        public string PrescriptionName { get; set; }
-        public decimal Dosage { get; set; }
-        public string Interval { get; set; }
-        public string AdministrationMethod { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public string Description { get; set; }
     }
 }

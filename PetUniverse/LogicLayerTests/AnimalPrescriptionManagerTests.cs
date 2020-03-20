@@ -62,7 +62,7 @@ namespace LogicLayerTests
             bool result = false;
             IAnimalPrescriptionManager animalPrescriptionManager =
                 new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
-            AnimalPrescriptions animalPrescription = new AnimalPrescriptions()
+            AnimalPrescriptionVM animalPrescription = new AnimalPrescriptionVM()
             {
                 AnimalID = 5,
                 AnimalPrescriptionID = 5,
@@ -100,8 +100,8 @@ namespace LogicLayerTests
         public void TestSelectingAllAnimalPrescriptionRecords()
         {
             // Arrange
-            List<AnimalPrescriptions> animalPrescriptions =
-                new List<AnimalPrescriptions>();
+            List<AnimalPrescriptionVM> animalPrescriptions =
+                new List<AnimalPrescriptionVM>();
             IAnimalPrescriptionManager animalPrescriptionManager =
                 new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
 
@@ -129,8 +129,8 @@ namespace LogicLayerTests
         public void TestSelectPrescriptionRecordsByValidAnimalName()
         {
             // Arrange
-            List<AnimalPrescriptions> animalPrescriptions =
-                new List<AnimalPrescriptions>();
+            List<AnimalPrescriptionVM> animalPrescriptions =
+                new List<AnimalPrescriptionVM>();
             IAnimalPrescriptionManager animalPrescriptionManager =
                 new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
             string animalName = "fawuief";
@@ -161,8 +161,8 @@ namespace LogicLayerTests
         public void TestSelectPrescriptionRecordsByAnInvalidAnimalName()
         {
             // Arrange
-            List<AnimalPrescriptions> animalPrescriptions =
-                new List<AnimalPrescriptions>();
+            List<AnimalPrescriptionVM> animalPrescriptions =
+                new List<AnimalPrescriptionVM>();
             IAnimalPrescriptionManager animalPrescriptionManager =
                 new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
             string animalName = "hrehahsea";
@@ -173,6 +173,120 @@ namespace LogicLayerTests
 
             // Assert
             Assert.AreEqual(0, animalPrescriptions.Count);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Tests updating an existing animal
+        /// prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestUpdateExistingAnimalPrescriptionRecord()
+        {
+            // Arrange
+            bool result = false;
+            AnimalPrescriptionVM existingRecord = new AnimalPrescriptionVM()
+            {
+                AnimalID = 1,
+                AnimalPrescriptionID = 1,
+                AnimalVetAppointmentID = 1,
+                PrescriptionName = "test",
+                Dosage = 2.0M,
+                Interval = "2 times a day",
+                AdministrationMethod = "Oral",
+                StartDate = DateTime.Parse("3/20/2020"),
+                EndDate = DateTime.Parse("4/15/2020"),
+                Description = "test",
+                AnimalName = "fawuief"
+            };
+            AnimalPrescriptionVM newRecord = new AnimalPrescriptionVM()
+            {
+                AnimalID = 1,
+                AnimalPrescriptionID = 1,
+                AnimalVetAppointmentID = 1,
+                PrescriptionName = "wefafawef",
+                Dosage = 4.0M,
+                Interval = "3 times a day",
+                AdministrationMethod = "Oral",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(2),
+                Description = "test",
+                AnimalName = "fawuief"
+            };
+            IAnimalPrescriptionManager manager =
+                new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
+
+            // Act
+            result = manager.EditAnimalPrescriptionRecord(
+                existingRecord, newRecord);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Tests updating a non-existent animal
+        /// prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestUpdateNonExistentAnimalPrescriptionRecord()
+        {
+            // Arrange
+            bool result = false;
+            AnimalPrescriptionVM existingRecord = new AnimalPrescriptionVM()
+            {
+                AnimalID = 500,
+                AnimalPrescriptionID = 1241,
+                AnimalVetAppointmentID = 1214,
+                PrescriptionName = "test",
+                Dosage = 2.0M,
+                Interval = "2 times a day",
+                AdministrationMethod = "Oral",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(2),
+                Description = "test",
+                AnimalName = "fawuief"
+            };
+            AnimalPrescriptionVM newRecord = new AnimalPrescriptionVM()
+            {
+                AnimalID = 1,
+                AnimalPrescriptionID = 1,
+                AnimalVetAppointmentID = 1,
+                PrescriptionName = "wefafawef",
+                Dosage = 4.0M,
+                Interval = "3 times a day",
+                AdministrationMethod = "Oral",
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(2),
+                Description = "test",
+                AnimalName = "fawuief"
+            };
+            IAnimalPrescriptionManager manager =
+                new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
+
+            // Act
+            result = manager.EditAnimalPrescriptionRecord(
+                existingRecord, newRecord);
+
+            // Assert
+            Assert.IsFalse(result);
         }
     }
 }

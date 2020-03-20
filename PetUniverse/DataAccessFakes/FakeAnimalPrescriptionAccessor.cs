@@ -19,7 +19,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeAnimalPrescriptionsAccessor : IAnimalPrescriptionsAccessor
     {
-        private List<AnimalPrescriptions> animalPrescriptions;
+        private List<AnimalPrescriptionVM> AnimalPrescriptionVMs;
 
         /// <summary>
         /// Creator: Ethan Murphy
@@ -37,9 +37,9 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeAnimalPrescriptionsAccessor()
         {
-            animalPrescriptions = new List<AnimalPrescriptions>()
+            AnimalPrescriptionVMs = new List<AnimalPrescriptionVM>()
             {
-                new AnimalPrescriptions()
+                new AnimalPrescriptionVM()
                 {
                     AnimalID = 1,
                     AnimalPrescriptionID = 1,
@@ -48,12 +48,12 @@ namespace DataAccessFakes
                     Dosage = 2.0M,
                     Interval = "2 times a day",
                     AdministrationMethod = "Oral",
-                    StartDate = DateTime.Now,
-                    EndDate = DateTime.Now.AddDays(2),
+                    StartDate = DateTime.Parse("3/20/2020"),
+                    EndDate = DateTime.Parse("4/15/2020"),
                     Description = "test",
                     AnimalName = "fawuief"
                 },
-                new AnimalPrescriptions()
+                new AnimalPrescriptionVM()
                 {
                     AnimalID = 2,
                     AnimalPrescriptionID = 2,
@@ -67,7 +67,7 @@ namespace DataAccessFakes
                     Description = "test2",
                     AnimalName = "sgadgase"
                 },
-                new AnimalPrescriptions()
+                new AnimalPrescriptionVM()
                 {
                     AnimalID = 3,
                     AnimalPrescriptionID = 3,
@@ -81,7 +81,7 @@ namespace DataAccessFakes
                     Description = "test3",
                     AnimalName = "hrehara"
                 },
-                new AnimalPrescriptions()
+                new AnimalPrescriptionVM()
                 {
                     AnimalID = 4,
                     AnimalPrescriptionID = 4,
@@ -111,14 +111,14 @@ namespace DataAccessFakes
         /// Updated:
         /// Update:
         /// </remarks>
-        /// <param name="animalPrescription">An AnimalPrescription object</param>
+        /// <param name="AnimalPrescriptionVM">An AnimalPrescriptionVM object</param>
         /// <returns>Creation succesful</returns>
-        public bool CreateAnimalPrescriptionRecord(AnimalPrescriptions animalPrescription)
+        public bool CreateAnimalPrescriptionRecord(AnimalPrescriptionVM AnimalPrescriptionVM)
         {
             bool result = false;
 
-            animalPrescriptions.Add(animalPrescription);
-            if (animalPrescriptions[animalPrescriptions.Count - 1] == animalPrescription)
+            AnimalPrescriptionVMs.Add(AnimalPrescriptionVM);
+            if (AnimalPrescriptionVMs[AnimalPrescriptionVMs.Count - 1] == AnimalPrescriptionVM)
             {
                 result = true;
             }
@@ -139,9 +139,53 @@ namespace DataAccessFakes
         /// Update:
         /// </remarks>
         /// <returns>List of animal prescription fakes</returns>
-        public List<AnimalPrescriptions> SelectAllAnimalPrescriptionRecords()
+        public List<AnimalPrescriptionVM> SelectAllAnimalPrescriptionRecords()
         {
-            return animalPrescriptions;
+            return AnimalPrescriptionVMs;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Updates a fake animal prescription record
+        /// for testing purposes
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalPrescriptionVM">Existing record</param>
+        /// <param name="newAnimalPrescriptionVM">Updated record</param>
+        /// <returns>Update successful</returns>
+        public bool UpdateAnimalPrescriptionRecord(AnimalPrescriptionVM oldAnimalPrescriptionVM,
+            AnimalPrescriptionVM newAnimalPrescriptionVM)
+        {
+            var foundRecord = AnimalPrescriptionVMs.Find(p =>
+            p.AnimalPrescriptionID == oldAnimalPrescriptionVM.AnimalPrescriptionID &&
+            p.AnimalID == oldAnimalPrescriptionVM.AnimalID &&
+            p.AnimalVetAppointmentID == oldAnimalPrescriptionVM.AnimalVetAppointmentID &&
+            p.PrescriptionName == oldAnimalPrescriptionVM.PrescriptionName &&
+            p.Dosage == oldAnimalPrescriptionVM.Dosage &&
+            p.Interval == oldAnimalPrescriptionVM.Interval &&
+            p.AdministrationMethod == oldAnimalPrescriptionVM.AdministrationMethod &&
+            p.StartDate == oldAnimalPrescriptionVM.StartDate &&
+            p.EndDate == oldAnimalPrescriptionVM.EndDate &&
+            p.Description == oldAnimalPrescriptionVM.Description);
+
+            if (foundRecord != null)
+            {
+                AnimalPrescriptionVMs[AnimalPrescriptionVMs.IndexOf(foundRecord)]
+                    = newAnimalPrescriptionVM;
+                if (!AnimalPrescriptionVMs.Contains(foundRecord) &&
+                    AnimalPrescriptionVMs.Contains(newAnimalPrescriptionVM))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

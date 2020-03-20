@@ -29,7 +29,9 @@ namespace WPFPresentationLayer.AMPages
     public partial class VetPrescriptionControls : Page
     {
         private IAnimalPrescriptionManager _animalPrescriptionManager;
+        private IVetAppointmentManager _vetAppointmentManager;
         private AnimalVetAppointment _selectedAppointment;
+        private bool editMode = false;
 
         /// <summary>
         /// Creator: Ethan Murphy
@@ -66,27 +68,28 @@ namespace WPFPresentationLayer.AMPages
             canViewPrescription.Visibility = Visibility.Hidden;
             ResetFields();
             DisableAddMode();
+            editMode = false;
         }
 
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 2/16/2020
-        /// Approver: Carl Davis 2/21/2020
-        /// Approver: Daulton Schilling 2/21/2020
+        /// Approver: Carl Davis 3/19/2020
         /// 
         /// Save button click event. Saves a new animal 
         /// prescription record
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Ethan Murphy
+        /// Updated: 3/15/2020
+        /// Update: Added edit functionality
         /// </remarks>
         private void BtnSaveEdit_Click(object sender, RoutedEventArgs e)
         {
             if (btnSaveEdit.Content.Equals("Save"))
             {
-                if (_selectedAppointment == null)
+                if (_selectedAppointment == null &&
+                    editMode == false)
                 {
                     MessageBox.Show("Please select a corresponding vet appointment " +
                         "by double clicking a record on the right");
@@ -122,10 +125,12 @@ namespace WPFPresentationLayer.AMPages
                     return;
                 }
 
-                AnimalPrescriptions animalPrescription = new AnimalPrescriptions()
+                AnimalPrescriptionVM animalPrescription = new AnimalPrescriptionVM()
                 {
-                    AnimalID = _selectedAppointment.AnimalID,
-                    AnimalVetAppointmentID = _selectedAppointment.VetAppointmentID,
+                    AnimalID = editMode == true ? ((AnimalPrescription)dgPrescriptions.SelectedItem).AnimalID
+                    : _selectedAppointment.AnimalID,
+                    AnimalVetAppointmentID = editMode == true ? ((AnimalPrescription)dgPrescriptions.SelectedItem)
+                    .AnimalVetAppointmentID : _selectedAppointment.VetAppointmentID,
                     PrescriptionName = txtPrescriptionName.Text,
                     Dosage = Decimal.Parse(txtDosage.Text),
                     Interval = txtInterval.Text,
@@ -134,29 +139,55 @@ namespace WPFPresentationLayer.AMPages
                     EndDate = (DateTime)dateEndDate.SelectedDate,
                     Description = txtDescription.Text
                 };
-                try
+                if (editMode)
                 {
-                    if (_animalPrescriptionManager.AddAnimalPrescriptionRecord(animalPrescription))
+                    try
                     {
-                        MessageBox.Show("Record added!");
-                        DisableAddMode();
-                        RefreshPrescriptionsList();
+                        if (_animalPrescriptionManager.EditAnimalPrescriptionRecord(
+                            (AnimalPrescriptionVM)dgPrescriptions.SelectedItem, animalPrescription))
+                        {
+                            MessageBox.Show("Record updated!");
+                            DisableEditMode();
+                            RefreshPrescriptionsList();
+                            canViewPrescription.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            throw new ApplicationException();
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        throw new ApplicationException();
+                        string message = ex == null ? "Record failed to update" : ex.Message + " " + ex.InnerException;
+                        MessageBox.Show(message);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    string message = ex == null ? "Record not added" : ex.Message + " " + ex.InnerException;
-                    MessageBox.Show(message);
+                    try
+                    {
+                        if (_animalPrescriptionManager.AddAnimalPrescriptionRecord(animalPrescription))
+                        {
+                            MessageBox.Show("Record added!");
+                            DisableAddMode();
+                            RefreshPrescriptionsList();
+                            canViewPrescription.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {
+                            throw new ApplicationException();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        string message = ex == null ? "Record not added" : ex.Message + " " + ex.InnerException;
+                        MessageBox.Show(message);
+                    }
                 }
-                canViewPrescription.Visibility = Visibility.Hidden;
             }
             else
             {
-                // TODO Enable Edit Mode
+                EnableEditMode();
             }
         }
 
@@ -177,6 +208,7 @@ namespace WPFPresentationLayer.AMPages
             if (dgAppointmentList.SelectedItem != null)
             {
                 _selectedAppointment = (AnimalVetAppointment)dgAppointmentList.SelectedItem;
+                txtAnimal.Text = _selectedAppointment.AnimalName;
             }
         }
 
@@ -195,9 +227,10 @@ namespace WPFPresentationLayer.AMPages
         private void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
             canViewPrescription.Visibility = Visibility.Visible;
+            _vetAppointmentManager = new VetAppointmentManager();
             try
             {
-                dgAppointmentList.ItemsSource = new VetAppointmentManager().RetrieveAllVetAppointments();
+                dgAppointmentList.ItemsSource = _vetAppointmentManager.RetrieveAllVetAppointments();
             }
             catch (Exception ex)
             {
@@ -224,14 +257,14 @@ namespace WPFPresentationLayer.AMPages
             {
                 return;
             }
-            PopulateFields((AnimalPrescriptions)dgPrescriptions.SelectedItem);
+            PopulateFields((AnimalPrescriptionVM)dgPrescriptions.SelectedItem);
             canViewPrescription.Visibility = Visibility.Visible;
         }
 
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 3/9/2020
-        /// Approver: 
+        /// Approver: Carl Davis 3/19/2020
         /// 
         /// Event to retrieve the prescription list when
         /// the data grid is loaded
@@ -294,8 +327,10 @@ namespace WPFPresentationLayer.AMPages
             dateEndDate.IsEnabled = true;
             txtAdministrationMethod.IsEnabled = true;
             txtDescription.IsEnabled = true;
+            txtAnimalName.Visibility = Visibility.Visible;
             dgAppointmentList.Visibility = Visibility.Visible;
-            lblAppointmentList.Visibility = Visibility.Visible;
+            lblSearchAnimal.Visibility = Visibility.Visible;
+            lblVetApptList.Visibility = Visibility.Visible;
             btnSaveEdit.Content = "Save";
             dateStartDate.DisplayDateStart = DateTime.Now;
             dateEndDate.DisplayDateStart = DateTime.Now.AddDays(1);
@@ -315,6 +350,7 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void DisableAddMode()
         {
+            ResetFields();
             txtPrescriptionName.IsEnabled = false;
             txtDosage.IsEnabled = false;
             txtInterval.IsEnabled = false;
@@ -323,9 +359,63 @@ namespace WPFPresentationLayer.AMPages
             txtAdministrationMethod.IsEnabled = false;
             txtDescription.IsEnabled = false;
             dgAppointmentList.Visibility = Visibility.Hidden;
-            lblAppointmentList.Visibility = Visibility.Hidden;
+            lblSearchAnimal.Visibility = Visibility.Hidden;
+            lblVetApptList.Visibility = Visibility.Hidden;
+            txtAnimalName.Visibility = Visibility.Hidden;
             btnSaveEdit.Content = "Edit";
             dgAppointmentList.ItemsSource = null;
+            _selectedAppointment = null;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Prepares form controls for editing
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void EnableEditMode()
+        {
+            editMode = true;
+            txtPrescriptionName.IsEnabled = true;
+            txtDosage.IsEnabled = true;
+            txtInterval.IsEnabled = true;
+            dateStartDate.IsEnabled = true;
+            dateEndDate.IsEnabled = true;
+            txtAdministrationMethod.IsEnabled = true;
+            txtDescription.IsEnabled = true;
+            btnSaveEdit.Content = "Save";
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Sets the form controls to their default state
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void DisableEditMode()
+        {
+            editMode = false;
+            txtPrescriptionName.IsEnabled = false;
+            txtDosage.IsEnabled = false;
+            txtInterval.IsEnabled = false;
+            dateStartDate.IsEnabled = false;
+            dateEndDate.IsEnabled = false;
+            txtAdministrationMethod.IsEnabled = false;
+            txtDescription.IsEnabled = false;
+            btnSaveEdit.Content = "Edit";
+            ResetFields();
         }
 
         /// <summary>
@@ -341,7 +431,7 @@ namespace WPFPresentationLayer.AMPages
         /// Updated:
         /// Update:
         /// </remarks>
-        private void PopulateFields(AnimalPrescriptions animalPrescription)
+        private void PopulateFields(AnimalPrescriptionVM animalPrescription)
         {
             txtPrescriptionName.Text = animalPrescription.PrescriptionName;
             txtDosage.Text = animalPrescription.Dosage.ToString();
@@ -350,6 +440,7 @@ namespace WPFPresentationLayer.AMPages
             dateEndDate.SelectedDate = animalPrescription.EndDate;
             txtAdministrationMethod.Text = animalPrescription.AdministrationMethod;
             txtDescription.Text = animalPrescription.Description;
+            txtAnimal.Text = animalPrescription.AnimalName;
         }
 
         /// <summary>
@@ -373,6 +464,7 @@ namespace WPFPresentationLayer.AMPages
             dateEndDate.SelectedDate = null;
             txtAdministrationMethod.Text = "";
             txtDescription.Text = "";
+            txtAnimal.Text = "";
         }
 
         /// <summary>
@@ -455,6 +547,115 @@ namespace WPFPresentationLayer.AMPages
         private void TxtSearch_GotFocus(object sender, RoutedEventArgs e)
         {
             txtSearch.Text = "";
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Event that formats the data grid when it is
+        /// populated with records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void DgPrescriptions_AutoGeneratedColumns(object sender, EventArgs e)
+        {
+            dgPrescriptions.Columns.RemoveAt(8);
+            dgPrescriptions.Columns.RemoveAt(8);
+            dgPrescriptions.Columns.RemoveAt(8);
+            dgPrescriptions.Columns[0].Header = "Animal Name";
+            dgPrescriptions.Columns[1].Header = "Prescription Name";
+            dgPrescriptions.Columns[4].Header = "Administration Method";
+            dgPrescriptions.Columns[5].Header = "Start Date";
+            dgPrescriptions.Columns[6].Header = "End Date";
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Event that formats the appoointment data grid when it is
+        /// populated with records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void DgAppointmentList_AutoGeneratedColumns(object sender, EventArgs e)
+        {
+            dgAppointmentList.Columns.RemoveAt(0);
+            dgAppointmentList.Columns.RemoveAt(0);
+            dgAppointmentList.Columns.RemoveAt(1);
+            dgAppointmentList.Columns.RemoveAt(2);
+            dgAppointmentList.Columns.RemoveAt(4);
+            dgAppointmentList.Columns.RemoveAt(4);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Clears the default text from the animal name
+        /// text box when the user selects it
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void TxtAnimalName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtAnimalName.Text.Equals("Animal Name"))
+            {
+                txtAnimalName.Text = "";
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Searches for vet appointments by animal name
+        /// as the user is typing it. Only begins searching
+        /// when the character count is greater than two. Resets
+        /// to the default list when the textbox is empty
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void TxtAnimalName_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtAnimalName.Text.Length < 3 &&
+                txtAnimalName.Text.Length > 0 ||
+                txtAnimalName.Text == "Animal Name")
+            {
+                return;
+            }
+            dgAppointmentList.ItemsSource = null;
+            try
+            {
+                if (txtAnimalName.Text.Equals(""))
+                {
+                    dgAppointmentList.ItemsSource = _vetAppointmentManager.RetrieveAllVetAppointments();
+                }
+                else
+                {
+                    dgAppointmentList.ItemsSource = _vetAppointmentManager.RetrieveAppointmentsByPartialAnimalName(
+                        txtAnimalName.Text);
+                }
+            }
+            catch (Exception)
+            { }
         }
     }
 }

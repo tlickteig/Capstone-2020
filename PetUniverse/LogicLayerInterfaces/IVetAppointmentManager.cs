@@ -154,6 +154,23 @@ namespace LogicLayerInterfaces
 
         /// <summary>
         /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Retrieves vet appointments that contain part
+        /// of the supplied animal name. Used for searching
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalName">Animal name to search</param>
+        /// <returns>List of animal vet appointments</returns>
+        List<AnimalVetAppointment> RetrieveAppointmentsByPartialAnimalName(string animalName);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
         /// Created: 2/7/2020
         /// Approver: Carl Davis 2/14/2020
         /// Approver: Chuck Baxter 2/14/2020

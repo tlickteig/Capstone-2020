@@ -435,5 +435,32 @@ namespace LogicLayerTests
             // Assert
             Assert.IsFalse(result);
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 3/15/2020
+        /// Approver: Carl Davis 3/19/2020
+        /// 
+        /// Tests retrieving animal vet appointments by
+        /// a partially supplied animal name
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAnimalAppointmentsByPartialAninmalName()
+        {
+            // Arrange
+            List<AnimalVetAppointment> vetAppointments;
+            IVetAppointmentManager vetAppointmentManager = new VetAppointmentManager(_vetAppointmentAccessor, _vetAppointments);
+
+            // Act
+            vetAppointments = vetAppointmentManager.RetrieveAppointmentsByPartialAnimalName("qwe");
+
+            // Assert
+            Assert.AreEqual(1, vetAppointments.Count);
+        }
     }
 }
