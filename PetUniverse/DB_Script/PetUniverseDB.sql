@@ -679,14 +679,14 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Create ItemCateGOry Table
+Comment: Create ItemCategory Table
 */
-DROP TABLE IF EXISTS [dbo].[ItemCateGOry]
+DROP TABLE IF EXISTS [dbo].[ItemCategory]
 GO
-PRINT '' PRINT '*** Creating ItemCateGOry Table'
+PRINT '' PRINT '*** Creating ItemCategory Table'
 GO
-CREATE TABLE [dbo].[ItemCateGOry](
-	[ItemCateGOryID] [nvarchar](50) NOT NULL PRIMARY KEY,
+CREATE TABLE [dbo].[ItemCategory](
+	[ItemCategoryID] [nvarchar](50) NOT NULL PRIMARY KEY,
 	[Description] [nvarchar](250) NOT NULL
 )
 GO
@@ -703,26 +703,26 @@ GO
 CREATE TABLE [dbo].[Item](
 	[ItemID] [int] NOT NULL IDENTITY(100000, 1) PRIMARY KEY,
 	[ItemName] [nvarchar](50) NOT NULL,
-	[ItemCateGOryID] [nvarchar](50) NOT NULL,
+	[ItemCategoryID] [nvarchar](50) NOT NULL,
 	[ItemDescription] [nvarchar](250) NOT NULL,
 	[ItemQuantity] [int] NOT NULL,
 	[Active]       [bit] DEFAULT 1 NOT NULL,
-	CONSTRAINT [fk_Item_ItemCateGOryID] FOREIGN KEY ([ItemCateGOryID])
-		REFERENCES [dbo].[ItemCateGOry]([ItemCateGOryID])
+	CONSTRAINT [fk_Item_ItemCategoryID] FOREIGN KEY ([ItemCategoryID])
+		REFERENCES [dbo].[ItemCategory]([ItemCategoryID])
 )
 GO
 
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Create ProductCateGOry Table
+Comment: Create ProductCategory Table
 */
-DROP TABLE IF EXISTS [dbo].[ProductCateGOry]
+DROP TABLE IF EXISTS [dbo].[ProductCategory]
 GO
-PRINT '' PRINT '*** Creating ProductCateGOry Table'
+PRINT '' PRINT '*** Creating ProductCategory Table'
 GO
-CREATE TABLE [dbo].[ProductCateGOry](
-	[ProductCateGOryID] [nvarchar](20) NOT NULL PRIMARY KEY,
+CREATE TABLE [dbo].[ProductCategory](
+	[ProductCategoryID] [nvarchar](20) NOT NULL PRIMARY KEY,
 	[Description] [nvarchar](500) NOT NULL
 )
 GO
@@ -755,7 +755,7 @@ CREATE TABLE [dbo].[Product](
 	[ProductID] [nvarchar](13) NOT NULL PRIMARY KEY,
 	[ItemID] [int] NOT NULL,
 	[ProductName] [nvarchar](50) NOT NULL,
-	[ProductCateGOryID] [nvarchar](20) NOT NULL,
+	[ProductCategoryID] [nvarchar](20) NOT NULL,
 	[ProductTypeID] [nvarchar](20) NOT NULL,
 	[Description] [nvarchar](250) NOT NULL,
 	[Price] [decimal](10,2) NOT NULL,
@@ -763,8 +763,8 @@ CREATE TABLE [dbo].[Product](
 	[Taxable] [bit] NOT NULL DEFAULT 1,
 	CONSTRAINT [fk_Product_ItemID] FOREIGN KEY ([ItemID])
 		REFERENCES [dbo].[Item]([ItemID]),
-	CONSTRAINT [fk_Product_ProductCataGOryID] FOREIGN KEY ([ProductCateGOryID])
-		REFERENCES [dbo].[ProductCateGOry]([ProductCateGOryID]),
+	CONSTRAINT [fk_Product_ProductCataGOryID] FOREIGN KEY ([ProductCategoryID])
+		REFERENCES [dbo].[ProductCategory]([ProductCategoryID]),
 	CONSTRAINT [fk_Product_ProductTypeID] FOREIGN KEY ([ProductTypeID])
 		REFERENCES [dbo].[ProductType]([ProductTypeID])
 )
@@ -3113,7 +3113,7 @@ BEGIN
 		[Product].[ProductID],
 		[Product].[ProductName],
 		[Product].[Brand],
-		[Product].[ProductCateGOryID],
+		[Product].[ProductCategoryID],
 		[Product].[ProductTypeID],
 		[Product].[Price],
 		[Item].[ItemQuantity]
@@ -4121,7 +4121,7 @@ GO
 CREATE PROCEDURE sp_retrieve_item_list
 AS
 BEGIN
-	SELECT [ItemID], [ItemName]	,[ItemQuantity] ,[ItemCateGOryID]
+	SELECT [ItemID], [ItemName]	,[ItemQuantity] ,[ItemCategoryID]
 	FROM [dbo].[Item]
 END
 GO
@@ -4129,17 +4129,17 @@ GO
 /*
 Created by: Tener Karar
 Date: 02/16/2020
-Comment:retrieve ItemCateGOry List
+Comment:retrieve ItemCategory List
 */
-DROP PROCEDURE IF EXISTS [sp_retrieve_ItemCateGOry_list]
+DROP PROCEDURE IF EXISTS [sp_retrieve_ItemCategory_list]
 GO
-PRINT '' PRINT '*** Creating sp_retrieve_ItemCateGOry_list'
+PRINT '' PRINT '*** Creating sp_retrieve_ItemCategory_list'
 GO
-CREATE PROCEDURE sp_retrieve_ItemCateGOry_list
+CREATE PROCEDURE sp_retrieve_ItemCategory_list
 AS
 BEGIN
-	SELECT [ItemCateGOryID] ,[Description]
-	FROM [dbo].[ItemCateGOry ]
+	SELECT [ItemCategoryID] ,[Description]
+	FROM [dbo].[ItemCategory ]
 END
 GO
 
@@ -4737,7 +4737,7 @@ CREATE PROCEDURE [sp_add_items]
 (
 	@ItemName nvarchar(50),
 	@ItemQuantity int,
-	@ItemCateGOryID nvarchar(50),
+	@ItemCategoryID nvarchar(50),
 	@ItemDescription nvarchar(250)
 )
 AS
@@ -4745,14 +4745,14 @@ BEGIN
 	INSERT INTO Item
     (
 		[ItemName],
-		[ItemCateGOryID],
+		[ItemCategoryID],
 		[ItemQuantity],
 		[ItemDescription]
 	)
 	VALUES
     (
 		@ItemName,
-		@ItemCateGOryID,
+		@ItemCategoryID,
 		@ItemQuantity,
 		@ItemDescription
 	)
@@ -4770,16 +4770,16 @@ PRINT '' PRINT '*** Creating [sp_add_new_cateGOry]'
 GO
 CREATE PROCEDURE [sp_add_new_cateGOry]
 (
-	@ItemCateGOryID nvarchar(50),
+	@ItemCategoryID nvarchar(50),
     @Description nvarchar(250)
 )
 AS
 BEGIN
-	INSERT INTO [dbo].[ItemCateGOry](
-		[ItemCateGOryID],
+	INSERT INTO [dbo].[ItemCategory](
+		[ItemCategoryID],
 		[Description]
 	)
-	VALUES(@ItemCateGOryID, @Description)
+	VALUES(@ItemCategoryID, @Description)
 END
 GO
 
@@ -4795,8 +4795,8 @@ GO
 CREATE PROCEDURE [sp_list_cateGOries]
 AS
 BEGIN
-	SELECT DISTINCT [ItemCateGOryID]
-	FROM [dbo].[ItemCateGOry]
+	SELECT DISTINCT [ItemCategoryID]
+	FROM [dbo].[ItemCategory]
 END
 GO
 
@@ -4816,11 +4816,11 @@ BEGIN
         [i].[ItemID], 
         [i].[ItemName], 
         [i].[ItemQuantity], 
-        [ic].[ItemCateGOryID], 
+        [ic].[ItemCategoryID], 
         [i].[ItemDescription]
 	FROM [dbo].[Item] i
-	INNER JOIN [dbo].[ItemCateGOry] ic
-	ON [i].[ItemCateGOryID] = [ic].[ItemCateGOryID]
+	INNER JOIN [dbo].[ItemCategory] ic
+	ON [i].[ItemCategoryID] = [ic].[ItemCategoryID]
 END
 GO
 
@@ -5065,7 +5065,7 @@ BEGIN
 	SELECT		[ProductID]
 			,	[ItemID]
 			,	[ProductName]
-			,	[ProductCateGOryID]
+			,	[ProductCategoryID]
 			,	[ProductTypeID]
 			,	[Description]
 			,	[Price]
@@ -5091,7 +5091,7 @@ BEGIN
 	SELECT		[ProductID]
 			,	[ItemID]
 			,	[ProductName]
-			,	[ProductCateGOryID]
+			,	[ProductCategoryID]
 			,	[ProductTypeID]
 			,	[Description]
 			,	[Price]
@@ -5166,7 +5166,7 @@ BEGIN
         TL.[Quantity]
         , P.[ProductID]
         , P.[ProductName]
-        , P.[ProductCateGOryID]
+        , P.[ProductCategoryID]
         , P.[ProductTypeID]
         , P.[Description]
         , P.[Brand]
@@ -5412,7 +5412,7 @@ BEGIN
 	SELECT [ItemID],
 		   [ItemName],
 		   [ItemQuantity],
-		   [ItemCateGOryID],
+		   [ItemCategoryID],
 		   [ItemDescription]
 	FROM [dbo].[Item]
 	WHERE [Active] = @Active
@@ -5432,7 +5432,7 @@ CREATE PROCEDURE [sp_deactivate_item]
 (
 		@ItemID          [int],
 		@ItemName        [nvarchar] (50),
-		@ItemCateGOryID  [nvarchar] (50),
+		@ItemCategoryID  [nvarchar] (50),
 		@ItemDescription [nvarchar] (50),
 		@ItemQuantity    [int]
 )
@@ -5442,7 +5442,7 @@ BEGIN
 	SET    [Active] = 0
 	WHERE  [ItemID] = @ItemID
 	AND    [ItemName] = @ItemName
-	AND	   [ItemCateGOryID] = @ItemCateGOryID
+	AND	   [ItemCategoryID] = @ItemCategoryID
 	AND    [ItemDescription] = @ItemDescription
 	AND    [ItemQuantity] = @ItemQuantity
 	SELECT @@ROWCOUNT
@@ -5927,7 +5927,7 @@ BEGIN
         [ItemName]			
 			
     FROM [dbo].[Item] 
-    WHERE[ItemCateGOryID] = 'Medication'
+    WHERE[ItemCategoryID] = 'Medication'
     AND [ItemQuantity] < 5
 END
 GO
@@ -5944,7 +5944,7 @@ BEGIN
         [ItemQuantity],				
         [ItemName]			                
     FROM [dbo].[Item] 
-    WHERE [ItemCateGOryID] = 'Medication'
+    WHERE [ItemCategoryID] = 'Medication'
     AND [ItemQuantity] = 0
 END
 GO
@@ -5977,7 +5977,7 @@ BEGIN
         [ItemID],
         [ItemName],
         [ItemQuantity],
-        [ItemCateGOryID]
+        [ItemCategoryID]
     FROM [Item]
 END
 GO
@@ -6007,11 +6007,11 @@ BEGIN
 END
 GO
 
-DROP PROCEDURE IF EXISTS [SP_Select_Items_By_ItemCateGOryID]
+DROP PROCEDURE IF EXISTS [SP_Select_Items_By_ItemCategoryID]
 GO
-PRINT '' PRINT '*** SP_Select_Items_By_ItemCateGOryID'
+PRINT '' PRINT '*** SP_Select_Items_By_ItemCategoryID'
 GO
-CREATE PROCEDURE [SP_Select_Items_By_ItemCateGOryID]
+CREATE PROCEDURE [SP_Select_Items_By_ItemCategoryID]
 AS
 BEGIN
     SELECT 
@@ -6019,7 +6019,7 @@ BEGIN
         [ItemQuantity],				
         [ItemName]						
     FROM [dbo].[Item] 
-    WHERE[ItemCateGOryID] = 'Medication'
+    WHERE[ItemCategoryID] = 'Medication'
 END
 GO
 
@@ -6349,6 +6349,36 @@ BEGIN
 ([CustomerEmail],[RecievedDate],[Status],[AnimalID])
 VALUES
 (@CustomerEmail,@RecievedDate,@Status,@AnimalID)
+END
+GO
+
+/*
+    Created By: Cash Carlson
+    Date: 3/01/2020
+    Comment: Creating procedure to insert User
+*/
+print '' print '*** Creating sp_select_total_items_sold'
+GO
+DROP PROCEDURE IF EXISTS [sp_select_total_items_sold]
+GO
+CREATE PROCEDURE [sp_select_total_items_sold]
+AS
+BEGIN
+    SELECT
+        [TransactionLine].[ProductID],
+        [Product].[ProductName],
+        [Product].[Brand],
+        [Product].[ProductCategoryID],
+        [Product].[ProductTypeID],
+        SUM ([TransactionLine].[Quantity]) AS "Total Sales"
+    FROM [dbo].[TransactionLine]
+    LEFT JOIN [Product] ON [TransactionLine].[ProductID] = [Product].[ProductID]
+    GROUP BY
+        [TransactionLine].[ProductID],
+        [Product].[ProductName],
+        [Product].[Brand],
+        [Product].[ProductCategoryID],
+        [Product].[ProductTypeID]
 END
 GO
 /*

@@ -106,6 +106,7 @@
     <Compile Include="questionnair.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="RequestVM.cs" />
+    <Compile Include="SalesDataVM.cs" />
     <Compile Include="States.cs" />
     <Compile Include="TimeOffRequest.cs" />
     <Compile Include="TimeOffRequestVM.cs" />

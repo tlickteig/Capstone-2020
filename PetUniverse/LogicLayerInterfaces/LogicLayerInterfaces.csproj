@@ -85,6 +85,7 @@
     <Compile Include="IManageBackstockRecords.cs" />
     <Compile Include="IPUEventManager.cs" />
     <Compile Include="IRequestManager.cs" />
+    <Compile Include="ISalesDataManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
     <Compile Include="IStatusManager.cs" />
     <Compile Include="ITrainingVideoManager.cs" />
