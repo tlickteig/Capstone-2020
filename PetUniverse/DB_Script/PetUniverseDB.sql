@@ -6277,6 +6277,36 @@ VALUES
 (@CustomerEmail,@RecievedDate,@Status,@AnimalID)
 END
 GO
+
+/*
+    Created By: Cash Carlson
+    Date: 3/01/2020
+    Comment: Creating procedure to insert User
+*/
+print '' print '*** Creating sp_select_total_items_sold'
+GO
+DROP PROCEDURE IF EXISTS [sp_select_total_items_sold]
+GO
+CREATE PROCEDURE [sp_select_total_items_sold]
+AS
+BEGIN
+    SELECT
+        [TransactionLine].[ProductID],
+        [Product].[ProductName],
+        [Product].[Brand],
+        [Product].[ProductCategoryID],
+        [Product].[ProductTypeID],
+        SUM ([TransactionLine].[Quantity]) AS "Total Sales"
+    FROM [dbo].[TransactionLine]
+    LEFT JOIN [Product] ON [TransactionLine].[ProductID] = [Product].[ProductID]
+    GROUP BY
+        [TransactionLine].[ProductID],
+        [Product].[ProductName],
+        [Product].[Brand],
+        [Product].[ProductCategoryID],
+        [Product].[ProductTypeID]
+END
+GO
 /*
 /*
  ******************************* Inserting Sample Data *****************************
