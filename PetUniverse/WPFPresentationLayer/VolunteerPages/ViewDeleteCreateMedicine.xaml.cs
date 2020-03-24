@@ -45,9 +45,8 @@ namespace WPFPresentationLayer.VolunteerPages
             try
             {
                 dgMedicineList.ItemsSource = manager.ReturnAllMedicine();
-
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Error loading data");
             }
@@ -67,7 +66,7 @@ namespace WPFPresentationLayer.VolunteerPages
             {
                 dgMedicineList.ItemsSource = manager.ReturnAllMedicine();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 MessageBox.Show("Error refreshing the list");
             }

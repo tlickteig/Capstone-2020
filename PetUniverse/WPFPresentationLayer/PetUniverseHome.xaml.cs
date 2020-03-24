@@ -19,6 +19,7 @@ using WPFPresentationLayer.PoSPages;
 using WPFPresentationLayer.AMPages;
 using WPFPresentationLayer.RecruitingPages;
 using WPFPresentationLayer.FMPages;
+using WPFPresentationLayer.SystemAdminPages;
 
 namespace WPFPresentationLayer
 {
@@ -83,7 +84,7 @@ namespace WPFPresentationLayer
             this.userRoles = userRoles;
             InitializeComponent();
             this.ShowDialog();
-            _userManager = new UserManager();            
+            _userManager = new UserManager();
 
         }
 
@@ -274,6 +275,7 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Hidden;
                     canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
                     break;
                 case "Animal Management":
                     canInventory.Visibility = Visibility.Hidden;
@@ -287,6 +289,7 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Hidden;
                     canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
                     break;
                 case "Facility Management":
                     canInventory.Visibility = Visibility.Hidden;
@@ -300,6 +303,7 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Hidden;
                     canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
                     break;
                 case "Point of Sale":
                     canInventory.Visibility = Visibility.Hidden;
@@ -313,6 +317,7 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Hidden;
                     canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
                     break;
                 case "Volunteer Hub":
                     canInventory.Visibility = Visibility.Hidden;
@@ -326,6 +331,7 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Hidden;
                     canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
                     break;
                 case "System Admin":
                     canInventory.Visibility = Visibility.Hidden;
@@ -339,6 +345,7 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Hidden;
                     canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
                     break;
                 case "Requests":
                     canInventory.Visibility = Visibility.Hidden;
@@ -352,6 +359,7 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Hidden;
                     canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
                     break;
                 case "Adoptions":
                     canInventory.Visibility = Visibility.Hidden;
@@ -365,6 +373,7 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Hidden;
                     canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
                     break;
                 case "Donations":
                     canInventory.Visibility = Visibility.Hidden;
@@ -378,6 +387,7 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Visible;
                     canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
                     break;
                 case "Personnel":
                     canInventory.Visibility = Visibility.Hidden;
@@ -391,6 +401,21 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Hidden;
                     canPersonnel.Visibility = Visibility.Visible;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
+                    break;
+                case "Messages":
+                    canInventory.Visibility = Visibility.Hidden;
+                    canAM.Visibility = Visibility.Hidden;
+                    canFM.Visibility = Visibility.Hidden;
+                    canPoS.Visibility = Visibility.Hidden;
+                    canVolHub.Visibility = Visibility.Hidden;
+                    canRequests.Visibility = Visibility.Hidden;
+                    canSysAd.Visibility = Visibility.Hidden;
+                    canAdoptions.Visibility = Visibility.Hidden;
+                    canDonRec.Visibility = Visibility.Hidden;
+                    canPersonnel.Visibility = Visibility.Hidden;
+                    txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Visible;
                     break;
                 default:
                     canInventory.Visibility = Visibility.Visible;
@@ -404,6 +429,7 @@ namespace WPFPresentationLayer
                     canDonRec.Visibility = Visibility.Hidden;
                     canPersonnel.Visibility = Visibility.Hidden;
                     txtWelcome.Visibility = Visibility.Hidden;
+                    canMessages.Visibility = Visibility.Hidden;
                     break;
             }
         }
@@ -621,6 +647,28 @@ namespace WPFPresentationLayer
             {
                 frmPromotions.Navigate(new pgPromotion(frmPromotions));
             }
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/16/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method to load the Messages page into the frame.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnMessages_Click(object sender, RoutedEventArgs e)
+        {
+            desiredScreen = "Messages";
+            switchScreen(desiredScreen);
+
+            FrameMessages.Content = new pgMessages(_user);
         }
     }
 }

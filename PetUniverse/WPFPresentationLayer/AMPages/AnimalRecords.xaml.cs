@@ -22,21 +22,11 @@ namespace WPFPresentationLayer.AMPages
 
     public partial class AnimalRecords : Page
     {
-
-
-
         public AnimalRecords()
         {
             InitializeComponent();
-
-           
-
-
             _animalManager = new AnimalManager();
             cmbAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-
-
-
             Warning.Visibility = Visibility.Hidden;
             Warning2.Visibility = Visibility.Hidden;
 
@@ -44,22 +34,15 @@ namespace WPFPresentationLayer.AMPages
             NewAnimalChecklist.Visibility = Visibility.Hidden;
 
             _animalManager = new AnimalManager();
-
             _ChecklistManager = new NewAnimalChecklistManager();
-
             _MHManager = new AnimalMedicalHistoryManager();
-
             NumberOfActiveAnimals = _ChecklistManager.RetrieveNumberOfAnimals();//Full auto
 
         }
 
         private IAnimalManager _animalManager;
-
         private INewAnimalChecklistManager _ChecklistManager;
-
         private IAnimalMedicalHistoryManager _MHManager;
-
-
         public static int page = 0;
 
         /// <summary>
@@ -78,11 +61,8 @@ namespace WPFPresentationLayer.AMPages
         private void QuantityAlertManager()
         {
             MedicationManager medicationManager = new MedicationManager();
-
             int num = medicationManager.RetrieveMedicationByLowQauntity().Count();
-
             int empty = medicationManager.RetrieveMedicationByEmptyQauntity().Count();
-
             Medication medication = new Medication();
 
             if (Warning.Visibility == Visibility.Hidden)
@@ -95,11 +75,8 @@ namespace WPFPresentationLayer.AMPages
                 Warning.Visibility = Visibility.Visible;
             }
 
-
-
             if (empty >= 1 && num >= 1)
             {
-
                 if (num == 1)
                 {
                     Warning2.Content = "Pet universe is currently running low on " + num + " medication";
@@ -118,7 +95,6 @@ namespace WPFPresentationLayer.AMPages
                     Warning.Content = "Pet universe is currently out of " + empty + " medication";
                     Warning.Foreground = new SolidColorBrush(Colors.Red);
                     Warning.Visibility = Visibility.Visible;
-
                 }
                 else
                 {
@@ -126,8 +102,6 @@ namespace WPFPresentationLayer.AMPages
                     Warning.Foreground = new SolidColorBrush(Colors.Red);
                     Warning.Visibility = Visibility.Visible;
                 }
-
-
             }
             else if (empty >= 1 && num < 1)
             {
@@ -145,9 +119,6 @@ namespace WPFPresentationLayer.AMPages
                     Warning.Visibility = Visibility.Visible;
                     Warning2.Visibility = Visibility.Hidden;
                 }
-
-
-
             }
             else if (num >= 1 && empty < 1)
             {
@@ -157,7 +128,6 @@ namespace WPFPresentationLayer.AMPages
                     Warning.Foreground = new SolidColorBrush(Colors.DarkOrange);
                     Warning.Visibility = Visibility.Visible;
                     Warning2.Visibility = Visibility.Hidden;
-
                 }
                 else
                 {
@@ -165,8 +135,6 @@ namespace WPFPresentationLayer.AMPages
                     Warning.Foreground = new SolidColorBrush(Colors.DarkOrange);
                     Warning.Visibility = Visibility.Visible;
                     Warning2.Visibility = Visibility.Hidden;
-
-
                 }
 
             }
@@ -177,10 +145,6 @@ namespace WPFPresentationLayer.AMPages
                 Warning.Visibility = Visibility.Visible;
                 Warning2.Visibility = Visibility.Hidden;
             }
-
-
-
-
         }
 
 
@@ -200,36 +164,25 @@ namespace WPFPresentationLayer.AMPages
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
             NewAnimalChecklist.Visibility = Visibility.Visible;
-
             SelectAnimalMessage.Visibility = Visibility.Hidden;
             List<NewAnimalChecklist> List = null;
-
             NewAnimalChecklistManager _ChecklistManager = new NewAnimalChecklistManager();
-
             object item = dgActiveAnimals.SelectedItem;
             string ID = (dgActiveAnimals.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
-
-
-
 
             try
             {
                 page = Int32.Parse(ID);
                 List = _ChecklistManager.RetrieveNewAnimalChecklistByAnimalID(Int32.Parse(ID));
-
-
                 Error.Visibility = Visibility.Hidden;
-            }
-            catch (FormatException ex)
-            {
 
+            }
+            catch (FormatException)
+            {
                 Error.Visibility = Visibility.Visible;
                 Error.Content = "Please enter a valid ID number";
             }
-
-
             view.ItemsSource = List;
-
             return;
         }
 
@@ -256,12 +209,9 @@ namespace WPFPresentationLayer.AMPages
             {
                 AnimalRecords.page = NumberOfActiveAnimals + 1000000;
             }
-
-           
             else
             {
                 AnimalRecords.page--;
-
             }
 
             try
@@ -269,17 +219,13 @@ namespace WPFPresentationLayer.AMPages
                 List = _ChecklistManager.RetrieveNewAnimalChecklistByAnimalID(AnimalRecords.page);
                 Error.Visibility = Visibility.Hidden;
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 Error.Visibility = Visibility.Visible;
                 Error.Content = "Please enter a valid ID number";
             }
-
-
             view.ItemsSource = List;
-
         }
-
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -296,7 +242,6 @@ namespace WPFPresentationLayer.AMPages
         public void AnimalChecklistNextButtonManager()
         {
             List<NewAnimalChecklist> List = null;
-
             AnimalRecords.page++;
 
             if (AnimalRecords.page > NumberOfActiveAnimals + 1000000)
@@ -309,15 +254,12 @@ namespace WPFPresentationLayer.AMPages
                 List = _ChecklistManager.RetrieveNewAnimalChecklistByAnimalID(AnimalRecords.page);
                 Error.Visibility = Visibility.Hidden;
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 Error.Visibility = Visibility.Visible;
                 Error.Content = "Please enter a valid ID number";
             }
-
-
             view.ItemsSource = List;
-
         }
 
         /// <summary>
@@ -336,31 +278,19 @@ namespace WPFPresentationLayer.AMPages
         private void TxtChange(object sender, TextChangedEventArgs e)
         {
             List<NewAnimalChecklist> List = null;
-
             _ChecklistManager = new NewAnimalChecklistManager();
 
             try
             {
-
-                
-
                 List = _ChecklistManager.RetrieveNewAnimalChecklistByAnimalID(Int32.Parse(searchbox.Text) + 1000000);
-
-
-
                 Error.Visibility = Visibility.Hidden;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 Error.Visibility = Visibility.Visible;
                 Error.Content = "Please enter a valid ID number";
-
             }
-
-           
-
             view.ItemsSource = List;
-
         }
 
         /// <summary>
@@ -432,13 +362,6 @@ namespace WPFPresentationLayer.AMPages
             BackRed.Visibility = Visibility.Hidden;
             BackBlack.Visibility = Visibility.Visible;
         }
-
-
-
-
-
-
-
 
         /// <summary>
         /// Creator: Chuck Baxter
@@ -523,7 +446,6 @@ namespace WPFPresentationLayer.AMPages
             //dgActiveAnimals.Columns[3].Header = "Arrival Date";
             //dgActiveAnimals.Columns[4].Header = "Currently Housed";
             //dgActiveAnimals.Columns[6].Header = "Species";
-
         }
 
         /// <summary>
@@ -693,7 +615,6 @@ namespace WPFPresentationLayer.AMPages
             chkIndvidualCurrentlyHoused.IsChecked = selectedAnimal.CurrentlyHoused;
 
             canIndividualAnimal.Visibility = Visibility;
-
         }
 
         /// <summary>
@@ -732,49 +653,28 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void View_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            
-
             NewAnimalChecklist.Visibility = Visibility.Visible;
-
             SelectAnimalMessage.Visibility = Visibility.Hidden;
             List<MedicalHistory> List = null;
-
             AnimalMedicalHistoryManager _ChecklistManager = new AnimalMedicalHistoryManager();
-
             object item = view.SelectedItem;
             string ID = (view.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
-
-
             _MHManager = new AnimalMedicalHistoryManager();
-
-           
 
             try
             {
                 page = Int32.Parse(ID);
                 List = _ChecklistManager.RetrieveAnimalMedicalHistoryByAnimalID(Int32.Parse(ID));
-
-
-
                 Error.Visibility = Visibility.Hidden;
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
-
                 Error.Visibility = Visibility.Visible;
                 Error.Content = "Please enter a valid ID number";
             }
-
-
             view.ItemsSource = List;
-
             return;
-
-
-
         }
-
-
     }
 }
 

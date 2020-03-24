@@ -20,7 +20,7 @@ namespace DataTransferObjects
 
 
         // Connection String for home
-        @"Data Source=localhost;Initial Catalog=PetUniverseDB; Integrated Security = True";
+        @"Data Source=localhost\sqlexpress;Initial Catalog=PetUniverseDB; Integrated Security = True";
 
         //@"Data Source=dbpetuniverse.database.windows.net;Initial Catalog=PetUniverseDB;User ID=csdadmin;Password=********;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
 

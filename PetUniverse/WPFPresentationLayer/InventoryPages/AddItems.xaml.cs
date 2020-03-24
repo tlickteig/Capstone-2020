@@ -106,7 +106,7 @@ namespace WPFPresentationLayer.InventoryPages
                     cboBxCategory.Text = "";
                     txtItemName.Focus();
                 }
-                catch (FormatException ex)
+                catch (FormatException)
                 {
                     "Item Quanitity must be a number.".ErrorMessage();
                 }

@@ -67,6 +67,23 @@ namespace LogicLayerInterfaces
         PetUniverseUser AuthenticateUser(string email, string password);
 
         /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/16/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to get users by email
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        PetUniverseUser getUserByEmail(string email);
+
+        /// <summary>
         /// Creator : Zach Behrensmeyer
         /// Created: 3/3/2020
         /// Approver: Steven Cardona
@@ -133,5 +150,22 @@ namespace LogicLayerInterfaces
         /// <param name="email"></param>        
         /// <returns>Returns Valid User Info</returns>
         DateTime fetchUnlockDate(string userName);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/16/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to get users from a department
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>        
+        /// <returns>Returns Valid User Info</returns>
+        List<PetUniverseUser> GetDepartmentUsers(string DepartmentID);
     }
 }

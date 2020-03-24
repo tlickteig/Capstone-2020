@@ -75,7 +75,7 @@ namespace WPFPresentationLayer.VolunteerPages
                     _manager.CheckMedicineIn(medicine);
                     this.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     MessageBox.Show("There was an error checking in the medicine");
                 }

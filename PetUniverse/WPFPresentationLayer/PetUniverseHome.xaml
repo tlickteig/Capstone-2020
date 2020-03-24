@@ -25,6 +25,14 @@
         <Grid Background="#2e3137" Grid.Row="1">
             <StackPanel Grid.Row="1" Margin="0,16,0,0">
 
+                <Button x:Name="btnMessages" Content="Messages" Margin="10 100 10 -80" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnMessages_Click">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
                 <Button x:Name="btnInventory" Content="Inventory" Margin="10 100 10 10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnInventory_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
@@ -49,8 +57,8 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="btnPoS" Margin="10" Height="40" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnPoS_Click">
-                    <TextBlock HorizontalAlignment="Right" Text="Point of Sale" Margin="0,0,22,0"/>
+                <Button x:Name="btnPoS"  Margin="10" Height="40" Content="Point of Sale" FontSize="18" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnPoS_Click">
+
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
@@ -106,7 +114,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="btnLogout" Margin="10 100 10 10" Height="40" FontSize="18" Content="Logout" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnLogout_Click">
+                <Button x:Name="btnLogout" Margin="10 50 10 10" Height="40" FontSize="18" Content="Logout" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnLogout_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
@@ -492,7 +500,9 @@
             </TabControl>
         </Canvas>
 
-
+        <Canvas  x:Name="canMessages" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
+            <Frame x:Name="FrameMessages" Source="./SystemAdminPages/pgMessages.xaml" NavigationUIVisibility="Hidden"></Frame>
+        </Canvas>
 
         <Label x:Name="lblStatusBar" FontSize="15" Content="Hello," Padding="1150 8 0 0"  Background="#2e3137" HorizontalAlignment="Right" Grid.RowSpan="2" Foreground="White" VerticalAlignment="Top" Width="1494" Height="31" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="txtWelcome" Grid.Column="1" HorizontalAlignment="Left" Margin="378,366,0,0" Grid.RowSpan="2" FontSize="23" TextWrapping="Wrap" Text="Hello welcome to the PetUniverse Hub! Please select a button on the sidebar." VerticalAlignment="Top" Height="133" Width="448"/>

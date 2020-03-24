@@ -233,10 +233,11 @@ namespace WPFPresentationLayer
             try
             {
                 OrderMedications();
-
-
             }
-            catch (Exception ex) { }
+            catch (Exception) 
+            {
+                //Needs an exception
+            }
         }
 
 
@@ -258,9 +259,6 @@ namespace WPFPresentationLayer
             Med.Visibility = Visibility.Visible;
             Med.Visibility = Visibility.Visible;
             MedList.Visibility = Visibility.Visible;
-
-
-
         }
 
         /// <summary>
@@ -280,7 +278,6 @@ namespace WPFPresentationLayer
         {
             try
             {
-
                 if (Int32.Parse(Quantity_input.Text) >= 1)
                 {
                     Quantity_.Text = Int32.Parse(Quantity_input.Text).ToString();
@@ -296,7 +293,7 @@ namespace WPFPresentationLayer
 
                 }
             }
-            catch (FormatException ex)
+            catch (FormatException)
             {
                 Error.Visibility = Visibility.Visible;
                 four.Visibility = Visibility.Hidden;
@@ -304,7 +301,5 @@ namespace WPFPresentationLayer
                 Quantity_.Text = "";
             }
         }
-
-
     }
 }

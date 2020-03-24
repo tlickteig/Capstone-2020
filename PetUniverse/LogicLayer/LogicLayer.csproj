@@ -77,6 +77,7 @@
     <Compile Include="LogManager.cs" />
     <Compile Include="MedicationManager.cs" />
     <Compile Include="MedicineManager.cs" />
+    <Compile Include="MessagesManager.cs" />
     <Compile Include="NewAnimalChecklistManager.cs" />
     <Compile Include="OrderManager.cs" />
     <Compile Include="PetUniverseUserERolesManager.cs" />

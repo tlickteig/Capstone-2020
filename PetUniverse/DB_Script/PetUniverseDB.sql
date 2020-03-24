@@ -40,6 +40,24 @@ CREATE TABLE [dbo].[orders] (
 GO
 
 /*
+ * Created by: Jordan Lindo
+ * Date: 2/5/2020
+ * Comment: This is the table for department information.
+ */
+DROP TABLE IF EXISTS [dbo].[Department]
+GO
+PRINT '' PRINT '*** Creating Table Department'
+GO
+
+CREATE TABLE [dbo].[department]
+(
+	 [DepartmentID]			[nvarchar](50)		NOT NULL PRIMARY KEY
+	,[Description]			[nvarchar](200)		NULL DEFAULT NULL
+	,[Active]				[bit] 				NOT NULL DEFAULT 1	
+)
+GO
+
+/*
 Created by: Zach Behrensmeyer
 Date: 2/3/2020
 Comment: General user table, this is used for logging in and finding information about that user.
@@ -64,7 +82,10 @@ CREATE TABLE [dbo].[User](
 [Zipcode] [nvarchar] (15) NOT NULL,
 [Locked] [bit] NOT NULL Default 0,
 [LockDate] [DateTime] NULL,
-[UnlockDate] [DateTime] NULL
+[UnlockDate] [DateTime] NULL,
+[DepartmentID] [nvarchar](50) NULL,
+CONSTRAINT [fk_User_DepartmentID] FOREIGN KEY([DepartmentID])
+		REFERENCES [Department]([DepartmentID])
 )
 GO
 
@@ -207,8 +228,8 @@ CREATE TABLE [dbo].[Animal](
 	Date 2/7/2020
 	Comment: Adding ProfilePhoto and Description
 	*/
-	[ProfilePhoto]			[nvarchar](50)  DEFAULT "No image found",
-	[ProfileDescription]	[nvarchar](500) DEFAULT "NO description found",
+	[ProfilePhoto]			[nvarchar](50)  DEFAULT 'No image found',
+	[ProfileDescription]	[nvarchar](500) DEFAULT 'NO description found',
 	CONSTRAINT [pk_AnimalID] PRIMARY KEY([AnimalID] ASC),
 	CONSTRAINT [fk_Animal_AnimalSpeciesID] FOREIGN KEY([AnimalSpeciesID])
 		REFERENCES [AnimalSpecies]([AnimalSpeciesID]) ON UPDATE CASCADE
@@ -536,28 +557,6 @@ CREATE TABLE [dbo].[AnimalActivity] (
 		REFERENCES [AnimalActivityType]([AnimalActivityTypeID]) ON UPDATE CASCADE,
 
 	CONSTRAINT [ak_AnimalActivityID] UNIQUE([AnimalActivityTypeID] ASC)
-)
-GO
-
-/*
- * Created by: Jordan Lindo
- * Date: 2/5/2020
- * Comment: This is the table for department information.
- */
-DROP TABLE IF EXISTS [dbo].[Department]
-GO
-PRINT '' PRINT '*** Creating Table Department'
-GO
-
-CREATE TABLE [dbo].[department]
-(
-	 [DepartmentID]			[nvarchar](50)		NOT NULL
-	,[Description]			[nvarchar](200)		NULL
-	DEFAULT NULL
-	,[Active]				[bit]
-	DEFAULT 1
-	,CONSTRAINT 			[pk_departmentID]	PRIMARY KEY ([DepartmentID]ASC)
-
 )
 GO
 
@@ -1479,6 +1478,30 @@ CREATE TABLE [dbo].[Medicine] (
 GO
 
 /*
+Created by: Zach Behrensmeyer
+Date: 03/15/2020
+Comment: Table for Messages
+*/
+DROP TABLE IF EXISTS [dbo].[Message]
+GO
+PRINT '' PRINT '*** Creating Message table'
+GO
+CREATE TABLE [dbo].[Message](
+		[MessageID]				[INT]Identity(100000, 1)	PRIMARY KEY
+		,[MessageContent] 		[NVARCHAR](4000) 			NULL
+		,[MessageTitle] 		[NVARCHAR](100) 			NULL
+		,[MessageSenderID] 		[INT] 						NOT NULL
+		,[MessageReceiverID]	[INT]						NOT NULL
+		,[MessageSeen] 			[BIT] DEFAULT 0 			NOT NULL
+		,	CONSTRAINT	[fk_Message_MessageSenderID] 			FOREIGN KEY([MessageSenderID])
+			REFERENCES	[dbo].[User]([UserID])
+		,	CONSTRAINT	[fk_Message_MessageReceiverID]				FOREIGN KEY([MessageReceiverID])
+			REFERENCES	[dbo].[User]([UserID])
+)
+GO
+
+
+/*
  ******************************* Create Procedures *****************************
 */
 PRINT '' PRINT '******************* Create Procedures *********************'
@@ -1587,11 +1610,11 @@ Created by: Zach Behrensmeyer
 Date: 2/11/2020
 Comment: Sproc to pull list of login logs
 */
-DROP PROCEDURE IF EXISTS [sp_get_login_loGOut_logs]
+DROP PROCEDURE IF EXISTS [sp_get_login_logout_logs]
 GO
-PRINT '' PRINT '*** sp_get_login_loGOut_logs'
+PRINT '' PRINT '*** sp_get_login_logout_logs'
 GO
-CREATE PROCEDURE [sp_get_login_loGOut_logs]
+CREATE PROCEDURE [sp_get_login_logout_logs]
 AS
 BEGIN
 	SELECT 	[Id], [Date], [Level], [Message]
@@ -3067,7 +3090,7 @@ BEGIN
 	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
 			Decision,LocationID
 	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = "Interviewer"
+	WHERE	[AppointmentTypeID] = 'Interviewer'
 END
 GO
 
@@ -3643,7 +3666,7 @@ BEGIN
         [LocationID],
         [Active]
 	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = "inHomeInspection"
+	WHERE	[AppointmentTypeID] = 'inHomeInspection'
 END
 GO
 
@@ -6370,7 +6393,7 @@ BEGIN
         [Product].[Brand],
         [Product].[ProductCategoryID],
         [Product].[ProductTypeID],
-        SUM ([TransactionLine].[Quantity]) AS "Total Sales"
+        SUM ([TransactionLine].[Quantity]) AS 'Total Sales'
     FROM [dbo].[TransactionLine]
     LEFT JOIN [Product] ON [TransactionLine].[ProductID] = [Product].[ProductID]
     GROUP BY
@@ -6381,7 +6404,133 @@ BEGIN
         [Product].[ProductTypeID]
 END
 GO
+
 /*
+Created by: Zach Behrensmeyer
+Date: 03/16/2020
+Comment: This is used to check that the email exists
+*/
+DROP PROCEDURE IF EXISTS [sp_select_messages_by_recipient]
+GO
+print '' print '*** Creating sp_select_messages_by_recipient ***'
+GO
+CREATE PROCEDURE [sp_select_messages_by_recipient]
+(
+@MessageReceiverID [INT]
+)
+AS
+BEGIN
+SELECT  [MessageID]			
+        ,[MessageContent] 	
+        ,[MessageTitle] 	
+        ,[MessageSenderID] 	
+        ,[MessageReceiverID]
+        ,[MessageSeen] 		
+FROM Message
+WHERE MessageReceiverID = @MessageReceiverID
+END 
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 03/18/2020
+Comment: This is used to query departments that are like provided text in the recipient box
+*/
+DROP PROCEDURE IF EXISTS [sp_get_departments_like_input]
+GO
+print '' print '*** Creating sp_get_departments_like_input***'
+GO
+CREATE PROCEDURE [sp_get_departments_like_input]
+(
+@query NVARCHAR(50)
+)
+AS 
+BEGIN
+SELECT [DepartmentID]
+FROM Department 
+WHERE DepartmentID LIKE '%' + @query + '%'
+END
+GO		
+
+/*
+Created by: Zach Behrensmeyer
+Date: 03/18/2020
+Comment: This is used to query users that are like provided text in the recipient box
+*/
+DROP PROCEDURE IF EXISTS [sp_get_users_like_input]
+GO
+print '' print '*** Creating sp_get_users_like_input***'
+GO
+CREATE PROCEDURE [sp_get_users_like_input]
+(
+@query NVARCHAR(50)
+)
+AS 
+BEGIN
+SELECT [Email]
+FROM [dbo].[User]
+WHERE Email LIKE '%' + @query + '%'
+END
+GO	
+
+/*
+Created by: Zach Behrensmeyer
+Date: 03/1/2020
+Comment: This is used to send the message
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_message]
+GO
+print '' print '*** Creating sp_insert_message***'
+GO
+CREATE PROCEDURE [sp_insert_message]
+(
+		 @MessageContent 		[NVARCHAR](4000)
+		,@MessageTitle 		[NVARCHAR](100)
+		,@MessageSenderID 	[INT]
+		,@MessageReceiverID	[INT]
+)
+AS 
+BEGIN
+INSERT INTO [Message]
+	(MessageContent, 
+	MessageTitle,
+	MessageSenderID,
+	MessageReceiverID,
+	MessageSeen
+	
+	)
+	Values(@MessageContent 
+	       ,@MessageTitle 	
+	       ,@MessageSenderID
+	       ,@MessageReceiverID
+		   ,0
+		   )
+END	
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 03/19/2020
+Comment: This is used to get all users in a department
+*/
+DROP PROCEDURE IF EXISTS [sp_get_department_users]
+GO
+print '' print '*** Creating sp_get_department_users***'
+GO
+CREATE PROCEDURE [sp_get_department_users]
+(
+	@DepartmentID [nvarchar](50)
+)
+AS 
+BEGIN
+SELECT UserID, FirstName, LastName, PhoneNumber, Email, addressLineOne, addressLineTwo, City, State, ZipCode
+FROM [dbo].[User]
+WHERE DepartmentID = @DepartmentID 
+END	
+GO
+
+
+
 /*
  ******************************* Inserting Sample Data *****************************
 */
@@ -6544,9 +6693,9 @@ INSERT INTO [dbo].[AnimalVetAppointment]
 	([AnimalID], [AppointmentDate], [AppointmentDescription],
 	[ClinicAddress], [VetName], [FollowUpDate], [UserID])
 	VALUES
-	(1000000, "2020-02-02 2:00PM", "test", "1234 Test", "test", "2020-02-02 4:00PM", 100000),
-	(1000001, "2020-02-10 4:00PM", "test2", "4321 Test2", "test2", null, 100000),
-	(1000002, "2020-02-15 1:00PM", "test3", "1234 Test3", "test3", "2020-02-20 1:00PM", 100000)
+	(1000000, '2020-02-02 2:00PM', 'test', '1234 Test', 'test', '2020-02-02 4:00PM', 100000),
+	(1000001, '2020-02-10 4:00PM', 'test2', '4321 Test2', 'test2', null, 100000),
+	(1000002, '2020-02-15 1:00PM', 'test3', '1234 Test3', 'test3', '2020-02-20 1:00PM', 100000)
 GO
 
 /*
@@ -6649,7 +6798,7 @@ GO
 Created by: Awaab Elamin
 Date: 3/5/2020
 Comment: Adds adoption appliacation records to the AdoptionApplication table.
-Note: "Awaab" is only one who filled the questionnair!
+Note: 'Awaab' is only one who filled the questionnair!
 Updated by Awaab Elamin
 Date: 3/16/2020
 Comment: Close sample data that conflict with customer Email
@@ -7254,8 +7403,8 @@ ItemCategoryID,
 Description
 )
 VALUES
-	("Dog Food", "This is the description for the dog food."),
-	("Cat Toys", "This is the description for the cat toys.")
+	('Dog Food', 'This is the description for the dog food.'),
+	('Cat Toys', 'This is the description for the cat toys.')
 GO
 
 /*
@@ -7272,9 +7421,9 @@ INSERT INTO Item(
 	ItemQuantity
 )
 VALUES
-	("Dog Food", "Dog Food", "Dog Food Description", 10),
-	("Cat Food", "Dog Food", "Cat Food Description", 20),
-	("Lazer Pointer", "Cat Toys", "Lazer Pointer Description", 40)
+	('Dog Food', 'Dog Food', 'Dog Food Description', 10),
+	('Cat Food', 'Dog Food', 'Cat Food Description', 20),
+	('Lazer Pointer', 'Cat Toys', 'Lazer Pointer Description', 40)
 GO
 
 print '' print '*** Creating Sample Volunteer Records'
@@ -7483,8 +7632,8 @@ GO
 INSERT INTO [dbo].[Medicine]
 ([MedicineName], [MedicineDosage], [MedicineDescription])
 VALUES
-("This is the first one", "This is the first dosage", "This is the first description"),
-("This is the second one", "This is the second dosage", "This is the third description")
+('This is the first one', 'This is the first dosage', 'This is the first description'),
+('This is the second one', 'This is the second dosage', 'This is the third description')
 GO
 
 /*

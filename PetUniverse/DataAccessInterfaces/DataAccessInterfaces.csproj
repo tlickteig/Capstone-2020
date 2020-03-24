@@ -81,6 +81,7 @@
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IMedicationAccessor.cs" />
     <Compile Include="IMedicineAccessor.cs" />
+    <Compile Include="IMessagesAccessor.cs" />
     <Compile Include="INewAnimalChecklistAccessor.cs" />
     <Compile Include="IOrderAccessor.cs" />
     <Compile Include="IPetUniverseUserERolesAccessor.cs" />

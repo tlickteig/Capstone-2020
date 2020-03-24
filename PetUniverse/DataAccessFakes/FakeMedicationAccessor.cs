@@ -145,7 +145,7 @@ namespace DataAccessFakes
 
                 return 1;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 0;
             }

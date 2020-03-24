@@ -93,6 +93,7 @@
     <Compile Include="Medication.cs" />
     <Compile Include="MedicationOrder.cs" />
     <Compile Include="Medicine.cs" />
+    <Compile Include="Messages.cs" />
     <Compile Include="MVCAdoptionApplication.cs" />
     <Compile Include="NewAnimalChecklist.cs" />
     <Compile Include="Order.cs" />

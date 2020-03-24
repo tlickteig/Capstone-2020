@@ -206,7 +206,7 @@ namespace DataAccessLayer
         /// </remarks>
         /// <param name="email"></param>
         /// <returns></returns>
-        private PetUniverseUser getUserByEmail(string email)
+        public PetUniverseUser getUserByEmail(string email)
         {
             PetUniverseUser user = null;
 
@@ -445,6 +445,68 @@ namespace DataAccessLayer
                 throw ex;
             }
             return unlockDate;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/16/2020
+        /// Approver: Steven Cardona
+        ///
+        /// This method connects to the database and retrieves users in a department
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated:
+        /// Update: 
+        /// </remarks>      
+        /// <param name="DepartmentID"></param>
+        /// <returns></returns>
+        public List<PetUniverseUser> GetDepartmentUsers(string DepartmentID)
+        {
+            List<PetUniverseUser> users = new List<PetUniverseUser>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_get_department_users");
+
+            cmd.Connection = conn;
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("DepartmentID", SqlDbType.NVarChar, 50);
+            cmd.Parameters["DepartmentID"].Value = DepartmentID;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    users.Add(new PetUniverseUser()
+                    {
+                        PUUserID = reader.GetInt32(0),
+                        FirstName = reader.GetString(1),
+                        LastName = reader.GetString(2),
+                        PhoneNumber = reader.GetString(3),
+                        Email = reader.GetString(4),
+                        Address1 = reader.GetString(5),
+                        Address2 = reader.IsDBNull(6) ? null : reader.GetString(6),
+                        City = reader.GetString(7),
+                        State = reader.GetString(8),
+                        ZipCode = reader.GetString(9),
+                    });
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return users;
         }
     }
 }

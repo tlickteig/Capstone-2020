@@ -91,7 +91,7 @@ namespace WPFPresentationLayer.InventoryPages
             {
                 txtItemLocation.Text = location[0].ToString();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 "There is no location specified yet for this item.".ErrorMessage("Notice");
             }
@@ -165,7 +165,7 @@ namespace WPFPresentationLayer.InventoryPages
                     _itemManager.editItemDetail(oldItemName, oldItemDescription, oldItemCount, newItemName, newItemDescription, newItemCount);
                     result = true;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     "Item Count must be a real whole number.".ErrorMessage();
                 }

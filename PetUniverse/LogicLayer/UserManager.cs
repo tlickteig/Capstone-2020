@@ -303,5 +303,60 @@ namespace LogicLayer
             }
             return unlockDate;
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/16/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager Method to retrieve users by email
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public PetUniverseUser getUserByEmail(string email)
+        {
+            PetUniverseUser user = new PetUniverseUser();
+            try
+            {
+                user = _userAccessor.getUserByEmail(email);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No user found", ex);
+            }
+            return user;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/16/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager Method get users in a department
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        public List<PetUniverseUser> GetDepartmentUsers(string DepartmentID)
+        {
+            List<PetUniverseUser> users = new List<PetUniverseUser>();
+
+            try
+            {
+                users = _userAccessor.GetDepartmentUsers(DepartmentID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No Users Found", ex);
+            }
+            return users;
+        }
     }
 }

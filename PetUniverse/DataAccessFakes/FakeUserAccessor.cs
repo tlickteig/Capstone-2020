@@ -297,5 +297,83 @@ namespace DataAccessFakes
             }
             return unlockDate;
         }
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/16/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to get a user by email
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public PetUniverseUser getUserByEmail(string email)
+        {
+            if (email.Equals("j.doe@RandoGuy.com"))
+            {
+                _user = new PetUniverseUser()
+                {
+                    PUUserID = 100000,
+                    FirstName = "John",
+                    LastName = "Doe",
+                    PhoneNumber = "5632102101",
+                    Email = "j.doe@RandoGuy.com",
+                    Active = true,
+                    City = "Cedar Rapids",
+                    State = "IA",
+                    ZipCode = "52404"
+                };
+                return _user;
+            }
+            else
+            {
+                throw new ApplicationException("User not found");
+            }
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/16/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to get a users in a department
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public List<PetUniverseUser> GetDepartmentUsers(string DepartmentID)
+        {
+            List<PetUniverseUser> users = new List<PetUniverseUser>();
+
+            if (DepartmentID.Equals("100000"))
+            {
+                _user = new PetUniverseUser()
+                {
+                    PUUserID = 100000,
+                    FirstName = "John",
+                    LastName = "Doe",
+                    PhoneNumber = "5632102101",
+                    Email = "j.doe@RandoGuy.com",
+                    Active = true,
+                    City = "Cedar Rapids",
+                    State = "IA",
+                    ZipCode = "52404"
+                };
+                users.Add(_user);
+                return users;
+            }
+            else
+            {
+                throw new ApplicationException("User not found");
+            }
+        }
     }
 }

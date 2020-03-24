@@ -65,6 +65,22 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Zach Behrensmeyer
+        /// Created: 3/16/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to get a departments users
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns>A PetUniverseUser</returns>
+        PetUniverseUser getUserByEmail(string email);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
         /// Created: 3/5/2020
         /// Approver: Steven Cardona
         /// 
@@ -130,5 +146,22 @@ namespace DataAccessInterfaces
         /// <param name="userName"></param>
         /// <returns>bool if user is unlocked</returns>
         DateTime getUnlockDate(string userName);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/16/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to get a departments users
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="DepartmentID"></param>
+        /// <returns>Restrns list of users based on department id</returns>
+        List<PetUniverseUser> GetDepartmentUsers(string DepartmentID);
+
     }
 }
