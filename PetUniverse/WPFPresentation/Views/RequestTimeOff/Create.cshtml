@@ -1,0 +1,51 @@
+﻿<!--
+CREATOR: Kaleb Bachert
+CREATED: 2020/3/5
+APPROVER: Lane Sandburg
+View for creating a Time Off Request
+-->
+
+@model DataTransferObjects.TimeOffRequest
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Create", "RequestTimeOff", new {startDate = Request.Form["StartDate"], endDate = Request.Form["EndDate"], RequestingUserID = ViewBag.RequestingUserID}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Enter the Start and End Dates</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EffectiveStart, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="StartDate" id="StartDate" data-provide="datepicker" class="form-control" value="@DateTime.Now.ToShortDateString()" />
+                @Html.ValidationMessageFor(model => model.EffectiveStart, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EffectiveEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="text" name="EndDate" id="EndDate" data-provide="datepicker" class="form-control" value="@DateTime.Now.ToShortDateString()" />
+                @Html.ValidationMessageFor(model => model.EffectiveEnd, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="submit" type="submit" value="Submit Time Off Request" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to Request Types", "Index", "ChooseRequestType")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -71,6 +71,8 @@
     <Compile Include="AnimalVetAppointments.cs" />
     <Compile Include="Applicant.cs" />
     <Compile Include="Appointment.cs" />
+    <Compile Include="AvailabilityRequest.cs" />
+    <Compile Include="AvailabilityRequestVM.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="CustomerQuestionnar.cs" />
     <Compile Include="CustomerQuestionnarVM.cs" />

@@ -147,6 +147,22 @@ namespace LogicLayer
         /// 
         /// </remarks>
         TimeOffRequestVM RetrieveTimeOffRequestByRequestID(int requestID);
-    }
 
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/17
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for adding an availability Request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <param name="requestingEmployeeID"></param>
+        bool AddAvailabilityRequest(AvailabilityRequestVM request, int requestingEmployeeID);
+    }
 }

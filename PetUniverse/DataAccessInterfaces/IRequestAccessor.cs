@@ -141,6 +141,23 @@ namespace DataAccessInterfaces
 
         /// <summary>
         ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/17
+        ///  APPROVER: NA
+        ///  
+        ///  Interface method for creating an availability request.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: Lane Sandburg
+        /// 
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <param name="requestingUserID"></param>
+        int InsertAvailabilityRequest(AvailabilityRequestVM request, int requestingUserID);
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/3/7
         ///  APPROVER: NA
         ///  

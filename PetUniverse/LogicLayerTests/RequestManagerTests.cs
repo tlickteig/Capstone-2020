@@ -74,7 +74,7 @@ namespace LogicLayerTests
             requests = requestManager.RetrieveRequestsByStatus(true);
 
             //assert
-            Assert.AreEqual(2, requests.Count);
+            Assert.AreEqual(3, requests.Count);
         }
 
         /// <summary>
@@ -396,6 +396,36 @@ namespace LogicLayerTests
 
             // assert
             Assert.IsNotNull(request);
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/2/19
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Test method for creating an availability request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestCreateAvailabilityRequest()
+        {
+            //arrange
+            bool singleRequestAdded;
+            IRequestManager requestManager = new RequestManager(_requestAccessor);
+
+            //act
+            singleRequestAdded = requestManager.AddAvailabilityRequest(new AvailabilityRequestVM()
+            {
+                RequestID = 1000003
+            }, 1000000);
+
+            //assert
+            Assert.AreEqual(true, singleRequestAdded);
         }
 
         [TestCleanup]

@@ -251,7 +251,7 @@ namespace LogicLayer
         /// <summary>
         ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/3/3
-        ///  APPROVER: NA
+        ///  APPROVER: Lane Sandburg
         ///  
         ///  This method calls the InsertTimeOffRequest method from the Accessor
         /// </summary>
@@ -299,6 +299,33 @@ namespace LogicLayer
             catch (Exception ex)
             {
                 throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/17
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method calls the InsertTimeOffRequest method from the Accessor
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <param name="userID"></param>
+        public bool AddAvailabilityRequest(AvailabilityRequestVM request, int requestingEmployeeID)
+        {
+            try
+            {
+                return 1 == _requestAccessor.InsertAvailabilityRequest(request, requestingEmployeeID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not added.", ex);
             }
         }
     }

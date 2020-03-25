@@ -472,5 +472,58 @@ namespace DataAccessLayer
             return request;
         }
 
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/18
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method adds a new Availability Request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <param name="userID"></param>
+        public int InsertAvailabilityRequest(AvailabilityRequestVM request, int requestingUserID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_availability_request", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@SundayStart", request.SundayStartTime);
+            cmd.Parameters.AddWithValue("@SundayEnd", request.SundayEndTime);
+            cmd.Parameters.AddWithValue("@MondayStart", request.MondayStartTime);
+            cmd.Parameters.AddWithValue("@MondayEnd", request.MondayEndTime);
+            cmd.Parameters.AddWithValue("@TuesdayStart", request.TuesdayStartTime);
+            cmd.Parameters.AddWithValue("@TuesdayEnd", request.TuesdayEndTime);
+            cmd.Parameters.AddWithValue("@WednesdayStart", request.WednesdayStartTime);
+            cmd.Parameters.AddWithValue("@WednesdayEnd", request.WednesdayEndTime);
+            cmd.Parameters.AddWithValue("@ThursdayStart", request.ThursdayStartTime);
+            cmd.Parameters.AddWithValue("@ThursdayEnd", request.ThursdayEndTime);
+            cmd.Parameters.AddWithValue("@FridayStart", request.FridayStartTime);
+            cmd.Parameters.AddWithValue("@FridayEnd", request.FridayEndTime);
+            cmd.Parameters.AddWithValue("@SaturdayStart", request.SaturdayStartTime);
+            cmd.Parameters.AddWithValue("@SaturdayEnd", request.SaturdayEndTime);
+            cmd.Parameters.AddWithValue("@RequestingUserID", requestingUserID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
     }
 }

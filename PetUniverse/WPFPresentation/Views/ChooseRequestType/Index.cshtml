@@ -1,0 +1,38 @@
+﻿<!--
+CREATOR: Kaleb Bachert
+CREATED: 2020/3/13
+APPROVER: Lane Sandburg
+View for selecting a Type of request to submit, the Create View will appear within this View
+-->
+@using DataTransferObjects
+
+<h2>@ViewBag.Title</h2>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<div class="col-md-10">
+
+    <label>
+        Select a Request Type
+        <select class="requestTypesDropDown">
+            <option value=""></option>
+            <option value="Time Off">Time Off</option>
+            <option value="Availability Change">Availability Change</option>
+            <option value="Schedule Change">Schedule Change</option>
+        </select>
+    </label>
+
+    <div class="col-md-10 timeOffHideableViewDiv">
+
+        @{ Html.RenderAction("Create", "RequestTimeOff", new PetUniverseUser { PUUserID = 100001 });}
+
+    </div>
+    <div class="col-md-10 availabilityHideableViewDiv">
+
+        @{ Html.RenderAction("Create", "RequestAvailabilityChange", new PetUniverseUser { PUUserID = 100001 });}
+
+    </div>
+    <div class="col-md-10 scheduleChangeHideableViewDiv">
+
+        <p>SCHED CHANGE</p>
+
+    </div>
+</div>

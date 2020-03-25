@@ -921,6 +921,41 @@ CREATE TABLE [dbo].[timeOffRequest] (
 )
 
 GO
+
+/*
+Created by: Kaleb Bachert
+Date: 3/17/2020
+Comment: Table that holds each submitted availability change request
+*/
+print '' print '*** Creating availabilityRequest table'
+GO
+CREATE TABLE [dbo].[availabilityRequest] (
+	[AvailabilityRequestID]		[int]IDENTITY(1000000,1)	NOT NULL,
+	[SundayStartTime]			[nvarchar](30)					NULL,
+	[SundayEndTime]				[nvarchar](30)					NULL,
+	[MondayStartTime]			[nvarchar](30)					NULL,
+	[MondayEndTime]				[nvarchar](30)					NULL,
+	[TuesdayStartTime]			[nvarchar](30)					NULL,
+	[TuesdayEndTime]			[nvarchar](30)					NULL,
+	[WednesdayStartTime]		[nvarchar](30)					NULL,
+	[WednesdayEndTime]			[nvarchar](30)					NULL,
+	[ThursdayStartTime]			[nvarchar](30)					NULL,
+	[ThursdayEndTime]			[nvarchar](30)					NULL,
+	[FridayStartTime]			[nvarchar](30)					NULL,
+	[FridayEndTime]				[nvarchar](30)					NULL,
+	[SaturdayStartTime]			[nvarchar](30)					NULL,
+	[SaturdayEndTime]			[nvarchar](30)					NULL,
+	[ApprovalDate]				[datetime]						NULL,
+	[ApprovingEmployeeID]		[int]							NULL,
+	[RequestID]					[int]						NOT NULL,
+	CONSTRAINT [pk_AvailabilityRequestID] PRIMARY KEY ([AvailabilityRequestID] ASC),
+	CONSTRAINT [fk_availabilityRequest_RequestID] FOREIGN KEY ([RequestID])
+		REFERENCES [request]([RequestID]),
+	CONSTRAINT [fk_availabilityRequest_ApprovingEmployeeID] FOREIGN KEY ([ApprovingEmployeeID])
+		REFERENCES [user]([UserID])
+)
+GO
+
 /*
 Created by: Awaab Elamin
 Date: 2/18/2020
@@ -3675,11 +3710,11 @@ Created by: Kaleb Bachert
 Date: 3/3/2020
 Comment: Procedure to add a Time Off Request
 */
-DROP PROCEDURE IF EXISTS [sp_INSERT_time_off_request]
+DROP PROCEDURE IF EXISTS [sp_insert_time_off_request]
 GO
-PRINT '' PRINT '*** Creating sp_INSERT_time_off_request'
+PRINT '' PRINT '*** Creating sp_insert_time_off_request'
 GO
-CREATE PROCEDURE [sp_INSERT_time_off_request]
+CREATE PROCEDURE [sp_insert_time_off_request]
 (
 	@EffectiveStart			[datetime],
 	@EffectiveEnd			[datetime],
@@ -3696,6 +3731,54 @@ BEGIN
 	([EffectiveStart], [EffectiveEnd], [RequestID])
 	VALUES
 	(@EffectiveStart, @EffectiveEnd, SCOPE_IDENTITY())
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 3/17/2020
+Comment: Procedure to add an AvailabilityRequest
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_time_availability_request]
+GO
+print '' print '*** Creating sp_insert_availability_request'
+GO
+CREATE PROCEDURE [sp_insert_availability_request]
+(
+	@SundayStart			[nvarchar](30),
+	@SundayEnd				[nvarchar](30),
+	@MondayStart			[nvarchar](30),
+	@MondayEnd				[nvarchar](30),
+	@TuesdayStart			[nvarchar](30),
+	@TuesdayEnd				[nvarchar](30),
+	@WednesdayStart			[nvarchar](30),
+	@WednesdayEnd			[nvarchar](30),
+	@ThursdayStart			[nvarchar](30),
+	@ThursdayEnd			[nvarchar](30),
+	@FridayStart			[nvarchar](30),
+	@FridayEnd				[nvarchar](30),
+	@SaturdayStart			[nvarchar](30),
+	@SaturdayEnd			[nvarchar](30),
+	@RequestingUserID		[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[request]
+	([RequestTypeID], [DateCreated], [RequestingEmployeeID])
+	VALUES
+	('Availability Change', GETDATE(), @RequestingUserID)
+	
+	INSERT INTO [dbo].[availabilityRequest]
+	([SundayStartTime], [SundayEndTime], [MondayStartTime], [MondayEndTime], 
+		[TuesdayStartTime], [TuesdayEndTime], [WednesdayStartTime], [WednesdayEndTime], 
+		[ThursdayStartTime], [ThursdayEndTime], [FridayStartTime], [FridayEndTime], 
+		[SaturdayStartTime], [SaturdayEndTime], [RequestID]	
+	)
+	VALUES
+	(@SundayStart, @SundayEnd, @MondayStart, @MondayEnd,
+		@TuesdayStart, @TuesdayEnd, @WednesdayStart, @WednesdayEnd,
+		@ThursdayStart, @ThursdayEnd, @FridayStart, @FridayEnd,
+		@SaturdayStart, @SaturdayEnd, SCOPE_IDENTITY())
 END
 GO
 
@@ -7532,7 +7615,7 @@ GO
 /*
 Created by: Kaleb Bachert
 Date: 2/13/2020
-Comment: Inserting Sample Data for Request
+Comment: Inserting Sample Data for Time Off Request
 */
 INSERT INTO [dbo].[timeOffRequest]
 	([EffectiveStart], [EffectiveEnd], RequestID)

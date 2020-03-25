@@ -21,6 +21,8 @@ namespace DataAccessFakes
         private List<Request> requests;
         private List<TimeOffRequest> timeOffRequests;
         private List<TimeOffRequestVM> timeOffRequestVMs;
+        private List<AvailabilityRequestVM> availabilityRequestVMs;
+
         /// <summary>
         ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/2/7
@@ -52,6 +54,14 @@ namespace DataAccessFakes
                     RequestTypeID = "Time Off",
                     RequestingUserID = 1000001,
                     DateCreated = DateTime.Now.AddDays(-3),
+                    Open = true
+                },
+                new Request()
+                {
+                    RequestID = 1000002,
+                    RequestTypeID = "Availability Change",
+                    RequestingUserID = 1000001,
+                    DateCreated = DateTime.Now,
                     Open = true
                 }
             };
@@ -89,6 +99,29 @@ namespace DataAccessFakes
                     EffectiveStart = DateTime.Now,
                     EffectiveEnd = DateTime.Now.AddDays(7),
                     RequestID = 1000001
+                }
+            };
+
+            availabilityRequestVMs = new List<AvailabilityRequestVM>()
+            {
+                new AvailabilityRequestVM()
+                {
+                    SundayStartTime = "TEST TIME",
+                    SundayEndTime = "TEST TIME",
+                    MondayStartTime = "TEST TIME",
+                    MondayEndTime = "TEST TIME",
+                    TuesdayStartTime = "TEST TIME",
+                    TuesdayEndTime = "TEST TIME",
+                    WednesdayStartTime = "TEST TIME",
+                    WednesdayEndTime = "TEST TIME",
+                    ThursdayStartTime = "TEST TIME",
+                    ThursdayEndTime = "TEST TIME",
+                    FridayStartTime = "TEST TIME",
+                    FridayEndTime = "TEST TIME",
+                    SaturdayStartTime = "TEST TIME",
+                    SaturdayEndTime = "TEST TIME",
+                    AvailabilityRequestID = 1000000,
+                    RequestID = 1000002
                 }
             };
         }
@@ -303,7 +336,7 @@ namespace DataAccessFakes
         /// <summary>
         ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/3/3
-        ///  APPROVER: NA
+        ///  APPROVER: Lane Sandburg
         ///  
         ///   Method that inserts a dummy Request, for testing
         /// </summary>
@@ -325,7 +358,7 @@ namespace DataAccessFakes
         /// <summary>
         ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/3/5
-        ///  APPROVER: NA
+        ///  APPROVER: Lane Sandburg
         ///  
         ///   Method that retrieves a dummy request by ID
         /// </summary>
@@ -338,6 +371,29 @@ namespace DataAccessFakes
         public TimeOffRequestVM SelectTimeOffRequestByRequestID(int RequestID)
         {
             return timeOffRequestVMs.Where(request => request.RequestID == RequestID).First();
+        }
+
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/3/17
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///   Method that inserts a new availability request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public int InsertAvailabilityRequest(AvailabilityRequestVM request, int requestingUserID)
+        {
+            int oldCount = availabilityRequestVMs.Count;
+
+            availabilityRequestVMs.Add(request);
+
+            return availabilityRequestVMs.Count - oldCount;
         }
     }
 }
