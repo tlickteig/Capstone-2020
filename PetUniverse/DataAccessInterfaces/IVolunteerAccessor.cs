@@ -23,6 +23,12 @@ namespace DataAccessInterfaces
         int InsertVolunteer(Volunteer volunteer);
         List<string> SelectAllSkills();
         List<Volunteer> GetVolunteerByName(string firstName, string lastName);
+        List<string> GetVolunteerSkillsByID(int volunteerID);
         List<Volunteer> SelectVolunteersByActive(bool active = true);
+        int UpdateVolunteer(Volunteer oldVolunteer, Volunteer newVolunteer);
+        int InsertOrDeleteVolunteerSkill(int volunteerID, string skill, bool delete = false);
+        List<Volunteer> GetVolunteerByFirstName(string wholeName);
+        int ActivateVolunteer(int volunteerID);
+        int DeactivateVolunteer(int volunteerID);
     }
 }

@@ -1,4 +1,5 @@
-﻿using LogicLayer;
+﻿using DataTransferObjects;
+using LogicLayer;
 using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
@@ -31,26 +32,27 @@ namespace WPFPresentationLayer.VolunteerPages
             InitializeComponent();
             _volunteerManager = new VolunteerManager();
             populateVolunteers();
+            _volunteer = new Volunteer();
         }
 
-        // private Volunteer _volunteer = null;
+        private Volunteer _volunteer = null;
         private IVolunteerManager _volunteerManager;
         private string firstName = "";
         private string lastName = "";
 
-	    /// Creator: Gabi L
-	    /// Created: 2020/02/12
-	    /// <summary>
-	    /// Approver: Josh
-	    /// 
-	    /// Actual summary of the method
-	    /// </summary>
-	    ///
-	    /// <remarks>
-	    /// Updated by: Josh Jackson
-	    /// Updated: 2020/02/28
-	    /// Update: Changed from a tab onFocus event to a method that is called when the page is loaded
-	    /// </remarks>
+        /// Creator: Gabi L
+        /// Created: 2020/02/12
+        /// <summary>
+        /// Approver: Josh
+        /// 
+        /// Actual summary of the method
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated by: Josh Jackson
+        /// Updated: 2020/02/28
+        /// Update: Changed from a tab onFocus event to a method that is called when the page is loaded
+        /// </remarks>
         private void populateVolunteers()
         {
             try
@@ -84,7 +86,7 @@ namespace WPFPresentationLayer.VolunteerPages
         {
 
             dgVolunteerList.Columns.Remove(dgVolunteerList.Columns[6]);
-
+            dgVolunteerList.Columns.Remove(dgVolunteerList.Columns[6]);
 
             dgVolunteerList.Columns[0].Header = "VolunteerID";
             dgVolunteerList.Columns[1].Header = "First Name";
@@ -118,7 +120,7 @@ namespace WPFPresentationLayer.VolunteerPages
         /// <summary>
         /// NAME: Josh Jackson
         /// DATE: 02/14/2020
-        /// Checked By: 
+        /// Checked By: Timothy Lickteig
         /// This clears the search box upon clicking if text is default
         /// </summary>
         /// <remarks>
@@ -128,7 +130,7 @@ namespace WPFPresentationLayer.VolunteerPages
         /// </remarks>
         private void TxtSearch_GotFocus(object sender, RoutedEventArgs e)
         {
-            if (txtSearch.Text == "Volunteer Name here")
+            if (txtSearch.Text == "Search")
             {
                 txtSearch.Text = "";
             }
@@ -136,37 +138,108 @@ namespace WPFPresentationLayer.VolunteerPages
 
         /// <summary>
         /// NAME: Josh Jackson
-        /// DATE: 02/14/2020
-        /// Checked By: 
-        /// this method splits the string taken from the search box into two strings firstName and lastName
-        /// and then passes those values to the logic layer to query a volunteer record
+        /// DATE: 03/06/2020
+        /// Checked By: Zoey M
+        /// This changes pages when a volunteer is selected and the edit button is clicked
         /// </summary>
         /// <remarks>
         /// UPDATED BY: 
         /// UPDATE DATE: 
         /// WHAT WAS CHANGED: 
         /// </remarks>
-        private void BtnSearch_Click(object sender, RoutedEventArgs e)
+        private void Edit_Button_Click(object sender, RoutedEventArgs e)
         {
-            try
+            Volunteer selectedVolunteer = (Volunteer)dgVolunteerList.SelectedItem;
+            if (selectedVolunteer != null)
             {
-                string wholeName = txtSearch.Text.ToString();
-                // this checks for a space in whole name and splits at the space into an array, the values in the newly created array are assigned to firstName and lastName respectively
-                if (wholeName.Contains(" "))
+                this.NavigationService?.Navigate(new AddEditVolunteer(selectedVolunteer, _volunteerManager));
+            }
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 03/06/2020
+        /// Checked By: Zoey M
+        /// this refreshes the datagrid to show all active volunteers
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATE DATE: 
+        /// WHAT WAS CHANGED: 
+        /// </remarks>
+        private void refreshVolunteerList()
+        {
+            dgVolunteerList.ItemsSource =
+                 _volunteerManager.RetrieveVolunteerListByActive();
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 02/14/2020
+        /// Checked By: Timothy Lickteig
+        /// this method splits the string taken from the search box into two strings firstName and lastName
+        /// and then passes those values to the logic layer to query a volunteer record
+        /// OR searches for any volunteer whos first name is entered
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATE DATE: 
+        /// WHAT WAS CHANGED: 
+        /// </remarks>
+        private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (txtSearch.Text != "Search")
+            {
+                try
                 {
-                    string[] tmp = wholeName.Split(' ');
-                    firstName = tmp[0];
-                    lastName = tmp[1].Trim();
-                    dgVolunteerList.ItemsSource = _volunteerManager.GetVolunteerByName(firstName, lastName);
+                    string wholeName = txtSearch.Text.ToString();
+                    // this checks for a space in whole name and splits at the space into an array, the values in the newly created array are assigned to firstName and lastName respectively
+                    if (wholeName.Contains(" "))
+                    {
+                        string[] tmp = wholeName.Split(' ');
+                        firstName = tmp[0];
+                        lastName = tmp[1].Trim();
+                        dgVolunteerList.ItemsSource = _volunteerManager.GetVolunteerByName(firstName, lastName);
+                    }
+                    // this searches the database for the first name of the volunteer being searched for 
+                    else if (!wholeName.Contains(" "))
+                    {
+                        dgVolunteerList.ItemsSource = _volunteerManager.GetVolunteerByFirstName(wholeName);
+                    }
+                    else
+                    {
+                        refreshVolunteerList();
+                    }
+                    // this refreshes the datagrid when the search box is empty
+                    if ((txtSearch.Text).Trim().Equals(""))
+                    {
+                        refreshVolunteerList();
+                    }
                 }
-                else
+                catch (Exception)
                 {
-                    MessageBox.Show("Incorrect name format, try again");
+                    return;
                 }
             }
-            catch (Exception ex)
+
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 03/06/2020
+        /// Checked By: Zoey M
+        /// This refreshes the datagrid when the search box is empty and the user clicks away from the search box
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATE DATE: 
+        /// WHAT WAS CHANGED: 
+        /// </remarks>
+        private void TxtSearch_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtSearch.Text.Length == 0)
             {
-                MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
+                refreshVolunteerList();
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using DataTransferObjects;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,15 +16,20 @@ namespace LogicLayerInterfaces
     /// </summary>
     /// <remarks>
     /// UPDATED BY: Josh Jackson
-    /// UPDATE DATE: 02/14/2020
-    /// WHAT WAS CHANGED: Added GetVolunteerByName() method definition
+    /// UPDATE DATE: 03/12/2020
+    /// WHAT WAS CHANGED: Added ChangeVolunteerActiveStatus() method definition
     /// </remarks>
     public interface IVolunteerManager
     {
         bool AddVolunteer(Volunteer volunteer);
+        bool UpdateVolunteer(Volunteer oldVolunteer, Volunteer newVolunteer);
         List<string> GetAllSkills();
+        List<string> GetVolunteerSkillsByID(int volunteerID);
         List<Volunteer> GetVolunteerByName(string firstName, string lastName);
         List<Volunteer> RetrieveVolunteerListByActive(bool active = true);
-
+        bool AddVolunteerSkill(int volunteerID, string skill);
+        bool DeleteVolunteerSkill(int volunteerID, string skill);
+        List<Volunteer> GetVolunteerByFirstName(string wholeName);
+        bool ChangeVolunteerActiveStatus(bool isChecked, int volunteerID);
     }
 }

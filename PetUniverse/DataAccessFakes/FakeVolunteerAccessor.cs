@@ -59,8 +59,137 @@ namespace DataAccessFakes
                      OtherNotes = "test",
                      Active = true,
                      Skills = new List<string>() { "Dogwalker", "Groomer" }
+                 },
+                 new Volunteer()
+                 {
+                     VolunteerID = 3,
+                     FirstName = "Gordon",
+                     LastName = "Ramsey",
+                     Email = "beefwellington@gmail.com",
+                     PhoneNumber = "15556669988",
+                     OtherNotes = "test",
+                     Active = false,
+                     Skills = new List<string>() { "Dogwalker", "Groomer" }
                  }
             };
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 03/12/2020
+        /// Checked By: Timothy Lickteig
+        /// This is a fake method used for testing setting an inactive volunteer to active
+        /// the save button
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATE DATE: 
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <param name="volunteerID"></param>
+        /// <returns></returns>
+        public int ActivateVolunteer(int volunteerID)
+        {
+            Volunteer volunteer = null;
+
+            //Fail immediatly if null
+            if (volunteerID == null)
+            {
+                throw new Exception();
+            }
+
+            //Check that volunteer is in list, if so assign it, else fail
+            foreach (var r in volunteers)
+            {
+                if (volunteerID == r.VolunteerID)
+                {
+                    volunteer = r;
+                }
+            }
+
+            //Throw exception if volunteer isn't in list
+            if (volunteer == null || volunteerID != volunteer.VolunteerID)
+            {
+                throw new Exception();
+            }
+
+            //Activate it
+            volunteer.Active = true;
+
+            if (volunteer.Active == true)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 03/12/2020
+        /// Checked By: Timothy Lickteig
+        /// This is a fake method used for testing setting an active volunteer to inactive
+        /// the save button
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATE DATE: 
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <param name="volunteerID"></param>
+        /// <returns></returns>
+        public int DeactivateVolunteer(int volunteerID)
+        {
+            Volunteer volunteer = null;
+
+            //Fail immediatly if null
+            if (volunteerID == null)
+            {
+                throw new Exception();
+            }
+
+            //Check that volunteer is in list, if so assign it, else fail
+            foreach (var r in volunteers)
+            {
+                if (volunteerID == r.VolunteerID)
+                {
+                    volunteer = r;
+                }
+            }
+
+            //Throw exception if volunteer isn't in list
+            if (volunteer == null || volunteerID != volunteer.VolunteerID)
+            {
+                throw new Exception();
+            }
+
+            //Deactivate it
+            volunteer.Active = false;
+
+            if (volunteer.Active == false)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 03/6/2020
+        /// Checked By: Zoey M
+        /// This is a data access method used for testing searching for a Volunteer by their first name
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED: 
+        /// </remarks>
+        /// <param name="wholeName"></param>
+        /// <returns></returns>
+        public List<Volunteer> GetVolunteerByFirstName(string wholeName)
+        {
+            return (from v in volunteers
+                    where v.FirstName == "Tony"
+                    select v).ToList();
         }
 
         /// <summary>
@@ -82,6 +211,17 @@ namespace DataAccessFakes
             return (from v in volunteers
                     where v.FirstName == "Tony" where v.LastName == "Stark"
                     select v).ToList();
+        }
+
+        public List<string> GetVolunteerSkillsByID(int volunteerID)
+        {
+            throw new NotImplementedException();
+        }
+
+        
+        public int InsertOrDeleteVolunteerSkill(int volunteerID, string skill, bool delete = false)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -134,6 +274,8 @@ namespace DataAccessFakes
         /// UPDATE DATE: 
         /// CHANGE DESCRIPTION:
         /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
 
         public List<Volunteer> SelectVolunteersByActive(bool active = true)
         {
@@ -141,6 +283,38 @@ namespace DataAccessFakes
                                       where v.Active == true
                                       select v).ToList();
             return selectedVolunteers;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 03/05/2020
+        /// Checked By: Zoey M
+        /// This is a fake method used for testing logic layer
+        /// the save button
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATE DATE: 
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <param name="oldVolunteer"></param>
+        /// <param name="newVolunteer"></param>
+        /// <returns></returns>
+        public int UpdateVolunteer(Volunteer oldVolunteer, Volunteer newVolunteer)
+        {
+            Volunteer volunteer = oldVolunteer;
+
+            try
+            {
+                oldVolunteer = newVolunteer;
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+                throw ex;
+
+            }
         }
     }
 }

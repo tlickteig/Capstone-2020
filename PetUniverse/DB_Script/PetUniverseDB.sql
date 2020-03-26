@@ -4952,6 +4952,46 @@ BEGIN
 END
 GO
 
+print '' print '*** Creating sp_update_volunteer'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: updates an existing volunteer record
+*/
+go
+create procedure [sp_update_volunteer]
+(
+	@VolunteerID	    [int],
+	@OldFirstName   	[nvarchar](50),
+	@OldLastName    	[nvarchar](50),
+	@OldPhoneNumber 	[nvarchar](11),
+	@OldEmail           [nvarchar](250),
+	@OldNotes			[nvarchar](2000),
+	@NewFirstName   	[nvarchar](50),
+	@NewLastName    	[nvarchar](50),
+	@NewPhoneNumber 	[nvarchar](11),
+	@NewEmail           [nvarchar](250),
+	@NewNotes			[nvarchar](2000)
+)
+as
+begin
+update [dbo].[Volunteer]
+set
+	[FirstName] = 	@NewFirstName,
+	[LastName] = 	@NewLastName,
+	[PhoneNumber] = @NewPhoneNumber,
+	[Email] = 		@NewEmail,
+	[OtherNotes]   = @NewNotes
+where [VolunteerID] = @VolunteerID
+	  AND	[FirstName] = 	@OldFirstName
+	  AND	[LastName] = 	@OldLastName
+	  AND	[PhoneNumber] = @OldPhoneNumber
+	  AND	[Email] = 		@OldEmail
+	  AND   [OtherNotes] =  @OldNotes
+return @@ROWCOUNT
+end
+go
+
 /*
 Created by: Josh Jackson
 Date: 2/8/2020
@@ -4975,6 +5015,68 @@ BEGIN
     AND LastName = @LastName
 END
 GO
+
+print '' print '*** Creating sp_get_volunteer_by_first_name'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Gets Volunteers by first name
+*/
+go
+create procedure [sp_get_volunteer_by_first_name]
+(
+	@FirstName [nvarchar](500)
+)
+as
+begin
+select
+	VolunteerID, FirstName, LastName, Email, PhoneNumber, OtherNotes, Active
+from Volunteer
+where FirstName = @FirstName
+end
+go
+
+print '' print '*** Creating sp_deactivate_volunteer'
+/*
+Created by: Josh Jackson
+Date: 3/12/2020
+Comment: changes volunteer active field to 0
+*/
+go
+create procedure [sp_deactivate_volunteer]
+(
+	@VolunteerID		[int]
+)
+as
+begin
+update [dbo].[Volunteer]
+set
+	[Active] = 0
+where [VolunteerID] = @VolunteerID
+return @@ROWCOUNT
+end
+go
+
+print '' print '*** Creating sp_reactivate_volunteer'
+/*
+Created by: Josh Jackson
+Date: 3/12/2020
+Comment: changes volunteer active field to 1
+*/
+go
+create procedure [sp_reactivate_volunteer]
+(
+	@VolunteerID		[int]
+)
+as
+begin
+update [dbo].[Volunteer]
+set
+	[Active] = 1
+where [VolunteerID] = @VolunteerID
+return @@ROWCOUNT
+end
+go
 
 /*
 Created by: Josh Jackson
@@ -5038,6 +5140,26 @@ BEGIN
 	  AND [SkillID] = 		@SkillID
 END
 GO
+
+print '' print '*** Creating sp_select_skills_by_volunteerID'
+/*
+Created by: Josh Jackson
+Date: 3/13/2020
+Comment: Gets a list all a volunteers skills by VolunteerID
+*/
+go
+create procedure [sp_select_skills_by_volunteerID]
+(
+	@VolunteerID          [int]
+)
+as
+begin
+select
+	[SkillID]
+from [VolunteerSkill]
+where [VolunteerID] = @VolunteerID
+end
+go
 
 /*
 Created by: Gabi Legrand

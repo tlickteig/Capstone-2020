@@ -25,6 +25,132 @@ namespace DataAccessLayer
     {
         /// <summary>
         /// NAME: Josh Jackson
+        /// DATE: 03/12/2020
+        /// Checked By: Timothy Lickteig
+        /// This is a data access method to change a volunteers active status to 1 - true
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED: 
+        /// </remarks>
+        /// <param name="volunteerID"></param>
+        /// <returns></returns>
+        public int ActivateVolunteer(int volunteerID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_reactivate_volunteer", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@VolunteerID", volunteerID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 03/12/2020
+        /// Checked By: Timothy Lickteig
+        /// This is a data access method to change a volunteers active status to 0 - false
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED: 
+        /// </remarks>
+        /// <param name="volunteerID"></param>
+        /// <returns></returns>
+        public int DeactivateVolunteer(int volunteerID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_deactivate_volunteer", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@VolunteerID", volunteerID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 03/06/2020
+        /// Checked By: Zoey M
+        /// This is a data access method querying a Volunteer by first name
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED: 
+        /// </remarks>
+        /// <param name="wholeName"></param>
+        /// <returns></returns>
+        public List<Volunteer> GetVolunteerByFirstName(string wholeName)
+        {
+            List<Volunteer> vol = new List<Volunteer>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_get_volunteer_by_first_name");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar, 500);
+            cmd.Parameters["@FirstName"].Value = wholeName;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    var volunteer = new Volunteer();
+                    volunteer.VolunteerID = reader.GetInt32(0);
+                    volunteer.FirstName = wholeName;
+                    volunteer.LastName = reader.GetString(2);
+                    volunteer.Email = reader.GetString(3);
+                    volunteer.PhoneNumber = reader.GetString(4);
+                    volunteer.OtherNotes = reader.GetString(5);
+                    volunteer.Active = reader.GetBoolean(6);
+                    vol.Add(volunteer);
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return vol;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
         /// DATE: 02/14/2020
         /// Checked By: Gabi L
         /// This is a data access method querying a Volunteer by first and last name
@@ -78,6 +204,96 @@ namespace DataAccessLayer
             }
 
             return vol;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 03/13/2020
+        /// Checked By: Timothy Lickteig
+        /// This is a data access method querying a Volunteers skills by VolunteerID
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED: 
+        /// </remarks>
+        /// <param name="volunteerID"></param>
+        /// <returns></returns>
+        public List<string> GetVolunteerSkillsByID(int volunteerID)
+        {
+            List<string> skills = new List<string>();
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_select_skills_by_volunteerID");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@VolunteerID", SqlDbType.Int);
+            cmd.Parameters["@VolunteerID"].Value = volunteerID;
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string skill = reader.GetString(0);
+                    skills.Add(skill);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return skills;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 03/13/2020
+        /// Checked By: Timothy Lickteig
+        /// This is a data access method adds or removes a volunteers skill set
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED: 
+        /// </remarks>
+        /// <param name="volunteerID"></param>
+        /// <param name="skill"></param>
+        /// <param name="delete"></param>
+        /// <returns></returns>
+        public int InsertOrDeleteVolunteerSkill(int volunteerID, string skill, bool delete = false)
+        {
+            int rows = 0;
+
+            string cmdText = delete ? "sp_delete_volunteer_skill" : "sp_insert_volunteer_skill";
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@VolunteerID", volunteerID);
+            cmd.Parameters.AddWithValue("@SkillID", skill);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
         }
 
         /// <summary>
@@ -232,6 +448,60 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return volunteers;
+        }
+
+        /// <summary>
+        /// NAME: Josh J
+        /// DATE: 03/06/2020
+        /// Checked By: Zoey M
+        /// This Data Access function updates an existing volunteer record with new values acquired from a user
+        /// </summary>
+        /// <param name="oldVolunteer"></param>
+        /// <param name="newVolunteer"></param>
+        /// <returns> List of active volunteers to the VolunteerManager </returns>
+        /// <remarks>
+        /// UPDATED BY: N/A
+        /// UPDATE DATE: N/A
+        /// CHANGE DESCRIPTION: N/A
+        /// </remarks>
+        public int UpdateVolunteer(Volunteer oldVolunteer, Volunteer newVolunteer)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_update_volunteer", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@VolunteerID", oldVolunteer.VolunteerID);
+
+            cmd.Parameters.AddWithValue("@NewFirstName", newVolunteer.FirstName);
+            cmd.Parameters.AddWithValue("@NewLastName", newVolunteer.LastName);
+            cmd.Parameters.AddWithValue("@NewPhoneNumber", newVolunteer.PhoneNumber);
+            cmd.Parameters.AddWithValue("@NewEmail", newVolunteer.Email);
+            cmd.Parameters.AddWithValue("@NewNotes", newVolunteer.OtherNotes);
+
+            cmd.Parameters.AddWithValue("@OldFirstName", oldVolunteer.FirstName);
+            cmd.Parameters.AddWithValue("@OldLastName", oldVolunteer.LastName);
+            cmd.Parameters.AddWithValue("@OldPhoneNumber", oldVolunteer.PhoneNumber);
+            cmd.Parameters.AddWithValue("@OldEmail", oldVolunteer.Email);
+            cmd.Parameters.AddWithValue("@OldNotes", oldVolunteer.OtherNotes);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
         }
     }
 }
