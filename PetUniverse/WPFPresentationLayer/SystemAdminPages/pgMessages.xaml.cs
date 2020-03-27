@@ -103,15 +103,15 @@ namespace WPFPresentationLayer.SystemAdminPages
         /// When btnSend is clicked. It sends a message and goes back to view emails page
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 3/27/2020
+        /// Update: Added Send to All logic
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSend_Click(object sender, RoutedEventArgs e)
         {
-            List<PetUniverseUser> users = new List<PetUniverseUser>();            
+            List<PetUniverseUser> users = new List<PetUniverseUser>();
 
             if (txtRecipient.Text == "")
             {
@@ -131,7 +131,29 @@ namespace WPFPresentationLayer.SystemAdminPages
             }
             else
             {
-                if (!txtRecipient.Text.Contains("@"))
+                if (txtRecipient.Text == "All" || txtRecipient.Text == "all")
+                {
+                    users = _userManager.RetrieveAllActivePetUniverseUsers();
+
+                    foreach (PetUniverseUser newuser in users)
+                    {
+                        try
+                        {
+                            _messagesManager.sendEmail(txtMessage.Text, txtSubject.Text, _user.PUUserID, newuser.PUUserID);
+                        }
+                        catch (Exception ex)
+                        {
+                            WPFErrorHandler.ErrorMessage(ex.InnerException.Message, ex.Message);
+                        }
+                    }
+                    users = null;
+                    canSendMessage.Visibility = Visibility.Hidden;
+                    canViewMessages.Visibility = Visibility.Visible;
+                    txtMessage.Text = "";
+                    txtRecipient.Text = "";
+                    txtSubject.Text = "";
+                }
+                else if (!txtRecipient.Text.Contains("@"))
                 {
 
                     users = _userManager.GetDepartmentUsers(txtRecipient.Text);
@@ -147,12 +169,22 @@ namespace WPFPresentationLayer.SystemAdminPages
                             WPFErrorHandler.ErrorMessage(ex.InnerException.Message, ex.Message);
                         }
                     }
+                    users = null;
+                    canSendMessage.Visibility = Visibility.Hidden;
+                    canViewMessages.Visibility = Visibility.Visible;
+                    txtMessage.Text = "";
+                    txtRecipient.Text = "";
+                    txtSubject.Text = "";
                 }
+
                 else
                 {
                     sendEmail();
                     canSendMessage.Visibility = Visibility.Hidden;
                     canViewMessages.Visibility = Visibility.Visible;
+                    txtMessage.Text = "";
+                    txtRecipient.Text = "";
+                    txtSubject.Text = "";
                 }
             }
         }
@@ -203,6 +235,11 @@ namespace WPFPresentationLayer.SystemAdminPages
                     WPFErrorHandler.ErrorMessage(ex.Message);
                 }
 
+                if (txtRecipient.Text == "a" || txtRecipient.Text == "A" || txtRecipient.Text == "Al" || txtRecipient.Text == "al" || txtRecipient.Text == "All" || txtRecipient.Text == "all")
+                {
+                    results.Add("All");
+                }
+
                 if (departments.Count > 0)
                 {
                     foreach (string dep in departments)
@@ -217,9 +254,9 @@ namespace WPFPresentationLayer.SystemAdminPages
                     {
                         results.Add(user);
                     }
-                }            
+                }
 
-                if(users.Count == 0 && departments.Count == 0)
+                if (users.Count == 0 && departments.Count == 0)
                 {
                     dgAutoComplete.Visibility = Visibility.Collapsed;
                 }

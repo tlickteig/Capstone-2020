@@ -6973,12 +6973,61 @@ BEGIN
 END
 GO
 
+/*
+Created by: Steven Cardona
+Date: 02/06/2020
+Comment: This is used to INSERT a new user into the database
+with all default values used.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_active_users]
+GO
+PRINT '' PRINT '** Create sp_select_all_active_users'
+GO
+CREATE PROCEDURE [sp_select_all_active_users]
+AS
+BEGIN
+    SELECT
+        [UserID],
+        [FirstName],
+        [LastName], 
+        [PhoneNumber],
+        [Email],
+        [addressLineOne],
+        [addressLineTwo],
+        [City],
+        [State],
+        [Zipcode]
+    FROM [dbo].[User]
+    Where [Active] = 1
+END
+GO
 
 
 /*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
+GO
+
+
+print '' print '*** Creating sample Department records'
+GO
+
+/*
+ * Created by: Jordan Lindo
+ * Date: 2/5/2020
+ * Comment: This is Sample data for the department table.
+ */
+INSERT INTO [dbo].[department]
+([DepartmentID],[Description])
+VALUES
+     ('Fake1','A Description')
+    ,('Fake2','Another Description')    
+    ,('Fake3','Yet Another Description')
+    ,('Fake4',NULL)
+	,('Management','')
+	,('Sales','Sales Department')
+	,('Stockroom','')
 GO
 
 /*
@@ -7201,26 +7250,6 @@ INSERT INTO [dbo].[AnimalKennel]
 	VALUES
 	(1000000, 100000, 'test test test', '2020-01-22', '2020-02-22'),
     (1000001, 100000, 'test test test 2', '2020-01-22', '2020-02-22')
-GO
-
-print '' print '*** Creating sample Department records'
-GO
-
-/*
- * Created by: Jordan Lindo
- * Date: 2/5/2020
- * Comment: This is Sample data for the department table.
- */
-INSERT INTO [dbo].[department]
-([DepartmentID],[Description])
-VALUES
-     ('Fake1','A Description')
-    ,('Fake2','Another Description')    
-    ,('Fake3','Yet Another Description')
-    ,('Fake4',NULL)
-	,('Management','')
-	,('Sales','Sales Department')
-	,('Stockroom','')
 GO
 
 /*
