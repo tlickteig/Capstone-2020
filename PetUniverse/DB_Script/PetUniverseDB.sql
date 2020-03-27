@@ -3819,7 +3819,7 @@ CREATE PROCEDURE [sp_insert_availability_request]
 AS
 BEGIN
 	INSERT INTO [dbo].[request]
-	([RequestTypeID], [DateCreated], [RequestingEmployeeID])
+	([RequestTypeID], [DateCreated], [RequestingUserID])
 	VALUES
 	('Availability Change', GETDATE(), @RequestingUserID)
 	
