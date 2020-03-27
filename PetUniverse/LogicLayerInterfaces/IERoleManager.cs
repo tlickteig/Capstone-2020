@@ -143,5 +143,22 @@ namespace LogicLayerInterfaces
         /// <param name="active"></param>
         /// <returns></returns>
         List<ERole> RetrieveERolesByActive(bool active = true);
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/18/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// This is a method for selecting roles by id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        List<ERole> RetrieveERolesByDepartmentID(string departmentID);
     }
 }

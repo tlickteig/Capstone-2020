@@ -535,9 +535,9 @@ namespace WPFPresentationLayer
         /// This method is called when the Personnel button is clicked
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Jordan Lindo
+        /// Updated: 3/27/2020
+        /// Update: Added base schedule frame
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -546,6 +546,7 @@ namespace WPFPresentationLayer
         {
             desiredScreen = "Personnel";
             switchScreen(desiredScreen);
+            frBaseSchedule.Content = new PersonnelPages.BaseScheduleControls(_user);
         }
 
         /// <summary>

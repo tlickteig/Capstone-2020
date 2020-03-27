@@ -83,5 +83,23 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="shiftTime"></param>
         int DeleteShiftTime(int shiftTimeID);
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/18/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// This is an interface method for selecting Shift times by departmentID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        List<PetUniverseShiftTime> SelectShiftTimeByDepartment(string departmentID);
     }
 }

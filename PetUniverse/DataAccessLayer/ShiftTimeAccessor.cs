@@ -214,5 +214,61 @@ namespace DataAccessLayer
             }
             return rows;
         }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/18/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// This is a mehtod for getting shift times by departmentID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        public List<PetUniverseShiftTime> SelectShiftTimeByDepartment(string departmentID)
+        {
+            List<PetUniverseShiftTime> ShiftTimes = new List<PetUniverseShiftTime>();
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_select_shifttime_by_departmentid", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DepartmentID", departmentID);
+            try
+            {
+                conn.Open();
+                var Reader = cmd.ExecuteReader();
+                if (Reader.HasRows)
+                {
+                    while (Reader.Read())
+                    {
+                        var shiftTime = new PetUniverseShiftTime()
+                        {
+                            ShiftTimeID = Reader.GetInt32(0),
+                            StartTime = Reader.GetString(1),
+                            EndTime = Reader.GetString(2),
+                            DepartmentID = departmentID
+                        };
+                        ShiftTimes.Add(shiftTime);
+                    }
+                }
+                Reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return ShiftTimes;
+        }
     }
 }

@@ -151,6 +151,34 @@ namespace LogicLayer
 
             return shiftTimes;
         }
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/18/2020
+        /// Approver: Chase Schutle
+        /// 
+        /// This is a method for retrieving shift times by departmentID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        public List<PetUniverseShiftTime> RetrieveShiftTimesByDepartment(string departmentID)
+        {
+            try
+            {
+                return _shiftTimeAccessor.SelectShiftTimeByDepartment(departmentID);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
     }
 }
 

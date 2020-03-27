@@ -465,6 +465,9 @@
                 <TabItem x:Name="tabTrainingVideos" Header="Training Videos" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PersonnelPages/frameTrainingVideos.xaml"></Frame>
                 </TabItem>
+                <TabItem x:Name="tabBaseSchedule" Header="Base Schedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frBaseSchedule"></Frame>
+                </TabItem>
 
                 <!-- Creator: Kaleb Bachert
                  Date: 2/23/2020

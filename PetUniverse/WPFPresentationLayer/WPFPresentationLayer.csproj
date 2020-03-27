@@ -142,6 +142,9 @@
     <Compile Include="InventoryPages\ViewOrders.xaml.cs">
       <DependentUpon>ViewOrders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonnelPages\BaseScheduleControls.xaml.cs">
+      <DependentUpon>BaseScheduleControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\pgAddEditViewPromotion.xaml.cs">
       <DependentUpon>pgAddEditViewPromotion.xaml</DependentUpon>
     </Compile>
@@ -340,6 +343,10 @@
     <Page Include="InventoryPages\ViewOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PersonnelPages\BaseScheduleControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
       <SubType>Designer</SubType>

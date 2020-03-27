@@ -979,6 +979,34 @@ namespace LogicLayerTests
             Assert.AreNotEqual(activeERoles, inactiveERoles);
         }
 
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/18/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// This is a unit test for select roles by Department id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void SelectERolesByDepartmentID()
+        {
+            IERoleManager _eRoleManager = new ERoleManager(_eRoleAccessor);
+            string goodDepartmentID = "A";
+
+            List<ERole> roles = _eRoleManager.RetrieveERolesByDepartmentID(goodDepartmentID);
+
+            Assert.AreEqual(3, roles.Count);
+
+        }
+
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 02/07/2020

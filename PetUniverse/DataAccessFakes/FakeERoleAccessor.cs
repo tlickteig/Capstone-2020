@@ -388,5 +388,36 @@ namespace DataAccessFakes
             }
             return 0;
         }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/18/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// This is a data fake for selecting roles by department.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        public List<ERole> SelectAllERolesByDepartment(string departmentID)
+        {
+            List<ERole> roles = new List<ERole>();
+
+            foreach (ERole role in eRoles)
+            {
+                if (role.DepartmentID.Equals(departmentID))
+                {
+                    roles.Add(role);
+                }
+            }
+
+            return roles;
+        }
     }
 }

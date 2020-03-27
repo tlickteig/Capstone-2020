@@ -334,5 +334,60 @@ namespace DataAccessLayer
             }
             return nonQueryResults;
         }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/18/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// This is a data transfer object for BaseScheduleLine.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        public List<ERole> SelectAllERolesByDepartment(string departmentID)
+        {
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_erole_by_departmentid", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DepartmentID", departmentID);
+            List<ERole> eRoles = new List<ERole>();
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        eRoles.Add(new ERole()
+                        {
+                            ERoleID = reader.GetString(0),
+                            Description = reader.GetString(1),
+                            EActive = reader.GetBoolean(2),
+                            DepartmentID = departmentID,
+                        });
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return eRoles;
+        }
+
     }
 }

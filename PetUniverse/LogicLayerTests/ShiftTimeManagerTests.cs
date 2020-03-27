@@ -195,5 +195,29 @@ namespace LogicLayerTests
             //assert
             Assert.AreEqual(1, shifTimes.Count);
         }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 03/18/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// Test for selecting Shift time by departmentID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        [TestMethod]
+        public void SelectShiftTimesByDepartmentID()
+        {
+            IShiftTimeManager shiftTimeManager = new ShiftTimeManager(_shiftTimeAccessor);
+            List<PetUniverseShiftTime> times;
+
+            times = shiftTimeManager.RetrieveShiftTimesByDepartment("Sales");
+
+            Assert.AreEqual(1, times.Count);
+        }
     }
 }

@@ -65,6 +65,7 @@
     <Compile Include="IAnimalStatusManager.cs" />
     <Compile Include="IApplicantManager.cs" />
     <Compile Include="IAppointmentManager.cs" />
+    <Compile Include="IBaseScheduleManager.cs" />
     <Compile Include="ICustomerManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IERoleManager.cs" />

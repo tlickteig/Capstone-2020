@@ -128,5 +128,20 @@ namespace DataAccessInterfaces
         /// <param name="active"></param>
         /// <returns></returns>
         List<ERole> SelectAllERolesByActive(bool active = true);
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/18/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// This is a method to select all roles by department.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        List<ERole> SelectAllERolesByDepartment(string departmentID);
     }
 }

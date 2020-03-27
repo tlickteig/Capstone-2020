@@ -1537,6 +1537,61 @@ GO
 
 
 /*
+Created by: Jordan Lindo
+Date: 3/14/2020
+Comment: Table BaseSchedule
+*/
+DROP TABLE IF EXISTS [dbo].[BaseSchedule]
+GO
+
+print '' print '*** Creating Table BaseSchedule'
+GO
+
+CREATE TABLE [dbo].[BaseSchedule]
+(
+	 [BaseScheduleID]				[int]		IDENTITY(1000000,1)				NOT NULL
+	,[CreatingUserID]				[int]										NOT NULL
+	,[CreationDate]					[date]									NOT NULL
+	,[Active]						[bit]		DEFAULT  0
+	,CONSTRAINT [pk_BaseScheduleID] PRIMARY KEY([BaseScheduleID] ASC)
+	,CONSTRAINT [fk_CreatingUserID_BaseSchedule] FOREIGN KEY ([CreatingUserID])
+		REFERENCES [User]([UserID])
+)
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 3/14/2020
+Comment: Table BaseScheduleLine
+*/
+
+DROP TABLE IF EXISTS [dbo].[BaseScheduleLine]
+GO
+
+print '' print '***Creating BaseScheduleLine Table'
+GO
+
+CREATE TABLE [dbo].[BaseScheduleLine]
+(
+	 [ERoleID]						[nvarchar](50)			NOT NULL
+	,[BaseScheduleID]				[int]					NOT	NULL
+	,[ShiftTimeID]					[int]					NOT NULL
+	,[Count]						[int]		DEFAULT 0
+	,CONSTRAINT [pk_ERoleID_BaseScheduleID]	PRIMARY KEY([ERoleID] ASC,[BaseScheduleID] ASC)
+	,CONSTRAINT [fk_ERole_BaseScheduleLine_RoleID] FOREIGN KEY ([ERoleID])
+		REFERENCES [ERole]([ERoleID])
+	,CONSTRAINT [fk_BaseSchedule_BaseScheduleLine_BaseScheduleID] FOREIGN KEY([BaseScheduleID])
+		REFERENCES [BaseSchedule]([BaseScheduleID])
+	,CONSTRAINT [fk_ShiftTime_BaseScheduleLine_ShiftTimeID]	FOREIGN KEY([ShiftTimeID])
+		REFERENCES [ShiftTime]([ShiftTimeID])
+)
+GO
+
+
+
+
+
+/*
  ******************************* Create Procedures *****************************
 */
 PRINT '' PRINT '******************* Create Procedures *********************'
@@ -6735,6 +6790,190 @@ END
 GO
 
 
+/*
+Created by: Jordan Lindo
+Date: 3/14/2020
+Comment: Stored procedure for inserting baseschedule.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_insert_baseschedule]
+GO
+
+print '' print'***Creating sp_insert_baseschedule'
+GO
+
+CREATE PROCEDURE [sp_insert_baseschedule]
+(
+	 @CreatingUserID				[int]
+	,@CreationDate					[date]
+)
+AS
+BEGIN
+	BEGIN TRANSACTION [tran_one_active]
+		BEGIN TRY
+		
+		UPDATE [dbo].[BaseSchedule]
+		SET [Active] = 0
+		WHERE [Active] = 1
+
+		INSERT INTO [dbo].[BaseSchedule]
+		([CreatingUserID],[CreationDate],[Active])
+		VALUES
+		(@CreatingUserID,@CreationDate,1)
+		RETURN SCOPE_IDENTITY()
+		
+		COMMIT TRANSACTION [tran_one_active]
+		
+		END TRY
+	
+		BEGIN CATCH
+			ROLLBACK TRANSACTION [tran_one_active]
+		END CATCH
+END
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 3/14/2020
+Comment: Stored procedure for inserting baseschedulelines.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_insert_basescheduleline]
+GO
+
+print '' print'***Creating sp_insert_basescheduleline'
+GO
+
+CREATE PROCEDURE [sp_insert_basescheduleline]
+(
+	 @ERoleID					[nvarchar](50)
+	,@BaseScheduleID			[int]
+	,@ShiftTimeID				[int]
+	,@Count						[int]
+)
+AS
+BEGIN
+INSERT INTO [dbo].[BaseScheduleLine]
+	([ERoleID],[BaseScheduleID],[ShiftTimeID],[Count])
+	VALUES
+	(@ERoleID,@BaseScheduleID,@ShiftTimeID,@Count)
+END
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 3/15/2020
+Comment: Stored procedure for selecting the active baseschedule.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_select_active_baseschedule]
+GO
+
+print '' print'***Creating sp_select_active_baseschedule'
+GO
+
+CREATE PROCEDURE [sp_select_active_baseschedule]
+AS
+BEGIN
+	SELECT [BaseScheduleID],[CreatingUserID],[CreationDate],[Active]
+	FROM [dbo].[BaseSchedule]
+	WHERE [Active] = 1
+END
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 3/15/2020
+Comment: Stored procedure for selecting the all baseschedules.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_select_baseschedules]
+GO
+
+print '' print'***Creating sp_select_baseschedules'
+GO
+
+CREATE PROCEDURE [sp_select_baseschedules]
+AS
+BEGIN
+	SELECT [BaseScheduleID],[CreatingUserID],[CreationDate],[Active]
+	FROM [dbo].[BaseSchedule]
+END
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 3/15/2020
+Comment: Stored procedure for selecting baseschedulelines.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_select_baseschedulelines_by_basescheduleid]
+GO
+
+print '' print'***Creating sp_select_baseschedulelines_by_basescheduleid'
+GO
+
+CREATE PROCEDURE [sp_select_baseschedulelines_by_basescheduleid]
+(
+	@BaseScheduleID				[int]
+)
+AS
+BEGIN
+	SELECT [ERoleID],[ShiftTimeID],[Count]
+	FROM [dbo].[BaseScheduleLine]
+	WHERE [BaseScheduleID] = @BaseScheduleID
+END
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 3/15/2020
+Comment: Stored procedure for selecting ERole by DepartmentID
+*/
+
+DROP PROCEDURE IF EXISTS [sp_select_erole_by_departmentid]
+GO
+
+print '' print'***Creating sp_select_erole_by_departmentid'
+GO
+
+CREATE PROCEDURE [sp_select_erole_by_departmentid]
+(
+	@DepartmentID			[nvarchar](50)
+)
+AS
+BEGIN
+	SELECT [ERoleID],[Description],[Active]
+	FROM [dbo].[ERole]
+	WHERE [DepartmentID] = @DepartmentID
+END
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 3/15/2020
+Comment: Stored procedure for selecting ShiftTime by DepartmentID
+*/
+
+DROP PROCEDURE IF EXISTS [sp_select_shifttime_by_departmentid]
+GO
+
+print '' print'***Creating sp_select_shifttime_by_departmentid'
+GO
+
+CREATE PROCEDURE [sp_select_shifttime_by_departmentid]
+(
+	@DepartmentID				[nvarchar](50)
+)
+AS
+BEGIN
+	SELECT [ShiftTimeID],[StartTime],[EndTime]
+	FROM [dbo].[ShiftTime]
+	WHERE [DepartmentID] = @DepartmentID
+END
+GO
+
+
 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -6975,10 +7214,13 @@ GO
 INSERT INTO [dbo].[department]
 ([DepartmentID],[Description])
 VALUES
-    ('Fake1','A Description')
+     ('Fake1','A Description')
     ,('Fake2','Another Description')    
     ,('Fake3','Yet Another Description')
     ,('Fake4',NULL)
+	,('Management','')
+	,('Sales','Sales Department')
+	,('Stockroom','')
 GO
 
 /*
@@ -6998,6 +7240,27 @@ VALUES
     ('Fake3','14:00:00','22:00:00'),
     ('Fake4','08:45:00','17:45:00')
 GO
+
+/*
+More shift times
+
+Author: Jordan Lindo
+3/26/2020
+*/
+
+print '' print '*** creating more sample ShiftTime records'
+GO
+INSERT INTO [dbo].[ShiftTime]
+([DepartmentID],[StartTime],[EndTime])
+VALUES
+	('Management','06:00:00','12:30:00'),
+	('Management','10:00:00','16:30:00'),
+	('Management','14:00:00','22:30:00'),
+	('Sales','06:00:00','12:30:00'),
+	('Sales','10:00:00','16:30:00'),
+	('Sales','14:00:00','22:30:00')
+GO
+
 
 /*
 Created by: Awaab Elamin
@@ -7164,8 +7427,8 @@ GO
 Insert INTO [dbo].[ERole]
 	([ERoleID],[DepartmentID],[Description])
 	Values
-	('Cashier','Fake1','Handles customer'),
-	('Manager','Fake2','Handles internal operations like employee records and payment info')
+	('Cashier','Sales','Handles customer'),
+	('Manager','Management','Handles internal operations like employee records and payment info')
 Go
 
 /*
@@ -7488,7 +7751,6 @@ GO
 INSERT INTO [dbo].[Department]
 	([DepartmentID], [Description])
 	VALUES
-	('Management', 'Management Description'),
 	('Inventory', 'Inventory Description'),
 	('CustomerService', 'CustomerService Description')
 GO
@@ -7827,6 +8089,8 @@ insert into [dbo].[ShiftRecord]
 		(1000000, 1000001)
 go
 
+
+
 /*
 Author: Timothy Lickteig
 Date: 2020/03/09
@@ -7839,6 +8103,36 @@ INSERT INTO [dbo].[Medicine]
 VALUES
 ('This is the first one', 'This is the first dosage', 'This is the first description'),
 ('This is the second one', 'This is the second dosage', 'This is the third description')
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 3/14/2020
+Comment: BaseSchedule sample records.
+*/
+print '' print'***Creating BaseSchedule sample records'
+
+INSERT INTO [dbo].[BaseSchedule]
+	([CreatingUserID],[CreationDate],[Active])
+	Values
+	 (100000,'2020-02-14',0)
+	,(100000,'2020-03-14',1)
+GO
+
+
+/*
+Created by: Jordan Lindo
+Date: 3/14/2020
+Comment: BaseScheduleLine sample records
+*/
+print '' print'***Creating BaseScheduleLine sample records'
+GO
+
+INSERT INTO [dbo].[BaseScheduleLine]
+	([ERoleID],[BaseScheduleID],[ShiftTimeID])
+	VALUES
+	 ('Cashier',1000001,1000007)
+	,('Manager',1000001,1000004)
 GO
 
 /*

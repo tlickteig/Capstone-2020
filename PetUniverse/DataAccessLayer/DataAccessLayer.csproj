@@ -65,6 +65,7 @@
     <Compile Include="ApplicantAccessor.cs" />
     <Compile Include="AppointmentAccessor.cs" />
     <Compile Include="BackStockAccessor.cs" />
+    <Compile Include="BaseScheduleAccessor.cs" />
     <Compile Include="CustomerAccessor.cs" />
     <Compile Include="DBConnection.cs" />
     <Compile Include="DepartmentAccessor.cs" />

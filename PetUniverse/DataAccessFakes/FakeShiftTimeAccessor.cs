@@ -151,5 +151,36 @@ namespace DataAccessFakes
 
             }
         }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/18/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// This is a method for selecting shift times by department.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        public List<PetUniverseShiftTime> SelectShiftTimeByDepartment(string departmentID)
+        {
+            List<PetUniverseShiftTime> times = new List<PetUniverseShiftTime>();
+
+            foreach (PetUniverseShiftTime time in shiftTimes)
+            {
+                if (time.DepartmentID.Equals(departmentID))
+                {
+                    times.Add(time);
+                }
+            }
+
+            return times;
+        }
     }
 }

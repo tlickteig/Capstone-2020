@@ -251,5 +251,34 @@ namespace LogicLayer
                 throw new ApplicationException("ERoles not found", ex);
             }
         }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 3/18/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// This is a method for selecting roles by departmentID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        public List<ERole> RetrieveERolesByDepartmentID(string departmentID)
+        {
+            try
+            {
+                return _eRoleAccessor.SelectAllERolesByDepartment(departmentID);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
     }
 }
