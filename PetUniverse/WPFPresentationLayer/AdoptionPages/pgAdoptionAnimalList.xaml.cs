@@ -106,7 +106,7 @@ namespace WPFPresentationLayer.AdoptionPages
             catch (Exception ex)
             {
 
-                WPFErrorHandler.ErrorMessage("Animal List Data cannot be retrieved" + "\n\n" + ex.InnerException.Message);
+                
             }
         }
 
