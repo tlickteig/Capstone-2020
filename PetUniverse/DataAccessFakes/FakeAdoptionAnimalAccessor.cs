@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using DataAccessInterfaces;
 using DataTransferObjects;
 
-namespace DataAccessFakes 
+namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Austin Gee
@@ -55,8 +55,8 @@ namespace DataAccessFakes
                     AdoptionApplicationID = 000,
                     CustomerID = 000,
                     UserID = 000,
-                    UserFirstName = "Fake",
-                    UserLastName = "Fake",
+                    CustomerFirstName = "Fake",
+                    CustomerLastName = "Fake",
                     AnimalHandlingNotesID = 000,
                     AnimalHandlingNotes = "Fake",
                     TempermentWarning = "Fake",
@@ -81,8 +81,8 @@ namespace DataAccessFakes
                     AdoptionApplicationID = 000,
                     CustomerID = 000,
                     UserID = 000,
-                    UserFirstName = "Fake",
-                    UserLastName = "Fake",
+                    CustomerFirstName = "Fake",
+                    CustomerLastName = "Fake",
                     AnimalHandlingNotesID = 000,
                     AnimalHandlingNotes = "Fake",
                     TempermentWarning = "Fake",
@@ -107,8 +107,8 @@ namespace DataAccessFakes
                     AdoptionApplicationID = 000,
                     CustomerID = 000,
                     UserID = 000,
-                    UserFirstName = "Fake",
-                    UserLastName = "Fake",
+                    CustomerFirstName = "Fake",
+                    CustomerLastName = "Fake",
                     AnimalHandlingNotesID = 000,
                     AnimalHandlingNotes = "Fake",
                     TempermentWarning = "Fake",

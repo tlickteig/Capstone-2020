@@ -54,5 +54,32 @@ namespace LogicLayerTests
             // assert
             Assert.AreEqual(1, adoptionCustomerVMs.Count);
         }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/18/2020
+        /// CHECKED BY: 
+        /// 
+        /// This test method tests the RetriveAdoptionCustomerByEmail method that is a part of the AdoptionCustomerManager class.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionCustomerRetrievesAdoptionCustomerByEmail()
+        {
+            // arrange
+            AdoptionCustomerVM adoptionCustomerVM;
+            IAdoptionCustomerManager adoptionCustomerManager = new AdoptionCustomerManager(_adoptionCustomerAccessor);
+
+            // act
+            adoptionCustomerVM = adoptionCustomerManager.RetrieveAdoptionCustomerByEmail("Fake@Fake.com");
+
+            // assert
+            Assert.AreEqual("Fake@Fake.com", adoptionCustomerVM.Email);
+        }
     }
 }

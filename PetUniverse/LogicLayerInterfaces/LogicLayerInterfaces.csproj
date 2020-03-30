@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IAdoptionAnimalManager.cs" />
+    <Compile Include="IAdoptionApplicationManager.cs" />
     <Compile Include="IAdoptionAppointmentManager.cs" />
     <Compile Include="IAdoptionCustomerManager.cs" />
     <Compile Include="IAdoptionInterviewerManager.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="IAnimalStatusManager.cs" />
     <Compile Include="IApplicantManager.cs" />
     <Compile Include="IAppointmentManager.cs" />
+    <Compile Include="IAppointmentTypeManager.cs" />
     <Compile Include="IBaseScheduleManager.cs" />
     <Compile Include="ICustomerManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
@@ -76,6 +78,7 @@
     <Compile Include="IInventoryItemsManager.cs" />
     <Compile Include="IItemCategoryManager.cs" />
     <Compile Include="IItemManager.cs" />
+    <Compile Include="ILocationManager.cs" />
     <Compile Include="ILogManager.cs" />
     <Compile Include="IMedicationManager.cs" />
     <Compile Include="IMedicineManager.cs" />

@@ -65,14 +65,14 @@ namespace DataAccessFakes
                     LocationState = "AA",
                     LocationZip = "00000",
                     UserID = 000,
-                    UserFirstName = "First",
-                    UserLastName = "Last",
-                    UserPhoneNumber = "1234567890",
-                    UserEmail = "Fake@fake.fake",
-                    UserActive = true,
-                    UserCity = "Fakesville",
-                    State = "BB",
-                    UserZipCode = "12345",
+                    CustomerFirstName = "First",
+                    CustomerLastName = "Last",
+                    CustomerPhoneNumber = "1234567890",
+                    CustomerEmail = "Fake@fake.fake",
+                    CustomerActive = true,
+                    CustomerCity = "Fakesville",
+                    CustomerState = "BB",
+                    CustomerZipCode = "12345",
                     AnimalName = "FakeDog",
                     AnimalDob = DateTime.Parse("2020-10-10"),
                     AnimalSpeciesID = "Dog",
@@ -100,7 +100,7 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="adoptionAppointment"></param>
         /// <returns></returns>
-        public int InsertAdoptionApplication(AdoptionAppointment adoptionAppointment)
+        public int InsertAdoptionAppointment(AdoptionAppointment adoptionAppointment)
         {
             int rows = 0;
             try

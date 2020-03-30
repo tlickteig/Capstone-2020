@@ -73,6 +73,6 @@ using DataTransferObjects;
         /// </remarks>
         /// <param name="adoptionAppointment"></param>
         /// <returns></returns>
-        int InsertAdoptionApplication(AdoptionAppointment adoptionAppointment);
+        int InsertAdoptionAppointment(AdoptionAppointment adoptionAppointment);
     }
 }

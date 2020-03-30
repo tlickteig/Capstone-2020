@@ -24,5 +24,6 @@ namespace LogicLayerInterfaces
     public interface IAdoptionCustomerManager
     {
         List<AdoptionCustomerVM> RetrieveAdoptionCustomersByActive(bool active);
+        AdoptionCustomerVM RetrieveAdoptionCustomerByEmail(string email);
     }
 }

@@ -33,14 +33,14 @@ namespace DataTransferObjects
         public string LocationState { get; set; }
         public string LocationZip { get; set; }
         public int UserID { get; set; }
-        public string UserFirstName { get; set; }
-        public string UserLastName { get; set; }
-        public string UserPhoneNumber { get; set; }
-        public string UserEmail { get; set; }
-        public bool UserActive { get; set; }
-        public string UserCity { get; set; }
-        public string State { get; set; }
-        public string UserZipCode { get; set; }
+        public string CustomerFirstName { get; set; }
+        public string CustomerLastName { get; set; }
+        public string CustomerPhoneNumber { get; set; }
+        public string CustomerEmail { get; set; }
+        public bool CustomerActive { get; set; }
+        public string CustomerCity { get; set; }
+        public string CustomerState { get; set; }
+        public string CustomerZipCode { get; set; }
         public string AnimalName { get; set; }
         public DateTime AnimalDob { get; set; }
         public string AnimalSpeciesID { get; set; }

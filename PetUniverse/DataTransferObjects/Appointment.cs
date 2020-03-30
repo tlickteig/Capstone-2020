@@ -22,5 +22,6 @@ namespace DataTransferObjects
         public string Notes { get; set; }
         public string Decicion { get; set; }
         public string Location { get; set; }
+        public int LocationID { get; set; }
     }
 }

@@ -25,9 +25,10 @@ namespace DataTransferObjects
         public List<string> Statuses { get; set; }
         public int AdoptionApplicationID { get; set; }
         public int CustomerID { get; set; }
+        public string CustomerEmail { get; set; }
         public List<int> AppointmentIDs { get; set; }
         public int UserID { get; set; }
-        public string UserFirstName { get; set; }
-        public string UserLastName { get; set; }
+        public string CustomerFirstName { get; set; }
+        public string CustomerLastName { get; set; }
     }
 }

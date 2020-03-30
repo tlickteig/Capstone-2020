@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdoptionAnimalManagerTests.cs" />
+    <Compile Include="AdoptionApplicationManagerTests.cs" />
     <Compile Include="AdoptionAppointmentManagerTests.cs" />
     <Compile Include="AdoptionCustomerManagerTests.cs" />
     <Compile Include="AdoptionInterviewerManagerTestes.cs" />
@@ -70,8 +71,10 @@
     <Compile Include="AnimalManagerTests.cs" />
     <Compile Include="AnimalMedicalHistoryManagerTests.cs" />
     <Compile Include="AnimalStatusManagerTests.cs" />
+    <Compile Include="AppointmentTypeManagerTests.cs" />
     <Compile Include="BaseScheduleManagerTests.cs" />
     <Compile Include="FacilityInspectionManagerTests.cs" />
+    <Compile Include="LocationManagerTests.cs" />
     <Compile Include="MedicationManagerTests.cs" />
     <Compile Include="MedicineManagerTests.cs" />
     <Compile Include="MessagesTests.cs" />

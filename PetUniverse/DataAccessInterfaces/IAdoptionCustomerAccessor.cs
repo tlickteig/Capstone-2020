@@ -24,5 +24,6 @@ namespace DataAccessInterfaces
     public interface IAdoptionCustomerAccessor
     {
         List<AdoptionCustomerVM> SelectAdoptionCustomersByActive(bool active);
+        AdoptionCustomerVM SelectAdoptionCustomerByEmail(string email);
     }
 }

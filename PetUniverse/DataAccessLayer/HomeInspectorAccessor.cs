@@ -158,14 +158,14 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        var adoptionApplication = new AdoptionApplication()
-                        {
-                            AdoptionApplicationID = reader.GetInt32(0),
-                            AnimalName = SelectAnimalNameByAnimalID(reader.GetInt32(1)),
-                            CustomerEmail = GetCustomerNameByCustomerID(reader.GetInt32(2)),
-                            Status = reader.GetString(3),
-                            RecievedDate = reader.GetDateTime(4)
-                        };
+                        var adoptionApplication = new AdoptionApplication();
+
+                        adoptionApplication.AdoptionApplicationID = reader.GetInt32(0);
+                        adoptionApplication.AnimalName = SelectAnimalNameByAnimalID(reader.GetInt32(1));
+                        adoptionApplication.CustomerEmail = GetCustomerNameByCustomerID(reader.GetInt32(2));
+                        adoptionApplication.Status = reader.GetString(3);
+                        adoptionApplication.RecievedDate = reader.GetDateTime(4);
+                        
                         adoptionApplications.Add(adoptionApplication);
                     }
                 }

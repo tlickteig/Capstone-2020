@@ -66,6 +66,35 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 3/18/2020
+        /// CHECKED BY: 
+        /// 
+        /// This method accesses a AdoptionCutomerVM from the data access layer and sends it up
+        /// to the presentation layer.
+        /// </summary>
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public AdoptionCustomerVM RetrieveAdoptionCustomerByEmail(string email)
+        {
+            try
+            {
+                return _adoptionCustomerAccessor.SelectAdoptionCustomerByEmail(email);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 2/6/2020
         /// CHECKED BY: Mohamed Elamin, 02/07/2020
         /// 
@@ -79,7 +108,7 @@ namespace LogicLayer
         /// WHAT WAS CHANGED: NA
         /// 
         /// </remarks>
-        
+
         /// <param name="active"></param>
         /// <returns></returns>
         public List<AdoptionCustomerVM> RetrieveAdoptionCustomersByActive(bool active = true)

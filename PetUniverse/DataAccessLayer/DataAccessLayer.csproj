@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AdoptionAnimalAccessor.cs" />
+    <Compile Include="AdoptionApplicationAccessor.cs" />
     <Compile Include="AdoptionAppointmentAccessor.cs" />
     <Compile Include="AdoptionCustomerAccessor.cs" />
     <Compile Include="AdoptionInterviewerAccessor.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="AnimalStatusAccessor.cs" />
     <Compile Include="ApplicantAccessor.cs" />
     <Compile Include="AppointmentAccessor.cs" />
+    <Compile Include="AppointmentTypeAccessor.cs" />
     <Compile Include="BackStockAccessor.cs" />
     <Compile Include="BaseScheduleAccessor.cs" />
     <Compile Include="CustomerAccessor.cs" />

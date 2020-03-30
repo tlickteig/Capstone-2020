@@ -52,6 +52,7 @@ namespace LogicLayer
         /// Update: NA
         /// 
         /// </remarks>
+        /// <param name="adoptionAnimalAccessor"></param>
         public AdoptionAnimalManager(IAdoptionAnimalAccessor adoptionAnimalAccessor)
         {
             _adoptionAnimalAccessor = adoptionAnimalAccessor;
@@ -70,6 +71,8 @@ namespace LogicLayer
         /// Update: NA
         /// 
         /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
         public List<AdoptionAnimalVM> RetrieveAdoptionAnimalsByActive(bool active)
         {
             try

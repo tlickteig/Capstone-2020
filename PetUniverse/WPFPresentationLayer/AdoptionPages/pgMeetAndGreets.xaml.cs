@@ -39,10 +39,6 @@ namespace WPFPresentationLayer.AdoptionPages
 
         AdoptionAppointmentVM _adoptionAppointment;
 
-        
-
-        DataGrid _clearedDataGrid;
-
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 2/17/2020
@@ -62,7 +58,6 @@ namespace WPFPresentationLayer.AdoptionPages
             InitializeComponent();
             _adoptionAppointmentManager = new AdoptionAppointmentManager();
             _homeInspectorManager = new InHomeInspectionAppointmentDecisionManager();
-            _clearedDataGrid = dgAppointments;
             populateAppointmentDataGrid();
             
 
@@ -85,13 +80,12 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             try
             {
-                dgAppointments = _clearedDataGrid;
                 dgAppointments.ItemsSource = _adoptionAppointmentManager.RetrieveAdoptionAppointmentsByActiveAndType(true, "Meet and Greet");
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show("Appoinment information cannot be found.\n\n" + ex.InnerException.Message);
+                //MessageBox.Show("Appoinment information cannot be found.\n\n" + ex.InnerException.Message);
             }
             
         }
@@ -143,14 +137,18 @@ namespace WPFPresentationLayer.AdoptionPages
             dgAppointments.Columns.RemoveAt(1);
             dgAppointments.Columns.RemoveAt(0);
 
-            dgAppointments.Columns.Move(5, 0);
+            
 
-            dgAppointments.Columns[0].Header = "Appointment Time";
-            dgAppointments.Columns[1].Header = "Location Name";
-            dgAppointments.Columns[2].Header = "Customer First Name";
-            dgAppointments.Columns[3].Header = "Customer Last Name";
-            dgAppointments.Columns[4].Header = "Customer Phone Number";
-            dgAppointments.Columns[5].Header = "Customer Email";
+            
+            dgAppointments.Columns[0].Header = "Location Name";
+            dgAppointments.Columns[1].Header = "Customer First Name";
+            dgAppointments.Columns[2].Header = "Customer Last Name";
+            dgAppointments.Columns[3].Header = "Customer Phone Number";
+            dgAppointments.Columns[4].Header = "Customer Email";
+            dgAppointments.Columns[5].Header = "Appointment Time";
+
+            dgAppointments.Columns[5].DisplayIndex = 0;
+
         }
 
         /// <summary>
@@ -204,10 +202,10 @@ namespace WPFPresentationLayer.AdoptionPages
                 txtLocationCity.Text = _adoptionAppointment.LocationCity;
                 txtLocationState.Text = _adoptionAppointment.LocationState;
                 txtLocationZip.Text = _adoptionAppointment.LocationZip;
-                txtCustomerFirstName.Text = _adoptionAppointment.UserFirstName;
-                txtCustomerLastName.Text = _adoptionAppointment.UserLastName;
-                txtCustomerPhoneNumber.Text = _adoptionAppointment.UserPhoneNumber;
-                txtCustomerEmail.Text = _adoptionAppointment.UserEmail;
+                txtCustomerFirstName.Text = _adoptionAppointment.CustomerFirstName;
+                txtCustomerLastName.Text = _adoptionAppointment.CustomerLastName;
+                txtCustomerPhoneNumber.Text = _adoptionAppointment.CustomerPhoneNumber;
+                txtCustomerEmail.Text = _adoptionAppointment.CustomerEmail;
                 txtAnimalName.Text = _adoptionAppointment.AnimalName;
                 txtAnimalDob.Text = _adoptionAppointment.AnimalDob.ToShortDateString();
                 txtAnimalSpecies.Text = _adoptionAppointment.AnimalSpeciesID;
@@ -240,6 +238,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// </remarks>
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
+            populateAppointmentDataGrid();
             showMeetAndGreetSchedule();
         }
 
@@ -261,6 +260,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// </remarks>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            populateAppointmentDataGrid();
             showMeetAndGreetSchedule();
             disableNotes();
 
@@ -375,7 +375,7 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             lblNotesTitle.Content = "Adoption Notes";
             txtNotesAnimalName.Text = _adoptionAppointment.AnimalName;
-            txtNotesCustomerName.Text = _adoptionAppointment.UserFirstName + " " + _adoptionAppointment.UserLastName;
+            txtNotesCustomerName.Text = _adoptionAppointment.CustomerFirstName + " " + _adoptionAppointment.CustomerLastName;
             txtNotesMeetAndGreet.Text = _adoptionAppointment.Notes;
             
             cmbDecision.Items.Add("Approved");

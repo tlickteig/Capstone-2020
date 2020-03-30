@@ -89,7 +89,7 @@ namespace LogicLayer
             bool result = false;
             try
             {
-                result = 1 == _adoptionAppointmentAccessor.InsertAdoptionApplication(adoptionAppointment);
+                result = 1 == _adoptionAppointmentAccessor.InsertAdoptionAppointment(adoptionAppointment);
             }
             catch (Exception ex)
             {

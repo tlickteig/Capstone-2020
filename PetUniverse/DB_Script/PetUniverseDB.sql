@@ -600,6 +600,7 @@ CREATE TABLE [dbo].[AdoptionApplication](
 	[AnimalID]					[int]									,
 	[Status]					[nvarchar]	(1000)						,
 	[RecievedDate]				[datetime]						NOT NULL,
+	[Active]					[bit]	DEFAULT 1        		NOT NULL,
 	CONSTRAINT [pk_AdoptionApplicationID] PRIMARY KEY ([AdoptionApplicationID]),
 	CONSTRAINT [fk_AdoptionApplication_Customer_CustomerEmail] FOREIGN KEY ([CustomerEmail])
 		REFERENCES [Customer]([Email]),
@@ -3652,23 +3653,13 @@ BEGIN
 	,[PhoneNumber]
 	,[Email]
 	,[Customer].[Active]
-	,[City],[State]
+	,[addressLineOne]
+	,[addressLineTwo]
+	,[City]
+	,[State]
 	,[Zipcode]
-	,[Animal].[AnimalID]
-	,[Status],[AdoptionApplication].[RecievedDate]
-	,[AnimalName]
-	,[AnimalBreed]
-	,[Animal].[ArrivalDate]
-	,[CurrentlyHoused]
-	,[Adoptable]
-	,[Animal].[Active]
-	,[AdoptionApplication].[AdoptionApplicationID]
-	,[AnimalSpeciesID]
 	FROM [Customer] 
-	JOIN [AdoptionApplication] ON [Customer].[Email] = [AdoptionApplication].[CustomerEmail]
-	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
-	WHERE [Customer].[Email] IS NOT NULL
-	AND [Customer].[Active] = @Active
+	WHERE [Customer].[Active] = @Active
 END
 GO
 
@@ -3711,7 +3702,6 @@ BEGIN
 	,[Customer].[FirstName]
 	,[Customer].[LastName]
 	,[Customer].[PhoneNumber]
-	,[Customer].[Email]
 	,[Customer].[Active]
 	,[Customer].[City]
 	,[Customer].[State]
@@ -5823,6 +5813,7 @@ BEGIN
 	,[Appointment].[Decision]
 	,[Location].[LocationID]
 	,[Appointment].[Active]
+	,[Customer].[Email]
 	,[Animal].[AnimalID]
 	,[AdoptionApplication].[Status]
 	,[AdoptionApplication].[RecievedDate]
@@ -5832,7 +5823,6 @@ BEGIN
 	,[Location].[City]
 	,[Location].[State]
 	,[Location].[Zip]
-	,[Customer].[Email]
 	,[Customer].[FirstName]
 	,[Customer].[LastName]
 	,[Customer].[PhoneNumber]
@@ -7002,6 +6992,88 @@ BEGIN
 END
 GO
 
+/*
+Author: Austin Gee
+Date: 3/18/2020
+Comment: Creating procedure for selecting a customer by email
+*/
+DROP PROCEDURE IF EXISTS [sp_select_customer_by_email]
+GO
+print '' print '*** Creating sp_select_customer_by_email'
+GO
+CREATE PROCEDURE [sp_select_customer_by_email] (
+
+	@Email [nvarchar] (250)
+)
+AS
+BEGIN
+	SELECT
+	[FirstName]
+	,[LastName]
+	,[PhoneNumber]
+	,[Email]
+	,[Customer].[Active]
+	,[addressLineOne]
+	,[addressLineTwo]
+	,[City]
+	,[State]
+	,[Zipcode]
+	FROM [Customer] 
+	WHERE [Customer].[Email] = @Email
+END
+GO
+
+/*
+Author: Austin Gee
+Date: 3/18/2020
+Comment: Creating procedure for selecting all appointment types
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_appointment_types]
+GO
+print '' print '*** Creating sp_select_all_appointment_types'
+GO
+CREATE PROCEDURE [sp_select_all_appointment_types] 
+AS
+BEGIN
+	SELECT
+		[AppointmentTypeID]
+	FROM [AppointmentType]
+	
+END
+GO
+
+/*
+Author: Austin Gee
+Date: 3/18/2020
+Comment: Creating procedure for selecting an adoption application by email
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_application_by_email]
+GO
+print '' print '*** Creating sp_select_adoption_application_by_email'
+GO
+CREATE PROCEDURE [sp_select_adoption_application_by_email] (
+
+	@Email [nvarchar] (250)
+)
+AS
+BEGIN
+	SELECT
+	[AdoptionApplicationID]
+	,[CustomerEmail]
+	,[AdoptionApplication].[AnimalID]
+	,[Status]
+	,[RecievedDate]
+	,[AnimalName]
+	,[AnimalSpeciesID]
+	,[AnimalBreed]
+	,[Animal].[Active]
+	,[AdoptionApplication].[Active]
+	FROM [AdoptionApplication]
+	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
+	WHERE [CustomerEmail] = @Email
+END
+GO
+
 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -7307,11 +7379,10 @@ GO
 INSERT INTO [dbo].[AdoptionApplication]
 	([CustomerEmail],[AnimalID],[Status],[RecievedDate])
 	VALUES	
-	('Awaab@Awaaab.com',(SELECT [AnimalID]FROM[dbo].[Animal]WHERE [Animal].[AnimalName] = 'Paul'),'Reviewer','2020-01-01')
-	/*,(100001,1000001,'Reviewing Application','2019-10-9'),
-	(100002,1000002,'Waitng for Pickup','2019-10-9'),
-	(100003,1000003,'InHomeInspection','2019-10-9')
-	*/
+	('Awaab@Awaaab.com',(SELECT [AnimalID]FROM[dbo].[Animal]WHERE [Animal].[AnimalName] = 'Paul'),'Reviewer','2020-01-01'),
+	('zbehrens@PetUniverse.com',1000001,'Reviewing Application','2019-10-9'),
+	('scardona@PetUniverse.com',1000002,'Waitng for Pickup','2019-10-9'),
+	('tdupuy@PetUniverse.com',1000003,'InHomeInspection','2019-10-9')
 GO
 
 print '' print '*** Creating Sample Location Records'

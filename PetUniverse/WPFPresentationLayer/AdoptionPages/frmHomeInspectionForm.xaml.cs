@@ -116,12 +116,21 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <returns></returns>
         private void populatedgAdoptionApplicationsList()
         {
-            dgAdoptionApplicationsList.ItemsSource = _homeInspectorManager.SelectAdoptionApplicationByStatus();
-            dgAdoptionApplicationsList.Columns[0].Header = "Adoption Application ID";
-            dgAdoptionApplicationsList.Columns[1].Header = "Custome Name";
-            dgAdoptionApplicationsList.Columns[2].Header = "Animal Name";
-            dgAdoptionApplicationsList.Columns[3].Header = "Status";
-            dgAdoptionApplicationsList.Columns[4].Header = "Recieved Date and Time";
+            try
+            {
+                dgAdoptionApplicationsList.ItemsSource = _homeInspectorManager.SelectAdoptionApplicationByStatus();
+                dgAdoptionApplicationsList.Columns[0].Header = "Adoption Application ID";
+                dgAdoptionApplicationsList.Columns[1].Header = "Custome Name";
+                dgAdoptionApplicationsList.Columns[2].Header = "Animal Name";
+                dgAdoptionApplicationsList.Columns[3].Header = "Status";
+                dgAdoptionApplicationsList.Columns[4].Header = "Recieved Date and Time";
+            }
+            catch (Exception)
+            {
+
+                
+            }
+            
         }
 
         /// <summary>
