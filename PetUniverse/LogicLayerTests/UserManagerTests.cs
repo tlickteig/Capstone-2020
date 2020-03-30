@@ -348,6 +348,7 @@ namespace LogicLayerTests
             //Arrange
             string Email = "j.doe@RandoGuy.com";
             DateTime date = DateTime.Now;
+
             //Act
             DateTime unlockdate = _userManager.fetchUnlockDate(Email);
             //Assert

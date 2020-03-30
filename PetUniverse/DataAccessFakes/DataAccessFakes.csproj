@@ -63,6 +63,7 @@
     <Compile Include="FakeAnimalPrescriptionAccessor.cs" />
     <Compile Include="FakeAnimalStatusAccessor.cs" />
     <Compile Include="FakeApplicantAccessor.cs" />
+    <Compile Include="FakeApplicationAccessor.cs" />
     <Compile Include="FakeAppointmentAccessor.cs" />
     <Compile Include="FakeAppointmentTypeAccessor.cs" />
     <Compile Include="FakeBaseScheduleAccessor.cs" />
@@ -78,6 +79,7 @@
     <Compile Include="FakeInventoryItemsAccessor.cs" />
     <Compile Include="FakeItemAccessor.cs" />
     <Compile Include="FakeItemCategoryAccessor.cs" />
+    <Compile Include="FakeLocationAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
     <Compile Include="FakeMedicalHistoryAccessor.cs" />
     <Compile Include="FakeMedicationAccessor.cs" />

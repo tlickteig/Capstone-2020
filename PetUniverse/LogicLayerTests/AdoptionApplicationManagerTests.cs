@@ -36,7 +36,7 @@ namespace LogicLayerTests
         /// </remarks>
         public AdoptionApplicationManagerTests()
         {
-            _fakeAdoptionApplicationAccessor = new FakeAdoptionApplicationAccessor();
+            _fakeAdoptionApplicationAccessor = new FakeApplicationAccessor();
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace LogicLayerTests
             IAdoptionApplicationManager adoptionApplicationManager = new AdoptionApplicationManager(_fakeAdoptionApplicationAccessor);
 
             // act
-            adoptionApplications = _fakeAdoptionApplicationAccessor.SelectAdoptionApplicationsByEmail("Fakest@fake.com");
+            adoptionApplications = adoptionApplicationManager.RetrieveAdoptionApplicationsByEmail("Fake@fake.com");
 
             //assert
             Assert.AreEqual(1, adoptionApplications.Count);

@@ -46,7 +46,8 @@ namespace DataAccessFakes
                 CustomerEmail = "Romaine",
                 AnimalName = "Pepe",
                 Status = "inHomeInspection",
-                RecievedDate = DateTime.Now
+                RecievedDate = DateTime.Now,
+                
                 },
                   new AdoptionApplication()
                   {
