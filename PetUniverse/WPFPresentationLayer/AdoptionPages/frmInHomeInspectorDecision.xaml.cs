@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -74,15 +75,10 @@ namespace WPFPresentationLayer
         private void populateAdoptionApplicationsAappointmentsList()
         {
             dgAdoptionApplicationsAappointmentsList.ItemsSource =
-                _inHomeInspectionAppointmentDecisionManager.SelectAdoptionApplicationsAappointmentsByAppointmentType();
-            dgAdoptionApplicationsAappointmentsList.Columns[0].Header = "Appointment ID";
-            dgAdoptionApplicationsAappointmentsList.Columns[1].Header = "Adoption Application ID";
-            dgAdoptionApplicationsAappointmentsList.Columns[2].Header = "Appointment Type ID";
-            dgAdoptionApplicationsAappointmentsList.Columns[3].Header = "DateTime";
-            dgAdoptionApplicationsAappointmentsList.Columns[4].Header = "Notes";
-            dgAdoptionApplicationsAappointmentsList.Columns[5].Header = "Decision";
-            dgAdoptionApplicationsAappointmentsList.Columns[6].Header = "Location ID";
-            dgAdoptionApplicationsAappointmentsList.Columns[7].Header = "Active";
+                    _inHomeInspectionAppointmentDecisionManager.SelectAdoptionApplicationsAappointmentsByAppointmentType();
+            dgAdoptionApplicationsAappointmentsList.Columns[0].Visibility = Visibility.Hidden;
+            dgAdoptionApplicationsAappointmentsList.Columns[7].Visibility = Visibility.Hidden;
+            dgAdoptionApplicationsAappointmentsList.Columns[8].Visibility = Visibility.Hidden;
 
         }
 
@@ -140,6 +136,61 @@ namespace WPFPresentationLayer
             this.NavigationService?.Navigate(new frmAdoptionApplictionDetails
                 (selectedUser, _inHomeInspectionAppointmentDecisionManager));
 
+
+        }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created On: 03/10/2020
+        /// Approved By: Awaab Elamin , 03/13/2020 
+        /// 
+        /// This click event when send email button is clicked. It will send an email
+        /// to the adoption application customer's email.
+        /// Application ID.
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name=""></param>
+        private void btnSendEmail_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                HomeInspectorAdoptionAppointmentDecision selectedApplication =
+                    (HomeInspectorAdoptionAppointmentDecision)dgAdoptionApplicationsAappointmentsList.SelectedItem;
+                if (selectedApplication == null)
+                {
+                    MessageBox.Show("Please select an application to notify the customer by email");
+                    return;
+                }
+
+                var customerEmail =
+                    _inHomeInspectionAppointmentDecisionManager.GetCustomerEmailByAdoptionApplicationID(
+                        selectedApplication.AdoptionApplicationID);
+
+                MailMessage mail = new MailMessage();
+                SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+                mail.From = new MailAddress("pet@gmail.com");
+                mail.To.Add(customerEmail); // getting the Customer's email from database
+                mail.Subject = "Adoption Application Status";
+                mail.Body = "Hello, your Application has been approved ";
+                smtpServer.Port = 80;
+                smtpServer.Credentials = new System.Net.NetworkCredential("username", "password");
+                smtpServer.EnableSsl = true;
+                //smtpServer.Send(mail);
+                MessageBox.Show("Email has been sent Successfully to " + customerEmail);
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Can't Send the Email", ex.Message + "\n\n"
+                                                                  + ex.InnerException.Message);
+            }
 
         }
     }

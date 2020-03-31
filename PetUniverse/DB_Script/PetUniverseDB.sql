@@ -3047,11 +3047,38 @@ BEGIN
 END
 GO
 
+
+
+
 /*
-Created by: Mohamed Elamin
-Date: 2/2/2020
-Comment: Sproc to pull list of Adoption Applications which their status
-is inHomeInspection.
+	Created by: Mohamed Elamin
+	Date: 03/29/2020
+	Comment: Store Procedure to find Customer by Customer Email from the Customer Table.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_Customer_by_Customer_Email]
+GO
+PRINT '' PRINT '*** Creating sp_select_Customer_by_Customer_Email'
+GO
+CREATE PROCEDURE [sp_select_Customer_by_Customer_Email]
+(
+	@CustomerEmail 		[nvarchar](250)
+)
+AS
+BEGIN
+
+	SELECT  [Email],[FirstName],[lastName],[phoneNumber],[addressLineOne],[addressLineTwo],
+	[city],[state],[zipCode],[Active]
+
+	FROM 	[dbo].[Customer]
+	WHERE	[Customer].[Email] = @CustomerEmail
+END
+GO
+
+/*
+	Created by: Mohamed Elamin
+	Date: 2/2/2020
+	Comment: Store Procedure to pull list of Adoption Applications which their status
+	is inHomeInspection.
 */
 DROP PROCEDURE IF EXISTS [sp_select_AdoptionApplication_by_Status]
 GO
@@ -3067,10 +3094,10 @@ END
 GO
 
 /*
-Created by: Mohamed Elamin
-Date: 2/2/2020
-Comment: Sproc to find animal name from Animal table
-by animal ID.
+	Created by: Mohamed Elamin
+	Date: 2/2/2020
+	Comment: Store Procedure to find animal name from Animal table
+	by animal ID.
 */
 DROP PROCEDURE IF EXISTS [sp_select_AnimalName_by_AnimalID]
 GO
@@ -3088,33 +3115,44 @@ BEGIN
 END
 GO
 
+
+
+
 /*
-Created by: Mohamed Elamin
-Date: 2/2/2020
-Comment: Sproc to find Customer name by Customer ID from the User Table.
+	Created by: Mohamed Elamin
+	Date: 02/18/2020
+	Comment: store Procedure to updates Adoption application Appointment decision and notes.
 */
-DROP PROCEDURE IF EXISTS [sp_select_CustomerName_by_CustomerEmail]
+DROP PROCEDURE IF EXISTS [sp_update_Adoption_Appointment]
+print '' print '*** Creating sp_update_Adoption_Appointment'
 GO
-PRINT '' PRINT '*** Creating sp_select_CustomerName_by_CustomerEmail'
-GO
-CREATE PROCEDURE [sp_select_CustomerName_by_CustomerEmail]
+
+CREATE PROCEDURE [sp_update_Adoption_Appointment]
 (
-	@CustomerEmail 		[int]
+
+    @AppointmentID		   [int]            ,
+	@NewNotes		       [nvarchar](1000) ,
+	@NewDecision		   [nvarchar](50)   ,	
+	@OldNotes    		   [nvarchar](1000) ,
+	@OldDecision		   [nvarchar](50)	
 )
 AS
 BEGIN
-	SELECT 	
-            FirstName,
-            LastName
-	FROM 	[dbo].[Customer]
-	WHERE	[Email] = @CustomerEmail
+	UPDATE [dbo].[Appointment]
+		SET [Notes] = 	  @NewNotes,
+			[Decision] = 	@NewDecision
+			
+	WHERE 	[AppointmentID] =	@AppointmentID  
+	  AND	[Notes] = 	@OldNotes
+	  AND	[Decision] = 	@OldDecision	 
+	RETURN  @@ROWCOUNT
 END
 GO
 
 /*
-Created by: Mohamed Elamin
-Date: 02/18/2020
-Comment: Sproc to find Customer by Customer name from the User Table.
+	Created by: Mohamed Elamin
+	Date: 02/18/2020
+	Comment: Store Procedure to find Customer by Customer Name from the Customer Table.
 */
 DROP PROCEDURE IF EXISTS [sp_select_Customer_by_Customer_Name]
 GO
@@ -3126,24 +3164,26 @@ CREATE PROCEDURE [sp_select_Customer_by_Customer_Name]
 )
 AS
 BEGIN
-	SELECT[userID],[FirstName],[lastName],[phoneNumber],[email],[active],[addressLineOne],
-			[addressLineTwo],[city],[state],[zipCode]
 
-	FROM 	[User]
-	WHERE	[User].[lastName] = @CustomerName
+	SELECT  [Email],[FirstName],[lastName],[phoneNumber],[addressLineOne],[addressLineTwo],
+	[city],[state],[zipCode],[Active]
+
+	FROM 	[dbo].[Customer]
+	WHERE	[Customer].[lastName] = @CustomerName
 END
 GO
 
+
 /*
-Created by: Mohamed Elamin
-Date: 02/18/2020
-Comment: Sproc to updates Adoption appliction's decision and notes.
+	Created by: Mohamed Elamin
+	Date: 02/18/2020
+	Comment: Store Procedure to updates Adoption application's decision and notes.
 */
-DROP PROCEDURE IF EXISTS [sp_update_AdoptionApliction]
+DROP PROCEDURE IF EXISTS [sp_update_adoption_appointment_decision_note]
 GO
-PRINT '' PRINT '*** Creating sp_update_AdoptionApliction'
+PRINT '' PRINT '*** Creating sp_update_adoption_appointment_decision_note'
 GO
-CREATE PROCEDURE [sp_update_AdoptionApliction]
+CREATE PROCEDURE [sp_update_adoption_appointment_decision_note]
 (
     @AppointmentID			[int],
 	@NewNotes		      [nvarchar](1000),
@@ -3166,10 +3206,10 @@ END
 GO
 
 /*
-Created by: Mohamed Elamin
-Date: 02/18/2020
-Comment: Sproc to gets ALL Adoption applications where their  Appointment
-status is Interviewer
+	Created by: Mohamed Elamin
+	Date: 02/18/2020
+	Comment: Store Procedure to gets ALL Adoption applications where their  Appointment
+	status is Interviewer
 */
 DROP PROCEDURE IF EXISTS [sp_select_interviewer_Appointments_by_AppointmentType]
 GO
@@ -3181,15 +3221,15 @@ BEGIN
 	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
 			Decision,LocationID
 	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = 'Interviewer'
+	WHERE	[AppointmentTypeID] = "Interviewer"
 END
 GO
 
 /*
-Created by: Mohamed Elamin
-Date: 2/29/2020
-Comment: store Procedure to updates Adoption appointment's notes for the
-Interviewer which he will be enters these notes during the interview with the Customer.
+	Created by: Mohamed Elamin
+	Date: 2/29/2020
+	Comment: Store Procedure to updates Adoption appointment's notes for the
+	Interviewer which he will be enters these notes during the interview with the Customer.
 */
 DROP PROCEDURE IF EXISTS [sp_update_Adoption_appointment_notes]
 GO
@@ -3210,6 +3250,91 @@ BEGIN
 	RETURN  @@ROWCOUNT
 END
 GO
+
+
+/*
+	Created by: Mohamed Elamin
+	Date: 02/18/2020
+	Comment:  Store Procedure to gets ALL Adoption applications where thier status is inHomeInspection
+*/
+DROP PROCEDURE IF EXISTS [sp_select_inHomeInspectionAppointments_by_AppointmentType]
+GO
+PRINT '' PRINT '*** Creating sp_select_inHomeInspectionAppointments_by_AppointmentType'
+GO
+CREATE PROCEDURE [sp_select_inHomeInspectionAppointments_by_AppointmentType]
+AS
+BEGIN
+	SELECT 	
+        [AppointmentID],
+        [AdoptionApplicationID],
+        [AppointmentTypeID],
+        [DateTime],
+        [Notes],
+		[Decision],
+        [LocationID],
+        [Active]
+	FROM 	[dbo].[Appointment]
+	WHERE	[AppointmentTypeID] = "inHomeInspection"
+END
+GO
+
+/*
+	Created by: Mohamed Elamin
+	Date: 2020/03/10
+	Comment: Store Procedure to find Customer Email by Adoption Application ID from the Customer Table.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_customer_email_by_adoption_ApplicationId]
+print '' print '*** Creating sp_select_customer_email_by_adoption_ApplicationId'
+GO
+CREATE PROCEDURE [sp_select_customer_email_by_adoption_ApplicationId]
+(
+	@AdoptionApplicationID 		[int]	
+)
+AS
+BEGIN
+	SELECT 	[Email]
+	FROM  [dbo].[Customer]	
+
+	JOIN [AdoptionApplication] ON [AdoptionApplication].[CustomerEmail] = [Customer].[Email]
+	WHERE	[AdoptionApplication].[AdoptionApplicationID] = @AdoptionApplicationID 
+END
+GO
+
+
+/*
+	Created by: Mohamed Elamin
+	Date: 2/2/2020
+	Comment: store Procedure to find location name from Location table
+	by location ID.
+*/
+DROP PROCEDURE IF EXISTS [sp_location_Name_by_Location_Id]
+GO
+PRINT '' PRINT '*** Creating sp_location_Name_by_Location_Id'
+GO
+CREATE PROCEDURE [sp_location_Name_by_Location_Id]
+(
+	@LocationID 		[int]
+)
+AS
+BEGIN
+
+	SELECT 	[Name]
+	FROM 	[dbo].[Location]
+	WHERE	[LocationID] = @LocationID 
+END
+GO
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*
 Created by: Cash Carlson
@@ -3724,31 +3849,7 @@ BEGIN
 END
 GO
 
-/*
-Created by: Mohamed Elamin
-Date: 02/18/2020
-Comment: Sproc to gets ALL Adoption applictions where thier status is inHomeInspection
-*/
-DROP PROCEDURE IF EXISTS [sp_select_inHomeInspectionAppointments_by_AppointmentType]
-GO
-PRINT '' PRINT '*** Creating sp_select_inHomeInspectionAppointments_by_AppointmentType'
-GO
-CREATE PROCEDURE [sp_select_inHomeInspectionAppointments_by_AppointmentType]
-AS
-BEGIN
-	SELECT 	
-        [AppointmentID],
-        [AdoptionApplicationID],
-        [AppointmentTypeID],
-        [DateTime],
-        [Notes],
-		[Decision],
-        [LocationID],
-        [Active]
-	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = 'inHomeInspection'
-END
-GO
+
 
 /*
 Created by: Kaleb Bachert
@@ -7372,6 +7473,8 @@ Updated by Awaab Elamin
 Date: 3/16/2020
 Comment: Close sample data that conflict with customer Email
 Note: update happend after customerId changed to CUstomerEmail
+Updated by: Mohamed Elamin , 2020/03/30 
+Comment: Add sample data. 
 */
 GO
 print '' print '*** Creating Sample AdoptionApplication Records'
@@ -7380,10 +7483,13 @@ INSERT INTO [dbo].[AdoptionApplication]
 	([CustomerEmail],[AnimalID],[Status],[RecievedDate])
 	VALUES	
 	('Awaab@Awaaab.com',(SELECT [AnimalID]FROM[dbo].[Animal]WHERE [Animal].[AnimalName] = 'Paul'),'Reviewer','2020-01-01'),
-	('zbehrens@PetUniverse.com',1000001,'Reviewing Application','2019-10-9'),
-	('scardona@PetUniverse.com',1000002,'Waitng for Pickup','2019-10-9'),
-	('tdupuy@PetUniverse.com',1000003,'InHomeInspection','2019-10-9')
+	('moals@PetUniverse.com',1000001,'InHomeInspection','2019-10-9'),
+	('scardona@PetUniverse.com',1000002,'Interviewer','2019-10-9'),
+	('tdupuy@PetUniverse.com',1000003,'InHomeInspection','2019-10-9'),	
+	('Austin@email.com',1000004,'InHomeInspection ','2019-10-9')
 GO
+
+
 
 print '' print '*** Creating Sample Location Records'
 GO
@@ -7391,9 +7497,10 @@ INSERT INTO [dbo].[Location]
 	([Name],[Address1],[Address2],[City],[State],[Zip])
 	VALUES
 	('Shelter','123 here we go lane',null,'Good Town','ST','12345'),
-	(null,'123 2nd St',null,'Bad City','ST','12345'),
-	(null,'555 Oak St.',null,'Far Away Town','ST','12345'),
-	(null,'9090 Ninety Rd.','Apt # 4','Good Town','ST','12345')
+	('Kirkwood','123 2nd St',null,'Bad City','ST','12345'),
+	('Nordstorm','555 Oak St.',null,'Far Away Town','ST','12345'),
+	('Iowa River','9090 Ninety Rd.','Apt # 4','Good Town','ST','12345'),
+	('Iowa Hotel','9090 Ninety Rd.','Apt # 4','Good Town','ST','12345')
 GO
 
 /*
@@ -7571,8 +7678,9 @@ INSERT INTO [dbo].[AppointmentType]
 	([AppointmentTypeID],[Description])
 	VALUES
 	('Meet and Greet','This is where the Adoption Customer will meet the animal while the facilitator is present'),
-	('inHomeInspection','This is where the Interviewer will interview the Adoption Customer'),
-	('Interviewer','This is where the Interviewer will interview the Adoption Customer')
+	('InHomeInspection','This is where the InHomeInspection will interview the Adoption Customer'),
+	('Interviewer','This is where the Interviewer will interview the Adoption Customer'),
+	('Reviewer','This is where the Reviewer will interview the Adoption Customer')
 GO
 
 /*
@@ -7585,9 +7693,13 @@ GO
 INSERT INTO [dbo].[Appointment]
 	([AdoptionApplicationID],[AppointmentTypeID],[DateTime],[Notes],[Decision],[LocationID])
 	VALUES
-	(100000,'inHomeInspection','2020-2-22 10am','','',1000000),
+	(100000,'Reviewer','2020-2-22 10am','','',1000000),
 	(100001,'Meet and Greet','2020-2-22 9am','','',1000000),
-	(100002,'Interviewer','2020-2-22 12pm','','',1000000)
+	(100002,'Interviewer','2020-2-22 12pm','','',1000000),		
+	(100003,'InHomeInspection','2020-2-22 12pm','','',1000003),
+	(100004,'InHomeInspection','2020-2-22 12pm','','',1000004)
+	
+	
 GO
 /*
 Created by: Awaab Elamin

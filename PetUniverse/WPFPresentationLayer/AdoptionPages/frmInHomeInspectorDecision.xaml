@@ -31,5 +31,8 @@
         <Button Content=" Open" Name="btnOpen" 
                             HorizontalAlignment="Right" Width="100" Height="30" 
                     Margin="0,4,30,16" Click="btnOpen_Click" Grid.Row="1"   />
+        <Button Content=" Send Email" Name="btnSendEmail" 
+                HorizontalAlignment="Left" Width="100" Height="30" 
+                Margin="30,4,30,16" Grid.Row="1" Click="btnSendEmail_Click" />
     </Grid>
 </Page>

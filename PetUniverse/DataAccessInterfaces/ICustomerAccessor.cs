@@ -18,10 +18,10 @@ namespace DataAccessInterfaces
     {
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
-        /// Approver: Thomas Dupuy , 2020/02/21
+        /// Created: 2020/29/03
+        /// Approver: 
         /// 
-        /// This method used to get Customer by Customer name.
+        /// This method gets a customer by the Customer Email. 
         /// 
         /// </summary>
         ///
@@ -31,7 +31,8 @@ namespace DataAccessInterfaces
         /// Update: ()
         /// </remarks>
         /// <param name="customerName"></param>
-        /// <returns>Customer</returns>
-        Customer RetrieveCustomerByCustomerName(string customerName);
+        /// <returns> a customer </returns>
+        /// 
+        Customer RetrieveCustomerByCustomerEmail(string customerEmail);
     }
 }

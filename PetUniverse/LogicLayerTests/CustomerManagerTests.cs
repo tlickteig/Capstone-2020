@@ -71,11 +71,11 @@ namespace LogicLayerTests
         {
             // arrange
             Customer selectedCustomers = null;
-            const string customerName = "Elamin";
+            const string customerEmail = "zaic@hotmail.com";
             int result = 0;
 
             // act
-            selectedCustomers = _customerManager.RetrieveCustomerByCustomerName(customerName);
+            selectedCustomers = _customerManager.RetrieveCustomerByCustomerEmail(customerEmail);
             if (selectedCustomers != null)
             {
                 result = 1;

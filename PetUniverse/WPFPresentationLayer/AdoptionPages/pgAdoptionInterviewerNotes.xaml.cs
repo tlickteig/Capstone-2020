@@ -26,6 +26,7 @@ namespace WPFPresentationLayer.AdoptionPages
     ///  page.
     public partial class pgAdoptionInterviewerNotes : Page
     {
+       
         private AdoptionAppointment _adoptionAppointment = null;
         private IAdoptionInterviewerManager _adoptionInterviewerManager = null;
         private bool _addMode = false;
@@ -82,6 +83,7 @@ namespace WPFPresentationLayer.AdoptionPages
             _adoptionInterviewerManager = adoptionInterviewerManager;
 
         }
+        
       
        
            
@@ -198,9 +200,9 @@ namespace WPFPresentationLayer.AdoptionPages
             txtAppointmentTypeID.IsReadOnly = true;
             DateTime.IsReadOnly = true;
             txtNotes.IsReadOnly = false;
-            txtDecision.IsReadOnly = true;
-            txtLocationID.IsReadOnly = true;
-           
+            cmbDecision.IsReadOnly = true;
+            txtLocationName.IsReadOnly = true;
+
 
             btnEdit.Visibility = Visibility.Hidden;
             btnSave.Visibility = Visibility.Visible;
@@ -229,20 +231,20 @@ namespace WPFPresentationLayer.AdoptionPages
             {
                 txtAppointmentID.Text = _adoptionAppointment.AppointmentID.ToString();
                 txtAdoptionApplicationID.Text = _adoptionAppointment
-               .AdoptionApplicationID.ToString();
+                    .AdoptionApplicationID.ToString();
                 txtAppointmentTypeID.Text = _adoptionAppointment.AppointmentTypeID;
                 DateTime.Text = _adoptionAppointment.AppointmentDateTime.ToString();
                 txtNotes.Text = _adoptionAppointment.Notes;
-                txtDecision.Text = _adoptionAppointment.Decision;
-                txtLocationID.Text = _adoptionAppointment.LocationID.ToString();
+                cmbDecision.Text = _adoptionAppointment.Decision;
+                txtLocationName.Text = _adoptionAppointment.LocationName.ToString();
 
 
                 txtAdoptionApplicationID.IsReadOnly = true;
                 txtAppointmentTypeID.IsReadOnly = true;
                 DateTime.IsReadOnly = true;
                 txtNotes.IsReadOnly = true;
-                txtDecision.IsReadOnly = true;
-                txtLocationID.IsReadOnly = true;
+                cmbDecision.IsReadOnly = true;
+                txtLocationName.IsReadOnly = true;
             }
             else
             {
@@ -251,8 +253,8 @@ namespace WPFPresentationLayer.AdoptionPages
                 txtAppointmentTypeID.IsReadOnly = true;
                 DateTime.IsReadOnly = true;
                 txtNotes.IsReadOnly = true;
-                txtDecision.IsReadOnly = true;
-                txtLocationID.IsReadOnly = true;
+                cmbDecision.IsReadOnly = true;
+                txtLocationName.IsReadOnly = true;
 
             }
         }

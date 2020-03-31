@@ -86,6 +86,7 @@ namespace LogicLayer
         /// Update: ()
         /// </remarks>
         /// <param name=""></param>
+        /// <returns>result</returns>
         public bool EditAppointment(HomeInspectorAdoptionAppointmentDecision oldHomeInspectorAdoptionAppointmentDecision,
             HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision)
         {
@@ -102,6 +103,36 @@ namespace LogicLayer
             }
             return result;
            
+        }
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created On: 03/10/2020
+        /// Approved By: Awaab Elamin , 02/21/2020
+        /// This method is for getting the Customer Email by Adoption Application ID.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <returns>customerEmail</returns>
+        public string GetCustomerEmailByAdoptionApplicationID(int adoptionApplicationID)
+        {
+            string customerEmail = null;
+            try
+            {
+                customerEmail = _inHomeInspectionAppointmentDecisionAccessor.
+                    GetCustomerEmailByAdoptionApplicationID(adoptionApplicationID);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return customerEmail;
         }
 
         /// <summary>
@@ -120,6 +151,7 @@ namespace LogicLayer
         /// Update: ()
         /// </remarks>
         /// <param name=""></param>
+        /// <returns>List of AdoptionAppointmen </returns>
 
         public List<HomeInspectorAdoptionAppointmentDecision> SelectAdoptionApplicationsAappointmentsByAppointmentType()
         {
@@ -138,6 +170,32 @@ namespace LogicLayer
             return inHomeInspectionAppointmentDecision;
         }
 
-     
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created On: 2020/02/19
+        /// Approved By: Awaab Elamin, 2020/02/21
+        /// 
+        /// This method used to Update Adoption Applications Appointment's decision.
+        ///  type.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <param name="decision"></param>
+        public bool UpdateHomeInspectorDecision(int adoptionApplicationID, string decision)
+        {
+            bool result = false;
+            if (_inHomeInspectionAppointmentDecisionAccessor.UpdateHomeInspectorDecision
+                (adoptionApplicationID, decision) == 1)
+            {
+                result = true;
+            }
+
+            return result;
+        }
     }
 }

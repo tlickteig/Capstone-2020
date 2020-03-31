@@ -13,11 +13,12 @@ namespace DataTransferObjects
     ///
     /// This Class for creating  the properties of Home Inspector Adoption Appointment Decision.
     /// </summary>
-    public class HomeInspectorAdoptionAppointmentDecision
+    public class HomeInspectorAdoptionAppointmentDecision 
     {
  
         public int AppointmentID { get; set; }
         public int AdoptionApplicationID { get; set; }
+        public string LocationName { get; set; }
         public string AppointmentTypeID { get; set; }
         public DateTime DateTime { get; set; }
         public string Notes { get; set; }

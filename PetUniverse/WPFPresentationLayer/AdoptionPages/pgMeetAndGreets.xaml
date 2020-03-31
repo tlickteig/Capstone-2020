@@ -221,6 +221,7 @@
                     <Button x:Name="btnEditNotes" Grid.Column="6" Content="edit" HorizontalAlignment="Right" Width="100" Height="30" Click="btnEditNotes_Click"/>
                     <Button x:Name="btnSaveNotes" Visibility="Hidden" Grid.Column="6" Content="save" HorizontalAlignment="Right" Width="100" Height="30" Click="btnSaveNotes_Click"/>
                     <ComboBox x:Name="cmbDecision" Grid.Column="5" Height="30" Width="120" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                    <Button x:Name="btnSendEmai" Grid.Column="4" Content="Send Email" HorizontalAlignment="Center" Width="100" Height="30" Click="btnSendEmai_Click"/>
                 </Grid>
             </Grid>
         </Canvas>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -585,6 +586,59 @@ namespace WPFPresentationLayer.AdoptionPages
             AdoptionAppointmentVM adoptionAppointment = (AdoptionAppointmentVM)dgAppointments.SelectedItem;
             _adoptionAppointment = _adoptionAppointmentManager.RetrieveAdoptionAppointmentByAppointmentID(adoptionAppointment.AppointmentID);
             populateTextBoxes();
+        }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created On: 2020/03/10
+        /// Approved By:  Awaab Elamin ,2020/03/13
+        /// 
+        /// This is a click event when send email button is clicked. It will send an email
+        /// to the adoption application customer.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name=""></param>
+        private void btnSendEmai_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                AdoptionAppointmentVM selectedApplication =
+                    (AdoptionAppointmentVM)dgAppointments.SelectedItem;
+                if (selectedApplication == null)
+                {
+                    MessageBox.Show("Please select an application to notify the customer by email");
+                    return;
+                }
+
+                var customerEmail =
+                    _homeInspectorManager.
+                        GetCustomerEmailByAdoptionApplicationID(selectedApplication.AdoptionApplicationID);
+
+                MailMessage mail = new MailMessage();
+                SmtpClient smtpServer = new SmtpClient("smtp.gmail.com");
+                mail.From = new MailAddress("pet@gmail.com");
+                mail.To.Add(customerEmail);// get email address from the Database.
+                mail.Subject = "Adoption Application Status";
+                mail.Body = "Hello, your Application has been approved ";
+                smtpServer.Port = 80;
+                smtpServer.Credentials = new System.Net.NetworkCredential("username", "password");
+                smtpServer.EnableSsl = true;
+                //smtpServer.Send(mail);
+                MessageBox.Show("Email has been sent Successfully to " + customerEmail);
+
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Couldn't send Email", ex.Message + "\n\n" + ex.InnerException.Message);
+            }
+
         }
     }
 }

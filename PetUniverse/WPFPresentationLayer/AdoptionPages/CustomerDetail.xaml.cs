@@ -31,11 +31,11 @@ namespace WPFPresentationLayer.AdoptionPages
         private Customer _customer;
         private ICustomerManager _customerManager = null;
 
-        public CustomerDetail(string customerName)
+        public CustomerDetail(string customerEmail)
         {
             InitializeComponent();
             _customerManager = new CustomerManager();
-            _customer = _customerManager.RetrieveCustomerByCustomerName(customerName);
+            _customer = _customerManager.RetrieveCustomerByCustomerEmail(customerEmail);
         }
 
 
@@ -59,31 +59,27 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             try
             {
-                txtUserID.Text = _customer.UserID.ToString();
+                txtCustomerEmail.Text = _customer.Email.ToString();
                 txtFirstName.Text = _customer.FirstName;
                 txtLasttName.Text = _customer.LastName;
                 txtPhoneNumbere.Text = _customer.PhoneNumber;
-                txtEmail.Text = _customer.Email;
-                txtActiv.Text = _customer.Active.ToString();
+
+                txtActive.Text = _customer.Active.ToString();
                 txtAddressLineOne.Text = _customer.AddressLineOne;
                 txtAddressLineTwo.Text = _customer.AddressLineTwo;
                 txtCity.Text = _customer.City;
                 txtState.Text = _customer.State;
                 txtZipCode.Text = _customer.ZipCode;
-
-
-
-                txtUserID.IsReadOnly = true;
+                txtCustomerEmail.IsReadOnly = true;
                 txtFirstName.IsReadOnly = true;
                 txtLasttName.IsReadOnly = true;
                 txtPhoneNumbere.IsReadOnly = true;
-                txtEmail.IsReadOnly = true;
                 txtAddressLineOne.IsReadOnly = true;
                 txtAddressLineTwo.IsReadOnly = true;
                 txtZipCode.IsReadOnly = true;
                 txtCity.IsReadOnly = true;
                 txtState.IsReadOnly = true;
-                txtActiv.IsReadOnly = true;
+                txtActive.IsReadOnly = true;
 
             }
             catch (Exception ex)
@@ -92,12 +88,49 @@ namespace WPFPresentationLayer.AdoptionPages
             }
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
-        {
 
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created On: 2020/03/29
+        /// Approved By: Awaab Elamin 2020/03/30
+        /// 
+        /// This is an event when Back To Inspector Screen button is clicked , And will open
+        /// frmHomeInspectionForm window.
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnBackToInspectorScreen_Click(object sender, RoutedEventArgs e)
+        {
             this.NavigationService?.Navigate(new frmHomeInspectionForm());
-                           
-            
+        }
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created On: 2020/02/19
+        /// Approved By: Thomas Dupuy 2020/02/21
+        /// 
+        /// This is an event when Back To Reviewer Screen button is clicked , And will open
+        /// Adoption Applications window.
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnBackToReviewerScreen_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService?.Navigate(new AdoptionApplications());
+
         }
     }
 }

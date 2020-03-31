@@ -54,5 +54,45 @@ namespace DataAccessInterfaces
         int UpdateAppoinment(HomeInspectorAdoptionAppointmentDecision 
             oldHomeInspectorAdoptionAppointmentDecision, 
             HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision);
+
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created On: 2020/02/19
+        /// Approved By:  Awaab Elamin, 2020/02/21
+        /// 
+        /// This method gets the Customer email from the user table by Adoption
+        /// Application ID.
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <param name="decision"></param>
+        int UpdateHomeInspectorDecision(int adoptionApplicationID, string decision);
+
+
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created On: 2020/02/19
+        /// Approved By:  Awaab Elamin, 2020/02/21
+        /// 
+        /// This method gets the Customer email from the user table by Adoption
+        /// Application ID.
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="adoptionApplicationId"></param>
+        string GetCustomerEmailByAdoptionApplicationID(int adoptionApplicationId);
     }
 }

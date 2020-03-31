@@ -1,8 +1,7 @@
 ﻿<!--/// <summary>
     /// Creator: Mohamed Elamin
-    /// Created: 02/19/2020
-    /// Created: 2/5/2020
-    /// Approver: Austin Gee, 2/7/2020
+    /// Created: 2020/02/05
+    /// Approver: Austin Gee, 2020/02/07
     /// This window is the user interface.
     /// 
     /// </summary>
@@ -35,9 +34,9 @@
                               IsReadOnly="True"></DataGrid>
             </Grid>
             <Grid Grid.Row="2">
-                <Button Content=" Back" Name="btnBack" Margin="20" HorizontalAlignment="Left" Width="100" Height="30"/>
-                <Button Content=" OpenRecord" Name="btnOpenRecord" 
-                            HorizontalAlignment="Right" Width="100" Height="30" Margin="20" Click="BtnOpenRecord_Click" />
+               
+                <Button Content=" Open Customer Record" Name="btnOpenRecord" 
+                            HorizontalAlignment="Right" Width="140" Height="30" Margin="20" Click="BtnOpenRecord_Click" />
             </Grid>
         </Grid>
     </Grid>

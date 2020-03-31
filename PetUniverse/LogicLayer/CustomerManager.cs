@@ -67,13 +67,14 @@ namespace LogicLayer
             _customerAccessor = customerAccessor;
 
         }
+
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Thomas Dupuy , 2020/02/19
         /// 
-        /// This method gets a customer by the Customer  for the Customer 
-        /// Manager.
+        /// This method gets a Customer by the Customer email
+        /// 
         /// </summary>
         ///
         /// <remarks>
@@ -81,14 +82,14 @@ namespace LogicLayer
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name="customerName"></param>
-        /// <returns> a customer </returns>
-        public Customer RetrieveCustomerByCustomerName(string customerName)
+        /// <param name="customerEmail"></param>
+        /// <returns>Customer </returns>
+        public Customer RetrieveCustomerByCustomerEmail(string customerEmail)
         {
             Customer customer = null;
             try
             {
-                customer = _customerAccessor.RetrieveCustomerByCustomerName(customerName);
+                customer = _customerAccessor.RetrieveCustomerByCustomerEmail(customerEmail);
             }
             catch (Exception ex)
             {
@@ -97,5 +98,7 @@ namespace LogicLayer
 
             return customer;
         }
+
+        
     }
 }

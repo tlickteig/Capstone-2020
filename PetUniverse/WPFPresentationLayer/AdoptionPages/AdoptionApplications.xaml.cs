@@ -241,5 +241,41 @@ namespace WPFPresentationLayer.AdoptionPages
             ViewAdoptionApplications.Visibility = Visibility.Visible;
             CustomerQustionnair.Visibility = Visibility.Hidden;
         }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created On: 2020/03/29
+        /// Approved By: Awaab Elamin 2020/03/30
+        /// 
+        /// This is an event when Back To Inspector Screen button is clicked , And will open
+        /// Customer Detail window.And sends the Customer Email to the Customer Detail's
+        /// Constructor as an argument.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCustomerDetails_Click(object sender, RoutedEventArgs e)
+        {
+            AdoptionApplication adoptionApplication = new AdoptionApplication();
+            adoptionApplication = (AdoptionApplication)DGViewData.SelectedItem;
+
+            var selectedItem = (AdoptionApplication)DGViewData.SelectedItem;
+            if (selectedItem == null)
+            {
+                MessageBox.Show("Please select an Adoption Application to open the Customer Details.");
+            }
+            else
+            {
+                this.NavigationService?.Navigate(new CustomerDetail
+                    (adoptionApplication.CustomerEmail));
+
+            }
+
+        }
     }
 }

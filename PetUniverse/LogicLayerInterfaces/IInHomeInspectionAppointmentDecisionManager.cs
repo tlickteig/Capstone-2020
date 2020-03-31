@@ -56,5 +56,41 @@ namespace LogicLayerInterfaces
             oldHomeInspectorAdoptionAppointmentDecision, HomeInspectorAdoptionAppointmentDecision
             newHomeInspectorAdoptionAppointmentDecision);
 
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 02/19/2020
+        /// Approved: Awaab Elamin, 02/21/2020
+        /// 
+        /// This method gets the Customer email by Adoption Application ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        string GetCustomerEmailByAdoptionApplicationID(int adoptionApplicationID);
+
+
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created On: 2020/03/10
+        /// Approved By: Awaab Elamin 03/13/2020
+        /// 
+        /// This method gets the Customer email by Adoption Application ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <param name="decision"></param>
+        bool UpdateHomeInspectorDecision(int adoptionApplicationID, string decision);
+
     }
 }

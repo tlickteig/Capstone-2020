@@ -20,6 +20,60 @@ namespace DataAccessLayer
     /// </summary>
     public class InHomeInspectionAppointmentDecisionAccessor : IInHomeInspectionAppointmentDecisionAccessor
     {
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/03/10
+        /// Approver:  
+        /// 
+        /// This method gets the Customer"s email from the Customer table in the database by Adoption
+        /// Application ID.
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name=""></param>
+        public string GetCustomerEmailByAdoptionApplicationID(int adoptionApplicationId)
+        {
+            string customerEmail = null;
+            // connection?
+            var conn = DBConnection.GetConnection();
+            // commands?
+            var cmd = new SqlCommand("sp_select_customer_email_by_adoption_ApplicationId", conn);
+            // command type?
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@adoptionApplicationId", adoptionApplicationId);
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        customerEmail = reader.GetString(0);
+
+                    }
+
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return customerEmail;
+        }
+
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
@@ -79,11 +133,11 @@ namespace DataAccessLayer
                         {
                             inHomeInspectionAppointmentDecision.Decision = "";
                         }
-                        
-                        inHomeInspectionAppointmentDecision.LocationID = reader.GetInt32(6);
+
+                        inHomeInspectionAppointmentDecision.LocationName =
+                            RetrieveLocationNameByLocationID(reader.GetInt32(6));
                         inHomeInspectionAppointmentDecision.Active = reader.GetBoolean(7);
 
-                        
                         inHomeInspectionAppointmentDecisions.Add(inHomeInspectionAppointmentDecision);
                     }
                 }
@@ -98,6 +152,59 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return inHomeInspectionAppointmentDecisions;
+        }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/03/10
+        /// Approved By:  
+        /// 
+        /// This is private method gets the Location's name from the Location table in the database
+        /// by Adoption ID.
+        /// 
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="LocationID"></param>
+        private string RetrieveLocationNameByLocationID(int LocationID)
+        {
+            string name = "";
+            // connection?
+            var conn = DBConnection.GetConnection();
+            // commands?
+            var cmd = new SqlCommand("sp_location_Name_by_Location_Id", conn);
+            // command type?
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@LocationID", LocationID);
+            try
+            {
+
+                // open the connection
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    name = reader.GetString(0);
+
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Location name not found!", ex);
+            }
+            finally
+            {
+                // close the connection
+                conn.Close();
+            }
+            return name;
         }
 
 
@@ -122,7 +229,7 @@ namespace DataAccessLayer
         {
                int rows = 0;
                 var conn = DBConnection.GetConnection();
-                var cmd = new SqlCommand("sp_update_AdoptionApliction", conn);
+                var cmd = new SqlCommand("sp_update_adoption_appointment_decision_note", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@AppointmentID", newHomeInspectorAdoptionAppointmentDecision
                 .AppointmentID);
@@ -155,6 +262,56 @@ namespace DataAccessLayer
                     conn.Close();
                 }
                 return rows;       
+        }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/03/10
+        /// Approver:  
+        /// 
+        /// This method updates the Home-Inspector Decision in the Adoption Aplication table. 
+        /// 
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name=""></param>
+        public int UpdateHomeInspectorDecision(int adoptionApplicationID, string decision)
+        {
+            int count = 0;
+            var conn = DBConnection.GetConnection();
+            string cmdText = @"sp_update_adoption_application_status";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@AdoptionApplicationID", SqlDbType.Int);
+            cmd.Parameters.Add("@status", SqlDbType.NVarChar, 1000);
+
+            cmd.Parameters["@AdoptionApplicationID"].Value = adoptionApplicationID;
+
+
+            cmd.Parameters["@status"].Value = decision;
+
+            try
+            {
+                conn.Open();
+                count = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return count;
         }
     }
 }

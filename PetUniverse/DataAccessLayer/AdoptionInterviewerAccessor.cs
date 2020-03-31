@@ -38,6 +38,7 @@ namespace DataAccessLayer
         /// <param name=""></param>
         public List<AdoptionAppointment> SelectAdoptionAappointmentsByAppointmentType()
         {
+            string LocationName = "";
             List<AdoptionAppointment> adoptionAppointments = new List<AdoptionAppointment>();
 
             var conn = DBConnection.GetConnection();
@@ -62,7 +63,7 @@ namespace DataAccessLayer
                         adoptionAppointment.AppointmentTypeID = reader.GetString(2);
                         if (!reader.IsDBNull(3))
                         {
-                            adoptionAppointment.AppointmentDateTime= reader.GetDateTime(3);
+                            adoptionAppointment.AppointmentDateTime = reader.GetDateTime(3);
                         }
                         if (!reader.IsDBNull(4))
                         {
@@ -81,7 +82,9 @@ namespace DataAccessLayer
                             adoptionAppointment.Decision = "";
                         }
 
-                        adoptionAppointment.LocationID = reader.GetInt32(6);
+                        adoptionAppointment.LocationName =
+                          RetrieveLocationNameByLocationID(reader.GetInt32(6));
+
 
 
 
@@ -99,6 +102,59 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return adoptionAppointments;
+        }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/03/10
+        /// Approved By:  
+        /// 
+        /// This is private method gets the Location's name from the Location table in the database
+        /// by Adoption ID.
+        /// 
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="LocationID"></param>
+        private string RetrieveLocationNameByLocationID(int LocationID)
+        {
+            string name = "";
+            // connection?
+            var conn = DBConnection.GetConnection();
+            // commands?
+            var cmd = new SqlCommand("sp_location_Name_by_Location_Id", conn);
+            // command type?
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@LocationID", LocationID);
+            try
+            {
+
+                // open the connection
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    name = reader.GetString(0);
+
+                }
+
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Location name not found!", ex);
+            }
+            finally
+            {
+                // close the connection
+                conn.Close();
+            }
+            return name;
         }
 
 

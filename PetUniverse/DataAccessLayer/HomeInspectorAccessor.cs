@@ -20,61 +20,7 @@ namespace DataAccessLayer
     public class HomeInspectorAccessor : IHomeInspectorAccessor
     {
 
-        /// <summary>
-        /// Creator: Mohamed Elamin
-        /// Created: 2/5/2020
-        /// Approver: Austin Gee, 2/7/2020
-        /// 
-        /// This method used to get Customer first name and last name by Customer
-        /// ID.
-        /// </summary>
-        ///
-        /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
-        /// </remarks>
-        /// <param name=" CustomerID"></param>
-        /// <returns>Customer Name</returns>
-        private string GetCustomerNameByCustomerID(int CustomerID)
-        {
-            string customerName = null;
-            // connection?
-            var conn = DBConnection.GetConnection();
-            // commands?
-            var cmd = new SqlCommand("sp_select_CustomerName_by_CustomerID", conn);
-            // command type?
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@CustomerID", CustomerID);
-            try
-            {
-                string lastName = null;
-                string firstName = null;
-                // open the connection
-                conn.Open();
-                var reader = cmd.ExecuteReader();
-                if (reader.Read())
-                {
-                    lastName = reader.GetString(1);
-                    firstName = reader.GetString(0);
-                    customerName = lastName;
-                }
-                else
-                {
-                    throw new ApplicationException("Record not found..");
-                }
-                reader.Close();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
-            return customerName;
-        }
+
 
         /// <summary>
         /// Creator: Mohamed Elamin
@@ -162,7 +108,7 @@ namespace DataAccessLayer
 
                         adoptionApplication.AdoptionApplicationID = reader.GetInt32(0);
                         adoptionApplication.AnimalName = SelectAnimalNameByAnimalID(reader.GetInt32(1));
-                        adoptionApplication.CustomerEmail = GetCustomerNameByCustomerID(reader.GetInt32(2));
+                        adoptionApplication.CustomerEmail = reader.GetString(2);
                         adoptionApplication.Status = reader.GetString(3);
                         adoptionApplication.RecievedDate = reader.GetDateTime(4);
                         

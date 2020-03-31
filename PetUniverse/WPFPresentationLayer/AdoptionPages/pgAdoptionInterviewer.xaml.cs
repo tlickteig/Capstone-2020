@@ -71,14 +71,9 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             dgAdoptionAappointmentList.ItemsSource =
                 _adoptionInterviewerManager.SelectAdoptionAappointmentsByAppointmentType();
-            dgAdoptionAappointmentList.Columns[0].Header = "Appointment ID";
-            dgAdoptionAappointmentList.Columns[1].Header = "Adoption Application ID";
-            dgAdoptionAappointmentList.Columns[2].Header = "Appointment Type ID";
-            dgAdoptionAappointmentList.Columns[3].Header = "DateTime";
-            dgAdoptionAappointmentList.Columns[4].Header = "Notes";
-            dgAdoptionAappointmentList.Columns[5].Header = "Decision";
-            dgAdoptionAappointmentList.Columns[6].Header = "Location ID";
-            dgAdoptionAappointmentList.Columns[7].Header = "Active";
+            dgAdoptionAappointmentList.Columns[0].Visibility = Visibility.Hidden;
+            dgAdoptionAappointmentList.Columns[7].Visibility = Visibility.Hidden;
+            dgAdoptionAappointmentList.Columns[8].Visibility = Visibility.Hidden;
 
         }
 
@@ -132,7 +127,7 @@ namespace WPFPresentationLayer.AdoptionPages
 
 
             this.NavigationService?.Navigate(new pgAdoptionInterviewerNotes
-                (selectedAappointment, _adoptionInterviewerManager));
+                 (selectedAappointment, _adoptionInterviewerManager));
 
 
         }

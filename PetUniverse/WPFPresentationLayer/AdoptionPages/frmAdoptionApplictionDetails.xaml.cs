@@ -16,8 +16,8 @@ using LogicLayerInterfaces;
 using LogicLayer;
 
 
-namespace WPFPresentationLayer
-{
+ namespace WPFPresentationLayer
+ {
     /// <summary>
     /// Creator: Mohamed Elamin
     /// Created: 2020/02/19
@@ -109,6 +109,7 @@ namespace WPFPresentationLayer
 
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
+            this.NavigationService?.Navigate(new frmInHomeInspectorDecision());
 
         }
 
@@ -157,12 +158,12 @@ namespace WPFPresentationLayer
             {
                 txtAppointmentID.Text = _homeInspectionAppointmentDecision.AppointmentID.ToString();
                 txtAdoptionApplicationID.Text = _homeInspectionAppointmentDecision
-               .AdoptionApplicationID.ToString();
+                    .AdoptionApplicationID.ToString();
                 txtAppointmentTypeID.Text = _homeInspectionAppointmentDecision.AppointmentTypeID;
                 DateTime.Text = _homeInspectionAppointmentDecision.DateTime.ToString();
                 txtNotes.Text = _homeInspectionAppointmentDecision.Notes;
                 cmbDecision.Text = _homeInspectionAppointmentDecision.Decision;
-                txtLocationID.Text = _homeInspectionAppointmentDecision.LocationID.ToString();
+                txtLocationID.Text = _homeInspectionAppointmentDecision.LocationName;
                 txtActive.Text = _homeInspectionAppointmentDecision.Active.ToString();
 
                 txtAdoptionApplicationID.IsReadOnly = true;
@@ -173,8 +174,7 @@ namespace WPFPresentationLayer
                 txtLocationID.IsReadOnly = true;
                 txtActive.IsReadOnly = true;
 
-                cmbDecision.Items.Add("Denied");
-                cmbDecision.Items.Add("Approved");
+
 
             }
             else
@@ -220,7 +220,6 @@ namespace WPFPresentationLayer
             btnEdit.Visibility = Visibility.Hidden;
             btnSave.Visibility = Visibility.Visible;
         }
-
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
@@ -237,15 +236,15 @@ namespace WPFPresentationLayer
         /// <param name=" sender"></param>
         /// <param name=" e"></param>
         /// <returns></returns>   
-        private void BtnSave_Click(object sender, RoutedEventArgs e)
-        {
+         private void BtnSave_Click(object sender, RoutedEventArgs e)
+         {
             HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision =
-                new HomeInspectorAdoptionAppointmentDecision()
-                {
-                    AppointmentID = Convert.ToInt32(txtAppointmentID.Text),
-                    Notes = txtNotes.Text.ToString(),
-                    Decision = cmbDecision.Text.ToString()
-                };
+            new HomeInspectorAdoptionAppointmentDecision()
+            {
+                AppointmentID = Convert.ToInt32(txtAppointmentID.Text),
+                Notes = txtNotes.Text.ToString(),
+                Decision = cmbDecision.Text.ToString()
+            };
 
             if (_addMode)
             {
@@ -259,15 +258,40 @@ namespace WPFPresentationLayer
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message + "\n\n"
-                       + ex.InnerException.Message);
+                    MessageBox.Show("Appointment can't be Edit", ex.Message + "\n\n"
+                                               + ex.InnerException.Message);
+                }
+
+                if (Facilitator.IsSelected)
+                {
+
+                    if (_inHomeInspectionAppointmentDecisionManager.UpdateHomeInspectorDecision
+                    (_homeInspectionAppointmentDecision
+                        .AdoptionApplicationID, Facilitator.Content.ToString()))
+                    {
+                        MessageBox.Show("Adoption Application's Decision has been successfully Updated");
+                    }
+                }
+
+                else if (Deny.IsSelected)
+                {
+                    if (_inHomeInspectionAppointmentDecisionManager.UpdateHomeInspectorDecision
+                    (_homeInspectionAppointmentDecision.AdoptionApplicationID
+                        , Deny.Content.ToString()))
+
+                    {
+
+                        MessageBox.Show("Adoption Application's Decision has been Denied!");
+                    }
                 }
             }
             else
             {
                 throw new ApplicationException("Data not Saved.",
-                    new ApplicationException("User may no longer exist.")); ;
+                    new ApplicationException("User may no longer exist."));
             }
         }
     }
 }
+ 
+                

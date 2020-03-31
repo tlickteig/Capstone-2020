@@ -103,12 +103,12 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="customerName"></param>
         /// <returns>fake customer</returns>
-        public Customer RetrieveCustomerByCustomerName(string customerName)
+        public Customer RetrieveCustomerByCustomerEmail(string customerEmail)
         {
             Customer _customer = new Customer();
             foreach (var customer in customers)
             {
-                if (customer.LastName == customerName)
+                if (customer.Email == customerEmail)
                 {
                     _customer = customer;
                     break;

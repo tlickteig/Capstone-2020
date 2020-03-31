@@ -34,50 +34,50 @@ namespace DataAccessLayer
         /// </remarks>
         /// <param name=" customerName"></param>
         /// <returns>customer</returns>
-        public Customer RetrieveCustomerByCustomerName(string customerName)
+        public Customer RetrieveCustomerByCustomerEmail(string customerEmail)
         {
             Customer customer = null;
             // connection
             var conn = DBConnection.GetConnection();
             // commands
-            var cmd = new SqlCommand("sp_select_Customer_by_Customer_Name", conn);
+            var cmd = new SqlCommand("sp_select_Customer_by_Customer_Email", conn);
             // command type
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.Add("@CustomerName", SqlDbType.NVarChar, 50);
-            cmd.Parameters["@CustomerName"].Value = customerName;
+            cmd.Parameters.Add("@customerEmail", SqlDbType.NVarChar, 250);
+            cmd.Parameters["@customerEmail"].Value = customerEmail;
             try
             {
                 // open the connection
                 conn.Open();
                 var reader = cmd.ExecuteReader();
-                if (reader.Read())
+                if (reader.HasRows)
                 {
-                    customer = new Customer();
-                    customer.UserID = reader.GetInt32(0);
-                    customer.FirstName = reader.GetString(1);
-                    customer.LastName = customerName;
-                    customer.PhoneNumber = reader.GetString(3);
-                    customer.Email = reader.GetString(4);
-                    customer.Active = reader.GetBoolean(5);
-                    customer.AddressLineOne = reader.GetString(6);
-                    customer.AddressLineTwo = reader.GetString(7);
-                    customer.City = reader.GetString(8);
-                    customer.State = reader.GetString(9);
-                    customer.ZipCode = reader.GetString(10);
-                }
-                else
-                {
-                    throw new ApplicationException("Customer not found.");
+
+                    while (reader.Read())
+                    {
+                        customer = new Customer();
+
+                        customer.Email = reader.GetString(0);
+                        customer.FirstName = reader.GetString(1);
+                        customer.LastName = reader.GetString(2);
+                        customer.PhoneNumber = reader.GetString(3);
+                        customer.AddressLineOne = reader.GetString(4);
+                        customer.AddressLineTwo = reader.GetString(5);
+                        customer.City = reader.GetString(6);
+                        customer.State = reader.GetString(7);
+                        customer.ZipCode = reader.GetString(8);
+                        customer.Active = reader.GetBoolean(9);
+                    }
                 }
                 reader.Close();
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Couldn't get customer by last name", ex);
+                throw ex;
             }
             finally
             {
-               // close the connection
+                // Close the connection 
                 conn.Close();
             }
             return customer;

@@ -23,6 +23,7 @@ namespace DataTransferObjects
     public class AdoptionAppointment
     {
         public int AppointmentID { get; set; }
+        public string LocationName { get; set; }
         public int AdoptionApplicationID { get; set; }
         public string AppointmentTypeID { get; set; }
         public DateTime AppointmentDateTime { get; set; }

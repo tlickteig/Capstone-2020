@@ -19,8 +19,8 @@ using LogicLayerInterfaces;
 namespace WPFPresentationLayer.AdoptionPages
 {
     /// <summary>
-    /// Created: 2/5/2020
-    /// Approver: Austin Gee, 2/7/2020
+    /// Created: 2020/02/05
+    /// Approver: Austin Gee, 2020/02/07
     /// Approver:
     /// 
     /// Interaction logic for frmHomeInspectionForm.xaml
@@ -33,13 +33,13 @@ namespace WPFPresentationLayer.AdoptionPages
         private IHomeInspectorManager _homeInspectorManager;
 
         /// <summary>
-        /// Created: 2/5/2020
-        /// Approver: Austin Gee, 2/7/2020
+        /// Created: 2020/02/05
+        /// Approver: Austin Gee, 2020/02/07
         /// 
         /// This This constructor method for frmHomeInspectorAdoptionApplication
         /// window.
         /// and roles and will control what the user can see and do
-        /// ID.
+        /// 
         /// </summary>
         ///
         /// <remarks>
@@ -55,8 +55,8 @@ namespace WPFPresentationLayer.AdoptionPages
             _homeInspectorManager = new HomeInspectorManager();
         }
         /// <summary>
-        /// Created: 2/5/2020
-        /// Approver: Austin Gee, 2/7/2020
+        /// Created: 2020/02/05
+        /// Approver: Austin Gee,  2020/02/07
         /// 
         /// This constructor is passed a HomeInspectorManager 
         /// and homeInspectorManager.
@@ -78,8 +78,8 @@ namespace WPFPresentationLayer.AdoptionPages
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2/5/2020
-        /// Approver: Austin Gee, 2/7/2020
+        /// Created: 2020/02/05
+        /// Approver: Austin Gee,  2020/02/07
         /// 
         /// This method is called when the window first loads.
         /// </summary>
@@ -99,8 +99,8 @@ namespace WPFPresentationLayer.AdoptionPages
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2/5/2020
-        /// Approver: Austin Gee, 2/7/2020
+        /// Created: 2020/02/05
+        /// Approver: Austin Gee, 2020/02/07
         /// 
         /// This method fills in data for frmHomeInspectorAdoptionApplication
         /// Data Gird.
@@ -116,29 +116,21 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <returns></returns>
         private void populatedgAdoptionApplicationsList()
         {
-            try
-            {
+            
                 dgAdoptionApplicationsList.ItemsSource = _homeInspectorManager.SelectAdoptionApplicationByStatus();
                 dgAdoptionApplicationsList.Columns[0].Header = "Adoption Application ID";
-                dgAdoptionApplicationsList.Columns[1].Header = "Custome Name";
+                dgAdoptionApplicationsList.Columns[1].Header = "Custome Email";
                 dgAdoptionApplicationsList.Columns[2].Header = "Animal Name";
                 dgAdoptionApplicationsList.Columns[3].Header = "Status";
-                dgAdoptionApplicationsList.Columns[4].Header = "Recieved Date and Time";
-            }
-            catch (Exception)
-            {
-
-                
-            }
-            
+                dgAdoptionApplicationsList.Columns[4].Header = "Recieved Date and Time"; 
         }
 
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
-        /// Approver: Thomas Dupuy
+        /// Approver: Austin Gee, 2020/02/19
         /// 
-        /// This is an event on btnOpen is clicked.
+        /// This is an event on btnOpen is clicked which will open Customer Detail window.
         /// </summary>
         ///
         /// <remarks>

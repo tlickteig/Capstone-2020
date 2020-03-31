@@ -19,11 +19,11 @@ namespace LogicLayerInterfaces
    {
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
-        /// Approver: Thomas Dupuy , 2020/02/21
+        /// Created On: 2020/29/2020
+        /// Approved By: 
         /// 
-        /// This method for getting Customer by thier name, and 
-        /// return a list of the Adoption Applications.
+        /// This method for getting Customer by email, 
+        /// 
         /// </summary>
         ///
         /// <remarks>
@@ -31,9 +31,9 @@ namespace LogicLayerInterfaces
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name="customerName"></param>     
+        /// <param name="customerEmail"></param>     
         /// <returns>Customer</returns>
 
-        Customer RetrieveCustomerByCustomerName(string customerName);
-   }
+        Customer RetrieveCustomerByCustomerEmail(string customerEmail);
+    }
 }
