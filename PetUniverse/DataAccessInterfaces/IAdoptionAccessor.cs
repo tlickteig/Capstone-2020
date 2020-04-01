@@ -75,7 +75,7 @@ namespace DataAccessInterfaces
         /// <param name="customerID"></param>
         AdoptionApplication getAdoptionApplicationByCustomerEmail(string customerEmail);
 
-        List<CustomerQuestionnar> getCustomerQuestionnair(string customerEmail);
+       List<CustomerQuestionnar> getCustomerQuestionnair(string customerEmail);
 
         /// <summary>
         /// Creator: Awaab Elamin
@@ -88,7 +88,27 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="decision"></param>
         int changeAdoptionApplicationStatus(int adoptionApplicationID, string decision);
-      
+
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/03/10
+        /// 
+        /// update the status of the adoption application
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="adoptionApplication"></param>
         bool insertAdoptionApplication(MVCAdoptionApplication adoptionApplication);
+
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/03/10
+        /// 
+        /// update the status of the adoption application
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        List<string> getAllQuestions();
+        bool inserQuestionnair(MVCQuestionnair questionnair);
     }
 }

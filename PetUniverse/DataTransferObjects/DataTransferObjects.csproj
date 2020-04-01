@@ -102,6 +102,7 @@
     <Compile Include="Medicine.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="MVCAdoptionApplication.cs" />
+    <Compile Include="MVCQuestionnair.cs" />
     <Compile Include="NewAnimalChecklist.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />

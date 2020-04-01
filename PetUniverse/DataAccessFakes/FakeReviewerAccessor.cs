@@ -337,22 +337,22 @@ namespace DataAccessFakes
         //string customerLastName = "";
         //foreach (AdoptionCustomer customer in customers)
         //{
-        //    if (customerID == customer.CustomerID)
-        //    {
-        //        customerLastName = customer.LastName;
-        //        break;
-        //    }
-        //    foreach (AdoptionApplication adoption in adoptionApplications)
-        //    {
-        //        if (adoption.CustomerName == customerLastName)
-        //        {
-        //            adoptionApplication = adoption;
+        //   if (customerID == customer.CustomerID)
+        //   {
+        //            customerLastName = customer.LastName;
         //            break;
         //        }
-        //    }
+        //        foreach (AdoptionApplication adoption in adoptionApplications)
+        //        {
+        //            if (adoption.CustomerName == customerLastName)
+        //            {
+        //                adoptionApplication = adoption;
+        //                break;
+        //            }
+        //        }
         //}
 
-        return adoptionApplication;
+       return adoptionApplication;
     }
 
     /// <summary>
@@ -370,7 +370,23 @@ namespace DataAccessFakes
         return adoptionApplications;
     }
 
-      
+    /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/03/10
+        /// 
+        /// retrieve All Questions Description from Gneral Questions table
+        /// </summary>
+    public List<string> getAllQuestions()
+    {
+            List<string> questions = new List<string>();
+            foreach (GeneralQuestion generalQuestion in generalQuestions)
+            {
+                questions.Add(generalQuestion.Description);
+            }
+            return questions;
+        }
+
+
 
         /// <summary>
         /// Creator: Awaab Elamin
@@ -462,6 +478,74 @@ namespace DataAccessFakes
         return returnQDescription;
     }
 
+        public bool inserQuestionnair(MVCQuestionnair questionnair)
+        {
+            bool result = false;
+            int count = customerQuestionnars.Count;
+            CustomerQuestionnar customerQuestionnair = new CustomerQuestionnar();
+
+            customerQuestionnair.QuestionDescription = questionnair.Question1;
+            customerQuestionnair.Answer = questionnair.Answer1;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            customerQuestionnair.QuestionDescription = questionnair.Question2;
+            customerQuestionnair.Answer = questionnair.Answer2;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            customerQuestionnair.QuestionDescription = questionnair.Question2;
+            customerQuestionnair.Answer = questionnair.Answer2;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            customerQuestionnair.QuestionDescription = questionnair.Question3;
+            customerQuestionnair.Answer = questionnair.Answer3;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            customerQuestionnair.QuestionDescription = questionnair.Question4;
+            customerQuestionnair.Answer = questionnair.Answer4;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            customerQuestionnair.QuestionDescription = questionnair.Question5;
+            customerQuestionnair.Answer = questionnair.Answer5;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            customerQuestionnair.QuestionDescription = questionnair.Question6;
+            customerQuestionnair.Answer = questionnair.Answer6;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            customerQuestionnair.QuestionDescription = questionnair.Question7;
+            customerQuestionnair.Answer = questionnair.Answer7;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            customerQuestionnair.QuestionDescription = questionnair.Question8;
+            customerQuestionnair.Answer = questionnair.Answer8;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            customerQuestionnair.QuestionDescription = questionnair.Question9;
+            customerQuestionnair.Answer = questionnair.Answer9;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            customerQuestionnair.QuestionDescription = questionnair.Question10;
+            customerQuestionnair.Answer = questionnair.Answer10;
+            customerQuestionnars.Add(customerQuestionnair);
+
+            if ((count + 10) == (customerQuestionnars.Count) )
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/03/6
+        /// Approver: Mohamed Elamin , 2020/03/10
+        /// 
+        /// Insert Adoption Apllication in AdoptionApplication table
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="adoptionApplication">
+        /// </param>
         public bool insertAdoptionApplication(MVCAdoptionApplication adoptionApplication)
         {
             bool result = false;

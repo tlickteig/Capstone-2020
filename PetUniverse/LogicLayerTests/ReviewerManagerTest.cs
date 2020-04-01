@@ -71,7 +71,7 @@ namespace LogicLayerTests
         /// Mohamed Elamin , 2/21/2020
         /// </remarks>
         [TestMethod]
-        public void TestGetCustomerBuyCustomerName()
+        public void TestGetCustomerByCustomerName()
         {
             //arrange
             AdoptionCustomer customer = null;
@@ -190,5 +190,7 @@ namespace LogicLayerTests
             bool result = reviewerManager.addAdoptionApplication(adoptionApplication);
             Assert.AreEqual(expect, result);
         }
+
+       
     }
 }

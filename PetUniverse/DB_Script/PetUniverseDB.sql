@@ -956,7 +956,6 @@ CREATE TABLE [dbo].[availabilityRequest] (
 		REFERENCES [user]([UserID])
 )
 GO
-
 /*
 Created by: Awaab Elamin
 Date: 2/18/2020
@@ -965,12 +964,15 @@ Comment: Create a general questiones table that contain the questions of the que
 GO
 print '' print '*** Creating the GeneralQusetions table'
 GO
+DROP TABLE IF EXISTS [dbo].[GeneralQusetions]
+GO
 CREATE TABLE [dbo].[GeneralQusetions](
 	[QuestionID] [int] IDENTITY (1000000, 1) NOT NULL,
 	[Description] [nvarchar](1000) NOT NULL,
 
 	CONSTRAINT [pk_QuestionID] PRIMARY KEY ([QuestionID] ASC)
 )
+GO
 /*
 Created by: Awaab Elamin
 Date: 2/10/2020
@@ -3221,7 +3223,7 @@ BEGIN
 	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
 			Decision,LocationID
 	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = "Interviewer"
+	WHERE	[AppointmentTypeID] = 'Interviewer'
 END
 GO
 
@@ -3274,7 +3276,7 @@ BEGIN
         [LocationID],
         [Active]
 	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = "inHomeInspection"
+	WHERE	[AppointmentTypeID] = 'inHomeInspection'
 END
 GO
 
@@ -4017,8 +4019,6 @@ BEGIN
 	WHERE [AdoptionApplicationID] = @AdoptionApplicationID
 	RETURN @@ROWCOUNT
 END
-GO
-
 /*
 Created by: Awaab Elamin
 Date: 2/12/2020
@@ -4029,6 +4029,8 @@ Comment: Updated CustomerID to CustomerEmail
 */
 GO
 print '' print '*** sp_get_Customer_Answer_By_CustomrEmail'
+GO
+DROP PROCEDURE IF EXISTS [sp_get_Customer_Answer_By_CustomrEmail]
 GO
 Create PROCEDURE [dbo].[sp_get_Customer_Answer_By_CustomrEmail]
 (
@@ -4049,7 +4051,7 @@ Date: 2/12/2020
 Comment: Create SP retrieve Customer ID from Customers  Table by using user ID
 Updated by Awaab Elamin
 Date: 3/15/2020
-Comment: Canceled SP because dosn't work after Customer Table Updated
+Comment: Canceled SP because we don't need it after Customer Table Updated
 
 GO
 print '' print '*** sp_get_CustomerID_By_User_ID'
@@ -4066,12 +4068,7 @@ BEGIN
 END
 GO
 */
-/*
-Created by: Awaab Elamin
-Date: 2/12/2020
-Comment: Create SP retrieve question description by question ID
-*/
-GO
+
 /*
 Created by: Awaab Elamin
 Date: 2/12/2020
@@ -4079,6 +4076,8 @@ Comment: Create SP retrieve question description by question ID
 */
 GO
 print '' print '*** Creating sp_get_question_description_by_questionId'
+GO
+DROP PROCEDURE IF EXISTS [sp_get_question_description_by_questionId]
 GO
 CREATE PROCEDURE [dbo].[sp_get_question_description_by_questionId]
 (
@@ -4088,8 +4087,9 @@ AS
 BEGIN
 	SELECT 	[Description]
 	From 	[dbo].[GeneralQusetions]
-	WHERE	[QuestionID] = @QuestionID;
+	WHERE	[QuestionID] = @QuestionID
 END
+GO
 /*
 Created by: Awaab Elamin
 Date: 2/5/2020
@@ -4100,6 +4100,8 @@ Comment: Update CustomerID to CustomerEmail
 */
 GO
 print '' print '*** Creating sp_get_Adoption_Application'
+GO
+DROP PROCEDURE IF EXISTS [sp_get_Adoption_Application]
 GO
 Create PROCEDURE [dbo].[sp_get_Adoption_Application]
 AS
@@ -4123,6 +4125,8 @@ GO
 GO
 print '' print '*** Creating sp_get_Animal_by_id'
 GO
+DROP PROCEDURE IF EXISTS [sp_get_animal_by_id]
+GO
 Create PROCEDURE [dbo].[sp_get_animal_by_id]
 (
 	@animalId int
@@ -4139,7 +4143,7 @@ BEGIN
 			[Active] ,
 			[AnimalSpeciesID]
 	FROM 	[dbo].[Animal]
-	WHERE	[AnimalID] = @animalId;
+	WHERE	[AnimalID] = @animalId
 END
 GO
 /*
@@ -4153,6 +4157,8 @@ Comment: Update Sp to retrieve the Application by Customer Email
 GO
 print '' print '*** Creating sp_get_Adoption_Application_By_CustomerEmail'
 GO
+DROP PROCEDURE IF EXISTS [sp_get_Adoption_Application_By_CustomerEmail]
+GO
 CREATE PROCEDURE [dbo].[sp_get_Adoption_Application_By_CustomerEmail]
 (@customerEmail [nvarchar](250))
 AS
@@ -4162,7 +4168,7 @@ BEGIN
 			[Status],
 			[RecievedDate]
 	From 	[dbo].[AdoptionApplication]
-	WHERE	[CustomerEmail] = @customerEmail;
+	WHERE	[CustomerEmail] = @customerEmail
 END
 GO
 /*
@@ -6725,6 +6731,71 @@ VALUES
 (@CustomerEmail,@RecievedDate,@Status,@AnimalID)
 END
 GO
+/*
+Created by: Awaab Elamin
+Date: 3/18/2020
+Comment: Create SP sp_get_all_General_Questions
+*/
+GO
+print '' print '*** Creating sp_get_all_General_Questions'
+GO
+DROP PROCEDURE IF EXISTS [sp_get_all_General_Questions]
+GO
+CREATE PROCEDURE [dbo].[sp_get_all_General_Questions]
+AS
+BEGIN
+	SELECT 	[Description]
+	From 	[dbo].[GeneralQusetions]
+END
+GO
+/*
+Created by: Awaab Elamin
+Date: 10/03/2020
+Comment: Create SP sp_add_customer_questionnair
+*/
+GO
+print '' print '*** Creating sp_add_customer_questionnair'
+GO
+DROP PROCEDURE IF EXISTS sp_add_customer_questionnair
+GO
+CREATE PROCEDURE [dbo].[sp_add_customer_questionnair]
+(
+	@AdoptionApplicationID [int], 	@CustomerEmail	[nvarchar](250),
+
+	@Question1	[nvarchar](100),	@Question2	[nvarchar](100),
+	@Question3	[nvarchar](100),	@Question4	[nvarchar](100),
+	@Question5	[nvarchar](100),	@Question6	[nvarchar](100),
+	@Question7	[nvarchar](100),	@Question8	[nvarchar](100),
+	@Question9	[nvarchar](100),	@Question10	[nvarchar](100),
+
+	@Answer1 [nvarchar](500),	@Answer2 [nvarchar](500),
+	@Answer3 [nvarchar](500),	@Answer4 [nvarchar](500),
+	@Answer5 [nvarchar](500),	@Answer6 [nvarchar](500),
+	@Answer7 [nvarchar](500),	@Answer8 [nvarchar](500),
+	@Answer9 [nvarchar](500),	@Answer10 [nvarchar](500)
+
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[CustomerAnswers]
+	(
+		 [AdoptionApplicationID],[CustomerEmail], [QuestionDescription],[Answer]
+	)
+	VALUES
+		(@AdoptionApplicationID,@CustomerEmail,@Question1,@Answer1),
+		(@AdoptionApplicationID,@CustomerEmail,@Question2,@Answer2),
+		(@AdoptionApplicationID,@CustomerEmail,@Question3,@Answer3),
+		(@AdoptionApplicationID,@CustomerEmail,@Question4,@Answer4),
+		(@AdoptionApplicationID,@CustomerEmail,@Question5,@Answer5),
+		(@AdoptionApplicationID,@CustomerEmail,@Question6,@Answer6),
+		(@AdoptionApplicationID,@CustomerEmail,@Question7,@Answer7),
+		(@AdoptionApplicationID,@CustomerEmail,@Question8,@Answer8),
+		(@AdoptionApplicationID,@CustomerEmail,@Question9,@Answer9),
+		(@AdoptionApplicationID,@CustomerEmail,@Question10,@Answer10)
+		Return @@ROWCOUNT 
+END
+GO
+
 
 /*
     Created By: Cash Carlson
@@ -7712,7 +7783,7 @@ GO
 INSERT INTO [dbo].[GeneralQusetions]
 (Description)
 VALUES
-('Question 1'),('Question 2'),('Question 3'),('Question 4'),('Question 5'),('Question 6'),('Question 7')
+('Question 1'),('Question 2'),('Question 3'),('Question 4'),('Question 5'),('Question 6'),('Question 7'),('Question 8'),('Question 9'),('Question 10')
 GO
 
 GO
@@ -7733,7 +7804,10 @@ VALUES
 ('Question 4','Answer4','Awaab@Awaaab.com',(SELECT [AdoptionApplicationID]FROM [dbo].[AdoptionApplication]WHERE [dbo].[AdoptionApplication].[CustomerEmail] = 'Awaab@Awaaab.com')),
 ('Question 5','Answer5','Awaab@Awaaab.com',(SELECT [AdoptionApplicationID]FROM [dbo].[AdoptionApplication]WHERE [dbo].[AdoptionApplication].[CustomerEmail] = 'Awaab@Awaaab.com')),
 ('Question 6','Answer6','Awaab@Awaaab.com',(SELECT [AdoptionApplicationID]FROM [dbo].[AdoptionApplication]WHERE [dbo].[AdoptionApplication].[CustomerEmail] = 'Awaab@Awaaab.com')),
-('Question 7','Answer7','Awaab@Awaaab.com',(SELECT [AdoptionApplicationID]FROM [dbo].[AdoptionApplication]WHERE [dbo].[AdoptionApplication].[CustomerEmail] = 'Awaab@Awaaab.com'))
+('Question 7','Answer7','Awaab@Awaaab.com',(SELECT [AdoptionApplicationID]FROM [dbo].[AdoptionApplication]WHERE [dbo].[AdoptionApplication].[CustomerEmail] = 'Awaab@Awaaab.com')),
+('Question 8','Answer8','Awaab@Awaaab.com',(SELECT [AdoptionApplicationID]FROM [dbo].[AdoptionApplication]WHERE [dbo].[AdoptionApplication].[CustomerEmail] = 'Awaab@Awaaab.com')),
+('Question 9','Answer9','Awaab@Awaaab.com',(SELECT [AdoptionApplicationID]FROM [dbo].[AdoptionApplication]WHERE [dbo].[AdoptionApplication].[CustomerEmail] = 'Awaab@Awaaab.com')),
+('Question 10','Answer10','Awaab@Awaaab.com',(SELECT [AdoptionApplicationID]FROM [dbo].[AdoptionApplication]WHERE [dbo].[AdoptionApplication].[CustomerEmail] = 'Awaab@Awaaab.com'))
 GO
 
 /*

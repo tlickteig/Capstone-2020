@@ -346,6 +346,7 @@
     <Content Include="Views\RequestAvailabilityChange\Create.cshtml" />
     <Content Include="Views\RequestTimeOff\Create.cshtml" />
     <Content Include="Views\ChooseRequestType\Index.cshtml" />
+    <Content Include="Views\Adoption\Questionnair.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

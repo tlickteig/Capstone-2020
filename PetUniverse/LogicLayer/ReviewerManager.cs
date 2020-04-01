@@ -154,8 +154,9 @@ namespace LogicLayer
         /// update the status of the adoption application according the reviewer decision
         /// </summary>
         /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
+        /// by Awaab Elamin 2/4/2020
+        /// reviewed by
+        /// Mohamed Elamin , 21/2/2020
         /// </remarks>
         public bool SubmitReviewerDecision(int adoptionApplicationID, string decision)
         {
@@ -169,6 +170,14 @@ namespace LogicLayer
             return result;
         }
 
+        /// <summary>
+        /// update the status of the adoption application according the reviewer decision
+        /// </summary>
+        /// <remarks>
+        /// by Awaab Elamin 2020/3/6
+        /// reviewed by
+        /// Mohamed Elamin , 2020/3/10
+        /// </remarks>
         public bool addAdoptionApplication(MVCAdoptionApplication adoptionApplication)
         {
             bool result = false;
@@ -187,24 +196,37 @@ namespace LogicLayer
             return result;
         }
 
-        //public List<string> retrieveCustomerQuestionnar()
-        //{
-        //    List<string> questionnairs = new List<string>();
-        //    List<CustomerQuestionnar> customerQuestions = new List<CustomerQuestionnar>();
-        //    try
-        //    {
-        //        customerQuestions = adoptionAccessor.getAllQuestions();
-        //        foreach (var item in customerQuestions)
-        //        {
-        //            questionnairs.Add(item.QuestionDescription);
-        //        }
-        //    }
-        //    catch (Exception)
-        //    {
+        /// <summary>
+        /// update the status of the adoption application according the reviewer decision
+        /// </summary>
+        /// <remarks>
+        /// by Awaab Elamin 2020/3/10
+        /// </remarks>
+        public List<string> retrieveAllQuestions()
+        {
+            List<string> questions = new List<string>();
+            try
+            {
+                questions = adoptionAccessor.getAllQuestions();
+               
+            }
+            catch (Exception)
+            {
 
-        //        throw;
-        //    }
-        //    return questionnairs;
-        //}
+                throw;
+            }
+            return questions;
+        }
+
+        public bool addQuestionnair(MVCQuestionnair questionnair)
+        {
+            bool result = false;
+           // questionnair.CustomerEmail = model
+            if (adoptionAccessor.inserQuestionnair(questionnair))
+            {
+                result = true;
+            }
+            return result;
+        }
     }
 }

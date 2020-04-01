@@ -468,9 +468,17 @@ namespace DataAccessLayer
 			return customerQuestionnars;
 		}
 
-		public List<CustomerQuestionnar> getAllQuestions()
+		/// <summary>
+		/// Creator: Awaab Elamin
+		/// Created: 2020/2/17
+		/// Approver: Mohamed Elamin , 2/21/2020
+		/// 
+		/// retrieve Questionnaes general questions table
+		/// </summary>
+		/// </remarks>
+		public List<string> getAllQuestions()
 		{
-			List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
+			List<string> questions = new List<string>();
 			var conn = DBConnection.GetConnection();
 			string cmdText = @"sp_get_all_General_Questions";
 			var cmd = new SqlCommand(cmdText, conn);
@@ -483,10 +491,8 @@ namespace DataAccessLayer
 				{
 					while (reader.Read())
 					{
-						CustomerQuestionnar customerQuestionnar
-							= new CustomerQuestionnar();
-						customerQuestionnar.QuestionDescription = reader.GetString(0);
-						customerQuestionnars.Add(customerQuestionnar);
+
+						questions.Add( reader.GetString(0));
 					}
 					reader.Close();
 				}
@@ -500,9 +506,16 @@ namespace DataAccessLayer
 			{
 				conn.Close();
 			}
-			return customerQuestionnars;
+			return questions;
 		}
 
+		/// <summary>
+		/// Creator: Awaab Elamin
+		/// Created: 2020/03/06
+		/// Approver: Mohamed Elamin , 2020/03/10
+		/// 
+		/// retrieve Questionnaes general questions table
+		/// </summary>
 		public bool insertAdoptionApplication(MVCAdoptionApplication adoptionApplication)
 		{
 			bool result = false;
@@ -524,7 +537,7 @@ namespace DataAccessLayer
 			catch (Exception ex)
 			{
 
-				throw ex;
+				throw;
 			}
 			finally
 			{
@@ -533,6 +546,71 @@ namespace DataAccessLayer
 			return result;
 		}
 
-		
+		/// <summary>
+		/// Creator: Awaab Elamin
+		/// Created: 2020/03/10
+		/// 
+		/// insert Questionnair in customer questionnair table
+		/// </summary>
+		public bool inserQuestionnair(MVCQuestionnair questionnair)
+		{
+			bool result = false;
+			//1\Connect to data base
+			var conn = DBConnection.GetConnection();
+
+			//2\A-Create a sqol command
+			var cmd = new SqlCommand("sp_add_customer_questionnair", conn);
+
+			//2-B classify the command type
+			cmd.CommandType = CommandType.StoredProcedure;
+
+			//2-b determine the paramerters values
+			cmd.Parameters.AddWithValue("@CustomerEmail", questionnair.CustomerEmail);
+			cmd.Parameters.AddWithValue("@AdoptionApplicationID", questionnair.AdoptionApplicationID);
+
+			cmd.Parameters.AddWithValue("@Question1", questionnair.Question1);
+			cmd.Parameters.AddWithValue("@Question2", questionnair.Question2);
+			cmd.Parameters.AddWithValue("@Question3", questionnair.Question3);
+			cmd.Parameters.AddWithValue("@Question4", questionnair.Question4);
+			cmd.Parameters.AddWithValue("@Question5", questionnair.Question5);
+			cmd.Parameters.AddWithValue("@Question6", questionnair.Question6);
+			cmd.Parameters.AddWithValue("@Question7", questionnair.Question7);
+			cmd.Parameters.AddWithValue("@Question8", questionnair.Question8);
+			cmd.Parameters.AddWithValue("@Question9", questionnair.Question9);
+			cmd.Parameters.AddWithValue("@Question10", questionnair.Question10);
+
+			cmd.Parameters.AddWithValue("@Answer1", questionnair.Answer1);
+			cmd.Parameters.AddWithValue("@Answer2", questionnair.Answer2);
+			cmd.Parameters.AddWithValue("@Answer3", questionnair.Answer3);
+			cmd.Parameters.AddWithValue("@Answer4", questionnair.Answer4);
+			cmd.Parameters.AddWithValue("@Answer5", questionnair.Answer5);
+			cmd.Parameters.AddWithValue("@Answer6", questionnair.Answer6);
+			cmd.Parameters.AddWithValue("@Answer7", questionnair.Answer7);
+			cmd.Parameters.AddWithValue("@Answer8", questionnair.Answer8);
+			cmd.Parameters.AddWithValue("@Answer9", questionnair.Answer9);
+			cmd.Parameters.AddWithValue("@Answer10", questionnair.Answer10);
+
+			//3 A-try to connect to the data base
+			try
+			{
+				conn.Open();
+				//3 B- run the command
+				if ((int)cmd.ExecuteNonQuery() == 1)
+				{
+					result = true;
+				}
+			}
+			catch (Exception ex)
+			{
+
+				result = false;
+			}
+			finally
+			{
+				//4- close the connection
+				conn.Close();
+			}
+			return result;
+		}
 	}
 }
