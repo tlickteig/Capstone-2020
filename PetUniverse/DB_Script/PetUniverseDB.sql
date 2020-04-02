@@ -4711,7 +4711,7 @@ BEGIN
 			[EventZipcode] = @NewEventZipcode,
 			[EventPictureFileName] = @NewEventPictureFileName,
 			[Status] = @NewStatus,
-			[Description] = @OldDescription
+			[Description] = @NewDescription
 
 	WHERE 	[EventID] = @EventID
 		AND	[CreatedByID] = @OldCreatedByID
@@ -4876,23 +4876,27 @@ GO
 	Created by: Steve Coonrod
 	Date: 2/9/2020
 	Comment: Stored Procedure for adding a new Request to the DB
+	
+	Updated On : 2020-03-15
 */
-DROP PROCEDURE IF EXISTS [sp_INSERT_request]
+DROP PROCEDURE IF EXISTS [sp_insert_request]
+--GO
+PRINT '' PRINT '*** Creating sp_insert_request'
 GO
-PRINT '' PRINT '*** Creating sp_INSERT_request'
-GO
-CREATE PROCEDURE [sp_INSERT_request]
+CREATE PROCEDURE [sp_insert_request]
 (
 	@RequestID			[int] OUTPUT,
 	@DateCreated		[datetime],
-	@RequestTypeID		[nvarchar](50)
+	@RequestTypeID		[nvarchar](50),
+	@RequestingUserID	[int],
+	@Open				[bit]
 )
 AS
 BEGIN
 	INSERT INTO [dbo].[request]
-		([DateCreated],[RequestTypeID])
+		([DateCreated],[RequestTypeID],[RequestingUserID],[Open])
 	VALUES
-		(@DateCreated, @RequestTypeID)
+		(@DateCreated, @RequestTypeID, @RequestingUserID, @Open)
 	SELECT @RequestID = SCOPE_IDENTITY()
 END
 GO
@@ -8229,7 +8233,8 @@ INSERT INTO [dbo].[EventType]
 	VALUES
 	('Fundraiser','An event held to raise funding for a specific cause.'),
 	('Awareness','An event held to raise awareness for a specific issue.'),
-	('Adoption','An event held to showcase animals who are available for adoption or sponsorship.')
+	('Adoption','An event held to showcase animals who are available for adoption or sponsorship.'),
+	('Training','Training class with a certified trainer for a specific animal.')
 GO
 
 /*
@@ -8246,6 +8251,12 @@ INSERT INTO [dbo].[Event]
 	(100002, '01/10/18 6:00:00', 'ZappyBs Animal House','Fundraiser','01/23/19 6:30:00.000','123 Doreyme Street',
 		'Boulder','CO','80663','ZappyBsAnimalHouse.jpg','Completed',
 		'ZappyBs Animal House is an annual event that raises funds to sponsor the ABC Animal Shelter.'),
+	(100002, '01/10/18 8:00:00', 'Bluebird Animal Retreat','Adoption','05/16/20 15:30:00.000','343 A Ave',
+		'Cedar Rapids','IA','52402','default.png','Approved',
+		'The Bluebird Annual Animal Retreat is a great opportunity to com interact with the animals from the Bluebird Animal Shelter.'),
+	(100002, '01/10/18 10:00:00', 'Canine Service Training','Training',DATEADD(MINUTE, 30, DATEADD(HOUR, 16, DATEDIFF(DAY, 0, CURRENT_TIMESTAMP))),'343 C St',
+		'Cedar Rapids','IA','52408','default.png','Active',
+		'Training classes for Canine Service Certification.'),
 	(100002, '01/10/18 6:00:00', 'Lets Paws A Minute','Awareness','04/23/19 15:30:00.000','2424 A Street',
 		'Cedar Rapids','IA','52402','default.png','PendingApproval',
 		'Lets Paws A Minute is an event for raising awareness about canine diabetis.')
@@ -8945,5 +8956,167 @@ BEGIN
 	  AND	[Taxable]         = @OldTaxable
 	 
 	RETURN @@ROWCOUNT
+END
+GO
+
+
+
+
+/*
+Created by: Steve Coonrod
+Date: 2020/03/06
+Comment: Sample Request Data
+*/
+print '' print '*** Inserting Sample Request Records for Sample Events'
+GO
+INSERT INTO [dbo].[request]
+	([DateCreated], [RequestTypeID], [RequestingUserID],[Open])
+	VALUES
+	('20200206 11:00:00 AM', 'Event', 100002, 1),
+	('20200207 12:55:01 PM', 'Event', 100000, 1),
+	('20200208 01:02:03 PM', 'Event', 100000, 1),
+	('20200207 12:55:01 PM', 'Event', 100003, 0)
+GO 
+
+/*
+Created by: Steve Coonrod
+Date: 2020/03/06
+Comment: Sample EventRequest Data
+*/
+print '' print '*** Inserting Sample EventRequest Records for Sample Events'
+GO
+INSERT INTO [dbo].[EventRequest]
+		([EventID],[RequestID],[ReviewerID],[DisapprovalReason],[DesiredVolunteers],[Active])
+	VALUES
+		(1000000, 1000000, 100000, NULL, 3, 0),
+		(1000001, 1000001, 100000, NULL, 2, 0),
+		(1000002, 1000002, 100000, NULL, 4, 0),
+		(1000003, 1000003, NULL, NULL, 0, 1)
+GO
+
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for retrieving a List of Events from the DB
+			 Where The status = @Status
+*/
+print '' print '*** Creating sp_select_events_by_status'
+GO
+CREATE PROCEDURE [sp_select_events_by_status]
+(
+	@Status						[nvarchar](50)
+)
+AS
+BEGIN
+	SELECT 	[EventID],[CreatedByID],[DateCreated],[EventName],[EventTypeID],
+			[EventDateTime],[EventAddress],[EventCity],[EventState],[EventZipcode],
+			[EventPictureFileName],[Status],[Description]
+	FROM   	[dbo].[Event]
+	WHERE  	[Status] = @Status
+	ORDER BY [EventDateTime]ASC
+END
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for retrieving an EventApprovalVM from the DB
+*/
+print '' print '*** Creating sp_select_event_request_by_eventID'
+GO
+CREATE PROCEDURE [sp_select_event_approval_request_by_eventID]
+(
+	@EventID			[int],
+	@CreatedByID		[int]
+)
+AS 
+BEGIN
+
+	SELECT  [dbo].[User].[FirstName] + ' ' + [dbo].[User].[LastName] AS [RequestedByName],
+			[DateCreated],[EventName],[EventTypeID],
+			[EventDateTime],[EventAddress],[EventCity],[EventState],[EventZipcode],
+			[EventPictureFileName],[Status],[Description],
+			[ReviewerID],[DisapprovalReason],[DesiredVolunteers]
+	FROM	[dbo].[Event] JOIN 	[dbo].[EventRequest]
+	ON		[dbo].[Event].[EventID] = [dbo].[EventRequest].[EventID]
+	JOIN 	[dbo].[User]
+	ON		[dbo].[Event].[CreatedByID] = [dbo].[User].[UserID]
+	WHERE	[dbo].[Event].[EventID] = @EventID
+	AND		[dbo].[User].[UserID] = @CreatedByID
+END
+GO
+
+/*
+Created by: Steve Coonrod
+Date: 2020/03/06
+Comment: Stored Procedure to select an Event Request by the EventID
+*/
+print '' print '*** Creating sp_select_event_request_by_event_id'
+GO
+CREATE PROCEDURE [sp_select_event_request_by_event_id]
+(
+	@EventID				[int]
+)
+AS 
+BEGIN
+	SELECT  [RequestID],[ReviewerID],[DisapprovalReason],[DesiredVolunteers],[Active]
+	FROM	[dbo].[EventRequest]
+	WHERE	[EventID] = @EventID
+END
+GO
+
+/*
+Created by: Steve Coonrod
+Date: 2020/03/06
+Comment: Stored Procedure to update an Event Request
+*/
+print '' print '*** Creating sp_update_event_request'
+GO
+CREATE PROCEDURE [sp_update_event_request]
+(
+	@EventID				[int],
+	@ReviewerID				[int],
+	@DisapprovalReason		[nvarchar](500),
+	@DesiredVolunteers		[int],
+	@Active					[bit],
+	@OldReviewerID			[int],
+	@OldDisapprovalReason	[nvarchar](500),
+	@OldDesiredVolunteers	[int],
+	@OldActive				[bit]
+)
+AS 
+BEGIN
+	UPDATE	[dbo].[EventRequest]
+	SET		[ReviewerID] = @ReviewerID,
+			[DisapprovalReason] = @DisapprovalReason,
+			[DesiredVolunteers] = @DesiredVolunteers,
+			[Active] = @Active
+	WHERE	[EventID] = @EventID
+		--AND [ReviewerID] = @OldReviewerID
+		--AND	[DisapprovalReason] = @OldDisapprovalReason
+		AND	[DesiredVolunteers] = @OldDesiredVolunteers
+		AND	[Active] = @OldActive
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Steve Coonrod
+Date: 2020/03/06
+Comment: Stored Procedure to change the status of an Event
+*/
+print '' print '*** Creating sp_set_event_status'
+GO
+CREATE PROCEDURE [sp_set_event_status]
+(
+	@EventID		[int],
+	@Status			[nvarchar](50)
+)
+AS 
+BEGIN
+	UPDATE 	[dbo].[Event]
+	SET		[Status] = @Status
+	WHERE	[EventID] = @EventID
 END
 GO

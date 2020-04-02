@@ -38,6 +38,47 @@ namespace LogicLayerInterfaces
         /// <returns></returns>
         int AddEvent(PUEvent puEvent);
 
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-02-06
+        /// CHECKED BY: 
+        /// 
+        /// This method takes an event and sends it through the EventAccessor
+        /// To be edited in the database. 
+        /// 
+        /// It returns true if the edit was successful
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="oldEvent"></param>
+        /// <param name="newEvent"></param>
+        /// <returns></returns>
+        bool EditEvent(PUEvent oldEvent, PUEvent newEvent);
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-02-06
+        /// CHECKED BY: 
+        /// 
+        /// This method takes an event and sends it through the EventAccessor
+        /// To be deleted from the database. 
+        /// 
+        /// It returns true if the delete was successful
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
+        bool DeleteEvent(int eventID);
+
+
         /// <summary>
         /// 
         /// NAME: Steve Coonrod
@@ -117,5 +158,93 @@ namespace LogicLayerInterfaces
         /// </summary>
         /// <returns></returns>
         List<EventType> GetAllEventTypes();
+
+        //=========================================================================\\
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// This method retrieves a List of all events 
+        /// which have the specified Status
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        List<PUEvent> GetEventsByStatus(string status);
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-04
+        /// CHECKED BY: 
+        /// 
+        /// This method returns the Event View Model associated with the given eventID
+        /// through the EventAccessor
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="EventID"></param>
+        /// <param name="CreatedByID"></param>
+        /// <returns></returns>
+        EventApprovalVM GetEventApprovalVM(int EventID, int CreatedByID);
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/15/2020
+        /// Checked By:
+        /// 
+        /// The event manager method for Selecting an Event Request associated with the specified EventD
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
+        EventRequest GetEventRequestByEventID(int eventID);
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/15/2020
+        /// Checked By:
+        /// 
+        /// The event manager method for Updating an Event Request
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="oldEventRequest"></param>
+        /// <param name="newEventRequest"></param>
+        /// <returns></returns>
+        bool UpdateEventRequest(EventRequest oldEventRequest, EventRequest newEventRequest);
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/15/2020
+        /// Checked By:
+        /// 
+        /// A method to Update an Event's Status to the status specified
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        bool UpdateEventStatus(int eventID, string status);
+
+
     }
 }

@@ -36,6 +36,38 @@ namespace DataAccessInterfaces
         /// <returns></returns>
         int InsertEvent(PUEvent puEvent);//Took out createdByID parameter...
 
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 2/10/2020
+        /// Checked By:
+        /// 
+        /// The interface method for Editing an Event
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="oldEvent"></param>
+        /// <param name="newEvent"></param>
+        /// <returns></returns>
+        bool UpdateEventDetails(PUEvent oldEvent, PUEvent newEvent);
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 2/10/2020
+        /// Checked By:
+        /// 
+        /// The interface method for Deleting an Event
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
+        bool DeleteEvent(int eventID);
 
         /// <summary>
         /// 
@@ -112,5 +144,94 @@ namespace DataAccessInterfaces
         /// </summary>
         /// <returns></returns>
         List<EventType> SelectAllEventTypes();
+
+        //=============================================================================\\
+
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/08/2020
+        /// Checked By:
+        /// 
+        /// The interface method for Selecting an Event Approval View Model
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <param name="createdByID"></param>
+        /// <returns></returns>
+        EventApprovalVM SelectEventApprovalVM(int eventID, int createdByID);
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/10/2020
+        /// Checked By:
+        /// 
+        /// The interface method for Selecting an Event Request by the Event's ID
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
+        EventRequest SelectEventRequestByEventID(int eventID);
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/10/2020
+        /// Checked By:
+        /// 
+        /// The interface method for Updating an Event Request
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="oldEventRequest"></param>
+        /// <param name="newEventRequest"></param>
+        /// <returns></returns>
+        bool UpdateEventRequest(EventRequest oldEventRequest, EventRequest newEventRequest);
+
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/15/2020
+        /// Checked By:
+        /// 
+        /// The interface method for Selecting a List of Events by the Status
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        List<PUEvent> SelectEventsByStatus(string status);
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/15/2020
+        /// Checked By:
+        /// 
+        /// The interface method for Updating an Event's Status
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        bool UpdateEventStatus(int eventID, string status);
+
     }
 }

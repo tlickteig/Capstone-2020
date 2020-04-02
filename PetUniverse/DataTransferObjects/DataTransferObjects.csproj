@@ -84,6 +84,7 @@
     <Compile Include="Department.cs" />
     <Compile Include="DepartmentRequest.cs" />
     <Compile Include="ERole.cs" />
+    <Compile Include="EventApprovalVM.cs" />
     <Compile Include="EventRequest.cs" />
     <Compile Include="EventType.cs" />
     <Compile Include="FacilityInspection.cs" />

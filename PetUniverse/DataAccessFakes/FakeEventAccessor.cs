@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace DataAccessFakes
@@ -26,6 +27,7 @@ namespace DataAccessFakes
         private List<Request> requests = null;
         private List<EventRequest> puEventRequests = null;
         private List<EventType> eventTypes = null;
+        private EventApprovalVM eventApprovalVM = null;
 
         public FakeEventAccessor()
         {
@@ -45,7 +47,7 @@ namespace DataAccessFakes
                     State = "IA",
                     Zipcode = "52402",
                     BannerPath = "billysParade.jpg",
-                    Status = "Pending Approval",
+                    Status = "PendingApproval",
                     Description = "Billy Little is hosting a childrens animal parade."
                 },
                 new PUEvent()
@@ -61,7 +63,7 @@ namespace DataAccessFakes
                     State = "CO",
                     Zipcode = "88233",
                     BannerPath = "FawnLake.jpg",
-                    Status = "Pending Approval",
+                    Status = "PendingApproval",
                     Description = "Come spend some time with our animals out at Fawn Lake Animal Shelter."
                 },
                 new PUEvent()
@@ -77,7 +79,7 @@ namespace DataAccessFakes
                     State = "WI",
                     Zipcode = "67421",
                     BannerPath = "ACAR.jpg",
-                    Status = "Pending Approval",
+                    Status = "PendingApproval",
                     Description = "Animals are cruel and you need to know about it."
                 },
                 new PUEvent()
@@ -105,25 +107,29 @@ namespace DataAccessFakes
                 {
                     RequestID = 1000000,
                     DateCreated = DateTime.Parse("01/24/2019 05:15 PM"),
-                    RequestTypeID = "Event"
+                    RequestTypeID = "Event",
+                    Open = true
                 },
                 new Request()
                 {
                     RequestID = 1000001,
                     DateCreated = DateTime.Parse("01/24/2019 05:15 PM"),
-                    RequestTypeID = "Event"
+                    RequestTypeID = "Event",
+                    Open = true
                 },
                 new Request()
                 {
                     RequestID = 1000002,
                     DateCreated = DateTime.Parse("01/24/2019 05:15 PM"),
-                    RequestTypeID = "Event"
+                    RequestTypeID = "Event",
+                    Open = true
                 },
                 new Request()
                 {
                     RequestID = 1000003,
                     DateCreated = DateTime.Parse("01/24/2019 05:15 PM"),
-                    RequestTypeID = "Event"
+                    RequestTypeID = "Event",
+                    Open = false
                 },
             };
 
@@ -192,6 +198,26 @@ namespace DataAccessFakes
                 }
             };
 
+            eventApprovalVM = new EventApprovalVM()
+            {
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Parse("10/31/2020 05:15 PM"),
+                Address = "1187 Arbor Lane",
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67421",
+                BannerPath = "ACAR.jpg",
+                Status = "PendingApproval",
+                Description = "Animals are cruel and you need to know about it.",
+                RequestedByName = "Billy Anderson",
+                DesiredVolunteers = 0,
+                DisapprovalReason = null,
+                ReviewerName = null
+            };
+
+
         }
 
         /// <summary>
@@ -258,6 +284,143 @@ namespace DataAccessFakes
             return intToReturn;
         }
 
+
+        /// <summary>
+        /// 
+        /// /// NAME: Steve Coonrod
+        /// DATE: 2020-02-06
+        /// CHECKED BY:Ryan Morganti
+        /// 
+        /// The method used to Edit a test event in the fake repository
+        /// Returns false if failed
+        /// Returns true if successful
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="oldEvent"></param>
+        /// <param name="newEvent"></param>
+        /// <returns></returns>
+        public bool UpdateEventDetails(PUEvent oldEvent, PUEvent newEvent)
+        {
+            bool successfulEdit = false;
+            if (newEvent.EventName.Length < 8 || newEvent.EventName.Length > 150)
+            {
+                throw new ApplicationException("The Event Name value was outside the acceptable range.");
+            }
+            else if (newEvent.EventDateTime < DateTime.Now.AddDays(14))
+            {
+                throw new ApplicationException("The event date is too close. Must be at least 14 days in the future.");
+            }
+            else if (newEvent.Address.Length > 200 || newEvent.Address.Length < 6)
+            {
+                throw new ApplicationException("The address value was not within the acceptable range.");
+            }
+            else if (newEvent.City.Length < 2 || newEvent.City.Length > 50)
+            {
+                throw new ApplicationException("The city value was not within acceptable range.");
+            }
+            else if (!Regex.Match(newEvent.Zipcode, "^[0-9]{5}(?:-[0-9]{4})?$").Success)
+            {
+                throw new ApplicationException("Invalid Zipcode");
+            }
+            else if (newEvent.BannerPath.Length < 6 || newEvent.BannerPath.Length > 250)
+            {
+                throw new ApplicationException("The picture file name is not within acceptable range.");
+            }
+            else if (!newEvent.BannerPath.Substring(newEvent.BannerPath.Length - 4).ToLower().Equals(".jpg")
+                && !newEvent.BannerPath.Substring(newEvent.BannerPath.Length - 4).ToLower().Equals(".png"))
+            {
+                throw new ApplicationException("The picture file name is missing the file extension.");
+            }
+            else if (newEvent.Description.Length < 2 || newEvent.Description.Length > 500)
+            {
+                throw new ApplicationException("The discription value is not within the acceptable range.");
+            }
+            else
+            {
+                //Finds the event matching the old event's eventID and assigns the values from the new event
+                PUEvent eventToBeEdited = puEvents.Find(delegate (PUEvent e) { return e.EventID == oldEvent.EventID; });
+                eventToBeEdited.EventName = newEvent.EventName;
+                eventToBeEdited.EventTypeID = newEvent.EventTypeID;
+                eventToBeEdited.EventDateTime = newEvent.EventDateTime;
+                eventToBeEdited.Address = newEvent.Address;
+                eventToBeEdited.City = newEvent.City;
+                eventToBeEdited.State = newEvent.State;
+                eventToBeEdited.Zipcode = newEvent.Zipcode;
+                eventToBeEdited.DateCreated = newEvent.DateCreated;
+                eventToBeEdited.BannerPath = newEvent.BannerPath;
+                eventToBeEdited.CreatedByID = newEvent.CreatedByID;
+                eventToBeEdited.Description = newEvent.Description;
+                eventToBeEdited.Status = newEvent.Status;
+            }
+            //Checks that the old events values now match the new events values
+            if (oldEvent.EventName == newEvent.EventName
+                && oldEvent.EventTypeID == newEvent.EventTypeID
+                && oldEvent.EventDateTime == newEvent.EventDateTime
+                && oldEvent.Address == newEvent.Address
+                && oldEvent.City == newEvent.City
+                && oldEvent.State == newEvent.State
+                && oldEvent.Zipcode == newEvent.Zipcode
+                && oldEvent.DateCreated == newEvent.DateCreated
+                && oldEvent.BannerPath == newEvent.BannerPath
+                && oldEvent.CreatedByID == newEvent.CreatedByID
+                && oldEvent.Description == newEvent.Description
+                && oldEvent.Status == newEvent.Status)
+            {
+                successfulEdit = true;
+            }
+
+            return successfulEdit;
+        }
+
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-02-06
+        /// CHECKED BY: Ryan Morganti
+        /// 
+        /// The method used to add a test event to the fake repository
+        /// Returns false if failed
+        /// Returns true if successful
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
+        public bool DeleteEvent(int eventID)
+        {
+            bool successfulDelete = false;
+            PUEvent eventToBeDeleted = puEvents.Find(delegate (PUEvent e) { return e.EventID == eventID; });
+            puEvents.Remove(eventToBeDeleted);
+            if (puEvents.Count == 3)
+            {
+                successfulDelete = true;
+            }
+            return successfulDelete;
+        }
+
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-02-06
+        /// CHECKED BY: Ryan Morganti
+        /// 
+        /// The method used to add a test event request to the fake repository
+        /// Returns 1 if the event request was successfully added to the list
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventRequest"></param>
+        /// <returns></returns>
         public int InsertEventRequest(EventRequest eventRequest)
         {
             int rowsEffected = 0;
@@ -270,6 +433,21 @@ namespace DataAccessFakes
             return rowsEffected;
         }
 
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-02-06
+        /// CHECKED BY: Ryan Morganti
+        /// 
+        /// The method used to add a test Request to the fake repository
+        /// Returns 1 if the Request was successfully added to the list
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public int InsertRequest(Request request)
         {
             int requestID = 0;
@@ -281,6 +459,20 @@ namespace DataAccessFakes
             return requestID;
         }
 
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-02-06
+        /// CHECKED BY: Ryan Morganti
+        /// 
+        /// The method used to select a test event from the fake repository by EventID
+        /// Returns the event with the matching ID
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<EventType> SelectAllEventTypes()
         {
             var eventTypeList = (from e in eventTypes
@@ -335,5 +527,170 @@ namespace DataAccessFakes
                                   select e).ToList();
             return selectedEvents;
         }
+
+
+        //==============================================================\\
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A fake accessor method for testing the SelectEventApprovalVM Method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <param name="createdByID"></param>
+        /// <returns></returns>
+        public EventApprovalVM SelectEventApprovalVM(int eventID, int createdByID)
+        {
+            if (eventID == 1000418 && createdByID == 1000055)
+            {
+                return eventApprovalVM;
+            }
+            else
+            {
+                throw new ApplicationException("Data Not Found");
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A fake accessor method for testing the SelectEventRequestByEventID Method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
+        public EventRequest SelectEventRequestByEventID(int eventID)
+        {
+            var selectedEventRequest = (from e in puEventRequests
+                                        where e.EventID == eventID
+                                        select e).SingleOrDefault();
+            return selectedEventRequest;
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A fake accessor method for testing the UpdateEventRequest Method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="oldEventRequest"></param>
+        /// <param name="newEventRequest"></param>
+        /// <returns></returns>
+        public bool UpdateEventRequest(EventRequest oldEventRequest, EventRequest newEventRequest)
+        {
+            bool successfulUpdate = false;
+
+            if (newEventRequest.DisapprovalReason != null)
+            {
+                if (newEventRequest.DisapprovalReason.Length == 0)
+                {
+                    throw new ApplicationException("Disapproval Reason cannot be blank.");
+                }
+                if (newEventRequest.DisapprovalReason.Length > 500)
+                {
+                    throw new ApplicationException("Disapproval Reason is too long");
+                }
+            }
+            else
+            {
+                //Finds the event request matching the old event request's eventID 
+                //and assigns the values from the new event request
+                EventRequest eventRequestToBeEdited = puEventRequests.Find(delegate (EventRequest e) { return e.EventID == oldEventRequest.EventID; });
+                eventRequestToBeEdited.ReviewerID = newEventRequest.ReviewerID;
+                eventRequestToBeEdited.DisapprovalReason = newEventRequest.DisapprovalReason;
+                eventRequestToBeEdited.DesiredVolunteers = newEventRequest.DesiredVolunteers;
+                eventRequestToBeEdited.Active = newEventRequest.Active;
+
+                if (oldEventRequest.ReviewerID == newEventRequest.ReviewerID
+                && oldEventRequest.DisapprovalReason == newEventRequest.DisapprovalReason
+                && oldEventRequest.DesiredVolunteers == newEventRequest.DesiredVolunteers
+                && oldEventRequest.Active == newEventRequest.Active)
+                {
+                    successfulUpdate = true;
+                }
+            }
+            return successfulUpdate;
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A fake accessor method for testing the SelectEventsByStatus Method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public List<PUEvent> SelectEventsByStatus(string status)
+        {
+            var selectedEvents = (from e in puEvents
+                                  where e.Status == status
+                                  select e).ToList();
+            return selectedEvents;
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A fake accessor method for testing the UpdateEventStatus Method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public bool UpdateEventStatus(int eventID, string status)
+        {
+            bool successfulUpdate = false;
+            //retrieve the event Pre-update
+            var selectedEvent = (from e in puEvents
+                                 where e.EventID == eventID
+                                 select e).SingleOrDefault();
+            //keep its pre-update status
+            string currentStatus = selectedEvent.Status;
+            //Update the events status
+            selectedEvent.Status = status;
+            //Retrieve the same event after the update
+            var checkEvent = (from e in puEvents
+                              where e.EventID == eventID
+                              select e).SingleOrDefault();
+            //Check that the event's pre-update and post-update status is different
+            if (checkEvent.Status != currentStatus)
+            {
+                successfulUpdate = true;
+            }
+
+            return successfulUpdate;
+        }
+
     }
 }

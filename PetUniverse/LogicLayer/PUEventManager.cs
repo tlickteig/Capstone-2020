@@ -87,6 +87,62 @@ namespace LogicLayer
             return eventID;
         }
 
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod, Derek Taylor
+        /// DATE 2020-02-06
+        /// CHECKED BY: Ryan Morganti
+        /// 
+        /// The EditEvent method that attempts to edit an existing event.
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="oldEvent"></param>
+        /// <param name="newEvent"></param>
+        /// <returns></returns>
+        public bool EditEvent(PUEvent oldEvent, PUEvent newEvent)
+        {
+
+            try
+            {
+                return _eventAccessor.UpdateEventDetails(oldEvent, newEvent);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data Unavailable", ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod, Derek Taylor
+        /// DATE 2020-02-06
+        /// CHECKED BY: Ryan Morganti
+        /// 
+        /// The DeleteEvent method that attempts to delete an existing event.
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
+        public bool DeleteEvent(int eventID)
+        {
+            try
+            {
+                return _eventAccessor.DeleteEvent(eventID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Delete was unsucessful. \n", ex);
+            }
+        }
+
+
         /// <summary>
         /// NAME: Steve Coonrod
         /// DATE: 2020-02-06
@@ -218,5 +274,147 @@ namespace LogicLayer
                 throw new ApplicationException("Data Unavailable", ex);
             }
         }
+
+
+        //===============================================================================\\
+
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// This method returns a List of all Events pending approval
+        /// from the DB through the EventAccessor
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<PUEvent> GetEventsByStatus(string status)
+        {
+            try
+            {
+                return _eventAccessor.SelectEventsByStatus(status);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Event Data Unavailable", ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-04
+        /// CHECKED BY: 
+        /// 
+        /// This method returns the Event associated with the given eventID
+        /// through the EventAccessor
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="EventID"></param>
+        /// <param name="CreatedByID"></param>
+        /// <returns></returns>
+        public EventApprovalVM GetEventApprovalVM(int EventID, int CreatedByID)
+        {
+            EventApprovalVM retrievedEventVM;
+            try
+            {
+                retrievedEventVM = _eventAccessor.SelectEventApprovalVM(EventID, CreatedByID);
+                return retrievedEventVM;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Event View Model Unavailable", ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/15/2020
+        /// Checked By:
+        /// 
+        /// The method used to retrieve an Event's Request by the EventID
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <returns></returns>
+        public EventRequest GetEventRequestByEventID(int eventID)
+        {
+            try
+            {
+                return _eventAccessor.SelectEventRequestByEventID(eventID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Event Request Data Unavailable", ex);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/15/2020
+        /// Checked By:
+        /// 
+        /// The method used to update an Event Request
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="oldEventRequest"></param>
+        /// <param name="newEventRequest"></param>
+        /// <returns></returns>
+        public bool UpdateEventRequest(EventRequest oldEventRequest, EventRequest newEventRequest)
+        {
+            try
+            {
+                return _eventAccessor.UpdateEventRequest(oldEventRequest, newEventRequest);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to update the event Request.\n" + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod
+        /// Date: 3/15/2020
+        /// Checked By:
+        /// 
+        /// The method used to Update the Status of an Event
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="eventID"></param>
+        /// <param name="status"></param>
+        /// <returns></returns>
+        public bool UpdateEventStatus(int eventID, string status)
+        {
+            try
+            {
+                return _eventAccessor.UpdateEventStatus(eventID, status);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to update the event status.\n" + ex.Message);
+            }
+        }
+
+
     }
 }

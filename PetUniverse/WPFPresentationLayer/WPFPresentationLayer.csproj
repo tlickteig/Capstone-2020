@@ -220,20 +220,35 @@
     <Compile Include="PoSPages\ViewAllTransactions.xaml.cs">
       <DependentUpon>ViewAllTransactions.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RecruitingPages\CreateEventForm.xaml.cs">
+      <DependentUpon>CreateEventForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RecruitingPages\EventApprovalForm.xaml.cs">
+      <DependentUpon>EventApprovalForm.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RecruitingPages\EventMgmt.xaml.cs">
       <DependentUpon>EventMgmt.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RecruitingPages\frmCreateEditEvent.xaml.cs">
-      <DependentUpon>frmCreateEditEvent.xaml</DependentUpon>
+    <Compile Include="RecruitingPages\frmDeleteEvent.xaml.cs">
+      <DependentUpon>frmDeleteEvent.xaml</DependentUpon>
     </Compile>
     <Compile Include="RecruitingPages\ListActiveRequests.xaml.cs">
       <DependentUpon>ListActiveRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RecruitingPages\ListAllEvents.xaml.cs">
+      <DependentUpon>ListAllEvents.xaml</DependentUpon>
     </Compile>
     <Compile Include="RecruitingPages\ListCompleteRequests.xaml.cs">
       <DependentUpon>ListCompleteRequests.xaml</DependentUpon>
     </Compile>
     <Compile Include="RecruitingPages\ListNewRequests.xaml.cs">
       <DependentUpon>ListNewRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RecruitingPages\ListPendingEvents.xaml.cs">
+      <DependentUpon>ListPendingEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RecruitingPages\ListApprovedEvents.xaml.cs">
+      <DependentUpon>ListApprovedEvents.xaml</DependentUpon>
     </Compile>
     <Compile Include="SystemAdminPages\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
@@ -457,15 +472,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="RecruitingPages\CreateEventForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecruitingPages\EventApprovalForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RecruitingPages\EventMgmt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RecruitingPages\frmCreateEditEvent.xaml">
+    <Page Include="RecruitingPages\frmDeleteEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RecruitingPages\ListActiveRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecruitingPages\ListAllEvents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -474,6 +501,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RecruitingPages\ListNewRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecruitingPages\ListPendingEvents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecruitingPages\ListApprovedEvents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

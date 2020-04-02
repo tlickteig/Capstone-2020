@@ -687,6 +687,718 @@ namespace LogicLayerTests
         //====================================== End of Insert Event Tests ===========================================\\
 
 
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// All values are good values
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestEditEventGood()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "233 Boremer Drive",//Editing this value
+                City = "New City",//Editing this value
+                State = "IA",//Editing this value
+                Zipcode = "38474",//Editing this value
+                BannerPath = "ACAR.jpg",
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+            //Double check
+            //get a new instance of the same event to check that an update occurred
+            PUEvent checkOldEventUpdated = _eventManager.GetEventByID(1000023);
+            //Assert
+            Assert.AreEqual("233 Boremer Drive", checkOldEventUpdated.Address);
+            Assert.AreEqual("New City", checkOldEventUpdated.City);
+            Assert.IsTrue(successful);
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event Name is too short.")]
+        public void TestEditEventNewNameTooShort()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "*seven*",//This is what is edited
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "1187 Arbor Lane",
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67421",
+                BannerPath = "ACAR.jpg",
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event Name is too long.")]
+        public void TestEditEventNewNameTooLong()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "This name will be far too long to be a proper event name. " +
+                            "Surely we should not allow a name this long for an event." +
+                            "I think a mistake was made lets throw the exception.",//This is what is edited
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "1187 Arbor Lane",
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67421",
+                BannerPath = "ACAR.jpg",
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event Date is too close. Must be more than 14 days away.")]
+        public void TestEditEventNewDateTooClose()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(3),//This is what is edited
+                Address = "1187 Arbor Lane",
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67421",
+                BannerPath = "ACAR.jpg",
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event Address is too short.")]
+        public void TestEditEventNewAddressTooShort()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "*five",//This is what is edited
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67421",
+                BannerPath = "ACAR.jpg",
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event Address is too long.")]
+        public void TestEditEventNewAddressTooLong()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "This is the name of the event, it is not going to make sense. It's only" +
+                " purpose is to be far too long to be a name for an event, and therefore not allowed in the system." +
+                "Im not going to count but I think that should be long enough.",//This is what will throw an exception
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67421",
+                BannerPath = "ACAR.jpg",
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event city is too short.")]
+        public void TestEditEventNewCityTooShort()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "1187 Arbor Lane",
+                City = "A",//This is what will throw an exception
+                State = "WI",
+                Zipcode = "67421",
+                BannerPath = "ACAR.jpg",
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event City is too long.")]
+        public void TestEditEventNewCityTooLong()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "1187 Arbor Lane",
+                City = "ACityNameThatIsFarTooLongToBeARealCityNameIWouldThink",//This is what will throw an exception
+                State = "WI",
+                Zipcode = "67421",
+                BannerPath = "ACAR.jpg",
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event Zipcode is invalid.")]
+        public void TestEditEventNewZipcodeInvalid()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "1187 Arbor Lane",
+                City = "Milbrook",
+                State = "WI",
+                Zipcode = "6742353",//This is what will throw an exception
+                BannerPath = "ACAR.jpg",
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event banner path is too short.")]
+        public void TestEditEventNewBannerPathTooShort()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "1187 Arbor Lane",
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67425",
+                BannerPath = "A.jpg",//This is what will throw an exception
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event banner path is too long.")]
+        public void TestEditEventNewBannerPathTooLong()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "1187 Arbor Lane",
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67425",
+                BannerPath = "welrjkhwelkjhrlkwehrkljwehrklwehrklewhkrlhweklrhweklrhweklhrwekljhrklj" +
+                "wehrkljwehrkljwehrkjwehrkhweklrhwklehrklwehrklwehrkljhwekrlhweklrhweklhrklwe" +
+                "hrklewjhrkljwehrkwehrklwehrkewhrkjewhrklwehrkwehrklhwekrhweklrhwek" +
+                "lhrkwejhrkwehrkwehrkwekfbekfewklbvkwebivcubegfbrelkbgferbgfidsgiddefault.jpg",//This is what will throw an exception
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event banner path is missing its extension")]
+        public void TestEditEventNewBannerPathMissingExtension()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "1187 Arbor Lane",
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67425",
+                BannerPath = "aPicture",//This is what will throw an exception
+                Status = "Pending Approval",
+                Description = "Animals are cruel and you need to know about it."
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event description is too short.")]
+        public void TestEditEventNewDescriptionTooShort()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "1187 Arbor Lane",
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67425",
+                BannerPath = "aPicture.jpg",
+                Status = "Pending Approval",
+                Description = "A"//This is what will throw an exception
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the EditEvent method
+        /// Expects an exception to be thrown
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "The Event description is too short.")]
+        public void TestEditEventNewDescriptionTooLong()
+        {
+            //Arrange
+            bool successful = false;
+            //Get an instance of the pre-updated event
+            PUEvent oldEvent = _eventManager.GetEventByID(1000023);
+            //Create a new event that will be have the edited values
+            PUEvent newEvent = new PUEvent()
+            {
+                EventID = 1000023,
+                CreatedByID = 1000142,
+                DateCreated = DateTime.Parse("01/24/2020 05:15 PM"),
+                EventName = "Animal Cruelty Awareness Rally",
+                EventTypeID = "Awareness",
+                EventDateTime = DateTime.Now.AddDays(32),
+                Address = "1187 Arbor Lane",
+                City = "Millbrook",
+                State = "WI",
+                Zipcode = "67425",
+                BannerPath = "aPicture.jpg",
+                Status = "Pending Approval",
+                Description = new string('a', 501)//This is what will throw an exception
+            };
+
+            //Act
+            //Call the edit event method. It returns true if the edit occurred
+            successful = _eventManager.EditEvent(oldEvent, newEvent);
+
+            //Assert
+            //Will throw an exception
+        }
+
+        //=================== End of Edit Event Tests ====================\\
+
+        /// <summary>
+        /// 
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-01
+        /// CHECKED BY:
+        /// 
+        /// A test method for testing the DeleteEvent method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestDeleteEvent()
+        {
+            //Arrange 
+            int eventIDForTheEventToBeDeleted = 1000418;
+
+            //Act
+            bool successful = _eventManager.DeleteEvent(eventIDForTheEventToBeDeleted);
+
+            //Assert
+            List<PUEvent> fakeEvents = _eventManager.GetAllEvents();
+            Assert.IsTrue(successful);
+        }
+
+
+
         /// <summary>
         /// 
         /// NAME: Steve Coonrod
@@ -817,6 +1529,248 @@ namespace LogicLayerTests
             selectedEvent = _eventManager.GetEventByID(_eventID);
             //Assert
             Assert.IsNotNull(selectedEvent);
+        }
+
+
+        //======================================================================\\
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A test method for testing the SelectEventApprovalVM method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestSelectEventApprovalVMGood()
+        {
+            //Arrange & Act
+            EventApprovalVM selectedEventVM = _eventManager.GetEventApprovalVM(1000418, 1000055);
+
+            //Assert
+            Assert.IsNotNull(selectedEventVM);
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A test method for testing the SelectEventApprovalVM method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "No Event has an ID matching the ID provided.")]
+        public void TestSelectEventApprovalVMBad()
+        {
+            //Arrange & Act
+            //The EventID provided wont match any event
+            EventApprovalVM selectedEventVM = _eventManager.GetEventApprovalVM(1000401, 1000055);
+            //Should throw an Exception
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A test method for testing the SelectEventRequestByEventID method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestSelectEventRequestByEventIDGood()
+        {
+            //Arrange & Act
+            EventRequest selectedEventRequest = _eventManager.GetEventRequestByEventID(1000418);
+            //Assert
+            Assert.IsNotNull(selectedEventRequest);
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A test method for testing the SelectEventRequestByEventID method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestSelectEventRequestByEventIDBAD()
+        {
+            //Arrange & Act
+            //The EventID provided wont match any event
+            EventRequest selectedEventRequest = _eventManager.GetEventRequestByEventID(1000401);
+            //Assert
+            Assert.IsNull(selectedEventRequest);
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A test method for testing the UpdateEventRequest method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestUpdateEventRequestGood()
+        {
+            //Arrange
+            EventRequest selectedEventRequest = _eventManager.GetEventRequestByEventID(1000418);
+
+            EventRequest updatedEventRequest = new EventRequest()
+            {
+                EventID = 1000418,
+                RequestID = 1000003,
+                ReviewerID = 100000,
+                DisapprovalReason = null,
+                DesiredVolunteers = 4,
+                Active = false
+            };
+
+            //Act
+            bool successfulUpdate = _eventManager.UpdateEventRequest(selectedEventRequest, updatedEventRequest);
+
+            //Assert
+            Assert.IsTrue(successfulUpdate);
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A test method for testing the UpdateEventRequest method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "No Disapproval Reason cannot be blank.")]
+        public void TestUpdateEventRequestBADBlankReason()
+        {
+            //Arrange
+            EventRequest selectedEventRequest = _eventManager.GetEventRequestByEventID(1000418);
+
+            EventRequest updatedEventRequest = new EventRequest()
+            {
+                EventID = 1000418,
+                RequestID = 1000003,
+                ReviewerID = 100000,
+                DisapprovalReason = "",//This throws the exception
+                DesiredVolunteers = 0,
+                Active = false
+            };
+
+            //Act
+            bool successfulUpdate = _eventManager.UpdateEventRequest(selectedEventRequest, updatedEventRequest);
+            //Should throw an Exception
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A test method for testing the UpdateEventRequest method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException),
+            "No Disapproval Reason is too long.")]
+        public void TestUpdateEventRequestBADReasonTooLong()
+        {
+            //Arrange
+            EventRequest selectedEventRequest = _eventManager.GetEventRequestByEventID(1000418);
+
+            EventRequest updatedEventRequest = new EventRequest()
+            {
+                EventID = 1000418,
+                RequestID = 1000003,
+                ReviewerID = 100000,
+                DisapprovalReason = new string('a', 501),//This throws the exception
+                DesiredVolunteers = 0,
+                Active = false
+            };
+
+            //Act
+            bool successfulUpdate = _eventManager.UpdateEventRequest(selectedEventRequest, updatedEventRequest);
+            //Should throw an Exception
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A test method for testing the SelectEventsByStatus method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestSelectEventsByStatus()
+        {
+            //Arrange
+            List<PUEvent> events;
+            //Act
+            events = _eventManager.GetEventsByStatus("PendingApproval"); //Should be 3
+            //Assert
+            Assert.AreEqual(3, events.Count);
+        }
+
+        /// <summary>
+        ///  
+        /// NAME: Steve Coonrod
+        /// DATE: 2020-03-15
+        /// CHECKED BY: 
+        /// 
+        /// A test method for testing the UpdateEventStatus method
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestUpdateEventStatus()
+        {
+            //Arrange
+            string newStatus = "Approved";
+            //Act
+            bool successfulUpdate = _eventManager.UpdateEventStatus(1000000, newStatus);
+            //Assert
+            Assert.IsTrue(successfulUpdate);
         }
 
 

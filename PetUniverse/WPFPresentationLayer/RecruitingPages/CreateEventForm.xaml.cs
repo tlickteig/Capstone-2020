@@ -1,10 +1,10 @@
 ﻿using DataTransferObjects;
 using LogicLayerInterfaces;
-using PresentationUtilityCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -13,29 +13,45 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.RecruitingPages
 {
     /// <summary>
-    /// Created By: Steve Coonrod, Matt Deaton
-    /// Date: 2/10/2020
+    /// Interaction logic for CreateEventForm.xaml
+    /// 
+    /// Name: Steve Coonrod, Matt Deaton
+    /// Date: 2\08\2020
     /// Checked By:
     /// 
-    /// Interaction logic for frmCreateEditEvent.xaml
-    /// This holds the logic for the form frmCreateEditEvent
-    /// This form is the presentation layer implementation for UC-606, UC-633, and UC-608
+    /// This is the page for Creating and Editing an Event (UC-606, UC-633, UC-607)
     /// 
-    /// Updated By:
-    /// Updated On:
+    /// Updated By:     
+    /// Date Updated: 
     /// 
     /// </summary>
-    public partial class frmCreateEditEvent : Window
+    public partial class CreateEventForm : Page
     {
+
         private PetUniverseUser _user = null;//For implementing based on the User's Role
         private IPUEventManager _eventManager = null;//For accessing Event Manager operations
         private PUEvent _event = null;//For implementing Edit vs Create Event
         private bool _editMode = false;//For tracking the mode of implementation
+        private EventMgmt _eventMgmt = null;//For updating the EventMgmt page's selectedEvent to be used with its buttons
+
+        /// <summary>
+        /// 
+        /// Name: Steve Coonrod
+        /// Date: 2\08\2020
+        /// Checked By:
+        /// 
+        /// An Enum for event status options. Could be moved to utility class
+        /// 
+        /// Updated By:     
+        /// Date Updated: 
+        /// 
+        /// </summary>
         private enum statusOptions
         {
             PendingApproval,
@@ -46,28 +62,12 @@ namespace WPFPresentationLayer.RecruitingPages
             Upcoming
         }
 
-        /// <summary>
-        /// Created By: Steve Coonrod, Matt Deaton
-        /// Date: 2/10/2020
-        /// Checked By:
-        /// 
-        /// Constructor for Editing Events. (UC-607)
-        /// Must base functionality on user's role
-        /// Takes in an existing Event, as well as the eventManager interface and user object involved
-        /// Sets the Edit Mode to true
-        /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
-        /// </summary>
-        public frmCreateEditEvent(IPUEventManager eventManager, PetUniverseUser user, PUEvent puEvent)
+        //Unsure why, but the programs initialization is requiring that there ne a no-argument constructor
+        public CreateEventForm()
         {
-            InitializeComponent();
-            _eventManager = eventManager;
-            _user = user;
-            _event = puEvent;
-            _editMode = true;
+
         }
+
 
         /// <summary>
         /// Created By: Steve Coonrod, Matt Deaton
@@ -83,11 +83,38 @@ namespace WPFPresentationLayer.RecruitingPages
         /// Updated On:
         /// 
         /// </summary>
-        public frmCreateEditEvent(IPUEventManager eventManager, PetUniverseUser user)
+        public CreateEventForm(IPUEventManager eventManager, PetUniverseUser user, EventMgmt eventMgmt)
         {
-            InitializeComponent();
             _eventManager = eventManager;
             _user = user;
+            _eventMgmt = eventMgmt;
+            InitializeComponent();
+        }
+
+
+
+        /// <summary>
+        /// Created By: Steve Coonrod, Matt Deaton
+        /// Date: 2/10/2020
+        /// Checked By:
+        /// 
+        /// Constructor for Editing Events. (UC-607)
+        /// Must base functionality on user's role
+        /// Takes in an existing Event, as well as the eventManager interface and user object involved
+        /// Sets the Edit Mode to true
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        public CreateEventForm(IPUEventManager eventManager, PetUniverseUser user, EventMgmt eventMgmt, PUEvent puEvent)
+        {
+            _eventManager = eventManager;
+            _user = user;
+            _event = puEvent;
+            _editMode = true;
+            _eventMgmt = eventMgmt;
+            InitializeComponent();
         }
 
         /// <summary>
@@ -95,7 +122,7 @@ namespace WPFPresentationLayer.RecruitingPages
         /// Date: 2/10/2020
         /// Checked By:
         /// 
-        /// Main Click Event. Submits Form Data for processing.
+        /// Main Click Event to submit an Event. Submits Form Data for processing.
         /// 
         /// Updated By:
         /// Updated On:
@@ -144,8 +171,6 @@ namespace WPFPresentationLayer.RecruitingPages
                         {
                             MessageBox.Show("Event: " + newEvent.EventName + "\n"
                                 + "has been created.");
-                            this.DialogResult = true;
-                            this.Close();
                         }
                     }
                     else // If the user does not have the Donation Coordinator Role...
@@ -158,7 +183,9 @@ namespace WPFPresentationLayer.RecruitingPages
                             Request newRequest = new Request()
                             {
                                 DateCreated = DateTime.Now,
-                                RequestTypeID = "Event"
+                                RequestTypeID = "Event",
+                                RequestingUserID = _user.PUUserID,
+                                Open = true
                             };
                             requestID = _eventManager.AddRequest(newRequest);
                             if (requestID != 0)
@@ -183,14 +210,16 @@ namespace WPFPresentationLayer.RecruitingPages
                                 {
                                     MessageBox.Show("Event: " + newEvent.EventName
                                         + " has been created. \nA request has been made to review this event.");
-                                    this.DialogResult = true;
-                                    this.Close();
+                                    _eventMgmt.frAllEvents.Content = new ListAllEvents(_eventManager, _eventMgmt);
+                                    _eventMgmt.frPendingEvents.Content = new ListPendingEvents(_eventManager, _eventMgmt);
+                                    _eventMgmt.frApprovedEvents.Content = new ListApprovedEvents(_eventManager, _eventMgmt);
+                                    CloseThisPage();
                                 }
                                 else
                                 {
                                     MessageBox.Show("An unknown error has occurred.\nPlease try again later.");
-                                    this.DialogResult = false;
-                                    this.Close();
+                                    _eventManager.DeleteEvent(eventID);
+                                    CloseThisPage();
                                 }
                             }
                         } //End if for non-DC member Event creation
@@ -201,11 +230,77 @@ namespace WPFPresentationLayer.RecruitingPages
                     MessageBox.Show("We're Sorry.\n" +
                         "There was an error with the process.\n" +
                         "Please try again later.\n" + ex.Message);
-                    this.DialogResult = false;
-                    this.Close();
+                    CloseThisPage();
                 }
             }//End if(validatedFieldData[] != null)
         }//End Submit click event
+
+        /// <summary>
+        /// Created By: Steve Coonrod
+        /// Date: 2/10/2020
+        /// Checked By:
+        /// 
+        /// Edit Event Click Event. Submits Form Data for processing.
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        private void BtnSubmitEdit_Click(object sender, RoutedEventArgs e)
+        {
+            //This method will validate the field data and return the values in a string array
+            //The validated field data strings will be assigned to a new Event Object
+            //To be passed to the DB through the eventManager interface
+            string[] validatedFieldData = validateFormData();
+            if (validatedFieldData != null)
+            {
+
+                try
+                {
+                    //Create an Event object from the validated fields
+                    PUEvent newEvent = new PUEvent()
+                    {
+                        CreatedByID = Int32.Parse(validatedFieldData[0]),
+                        DateCreated = DateTime.Parse(validatedFieldData[1]),
+                        EventName = validatedFieldData[2],
+                        EventTypeID = validatedFieldData[3],
+                        EventDateTime = DateTime.Parse(validatedFieldData[4]),
+                        Address = validatedFieldData[5],
+                        City = validatedFieldData[6],
+                        State = validatedFieldData[7],
+                        Zipcode = validatedFieldData[8],
+                        BannerPath = validatedFieldData[9],
+                        Status = validatedFieldData[10],
+                        Description = validatedFieldData[11]
+                    };
+
+                    if (_eventManager.EditEvent(_event, newEvent))
+                    {
+                        MessageBox.Show("Event: " + newEvent.EventName
+                                        + " has been updated.");
+                        _eventMgmt.frAllEvents.Content = new ListAllEvents(_eventManager, _eventMgmt);
+                        _eventMgmt.frPendingEvents.Content = new ListPendingEvents(_eventManager, _eventMgmt);
+                        _eventMgmt.frApprovedEvents.Content = new ListApprovedEvents(_eventManager, _eventMgmt);
+                        CloseThisPage();
+                    }
+                    else
+                    {
+                        MessageBox.Show("An unknown error has occurred.\nPlease try again later.");
+                        CloseThisPage();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("We're Sorry.\n" +
+                        "There was an error with the process.\n" +
+                        "Please try again later.\n" + ex.Message);
+                    CloseThisPage();
+                }
+            }
+
+
+        }
+
 
 
         /// <summary>
@@ -237,12 +332,14 @@ namespace WPFPresentationLayer.RecruitingPages
             {
                 errorMessageString += "The event name has exceeded the max characters allowed (150).\n";
                 txtEventName.Text = "";
+                txtEventName.Focus();
                 errorFlag = true;
             }
             if (eventName.Length < 8)
             {
                 errorMessageString += "The event name must be greater than 8 characters.\n";
                 txtEventName.Text = "";
+                txtEventName.Focus();
                 errorFlag = true;
             }
 
@@ -304,15 +401,17 @@ namespace WPFPresentationLayer.RecruitingPages
             string eventState = cboState.Text;
 
             string eventZipcode = txtZip.Text;
-            if (eventZipcode.Length < 5 || eventZipcode.Length > 11)
+
+            if (!Regex.Match(eventZipcode, "^[0-9]{5}(?:-[0-9]{4})?$").Success)
             {
                 errorMessageString += "Please enter a valid zipcode.\n";
                 txtZip.Text = "";
                 errorFlag = true;
             }
 
+
             string eventPictureFileName = txtPictureFileName.Text;
-            if (eventPictureFileName.Length < 5)
+            if (eventPictureFileName.Length < 6)
             {
                 errorMessageString += "Please enter a valid picture file name.\n";
                 txtPictureFileName.Focus();
@@ -324,7 +423,8 @@ namespace WPFPresentationLayer.RecruitingPages
                 txtPictureFileName.Focus();
                 errorFlag = true;
             }
-            if (!eventPictureFileName.ToLower().Contains(".jpg") && !eventPictureFileName.ToLower().Contains(".png"))
+            if (!eventPictureFileName.Substring(eventPictureFileName.Length - 4).ToLower().Equals(".jpg")
+                && !eventPictureFileName.Substring(eventPictureFileName.Length - 4).ToLower().Equals(".png"))
             {
                 errorMessageString += "The Picture's File Name requires the file extension.\n" +
                     "Please specify a valid file extension type (.jpg or .png)";
@@ -333,7 +433,7 @@ namespace WPFPresentationLayer.RecruitingPages
             }
 
             //Assigning from a enumeration of status'. Should not need validation.
-            string status = (statusOptions.PendingApproval.ToString());
+            string status = statusOptions.PendingApproval.ToString();
 
             string description = txtDescription.Text;
             if (description.Length < 2)
@@ -347,6 +447,40 @@ namespace WPFPresentationLayer.RecruitingPages
                 errorMessageString += "The event description is too long.\n Please shorten the description.\n";
                 errorFlag = true;
             }
+
+            //Check all existing events for conflicts when Creating a New Event
+            if (!_editMode)
+            {
+                foreach (var e in _eventManager.GetAllEvents())
+                {
+                    //Name Already Exists on an Active Event
+                    if (e.EventName == eventName
+                        && e.Status != statusOptions.Completed.ToString())
+                    {
+                        errorMessageString += "There is already an event with that name.\n";
+                        txtEventName.Text = "";
+                        txtEventName.Focus();
+                        errorFlag = true;
+                    }
+
+                    //Same Time And Place
+                    if (e.EventDateTime.Date == validatedDateTime.Date
+                        && e.Address.ToLower() == eventAddress.ToLower()
+                        && e.City.ToLower() == eventCity.ToLower()
+                        && e.State == eventState
+                        && e.Zipcode == eventZipcode)
+                    {
+                        errorMessageString += "There is already an event at this location,\n"
+                            + "scheduled for this date.";
+                        errorFlag = true;
+                    }
+
+                }
+            }
+
+
+
+
 
             //This is where, if there are errors it will show a message box with all the error messages
             //It returns the null array, which must be checked where this method returns
@@ -376,6 +510,7 @@ namespace WPFPresentationLayer.RecruitingPages
 
 
         /// <summary>
+        /// 
         /// Created By: Steve Coonrod, Matt Deaton
         /// Date: 2/10/2020
         /// Checked By:
@@ -393,125 +528,180 @@ namespace WPFPresentationLayer.RecruitingPages
                 ("Are you sure you want to cancel?", "Cancel", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (cancel == MessageBoxResult.Yes)
             {
-                this.DialogResult = false;
-                this.Close();
+                CloseThisPage();
             }
 
         }
 
-
         /// <summary>
-        /// Created By: Steve Coonrod, Matt Deaton
+        /// 
+        /// Created By: Steve Coonrod
         /// Date: 2/10/2020
         /// Checked By:
         /// 
-        /// Main window loaded event. 
-        /// If event mode is set it populates the fields with the event's values.
-        /// Else sets default values
+        /// A helper method to close the page
+        /// Useful if anything else is needed on the pages close
         /// 
         /// Updated By:
         /// Updated On:
         /// 
         /// </summary>
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void CloseThisPage()
         {
-            lblUserID.Content = _user.PUUserID;
-            setFormCboItems();
-
-            //For editing an event
-            if (_editMode == true)
-            {
-                btnSubmitCreate.Visibility = Visibility.Hidden;
-                btnSubmitEdit.Visibility = Visibility.Visible;
-                lblHeader.Content = "Edit Event";
-                this.Title = "Edit Event";
-
-                calendar.SelectedDate = _event.EventDateTime;
-                txtDate.Text = calendar.SelectedDate.Value.ToString("dd/MM/yyyy");
-
-                txtEventName.Text = _event.EventName;
-                cboEventType.Text = _event.EventTypeID;
-
-                //For use with the hour cbo
-                int eventHour = _event.EventDateTime.Hour;
-                if (eventHour > 12)
-                {
-                    eventHour -= 12;
-                }
-
-
-                //Loops to match combo boxes
-                for (int i = 0; i < cboEventType.Items.Count; i++)
-                {
-                    if (cboEventType.Items[i].ToString() == _event.EventTypeID)
-                    {
-                        cboEventType.SelectedIndex = i;
-                    }
-                }
-                for (int i = 0; i < cboHour.Items.Count; i++)
-                {
-                    if (cboHour.Items[i].ToString() == eventHour.ToString())
-                    {
-                        cboHour.SelectedIndex = i;
-                    }
-                }
-                for (int i = 0; i < cboMinute.Items.Count; i++)
-                {
-                    if (cboMinute.Items[i].ToString() == _event.EventDateTime.Minute.ToString())
-                    {
-                        cboMinute.SelectedIndex = i;
-                    }
-                }
-                for (int i = 0; i < cboAMPM.Items.Count; i++)
-                {
-                    if (cboAMPM.Items[i].ToString() ==
-                        _event.EventDateTime.ToString("tt", System.Globalization.CultureInfo.InvariantCulture))
-                    {
-                        cboAMPM.SelectedIndex = i;
-                    }
-                }
-                for (int i = 0; i < cboState.Items.Count; i++)
-                {
-                    if (cboState.Items[i].ToString() == _event.State)
-                    {
-                        cboState.SelectedIndex = i;
-                    }
-                }
-
-
-                txtAddress.Text = _event.Address;
-                txtCity.Text = _event.City;
-                txtZip.Text = _event.Zipcode;
-                txtPictureFileName.Text = _event.BannerPath;
-                picEventPicture.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory
-                    + "\\Images\\" + _event.BannerPath, UriKind.RelativeOrAbsolute));
-                txtDescription.Text = _event.Description;
-
-            }
-            else //For adding a new Event
-            {
-                btnSubmitCreate.Visibility = Visibility.Visible;
-                btnSubmitEdit.Visibility = Visibility.Hidden;
-
-                calendar.SelectedDate = DateTime.Now.AddDays(14);
-                txtDate.Text = calendar.SelectedDate.Value.ToString("dd/MM/yyyy");
-
-                cboHour.SelectedIndex = 6;
-                cboMinute.SelectedIndex = 0;
-                cboAMPM.SelectedIndex = 0;
-                cboState.SelectedIndex = 0;
-                cboEventType.SelectedIndex = 0;
-
-                txtEventName.Text = "";
-                txtAddress.Text = "";
-                txtCity.Text = "";
-                txtZip.Text = "";
-                txtPictureFileName.Text = "default.png";
-                picEventPicture.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory
-                    + "\\Images\\default.png", UriKind.RelativeOrAbsolute));
-                txtDescription.Text = "";
-            }
+            this.Visibility = Visibility.Hidden;
         }
+
+        /// <summary>
+        /// 
+        /// Created By: Steve Coonrod, Matt Deaton
+        /// Date: 2/10/2020
+        /// Checked By:
+        /// 
+        /// This is the event handler for the page's load event
+        /// This is where the page is set up based on the Edit/Create Mode
+        /// 
+        /// Updated By:
+        /// Updated On:
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (_user != null)
+            {
+                lblUserID.Content = _user.FirstName + " " + _user.LastName;
+                setFormCboItems();
+
+                //For editing an event
+                if (_editMode == true)
+                {
+                    btnSubmitCreate.Visibility = Visibility.Hidden;
+                    btnSubmitEdit.Visibility = Visibility.Visible;
+                    lblHeader.Content = "Edit Event";
+                    this.Title = "Edit Event";
+
+                    calendar.SelectedDate = _event.EventDateTime;
+                    txtDate.Text = calendar.SelectedDate.Value.ToString("dd/MM/yyyy");
+
+                    txtEventName.Text = _event.EventName;
+                    cboEventType.Text = _event.EventTypeID;
+
+                    //For use with the hour cbo
+                    int eventHour = _event.EventDateTime.Hour;
+                    if (eventHour > 12)
+                    {
+                        eventHour -= 12;
+                    }
+
+
+                    //Loops to match combo boxes
+                    for (int i = 0; i < cboEventType.Items.Count; i++)
+                    {
+                        if (cboEventType.Items[i].ToString() == _event.EventTypeID)
+                        {
+                            cboEventType.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < cboHour.Items.Count; i++)
+                    {
+                        if (cboHour.Items[i].ToString() == eventHour.ToString())
+                        {
+                            cboHour.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                    string minute;
+                    for (int i = 0; i < cboMinute.Items.Count; i++)
+                    {
+                        if (_event.EventDateTime.Minute == 0)
+                        {
+                            minute = "00";
+                        }
+                        else
+                        {
+                            minute = _event.EventDateTime.Minute.ToString();
+                        }
+                        if (cboMinute.Items[i].ToString() == minute)
+                        {
+                            cboMinute.SelectedIndex = i;
+                            break;
+                        }
+                        else
+                        {
+                            cboMinute.Text = minute;
+                        }
+                    }
+                    for (int i = 0; i < cboAMPM.Items.Count; i++)
+                    {
+                        if (cboAMPM.Items[i].ToString() ==
+                            _event.EventDateTime.ToString("tt", System.Globalization.CultureInfo.InvariantCulture))
+                        {
+                            cboAMPM.SelectedIndex = i;
+                            break;
+                        }
+                    }
+                    for (int i = 0; i < cboState.Items.Count; i++)
+                    {
+                        if (cboState.Items[i].ToString() == _event.State)
+                        {
+                            cboState.SelectedIndex = i;
+                            break;
+                        }
+                    }
+
+
+                    txtAddress.Text = _event.Address;
+                    txtCity.Text = _event.City;
+                    txtZip.Text = _event.Zipcode;
+                    txtPictureFileName.Text = _event.BannerPath;
+                    try
+                    {
+                        picEventPicture.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory
+                            + "\\Images\\" + _event.BannerPath, UriKind.Absolute));
+                    }catch(Exception ex)
+                    {
+
+                    }
+                    
+                    txtDescription.Text = _event.Description;
+
+                }
+                else //For adding a new Event
+                {
+                    btnSubmitCreate.Visibility = Visibility.Visible;
+                    btnSubmitEdit.Visibility = Visibility.Hidden;
+
+                    calendar.SelectedDate = DateTime.Now.AddDays(14);
+                    txtDate.Text = calendar.SelectedDate.Value.ToString("dd/MM/yyyy");
+
+                    cboHour.SelectedIndex = 6;
+                    cboMinute.SelectedIndex = 0;
+                    cboAMPM.SelectedIndex = 0;
+                    cboState.SelectedIndex = 0;
+                    cboEventType.SelectedIndex = 0;
+
+                    txtEventName.Text = "";
+                    txtAddress.Text = "";
+                    txtCity.Text = "";
+                    txtZip.Text = "";
+                    txtPictureFileName.Text = "default.png";
+                    try
+                    {
+                        picEventPicture.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory
+                        + "\\Images\\default.png", UriKind.RelativeOrAbsolute));
+                    }catch(Exception ex)
+                    {
+
+                    }
+                    
+                    txtDescription.Text = "";
+                }
+            }
+
+        }
+
 
         /// <summary>
         /// Created By: Steve Coonrod, Matt Deaton
@@ -616,10 +806,5 @@ namespace WPFPresentationLayer.RecruitingPages
             }
         }
 
-        private void BtnSubmitEdit_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
-
