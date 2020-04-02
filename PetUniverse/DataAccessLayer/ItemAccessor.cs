@@ -81,6 +81,11 @@ namespace DataAccessLayer
         /// Updated: 2020/03/03
         /// Update: The Item Description was not getting fetched into the datagrid, so I added that field.
         /// Approver:  Jesse Tomash
+        /// 
+        /// Updated By: Matt Deaton
+        /// Updated: 2020-03-07
+        /// Update: Added ShelterItem field to show in retrieved list
+        /// 
         /// </remarks>
         public List<Item> getAllItems()
         {
@@ -105,7 +110,8 @@ namespace DataAccessLayer
                         ItemName = reader.GetString(1),
                         ItemQuantity = reader.GetInt32(2),
                         ItemCategoryID = reader.GetString(3),
-                        Description = reader.GetString(4)
+                        Description = reader.GetString(4),
+                        ShelterItem = reader.GetBoolean(5)
                     });
                 }
 
@@ -282,5 +288,229 @@ namespace DataAccessLayer
 
             return rowsAffected;
         }
+
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-07
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to add a new donation item to the shelter inventory.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// <param name="donatedItem"></param>
+        /// <returns></returns>
+        public int AddNewDonatedItem(Item donatedItem)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_new_donation", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ItemName", donatedItem.ItemName);
+            cmd.Parameters.AddWithValue("@ItemCategoryID", donatedItem.ItemCategoryID);
+            cmd.Parameters.AddWithValue("@ItemQuantity", donatedItem.ItemQuantity);
+            cmd.Parameters.AddWithValue("@ItemDescription", donatedItem.Description);
+            cmd.Parameters.AddWithValue("@ShelterItem", donatedItem.ShelterItem);
+            cmd.Parameters.AddWithValue("@ShelterThershold", donatedItem.ShelterThreshold);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception up)
+            {
+                throw up;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }// End AddNewDonationItem()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-07
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to return a list of needed shelter items.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="shelterThreshold"></param>
+        /// <returns></returns>
+        public List<Item> SelectNeededShelterItems()
+        {
+
+            List<Item> items = new List<Item>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_view_needed_donations", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        items.Add(new Item()
+                        {
+                            ItemName = reader.GetString(0),
+                            ItemCategoryID = reader.GetString(1),
+                            ItemQuantity = reader.GetInt32(2),
+                            Description = reader.GetString(3),
+                            ShelterItem = reader.GetBoolean(4),
+                            ItemID = reader.GetInt32(5),
+                            ShelterThreshold = reader.GetInt32(6)
+                        });
+
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception up)
+            {
+                throw up;
+            }
+            return items;
+        }// End SelectNeededShelterItems()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to return a list of shelter use items.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <returns>List of Items marked for shelter use</returns>
+        public List<Item> SelectShelterItems(bool shelterItem)
+        {
+            List<Item> items = new List<Item>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_shelter_items", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@ShelterItem", SqlDbType.Bit);
+            cmd.Parameters["@ShelterItem"].Value = shelterItem;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        items.Add(new Item()
+                        {
+                            ItemName = reader.GetString(0),
+                            ItemCategoryID = reader.GetString(1),
+                            ItemQuantity = reader.GetInt32(2),
+                            Description = reader.GetString(3),
+                            ShelterItem = reader.GetBoolean(4),
+                            ItemID = reader.GetInt32(5),
+                            ShelterThreshold = reader.GetInt32(6)
+                        });
+
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception up)
+            {
+                throw up;
+            }
+            return items;
+        }// End SelectShelterItems()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-17
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to update a Shelter Item in inventory.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="oldShelterItem"></param>
+        /// <param name="newShelterItem"></param>
+        /// <returns>Count of rows affected</returns>
+        public int UpdateShelterItem(Item oldShelterItem, Item newShelterItem)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_shelter_item", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ItemID", oldShelterItem.ItemID);
+
+            cmd.Parameters.AddWithValue("@NewItemName", newShelterItem.ItemName);
+            cmd.Parameters.AddWithValue("@NewItemCategoryID", newShelterItem.ItemCategoryID);
+            cmd.Parameters.AddWithValue("@NewItemQuantity", newShelterItem.ItemQuantity);
+            cmd.Parameters.AddWithValue("@NewItemDescription", newShelterItem.Description);
+            cmd.Parameters.AddWithValue("@NewShelterItem", newShelterItem.ShelterItem);
+            cmd.Parameters.AddWithValue("@NewShelterThershold", newShelterItem.ShelterThreshold);
+
+            cmd.Parameters.AddWithValue("@OldItemName", oldShelterItem.ItemName);
+            cmd.Parameters.AddWithValue("@OldItemCategoryID", oldShelterItem.ItemCategoryID);
+            cmd.Parameters.AddWithValue("@OldItemQuantity", oldShelterItem.ItemQuantity);
+            cmd.Parameters.AddWithValue("@OldItemDescription", oldShelterItem.Description);
+            cmd.Parameters.AddWithValue("@OldShelterItem", oldShelterItem.ShelterItem);
+            cmd.Parameters.AddWithValue("@OldShelterThershold", oldShelterItem.ShelterThreshold);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
+                {
+                    throw new ApplicationException("Shelter Item Not Found");
+                }
+            }
+            catch (Exception up)
+            {
+                throw up;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }// End UpdateShelterItem()
+
     }
 }
+

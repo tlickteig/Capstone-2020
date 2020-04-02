@@ -226,5 +226,168 @@ namespace DataAccessFakes
 
             return filterItemList;
         }
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-17
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to return a list of Items for Shelter use only.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="shelterItem"></param>
+        /// <returns></returns>
+        public List<Item> SelectShelterItems(bool shelterItem)
+        {
+            List<Item> allItems = new List<Item>();
+            List<Item> shelterItems = new List<Item>();
+
+            for (int i = 0; i < 5; i++)
+            {
+                Item items = new Item();
+                items.ItemID = 444444;
+                items.ItemName = "Test Name True";
+                items.ItemQuantity = 50;
+                items.ShelterThreshold = 10;
+                items.ShelterItem = true;
+                items.Description = "Test Description for True";
+                allItems.Add(items);
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                Item items = new Item();
+                items.ItemID = 777777;
+                items.ItemName = "Test Name False";
+                items.ItemQuantity = 50;
+                items.ShelterThreshold = 10;
+                items.ShelterItem = false;
+                items.Description = "Test Description for False";
+                allItems.Add(items);
+            }
+
+            var shelterOnlyItem = from items in allItems
+                                  where items.ShelterItem == true
+                                  select items;
+
+            foreach (Item item in shelterOnlyItem)
+            {
+                shelterItems.Add(item);
+            }
+            return shelterItems;
+        }// End SelectShelterItems()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-17
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to return a list of needed shelter use items.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <returns></returns>
+        public List<Item> SelectNeededShelterItems()
+        {
+            List<Item> neededItems = new List<Item>();
+            List<Item> shelterItems = new List<Item>() {
+
+                new Item
+                {
+                    ItemID = 1,
+                    ItemName = "Earl the Squirrel",
+                    ItemCategoryID = "Dog Toy",
+                    ItemQuantity = 1,
+                    ShelterItem = true,
+                    ShelterThreshold = 3
+                },
+                new Item
+                {
+                    ItemID = 2,
+                    ItemName = "Hopper the Rabbit",
+                    ItemCategoryID = "Dog Toy",
+                    ItemQuantity = 1,
+                    ShelterItem = true,
+                    ShelterThreshold = 2
+                }
+            };
+
+            var shelterItemsOnly = from item in shelterItems
+                                   where item.ShelterItem == true
+                                   select item;
+
+            foreach (Item i in shelterItemsOnly)
+            {
+                neededItems.Add(i);
+            }
+
+            return neededItems;
+        }// End SelectNeededShelterItems()
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-17
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to add a new donated item to the shelter inventory.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="donatedItem"></param>
+        /// <returns></returns>
+        public int AddNewDonatedItem(Item donatedItem)
+        {
+            List<Item> shelterItems = new List<Item>();
+            ; int originalCount = shelterItems.Count;
+            shelterItems.Add(donatedItem);
+            return shelterItems.Count - originalCount;
+        }// End AddNewDonatedItem()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-17
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to updating an item that is in the shelter inventory.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="oldShelterItem"></param>
+        /// <param name="newShelterItem"></param>
+        /// <returns></returns>
+        public int UpdateShelterItem(Item oldShelterItem, Item newShelterItem)
+        {
+            Item shelterItem = oldShelterItem;
+
+            try
+            {
+                oldShelterItem = newShelterItem;
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+                throw;
+            }
+        }// End UpdateShelterItem()
     }
 }

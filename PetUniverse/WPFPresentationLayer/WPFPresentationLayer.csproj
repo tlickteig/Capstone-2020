@@ -136,6 +136,15 @@
     <Compile Include="AMPages\AnimalRecords.xaml.cs">
       <DependentUpon>AnimalRecords.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\AddDonationItem.xaml.cs">
+      <DependentUpon>AddDonationItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\ShelterInventory.xaml.cs">
+      <DependentUpon>ShelterInventory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\UpdateShelterItem.xaml.cs">
+      <DependentUpon>UpdateShelterItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\ViewAddOrder.xaml.cs">
       <DependentUpon>ViewAddOrder.xaml</DependentUpon>
     </Compile>
@@ -335,6 +344,18 @@
     <Page Include="AMPages\AnimalRecords.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="InventoryPages\AddDonationItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\ShelterInventory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\UpdateShelterItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InventoryPages\ViewAddOrder.xaml">
       <SubType>Designer</SubType>
