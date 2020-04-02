@@ -84,6 +84,7 @@ CREATE TABLE [dbo].[User](
 [LockDate] [DateTime] NULL,
 [UnlockDate] [DateTime] NULL,
 [DepartmentID] [nvarchar](50) NULL,
+[HasViewedPoliciesAndStandards] [bit] NOT NULL Default 0,
 CONSTRAINT [fk_User_DepartmentID] FOREIGN KEY([DepartmentID])
 		REFERENCES [Department]([DepartmentID])
 )
@@ -7469,6 +7470,30 @@ BEGIN
 	FROM [Donor]
 	ORDER BY[DonorID]
 END
+GO
+
+/*
+Created by: Lane Sandburg
+Date: 3/17/2020
+Comment: Sproc to Change if and employee has read
+	policies and standards
+*/
+DROP PROCEDURE IF EXISTS [sp_change_user_has_read]
+GO
+PRINT '' PRINT '*** Creating sp_change_user_has_read'
+GO
+CREATE PROCEDURE [sp_change_user_has_read]
+(
+    @UserID			 [int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[User]
+    SET [HasViewedPoliciesAndStandards] = 1
+    WHERE [UserID] = @UserID
+    
+    RETURN @@ROWCOUNT
+END 
 GO
 
 

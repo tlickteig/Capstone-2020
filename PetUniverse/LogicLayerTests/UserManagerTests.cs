@@ -504,6 +504,32 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 3/17/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// This Method is a passing test for the HasReadPoliciesAndStandards() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>        
+        [TestMethod]
+        public void TestUserManagerPoliciesHasRead()
+        {
+            //Arrange            
+            int userID = 100000;
+            bool Passed;
+            //Act
+            Passed = _userManager.HasReadPoliciesAndStandards(userID);
+            //Assert    
+            Assert.IsTrue(Passed);
+        }
+
+        /// <summary>
         /// Creator: Steven Cardona
         /// Created: 02/07/2020
         /// Approver: Zach Behrensmeyer

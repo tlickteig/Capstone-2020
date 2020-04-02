@@ -508,5 +508,44 @@ namespace DataAccessLayer
             }
             return users;
         }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 3/17/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// This method is used to Change status of User Reading Policies
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="UserID"></param>
+        /// <returns>int rows affected</returns>
+        public int ChangeUserHasReadPoliciesStandards(int UserID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_change_user_has_read", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", UserID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
     }
 }

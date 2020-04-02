@@ -375,5 +375,39 @@ namespace DataAccessFakes
                 throw new ApplicationException("User not found");
             }
         }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 3/17/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// This fake method is called to get a fake unlock date
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        public int ChangeUserHasReadPoliciesStandards(int UserID)
+        {
+            if (UserID == _user.PUUserID)
+            {
+                _user.HasViewedPolAndStan = false;
+                if (_user.HasViewedPolAndStan)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

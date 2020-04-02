@@ -163,5 +163,22 @@ namespace DataAccessInterfaces
         /// <returns>Restrns list of users based on department id</returns>
         List<PetUniverseUser> GetDepartmentUsers(string DepartmentID);
 
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 3/17/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// This method is to change the status of 
+        /// an employee reading Policies and Standards
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="UserID"></param>
+        /// <returns>rows affected</returns>
+        int ChangeUserHasReadPoliciesStandards(int UserID);
+
     }
 }

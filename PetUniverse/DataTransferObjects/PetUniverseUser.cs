@@ -17,6 +17,9 @@ namespace DataTransferObjects
     /// Updater: Chase Schulte
     /// Updated: 2/29/2020
     /// Update: Inherits ERole
+    /// Updater: Lane Sandburg
+    /// Updated: 3/17/2020
+    /// Update: Added HasViewedPolAndStan
     /// </remarks>
     public class PetUniverseUser : ERole
     {
@@ -32,6 +35,6 @@ namespace DataTransferObjects
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-
+        public bool HasViewedPolAndStan { get; set; }
     }
 }

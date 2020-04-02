@@ -167,5 +167,22 @@ namespace LogicLayerInterfaces
         /// <param name="email"></param>        
         /// <returns>Returns Valid User Info</returns>
         List<PetUniverseUser> GetDepartmentUsers(string DepartmentID);
+
+        /// <summary>
+        /// Creator: Lane Sandburg  
+        /// Created: 3/17/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Manager method to Change if a user has viewed policies and standards
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="userID"></param>        
+        /// <returns>bool result of call</returns>
+        bool HasReadPoliciesAndStandards(int userID);
     }
 }

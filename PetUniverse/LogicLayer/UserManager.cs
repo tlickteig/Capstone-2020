@@ -358,5 +358,39 @@ namespace LogicLayer
             }
             return users;
         }
+
+        /// <summary>
+        /// Creator: Lane Sandburg  
+        /// Created: 3/17/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Manager method to Change if a user has viewed policies and standards
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="userID"></param>        
+        /// <returns>bool result of call</returns>
+        public bool HasReadPoliciesAndStandards(int userID)
+        {
+            bool result = false;
+            try
+            {
+                result = 1 == _userAccessor.ChangeUserHasReadPoliciesStandards(userID);
+
+                if (result == false)
+                {
+                    throw new ApplicationException("User record not updated.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update failed!", ex);
+            }
+            return result;
+        }
     }
 }
