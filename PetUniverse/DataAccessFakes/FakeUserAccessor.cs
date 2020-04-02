@@ -392,9 +392,22 @@ namespace DataAccessFakes
         /// <returns></returns>
         public int ChangeUserHasReadPoliciesStandards(int UserID)
         {
+            _user = new PetUniverseUser()
+            {
+                PUUserID = 100000,
+                FirstName = "John",
+                LastName = "Doe",
+                PhoneNumber = "5632102101",
+                Email = "j.doe@RandoGuy.com",
+                Active = true,
+                City = "Cedar Rapids",
+                State = "IA",
+                ZipCode = "52404"
+            };
+
             if (UserID == _user.PUUserID)
             {
-                _user.HasViewedPolAndStan = false;
+                _user.HasViewedPolAndStan = true;
                 if (_user.HasViewedPolAndStan)
                 {
                     return 1;
