@@ -695,6 +695,9 @@ GO
 Created by: Cash Carlson
 Date: 2/21/2020
 Comment: Create Item Table
+Updated By: Matt Deaton
+Date: 2020-03-07
+Comment: Added the ShelterItem and Shelter Theshold field to allow for Shelter Item
 */
 DROP TABLE IF EXISTS [dbo].[Item]
 GO
@@ -707,6 +710,8 @@ CREATE TABLE [dbo].[Item](
 	[ItemDescription] [nvarchar](250) NOT NULL,
 	[ItemQuantity] [int] NOT NULL,
 	[Active]       [bit] DEFAULT 1 NOT NULL,
+	[ShelterItem] [bit] DEFAULT 0,
+	[ShelterThershold]	[int],
 	CONSTRAINT [fk_Item_ItemCategoryID] FOREIGN KEY ([ItemCategoryID])
 		REFERENCES [dbo].[ItemCategory]([ItemCategoryID])
 )
@@ -1587,6 +1592,61 @@ CREATE TABLE [dbo].[BaseScheduleLine]
 		REFERENCES [BaseSchedule]([BaseScheduleID])
 	,CONSTRAINT [fk_ShiftTime_BaseScheduleLine_ShiftTimeID]	FOREIGN KEY([ShiftTimeID])
 		REFERENCES [ShiftTime]([ShiftTimeID])
+)
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-02-28
+Comment: Table for Donor Information 
+*/
+PRINT '' PRINT '*** Creating Donor Table'
+GO
+
+CREATE TABLE [dbo].[Donor](
+	[DonorID]				[int]IDENTITY(1000,1)			NOT NULL,
+	[FirstName]				[nvarchar](25)					NOT NULL DEFAULT 'Anonymous',
+	[LastName]				[nvarchar](25),
+	[Active]				[bit]							NOT NULL DEFAULT 1,
+	CONSTRAINT [pk_DonorID] PRIMARY KEY([DonorID] ASC)
+)
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-02-28
+Comment: Table for Donations
+*/
+PRINT '' PRINT '*** Creating Donations Table'
+GO
+
+CREATE TABLE [dbo].[Donations](
+	[DonationID]			[int]IDENTITY(1000,1)			NOT NULL,
+	[DonorID]				[int]							NOT NULL,
+	[TypeOfDonation]		[nvarchar](100)					NOT NULL,
+	[DateOfDonation]		[datetime]						NOT NULL,
+	CONSTRAINT [pk_DonationID] PRIMARY KEY([DonationID] ASC),
+	CONSTRAINT [fk_donations_DonorID] FOREIGN KEY([DonorID])
+		REFERENCES[Donor]([DonorID])
+)
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-02-28
+Comment: Table for DonationItem
+*/
+PRINT '' PRINT '*** Creating Donation Item Table'
+GO
+
+CREATE TABLE [dbo].[DonationItem](
+	[DonationID]			[int]								NOT NULL,
+	[ItemID]				[int]								NOT NULL,
+	CONSTRAINT [pk_DonationID_ItemID] PRIMARY KEY([DonationID] ASC, [ItemID] ASC),
+	CONSTRAINT [fk_Donations_DonationID] FOREIGN KEY([DonationID]) 
+		REFERENCES [Donations]([DonationID]),
+	CONSTRAINT [fk_Item_ItemID] FOREIGN KEY([ItemID]) 
+		REFERENCES [Item]([ItemID]) ON UPDATE CASCADE
 )
 GO
 
@@ -4371,6 +4431,9 @@ GO
 Created by: Tener Karar and Brandyn Coverdill
 Date: 02/16/2020
 Comment:retrieve Item List
+Updated By: Matt Deaton
+Date: 2020-03-07
+Comment: Added the ShelterItem to the Select to allow Shelter Item to show up once ran.
 */
 DROP PROCEDURE IF EXISTS [sp_retrieve_item_list]
 GO
@@ -4379,7 +4442,7 @@ GO
 CREATE PROCEDURE sp_retrieve_item_list
 AS
 BEGIN
-	SELECT [ItemID], [ItemName]	,[ItemQuantity] ,[ItemCategoryID]
+	SELECT [ItemID], [ItemName]	,[ItemQuantity] ,[ItemCategoryID], [ShelterItem]
 	FROM [dbo].[Item]
 END
 GO
@@ -5062,6 +5125,9 @@ GO
 Created by: Brandyn T. Coverdill
 Date: 2/22/2020
 Comment: Stored Procedure that gets a list of items from inventory.
+Updated By: Matt Deaton
+Date: 2020-03-07
+Comment: Added the ShelterItem to the Select to allow Shelter Item to show up once ran.
 */
 DROP PROCEDURE IF EXISTS [sp_retrieve_items]
 GO
@@ -5075,7 +5141,8 @@ BEGIN
         [i].[ItemName], 
         [i].[ItemQuantity], 
         [ic].[ItemCategoryID], 
-        [i].[ItemDescription]
+        [i].[ItemDescription],
+		[i].[ShelterItem]
 	FROM [dbo].[Item] i
 	INNER JOIN [dbo].[ItemCategory] ic
 	ON [i].[ItemCategoryID] = [ic].[ItemCategoryID]
@@ -7245,6 +7312,164 @@ BEGIN
 	WHERE [CustomerEmail] = @Email
 END
 GO
+ 
+/*
+Created by: Matt Deaton
+Date: 2020-03-06
+Comment: Stored Procedure for selecting all shelter items, where ShelterItem field is true.
+*/
+PRINT '' PRINT '*** Creating sp_select_shelter_items'
+GO
+CREATE PROCEDURE [sp_select_shelter_items]
+(
+	@ShelterItem 		[bit]
+)
+AS
+BEGIN
+	SELECT [ItemName], [ItemCategory].[ItemCategoryID]
+	, [ItemQuantity], [ItemDescription]
+	, [ShelterItem], [ItemID], [ShelterThershold]
+	FROM [Item] JOIN [ItemCategory] ON [Item].[ItemCategoryID]
+		= [ItemCategory].[ItemCategoryID]
+	WHERE [ShelterItem] = @ShelterItem
+	ORDER BY [ItemQuantity]
+END
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-03-06
+Comment: Strored Procedure for viewing only Shelter Items that are below the ShelterThreshold.
+*/
+PRINT '' PRINT '*** Creating sp_view_needed_donations'
+GO
+CREATE PROCEDURE [sp_view_needed_donations]
+AS
+BEGIN
+	SELECT [ItemName], [ItemCategory].[ItemCategoryID]
+	, [ItemQuantity], [ItemDescription]
+	, [ShelterItem], [ItemID], [ShelterThershold]
+	FROM [Item] JOIN [ItemCategory] ON [Item].[ItemCategoryID]
+		= [ItemCategory].[ItemCategoryID]
+	WHERE [ItemQuantity] <= [ShelterThershold]
+	ORDER BY [ItemQuantity]
+END
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-03-06
+Comment: Stored Procedure for selecting a ShelterItem by there ItemName
+*/
+PRINT '' PRINT '*** Creating sp_select_shelter_item_by_item_name'
+GO
+CREATE PROCEDURE [sp_select_shelter_item_by_item_name]
+(
+	@ItemName		[nvarchar](50)
+)
+AS
+BEGIN
+	SELECT [ItemName], [ItemCategory].[ItemCategoryID]
+	, [ItemQuantity], [ItemDescription]
+	, [ShelterItem], [ItemID], [ShelterThershold]
+	FROM [Item] JOIN [ItemCategory] ON [Item].[ItemCategoryID]
+		= [ItemCategory].[ItemCategoryID]
+	WHERE [ItemName] = @ItemName
+	ORDER BY [ItemQuantity]
+END
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-03-06
+Comment: Stored Procedure for inserting a new ShelterItem through donations.
+*/
+PRINT '' PRINT '*** Creating sp_insert_new_donation'
+GO
+CREATE PROCEDURE [sp_insert_new_donation]
+(
+	@ItemName			[nvarchar](50),
+	@ItemCategoryID		[nvarchar](50),
+	@ItemQuantity		[int],
+	@ItemDescription	[nvarchar](250),
+	@ShelterItem		[bit],
+	@ShelterThershold	[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Item]
+		([ItemName], [ItemCategoryID], [ItemQuantity]
+		, [ItemDescription], [ShelterItem], [ShelterThershold])
+	VALUES
+		(@ItemName, @ItemCategoryID, @ItemQuantity
+		, @ItemDescription, @ShelterItem, @ShelterThershold)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+CREATED BY: Matt Deaton
+DATE: 2020-03-16
+COMMENT: Stored Procedure to edit a shelter item.
+*/
+PRINT '' PRINT '*** Creating sp_update_shelter_item'
+GO
+CREATE PROCEDURE [sp_update_shelter_item]
+(
+	@ItemID					[int],
+
+	@NewItemName			[nvarchar](50),
+	@NewItemCategoryID		[nvarchar](50),
+	@NewItemQuantity		[int],
+	@NewItemDescription		[nvarchar](250),
+	@NewShelterItem			[bit],
+	@NewShelterThershold	[int],
+
+	@OldItemName			[nvarchar](50),
+	@OldItemCategoryID		[nvarchar](50),
+	@OldItemQuantity		[int],
+	@OldItemDescription		[nvarchar](250),
+	@OldShelterItem			[bit],
+	@OldShelterThershold	[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Item]
+	SET		[ItemName] = @NewItemName,
+			[ItemCategoryID] = @NewItemCategoryID,
+			[ItemQuantity] = @NewItemQuantity,
+			[ItemDescription] = @NewItemDescription,
+			[ShelterItem] = @NewShelterItem,
+			[ShelterThershold] = @NewShelterThershold
+	WHERE	[ItemID] = @ItemID
+	AND 	[ItemName] = @OldItemName
+	AND		[ItemCategoryID] = @OldItemCategoryID
+	AND		[ItemDescription] = @OldItemDescription
+	AND		[ShelterItem] = @OldShelterItem
+	AND		[ShelterThershold] = @OldShelterThershold
+
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+CREATED BY: Matt Deaton
+DATE: 2020-03-16
+COMMENT: Stored Procedure to view all donors.
+*/
+PRINT '' PRINT '*** Creating sp_select_donors'
+GO
+CREATE PROCEDURE[sp_select_donors]
+AS
+BEGIN
+	SELECT	[DonorID]
+			, [FirstName]
+			, [LastName]
+			, [Active]
+	FROM [Donor]
+	ORDER BY[DonorID]
+END
+GO
 
 
 /*
@@ -8420,6 +8645,62 @@ INSERT INTO [dbo].[BaseScheduleLine]
 	 ('Cashier',1000001,1000007)
 	,('Manager',1000001,1000004)
 GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-03-06
+Comment: Inserting sample data into the ItemCategory table that are intended for shelter use.
+*/
+PRINT '' PRINT '*** Insert Into ItemCategory Table ***'
+GO
+INSERT INTO [dbo].[ItemCategory](
+	[ItemCategoryID],
+	[Description]
+)
+VALUES
+('Litter','Cat Litter'),
+('Bedding','Any kind of bedding material')
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-03-06
+Comment: Inserting sample data into the Item table that are intended for shelter use.
+*/
+PRINT '' PRINT '*** Insert Sample Data For Shelter Items in Item Table'
+INSERT INTO [dbo].[Item](
+	[ItemName]
+	,[ItemCategoryID]
+	,[ItemDescription]
+	,[ItemQuantity]
+	,[ShelterItem]
+	,[ShelterThershold]
+)
+VALUES
+('Dog Food', 'Food', 'Food for Shelter. In pounds.', 75, 1, 100),
+('Cat Litter', 'Litter', 'Cat Litter for the Shelter. In pounds', 150, 1, 100),
+('Blankets', 'Bedding', 'Blankets for the Shelter animals to use as bedding', 5, 1, 10),
+('Chinchilla Food', 'Food', 'Pellet food for a Chinchilla', 3, 1, 5)
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-03-17
+Comment: Inserting sample data into the Donor table.
+*/
+PRINT '' PRINT '*** Insert Sample Data into the Donor Table'
+INSERT INTO [dbo].[Donor](
+	[FirstName]
+	, [LastName]
+	, [Active]
+)
+VALUES
+(DEFAULT, NULL, DEFAULT),
+('Matt', 'Deaton', DEFAULT)
+
+
+
+
 
 /*
 Created by: Jesse Tomash

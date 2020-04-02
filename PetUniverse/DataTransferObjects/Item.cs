@@ -23,8 +23,10 @@ namespace DataTransferObjects
         public int ItemID { get; set; }
         public string ItemName { get; set; }
         public int ItemQuantity { get; set; }
+        public int ShelterThreshold { get; set; }
         public string ItemCategoryID { get; set; }
         public string Description { get; set; }
         public bool Active { get; set; }
+        public bool ShelterItem { get; set; }
     }
 }

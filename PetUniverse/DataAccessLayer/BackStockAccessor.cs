@@ -34,9 +34,9 @@ namespace DataAccessLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: 
+        /// Updater: Matt Deaton
+        /// Updated: 2020-03-11
+        /// Update: Added the ShelterItem item to the method, to display in data grid.
         /// </remarks>
 
 
@@ -65,6 +65,7 @@ namespace DataAccessLayer
                         item.ItemCategoryID = reader.GetString(3);
                         //item.ItemLocationID = reader.GetString(4);
                         item.Description = retrieveItemCategoryByItemCategoryID(item.ItemCategoryID);
+                        item.ShelterItem = reader.GetBoolean(4);
 
                         items.Add(item);
                     }

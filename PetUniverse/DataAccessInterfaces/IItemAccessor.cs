@@ -107,5 +107,77 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="item"></param>
         int deactivateItem(Item item);
+
+
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to return a list of shelter use items.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <returns>List of Items marked for shelter use</returns>
+        List<Item> SelectShelterItems(bool shelterItem);
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-07
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to return a list of needed shelter items.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="shelterThreshold"></param>
+        /// <returns></returns>
+        List<Item> SelectNeededShelterItems();
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-07
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to add a new Shelter Item through donation.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// <param name="donatedItem"></param>
+        /// <returns></returns>
+        int AddNewDonatedItem(Item donatedItem);
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-17
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to update Shelter Item in inventory.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// <param name="oldShelterItem"></param>
+        /// <param name="newShelterItem"></param>
+        /// <returns></returns>
+        int UpdateShelterItem(Item oldShelterItem, Item newShelterItem);
     }
 }

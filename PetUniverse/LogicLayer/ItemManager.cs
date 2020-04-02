@@ -219,5 +219,124 @@ namespace LogicLayer
         {
             _itemAccessor = new ItemAccessor();
         }
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 3/4/2020
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Logic Layer method for retriving a list items for the shelter.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <returns>List of Items inteded for shelter use</returns>
+        public List<Item> RetrieveShelterItems(bool shelterItem = true)
+        {
+            List<Item> items = null;
+            try
+            {
+                items = _itemAccessor.SelectShelterItems(shelterItem);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No Items Found.", ex);
+            }
+            return items;
+        }// End RetrieveShelterItems()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-07
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Logic Layer method for retriving a list items needed for the shelter.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="shelterThreshold"></param>
+        /// <returns></returns>
+        public List<Item> RetrieveNeededShelterItems()
+        {
+            List<Item> items = null;
+            try
+            {
+                items = _itemAccessor.SelectNeededShelterItems();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No Items Found.", ex);
+            }
+            return items;
+        }// End RetrieveNeededShelterItems()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to create a shelter item from a donated item.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="donatedItem"></param>
+        /// <returns></returns>
+        public bool CreateNewDonatedItem(Item donatedItem)
+        {
+            try
+            {
+                return 1 == _itemAccessor.AddNewDonatedItem(donatedItem);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to add Donation.", ex);
+            }
+        }// End CreateNewDonationItem()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-14
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to Edit a Shelter Item in inventory.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="oldShelterItem"></param>
+        /// <param name="newShelterItem"></param>
+        /// <returns>bool of result</returns>
+        public bool EditShelterItem(Item oldShelterItem, Item newShelterItem)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _itemAccessor.UpdateShelterItem(oldShelterItem, newShelterItem));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to Update Shelter Item.", ex);
+            }
+            return result;
+        }// End EditShelterItem()
     }
 }

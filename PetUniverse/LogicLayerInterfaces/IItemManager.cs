@@ -100,5 +100,76 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <param name="item"></param>
         bool deactivateItem(Item item);
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to return a list of shelter use items.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <returns>List of Items marked for shelter use</returns>
+        List<Item> RetrieveShelterItems(bool shelterItem = true);
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to return a list of Needed Shelter Items.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <returns></returns>
+        List<Item> RetrieveNeededShelterItems();
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to add a new donation item to the shelter inventory.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="donatedItem"></param>
+        /// <returns></returns>
+        bool CreateNewDonatedItem(Item donatedItem);
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Method to Edit a Shelter Item in inventory.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="oldShelterItem"></param>
+        /// <param name="newShelterItem"></param>
+        /// <returns></returns>
+        bool EditShelterItem(Item oldShelterItem, Item newShelterItem);
     }
 }

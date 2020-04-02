@@ -101,13 +101,14 @@ namespace WPFPresentationLayer.InventoryPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: 
+        /// Updater Matt Deaton
+        /// Updated: 2020-03-07 
+        /// Update: Removed Column 3 to insure the Shelter Threshold didn't show up in Data Grid
         /// </remarks>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             DGViewDatat.ItemsSource = StockManger.getPetsInBackRoom();
+            DGViewDatat.Columns.RemoveAt(3);
           
         }
 

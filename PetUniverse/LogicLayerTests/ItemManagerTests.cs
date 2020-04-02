@@ -218,6 +218,140 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Test method for return a list of shelter use items.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <returns>List of Items marked for shelter use</returns>
+        [TestMethod]
+        public void TestRetrieveShelterItemList()
+        {
+            //ARRANGE
+            int expectedNumber = 5;
+            List<Item> shelterItems = new List<Item>();
+
+            //ACT
+            shelterItems = _fakeItemAccessor.SelectShelterItems(true);
+
+            //ASSERT
+            Assert.AreEqual(expectedNumber, shelterItems.Count);
+        }// End TestRetrieveShelterItemList()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Test method for return a list of shelter use items.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveNeededItemList()
+        {
+            int expectedNumber = 2;
+            List<Item> shelterItems = new List<Item>();
+
+            shelterItems = _fakeItemAccessor.SelectNeededShelterItems();
+
+            Assert.AreEqual(expectedNumber, shelterItems.Count);
+        }// End TestRetrieveNeededItemList()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Test method for Creating a new Donated Item.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestCreateDonatedItem()
+        {
+            Item donatedItem = new Item()
+            {
+                ItemID = 777777,
+                ItemName = "Test Item",
+                ItemQuantity = 1,
+                ItemCategoryID = "Dog Toy",
+                ShelterItem = true,
+                ShelterThreshold = 10
+            };
+            bool successfulAdd = false;
+            bool expectedResult = true;
+
+            successfulAdd = _itemManager.CreateNewDonatedItem(donatedItem);
+
+            Assert.AreEqual(expectedResult, successfulAdd);
+        }// End TestCreateDonatedItem()
+
+        /// <summary>
+        /// NAME: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steven Coonrod
+        /// 
+        /// Test method for updating a Shelter Item.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestEditShelterItem()
+        {
+            bool result = false;
+
+            Item oldShelterItem = new Item()
+            {
+                ItemID = 100000,
+                ItemName = "Denta Stix",
+                ItemQuantity = 50,
+                ItemCategoryID = "Dog Food",
+                Description = "Treats to make a dog's breath better.",
+                ShelterItem = true,
+                ShelterThreshold = 25
+            };
+            Item newShelterItem = new Item()
+            {
+                ItemID = 100000,
+                ItemName = "Denta Stix",
+                ItemQuantity = 100, //Changed Value
+                ItemCategoryID = "Dog Treats",
+                Description = "Treats to make a dog's breath better.",
+                ShelterItem = true,
+                ShelterThreshold = 50 // Changed Value
+            };
+
+            result = _itemManager.EditShelterItem(oldShelterItem, newShelterItem);
+
+            Assert.IsTrue(result);
+
+        } // End TestEditShelterItem()
+
+        /// <summary>
         /// Creator: Brandyn T. Coverdill
         /// Created: 2020/02/22
         /// Approver: Dalton Reierson
