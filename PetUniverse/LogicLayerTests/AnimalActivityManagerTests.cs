@@ -70,7 +70,7 @@ namespace LogicLayerTests
             AnimalActivity = _animalActivity.RetrieveAnimalFeedingRecords();
 
             // assert
-            Assert.AreEqual(2, AnimalActivity.Count);
+            Assert.AreEqual(4, AnimalActivity.Count);
 
         }
 
@@ -103,6 +103,102 @@ namespace LogicLayerTests
             _AnimalChecklistManager.RetrieveAnimalFeedingRecords();
 
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/2/2020
+        /// Approver: Carl Davis 4/3/2020
+        /// 
+        /// Tests retrieving animals by activity type.
+        /// Tests both valid and invalid activity types
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAnimalActivityByActivityType()
+        {
+            // Arrange
+            IAnimalActivityManager manager =
+                new AnimalActivityManager(_fakeActivityAccessor);
+            string validActivityType = "Play";
+            string invalidActivityType = "the";
+            List<AnimalActivity> validList;
+            List<AnimalActivity> invalidList;
+
+            // Act
+            validList = manager.RetrieveAnimalActivitiesByActivityType(validActivityType);
+            invalidList = manager.RetrieveAnimalActivitiesByActivityType(invalidActivityType);
+
+            // Assert
+            Assert.AreEqual(validList.Count, 2);
+            Assert.AreEqual(invalidList.Count, 0);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/2/2020
+        /// Approver: Carl Davis 4/3/2020
+        /// 
+        /// Tests retrieving all activity types
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAllAnimalActivityTypes()
+        {
+            // Arrange
+            IAnimalActivityManager manager =
+                new AnimalActivityManager(_fakeActivityAccessor);
+            List<AnimalActivityType> activityTypes;
+
+            // Act
+            activityTypes = manager.RetrieveAllAnimalActivityTypes();
+
+            // Assert
+            Assert.AreEqual(activityTypes.Count, 2);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/2/2020
+        /// Approver: Carl Davis 4/3/2020
+        /// 
+        /// Tests inserting animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestAddingAnimalActivityRecord()
+        {
+            // Arrange
+            IAnimalActivityManager manager =
+                new AnimalActivityManager(_fakeActivityAccessor);
+            bool result = false;
+            AnimalActivity activity = new AnimalActivity()
+            {
+                AnimalActivityId = 1000,
+                AnimalID = 1,
+                UserID = 1,
+                AnimalActivityTypeID = "Play"
+            };
+
+            // Act
+            result = manager.AddAnimalActivityRecord(activity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+
         /// <summary>
         /// Tear down the test
         /// </summary>

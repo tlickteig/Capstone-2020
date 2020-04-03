@@ -140,6 +140,7 @@ namespace WPFPresentationLayer
             frameViewKennelRecords.Content = new KennelControls(_user);
             frameViewHandlingNotes.Content = new HandlingControls(_user);
             frameViewVetAppointments.Content = new VetAppointmentControls(_user);
+            frameViewAnimalActivities.Content = new AnimalActivityRecords(_user);
         }
 
         /// <summary>

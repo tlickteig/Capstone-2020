@@ -24,6 +24,106 @@ namespace DataAccessLayer
     /// </remarks>
     public class AnimalActivityAccessor : IAnimalActivityAccessor
     {
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/2/2020
+        /// Approver: Carl Davis 4/3/2020
+        /// 
+        /// Gets animal activity records by activity type
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="activity">Activity type ID</param>
+        /// <returns>List of animal activity records</returns>
+        public List<AnimalActivity> GetAnimalActivityRecordsByActivityType(string activity)
+        {
+            List<AnimalActivity> activities = new List<AnimalActivity>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_animal_activites_by_activity_type", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ActivityTypeID", activity);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    activities.Add(new AnimalActivity()
+                    {
+                        AnimalActivityId = reader.GetInt32(0),
+                        AnimalID = reader.GetInt32(1),
+                        UserID = reader.GetInt32(2),
+                        AnimalName = reader.GetString(3),
+                        AnimalActivityTypeID = reader.GetString(4),
+                        ActivityDateTime = reader.GetDateTime(5),
+                        Description = reader.IsDBNull(6) ? "" : reader.GetString(6)
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return activities;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/2/2020
+        /// Approver: Carl Davis 4/3/2020
+        /// 
+        /// Gets animal activity types
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>List of animal activity types</returns>
+        public List<AnimalActivityType> GetAnimalActivityTypes()
+        {
+            List<AnimalActivityType> activityTypes = new List<AnimalActivityType>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_all_animal_activity_types", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    activityTypes.Add(new AnimalActivityType()
+                    {
+                        ActivityTypeId = reader.GetString(0),
+                        Description = reader.GetString(1)
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return activityTypes;
+        }
+
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 2/18/2020
@@ -67,10 +167,10 @@ namespace DataAccessLayer
 
 
                             AnimalActivityTypeID = reader.GetString(3),
-                          ActivityDateTime = reader.GetDateTime(4)
+                            ActivityDateTime = reader.GetDateTime(4)
 
 
-                          
+
 
 
                         });
@@ -90,8 +190,49 @@ namespace DataAccessLayer
             return N.ToList();
         }
 
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/2/2020
+        /// Approver: Carl Davis 4/3/2020
+        /// 
+        /// Inserts an animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalActivity">The record to insert</param>
+        /// <returns>List of animal activity types</returns>
+        public int InsertAnimalActivityRecord(AnimalActivity animalActivity)
+        {
+            int rows = 0;
 
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_animal_activity", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalID", animalActivity.AnimalID);
+            cmd.Parameters.AddWithValue("@UserID", animalActivity.UserID);
+            cmd.Parameters.AddWithValue("@AnimalActivityTypeID", animalActivity.AnimalActivityTypeID);
+            cmd.Parameters.AddWithValue("@ActivityDateTime", animalActivity.ActivityDateTime);
+            cmd.Parameters.AddWithValue("@Description", animalActivity.Description);
 
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
     }
 
 }

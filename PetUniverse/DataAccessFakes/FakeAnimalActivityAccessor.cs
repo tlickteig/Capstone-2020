@@ -25,19 +25,20 @@ namespace DataAccessFakes
     public class FakeAnimalActivityAccessor : IAnimalActivityAccessor
     {
         private List<AnimalActivity> _animalActivity;
+        private List<AnimalActivityType> activityTypes;
 
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 2/18/2020
-        /// Approver: Carl Davis, 2/7/2020
-        /// Approver: Chuck Baxter, 2/7/2020
+        /// Approver: Carl Davis 4/3/2020
         /// 
         /// fake animal activity records
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Ethan Murphy
+        /// Updated: 4/2/2020
+        /// Update: Added more activities and activity types
+        /// and removed a quattuordecillion of unnecessary blank lines
         /// </remarks>
         public FakeAnimalActivityAccessor()
         {
@@ -45,35 +46,79 @@ namespace DataAccessFakes
             {
                 new AnimalActivity() {
                     AnimalID = 1,
-
                     ActivityDateTime = DateTime.Now,
-
-                     AnimalActivityTypeID = "Routine feeding",
-
-                   
-
-
-
+                    AnimalActivityTypeID = "Feeding",
                 },
-
                 new AnimalActivity() {
                     AnimalID = 2,
-
                     ActivityDateTime = DateTime.Now,
-
-                     AnimalActivityTypeID = "Routine feeding",
-
-                    
-
-
-
+                    AnimalActivityTypeID = "Feeding",
+                },
+                new AnimalActivity()
+                {
+                    AnimalActivityId = 3,
+                    ActivityDateTime = DateTime.Now,
+                    AnimalActivityTypeID = "Play"
+                },
+                new AnimalActivity()
+                {
+                    AnimalActivityId = 4,
+                    ActivityDateTime = DateTime.Now,
+                    AnimalActivityTypeID = "Play"
                 }
+            };
 
-
-
-
+            activityTypes = new List<AnimalActivityType>()
+            {
+                new AnimalActivityType()
+                {
+                    ActivityTypeId = "Feeding"
+                },
+                new AnimalActivityType()
+                {
+                    ActivityTypeId = "Play"
+                }
             };
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/2/2020
+        /// Approver: Carl Davis 4/3/2020
+        /// 
+        /// Retrieves a list of fake animal activity records
+        /// by activity type
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="activity">Activity type id</param>
+        /// <returns>List of animal activity records</returns>
+        public List<AnimalActivity> GetAnimalActivityRecordsByActivityType(string activity)
+        {
+            return _animalActivity.Where(a => a.AnimalActivityTypeID == activity).ToList();
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/2/2020
+        /// Approver: Carl Davis 4/3/2020
+        /// 
+        /// Retrieves a list of fake animal activity types
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>List of animal activity types</returns>
+        public List<AnimalActivityType> GetAnimalActivityTypes()
+        {
+            return activityTypes;
+        }
+
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 2/18/2020
@@ -93,6 +138,28 @@ namespace DataAccessFakes
 
 
 
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/2/2020
+        /// Approver: Carl Davis 4/3/2020
+        /// 
+        /// Inserts an animal activity into the existing list
+        /// of fake animal activity records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalActivity">Record to insert</param>
+        /// <returns>The number of records updated</returns>
+        public int InsertAnimalActivityRecord(AnimalActivity animalActivity)
+        {
+            int startingLength = _animalActivity.Count;
+            _animalActivity.Add(animalActivity);
+            return _animalActivity.Count - startingLength;
         }
     }
 }

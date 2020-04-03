@@ -522,9 +522,7 @@ CREATE TABLE [dbo].[AnimalActivityType] (
 	[AnimalActivityTypeID]	[nvarchar](100)				 	NOT NULL,
 	[ActivityNotes]			[nvarchar](MAX)
 
-	CONSTRAINT [pk_AnimalActivityTypeID] PRIMARY KEY([AnimalActivityTypeID] ASC),
-
-	CONSTRAINT [ak_AnimalActivityTypeID] UNIQUE([AnimalActivityTypeID] ASC)
+	CONSTRAINT [pk_AnimalActivityTypeID] PRIMARY KEY([AnimalActivityTypeID] ASC)
 )
 GO
 
@@ -544,6 +542,7 @@ CREATE TABLE [dbo].[AnimalActivity] (
 [UserID]			    [int]						NOT NULL,
 [AnimalActivityTypeID]  [nvarchar](100)				NOT NULL,
 [ActivityDateTime]      [DateTime]   				NOT NULL,
+[Description]			[nvarchar](4000)			NULL,
 
 
 	CONSTRAINT [pk_AnimalActivityID] PRIMARY KEY([AnimalActivityID] ASC),
@@ -555,9 +554,7 @@ CREATE TABLE [dbo].[AnimalActivity] (
 		REFERENCES [User]([UserID]) ON UPDATE CASCADE,
 
 	CONSTRAINT [fk_AnimalActivityType_AnimalActivityTypeID] FOREIGN KEY([AnimalActivityTypeID])
-		REFERENCES [AnimalActivityType]([AnimalActivityTypeID]) ON UPDATE CASCADE,
-
-	CONSTRAINT [ak_AnimalActivityID] UNIQUE([AnimalActivityTypeID] ASC)
+		REFERENCES [AnimalActivityType]([AnimalActivityTypeID])
 )
 GO
 
@@ -6418,6 +6415,77 @@ BEGIN
 END
 GO
 
+/*
+Created by: Ethan Murphy
+Date: 3/31/2020
+Comment: Selects animal activity records by
+		activity type
+*/
+DROP PROCEDURE IF EXISTS [sp_select_animal_activites_by_activity_type]
+GO
+print '' print '*** creating sp_select_animal_activites_by_activity_type'
+GO
+CREATE PROCEDURE [sp_select_animal_activites_by_activity_type]
+(
+	@ActivityTypeID		[nvarchar](100)
+)
+AS
+BEGIN
+	SELECT [AnimalActivityID], [Animal].[AnimalID], [UserID], [AnimalName],
+			[AnimalActivityTypeID], [ActivityDateTime], [Description]
+	FROM [dbo].[AnimalActivity]
+	INNER JOIN [dbo].[Animal]
+	ON [AnimalActivity].[AnimalID] = [Animal].[AnimalID]
+	WHERE [AnimalActivityTypeID] = @ActivityTypeID
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 4/2/2020
+Comment: Inserts an animal activity record
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_animal_activity]
+GO
+print '' print '*** creating sp_insert_animal_activity'
+GO
+CREATE PROCEDURE [sp_insert_animal_activity]
+(
+	@AnimalID				[int],
+	@UserID					[int],
+	@AnimalActivityTypeID	[nvarchar](100),
+	@ActivityDateTime		[datetime],
+	@Description			[nvarchar](400)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[AnimalActivity]
+	([AnimalID], [UserID], [AnimalActivityTypeID],
+	[ActivityDateTime], [Description])
+	VALUES
+	(@AnimalID, @UserID, @AnimalActivityTypeID,
+	@ActivityDateTime, @Description)
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 3/31/2020
+Comment: Select all animal activity types
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_animal_activity_types]
+GO
+print '' print '*** creating sp_select_all_animal_activity_types'
+GO
+CREATE PROCEDURE [sp_select_all_animal_activity_types]
+AS
+BEGIN
+	SELECT [AnimalActivityTypeID], [ActivityNotes]
+	FROM [AnimalActivityType]
+END
+GO
+
 DROP PROCEDURE IF EXISTS [SP_Create_SpecialOrder]
 GO
 PRINT '' PRINT '*** SP_Create_SpecialOrder'
@@ -7699,7 +7767,8 @@ GO
 INSERT INTO [dbo].[AnimalActivityType]
 	  ([AnimalActivityTypeID],[ActivityNotes])
 VALUES
-	('Feeding','Feed the Animals')
+	('Feeding','Feed the Animals'),
+	('Play', 'Record of when an animal was played with')
 GO
 
 /*
@@ -7710,9 +7779,13 @@ Comment: Sample Data for AnimalActivity Records
 print '' print '*** Creating sample AnimalActivity records'
 GO
 INSERT INTO [dbo].[AnimalActivity]
-	 ([AnimalActivityID],[AnimalID],[AnimalActivityTypeID],[ActivityDateTime],[UserID])
+	 ([AnimalID],[AnimalActivityTypeID],[ActivityDateTime],[UserID], [Description])
 VALUES
-    (1, 1000000,'Feeding', 2020-2-2, 100000)
+    (1000000,'Feeding', "2020-02-02", 100000, "test"),
+	(1000001,'Play', "2020-01-02", 100000, "test2"),
+	(1000000,'Play', "2020-06-02", 100000, "test3"),
+	(1000001,'Feeding', "2020-05-02", 100000, "test4"),
+	(1000002,'Play', "2020-04-10", 100000, "test5")
 GO
 
 /*
