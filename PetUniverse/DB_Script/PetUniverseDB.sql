@@ -7567,6 +7567,41 @@ BEGIN
     RETURN @@ROWCOUNT
 END 
 GO
+                
+/*
+Created by: Ben Hanna
+Date: 4/2/2020
+Comment: Insert a kennel cleaning record
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_kennel_cleaning_record]
+GO                
+PRINT '' PRINT '*** Creating sp_insert_kennel_cleaning_record'
+GO
+CREATE PROCEDURE [sp_insert_kennel_cleaning_record]
+(
+    @UserID           [int],
+    @AnimalKennelID   [int], 
+    @Date	          [date],
+    @Notes            [nvarchar](250)
+        
+)
+AS
+BEGIN
+   INSERT INTO [dbo].[FacilityKennelCleaning] 
+        ([UserID],
+         [AnimalKennelID],
+         [Date],
+         [Notes]
+        )
+   VALUES 
+        (@UserID,
+         @AnimalKennelID,
+         @Date,
+         @Notes
+        )
+   SELECT SCOPE_IDENTITY()
+END
+GO               
 
 
 /*

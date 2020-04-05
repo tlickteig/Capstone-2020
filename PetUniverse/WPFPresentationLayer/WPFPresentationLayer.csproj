@@ -139,6 +139,9 @@
     <Compile Include="AMPages\AnimalRecords.xaml.cs">
       <DependentUpon>AnimalRecords.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FMPages\AnimalKennelCleaningControls.xaml.cs">
+      <DependentUpon>AnimalKennelCleaningControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\AddDonationItem.xaml.cs">
       <DependentUpon>AddDonationItem.xaml</DependentUpon>
     </Compile>
@@ -366,6 +369,10 @@
     <Page Include="AMPages\AnimalRecords.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FMPages\AnimalKennelCleaningControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InventoryPages\AddDonationItem.xaml">
       <SubType>Designer</SubType>

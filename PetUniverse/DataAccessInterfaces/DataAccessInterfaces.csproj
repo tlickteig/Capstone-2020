@@ -61,6 +61,7 @@
     <Compile Include="IAnimalActivityAccessor.cs" />
     <Compile Include="IAnimalHandlingAccessor.cs" />
     <Compile Include="IAnimalKennelAccessor.cs" />
+    <Compile Include="IAnimalKennelCleaningAccessor.cs" />
     <Compile Include="IAnimalMedicalHistoryAccessor.cs" />
     <Compile Include="IAnimalPrescriptionAccessor.cs" />
     <Compile Include="IAnimalStatusAccessor.cs" />

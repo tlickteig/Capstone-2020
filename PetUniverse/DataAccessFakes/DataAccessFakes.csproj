@@ -60,6 +60,7 @@
     <Compile Include="FakeAnimalActivityAccessor.cs" />
     <Compile Include="FakeAnimalHandlingAccessor.cs" />
     <Compile Include="FakeAnimalKennelAccessor.cs" />
+    <Compile Include="FakeAnimalKennelCleaningAccessor.cs" />
     <Compile Include="FakeAnimalPrescriptionAccessor.cs" />
     <Compile Include="FakeAnimalStatusAccessor.cs" />
     <Compile Include="FakeApplicantAccessor.cs" />

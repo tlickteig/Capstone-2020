@@ -60,6 +60,7 @@
     <Compile Include="AnimalActivityAccessor.cs" />
     <Compile Include="AnimalHandlingAccessor.cs" />
     <Compile Include="AnimalKennelAccessor.cs" />
+    <Compile Include="AnimalKennelCleaningAccessor.cs" />
     <Compile Include="AnimalMedicalHistoryAccessor.cs" />
     <Compile Include="AnimalPrescriptionAccessor.cs" />
     <Compile Include="AnimalStatusAccessor.cs" />

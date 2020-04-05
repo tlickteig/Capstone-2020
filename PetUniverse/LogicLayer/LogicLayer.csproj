@@ -58,6 +58,7 @@
     <Compile Include="AdoptionInterviewerManager.cs" />
     <Compile Include="AnimalActivityManager.cs" />
     <Compile Include="AnimalHandlingManager.cs" />
+    <Compile Include="AnimalKennelCleaningManager.cs" />
     <Compile Include="AnimalKennelManager.cs" />
     <Compile Include="AnimalManager.cs" />
     <Compile Include="AnimalMedicalHistoryManager.cs" />

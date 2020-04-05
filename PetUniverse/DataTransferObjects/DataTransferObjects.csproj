@@ -66,6 +66,7 @@
     <Compile Include="AnimalActivityType.cs" />
     <Compile Include="AnimalHandlingNotes.cs" />
     <Compile Include="AnimalKennel.cs" />
+    <Compile Include="AnimalKennelCleaningRecord.cs" />
     <Compile Include="AnimalPrescriptions.cs" />
     <Compile Include="AnimalPrescriptionVM.cs" />
     <Compile Include="AnimalStatus.cs" />

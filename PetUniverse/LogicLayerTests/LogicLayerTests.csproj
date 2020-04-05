@@ -67,6 +67,7 @@
     <Compile Include="AnimalActivityManagerTests.cs" />
     <Compile Include="AnimalChecklistManagerTests.cs" />
     <Compile Include="AnimalHandlingManagerTests.cs" />
+    <Compile Include="AnimalKennelCleaningManagerTests.cs" />
     <Compile Include="AnimalKennelManagerTests.cs" />
     <Compile Include="AnimalManagerTests.cs" />
     <Compile Include="AnimalMedicalHistoryManagerTests.cs" />

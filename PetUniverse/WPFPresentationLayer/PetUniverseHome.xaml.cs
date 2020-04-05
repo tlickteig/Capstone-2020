@@ -590,6 +590,11 @@ namespace WPFPresentationLayer
         /// Update: Passed the logged in user through the constructor
         /// Approver: Ethan Murphy 3/6/2020
         /// 
+        /// Updater: Ben Hanna 
+        /// Updated: 4/2/2020
+        /// Update: Added the cleaning records tab.
+        /// Approver: Carl Davis 4/4/2020
+        /// 
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -599,6 +604,7 @@ namespace WPFPresentationLayer
             switchScreen(desiredScreen);
             frameViewFacilityInspection.Content = new FacilityInspectionControls(_user);
             frameViewFacilityMaintenance.Content = new FacilityMaintenanceControls(_user);
+            frameViewKennelCleaningRecords.Content = new AnimalKennelCleaningControls(_user);
         }
 
 
