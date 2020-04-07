@@ -13,12 +13,6 @@ namespace DataTransferObjects
     /// 
     /// Holds data relevant to a Product.
     /// </summary>
-    /// <remarks>
-    /// Updater:
-    /// Updated: 
-    /// Update: 
-    /// 
-    /// </remarks>
     public class Product
     {
         public string ProductID { get; set; }

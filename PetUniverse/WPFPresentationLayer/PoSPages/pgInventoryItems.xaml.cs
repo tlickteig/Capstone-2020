@@ -24,9 +24,10 @@ namespace WPFPresentationLayer.PoSPages
     ///
     /// Interaction logic for InventoryItems.xaml
     /// </summary>
-    public partial class InventoryItems : Page
+    public partial class pgInventoryItems : Page
 	{
 		private IInventoryItemsManager _inventoryItemsManager;
+        private Frame _frame;
 
         /// <summary>
         /// Creator: Cash Carlson
@@ -40,11 +41,32 @@ namespace WPFPresentationLayer.PoSPages
         /// Updated:
         /// Update:
         /// </remarks>
-        public InventoryItems()
+        public pgInventoryItems()
 		{
 			_inventoryItemsManager = new InventoryItemsManager();
 			InitializeComponent();
 		}
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/17
+        /// Approver: 
+        /// 
+        /// Constructor that takes a frame for navigation purposes.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="frame">The frame to use for navigation.</param>
+        public pgInventoryItems(Frame frame)
+        {
+            _inventoryItemsManager = new InventoryItemsManager();
+            _frame = frame;
+            InitializeComponent();
+        }
 
         /// <summary>
         /// Creator: Cash Carlson
@@ -82,5 +104,24 @@ namespace WPFPresentationLayer.PoSPages
 			dgInventoryItems.ItemsSource = _inventoryItemsManager.RetrieveInventoryItems();
 			dgInventoryItems.Columns.Remove(dgInventoryItems.Columns[0]);
 		}
-	}
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/17
+        /// Approver: 
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            _frame.Navigate(new pgChooseItemForProduct(_frame));
+        }
+    }
 }

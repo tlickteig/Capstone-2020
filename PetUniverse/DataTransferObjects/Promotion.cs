@@ -22,7 +22,21 @@ namespace DataTransferObjects
         public decimal Discount { get; set; }
         public string Description { get; set; }
         public List<Product> Products { get; set; }
+        public bool Active { get; set; }
 
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/10
+        /// Approver: Cash Carlson
+        /// 
+        /// Default constructor
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// 
+        /// </remarks>
         public Promotion()
         {
             Products = new List<Product>();

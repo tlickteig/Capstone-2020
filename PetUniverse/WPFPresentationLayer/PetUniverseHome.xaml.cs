@@ -668,6 +668,7 @@ namespace WPFPresentationLayer
         /// Updater: 
         /// Updated: 
         /// Update: 
+		
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -677,6 +678,28 @@ namespace WPFPresentationLayer
             switchScreen(desiredScreen);
 
             FrameMessages.Content = new pgMessages(_user);
+		}
+		
+		/// Creator: Robert Holmes
+        /// Created: 2020/03/17
+        /// Approver: Jaeho Kim
+        /// 
+        /// Loads data into the frame in a way that allows navigation.
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InventoryItems_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (frmInventoryItems == null)
+            {
+                frmInventoryItems = new Frame();
+                InventoryItems.Content = frmInventoryItems;
+            }
+            if (frmInventoryItems.Content == null)
+            {
+                frmInventoryItems.Navigate(new PoSPages.pgInventoryItems(frmInventoryItems));
+            }
         }
     }
 }

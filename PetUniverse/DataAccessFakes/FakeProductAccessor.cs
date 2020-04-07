@@ -15,12 +15,6 @@ namespace DataAccessFakes
     /// 
     /// Fake product accessor for testing purposes.
     /// </summary>
-    /// <remarks>
-    /// Updater:
-    /// Updated: 
-    /// Update: 
-    /// 
-    /// </remarks>
     public class FakeProductAccessor : IProductAccessor
     {
         private List<Product> products;
@@ -71,6 +65,64 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Robert Holmes
+        /// Created: 2020/03/17
+        /// Approver: Jaeho Kim
+        /// 
+        /// Tests whether the manager correctly calls the add method.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        public int InsertProduct(Product product)
+        {
+            int rows = 0;
+            bool duplicate = false;
+            foreach (Product p in products)
+            {
+                if (p.ProductID == product.ProductID)
+                {
+                    duplicate = true;
+                    break;
+                }
+            }
+
+            if (duplicate)
+            {
+                throw new ApplicationException("Duplicate Item Detected.");
+            }
+            else
+            {
+                products.Add(product);
+                rows++;
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/18
+        /// Approver: Jaeho Kim
+        /// 
+        /// Method that returns a fake collection of product type ids.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        public List<string> SelectAllProductTypeIDs()
+        {
+            return new List<string> { "Test Type ID" };
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
         /// Created: 2020/02/14
         /// Approver: Cash Carlson
         /// 
@@ -87,7 +139,8 @@ namespace DataAccessFakes
         {
             if (!type.Equals("Fail Type"))
             {
-                if (type.Equals("All")) {
+                if (type.Equals("All"))
+                {
                     return (from p in products
                             select p).ToList();
                 }
