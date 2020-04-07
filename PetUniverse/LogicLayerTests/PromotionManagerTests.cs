@@ -24,7 +24,7 @@ namespace LogicLayerTests
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/12
-        /// Approver:
+        /// Approver: Cash Carlson
         /// 
         /// Initializes variables for testing.
         /// </summary>
@@ -93,6 +93,87 @@ namespace LogicLayerTests
 
             //Assert
             Assert.AreEqual(expectedCount, list.Count);
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: Cash Carlson
+        /// 
+        /// Tests whether the Promotion manager can properly call the edit method.
+        /// </summary>
+        [TestMethod]
+        public void TestEditPromotion()
+        {
+            //Arrange
+            IPromotionManager promotionManager = new PromotionManager(_promotionAccessor);
+            Promotion oldPromotion = new Promotion()
+            {
+                PromotionID = "TESTPROMO",
+                PromotionTypeID = "Percent",
+                Discount = 0.95M,
+                Description = "Test Description",
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today.AddDays(1)
+            };
+            oldPromotion.Products.Add(new Product()
+            {
+                ProductID = "1234567890123",
+                ItemID = 10000,
+                Brand = "Test Brand",
+                Category = "Test Category",
+                Name = "Test Product",
+                Taxable = true,
+                Type = "Test Type",
+                Description = "Test product description",
+                Price = 1.00M
+            });
+            Promotion newPromotion = new Promotion()
+            {
+                PromotionID = "TESTPROMO",
+                PromotionTypeID = "Flat Amount",
+                Discount = 0.95M,
+                Description = "Test Description2",
+                StartDate = DateTime.Today.AddDays(1),
+                EndDate = DateTime.Today.AddDays(2)
+            };
+            newPromotion.Products.Add(new Product()
+            {
+                ProductID = "1234567890123",
+                ItemID = 10000,
+                Brand = "Test Brand",
+                Category = "Test Category",
+                Name = "Test Product",
+                Taxable = true,
+                Type = "Test Type",
+                Description = "Test product description",
+                Price = 1.00M
+            });
+            bool expected = true;
+
+            //Act
+            bool actual = promotionManager.EditPromotion(oldPromotion, newPromotion);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: Cash Carlson
+        /// 
+        /// Cleans up after tests are run.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        public void PromotionManagerTestsCleanup()
+        {
+            _promotionAccessor = null;
         }
     }
 }

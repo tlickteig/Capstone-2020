@@ -246,8 +246,8 @@
                 <TabItem x:Name="tabViewSales" Header="View Sales" FontSize="18" FontWeight="Bold" Background="#fff8e3">
 
                 </TabItem>
-                <TabItem x:Name="InventoryItems" Header="Sale Items Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./PoSPages/InventoryItems.xaml"/>
+                <TabItem x:Name="InventoryItems" Header="Sale Items Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="InventoryItems_Loaded">
+                    <Frame x:Name="frmInventoryItems" Source="./PoSPages/InventoryItems.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
 
                 <TabItem  x:Name="tabViewTransactions" Header="View Transactions" FontSize="18" FontWeight="Bold" Background="#fff8e3">

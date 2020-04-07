@@ -13,7 +13,7 @@ namespace DataAccessLayer
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 2020/03/10
-    /// Approver:
+    /// Approver: Cash Carlson
     /// 
     /// Concrete implementation of the IPromotionAccessor interface for SQLEXPRESS technology.
     /// </summary>
@@ -66,6 +66,146 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: Cash Carlson
+        /// 
+        /// SQLEXPRESS implemementation of getting all promotions
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="onlyActive"></param>
+        /// <returns></returns>
+        public List<Promotion> SelectAllPromotions(bool onlyActive = true)
+        {
+            List<Promotion> promotions = new List<Promotion>();
+
+            var conn = DBConnection.GetConnection();
+            string cmdText;
+            if (onlyActive)
+            {
+                cmdText = "sp_select_all_active_promotions";
+            }
+            else
+            {
+                cmdText = "sp_select_all_promotions";
+            }
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        promotions.Add(new Promotion()
+                        {
+                            PromotionID = reader.GetString(0)
+                            ,
+                            PromotionTypeID = reader.GetString(1)
+                            ,
+                            StartDate = reader.GetDateTime(2)
+                            ,
+                            EndDate = reader.GetDateTime(3)
+                            ,
+                            Discount = reader.GetDecimal(4)
+                            ,
+                            Description = reader.GetString(5)
+                            ,
+                            Active = reader.GetBoolean(6)
+                        });
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            foreach (Promotion promo in promotions)
+            {
+                promo.Products = getProductsForPromotion(promo.PromotionID);
+            }
+
+            return promotions;
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: Cash Carlson
+        /// 
+        /// Gets all of the related products for a promotion ID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        private List<Product> getProductsForPromotion(string promotionID)
+        {
+            List<Product> products = new List<Product>();
+
+            var conn = DBConnection.GetConnection();
+            var cmdText = "sp_select_all_products_by_promotion_id";
+
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@PromotionID", promotionID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        products.Add(new Product()
+                        {
+                                ProductID = reader.GetString(0)
+                            ,   ItemID = reader.GetInt32(1)
+                            ,   Name = reader.GetString(2)
+                            ,   Category = reader.GetString(3)
+                            ,   Type = reader.GetString(4)
+                            ,   Description = reader.GetString(5)
+                            ,   Price = reader.GetDecimal(6)
+                            ,   Brand = reader.GetString(7)
+                            ,   Taxable = reader.GetBoolean(8)
+                        });
+
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return products;
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
         /// Created: 2020/03/10
         /// Approver: Cash Carlson
         /// 
@@ -76,7 +216,7 @@ namespace DataAccessLayer
         {
             List<string> types = new List<string>();
 
-            var cmdText = @"sp_retrieve_promotiontypes";
+            var cmdText = @"sp_select_promotion_types";
             var conn = DBConnection.GetConnection();
 
             var cmd = new SqlCommand(cmdText, conn);
@@ -141,6 +281,106 @@ namespace DataAccessLayer
                 {
                     conn.Close();
                 }
+            }
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: Cash Carlson
+        /// 
+        /// SQLEXPRESS implementation to update a promotion.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="oldPromotion"></param>
+        /// <param name="newPromotion"></param>
+        /// <returns></returns>
+        public int UpdatePromotion(Promotion oldPromotion, Promotion newPromotion)
+        {
+            int rows = 0;
+
+            var cmdText = "sp_update_promotion";
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@PromotionID", oldPromotion.PromotionID);
+            cmd.Parameters.AddWithValue("@OldPromotionTypeID", oldPromotion.PromotionTypeID);
+            cmd.Parameters.AddWithValue("@OldStartDate", oldPromotion.StartDate);
+            cmd.Parameters.AddWithValue("@OldEndDate", oldPromotion.EndDate);
+            cmd.Parameters.AddWithValue("@OldDiscount", oldPromotion.Discount);
+            cmd.Parameters.AddWithValue("@OldDescription", oldPromotion.Description);
+            cmd.Parameters.AddWithValue("@OldActive", oldPromotion.Active);
+            cmd.Parameters.AddWithValue("@NewPromotionTypeID", newPromotion.PromotionTypeID);
+            cmd.Parameters.AddWithValue("@NewStartDate", newPromotion.StartDate);
+            cmd.Parameters.AddWithValue("@NewEndDate", newPromotion.EndDate);
+            cmd.Parameters.AddWithValue("@NewDiscount", newPromotion.Discount);
+            cmd.Parameters.AddWithValue("@NewDescription", newPromotion.Description);
+            cmd.Parameters.AddWithValue("@NewActive", newPromotion.Active);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            if (rows == 1)
+            {
+                removePromoProducts(oldPromotion);
+                insertPromoProducts(newPromotion);
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: Cash Carlson
+        /// 
+        /// Removes old promotion product relationships.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        public void removePromoProducts(Promotion promotion)
+        {
+            var conn = DBConnection.GetConnection();
+            var cmdText = "sp_delete_promo_products";
+
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@PromotionID", promotion.PromotionID);
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
             }
         }
     }

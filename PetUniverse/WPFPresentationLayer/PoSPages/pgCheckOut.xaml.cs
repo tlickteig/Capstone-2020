@@ -170,7 +170,7 @@ namespace WPFPresentationLayer.PoSPages
                             {
                                 _transaction.ProductAmounts.TryGetValue(key, out int qty);
                                 _transaction.ProductAmounts.Remove(key);
-                                _transaction.ProductAmounts.Add(p, qty);
+                                _transaction.ProductAmounts.Add(p, ++qty);
                                 alreadyAdded = true;
                                 break;
                             }

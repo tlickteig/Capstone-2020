@@ -163,6 +163,107 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Robert Holmes
+        /// Created: 2020/03/18
+        /// Approver: Jaeho Kim
+        /// 
+        /// Tests whether the Product Manager is able to add a product.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAddProduct()
+        {
+            // Arrange
+            Product product = new Product()
+            {
+                ProductID = "1234567890123",
+                Name = "Test Product",
+                Category = "Test Category",
+                Brand = "Test Brand",
+                ItemID = 100000,
+                Price = 1.0M,
+                Taxable = true,
+                Type = "Test Type",
+                Description = "Test product description."
+            };
+            int expected = 1;
+
+            // Act
+            int actual = _productAccessor.InsertProduct(product);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/18
+        /// Approver: Jaeho Kim
+        /// 
+        /// Tests whether the manager catches an exception thrown when attempting to add a duplicate item.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestFailAddProductDuplicate()
+        {
+            // Arrange
+            Product product = new Product()
+            {
+                ProductID = "1234567890123",
+                Name = "Test Product",
+                Category = "Test Category",
+                Brand = "Test Brand",
+                ItemID = 100000,
+                Price = 1.0M,
+                Taxable = true,
+                Type = "Test Type",
+                Description = "Test product description."
+            };
+
+            // Act 
+            _productAccessor.InsertProduct(product);
+            _productAccessor.InsertProduct(product);
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/18
+        /// Approver: Jaeho Kim
+        /// 
+        /// Tests whether the Product Manager is able to get the list of all product types.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestSelectAllProductTypeIDs()
+        {
+            // Arrange
+            int expected = 1;
+
+            // Act
+            List<string> list = _productAccessor.SelectAllProductTypeIDs();
+            int actual = list.Count;
+
+            // Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
         /// Created: 2/21/2020/02/21
         /// Approver: Cash Carlson
         /// 

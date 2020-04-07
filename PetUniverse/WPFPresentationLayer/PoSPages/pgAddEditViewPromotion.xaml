@@ -1,13 +1,13 @@
 ﻿<!-- 
                 Name: Robert Holmes
                 Date: 2020/03/10
-                CHECKED BY: Cash Carlson
+                Approver: Cash Carlson
              
                 This page will contain controls relevant to viewing/editing/creating promotions.
               
-                UPDATE BY: NA
-                UPDATE DATE: NA
-                CHANGE: NA -->
+                Updater: NA
+                Updated: NA
+                Update: NA -->
 <Page x:Class="WPFPresentationLayer.PoSPages.pgAddEditViewPromotion"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -87,7 +87,7 @@
         <TextBox x:Name="txtDescription" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Grid.Column="1" 
                  Grid.Row="4" Margin="5" FontSize="18" FontWeight="Bold" MaxLength="500" TextWrapping="Wrap" />
 
-        <Label Content="Products:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="5" Grid.Column="0" FontSize="18" FontWeight="Bold" />
+        <Label x:Name="lblProducts" Content="Products:" HorizontalAlignment="Right" VerticalAlignment="Top" Grid.Row="5" Grid.Column="0" FontSize="18" FontWeight="Bold" />
         <Grid Grid.Row="5" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="40px" />

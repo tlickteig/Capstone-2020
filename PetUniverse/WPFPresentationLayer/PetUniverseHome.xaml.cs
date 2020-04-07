@@ -616,5 +616,33 @@ namespace WPFPresentationLayer
                 frmPromotions.Navigate(new pgPromotion(frmPromotions));
             }
         }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/17
+        /// Approver: 
+        /// 
+        /// Loads data into the frame in a way that allows navigation.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void InventoryItems_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (frmInventoryItems == null)
+            {
+                frmInventoryItems = new Frame();
+                InventoryItems.Content = frmInventoryItems;
+            }
+            if (frmInventoryItems.Content == null)
+            {
+                frmInventoryItems.Navigate(new PoSPages.pgInventoryItems(frmInventoryItems));
+            }
+        }
     }
 }

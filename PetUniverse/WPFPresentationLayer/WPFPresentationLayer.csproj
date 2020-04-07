@@ -115,9 +115,12 @@
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PoSPages\pgAddEditViewProduct.xaml.cs">
+      <DependentUpon>pgAddEditViewProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\pgAddEditViewPromotion.xaml.cs">
       <DependentUpon>pgAddEditViewPromotion.xaml</DependentUpon>
-	</Compile>
+    </Compile>
     <Compile Include="FMPages\FacilityInspectionControls.xaml.cs">
       <DependentUpon>FacilityInspectionControls.xaml</DependentUpon>
     </Compile>
@@ -166,8 +169,11 @@
     <Compile Include="PersonnelPages\ViewPersonnelRequests.xaml.cs">
       <DependentUpon>ViewPersonnelRequests.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PoSPages\InventoryItems.xaml.cs">
-      <DependentUpon>InventoryItems.xaml</DependentUpon>
+    <Compile Include="PoSPages\pgInventoryItems.xaml.cs">
+      <DependentUpon>pgInventoryItems.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PoSPages\pgChooseItemForProduct.xaml.cs">
+      <DependentUpon>pgChooseItemForProduct.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\pgPromotion.xaml.cs">
       <DependentUpon>pgPromotion.xaml</DependentUpon>
@@ -273,6 +279,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PoSPages\pgAddEditViewProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -341,9 +351,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PoSPages\InventoryItems.xaml">
+    <Page Include="PoSPages\pgInventoryItems.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PoSPages\pgChooseItemForProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\pgPromotion.xaml">
       <SubType>Designer</SubType>

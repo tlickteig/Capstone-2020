@@ -1,13 +1,13 @@
 ﻿<!-- 
                 Name: Robert Holmes
                 Date: 2020/03/10
-                CHECKED BY: Cash Carlson
+                Approver: Cash Carlson
              
                 This page will contain the controls relevant to promotions.
               
-                UPDATE BY: NA
-                UPDATE DATE: NA
-                CHANGE: NA -->
+                Updater: NA
+                Updated: NA
+                Update: NA -->
     
     <Page x:Class="WPFPresentationLayer.PoSPages.pgPromotion"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -16,7 +16,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPFPresentationLayer.PoSPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="845" d:DesignWidth="1280"
       Title="pgPromotion">
 
     <Grid>
@@ -29,10 +29,11 @@
         </Grid.RowDefinitions>
         <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Right" Margin="0, 0, 10, 0" Grid.Row="0" VerticalAlignment="Center" Width="75" />
         <TextBox x:Name="txtSearch" HorizontalAlignment="Right" Height="23" Margin="0, 0, 95, 0" Grid.Row="0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120"/>
-        <DataGrid x:Name="dgPromotions" Grid.Row="1" IsReadOnly="True" ></DataGrid>
+        
+        <DataGrid x:Name="dgPromotions" Grid.Row="1" IsReadOnly="True" AutoGeneratingColumn="dgPromotions_AutoGeneratingColumn" MouseDoubleClick="dgPromotions_MouseDoubleClick"></DataGrid>
+        
         <Button x:Name="btnAddPromotion" Content="Add Promo" HorizontalAlignment="Right" Margin="0, 0, 180, 0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnAddPromotion_Click" />
-        <Button x:Name="btnEditPromotion" Content="Edit Promo" HorizontalAlignment="Right" Margin="0, 0, 95, 0" Grid.Row="2" VerticalAlignment="Center" Width="75" />
+        <Button x:Name="btnEditPromotion" Content="Edit Promo" HorizontalAlignment="Right" Margin="0, 0, 95, 0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnEditPromotion_Click" />
         <Button x:Name="btnDeactivatePromotion" Content="Deactivate" HorizontalAlignment="Right" Margin="0, 0, 10, 0" Grid.Row="2" VerticalAlignment="Center" Width="75" />
-        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="10, 0, 0, 0" Grid.Row="2" VerticalAlignment="Center" Width="75" />
     </Grid>
 </Page>

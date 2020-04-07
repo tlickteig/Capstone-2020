@@ -10,6 +10,10 @@ using System.Data.SqlClient;
 namespace WPFPresentationLayer.PoSPages
 {
     /// <summary>
+    /// Creator: Robert Holmes
+    /// Created: 2020/03/10
+    /// Approver: Cash Carlson
+    /// 
     /// Interaction logic for pgAddEditViewPromotion.xaml
     /// </summary>
     public partial class pgAddEditViewPromotion : Page
@@ -18,6 +22,7 @@ namespace WPFPresentationLayer.PoSPages
         private IProductManager _productManager;
         private Promotion _promotion;
         private Frame _frame;
+
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/10
@@ -25,6 +30,12 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Constructor used for add operations.
         /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
         public pgAddEditViewPromotion(IPromotionManager promotionManager, Frame frame)
         {
             _promotionManager = promotionManager;
@@ -33,8 +44,94 @@ namespace WPFPresentationLayer.PoSPages
             InitializeComponent();
             lblPageHeading.Content = "Add New Promotion";
             btnAction.Content = "Add Promo";
-            loadFields();
+            cboPromotionType.ItemsSource = _promotionManager.GetAllPromotionTypes();
+            dgProducts.ItemsSource = _promotion.Products;
+            _productManager = new ProductManager();
             makeEditable();
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: 
+        /// 
+        /// Constructor for use when viewing the details of a promotion.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        public pgAddEditViewPromotion(IPromotionManager promotionManager, Frame frame, Promotion promotion)
+        {
+            _promotionManager = promotionManager;
+            _frame = frame;
+            _promotion = promotion;
+            InitializeComponent();
+            lblPageHeading.Content = "Promotion Details";
+            btnAction.Content = "Done";
+            btnCancel.Visibility = Visibility.Hidden;
+            btnAdd.Visibility = Visibility.Hidden;
+            btnRemove.Visibility = Visibility.Hidden;
+            txtSearch.Visibility = Visibility.Hidden;
+            loadFields();
+            makeReadOnly();
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: 
+        /// 
+        /// Constructor for edit operations.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        public pgAddEditViewPromotion(IPromotionManager promotionManager, Frame frame, Promotion promotion, bool editMode = true)
+        {
+            if (editMode)
+            {
+                _promotionManager = promotionManager;
+                _frame = frame;
+                _promotion = promotion;
+                InitializeComponent();
+                lblPageHeading.Content = "Editing Promotion";
+                btnAction.Content = "Save";
+                loadFields();
+                makeEditable();
+                txtPromotionID.IsReadOnly = true;
+            }
+            else
+            {
+                _frame.Navigate(new pgAddEditViewPromotion(promotionManager, frame, promotion));
+            }
+        }
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: 
+        /// 
+        /// Sets editable controls to an uneditable state.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        private void makeReadOnly()
+        {
+            txtPromotionID.IsReadOnly = true;
+            numDiscount.IsEnabled = false;
+            dateStartDate.IsEnabled = false;
+            dateEndDate.IsEnabled = false;
+            cboPromotionType.IsEnabled = false;
+            txtDescription.IsReadOnly = true;
         }
 
         /// <summary>
@@ -44,13 +141,19 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Sets editable controls to an editable state.
         /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
         private void makeEditable()
         {
             txtPromotionID.IsReadOnly = false;
-            numDiscount.IsReadOnly = false;
+            numDiscount.IsEnabled = true;
             dateStartDate.IsEnabled = true;
             dateEndDate.IsEnabled = true;
-            cboPromotionType.IsReadOnly = false;
+            cboPromotionType.IsEnabled = true;
             txtDescription.IsReadOnly = false;
         }
 
@@ -61,6 +164,12 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Loads values into item sources.
         /// </summary>
+        /// <remarks>
+        /// Updater: Robert Holmes
+        /// Updated: 2020/03/19
+        /// Update: Now loads ALL relevant data
+        /// 
+        /// </remarks>
         private void loadFields()
         {
             try
@@ -68,6 +177,37 @@ namespace WPFPresentationLayer.PoSPages
                 cboPromotionType.ItemsSource = _promotionManager.GetAllPromotionTypes();
                 dgProducts.ItemsSource = _promotion.Products;
                 _productManager = new ProductManager();
+                if (_promotion.PromotionID != null)
+                {
+                    txtPromotionID.Text = _promotion.PromotionID;
+                }
+                if (_promotion.PromotionTypeID != null)
+                {
+                    cboPromotionType.SelectedItem = _promotion.PromotionTypeID;
+                }
+                if (_promotion.StartDate != null) 
+                {
+                    dateStartDate.SelectedDate = _promotion.StartDate;
+                }
+                if (_promotion.EndDate != null)
+                {
+                    dateEndDate.SelectedDate = _promotion.EndDate;
+                }
+                if (_promotion.Description != null)
+                {
+                    txtDescription.Text = _promotion.Description;
+                }
+                numDiscount.Value = _promotion.Discount;
+                setupNumUpDown();
+                if (cboPromotionType.SelectedItem.ToString().Equals("Percent"))
+                {
+                    numDiscount.FormatString = "P0";
+                }
+                if (cboPromotionType.SelectedItem.ToString().Equals("Flat Amount"))
+                {
+                    numDiscount.FormatString = "C2";
+                }
+
             }
             catch (Exception ex)
             {
@@ -82,6 +222,12 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Calls method to add a product to the promotion.
         /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated:
+        /// Update: 
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -144,6 +290,12 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Removes products from the promotion.
         /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated:
+        /// Update: 
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnRemove_Click(object sender, RoutedEventArgs e)
@@ -163,6 +315,11 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Handles add/view/edit commands.
         /// </summary>
+        /// <remarks>
+        /// Updater: Robert Holmes
+        /// Updated: 2020/03/19
+        /// Update: Added "Done" and "Save" cases to switch.
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAction_Click(object sender, RoutedEventArgs e)
@@ -176,8 +333,7 @@ namespace WPFPresentationLayer.PoSPages
                         _promotion.PromotionTypeID = cboPromotionType.SelectedItem.ToString();
                         _promotion.StartDate = (DateTime)dateStartDate.SelectedDate;
                         _promotion.EndDate = (DateTime)dateEndDate.SelectedDate;
-                        decimal.TryParse(numDiscount.Text, out decimal discount);
-                        _promotion.Discount = discount;
+                        _promotion.Discount = (decimal)numDiscount.Value;
                         _promotion.Description = txtDescription.Text;
                         try
                         {
@@ -195,6 +351,35 @@ namespace WPFPresentationLayer.PoSPages
                         }   
                     }
                     break;
+                case ("Done"):
+                    {
+                        _frame.Navigate(new pgPromotion(_frame));
+                        break;
+                    }
+                case ("Save"):
+                    {
+                        if (validateFields())
+                        {
+                            Promotion newPromotion = new Promotion();
+                            newPromotion.PromotionID = txtPromotionID.Text;
+                            newPromotion.PromotionTypeID = cboPromotionType.SelectedItem.ToString();
+                            newPromotion.StartDate = (DateTime)dateStartDate.SelectedDate;
+                            newPromotion.EndDate = (DateTime)dateEndDate.SelectedDate;
+                            newPromotion.Discount = (decimal)numDiscount.Value;
+                            newPromotion.Description = txtDescription.Text;
+                            newPromotion.Products = _promotion.Products;
+                            try
+                            {
+                                _promotionManager.EditPromotion(_promotion, newPromotion);
+                                _frame.Navigate(new pgPromotion(_frame));
+                            }
+                            catch (Exception ex)
+                            {
+                                WPFErrorHandler.ErrorMessage("Failed to save edit.");
+                            }
+                        }
+                        break;
+                    }
                 default:
                     break;
             }
@@ -207,7 +392,13 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Validates fields.
         /// </summary>
-        /// <returns></returns>
+        /// <remarks>
+        /// Updater: Robert Holmes
+        /// Updated: 2020/03/19
+        /// Update: Fixed an issue that would cause the value from numDiscount to throw an error.
+        /// 
+        /// </remarks>
+        /// <returns>Returns true if field contents are acceptable.</returns>
         private bool validateFields()
         {
             bool valid = false;
@@ -247,31 +438,7 @@ namespace WPFPresentationLayer.PoSPages
                     break;
                 }
                 //numDiscount
-                if (!decimal.TryParse(numDiscount.Text, out decimal discount))
-                {
-                    WPFErrorHandler.ErrorMessage("Discount must be a number.");
-                    numDiscount.Focus();
-                    break;
-                }
-                if (cboPromotionType.SelectedItem.ToString().Equals("Percent"))
-                {
-                    if (discount <= 0 || discount > 1)
-                    {
-                        WPFErrorHandler.ErrorMessage("Percent type discounts must be greater than 0 and less than 1.");
-                        numDiscount.Focus();
-                        break;
-                    }
-                }
-                if (cboPromotionType.SelectedItem.ToString().Equals("Flat Amount"))
-                {
-                    if (discount <= 0)
-                    {
-
-                        WPFErrorHandler.ErrorMessage("Flat amount type discounts must be greater than 0.");
-                        numDiscount.Focus();
-                        break;
-                    }
-                }
+                // Input sufficiently restricted
                 //dateStartDate
                 if (dateStartDate.SelectedDate == null)
                 {
@@ -318,11 +485,17 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Navigates to main promotion page.
         /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBoxResult.Yes == MessageBox.Show("You will lose any entered data. Continue?", "Quit Promotion", MessageBoxButton.YesNo, MessageBoxImage.Warning))
+            if (MessageBoxResult.Yes == MessageBox.Show("You will lose any entered data. Continue?", "Abandon Promotion", MessageBoxButton.YesNo, MessageBoxImage.Warning))
             {
                 _frame.Navigate(new pgPromotion(_frame));
             }
@@ -335,6 +508,12 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Sets up columns for the product data grid.
         /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgProducts_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
@@ -383,9 +562,33 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Changes settings on related numeric control based on selection in combo box.
         /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void cboPromotionType_DropDownClosed(object sender, EventArgs e)
+        {
+            setupNumUpDown();
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: 
+        /// 
+        /// Sets up the numeric control on the page.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        private void setupNumUpDown()
         {
             if (cboPromotionType.SelectedItem != null)
             {
@@ -395,7 +598,10 @@ namespace WPFPresentationLayer.PoSPages
                     numDiscount.IsEnabled = true;
                     numDiscount.Watermark = null;
                     numDiscount.Maximum = 1;
-                    numDiscount.Text = "0";
+                    if (numDiscount.Value > 1)
+                    {
+                        numDiscount.Text = "0";
+                    }
                     numDiscount.FormatString = "P0";
                 }
                 if (cboPromotionType.SelectedItem.ToString().Equals("Flat Amount"))
@@ -404,7 +610,6 @@ namespace WPFPresentationLayer.PoSPages
                     numDiscount.Maximum = decimal.MaxValue;
                     numDiscount.IsEnabled = true;
                     numDiscount.Watermark = null;
-                    numDiscount.Text = "0";
                     numDiscount.FormatString = "C2";
                 }
                 if (cboPromotionType.SelectedItem.ToString().Equals(""))

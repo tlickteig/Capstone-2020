@@ -13,7 +13,7 @@ namespace LogicLayer
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 2020/03/10
-    /// Approver:
+    /// Approver: Cash Carlson
     /// 
     /// Concrete implementation of a class for transfer of promotion data from the database to the presentation layer and vice versa.
     /// </summary>
@@ -36,7 +36,7 @@ namespace LogicLayer
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/12
-        /// Approver:
+        /// Approver: Cash Carlson
         /// 
         /// Initializes object with alternative data source for testing.
         /// </summary>
@@ -45,6 +45,7 @@ namespace LogicLayer
         {
             _promotionAccessor = promotionAccessor;
         }
+
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/10
@@ -68,6 +69,62 @@ namespace LogicLayer
             }
 
             return success;
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: Cash Carlson
+        /// 
+        /// SQLEXPRESS implementation of editing a promotion.
+        /// </summary>
+        /// <param name="oldPromotion"></param>
+        /// <param name="newPromotion"></param>
+        /// <returns></returns>
+        public bool EditPromotion(Promotion oldPromotion, Promotion newPromotion)
+        {
+            bool success = false;
+
+            try
+            {
+                success = (1 == _promotionAccessor.UpdatePromotion(oldPromotion, newPromotion));
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return success;
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/03/19
+        /// Approver: Cash Carlson
+        /// 
+        /// Gets all active promotions from database, or all promotions is onlyActive = false.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <returns>List of promotions.</returns>
+        public List<Promotion> GetAllPromotions(bool onlyActive = true)
+        {
+            List<Promotion> promotions = new List<Promotion>();
+
+            try
+            {
+                promotions = _promotionAccessor.SelectAllPromotions(onlyActive);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return promotions;
         }
 
         /// <summary>
