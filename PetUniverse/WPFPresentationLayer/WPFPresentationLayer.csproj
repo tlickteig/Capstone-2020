@@ -211,8 +211,8 @@
     <Compile Include="PersonnelPages\ViewPersonnelRequests.xaml.cs">
       <DependentUpon>ViewPersonnelRequests.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PoSPages\InventoryItems.xaml.cs">
-      <DependentUpon>InventoryItems.xaml</DependentUpon>
+    <Compile Include="PoSPages\pgInventoryItems.xaml.cs">
+      <DependentUpon>pgInventoryItems.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\pgPromotion.xaml.cs">
       <DependentUpon>pgPromotion.xaml</DependentUpon>
@@ -226,6 +226,12 @@
     <Compile Include="PoSPages\ViewAllTransactions.xaml.cs">
       <DependentUpon>ViewAllTransactions.xaml</DependentUpon>
     </Compile>
+	<Compile Include="PoSPages\pgChooseItemForProduct.xaml.cs">
+	  <DependentUpon>pgChooseItemForProduct.xaml</DependentUpon>
+	</Compile>
+	<Compile Include="PoSPages\pgAddEditViewProduct.xaml.cs">
+	  <DependentUpon>pgAddEditViewProduct.xaml</DependentUpon>
+	</Compile>
     <Compile Include="RecruitingPages\CreateEventForm.xaml.cs">
       <DependentUpon>CreateEventForm.xaml</DependentUpon>
     </Compile>
@@ -466,7 +472,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PoSPages\InventoryItems.xaml">
+    <Page Include="PoSPages\pgInventoryItems.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -486,6 +492,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+	<Page Include="PoSPages\pgChooseItemForProduct.xaml">
+	  <SubType>Designer</SubType>
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
+	<Page Include="PoSPages\pgAddEditViewProduct.xaml">
+	  <SubType>Designer</SubType>
+	  <Generator>MSBuild:Compile</Generator>
+	</Page>
     <Page Include="RecruitingPages\CreateEventForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

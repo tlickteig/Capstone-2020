@@ -203,7 +203,7 @@ namespace DataAccessLayer
             List<Product> products = new List<Product>();
 
             var conn = DBConnection.GetConnection();
-            var cmd = new SqlCommand("sp_select_all_product_in_product", conn);
+            var cmd = new SqlCommand("sp_select_all_products", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             try
@@ -270,8 +270,6 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@ProductID", oldProduct.ProductID);
 
             cmd.Parameters.AddWithValue("@NewItemID", newProduct.ItemID);
-            cmd.Parameters.AddWithValue("@NewProductName", newProduct.Name);
-            cmd.Parameters.AddWithValue("@NewProductCategoryID", newProduct.Category);
             cmd.Parameters.AddWithValue("@NewProductTypeID", newProduct.Type);
             cmd.Parameters.AddWithValue("@NewDescription", newProduct.Description);
             cmd.Parameters.AddWithValue("@NewPrice", newProduct.Price);
@@ -279,8 +277,6 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@NewTaxable", newProduct.Taxable);
 
             cmd.Parameters.AddWithValue("@OldItemID", oldProduct.ItemID);
-            cmd.Parameters.AddWithValue("@OldProductName", oldProduct.Name);
-            cmd.Parameters.AddWithValue("@OldProductCategoryID", oldProduct.Category);
             cmd.Parameters.AddWithValue("@OldProductTypeID", oldProduct.Type);
             cmd.Parameters.AddWithValue("@OldDescription", oldProduct.Description);
             cmd.Parameters.AddWithValue("@OldPrice", oldProduct.Price);

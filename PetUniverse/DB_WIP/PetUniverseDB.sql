@@ -2433,7 +2433,7 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Create Product Table
+Comment: Create Product Table, Updated to new structure 2020/03/17 by Robert Holmes
 */
 /*
 print '' print '*** Creating Product Table'
@@ -2459,26 +2459,26 @@ GO
 */
 
 /*
-Created by: Robert Holmes
-Date: 2020/03/17
-Comment: New structure for Product table.
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Create Product Table, Updated to new structure 2020/03/17 by Robert Holmes
 */
 
 print '' print '*** Creating Product table'
 GO
 CREATE TABLE [dbo].[Product](
-		[ProductID]		[nvarchar](13)	NOT NULL	PRIMARY KEY
-	,	[ItemID]		[INT]			NOT NULL
-	,	[ProductTypeID]	[nvarchar](20)	NOT NULL
-	,	[Taxable]		[BIT]			NOT NULL
-	,	[Price]			[decimal](10,2)	NOT NULL
-	,	[Description]	[nvarchar](500)	NOT NULL
-	,	[Brand]			[nvarchar](20)	NOT	NULL
-	,	[Active]		[BIT]			NOT NULL	DEFAULT 1
-	,	CONSTRAINT [fk_Product_ItemID]	FOREIGN KEY ([ItemID])
-			REFERENCES [dbo].[Item]([ItemID])
-	,	CONSTRAINT [fk_Product_ProductTypeID]	FOREIGN KEY ([ProductTypeID])
-			REFERENCES [dbo].[ProductType]([ProductTypeID])
+	[ProductID]		[nvarchar](13)	NOT NULL	PRIMARY KEY,
+	[ItemID]		[INT]			NOT NULL,
+	[ProductTypeID]	[nvarchar](20)	NOT NULL,
+	[Taxable]		[BIT]			NOT NULL,
+	[Price]			[decimal](10,2)	NOT NULL,
+	[Description]	[nvarchar](500)	NOT NULL,
+	[Brand]			[nvarchar](20)	NOT	NULL,
+	[Active]		[BIT]			NOT NULL	DEFAULT 1,
+	CONSTRAINT [fk_Product_ItemID]	FOREIGN KEY ([ItemID])
+		REFERENCES [dbo].[Item]([ItemID]),
+	CONSTRAINT [fk_Product_ProductTypeID]	FOREIGN KEY ([ProductTypeID])
+		REFERENCES [dbo].[ProductType]([ProductTypeID])
 )
 GO
 
@@ -2578,30 +2578,30 @@ GO
 */
 
 /*
-Created by: Robert Holmes
-Date: 2020/03/17
-Comment: Sample data for new product table structure
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Insert Sample Data into Product Table, Updated 2020/03/17 to be compatible with new Product table structure by Robert Holmes.
 */
 print '' print '*** Insert into Product table'
 GO
 INSERT INTO [dbo].[Product](
-		[ProductID]
-	,	[ItemID]
-	,	[ProductTypeID]
-	,	[Taxable]
-	,	[Price]
-	,	[Description]
-	,	[Brand]
+	[ProductID],
+	[ItemID],
+	[ProductTypeID],
+	[Taxable],
+	[Price],
+	[Description],
+	[Brand],
 	)
 	VALUES
-		('7084781116',100000,'Cat',1,50.0,'Name brand cat food','OnlyForCats')
-	,	('2500006153',100001,'General',1,100.0,'Medical Supplies to Heal Scratch Wounds','AlsoForHumans')
+	('7084781116',100000,'Cat',1,50.0,'Name brand cat food','OnlyForCats'),
+	('2500006153',100001,'General',1,100.0,'Medical Supplies to Heal Scratch Wounds','AlsoForHumans')
 GO
 
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Creating Stored Procedure sp_select_all_products_items
+Comment: Creating Stored Procedure sp_select_all_products_items, updated 2020/03/17 to be compatible with new product table structure.
 */
 /*
 print '' print '*** Creating sp_select_all_products_items ***'
@@ -2624,10 +2624,11 @@ GO
 */
 
 /*
-Created by: Robert Holmes
-Date: 2020/03/17
-Comment: Updateing sp_select_all_products_items
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Creating Stored Procedure sp_select_all_products_items, updated 2020/03/17 to be compatible with new product table structure.
 */
+DROP PROCEDURE IF EXISTS [dbo].[sp_select_all_products_items]
 print '' print '*** Creating sp_select_all_products_items'
 GO
 CREATE PROCEDURE [sp_select_all_products_items]
@@ -6268,11 +6269,13 @@ Created by: Robert Holmes
 Date: 2020/03/06
 Comment: A table for holding a promotion types
 */
+DROP TABLE IF EXISTS [dbo].[PromotionType]
+GO
 print '' print '*** Creating PromotionType table'
 GO
 CREATE TABLE [dbo].[PromotionType](
-		[PromotionTypeID]	[nvarchar](20)	NOT NULL	PRIMARY KEY
-	,	[Description]		[nvarchar](500)	NOT NULL
+	[PromotionTypeID]	[nvarchar](20)	NOT NULL	PRIMARY KEY,
+	[Description]		[nvarchar](500)	NOT NULL
 )
 GO
 
@@ -6281,6 +6284,8 @@ Created by: Robert Holmes
 Date: 2020/03/06
 Comment: A table for holding info about a promotion
 */
+DROP TABLE IF EXISTS [dbo].[Promotion]
+GO
 print '' print '*** Creating Promotion table'
 GO
 CREATE TABLE [dbo].[Promotion](
@@ -6290,7 +6295,7 @@ CREATE TABLE [dbo].[Promotion](
 	,	[EndDate]			[datetime]			NOT NULL
 	,	[Discount]			[decimal](10, 2)	NOT NULL
 	,	[Description]		[nvarchar](500)		NOT NULL
-	,	[Active]			[BIT]				NOT NULL	DEFAULT 1
+	,	[Active]			[bit]				NOT NULL	DEFAULT 1
 	,	CONSTRAINT [fk_Promotion_PromotionType]	FOREIGN KEY([PromotionTypeID])
 			REFERENCES [dbo].[PromotionType]([PromotionTypeID])
 )
@@ -6301,6 +6306,8 @@ Created by: Robert Holmes
 Date: 2020/03/06
 Comment: A table to relate promotions to products
 */
+DROP TABLE IF EXISTS [dbo].[PromoProductLine]
+GO
 print '' print '*** Creating PromoProductLine table'
 GO
 CREATE TABLE [dbo].[PromoProductLine](
@@ -6373,12 +6380,14 @@ Created by: Robert Holmes
 Date: 2020/03/12
 Comment: Relates products to a promotion.
 */
+DROP PROCEDURE IF EXISTS [sp_insert_promo_product]
+GO
 print '' print '*** Creating stored procedure sp_insert_promo_product'
 GO
-CREATE PROCEDURE sp_insert_promo_product
+CREATE PROCEDURE [sp_insert_promo_product]
 (
-		@PromotionID	[nvarchar](20)
-	,	@ProductID		[nvarchar](13)
+	@PromotionID	[nvarchar](20),
+	@ProductID		[nvarchar](13)
 )
 AS
 	BEGIN
@@ -6394,18 +6403,19 @@ Created by: Robert Holmes
 Date: 2020/03/17
 Comment: Adds a new product to the database.
 */
-
+DROP PROCEDURE IF EXISTS [sp_insert_product]
+GO
 print '' print '*** Creating stored procedure sp_insert_product'
 GO
-CREATE PROCEDURE sp_insert_product
+CREATE PROCEDURE [sp_insert_product]
 (
-		@ProductID		[nvarchar](13)
-	,	@ItemID			[INT]
-	,	@ProductTypeID	[nvarchar](20)
-	,	@Taxable		[BIT]
-	,	@Price			[decimal](10,2)
-	,	@Description	[nvarchar](500)
-	,	@Brand			[nvarchar](20)
+	@ProductID		[nvarchar](13),
+	@ItemID			[int],
+	@ProductTypeID	[nvarchar](20),
+	@Taxable		[bit],
+	@Price			[decimal](10,2),
+	@Description	[nvarchar](500),
+	@Brand			[nvarchar](20)
 )
 AS
 	BEGIN
@@ -6421,10 +6431,11 @@ Created by: Robert Holmes
 Date: 2020/03/18
 Comment: Returns all stored ProductTypeIDs
 */
-
+DROP PROCEDURE IF EXISTS [sp_select_all_product_type_id]
+GO
 print '' print '*** Creating stored procedure sp_select_all_product_type_id'
 GO
-CREATE PROCEDURE sp_select_all_product_type_id
+CREATE PROCEDURE [sp_select_all_product_type_id]
 AS
 	BEGIN
 		SELECT 	[ProductTypeID]
@@ -6437,19 +6448,20 @@ Created by: Robert Holmes
 Date: 2020/03/19
 Comment: Returns all stored Promotions
 */
-
+DROP PROCEDURE IF EXISTS [sp_select_all_promotions]
+GO
 print '' print '*** Creating stored procedure sp_select_all_promotions'
 GO
 CREATE PROCEDURE sp_select_all_promotions
 AS
 	BEGIN
-		SELECT		[PromotionID]
-				,	[PromotionTypeID]
-				,	[StartDate]
-				,	[EndDate]
-				,	[Discount]
-				,	[Description]
-				,	[Active]
+		SELECT	[PromotionID],
+				[PromotionTypeID],
+				[StartDate],
+				[EndDate],
+				[Discount],
+				[Description],
+				[Active]
 		FROM	[dbo].[Promotion]
 	END
 GO
@@ -6459,19 +6471,20 @@ Created by: Robert Holmes
 Date: 2020/03/19
 Comment: Returns all active stored Promotions
 */
-
+DROP PROCEDURE IF EXISTS [sp_select_all_active_promotions]
+GO
 print '' print '*** Creating stored procedure sp_select_all_active_promotions'
 GO
-CREATE PROCEDURE sp_select_all_active_promotions
+CREATE PROCEDURE [sp_select_all_active_promotions]
 AS
 	BEGIN
-		SELECT		[PromotionID]
-				,	[PromotionTypeID]
-				,	[StartDate]
-				,	[EndDate]
-				,	[Discount]
-				,	[Description]
-				,	[Active]
+		SELECT	[PromotionID],
+				[PromotionTypeID],
+				[StartDate],
+				[EndDate],
+				[Discount],
+				[Description],
+				[Active]
 		FROM	[dbo].[Promotion]
 		WHERE 	[Active] = 1
 	END
@@ -6482,24 +6495,25 @@ Created by: Robert Holmes
 Date: 2020/03/19
 Comment: Returns all products associated with a promotion id
 */
-
+DROP PROCEDURE IF EXISTS [sp_select_all_products_by_promotion_id]
+GO
 print '' print '*** Creating stored procedure sp_select_products_by_promotion_id'
 GO
-CREATE PROCEDURE sp_select_all_products_by_promotion_id
+CREATE PROCEDURE [sp_select_all_products_by_promotion_id]
 (
 	@PromotionID	[nvarchar](20)
 )
 AS
 	BEGIN
-		SELECT 	[Product].[ProductID]
-			,	[Product].[ItemID]
-			,	[Item].[ItemName]
-			,	[Item].[ItemCategoryID]
-			,	[Product].[ProductTypeID]
-			,	[Product].[Description]
-			,	[Product].[Price]
-			,	[Product].[Brand]
-			,	[Product].[Taxable]
+		SELECT 	[Product].[ProductID],
+				[Product].[ItemID],
+				[Item].[ItemName],
+				[Item].[ItemCategoryID],
+				[Product].[ProductTypeID],
+				[Product].[Description],
+				[Product].[Price],
+				[Product].[Brand],
+				[Product].[Taxable]
 		FROM	[dbo].[PromoProductLine]
 		INNER JOIN 	[dbo].[Product] ON [PromoProductLine].[ProductID] = [Product].[ProductID]
 		INNER JOIN	[Item]	ON	[Item].[ItemID] = [Product].[ItemID]
@@ -6512,24 +6526,25 @@ Created by: Robert Holmes
 Date: 2020/03/19
 Comment: Saves edits made to promotions.
 */
-
+DROP PROCEDURE IF EXISTS [sp_update_promotion]
+GO
 print '' print '*** Creating stored procdure sp_update_promotion'
 GO
-CREATE PROCEDURE sp_update_promotion
+CREATE PROCEDURE [sp_update_promotion]
 (
-		@PromotionID		[nvarchar](20)
-	,	@OldPromotionTypeID	[nvarchar](20)
-	,	@OldStartDate		[datetime]
-	,	@OldEndDate			[datetime]
-	,	@OldDiscount		[decimal](10, 2)
-	,	@OldDescription		[nvarchar](500)
-	,	@OldActive			[bit]
-	,	@NewPromotionTypeID	[nvarchar](20)
-	,	@NewStartDate		[datetime]
-	,	@NewEndDate			[datetime]
-	,	@NewDiscount		[decimal](10, 2)
-	,	@NewDescription		[nvarchar](500)
-	,	@NewActive			[bit]
+	@PromotionID		[nvarchar](20),
+	@OldPromotionTypeID	[nvarchar](20),
+	@OldStartDate		[datetime],
+	@OldEndDate			[datetime],
+	@OldDiscount		[decimal](10, 2),
+	@OldDescription		[nvarchar](500),
+	@OldActive			[bit],
+	@NewPromotionTypeID	[nvarchar](20),
+	@NewStartDate		[datetime],
+	@NewEndDate			[datetime],
+	@NewDiscount		[decimal](10, 2),
+	@NewDescription		[nvarchar](500),
+	@NewActive			[bit]
 )
 AS
 	BEGIN
@@ -6553,10 +6568,11 @@ Created by: Robert Holmes
 Date: 2020/03/19
 Comment: Removes old promotion product relationships.
 */
-
+DROP PROCEDURE IF EXISTS [sp_delete_promo_products]
+GO
 print '' print '*** Creating stored procedure sp_delete_promo_products'
 GO
-CREATE PROCEDURE sp_delete_promo_products
+CREATE PROCEDURE [sp_delete_promo_products]
 (
 	@PromotionID	[nvarchar](20)
 )
