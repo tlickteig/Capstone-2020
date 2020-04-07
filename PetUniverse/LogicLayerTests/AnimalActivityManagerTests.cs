@@ -44,6 +44,7 @@ namespace LogicLayerTests
         {
             _fakeActivityAccessor = new FakeAnimalActivityAccessor();
         }
+
         /// <summary>
         /// Tests RetrieveAnimalFeedingRecords against the dataAccessFakes records
         /// </summary>
@@ -73,7 +74,6 @@ namespace LogicLayerTests
             Assert.AreEqual(4, AnimalActivity.Count);
 
         }
-
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -198,6 +198,86 @@ namespace LogicLayerTests
             Assert.IsTrue(result);
         }
 
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/6/2020
+        /// Approver: Chuck Baxter 4/7/2020
+        /// 
+        /// Tests editing existing record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestEditingExistingActivityRecord()
+        {
+            // Arrange
+            bool result = false;
+            IAnimalActivityManager manager =
+                new AnimalActivityManager(_fakeActivityAccessor);
+            AnimalActivity existingRecord = new AnimalActivity()
+            {
+                AnimalActivityId = 1,
+                AnimalID = 5,
+                AnimalActivityTypeID = "Play"
+            };
+            AnimalActivity updatedRecord = new AnimalActivity()
+            {
+                AnimalActivityId = 1,
+                AnimalID = 4,
+                AnimalActivityTypeID = "Play"
+            };
+
+            // Act
+            manager.AddAnimalActivityRecord(existingRecord);
+            result = manager.EditExistingAnimalActivityRecord(
+                existingRecord, updatedRecord);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/6/2020
+        /// Approver: Chuck Baxter 4/7/2020
+        /// 
+        /// Tests editing a non existent record. Result should be false
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestEditingNonExistentActivityRecord()
+        {
+            // Arrange
+            bool result = false;
+            IAnimalActivityManager manager =
+                new AnimalActivityManager(_fakeActivityAccessor);
+            AnimalActivity nonExistentRecord = new AnimalActivity()
+            {
+                AnimalActivityId = 3,
+                AnimalID = 6,
+                AnimalActivityTypeID = "Feeding"
+            };
+            AnimalActivity updatedRecord = new AnimalActivity()
+            {
+                AnimalActivityId = 1,
+                AnimalID = 4,
+                AnimalActivityTypeID = "Play"
+            };
+
+            // Act
+            result = manager.EditExistingAnimalActivityRecord(
+                nonExistentRecord, updatedRecord);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
 
         /// <summary>
         /// Tear down the test
@@ -216,11 +296,6 @@ namespace LogicLayerTests
             _fakeActivityAccessor = null;
 
         }
-
-
-
-
-
     }
 }
 

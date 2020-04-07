@@ -542,7 +542,7 @@ CREATE TABLE [dbo].[AnimalActivity] (
 [UserID]			    [int]						NOT NULL,
 [AnimalActivityTypeID]  [nvarchar](100)				NOT NULL,
 [ActivityDateTime]      [DateTime]   				NOT NULL,
-[Description]			[nvarchar](4000)			NULL,
+[Description]			[nvarchar](4000)			NOT NULL,
 
 
 	CONSTRAINT [pk_AnimalActivityID] PRIMARY KEY([AnimalActivityID] ASC),
@@ -7806,6 +7806,47 @@ AS
 GO
 
 /*
+Created by: Ethan Murphy
+Date: 4/6/2020
+Comment: Updates an animal activity record
+*/
+DROP PROCEDURE IF EXISTS [sp_update_animal_activity]
+GO
+print '' print '*** creating sp_update_animal_activity'
+GO
+CREATE PROCEDURE [sp_update_animal_activity]
+(
+	@AnimalActivityID			[int],
+	@AnimalID					[int],
+	@UserID						[int],
+	@AnimalActivityTypeID		[nvarchar](100),
+	@ActivityDateTime			[datetime],
+	@Description				[nvarchar](400),
+	
+	@NewAnimalID				[int],
+	@NewUserID					[int],
+	@NewAnimalActivityTypeID	[nvarchar](100),
+	@NewActivityDateTime		[datetime],
+	@NewDescription				[nvarchar](400)
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalActivity]
+	SET [AnimalID] = @NewAnimalID,
+		[UserID] = @NewUserID,
+		[AnimalActivityTypeID] = @NewAnimalActivityTypeID,
+		[ActivityDateTime] = @NewActivityDateTime,
+		[Description] = @NewDescription
+	WHERE [AnimalActivityID] = @AnimalActivityID
+	AND	[UserID] = @UserID
+	AND	[AnimalActivityTypeID] = @AnimalActivityTypeID
+	AND	[ActivityDateTime] = @ActivityDateTime
+	AND	[Description] = @Description
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -8880,9 +8921,9 @@ GO
 print '' print '*** Creating sample AnimalActivity records'
 GO
 INSERT INTO [dbo].[AnimalActivity]
-	([AnimalID], [UserID], [AnimalActivityTypeID], [ActivityDateTime])
+	([AnimalID], [UserID], [AnimalActivityTypeID], [ActivityDateTime], [Description])
 	VALUES
-	(1000000, 100000, 'Feeding', '09-08-2016')
+	(1000000, 100000, 'Feeding', '09-08-2016', '')
 	
 GO	
 

@@ -70,7 +70,6 @@ namespace LogicLayerInterfaces
         /// <returns>List of animal activity types</returns>
         List<AnimalActivityType> RetrieveAllAnimalActivityTypes();
 
-
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/2/2020
@@ -104,5 +103,23 @@ namespace LogicLayerInterfaces
         /// <param name="animalActivity">Activity record to be added</param>
         /// <returns>Result of insert</returns>
         bool AddAnimalActivityRecord(AnimalActivity animalActivity);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/6/2020
+        /// Approver: Chuck Baxter 4/7/2020
+        /// 
+        /// Edits an existing activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="oldAnimalActivity">Existing record</param>
+        /// <param name="newAnimalActivity">Updated record</param>
+        /// <returns>Result of edit</returns>
+        bool EditExistingAnimalActivityRecord(AnimalActivity oldAnimalActivity,
+                                                AnimalActivity newAnimalActivity);
     }
 }

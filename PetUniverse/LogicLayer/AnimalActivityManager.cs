@@ -81,6 +81,33 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Ethan Murphy
+        /// Created: 4/6/2020
+        /// Approver: Chuck Baxter 4/7/2020
+        /// 
+        /// Edits an existing activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="oldAnimalActivity">Existing record</param>
+        /// <param name="newAnimalActivity">Updated record</param>
+        /// <returns>Result of edit</returns>
+        public bool EditExistingAnimalActivityRecord(AnimalActivity oldAnimalActivity, AnimalActivity newAnimalActivity)
+        {
+            try
+            {
+                return _activityAccessor.UpdateAnimalActivityRecord(oldAnimalActivity, newAnimalActivity) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Record not updated", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
         /// Created: 4/2/2020
         /// Approver: Carl Davis 4/3/2020
         /// 
@@ -157,7 +184,6 @@ namespace LogicLayer
                     where a.AnimalName.ToLower().IndexOf(animalName.ToLower()) > -1
                     select a).ToList();
         }
-
 
         /// <summary>
         /// Creator: Daulton Schilling

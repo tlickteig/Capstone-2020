@@ -233,6 +233,59 @@ namespace DataAccessLayer
 
             return rows;
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/6/2020
+        /// Approver: Chuck Baxter 4/7/2020
+        /// 
+        /// Updates an existing animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalActivity">The existing record</param>
+        /// <param name="newAnimalActivity">The updated record</param>
+        /// <returns>Update successful</returns>
+        public int UpdateAnimalActivityRecord(AnimalActivity oldAnimalActivity, AnimalActivity newAnimalActivity)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_animal_activity", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@AnimalActivityID", oldAnimalActivity.AnimalActivityId);
+            cmd.Parameters.AddWithValue("@AnimalID", oldAnimalActivity.AnimalID);
+            cmd.Parameters.AddWithValue("@UserID", oldAnimalActivity.UserID);
+            cmd.Parameters.AddWithValue("@AnimalActivityTypeID", oldAnimalActivity.AnimalActivityTypeID);
+            cmd.Parameters.AddWithValue("@ActivityDateTime", oldAnimalActivity.ActivityDateTime);
+            cmd.Parameters.AddWithValue("@Description", oldAnimalActivity.Description);
+
+            cmd.Parameters.AddWithValue("@NewAnimalID", newAnimalActivity.AnimalID);
+            cmd.Parameters.AddWithValue("@NewUserID", newAnimalActivity.UserID);
+            cmd.Parameters.AddWithValue("@NewAnimalActivityTypeID", newAnimalActivity.AnimalActivityTypeID);
+            cmd.Parameters.AddWithValue("@NewActivityDateTime", newAnimalActivity.ActivityDateTime);
+            cmd.Parameters.AddWithValue("@NewDescription", newAnimalActivity.Description);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
     }
 
 }

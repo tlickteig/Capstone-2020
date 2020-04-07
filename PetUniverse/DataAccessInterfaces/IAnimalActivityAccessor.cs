@@ -84,5 +84,23 @@ namespace DataAccessLayer
         /// <param name="animalActivity">The record to insert</param>
         /// <returns>List of animal activity types</returns>
         int InsertAnimalActivityRecord(AnimalActivity animalActivity);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/6/2020
+        /// Approver: Chuck Baxter 4/7/2020
+        /// 
+        /// Updates an existing animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalActivity">The existing record</param>
+        /// <param name="newAnimalActivity">The updated record</param>
+        /// <returns>Update successful</returns>
+        int UpdateAnimalActivityRecord(AnimalActivity oldAnimalActivity,
+            AnimalActivity newAnimalActivity);
     }
 }

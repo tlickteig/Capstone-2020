@@ -75,7 +75,6 @@ namespace WPFPresentationLayer.AMPages
             PopulateFields((AnimalActivity)dgActivities.SelectedItem);
         }
 
-
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/2/2020
@@ -130,8 +129,6 @@ namespace WPFPresentationLayer.AMPages
             }
         }
 
-
-
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/2/2020
@@ -159,6 +156,74 @@ namespace WPFPresentationLayer.AMPages
             lblAnimal.Visibility = Visibility.Hidden;
             dgAnimalList.Visibility = Visibility.Hidden;
             ClearFields();
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/6/2020
+        /// Approver: Chuck Baxter 4/7/2020
+        /// 
+        /// Prepares form for editing
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void EnableEditMode()
+        {
+            cmbActivityType2.ItemsSource = cmbActivityType.ItemsSource;
+            cmbAmPm.Visibility = Visibility.Visible;
+            cmbActivityType2.IsEnabled = true;
+            dateActivityDate.IsEnabled = true;
+            txtTime.IsEnabled = true;
+            txtDescription.IsEnabled = true;
+            btnSaveEdit.Content = "Save";
+            dateActivityDate.DisplayDateStart = DateTime.Now;
+            lblAnimal.Visibility = Visibility.Visible;
+            dgAnimalList.Visibility = Visibility.Visible;
+            selectedAnimal = new Animal()
+            {
+                AnimalID = ((AnimalActivity)dgActivities.SelectedItem).AnimalID
+            };
+            if (txtTime.Text.Contains(" AM"))
+            {
+                txtTime.Text = txtTime.Text.Replace(" AM", "");
+                cmbAmPm.SelectedIndex = 0;
+            }
+            else if (txtTime.Text.Contains(" PM"))
+            {
+                txtTime.Text = txtTime.Text.Replace(" PM", "");
+                cmbAmPm.SelectedIndex = 1;
+            }
+
+            try
+            {
+                dgAnimalList.ItemsSource = new AnimalManager().RetrieveAnimalsByActive();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/6/2020
+        /// Approver: Chuck Baxter 4/7/2020
+        /// 
+        /// Helper method to disable edit mode
+        /// Only calls DisableAddMode() as
+        /// they work exactly the same
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void DisableEditMode()
+        {
+            DisableAddMode();
         }
 
         /// <summary>
@@ -406,6 +471,7 @@ namespace WPFPresentationLayer.AMPages
             else
             {
                 ClearFields();
+                DisableEditMode();
             }
         }
 
@@ -462,15 +528,16 @@ namespace WPFPresentationLayer.AMPages
         /// Handles saving and edititing functions
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Ethan Murphy
+        /// Updated: 4/6/2020
+        /// Update: Added edit functionality
+        /// Approver: Chuck Baxter 4/7/2020
         /// </remarks>
         private void btnSaveEdit_Click(object sender, RoutedEventArgs e)
         {
-            if (!addMode)
+            if (btnSaveEdit.Content.Equals("Edit"))
             {
-                MessageBox.Show("Editing not yet implemented");
+                EnableEditMode();
                 return;
             }
             if (selectedAnimal == null)
@@ -511,25 +578,53 @@ namespace WPFPresentationLayer.AMPages
                 Description = txtDescription.Text
             };
 
-            try
+            if (addMode)
             {
-                if (_activityManager.AddAnimalActivityRecord(animalActivity))
+                try
                 {
-                    MessageBox.Show("Record added!");
-                    DisableAddMode();
-                    canViewActivityRecord.Visibility = Visibility.Hidden;
-                    RefreshActivitiesList();
+                    if (_activityManager.AddAnimalActivityRecord(animalActivity))
+                    {
+                        MessageBox.Show("Record added!");
+                        DisableAddMode();
+                        canViewActivityRecord.Visibility = Visibility.Hidden;
+                        RefreshActivitiesList();
+                    }
+                    else
+                    {
+                        throw new ApplicationException();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    throw new ApplicationException();
+                    string message = ex == null ? "Failed to add record" :
+                        ex.Message + " " + ex.InnerException.Message;
+                    MessageBox.Show(message);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                string message = ex == null ? "Failed to add record" :
-                    ex.Message + " " + ex.InnerException.Message;
-                MessageBox.Show(message);
+                // Perform update
+                try
+                {
+                    if (_activityManager.EditExistingAnimalActivityRecord(
+                        (AnimalActivity)dgActivities.SelectedItem, animalActivity))
+                    {
+                        MessageBox.Show("Record updated");
+                        DisableEditMode();
+                        canViewActivityRecord.Visibility = Visibility.Hidden;
+                        RefreshActivitiesList();
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Record not found");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string message = ex == null ? "Failed to add record" :
+                        ex.Message + " " + ex.InnerException.Message;
+                    MessageBox.Show(message);
+                }
             }
         }
 

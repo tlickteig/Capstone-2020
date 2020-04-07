@@ -161,5 +161,42 @@ namespace DataAccessFakes
             _animalActivity.Add(animalActivity);
             return _animalActivity.Count - startingLength;
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/6/2020
+        /// Approver: Chuck Baxter 4/7/2020
+        /// 
+        /// Updates an existing animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalActivity">The existing record</param>
+        /// <param name="newAnimalActivity">The updated record</param>
+        /// <returns>Update successful</returns>
+        public int UpdateAnimalActivityRecord(AnimalActivity oldAnimalActivity, AnimalActivity newAnimalActivity)
+        {
+            int recordsUpdated = 0;
+
+            var foundRecord = _animalActivity.Find(a => a.AnimalActivityTypeID
+                                                        == oldAnimalActivity.AnimalActivityTypeID &&
+                                                        a.AnimalID == oldAnimalActivity.AnimalID &&
+                                                        a.UserID == oldAnimalActivity.UserID &&
+                                                        a.AnimalActivityTypeID == oldAnimalActivity.AnimalActivityTypeID &&
+                                                        a.ActivityDateTime == oldAnimalActivity.ActivityDateTime &&
+                                                        a.Description == oldAnimalActivity.Description);
+
+            if (foundRecord != null)
+            {
+                _animalActivity[_animalActivity.IndexOf(foundRecord)] = newAnimalActivity;
+                recordsUpdated = ((!_animalActivity.Contains(foundRecord)) &&
+                                _animalActivity.Contains(newAnimalActivity)) ? 1 : 0;
+            }
+
+            return recordsUpdated;
+        }
     }
 }
