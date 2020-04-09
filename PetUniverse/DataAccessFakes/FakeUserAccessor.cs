@@ -422,5 +422,40 @@ namespace DataAccessFakes
                 return 0;
             }
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/1/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to get a user by id
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        public PetUniverseUser getUserByUserID(int UserID)
+        {
+            var user = new PetUniverseUser
+            {
+                PUUserID = 100000,
+                FirstName = "John",
+                LastName = "Doe",
+                PhoneNumber = "5632102101",
+                Email = "j.doe@RandoGuy.com",
+                Active = true,
+                City = "Cedar Rapids",
+                State = "IA",
+                ZipCode = "52404"
+            };
+            if (UserID >= 100000)
+            {
+                return user;
+            }
+            return null;
+        }
     }
 }

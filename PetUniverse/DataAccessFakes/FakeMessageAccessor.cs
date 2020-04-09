@@ -52,16 +52,39 @@ namespace DataAccessFakes
         /// </remarks>   
         public List<string> GetDepartmentsLikeInput(string Input)
         {
-            List<string> emptyList = new List<string>(); 
+            List<string> emptyList = new List<string>();
             if (Input != null)
             {
-                
+
                 return _departments;
             }
             else
             {
                 return emptyList;
             }
+        }
+
+        public List<Messages> GetMessagesByRecipient(int RecipientID)
+        {
+            List<Messages> _messages = new List<Messages>();
+
+            Messages messageToAdd = new Messages()
+            {
+                MessageID = 100000,
+                MessageBody = "Test",
+                MessageSubject = "Test",
+                SenderID = 100000,
+                RecipientID = 100001,
+                Seen = false
+            };
+
+
+            if (RecipientID >= 100000)
+            {
+                _messages.Add(messageToAdd);
+            }
+
+            return _messages;
         }
 
         /// <summary>
@@ -104,6 +127,23 @@ namespace DataAccessFakes
         public bool sendEmail(string content, string subject, int senderID, int recieverID)
         {
             if (content != "" && subject != "" && senderID != 0 && recieverID != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="MessageID"></param>
+        /// <returns></returns>
+        public bool setMessageSeen(int MessageID)
+        {
+            if (MessageID >= 10000)
             {
                 return true;
             }

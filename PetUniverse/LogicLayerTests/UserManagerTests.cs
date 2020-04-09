@@ -530,6 +530,30 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/1/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Test to get user by ID
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// </remarks>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestGetUserByID()
+        {
+            //Arrange                        
+            int userID = 100000;
+            //Act
+            _user = _userManager.getUserByUserID(userID);
+            //Assert 
+            Assert.IsNotNull(_user);
+        }
+
+        /// <summary>
         /// Creator: Steven Cardona
         /// Created: 02/07/2020
         /// Approver: Zach Behrensmeyer

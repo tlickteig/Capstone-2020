@@ -184,5 +184,22 @@ namespace LogicLayerInterfaces
         /// <param name="userID"></param>        
         /// <returns>bool result of call</returns>
         bool HasReadPoliciesAndStandards(int userID);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/1/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager method to get users by UserID
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        PetUniverseUser getUserByUserID(int UserID);
     }
 }

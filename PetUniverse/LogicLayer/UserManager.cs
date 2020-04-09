@@ -392,5 +392,33 @@ namespace LogicLayer
             }
             return result;
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/01/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager Method get users by userID
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        public PetUniverseUser getUserByUserID(int UserID)
+        {
+            PetUniverseUser user = new PetUniverseUser();
+            try
+            {
+                user = _userAccessor.getUserByUserID(UserID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No user found", ex);
+            }
+            return user;
+        }
     }
 }

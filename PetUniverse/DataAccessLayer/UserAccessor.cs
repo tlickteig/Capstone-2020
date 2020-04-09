@@ -547,5 +547,71 @@ namespace DataAccessLayer
             }
             return rows;
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 3/1/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to find retrieve a user based on the provided ID
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        public PetUniverseUser getUserByUserID(int UserID)
+        {
+            PetUniverseUser user = null;
+
+            var conn = DBConnection.GetConnection();
+
+            //Sprocs
+            var cmd = new SqlCommand("sp_select_user_by_id");
+
+            cmd.Connection = conn;
+
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@UserID", SqlDbType.NVarChar, 250);
+            cmd.Parameters["@UserID"].Value = UserID;
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    //Create new user to set properties
+                    user = new PetUniverseUser();
+
+                    user.PUUserID = UserID;
+                    user.FirstName = reader.GetString(0);
+                    user.LastName = reader.GetString(1);
+                    user.PhoneNumber = reader.GetString(2);
+                    user.Email = reader.GetString(3);
+                }
+                else
+                {
+                    throw new ApplicationException("User not found.");
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return user;
+        }
+
     }
 }

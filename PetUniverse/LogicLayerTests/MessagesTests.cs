@@ -126,6 +126,58 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Zach Behrensmeyer
+        /// Created: 04/01/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Test method to set message seen
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA 
+        /// </remarks>
+        [TestMethod]
+        public void TestSetMessageSeen()
+        {
+            //Arrange
+            bool seen;
+            int MessageID = 100000;
+
+            //act
+            seen = messagesManager.setMessageSeen(MessageID);
+
+            //assert
+            Assert.IsTrue(seen);
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/31/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Test method for getting messages
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA 
+        /// </remarks>
+        [TestMethod]
+        public void TestGetMessagesByRecipientID()
+        {
+            //arrange
+            int RecipientID = 100000;
+            List<Messages> results = new List<Messages>();
+            // act
+            results = messagesManager.GetMessagesByRecipient(RecipientID);
+
+            // assert
+            Assert.AreEqual(results.Count, 1);
+
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
         /// Created: 03/19/2020
         /// Approver: Steven Cardona
         /// 

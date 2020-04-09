@@ -8051,6 +8051,49 @@ END
 GO
 
 /*
+Created by: Zach Behrensmeyer
+Date: 3/30/2020
+Comment: Sproc to set message as seen
+*/
+DROP PROCEDURE IF EXISTS [sp_set_message_seen]
+GO
+PRINT '' PRINT '*** Creating sp_set_message_seen'
+GO
+CREATE PROCEDURE [sp_set_message_seen]
+(
+	@MessageID 			int
+)
+AS
+BEGIN
+	UPDATE Message
+	SET MessageSeen = 1
+	WHERE MessageID = @MessageID
+END
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 3/27/2020
+Comment: Sproc to find user by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_user_by_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_user_by_id'
+GO
+CREATE PROCEDURE [sp_select_user_by_id]
+(
+	@UserID 			int
+)
+AS
+BEGIN
+	SELECT 	[FirstName], [LastName], [PhoneNumber], [Email]
+	FROM 	[dbo].[User]
+	WHERE 	[UserID] = @UserID
+END
+GO
+
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'

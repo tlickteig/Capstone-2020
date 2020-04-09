@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,6 +58,36 @@ namespace DataAccessInterfaces
         /// Update: NA
         /// </remarks> 
         bool sendEmail(string content, string subject, int senderID, int recieverID);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/27/2020
+        /// Approver: 
+        /// 
+        /// Logic to view messa
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>        
+        List<Messages> GetMessagesByRecipient(int RecipientID);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/30/2020
+        /// Approver: 
+        /// 
+        /// Logic to set message as viewed
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>  
+        /// <param name="MessageID"></param>
+        /// <returns>Boolean value to determine if message is viewed</returns>
+        bool setMessageSeen(int MessageID);
 
     }
 }

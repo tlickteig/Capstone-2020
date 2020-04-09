@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,6 +66,39 @@ namespace LogicLayerInterfaces
         /// <param name="senderID"></param>
         /// <param name="recieverID"></param>
         /// <returns></returns>
-        bool sendEmail(string content, string subject, int senderID, int recieverID);        
+        bool sendEmail(string content, string subject, int senderID, int recieverID);
+
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/27/2020
+        /// Approver: Steven Cardona
+        ///
+        /// Get all messages for a recipient
+        /// </summary>
+        /// <remarks>        
+        /// Updater: NA
+        /// Update: NA
+        /// Approver: NA
+        /// </remarks>
+        List<Messages> GetMessagesByRecipient(int RecipientID);
+
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/30/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Logic to set message as viewed
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>  
+        /// <param name="MessageID"></param>
+        /// <returns>Boolean value of sent message</returns>
+        bool setMessageSeen(int MessageID);
+
     }
 }

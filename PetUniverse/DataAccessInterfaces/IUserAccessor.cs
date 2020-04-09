@@ -180,5 +180,21 @@ namespace DataAccessInterfaces
         /// <returns>rows affected</returns>
         int ChangeUserHasReadPoliciesStandards(int UserID);
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/1/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to get users based on userID
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="UserID"></param>
+        /// <returns>Returns a user based on ID</returns>
+        PetUniverseUser getUserByUserID(int UserID);
     }
 }
+

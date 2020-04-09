@@ -1,6 +1,7 @@
 ﻿using DataAccessFakes;
 using DataAccessInterfaces;
 using DataAccessLayer;
+using DataTransferObjects;
 using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace LogicLayer
     public class MessagesManager : IMessagesManager
     {
 
-        private IMessagesAccessor _messagesAccessor;        
+        private IMessagesAccessor _messagesAccessor;
 
         /// <summary>
         /// Creator: Zach Behrensmeyer
@@ -59,6 +60,37 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Zach Behrensmeyer
+        /// Created: 04/01/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Logic to get messages by recipient
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="RecipientID"></param>
+        /// <returns></returns>
+        public List<Messages> GetMessagesByRecipient(int RecipientID)
+        {
+            List<Messages> results = new List<Messages>();
+
+            {
+                try
+                {
+                    results = _messagesAccessor.GetMessagesByRecipient(RecipientID);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Messages not found", ex);
+                }
+            }
+            return results;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
         /// Created: 03/16/2020
         /// Approver: Steven Cardona
         /// 
@@ -83,7 +115,7 @@ namespace LogicLayer
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("records not found", ex);
+                    throw new Exception("Users not found", ex);
                 }
             }
             return results;
@@ -107,7 +139,7 @@ namespace LogicLayer
         {
             List<string> results = new List<string>();
 
-            if(Input != "")
+            if (Input != "")
             {
                 try
                 {
@@ -115,9 +147,9 @@ namespace LogicLayer
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception("records not found", ex);
+                    throw new Exception("Departments not found", ex);
                 }
-            }            
+            }
             return results;
         }
 
@@ -142,15 +174,44 @@ namespace LogicLayer
         {
             bool sent = false;
 
-                try
-                {
-                    sent = _messagesAccessor.sendEmail(content, subject, senderID, recieverID);
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception("Message could not be sent", ex);
-                }
-            return sent;                        
+            try
+            {
+                sent = _messagesAccessor.sendEmail(content, subject, senderID, recieverID);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Message could not be sent", ex);
+            }
+            return sent;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/01/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager Method to set a message as seen
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="MessageID"></param>
+        /// <returns></returns>
+        public bool setMessageSeen(int MessageID)
+        {
+            bool seen = false;
+
+            try
+            {
+                seen = _messagesAccessor.setMessageSeen(MessageID);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Message could not be marked as seen", ex);
+            }
+            return seen;
         }
     }
 }
