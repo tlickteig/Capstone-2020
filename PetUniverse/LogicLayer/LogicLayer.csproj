@@ -71,6 +71,7 @@
     <Compile Include="CustomerManager.cs" />
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="ERoleManager.cs" />
+    <Compile Include="FacilityInspectionItemManager.cs" />
     <Compile Include="FacilityInspectionManager.cs" />
     <Compile Include="FacilityMaintenanceManager.cs" />
     <Compile Include="HomeInspectorManager.cs" />

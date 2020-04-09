@@ -450,6 +450,36 @@ CREATE TABLE [dbo].[FacilityInspection] (
 GO
 
 /*
+Created by: Carl Davis
+Date: 3/30/2020
+Comment: Table that has the Facility Inspection Item Information
+*/
+DROP TABLE IF EXISTS [dbo].[FacilityInspectionItems]
+GO
+PRINT '' PRINT '*** Creating FacilityInspectionItem Table'
+GO
+CREATE TABLE [dbo].[FacilityInspectionItem] (
+
+	[FacilityInspectionItemID]		[int] IDENTITY(1000000,1)		NOT NULL,
+	[ItemName]						[nvarchar](100)					NOT NULL,
+	[UserID]						[int]							NOT NULL,
+	[FacilityInspectionID]			[int]							NOT NULL,
+	[ItemDescription]				[nvarchar](500)					NOT NULL
+
+	CONSTRAINT [pk_FacilityInspectionItemID] PRIMARY KEY([FacilityInspectionItemID] ASC),
+
+	CONSTRAINT [fk_FacilityInspectionItem_UserID] FOREIGN KEY([UserID])
+		REFERENCES [User]([UserID]) ON UPDATE CASCADE,
+		
+	CONSTRAINT [fk_FacilityInspectionItem_FacilityInspectionID] FOREIGN KEY([FacilityInspectionID])
+		REFERENCES [FacilityInspection]([FacilityInspectionID]),
+
+	CONSTRAINT [ak_FacilityInspectionItemID] UNIQUE([FacilityInspectionItemID] ASC)
+)
+GO
+
+
+/*
 Created by: Daulton Schilling
 Date: 2/8/2020
 Comment: Table that houses Facility Work Information
@@ -2224,6 +2254,180 @@ BEGIN
 		AND	[InspectionDate] = @OldInspectionDate
 		AND	[InspectionDescription] = @OldInspectionDescription
 		AND [InspectionCompleted] = @OldInspectionComplete
+	 RETURN @@ROWCOUNT
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/2/2020
+Comment: Sproc to INSERT facility inspection item
+*/
+DROP PROCEDURE IF EXISTS [sp_INSERT_facility_inspection_item]
+GO
+PRINT '' PRINT '*** Creating sp_INSERT_facility_inspection_item'
+GO
+CREATE PROCEDURE [sp_INSERT_facility_inspection_item]
+(
+	@ItemName            			[nvarchar](100),
+    @UserID                        	[int],
+    @FacilityInspectionID         	[int],
+    @ItemDescription     			[nvarchar](500)
+)
+AS
+BEGIN
+    INSERT INTO [dbo].[FacilityInspectionItem]
+        ([ItemName], [UserID], [FacilityInspectionID], [ItemDescription])
+    VALUES
+        (@ItemName, @UserID, @FacilityInspectionID, @ItemDescription)
+    RETURN SCOPE_IDENTITY()
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/2/2020
+Comment: Sproc to select all facility inspection items
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_facility_inspection_item]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_facility_inspection_item'
+GO
+CREATE PROCEDURE [sp_select_all_facility_inspection_item]
+AS
+BEGIN
+    SELECT [FacilityInspectionItemID], [ItemName], [UserID], [FacilityInspectionID], [ItemDescription]
+    FROM [dbo].[FacilityInspectionItem]
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/2/2020
+Comment: Sproc to select facility inspection item by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_facility_inspection_item_by_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_facility_inspection_item_by_id'
+GO
+CREATE PROCEDURE [sp_select_facility_inspection_item_by_id]
+(
+    @FacilityInspectionItemID                        	[int]
+)
+AS
+BEGIN
+    SELECT [FacilityInspectionItemID], [ItemName], [UserID],
+            [FacilityInspectionID], [ItemDescription]
+    FROM [dbo].[FacilityInspectionItem]
+	WHERE [FacilityInspectionItemID] = @FacilityInspectionItemID
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/2/2020
+Comment: Sproc to select facility inspection item by facility inspection id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_facility_inspection_item_by_facility_inspection_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_facility_inspection_item_by_facility_inspection_id'
+GO
+CREATE PROCEDURE [sp_select_facility_inspection_item_by_facility_inspection_id]
+(
+    @FacilityInspectionID                        	[int]
+)
+AS
+BEGIN
+    SELECT [FacilityInspectionItemID], [ItemName], [UserID],
+            [FacilityInspectionID], [ItemDescription]
+    FROM [dbo].[FacilityInspectionItem]
+	WHERE [FacilityInspectionID] = @FacilityInspectionID
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/2/2020
+Comment: Sproc to select facility inspection item by user id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_facility_inspection_item_by_user_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_facility_inspection_item_by_user_id'
+GO
+CREATE PROCEDURE [sp_select_facility_inspection_item_by_user_id]
+(
+    @UserID           								[int]
+)
+AS
+BEGIN
+    SELECT [FacilityInspectionItemID], [ItemName], [UserID],
+            [FacilityInspectionID], [ItemDescription]
+    FROM [dbo].[FacilityInspectionItem]
+	WHERE [UserID] = @UserID
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/2/2020
+Comment: Sproc to select facility inspection item by item name
+*/
+DROP PROCEDURE IF EXISTS [sp_select_facility_inspection_item_by_item_name]
+GO
+PRINT '' PRINT '*** Creating sp_select_facility_inspection_item_by_item_name'
+GO
+CREATE PROCEDURE [sp_select_facility_inspection_item_by_item_name]
+(
+    @ItemName					[nvarchar](100)
+)
+AS
+BEGIN
+    SELECT [FacilityInspectionItemID], [ItemName], [UserID],
+            [FacilityInspectionID], [ItemDescription]
+    FROM [dbo].[FacilityInspectionItem]
+	WHERE [ItemName] = @ItemName
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/2/2020
+Comment: Sproc to update facility inspection item
+*/
+DROP PROCEDURE IF EXISTS [sp_update_facility_inspection_item]
+GO
+print '' print '*** Creating sp_update_facility_inspection_item'
+GO
+CREATE PROCEDURE [sp_update_facility_inspection_item]
+(
+	@FacilityInspectionItemID          	[int],
+	@OldItemName            			[nvarchar](100),
+    @OldUserID                        	[int],
+    @OldFacilityInspectionID         	[int],
+    @OldItemDescription    				[nvarchar](500),
+	@NewItemName		           		[nvarchar](100),
+	@NewUserID                        	[int],
+    @NewFacilityInspectionID        	[int],
+    @NewItemDescription     		[nvarchar](500)
+
+)
+AS
+BEGIN
+    UPDATE 	[dbo].[FacilityInspectionItem]
+	SET 	[ItemName] = @NewItemName,
+			[UserID] = @NewUserID,
+			[FacilityInspectionID] = @NewFacilityInspectionID,
+			[ItemDescription] = @NewItemDescription
+			
+	WHERE   [FacilityInspectionItemID] = @FacilityInspectionItemID
+		AND	[ItemName] = @OldItemName
+		AND	[UserID] = @OldUserID
+		AND	[FacilityInspectionID] = @OldFacilityInspectionID
+		AND	[ItemDescription] = @OldItemDescription
 	 RETURN @@ROWCOUNT
 
 END

@@ -142,6 +142,9 @@
     <Compile Include="FMPages\AnimalKennelCleaningControls.xaml.cs">
       <DependentUpon>AnimalKennelCleaningControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FMPages\FacilityInspectionItemControls.xaml.cs">
+      <DependentUpon>FacilityInspectionItemControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\AddDonationItem.xaml.cs">
       <DependentUpon>AddDonationItem.xaml</DependentUpon>
     </Compile>
@@ -226,12 +229,12 @@
     <Compile Include="PoSPages\ViewAllTransactions.xaml.cs">
       <DependentUpon>ViewAllTransactions.xaml</DependentUpon>
     </Compile>
-	<Compile Include="PoSPages\pgChooseItemForProduct.xaml.cs">
-	  <DependentUpon>pgChooseItemForProduct.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="PoSPages\pgAddEditViewProduct.xaml.cs">
-	  <DependentUpon>pgAddEditViewProduct.xaml</DependentUpon>
-	</Compile>
+    <Compile Include="PoSPages\pgChooseItemForProduct.xaml.cs">
+      <DependentUpon>pgChooseItemForProduct.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PoSPages\pgAddEditViewProduct.xaml.cs">
+      <DependentUpon>pgAddEditViewProduct.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RecruitingPages\CreateEventForm.xaml.cs">
       <DependentUpon>CreateEventForm.xaml</DependentUpon>
     </Compile>
@@ -380,6 +383,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="FMPages\FacilityInspectionItemControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\AddDonationItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -492,14 +499,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-	<Page Include="PoSPages\pgChooseItemForProduct.xaml">
-	  <SubType>Designer</SubType>
-	  <Generator>MSBuild:Compile</Generator>
-	</Page>
-	<Page Include="PoSPages\pgAddEditViewProduct.xaml">
-	  <SubType>Designer</SubType>
-	  <Generator>MSBuild:Compile</Generator>
-	</Page>
+    <Page Include="PoSPages\pgChooseItemForProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PoSPages\pgAddEditViewProduct.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RecruitingPages\CreateEventForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

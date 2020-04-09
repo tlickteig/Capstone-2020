@@ -252,6 +252,9 @@
                 <TabItem x:Name="tabViewKennelCleaningRecords" Header="View Kennel Cleaning" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frameViewKennelCleaningRecords"></Frame>
                 </TabItem>
+                <TabItem x:Name="tabViewFacilityInspectionItem" Header="View Inspection Item" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewFacilityInspectionItem"></Frame>
+                </TabItem>
             </TabControl>
         </Canvas>
 

@@ -232,7 +232,7 @@ namespace WPFPresentationLayer.FMPages
             catch (Exception ex)
             {
 
-                WPFErrorHandler.ErrorMessage(ex.Message, "Retrive");
+                WPFErrorHandler.ErrorMessage(ex.Message, "Retrieve");
             }
         }
 
