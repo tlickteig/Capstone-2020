@@ -595,6 +595,11 @@ namespace WPFPresentationLayer
         /// Update: Added the cleaning records tab.
         /// Approver: Carl Davis 4/4/2020
         /// 
+        /// Updater: Carl Davis
+        /// Updated: 4/2/2020
+        /// Update: Added the inspection items tab.
+        /// Approver: Ethan Murphy 4/3/2020
+        /// 
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
