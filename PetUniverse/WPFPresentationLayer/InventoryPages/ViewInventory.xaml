@@ -36,5 +36,6 @@
         <Button x:Name="btnViewItem" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="15 3" FontSize="18" HorizontalContentAlignment="Center" FontWeight="DemiBold" Click="btnViewItem_Click">View Item</Button>
         <Button x:Name="btnAddItems" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="15 3" FontSize="18" Click="btnAddItems_Click">Add Items</Button>
         <Button x:Name="btnDeactivateItem" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="15 3" FontSize="18" Click="btnDeactivateItem_Click">Deactivate Item</Button>
+        <Button x:Name="btnAddItemReport" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Padding="15 3" Margin="-20 0" FontSize="18" Click="btnAddItemReport_Click">Add Report</Button>
     </Grid>
 </Page>

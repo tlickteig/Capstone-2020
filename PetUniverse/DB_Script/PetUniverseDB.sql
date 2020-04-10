@@ -1741,6 +1741,24 @@ CREATE TABLE [dbo].[Picture]
 )
 GO
 
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Table for Reporting Damaged or Missing Items from the Shelf.
+*/
+DROP TABLE IF EXISTS [dbo].[ItemReport]
+GO
+print '' print '*** Creating ItemReport Table'
+GO
+CREATE TABLE [dbo].[ItemReport](
+	[ItemID]		[int]				NOT NULL,
+	[ItemQuantity]	[int]				NOT NULL,
+	[Report]		[nvarchar](250)		NOT NULL,
+	CONSTRAINT [fk_ItemReport_ItemID] FOREIGN KEY([ItemID])
+		REFERENCES [Item]([ItemID])
+)
+GO
+
 
 /*
  ******************************* Create Procedures *****************************
@@ -8631,6 +8649,128 @@ BEGIN
 	ON I.[ItemID] = P.[ItemID]
 	WHERE P.[ProductID] = @ProductID
 	
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Stored Procedure that adds a new Report to Missing / Damaged Items from the Shelf.
+*/
+DROP PROCEDURE IF EXISTS [sp_add_item_report]
+GO
+print '' print '*** Creating sp_add_item_report'
+GO
+CREATE PROCEDURE [sp_add_item_report]
+(
+	@ItemID			[int],
+	@ItemQuantity 	[int],
+	@Report			[nvarchar](250)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[ItemReport]
+	([ItemID], [ItemQuantity], [Report])
+	VALUES
+	(@ItemID, @ItemQuantity, @Report)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Stored Procedure that selects all Reports of Missing / Damaged Items from the Shelf.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_item_reports]
+GO
+print '' print '*** Creating sp_select_all_item_reports'
+GO
+CREATE PROCEDURE [sp_select_all_item_reports]
+AS
+BEGIN
+	SELECT [ItemReport].[ItemID],
+		   [Item].[ItemName],
+		   [ItemReport].[ItemQuantity],
+		   [ItemReport].[Report]
+	FROM [dbo].[ItemReport]
+	INNER JOIN [dbo].[Item] ON [ItemReport].[ItemID] = [Item].[ItemID]
+	ORDER BY [ItemReport].[ItemID]
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Stored Procedure that selects a Report of a Missing / Damaged Item from the Shelf.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_item_report_by_item_id]
+GO
+print '' print '*** creating sp_select_item_report_by_item_id'
+GO
+CREATE PROCEDURE [sp_select_item_report_by_item_id]
+AS
+BEGIN
+	SELECT [ItemReport].[ItemID],
+		   [Item].[ItemName],
+		   [ItemReport].[ItemQuantity],
+		   [ItemReport].[Report]
+	FROM [dbo].[ItemReport]
+	INNER JOIN [dbo].[Item] ON [ItemReport].[ItemID] = [Item].[ItemID]
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Stored Procedure that updates a Report of a Missing / Damaged Item from the Shelf.
+*/
+DROP PROCEDURE IF EXISTS [sp_update_item_report]
+GO
+print '' print '*** Creating sp_update_item_report'
+GO
+CREATE PROCEDURE [sp_update_item_report]
+(
+	@OldItemQuantity 	[int],
+	@OldReport			[nvarchar](250),
+	@NewItemQuantity 	[int],
+	@NewReport			[nvarchar](250),
+	@ItemID				[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[ItemReport]
+	SET   [ItemQuantity] = @NewItemQuantity,
+		  [Report]       = @NewReport
+	WHERE [ItemID]       = @ItemID
+	AND   [ItemQuantity] = @OldItemQuantity
+	AND	  [Report]		 = @OldReport
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Stored Procedure that removes a Report of a Missing / Damaged Item from the Shelf.
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_item_report]
+GO
+print '' print '*** Creating sp_delete_item_report'
+GO
+CREATE PROCEDURE [sp_delete_item_report]
+(
+	@ItemID 	  [int],
+	@Report 	  [nvarchar](250),
+	@ItemQuantity [int]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[ItemReport]
+	WHERE [ItemID] = @ItemID
+	AND [Report] = @Report
+	AND [ItemQuantity] = @ItemQuantity
+	RETURN @@ROWCOUNT
 END
 GO
 

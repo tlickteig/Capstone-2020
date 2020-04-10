@@ -76,6 +76,7 @@
     <Compile Include="BaseScheduleManagerTests.cs" />
     <Compile Include="FacilityInspectionItemManagerTests.cs" />
     <Compile Include="FacilityInspectionManagerTests.cs" />
+    <Compile Include="ItemReportManagerTests.cs" />
     <Compile Include="LocationManagerTests.cs" />
     <Compile Include="MedicationManagerTests.cs" />
     <Compile Include="MedicineManagerTests.cs" />

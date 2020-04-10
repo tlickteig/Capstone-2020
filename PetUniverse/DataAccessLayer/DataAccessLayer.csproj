@@ -82,6 +82,7 @@
     <Compile Include="InventoryItemsAccessor.cs" />
     <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemCategoryAccessor.cs" />
+    <Compile Include="ItemReportAccessor.cs" />
     <Compile Include="LocationAccessor.cs" />
     <Compile Include="LogAccessor.cs" />
     <Compile Include="MedicationAccessor.cs" />

@@ -148,6 +148,12 @@
     <Compile Include="InventoryPages\AddDonationItem.xaml.cs">
       <DependentUpon>AddDonationItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\AddItemReport.xaml.cs">
+      <DependentUpon>AddItemReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\EditItemReports.xaml.cs">
+      <DependentUpon>EditItemReports.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\ShelterInventory.xaml.cs">
       <DependentUpon>ShelterInventory.xaml</DependentUpon>
     </Compile>
@@ -159,6 +165,9 @@
     </Compile>
     <Compile Include="InventoryPages\ViewAddSpecialOrder.xaml.cs">
       <DependentUpon>ViewAddSpecialOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\ViewItemReports.xaml.cs">
+      <DependentUpon>ViewItemReports.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\ViewOrders.xaml.cs">
       <DependentUpon>ViewOrders.xaml</DependentUpon>
@@ -403,6 +412,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\AddItemReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\EditItemReports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\ShelterInventory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -416,6 +433,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InventoryPages\ViewAddSpecialOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\ViewItemReports.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

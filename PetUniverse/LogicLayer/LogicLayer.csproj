@@ -79,6 +79,7 @@
     <Compile Include="InventoryItemsManager.cs" />
     <Compile Include="ItemCategoryManager.cs" />
     <Compile Include="ItemManager.cs" />
+    <Compile Include="ItemReportManager.cs" />
     <Compile Include="LocationManager.cs" />
     <Compile Include="LogManager.cs" />
     <Compile Include="MedicationManager.cs" />

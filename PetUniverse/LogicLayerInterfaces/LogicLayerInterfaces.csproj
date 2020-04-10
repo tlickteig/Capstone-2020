@@ -80,6 +80,7 @@
     <Compile Include="IInventoryItemsManager.cs" />
     <Compile Include="IItemCategoryManager.cs" />
     <Compile Include="IItemManager.cs" />
+    <Compile Include="IItemReportManager.cs" />
     <Compile Include="ILocationManager.cs" />
     <Compile Include="ILogManager.cs" />
     <Compile Include="IMedicationManager.cs" />

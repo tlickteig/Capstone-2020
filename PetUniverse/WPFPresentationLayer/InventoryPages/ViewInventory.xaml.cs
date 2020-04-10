@@ -238,5 +238,34 @@ namespace WPFPresentationLayer.InventoryPages.Items
             // Search though the categories which contain the text entered by the user, and put them in the data grid.
             dgViewInventory.ItemsSource = itemsForSearch.Where(r => r.ItemCategoryID.ToLower().Contains(searchedCategory.ToLower()));
         }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/07
+        /// Approver: Dalton Reierson
+        /// Approver:  Jesse Tomash
+        ///
+        /// This Method goes to the Add Report Screen if an item is selected.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddItemReport_Click(object sender, RoutedEventArgs e)
+        {
+            Item item = (Item)dgViewInventory.SelectedItem;
+            if (dgViewInventory.SelectedItem != null)
+            {
+                this.NavigationService?.Navigate(new AddItemReport(item));
+            }
+            else
+            {
+                "Please pick an item to add a new report.".ErrorMessage();
+            }
+        }
     }
 }
