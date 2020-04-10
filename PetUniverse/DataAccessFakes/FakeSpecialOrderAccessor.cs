@@ -9,21 +9,21 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// NAME: Jesse Tomash
-    /// DATE:3/12/2020
+    /// DATE:3/30/2020
     ///
     /// Approver: Brandyn T. Coverdill
-    /// Approver: Dalton Reierson
+    /// Approver: 
     /// 
     /// Fake Order class for testing
     /// </summary>
-    public class FakeOrderAccessor
+    public class FakeSpecialOrderAccessor
     {
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver:  Dalton Reierson
+        /// Approver: 
         /// 
         /// This is a list of orders
         /// </summary>
@@ -32,14 +32,14 @@ namespace DataAccessFakes
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        private List<Order> orders;
+        private List<SpecialOrder> specialOrders;
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This method returns a fake list of Ordersfor testing
         /// </summary>
@@ -51,24 +51,24 @@ namespace DataAccessFakes
         /// <returns>
         /// IEnumerable<OrderInvoice> The list of Order Invoices
         /// </returns>
-        public IEnumerable<Order> SelectOrders()
+        public IEnumerable<SpecialOrder> SelectSpecialOrders()
         {
-            orders = new List<Order>() {
-                new Order()
+            specialOrders = new List<SpecialOrder>() {
+                new SpecialOrder()
                 {
-                    OrderID = 1,
-                    EmployeeID = 244
+                    SpecialOrderID = 1,
+                    SpecialOrderEmployeeID = 244
                 }
             };
-            return (IEnumerable<Order>)orders;
+            return (IEnumerable<SpecialOrder>)specialOrders;
         }
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the method used to test updating the fake orders 
         /// </summary>
@@ -80,14 +80,14 @@ namespace DataAccessFakes
         /// <param name="oldOrderInvoice">The old invoice to be changed</param>
         /// <param name="newOrderInvoice">The invoice with the new values</param>
         /// <returns></returns>
-        public int UpdateOrder(Order oldOrder, Order newOrder)
+        public int UpdateSpecialOrder(SpecialOrder oldOrder, SpecialOrder newOrder)
         {
             int result = 0;
 
             if (!oldOrder.Equals(newOrder))
             {
-                oldOrder.OrderID = newOrder.OrderID;
-                oldOrder.EmployeeID = newOrder.EmployeeID;
+                oldOrder.SpecialOrderID = newOrder.SpecialOrderID;
+                oldOrder.SpecialOrderEmployeeID = newOrder.SpecialOrderEmployeeID;
                 result = 1;
             }
             return result;
@@ -95,10 +95,10 @@ namespace DataAccessFakes
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the method used to test inserting a new order to the list
         /// </summary>
@@ -109,12 +109,12 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="newOrderInvoice">The new invoice to be added</param>
         /// <returns></returns>
-        public int InsertOrder(Order newOrder)
+        public int InsertSpecialOrder(SpecialOrder newOrder)
         {
             int result = 0;
-            FakeOrderAccessor fakeOrderAccessor = new FakeOrderAccessor();
-            IEnumerable<Order> orders = fakeOrderAccessor.SelectOrders();
-            List<Order> invoiceList = orders.ToList();
+            FakeSpecialOrderAccessor fakeOrderAccessor = new FakeSpecialOrderAccessor();
+            IEnumerable<SpecialOrder> orders = fakeOrderAccessor.SelectSpecialOrders();
+            List<SpecialOrder> invoiceList = orders.ToList();
             if (!invoiceList.Contains(newOrder))
             {
                 invoiceList.Add(newOrder);
@@ -125,25 +125,25 @@ namespace DataAccessFakes
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the method used to test deleting an order from the list 
         /// </summary>
         /// <param name="orderInvoiceID">The ID of the invoice to be deleted</param>
         /// <returns></returns>
-        public int DeleteOrder(int orderID)
+        public int DeleteSpecialOrder(int specialOrderID)
         {
             int result = 0;
-            FakeOrderAccessor fakeOrderAccessor = new FakeOrderAccessor();
-            IEnumerable<Order> orders = fakeOrderAccessor.SelectOrders();
-            List<Order> invoiceList = orders.ToList();
+            FakeSpecialOrderAccessor fakeOrderAccessor = new FakeSpecialOrderAccessor();
+            IEnumerable<SpecialOrder> orders = fakeOrderAccessor.SelectSpecialOrders();
+            List<SpecialOrder> invoiceList = orders.ToList();
 
-            foreach (Order order in orders)
+            foreach (SpecialOrder order in orders)
             {
-                if (order.OrderID.Equals(orderID))
+                if (order.SpecialOrderID.Equals(specialOrderID))
                 {
                     invoiceList.Remove(order);
                     result = 1;

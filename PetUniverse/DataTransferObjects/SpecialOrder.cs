@@ -8,21 +8,21 @@ namespace DataTransferObjects
 {
     /// <summary>
     /// NAME: Jesse Tomash
-    /// DATE: 3/12/2020
+    /// DATE: 3/30/2020
     ///
     /// Approver: Brandyn T. Coverdill
-    /// Approver: Dalton Reierson
+    /// Approver: 
     /// 
     /// This is the Order Data Transfer Object
     /// </summary>
-    public class Order
+    public class SpecialOrder
     {
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Unique order ID 
         /// </summary>
@@ -31,13 +31,13 @@ namespace DataTransferObjects
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        public int OrderID { get; set; }
+        public int SpecialOrderID { get; set; }
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Unique Employee ID
         /// </summary>
@@ -46,13 +46,13 @@ namespace DataTransferObjects
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        public int EmployeeID { get; set; }
+        public int SpecialOrderEmployeeID { get; set; }
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Active status of the order
         /// </summary>
@@ -64,10 +64,10 @@ namespace DataTransferObjects
         public bool Active { get; set; }
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// The constructor for an order, which generates an order ID
         /// </summary>

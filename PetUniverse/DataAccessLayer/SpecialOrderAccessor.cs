@@ -12,10 +12,10 @@ namespace DataAccessLayer
 {
     /// <summary>
     /// NAME: Jesse Tomash
-    /// DATE: 2/18/2020
+    /// DATE: 3/30/2020
     ///
     /// Approver: Brandyn T. Coverdill
-    /// Approver: Dalton Reierson
+    /// Approver: 
     /// 
     /// Data Access class for orders
     /// </summary>
@@ -24,14 +24,14 @@ namespace DataAccessLayer
     /// UPDATE DATE:
     /// WHAT WAS CHANGED:
     /// </remarks>
-    public class OrderAccessor : IOrderAccessor
+    public class SpecialOrderAccessor : ISpecialOrderAccessor
     {
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/18/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Selects all order Invoices
         /// </summary>
@@ -41,12 +41,12 @@ namespace DataAccessLayer
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        public IEnumerable<Order> SelectOrders()
+        public IEnumerable<SpecialOrder> SelectSpecialOrders()
         {
-            List<Order> orderList = new List<Order>();
+            List<SpecialOrder> specialOrderList = new List<SpecialOrder>();
 
             var conn = DBConnection.GetConnection();
-            string cmdText = @"sp_select_all_orders";
+            string cmdText = @"sp_select_all_special_orders";
             SqlCommand cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -58,10 +58,10 @@ namespace DataAccessLayer
 
                 while (reader.Read())
                 {
-                    orderList.Add(new Order()
+                    specialOrderList.Add(new SpecialOrder()
                     {
-                        OrderID = reader.GetInt32(0),
-                        EmployeeID = reader.GetInt32(1)
+                        SpecialOrderID = reader.GetInt32(0),
+                        SpecialOrderEmployeeID = reader.GetInt32(1)
                     });
                 }
 
@@ -75,14 +75,14 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-            return (IEnumerable<Order>)orderList;
+            return (IEnumerable<SpecialOrder>)specialOrderList;
         }
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/18/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Updates an Order Invoice
         /// </summary>
@@ -99,22 +99,22 @@ namespace DataAccessLayer
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        public int UpdateOrder(Order oldOrder, Order newOrder)
+        public int UpdateSpecialOrder(SpecialOrder oldOrder, SpecialOrder newOrder)
         {
             int rows = 0;
 
             var conn = DBConnection.GetConnection();
 
-            var cmdText = @"sp_update_order_by_id";
+            var cmdText = @"sp_update_special_order_by_id";
             var cmd = new SqlCommand(cmdText, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@OrderID", oldOrder.OrderID);
-            cmd.Parameters.AddWithValue("@EmployeeID", newOrder.EmployeeID);
+            cmd.Parameters.AddWithValue("@SpecialOrderID", oldOrder.SpecialOrderID);
+            cmd.Parameters.AddWithValue("@SpecialOrderEmployeeID", newOrder.SpecialOrderEmployeeID);
             cmd.Parameters.AddWithValue("@Active", newOrder.Active);
 
-            cmd.Parameters.AddWithValue("@OldEmployeeID", oldOrder.EmployeeID);
+            cmd.Parameters.AddWithValue("@OldSpecialOrderEmployeeID", oldOrder.SpecialOrderEmployeeID);
             cmd.Parameters.AddWithValue("@OldActive", oldOrder.Active);
             try
             {
@@ -133,10 +133,10 @@ namespace DataAccessLayer
         }
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/18/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Inserts a new Order Invoice
         /// </summary>
@@ -146,18 +146,18 @@ namespace DataAccessLayer
         /// WHAT WAS CHANGED:
         /// <param name="newOrder"></param>
         /// <returns>1 if successful, 0 if not</returns>
-        public int InsertOrder(Order newOrder)
+        public int InsertSpecialOrder(SpecialOrder newOrder)
         {
             int rows = 0;
 
             var conn = DBConnection.GetConnection();
 
-            var cmdText = @"sp_insert_order";
+            var cmdText = @"sp_insert_special_order";
             var cmd = new SqlCommand(cmdText, conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@EmployeeID", newOrder.EmployeeID);
+            cmd.Parameters.AddWithValue("@SpecialOrderEmployeeID", newOrder.SpecialOrderEmployeeID);
             cmd.Parameters.AddWithValue("@Active", newOrder.Active);
 
             try
@@ -177,10 +177,10 @@ namespace DataAccessLayer
         }
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/18/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Delets an Order Invoice according to its ID
         /// </summary>
@@ -190,7 +190,7 @@ namespace DataAccessLayer
         /// WHAT WAS CHANGED:
         /// <param name="orderInvoiceID">ID of order to be deleted</param>
         /// <returns>1 if successful, 0 if not</returns>
-        public int DeleteOrder(int orderID)
+        public int DeleteSpecialOrder(int specialOrderID)
         {
             int rows = 0;
 
@@ -200,7 +200,7 @@ namespace DataAccessLayer
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@OrderID", orderID);
+            cmd.Parameters.AddWithValue("@OrderID", specialOrderID);
 
             try
             {

@@ -21,23 +21,6 @@ GO
  ******************************* CREATE TABLEs *****************************
 */
 PRINT '' PRINT '******************* CREATE TABLEs *********************'
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: Order table
-*/
-print '' print '*** Creating Order Table'
-GO
-CREATE TABLE [dbo].[orders] (
-	[OrderID]					[int] IDENTITY(100000, 1) 	NOT NULL,
-	[EmployeeID]				[int]						NOT NULL,
-	[Active]					[BIT] 						NOT NULL DEFAULT 1
-	
-	CONSTRAINT [pk_OrderID] PRIMARY KEY([OrderID] ASC)
-)
-GO
 
 /*
  * Created by: Jordan Lindo
@@ -1676,9 +1659,41 @@ CREATE TABLE [dbo].[DonationItem](
 )
 GO
 
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: Order table
+*/
+DROP TABLE IF EXISTS [dbo].[orders]
+GO
+print '' print '*** Creating Order Table'
+GO
+CREATE TABLE [dbo].[orders] (
+	[OrderID]					[int] IDENTITY(100000, 1) 	NOT NULL,
+	[EmployeeID]				[int]						NOT NULL,
+	[Active]					[BIT] 						NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_OrderID] PRIMARY KEY([OrderID] ASC)
+)
+GO
 
-
-
+/*
+Created by: Jesse Tomash
+Date: 3/30/2020
+Comment: Special Order table
+*/
+DROP TABLE IF EXISTS [dbo].[specialorders]
+GO
+print '' print '*** Creating Special Order Table'
+GO
+CREATE TABLE [dbo].[specialorders] (
+	[SpecialOrderID]			[int] IDENTITY(100000, 1) 	NOT NULL,
+	[SpecialOrderEmployeeID]	[int]						NOT NULL,
+	[Active]					[BIT] 						NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_SpecialOrderID] PRIMARY KEY([SpecialOrderID] ASC)
+)
+GO
 
 /*
  ******************************* Create Procedures *****************************
@@ -8092,6 +8107,332 @@ BEGIN
 END
 GO
 
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: insert order sp
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_order]
+GO
+print '' print '*** Creating sp_insert_order'
+GO
+CREATE PROCEDURE sp_insert_order
+	(
+        @EmployeeID					[int],
+		@Active						[bit]
+	)
+AS
+	BEGIN
+		INSERT INTO [orders]
+			([EmployeeID], [Active])
+		VALUES
+			(@EmployeeID, @Active)
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: insert order sp
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_special_order]
+GO
+print '' print '*** Creating sp_insert_special_order'
+GO
+CREATE PROCEDURE sp_insert_special_order
+	(
+        @SpecialOrderEmployeeID		[int],
+		@Active						[bit]
+	)
+AS
+	BEGIN
+		INSERT INTO [specialorders]
+			([SpecialOrderEmployeeID], [Active])
+		VALUES
+			(@SpecialOrderEmployeeID, @Active)
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: retrieves all special orders
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_orders]
+GO
+print '' print '*** Creating sp_select_orders'
+GO
+CREATE PROCEDURE sp_select_all_orders
+AS
+	BEGIN
+		SELECT [OrderID], [EmployeeID]
+		FROM [orders]
+		Order BY [OrderID]
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: retrieves all special orders
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_special_orders]
+GO
+print '' print '*** Creating sp_select_all_special_orders'
+GO
+CREATE PROCEDURE sp_select_all_special_orders
+AS
+	BEGIN
+		SELECT [SpecialOrderID], [SpecialOrderEmployeeID]
+		FROM [specialorders]
+		Order BY [SpecialOrderID]
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: retrieves order by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_order_by_id]
+GO
+print '' print '*** Creating sp_select_order_by_id'
+GO
+CREATE PROCEDURE sp_select_order_by_id
+	(
+		@OrderID		[int]
+	)
+AS
+	BEGIN
+		SELECT [OrderID], [EmployeeID]
+		FROM [Orders]
+		WHERE [OrderID] = @OrderID
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: retrieves special order by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_special_order_by_id]
+GO
+print '' print '*** Creating sp_select_special_order_by_id'
+GO
+CREATE PROCEDURE sp_select_special_order_by_id
+	(
+		@SpecialOrderID		[int]
+	)
+AS
+	BEGIN
+		SELECT [SpecialOrderID], [SpecialOrderEmployeeID]
+		FROM [SpecialOrders]
+		WHERE [SpecialOrderID] = @SpecialOrderID
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: updates an order
+*/
+DROP PROCEDURE IF EXISTS [sp_update_order_by_id]
+GO
+print '' print '*** Creating sp_update_order_by_id'
+GO
+CREATE PROCEDURE sp_update_order_by_id
+	(
+		@OrderID					[int],
+        @EmployeeID					[int],
+		@Active						[bit],
+		
+		@OldOrderID					[int],
+        @OldEmployeeID				[int],
+		@OldActive					[bit]
+	)
+AS
+	BEGIN
+		UPDATE  [orders]
+		SET 	[EmployeeID] = @EmployeeID,
+				[Active] = @Active
+		WHERE 	[OrderID] = @OldOrderID
+		  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: updates a special order
+*/
+DROP PROCEDURE IF EXISTS [sp_update_special_order_by_id]
+GO
+print '' print '*** Creating sp_update_order_by_id'
+GO
+CREATE PROCEDURE sp_update_special_order_by_id
+	(
+		@SpecialOrderID				[int],
+        @SpecialOrderEmployeeID		[int],
+		@Active						[bit],
+		
+		@OldSpecialOrderID			[int],
+        @OldSpecialOrderEmployeeID	[int],
+		@OldActive					[bit]
+	)
+AS
+	BEGIN
+		UPDATE  [specialorders]
+		SET 	[SpecialOrderEmployeeID] = @SpecialOrderEmployeeID,
+				[Active] = @Active
+		WHERE 	[SpecialOrderID] = @SpecialOrderID
+		  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: Delets an order
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_order_by_id]
+GO
+print '' print '*** Creating sp_delete_order_by_id'
+GO
+CREATE PROCEDURE sp_delete_order_by_id
+	(
+		@OrderID				[int]
+	)
+AS
+	BEGIN
+		DELETE  
+		FROM 	[orders]
+		WHERE 	[OrderID] = @OrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: Delets an order
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_special_order_by_id]
+GO
+print '' print '*** Creating sp_delete_special_order_by_id'
+GO
+CREATE PROCEDURE sp_delete_special_order_by_id
+	(
+		@SpecialOrderID				[int]
+	)
+AS
+	BEGIN
+		DELETE  
+		FROM 	[specialorders]
+		WHERE 	[SpecialOrderID] = @SpecialOrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: deactivates an order
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_order_by_id]
+GO
+print '' print '*** Creating sp_deactivate_order_by_id'
+GO
+CREATE PROCEDURE sp_deactivate_order_by_id
+	(
+		@OrderID					[int]
+	)
+AS
+	BEGIN
+		UPDATE  [orders]  
+		SET 	[Active] = 0
+		WHERE 	[OrderID] = @OrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: deactivates an order
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_special_order_by_id]
+GO
+print '' print '*** Creating sp_deactivate_special_order_by_id'
+GO
+CREATE PROCEDURE sp_deactivate_special_order_by_id
+	(
+		@SpecialOrderID					[int]
+	)
+AS
+	BEGIN
+		UPDATE  [specialorders]  
+		SET 	[Active] = 0
+		WHERE 	[SpecialOrderID] = @SpecialOrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: activates an order
+*/
+DROP PROCEDURE IF EXISTS [sp_activate_order_by_id]
+GO
+print '' print '*** Creating sp_activate_order_by_id'
+GO
+CREATE PROCEDURE sp_activate_order_by_id
+	(
+		@OrderID				[int]
+	)
+AS
+	BEGIN
+		UPDATE  [orders]  
+		SET 	[Active] = 1
+		WHERE 	[OrderID] = @OrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: activates an order
+*/
+DROP PROCEDURE IF EXISTS [sp_activate_special_order_by_id]
+GO
+print '' print '*** Creating sp_activate_special_order_by_id'
+GO
+CREATE PROCEDURE sp_activate_special_order_by_id
+	(
+		@SpecialOrderID				[int]
+	)
+AS
+	BEGIN
+		UPDATE  [specialorders]  
+		SET 	[Active] = 1
+		WHERE 	[SpecialOrderID] = @SpecialOrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -9329,159 +9670,6 @@ INSERT INTO [dbo].[Donor](
 VALUES
 (DEFAULT, NULL, DEFAULT),
 ('Matt', 'Deaton', DEFAULT)
-
-
-
-
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: insert order sp
-*/
-print '' print '*** Creating sp_insert_order'
-GO
-CREATE PROCEDURE sp_insert_order
-	(
-        @EmployeeID					[int],
-		@Active						[bit]
-	)
-AS
-	BEGIN
-		INSERT INTO [orders]
-			([EmployeeID], [Active])
-		VALUES
-			(@EmployeeID, @Active)
-	  
-		RETURN @@ROWCOUNT
-	END
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: retrieves all orders
-*/
-print '' print '*** Creating sp_retrieve_all_orders'
-GO
-create PROCEDURE sp_retrieve_all_orders
-AS
-	BEGIN
-		SELECT [OrderID], [EmployeeID]
-		FROM [orders]
-		Order BY [OrderID]
-	END
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: retrieves order by id
-*/
-print '' print '*** Creating sp_retrieve_order_by_id'
-GO
-CREATE PROCEDURE sp_retrieve_order_by_id
-	(
-		@OrderID		[int]
-	)
-AS
-	BEGIN
-		SELECT [OrderID], [EmployeeID]
-		FROM [Orders]
-		WHERE [OrderID] = @OrderID
-	END
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: updates an order
-*/
-print '' print '*** Creating sp_update_order_by_id'
-GO
-CREATE PROCEDURE sp_update_order_by_id
-	(
-		@OrderID					[int],
-        @EmployeeID					[int],
-		@Active						[bit],
-		
-		@OldOrderID					[int],
-        @OldEmployeeID				[int],
-		@OldActive					[bit]
-	)
-AS
-	BEGIN
-		UPDATE  [orders]
-		SET 	[EmployeeID] = @EmployeeID,
-				[Active] = @Active
-		WHERE 	[OrderID] = @OldOrderID
-		  
-		RETURN @@ROWCOUNT
-	END
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: deactivates an order
-*/
-print '' print '*** Creating sp_deactivate_order_by_id'
-GO
-CREATE PROCEDURE sp_deactivate_order_by_id
-	(
-		@OrderID					[int]
-	)
-AS
-	BEGIN
-		UPDATE  [orders]  
-		SET 	[Active] = 0
-		WHERE 	[OrderID] = @OrderID
-	  
-		RETURN @@ROWCOUNT
-	END
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: Delets an order
-*/
-print '' print '*** Creating sp_delete_order_by_id'
-GO
-CREATE PROCEDURE sp_delete_order_by_id
-	(
-		@OrderID				[int]
-	)
-AS
-	BEGIN
-		DELETE  
-		FROM 	[orders]
-		WHERE 	[OrderID] = @OrderID
-	  
-		RETURN @@ROWCOUNT
-	END
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: activates an order
-*/
-print '' print '*** Creating sp_activate_order_by_id'
-GO
-CREATE PROCEDURE sp_activate_order_by_id
-	(
-		@OrderID				[int]
-	)
-AS
-	BEGIN
-		UPDATE  [orders]  
-		SET 	[Active] = 1
-		WHERE 	[OrderID] = @OrderID
-	  
-		RETURN @@ROWCOUNT
-	END
-GO
 
 /*
 Created by: Rasha Mohammed

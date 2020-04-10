@@ -145,6 +145,9 @@
                 <TabItem x:Name="tabViewOrders" Header="View Orders" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./InventoryPages/ViewOrders.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
+                <TabItem x:Name="tabViewSpecialOrders" Header="View Special Orders" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./InventoryPages/ViewSpecialOrders.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
             </TabControl>
         </Canvas>
 

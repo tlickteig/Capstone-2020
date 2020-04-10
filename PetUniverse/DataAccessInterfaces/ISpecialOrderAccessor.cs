@@ -9,10 +9,10 @@ namespace DataAccessInterfaces
 {
     /// <summary>
     /// NAME: Jesse Tomash
-    /// DATE: 3/12/2020
+    /// DATE: 3/30/2020
     ///
     /// Approver: Brandyn T. Coverdill
-    /// Approver: Dalton Reierson
+    /// Approver: 
     /// 
     /// This is the interface for order accessor
     /// </summary>
@@ -21,14 +21,14 @@ namespace DataAccessInterfaces
     /// UPDATE DATE:
     /// WHAT WAS CHANGED:
     /// </remarks>
-    public interface IOrderAccessor
+    public interface ISpecialOrderAccessor
     {
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the interface method for selecting all orders
         /// </summary>
@@ -38,13 +38,13 @@ namespace DataAccessInterfaces
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        IEnumerable<Order> SelectOrders();
+        IEnumerable<SpecialOrder> SelectSpecialOrders();
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the interface  method for updating an order
         /// </summary>
@@ -56,13 +56,13 @@ namespace DataAccessInterfaces
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        int UpdateOrder(Order oldOrder, Order newOrder);
+        int UpdateSpecialOrder(SpecialOrder oldOrder, SpecialOrder newOrder);
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the interface method to insert an order
         /// </summary>
@@ -73,13 +73,13 @@ namespace DataAccessInterfaces
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        int InsertOrder(Order newOrder);
+        int InsertSpecialOrder(SpecialOrder newOrder);
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the interface method to delete an order
         /// </summary>
@@ -90,6 +90,6 @@ namespace DataAccessInterfaces
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        int DeleteOrder(int orderID);
+        int DeleteSpecialOrder(int orderID);
     }
 }

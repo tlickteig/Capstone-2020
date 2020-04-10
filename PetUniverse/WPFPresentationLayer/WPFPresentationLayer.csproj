@@ -157,8 +157,14 @@
     <Compile Include="InventoryPages\ViewAddOrder.xaml.cs">
       <DependentUpon>ViewAddOrder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\ViewAddSpecialOrder.xaml.cs">
+      <DependentUpon>ViewAddSpecialOrder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\ViewOrders.xaml.cs">
       <DependentUpon>ViewOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\ViewSpecialOrders.xaml.cs">
+      <DependentUpon>ViewSpecialOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersonnelPages\BaseScheduleControls.xaml.cs">
       <DependentUpon>BaseScheduleControls.xaml</DependentUpon>
@@ -403,7 +409,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\ViewAddSpecialOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\ViewOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\ViewSpecialOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

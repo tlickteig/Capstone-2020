@@ -12,10 +12,10 @@ namespace LogicLayer
 {
     /// <summary>
     /// NAME: Jesse Tomash
-    /// DATE: 3/12/2020
+    /// DATE: 3/30/2020
     ///
     /// Approver: Brandyn T. Coverdill
-    /// Approver: Dalton Reierson
+    /// Approver: 
     /// 
     /// This is the class for handling logic for Orders
     /// </summary>
@@ -24,14 +24,14 @@ namespace LogicLayer
     /// UPDATE DATE:
     /// WHAT WAS CHANGED:
     /// </remarks>
-    public class OrderManager : IOrderManager
+    public class SpecialOrderManager : ISpecialOrderManager
     {
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the instance of orderAccessor used in this class
         /// </summary>
@@ -40,14 +40,14 @@ namespace LogicLayer
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        private IOrderAccessor _orderAccessor;
+        private ISpecialOrderAccessor _specialOrderAccessor;
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the default manager constructor that receives the fake orderaccessor
         /// </summary>
@@ -56,17 +56,17 @@ namespace LogicLayer
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        public OrderManager()
+        public SpecialOrderManager()
         {
-            _orderAccessor = new DataAccessLayer.OrderAccessor();
+            _specialOrderAccessor = new SpecialOrderAccessor();
         }
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the constructor that receives the real orderaccessor
         /// </summary>
@@ -76,17 +76,17 @@ namespace LogicLayer
         /// WHAT WAS CHANGED:
         /// </remarks>
         /// <param name="orderAccessor"></param>
-        public OrderManager(IOrderAccessor orderInvoiceAccessor)
+        public SpecialOrderManager(ISpecialOrderAccessor specialOrderAccessor)
         {
-            _orderAccessor = orderInvoiceAccessor;
+            _specialOrderAccessor = specialOrderAccessor;
         }
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the method that handles logic between SelectOrders() and the presentation
         /// </summary>
@@ -96,30 +96,30 @@ namespace LogicLayer
         /// WHAT WAS CHANGED:
         /// </remarks>
         /// <returns></returns>
-        public IEnumerable<Order> RetrieveOrders()
+        public IEnumerable<SpecialOrder> RetrieveSpecialOrders()
         {
             {
-                IEnumerable<Order> orderInvoices;
+                IEnumerable<SpecialOrder> orders; ;
 
                 try
                 {
-                    orderInvoices = _orderAccessor.SelectOrders();
+                    orders = _specialOrderAccessor.SelectSpecialOrders();
                 }
                 catch (Exception)
                 {
                     throw;
                 }
 
-                return orderInvoices;
+                return orders;
             }
         }
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the method that handles logic between UpdateOrder() and the presentation
         /// </summary>
@@ -131,13 +131,13 @@ namespace LogicLayer
         /// <param name="oldOrder"></param>
         /// <param name="newOrder"></param>
         /// <returns></returns>
-        public bool EditOrder(Order oldOrder, Order newOrder)
+        public bool EditSpecialOrder(SpecialOrder oldOrder, SpecialOrder newOrder)
         {
             bool result = false;
 
             try
             {
-                result = (1 == _orderAccessor.UpdateOrder(oldOrder, newOrder));
+                result = (1 == _specialOrderAccessor.UpdateSpecialOrder(oldOrder, newOrder));
             }
             catch (Exception)
             {
@@ -148,10 +148,10 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the method that handles logic between InsertOrder() and the presentation
         /// </summary>
@@ -162,13 +162,13 @@ namespace LogicLayer
         /// </remarks>
         /// <param name="newOrder"></param>
         /// <returns></returns>
-        public bool AddOrder(Order newOrder)
+        public bool AddSpecialOrder(SpecialOrder newOrder)
         {
             bool result;
 
             try
             {
-                result = (1 == _orderAccessor.InsertOrder(newOrder));
+                result = (1 == _specialOrderAccessor.InsertSpecialOrder(newOrder));
             }
             catch (Exception)
             {
@@ -180,10 +180,10 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// This is the method that handles logic between DeleteOrder() and the presentation
         /// </summary>
@@ -194,12 +194,12 @@ namespace LogicLayer
         /// </remarks>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        public bool DeleteOrder(int orderID)
+        public bool DeleteSpecialOrder(int specialOrderID)
         {
             bool result = true;
             try
             {
-                result = (1 == _orderAccessor.DeleteOrder(orderID));
+                result = (1 == _specialOrderAccessor.DeleteSpecialOrder(specialOrderID));
             }
             catch (Exception)
             {

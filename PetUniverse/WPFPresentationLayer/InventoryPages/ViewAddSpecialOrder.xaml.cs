@@ -19,12 +19,24 @@ using System.Windows.Shapes;
 namespace WPFPresentationLayer.InventoryPages
 {
     /// <summary>
-    /// Interaction logic for ViewAddOrder.xaml
+    /// NAME: Jesse Tomash
+    /// DATE: 3/30/2020
+    ///
+    /// Approver: Brandyn T. Coverdill
+    /// Approver: 
+    /// 
+    /// Interaction logic  for ViewAddSpecialOrder.xaml
     /// </summary>
-    public partial class ViewAddOrder : Page
+    /// /// <remarks>
+    /// UPDATED BY:
+    /// UPDATE DATE:
+    /// WHAT WAS CHANGED:
+    /// </remarks>
+    /// <returns></returns>
+    public partial class ViewAddSpecialOrder : Page
     {
-        OrderManager _orderManager;
-        Order _order;
+        SpecialOrderManager _orderManager;
+        SpecialOrder _order;
 
         /// <summary>
         /// NAME: Jesse Tomash
@@ -41,13 +53,13 @@ namespace WPFPresentationLayer.InventoryPages
         /// WHAT WAS CHANGED:
         /// </remarks>
         /// <returns></returns>
-        public ViewAddOrder()
+        public ViewAddSpecialOrder()
         {
             InitializeComponent();
-            _orderManager = new OrderManager();
-            _order = new Order();
-            btnBack.Visibility = Visibility.Visible;
-            btnSaveOrder.Visibility = Visibility.Visible;
+            _orderManager = new SpecialOrderManager();
+            _order = new SpecialOrder();
+            btnSpBack.Visibility = Visibility.Visible;
+            btnSaveSpecialOrder.Visibility = Visibility.Visible;
             txtEmployeeID.Visibility = Visibility.Visible;
             txtOrderID.Visibility = Visibility.Visible;
             txtOrderID.IsReadOnly = true;
@@ -64,14 +76,15 @@ namespace WPFPresentationLayer.InventoryPages
         /// Goes back to view all orders
         /// </summary>
         /// /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
+        /// UPDATED BY: Brandyn T. Coverdill
+        /// UPDATE DATE: 4/8/2020
+        /// WHAT WAS CHANGED: Made it so that instead of throwing an error, it popped up an error message to have the user
+        /// enter a valid employee ID.
         /// </remarks>
         /// <returns></returns>
-        private void btnBack_Click(object sender, RoutedEventArgs e)
+        private void btnSpBack_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService?.Navigate(new ViewOrders());
+            this.NavigationService?.Navigate(new ViewSpecialOrders());
         }
 
         /// <summary>
@@ -81,17 +94,18 @@ namespace WPFPresentationLayer.InventoryPages
         /// Approver: Brandyn T. Coverdill
         /// Approver: 
         /// 
-        /// action to save new order
+        /// Saves the special order
         /// </summary>
         /// /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
+        /// UPDATED BY: Brandyn T. Coverdill
+        /// UPDATE DATE: 4/8/2020
+        /// WHAT WAS CHANGED: Made it so that instead of throwing an error, it popped up an error message to have the user
+        /// enter a valid employee ID.
         /// </remarks>
         /// <returns></returns>
-        private void btnSaveOrder_Click(object sender, RoutedEventArgs e)
+        private void btnSaveSpecialOrder_Click(object sender, RoutedEventArgs e)
         {
-            OrderManager _orderManager = new OrderManager();
+            SpecialOrderManager _orderManager = new SpecialOrderManager();
             try
             {
                 if (txtEmployeeID.Text == "")
@@ -100,24 +114,24 @@ namespace WPFPresentationLayer.InventoryPages
                     return;
                 }
 
-                Order _newOrder = new Order()
+                SpecialOrder _newOrder = new SpecialOrder()
                 {
-                    EmployeeID = Int32.Parse(txtEmployeeID.Text)
+                    SpecialOrderEmployeeID = Int32.Parse(txtEmployeeID.Text)
                 };
                 try
                 {
-                    var result = _orderManager.AddOrder(_newOrder);
+                    var result = _orderManager.AddSpecialOrder(_newOrder);
                     "Add Succesful".SuccessMessage();
                 }
                 catch (Exception)
                 {
                     "Add Failed.".ErrorMessage();
                 }
-                this.NavigationService?.Navigate(new ViewOrders());
+                this.NavigationService?.Navigate(new ViewSpecialOrders());
             }
             catch
             {
-                throw;
+                "You must enter a valid Employee ID.".ErrorMessage();
             }
         }
     }

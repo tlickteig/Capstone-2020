@@ -10,6 +10,9 @@ namespace LogicLayerInterfaces
     /// <summary>
     /// NAME: Jesse Tomash
     /// DATE: 3/12/2020
+    ///
+    /// Approver: Brandyn T. Coverdill
+    /// Approver: Dalton Reierson
     /// 
     /// The Interface for the ordermanager Class
     /// </summary>
@@ -23,6 +26,9 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// The interface method for the method to retrieve all orders
         /// </summary>
@@ -36,6 +42,9 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// The interface method for the method to edit an order
         /// </summary>
@@ -51,6 +60,9 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// The interface method for the method to add an order
         /// </summary>
@@ -65,6 +77,9 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// The interface method for the method for deleting an orderr by id
         /// </summary>

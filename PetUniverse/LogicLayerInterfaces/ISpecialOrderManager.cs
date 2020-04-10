@@ -5,32 +5,32 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessInterfaces
+namespace LogicLayerInterfaces
 {
     /// <summary>
     /// NAME: Jesse Tomash
-    /// DATE: 3/12/2020
+    /// DATE: 3/30/2020
     ///
     /// Approver: Brandyn T. Coverdill
-    /// Approver: Dalton Reierson
+    /// Approver: 
     /// 
-    /// This is the interface for order accessor
+    /// The Interface for the ordermanager Class
     /// </summary>
     /// <remarks>
     /// UPDATED BY:
     /// UPDATE DATE:
     /// WHAT WAS CHANGED:
     /// </remarks>
-    public interface IOrderAccessor
+    public interface ISpecialOrderManager
     {
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
-        /// This is the interface method for selecting all orders
+        /// The interface method for the method to retrieve all orders
         /// </summary>
         /// <returns></returns>
         /// <remarks>
@@ -38,58 +38,58 @@ namespace DataAccessInterfaces
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        IEnumerable<Order> SelectOrders();
+        IEnumerable<SpecialOrder> RetrieveSpecialOrders();
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
-        /// This is the interface  method for updating an order
+        /// The interface method for the method to edit an order
         /// </summary>
-        /// <param name="oldOrder"></param>
-        /// <param name="newOrder"></param>
+        /// <param name="oldOrderInvoice"></param>
+        /// <param name="newOrderInvoice"></param>
         /// <returns></returns>
         /// <remarks>
         /// UPDATED BY:
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        int UpdateOrder(Order oldOrder, Order newOrder);
+        bool EditSpecialOrder(SpecialOrder oldOrderInvoice, SpecialOrder newOrderInvoice);
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
-        /// This is the interface method to insert an order
+        /// The interface method for the method to add an order
         /// </summary>
-        /// <param name="newOrder"></param>
+        /// <param name="newOrderInvoice"></param>
         /// <returns></returns>
         /// <remarks>
         /// UPDATED BY:
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        int InsertOrder(Order newOrder);
+        bool AddSpecialOrder(SpecialOrder newOrderInvoice);
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
-        /// This is the interface method to delete an order
+        /// The interface method for the method for deleting an orderr by id
         /// </summary>
-        /// <param name="orderID"></param>
+        /// <param name="orderInvoiceID"></param>
         /// <returns></returns>
         /// <remarks>
         /// UPDATED BY:
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        int DeleteOrder(int orderID);
+        bool DeleteSpecialOrder(int orderInvoiceID);
     }
 }

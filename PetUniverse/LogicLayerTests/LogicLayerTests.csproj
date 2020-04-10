@@ -102,6 +102,7 @@
     <Compile Include="RequestManagerTests.cs" />
     <Compile Include="ReviewerManagerTest.cs" />
     <Compile Include="ShiftTimeManagerTests.cs" />
+    <Compile Include="SpecialOrderManagerTests.cs" />
     <Compile Include="StatusManagerTests.cs" />
     <Compile Include="TrainingVideoTests.cs" />
     <Compile Include="TransactionManagerTests.cs" />

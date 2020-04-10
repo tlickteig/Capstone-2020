@@ -1,21 +1,17 @@
-﻿using DataTransferObjects;
-using LogicLayer;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessFakes;
 
 namespace LogicLayerTests
 {
     /// <summary>
     /// NAME: Jesse Tomash
-    /// DATE: 2/7/2020
+    /// DATE: 3/30/2020
     ///
     /// Approver: Brandyn T. Coverdill
-    /// Approver: Dalton Reierson
+    /// Approver: 
     /// 
     /// This is the Test class for OrderManager
     /// </summary>
@@ -25,14 +21,14 @@ namespace LogicLayerTests
     /// WHAT WAS CHANGED:
     /// </remarks>
     [TestClass]
-    public class OrderManagerTests
+    public class SpecialOrderManagerTests
     {
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Tests RetrieveOrders
         /// </summary>
@@ -46,19 +42,19 @@ namespace LogicLayerTests
         {
             bool result = false;
 
-            FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();
+            FakeSpecialOrderAccessor _specialOrderAccessor = new FakeSpecialOrderAccessor();
 
-            result = _orderAccessor.SelectOrders().Any();
+            result = _specialOrderAccessor.SelectSpecialOrders().Any();
 
             Assert.AreEqual(result, true);
         }
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Tests EditORder
         /// </summary>
@@ -72,31 +68,31 @@ namespace LogicLayerTests
         {
             bool result = false;
 
-            Order oldOrder = new Order()
+            SpecialOrder oldOrder = new SpecialOrder()
             {
-                OrderID = 1,
-                EmployeeID = 532
+                SpecialOrderID = 1,
+                SpecialOrderEmployeeID = 532
             };
 
-            Order editedOrder = new Order()
+            SpecialOrder editedOrder = new SpecialOrder()
             {
-                OrderID = 1,
-                EmployeeID = 557
+                SpecialOrderID = 1,
+                SpecialOrderEmployeeID = 557
             };
 
-            FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();
+            FakeSpecialOrderAccessor _SpecialOrderAccessor = new FakeSpecialOrderAccessor();
 
-            result = _orderAccessor.UpdateOrder(oldOrder, editedOrder) == 1;
+            result = _SpecialOrderAccessor.UpdateSpecialOrder(oldOrder, editedOrder) == 1;
 
             Assert.AreEqual(result, true);
         }
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Tests AddOrder
         /// </summary>
@@ -106,28 +102,28 @@ namespace LogicLayerTests
         /// WHAT WAS CHANGED:
         /// </remarks>
         [TestMethod]
-        public void AddOrderTest()
+        public void AddSpecialOrderTest()
         {
             bool result = false;
 
-            Order newOrder = new Order()
+            SpecialOrder newOrder = new SpecialOrder()
             {
-                EmployeeID = 346
+                SpecialOrderEmployeeID = 346
             };
 
-            FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();
+            FakeSpecialOrderAccessor _SpecialOrderAccessor = new FakeSpecialOrderAccessor();
 
-            result = _orderAccessor.InsertOrder(newOrder) == 1;
+            result = _SpecialOrderAccessor.InsertSpecialOrder(newOrder) == 1;
 
             Assert.AreEqual(result, true);
         }
 
         /// <summary>
         /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
+        /// DATE: 3/30/2020
         ///
         /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
+        /// Approver: 
         /// 
         /// Tests DeleteOrder
         /// </summary>
@@ -137,19 +133,19 @@ namespace LogicLayerTests
         /// WHAT WAS CHANGED:
         /// </remarks>
         [TestMethod]
-        public void DeleteOrderTest()
+        public void DeleteSpecialOrderTest()
         {
             bool result = false;
 
-            Order newOrder = new Order()
+            SpecialOrder newOrder = new SpecialOrder()
             {
-                OrderID = 1,
-                EmployeeID = 3462
+                SpecialOrderID = 1,
+                SpecialOrderEmployeeID = 3462
             };
 
-            FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();
+            FakeSpecialOrderAccessor _specialOrderAccessor = new FakeSpecialOrderAccessor();
 
-            result = _orderAccessor.DeleteOrder(newOrder.OrderID) == 1;
+            result = _specialOrderAccessor.DeleteSpecialOrder(newOrder.SpecialOrderID) == 1;
 
             Assert.AreEqual(result, true);
         }
