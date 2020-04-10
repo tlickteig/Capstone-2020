@@ -111,6 +111,7 @@
     <Compile Include="Order.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />
+    <Compile Include="Picture.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductVM.cs" />
     <Compile Include="Promotion.cs" />

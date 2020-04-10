@@ -88,6 +88,7 @@
     <Compile Include="INewAnimalChecklistManager.cs" />
     <Compile Include="IOrderManager.cs" />
     <Compile Include="IPetUniverseUserERolesManager.cs" />
+    <Compile Include="IPictureManager.cs" />
     <Compile Include="IProductManager.cs" />
     <Compile Include="IManageBackstockRecords.cs" />
     <Compile Include="IPUEventManager.cs" />

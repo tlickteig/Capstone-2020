@@ -309,6 +309,18 @@
                          FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="tabOpenTransaction_Loaded">
                     <Frame x:Name="frmOpenTransaction"/>
                 </TabItem>
+                <!-- Creator: Rasha Mohammed
+                 Date: 4/8/2020
+                 CHECKED BY: Ethan Holmes
+             
+                 This TabItem takes you to the Filter Item Page
+              
+                 UPDATE BY: NA
+                 UPDATED NA
+                 CHANGE: NA -->
+                <TabItem x:Name="tabPicture" Header="Filter Item" FontSize="18" FontWeight="Bold" Background="#fff8e3" >
+                    <Frame Source="./PoSPages/FilterItem.xaml"/>
+                </TabItem>
             </TabControl>
         </Canvas>
 

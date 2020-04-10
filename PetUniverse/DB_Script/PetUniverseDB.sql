@@ -1723,6 +1723,26 @@ CREATE TABLE [dbo].[SalesTaxHistory](
 GO
 
 /*
+Created by: Rasha Mohammed
+Date: 3/27/2020
+Comment: Create Picture table
+*/
+DROP TABLE IF EXISTS [dbo].[Picture]
+GO
+print '' print '*** Creating Picture table'
+GO
+CREATE TABLE [dbo].[Picture]
+(
+   [PictureID] 	 	[INT] 		 		NOT NULL  PRIMARY KEY,
+   [ProductID] 		[NVARCHAR](13)		NOT NULL,
+   [ImagePath] 		[NVARCHAR](MAX)		NOT NULL,
+	CONSTRAINT [fk_Picture_ProductID] FOREIGN KEY ([ProductID])
+		REFERENCES [dbo].[Product]([ProductID]) 
+)
+GO
+
+
+/*
  ******************************* Create Procedures *****************************
 */
 PRINT '' PRINT '******************* Create Procedures *********************'
@@ -10118,3 +10138,34 @@ BEGIN
 	WHERE	[EventID] = @EventID
 END
 GO
+
+
+/*Created by: Rasha Mohammed
+Date: 3/31/2020
+Comment: Insert sample data into Picture table
+*/
+print ''  print '*** Insert sample record to picture'
+GO
+INSERT INTO [dbo].[Picture]
+	([PictureID], [ProductID],[ImagePath])
+	VALUES
+	(1, '7084781116', 'LoCatMein.jpg'),
+	(2, '2500006153', 'ScratchBeGone.jpg')
+GO
+
+
+/*Created by: Rasha Mohammed
+Date: 3/30/2020
+Comment: Select images from picture table 
+*/
+print '' print '*** Creating sp_select__all_image'
+GO
+CREATE PROCEDURE [sp_select__all_image]
+AS
+BEGIN
+	SELECT  [Picture].[PictureID], [Product].[ProductID], [Picture].[ImagePath]	
+	FROM 	[Picture]
+    JOIN 	[Product] ON [Product].[ProductID] = [Picture].[ProductID]
+		
+END
+GO	
