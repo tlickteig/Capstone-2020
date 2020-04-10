@@ -10,23 +10,29 @@ using DataTransferObjects;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Austin Gee
-    /// DATE: 3/19/2020
-    /// CHECKED BY: 
+    /// Creator: Austin Gee
+    /// Created: 3/19/2020
+    /// Approver: Micheal Thompson 
     /// 
     /// Location Data access Fake
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// 
-    /// </remarks>
     public class FakeLocationAccessor : ILocationAccessor
     {
+
         private List<Location> _locations;
 
-
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 3/19/2020
+        /// Approver: Micheal Thompson 
+        /// 
+        /// No arg constructor
+        /// </summary>
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
         public FakeLocationAccessor()
         {
             _locations = new List<Location>()
@@ -62,51 +68,68 @@ namespace DataAccessFakes
                     City = "Fake",
                     State = "Fake",
                     Zip = "Fake"
-                },
+                }
             };
         }
+
+        //Adoptions needs to implement this method.
         public int DeleteLocation(Location location)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/19/2020
-        /// CHECKED BY: 
+        /// Creator: Austin Gee
+        /// Created: 3/19/2020
+        /// Approver: Micheal Thompson 
         /// 
         /// Inserts a location in the fakes
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// 
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         public int InsertLocation(Location location)
         {
+            int result = 0;
+
             try
             {
                 _locations.Add(location);
-                return 1;
+                result = 1;
             }
             catch (Exception)
             {
-
                 throw;
             }
+            return result;
         }
 
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 3/19/2020
+        /// Approver: Micheal Thompson 
+        /// 
+        /// Selects all locations
+        /// </summary>
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
         public List<Location> SelectAllLocations()
         {
             return _locations;
         }
 
+        //Adoptions needs to implement this method.
         public Location SelectLocationByLocationID()
         {
             throw new NotImplementedException();
         }
 
+        //Adoptions needs to implement this method.
         public int UpdateLocation(Location oldLocation, Location newLocation)
         {
             throw new NotImplementedException();

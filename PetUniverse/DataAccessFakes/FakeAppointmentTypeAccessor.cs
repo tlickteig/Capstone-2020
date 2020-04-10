@@ -8,27 +8,28 @@ using DataAccessInterfaces;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Austin Gee
-    /// DATE: 3/18/2020
-    /// CHECKED BY: 
+    /// Creator: Austin Gee
+    /// Created: 3/18/2020
+    /// Approver: Mohammed Elamin
     /// 
     /// Fakes for testing Appointment type manager class
     /// </summary>
     public class FakeAppointmentTypeAccessor : IAppointmentTypeAccessor
     {
+
         List<string> _appointmentTypes;
 
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/18/2020
-        /// CHECKED BY: 
+        /// Creator: Austin Gee
+        /// Created: 3/18/2020
+        /// Approver: Mohammed Elamin
         /// 
         /// the default constructor for this class
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public FakeAppointmentTypeAccessor()
@@ -42,16 +43,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/18/2020
-        /// CHECKED BY: 
+        /// Creator: Austin Gee
+        /// Created: 3/18/2020
+        /// Approver: Mohammed Elamin
         /// 
         /// A fake get all appointments method
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         public List<string> SelectAllAppointmentTypes()

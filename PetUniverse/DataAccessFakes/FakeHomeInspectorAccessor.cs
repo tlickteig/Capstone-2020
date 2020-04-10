@@ -19,6 +19,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeAdoptionApplicationAccessor : IHomeInspectorAccessor
     {
+
         private List<AdoptionApplication> adoptionApplications = null;
 
         /// <summary>
@@ -47,26 +48,29 @@ namespace DataAccessFakes
                 AnimalName = "Pepe",
                 Status = "inHomeInspection",
                 RecievedDate = DateTime.Now,
-                
+
                 },
-                  new AdoptionApplication()
-                  {
-                  AdoptionApplicationID = 10002,
-                  CustomerEmail = "Jarvis",
-                  AnimalName = "Pete",
-                  Status = "facilitator",
-                  RecievedDate = DateTime.Now
-                  },
-                    new AdoptionApplication()
-                    {
-                    AdoptionApplicationID = 10007,
-                    CustomerEmail = "Jane",
-                    AnimalName = "Kadeeesa",
-                    Status = "inHomeInspection",
-                    RecievedDate = DateTime.Now
-                    },
+
+                new AdoptionApplication()
+                {
+                AdoptionApplicationID = 10002,
+                CustomerEmail = "Jarvis",
+                AnimalName = "Pete",
+                Status = "facilitator",
+                RecievedDate = DateTime.Now
+                },
+
+                new AdoptionApplication()
+                {
+                AdoptionApplicationID = 10007,
+                CustomerEmail = "Jane",
+                AnimalName = "Kadeeesa",
+                Status = "inHomeInspection",
+                RecievedDate = DateTime.Now
+                },
             };
         }
+
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2/5/2020
@@ -84,11 +88,10 @@ namespace DataAccessFakes
         /// <returns>fake list of Adoption Applications</returns>
         List<AdoptionApplication> IHomeInspectorAccessor.SelectAdoptionApplicationsByStatus()
         {
-            List<AdoptionApplication> _adoptionApplications;
-            _adoptionApplications = (from AdoptionApplication in adoptionApplications
-                                     where AdoptionApplication.Status == "inHomeInspection"
-                                     select AdoptionApplication).ToList();
-            return _adoptionApplications;
+
+            return (from AdoptionApplication in adoptionApplications
+                    where AdoptionApplication.Status == "inHomeInspection"
+                    select AdoptionApplication).ToList();
         }
     }
 }

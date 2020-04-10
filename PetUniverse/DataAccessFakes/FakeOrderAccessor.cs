@@ -8,36 +8,28 @@ using System.Threading.Tasks;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Jesse Tomash
-    /// DATE:3/12/2020
+    /// Creator: Jesse Tomash
+    /// Created: 3/12/2020
+    /// Approver: Brandyn T. Coverdill
     /// 
     /// Fake Order class for testing
     /// </summary>
     public class FakeOrderAccessor
     {
-        /// <summary>
-        /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
-        /// 
-        /// This is a list of orders
-        /// </summary>
-        /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        /// </remarks>
+        //List of orders
         private List<Order> orders;
 
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        /// Approver: Brandyn T. Coverdill
         /// 
         /// This method returns a fake list of Ordersfor testing
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED: 
+        /// Updater:
+        /// Updated:
+        /// Update: 
         /// </remarks>
         /// <returns>
         /// IEnumerable<OrderInvoice> The list of Order Invoices
@@ -57,13 +49,14 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        /// Approver: Brandyn T. Coverdill
         /// 
         /// This is the method used to test updating the fake orders 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED: 
+        /// Updater:
+        /// Updated:
+        /// Update: 
         /// </remarks>
         /// <param name="oldOrderInvoice">The old invoice to be changed</param>
         /// <param name="newOrderInvoice">The invoice with the new values</param>
@@ -84,13 +77,14 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        /// Approver: Brandyn T. Coverdill
         /// 
         /// This is the method used to test inserting a new order to the list
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED: 
+        /// Updater:
+        /// Updated:
+        /// Update: 
         /// </remarks>
         /// <param name="newOrderInvoice">The new invoice to be added</param>
         /// <returns></returns>
@@ -111,9 +105,15 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        /// Approver: Brandyn T. Coverdill
         /// 
         /// This is the method used to test deleting an order from the list 
         /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
         /// <param name="orderInvoiceID">The ID of the invoice to be deleted</param>
         /// <returns></returns>
         public int DeleteOrder(int orderID)
@@ -131,7 +131,6 @@ namespace DataAccessFakes
                     result = 1;
                 }
             }
-
             return result;
         }
     }

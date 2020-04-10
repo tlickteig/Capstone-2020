@@ -60,7 +60,6 @@ namespace DataAccessFakes
                     AnimalHandlingNotesID = 000,
                     AnimalHandlingNotes = "Fake",
                     TempermentWarning = "Fake",
-
                 },
 
                 new AdoptionAnimalVM()
@@ -86,7 +85,6 @@ namespace DataAccessFakes
                     AnimalHandlingNotesID = 000,
                     AnimalHandlingNotes = "Fake",
                     TempermentWarning = "Fake",
-
                 },
 
                 new AdoptionAnimalVM()
@@ -112,7 +110,6 @@ namespace DataAccessFakes
                     AnimalHandlingNotesID = 000,
                     AnimalHandlingNotes = "Fake",
                     TempermentWarning = "Fake",
-
                 }
             };
         }

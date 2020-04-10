@@ -22,13 +22,13 @@ namespace LogicLayerTests
     [TestClass]
     public class BackRecordMangerTester
     {
-        private IbackstockAccessor _BackRecordAccessorFakes;
+        private IBackStockAccessor _BackRecordAccessorFakes;
         private ManageBackstockRecords manageBackstockRecords;
 
         [TestInitialize]
         public void TestSetup()
         {
-            _BackRecordAccessorFakes = new BackRecordAccessorFakes();
+            _BackRecordAccessorFakes = new FakeBackRecordAccessor();
             manageBackstockRecords = new ManageBackstockRecords(_BackRecordAccessorFakes);
 
         }

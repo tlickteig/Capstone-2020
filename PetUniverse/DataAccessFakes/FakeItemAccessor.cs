@@ -10,7 +10,7 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Brandyn T. Coverdill
-    /// Created: 2020/02/22
+    /// Created: 02/22/2020
     /// Approver: Dalton Reierson
     /// Approver: Jesse Tomash
     ///
@@ -21,7 +21,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/02/22
+        /// Created: 02/22/2020
         /// Approver: Dalton Reierson
         /// Approver: Jesse Tomash
         ///
@@ -40,6 +40,7 @@ namespace DataAccessFakes
             bool itemCategoryID = item.ItemCategoryID.Equals("Cat Toys");
             bool itemQuantity = item.ItemQuantity.Equals(100);
             bool itemName = item.ItemName.Equals("Item");
+
             if (itemID && itemCategoryID && itemQuantity && itemName)
             {
                 return true;
@@ -52,7 +53,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/02/23
+        /// Created: 02/23/2020
         /// Approver: Dalton Reierson
         /// Approver: Jesse Tomash
         ///
@@ -75,6 +76,7 @@ namespace DataAccessFakes
                     ItemQuantity = 10,
                     ItemCategoryID = "Dog Food"
                 },
+
                 new Item
                 {
                     ItemID = 2,
@@ -82,6 +84,7 @@ namespace DataAccessFakes
                     ItemQuantity = 20,
                     ItemCategoryID = "Dog Food"
                 },
+
                 new Item
                 {
                     ItemID = 3,
@@ -90,15 +93,14 @@ namespace DataAccessFakes
                     ItemCategoryID = "Cat Toys"
                 }
             };
-
             return items;
         }
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/03/04
+        /// Created: 03/04/2020
         /// Approver: Dalton Reireson
-        /// Approver:   Jesse Tomash
+        /// Approver: Jesse Tomash
         ///
         /// Method that updates an item.
         /// </summary>
@@ -125,16 +127,13 @@ namespace DataAccessFakes
             {
                 result = 1;
             }
-
             return result;
         }
 
-
         /// <summary>
         /// Creator: Dalton Reierson
-        /// Created: 2020/03/10
-        /// Approver: Brandyn T. Coverdill
-        /// Approver: 
+        /// Created: 03/10/2020
+        /// Approver: Brandyn T. Coverdill        
         ///
         /// Method that deactivates an item
         /// </summary>
@@ -173,7 +172,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Dalton Reierson
-        /// Created: 2020/03/10
+        /// Created: 03/10/2020
         /// Approver: Brandyn T. Coverdill
         /// Approver: Jesse Tomash
         ///
@@ -223,23 +222,21 @@ namespace DataAccessFakes
             {
                 filterItemList.Add(i);
             }
-
             return filterItemList;
         }
 
         /// <summary>
-        /// NAME: Matt Deaton
-        /// DATE: 2020-03-17
-        /// CHECKED BY: Steven Coonrod
+        /// Creator: Matt Deaton
+        /// Created: 03/17/2020
+        /// Approver: Steven Coonrod
         /// 
         /// Method to return a list of Items for Shelter use only.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
-        /// 
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="shelterItem"></param>
         /// <returns></returns>
@@ -280,21 +277,20 @@ namespace DataAccessFakes
                 shelterItems.Add(item);
             }
             return shelterItems;
-        }// End SelectShelterItems()
+        }
 
         /// <summary>
-        /// NAME: Matt Deaton
-        /// DATE: 2020-03-17
-        /// CHECKED BY: Steven Coonrod
+        /// Creator: Matt Deaton
+        /// Created: 03/17/2020
+        /// Approver: Steven Coonrod
         /// 
         /// Method to return a list of needed shelter use items.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
-        /// 
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <returns></returns>
         public List<Item> SelectNeededShelterItems()
@@ -311,6 +307,7 @@ namespace DataAccessFakes
                     ShelterItem = true,
                     ShelterThreshold = 3
                 },
+
                 new Item
                 {
                     ItemID = 2,
@@ -330,46 +327,45 @@ namespace DataAccessFakes
             {
                 neededItems.Add(i);
             }
-
             return neededItems;
-        }// End SelectNeededShelterItems()
+        }
+
         /// <summary>
-        /// NAME: Matt Deaton
-        /// DATE: 2020-03-17
-        /// CHECKED BY: Steven Coonrod
+        /// Creator: Matt Deaton
+        /// Created: 03/17/2020
+        /// Approver: Steven Coonrod
         /// 
         /// Method to add a new donated item to the shelter inventory.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
-        /// 
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="donatedItem"></param>
         /// <returns></returns>
         public int AddNewDonatedItem(Item donatedItem)
         {
             List<Item> shelterItems = new List<Item>();
-            ; int originalCount = shelterItems.Count;
+            int originalCount = shelterItems.Count;
             shelterItems.Add(donatedItem);
+
             return shelterItems.Count - originalCount;
-        }// End AddNewDonatedItem()
+        }
 
         /// <summary>
-        /// NAME: Matt Deaton
-        /// DATE: 2020-03-17
-        /// CHECKED BY: Steven Coonrod
+        /// Creator: Matt Deaton
+        /// Created: 03/17/2020
+        /// Approver: Steven Coonrod
         /// 
         /// Method to updating an item that is in the shelter inventory.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
-        /// 
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="oldShelterItem"></param>
         /// <param name="newShelterItem"></param>
@@ -377,17 +373,18 @@ namespace DataAccessFakes
         public int UpdateShelterItem(Item oldShelterItem, Item newShelterItem)
         {
             Item shelterItem = oldShelterItem;
+            int results = 0;
 
             try
             {
                 oldShelterItem = newShelterItem;
-                return 1;
+                results = 1;
             }
-            catch (Exception ex)
-            {
-                return 0;
+            catch (Exception)
+            {                
                 throw;
             }
-        }// End UpdateShelterItem()
+            return results;
+        }
     }
 }

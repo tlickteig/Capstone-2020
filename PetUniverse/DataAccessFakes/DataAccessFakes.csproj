@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackRecordAccessorFakes.cs" />
     <Compile Include="FakeAdoptionAnimalAccessor.cs" />
     <Compile Include="FakeAdoptionAppointmentAccessor.cs" />
     <Compile Include="FakeAdoptionCustomerAccessor.cs" />
@@ -67,6 +66,7 @@
     <Compile Include="FakeApplicationAccessor.cs" />
     <Compile Include="FakeAppointmentAccessor.cs" />
     <Compile Include="FakeAppointmentTypeAccessor.cs" />
+    <Compile Include="FakeBackRecordAccessor.cs" />
     <Compile Include="FakeBaseScheduleAccessor.cs" />
     <Compile Include="FakeCustomerAccessor.cs" />
     <Compile Include="FakeDepartmentAccessor.cs" />
@@ -104,8 +104,8 @@
     <Compile Include="FakeVolunteerEventAccessor.cs" />
     <Compile Include="FakeVolunteerTaskAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SalesDataFakes.cs" />
-    <Compile Include="VolunteerShiftAccessorFake.cs" />
+    <Compile Include="FakeSalesData.cs" />
+    <Compile Include="FakeVolunteerShiftAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessInterfaces\DataAccessInterfaces.csproj">

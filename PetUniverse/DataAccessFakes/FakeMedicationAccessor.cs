@@ -25,9 +25,7 @@ namespace DataAccessFakes
     public class FakeMedicationAccessor : IMedicationAccessor
     {
         private List<Medication> Meds;
-
         public List<MedicationOrder> MedOrder_ = new List<MedicationOrder>();
-
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -44,54 +42,31 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeMedicationAccessor()
         {
-
-
-
             Meds = new List<Medication>()
             {
                new Medication()
                {
                    ItemID = 1,
-
                    ItemName = "Med_A",
-
                    ItemQuantity = 7
-
                },
 
                new Medication()
                {
                    ItemID = 2,
-
                    ItemName = "Med_B",
-
                    ItemQuantity = 3
-
                },
 
                new Medication()
                {
                    ItemID = 3,
-
                    ItemName = "Med_C",
-
                    ItemQuantity = 9
-
                },
-
-
-
-
-
             };
 
             MedOrder_ = new List<MedicationOrder>();
-            {
-
-
-            };
-
-
         }
 
         /// <summary>
@@ -110,10 +85,7 @@ namespace DataAccessFakes
         public List<Medication> GetCompleteMedicationInventory()
         {
             return Meds.ToList();
-
-
         }
-
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -130,34 +102,32 @@ namespace DataAccessFakes
         /// </remarks>
         public int InsertMedicationOrder(int ItemID, string ItemName, int ItemQuantity)
         {
+            int result = 0;
             try
             {
                 MedicationOrder medorder = new MedicationOrder()
                 {
                     ItemID = ItemID,
-
                     ItemName = ItemName,
-
                     ItemQuantity = ItemQuantity
                 };
 
                 MedOrder_.Add(medorder);
 
-                return 1;
+                result = 1;
             }
             catch (Exception)
             {
-                return 0;
+                result = 0;
             }
-
-
+            return result;
         }
 
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/5/2020
-        /// Approver: 
-        /// Approver: 
+        /// Approver: Chuck Baxter, 2/21/2020
+        /// Approver: Ethan Murphy 2/21/2020
         /// 
         /// Gets fake medication inventory records where quantity is less than a specified number
         /// </summary>
@@ -168,9 +138,9 @@ namespace DataAccessFakes
         /// </remarks>
         public List<Medication> GetMedicationByLowQauntity()
         {
+            Meds = new List<Medication>();
             try
-            {
-                Meds = new List<Medication>();
+            {                
                 foreach (Medication meds in Meds)
                 {
                     if (meds.ItemQuantity < 5)
@@ -181,19 +151,16 @@ namespace DataAccessFakes
                 return Meds;
             }
             catch
-            {
-                
-                Meds = null;
-                return Meds;
+            {                
+                Meds = null;                
             }
-
+            return Meds;
         }
 
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/5/2020
         /// Approver: Carl Davis, 3/6/2020
-        /// Approver: 
         /// 
         /// Gets fake medication inventory records where quantity is equal to zero
         /// </summary>
@@ -204,9 +171,9 @@ namespace DataAccessFakes
         /// </remarks>
         public List<Medication> GetMedicationByEmptyQauntity()
         {
+            Meds = new List<Medication>();
             try
-            {
-                Meds = new List<Medication>();
+            {                
                 foreach (Medication meds in Meds)
                 {
                     if (meds.ItemQuantity == 0)
@@ -214,20 +181,12 @@ namespace DataAccessFakes
                         Meds.Add(meds);
                     }
                 }
-                return Meds;
             }
             catch
             {
-
                 Meds = null;
-                return Meds;
             }
+            return Meds;
         }
     }
-
-
-
-
-
 }
-

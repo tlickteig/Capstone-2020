@@ -7,22 +7,27 @@ using System.Text;
 
 namespace DataAccessFakes
 {
+    /// <summary>
+    /// Creator: Chase Schulte
+    /// Created: 02/29/2020
+    /// Approver: Jordan Lindo
+    /// 
+    /// Fake Eroles class for testing
+    /// </summary>
     public class FakePetUniverseUserERolesAccessor : IPetUniverseUserERolesAccessor
     {
-
-
 
         List<PetUniverseUser> userERoles = null;
         List<ERole> availableERoles = null;
         List<PetUniverseUser> availablePUUsers = null;
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/29
+        /// Created: 02/29/2020
         /// Approver: Jordan Lindo
         /// 
         /// Populate the role and department list 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater 
         /// Updated:
@@ -33,33 +38,74 @@ namespace DataAccessFakes
             //Fake data for EroleAcessor
             userERoles = new List<PetUniverseUser>()
             {
-                new PetUniverseUser(){PUUserID=100000,ERoleID="Manager"},
-                new PetUniverseUser(){PUUserID=100001,ERoleID="Cashier"},
-                new PetUniverseUser(){PUUserID=100001,ERoleID="Event Organizer"}
-            };
-            availableERoles = new List<ERole>()
-            {
-                new ERole(){ERoleID="Manager"},
-                new ERole(){ERoleID="Cashier"},
-                new ERole(){ERoleID="Event Organizer"},
-                new ERole(){ERoleID="Event Manager"}
-            };
-            availablePUUsers = new List<PetUniverseUser>()
-            {
-                new PetUniverseUser(){PUUserID=100000},
-                new PetUniverseUser(){PUUserID=100001},
-                new PetUniverseUser(){PUUserID=100002}
+                new PetUniverseUser()
+                {
+                    PUUserID=100000,
+                    ERoleID="Manager"
+                },
+
+                new PetUniverseUser()
+                {
+                    PUUserID=100001,
+                    ERoleID="Cashier"
+                },
+
+                new PetUniverseUser()
+                {
+                    PUUserID=100001,
+                    ERoleID="Event Organizer"
+                }
             };
 
+            availableERoles = new List<ERole>()
+            {
+                new ERole()
+                {
+                    ERoleID="Manager"
+                },
+
+                new ERole()
+                {
+                    ERoleID="Cashier"
+                },
+
+                new ERole()
+                {
+                    ERoleID="Event Organizer"
+                },
+
+                new ERole()
+                {
+                    ERoleID="Event Manager"
+                }
+            };
+
+            availablePUUsers = new List<PetUniverseUser>()
+            {
+                new PetUniverseUser()
+                {
+                    PUUserID=100000
+                },
+                
+                new PetUniverseUser()
+                {
+                    PUUserID=100001
+                },
+                
+                new PetUniverseUser()
+                {
+                    PUUserID=100002
+                }
+            };
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/29
+        /// Created: 02/29/2020
         /// Approver: Jordan Lindo 
         /// 
         /// Test Delete userERole and department list 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater 
         /// Updated:
@@ -71,19 +117,23 @@ namespace DataAccessFakes
         public int DeletePetUniverseUserERole(int userID, string eRoleID)
         {
             bool userRoleFound = false;
+
             //Find userID and eRoleID
             if (userERoles.Find(r => r.ERoleID == eRoleID && r.PUUserID == userID) != null)
             {
                 userRoleFound = true;
             }
+
             //Fail if user and role can't be found
             if (!userRoleFound)
             {
                 throw new Exception();
             }
+
             //Simulate deletion
             eRoleID = null;
             userID = 0;
+
             //Make sure it's deleted
             if (eRoleID == null && userID == 0)
             {
@@ -91,14 +141,14 @@ namespace DataAccessFakes
             }
             return 0;
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/29
+        /// Created: 02/29/2020
         /// Approver: Jordan Lindo
         /// 
         /// Test Insert UserERole 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater 
         /// Updated:
@@ -123,11 +173,13 @@ namespace DataAccessFakes
             {
                 throw new Exception();
             }
+
             //Make sure ERole is real
             if (availableERoles.Find(r => r.ERoleID == eRoleID) != null)
             {
                 roleFound = true;
             }
+
             //fail if role can't be found
             if (!roleFound)
             {
@@ -139,25 +191,27 @@ namespace DataAccessFakes
             {
                 throw new Exception();
             }
+
             //Add new user into list
             userERoles.Add(new PetUniverseUser() { PUUserID = userID, ERoleID = eRoleID });
+
             //Make sure it was added
             if (userERoles.Find(r => r.ERoleID == eRoleID && r.PUUserID == userID) != null)
             {
                 return 1;
             }
+
             //Add failed
             throw new Exception();
-
         }
+
         /// <summary>
         /// Creator: Chase Schulte
-        /// Created: 2020/02/29
+        /// Created: 02/29/2020
         /// Approver: Jordan Lindo
         /// 
         /// Test Select UserERole by PUUserID 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater 
         /// Updated:
@@ -169,6 +223,7 @@ namespace DataAccessFakes
         {
             bool userFound = false;
             List<string> roles = new List<string>();
+
             //Find userID
             if (availablePUUsers.Find(r => r.PUUserID == userID) != null)
             {
@@ -195,7 +250,6 @@ namespace DataAccessFakes
                 }
             }
             return roles;
-
         }
     }
 }

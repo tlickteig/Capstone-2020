@@ -10,7 +10,7 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Robert Holmes
-    /// Created: 2020/03/13
+    /// Created: 03/13/2020
     /// Approver: Cash Carlson
     /// 
     /// Fakes information for testing PromotionManager.
@@ -19,7 +19,7 @@ namespace DataAccessFakes
     {
         /// <summary>
         /// Creator: Robert Holmes
-        /// Created: 2020/03/13
+        /// Created: 03/13/2020
         /// Approver: Cash Carlson
         /// 
         /// Fake inserts a new promotion.
@@ -30,6 +30,7 @@ namespace DataAccessFakes
         {
             int rows = 0;
             List<Promotion> promotions = new List<Promotion>();
+
             promotions.Add(promotion);
             if (promotions.Contains(promotion))
             {
@@ -40,7 +41,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Robert Holmes
-        /// Created: 2020/03/19
+        /// Created: 03/19/2020
         /// Approver: Cash Carlson
         /// 
         /// Fakes getting all of the promotions stored in the database.
@@ -49,49 +50,54 @@ namespace DataAccessFakes
         /// Updater: 
         /// Updated: 
         /// Update: 
-        /// 
         /// </remarks>
+        /// <param name="onlyActive"></param>
+        /// <returns>List of promotions</returns>
         public List<Promotion> SelectAllPromotions(bool onlyActive = true)
         {
             List<Promotion> promotions = new List<Promotion>();
 
             promotions.Add(new Promotion()
             {
-                PromotionID = "TESTPROMO"
-                ,   PromotionTypeID = "Test Promo Type"
-                ,   StartDate = DateTime.Today
-                ,   EndDate = DateTime.Today.AddDays(1D)
-                ,   Discount = .35M
-                ,   Description = "Test promotion description."
-                ,   Active = true
-                ,   Products = new List<Product>()
-                {
-                    new Product()
+                PromotionID = "TESTPROMO",
+                PromotionTypeID = "Test Promo Type",
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today.AddDays(1D),
+                Discount = .35M,
+                Description = "Test promotion description.",
+                Active = true,
+                Products = new List<Product>()
                     {
-                        ProductID = "TESTPRODUCT"
-                        ,   ItemID = 100000
-                        ,   Category = "Test Category"
-                        ,   Type = "Test Type"
-                        ,   Brand = "Test Brand"
-                        ,   Name = "Test Product"
-                        ,   Description = "Test product description"
-                        ,   Price = 1.00M
-                        ,   Taxable = true
+                        new Product()
+                        {
+                            ProductID = "TESTPRODUCT",
+                            ItemID = 100000,
+                            Category = "Test Category",
+                            Type = "Test Type",
+                            Brand = "Test Brand",
+                            Name = "Test Product",
+                            Description = "Test product description",
+                            Price = 1.00M,
+                            Taxable = true
+                        }
                     }
-                }
             });
-
             return promotions;
         }
 
         /// <summary>
         /// Creator: Robert Holmes
-        /// Created: 2020/03/13
+        /// Created: 03/13/2020
         /// Approver: Cash Carlson
         /// 
         /// Returns a list of fake promotion types.
         /// </summary>
-        /// <returns></returns>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <returns>List of promotion types</returns>
         public List<string> SelectAllPromotionTypes()
         {
             List<string> list = new List<string>();
@@ -101,7 +107,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Robert Holmes
-        /// Created: 2020/03/19
+        /// Created: 03/19/2020
         /// Approver: Cash Carlson
         /// 
         /// Fakes updating a promotion.
@@ -109,12 +115,11 @@ namespace DataAccessFakes
         /// <remarks>
         /// Updater: 
         /// Updated: 
-        /// Update: 
-        /// 
+        /// Update:        
         /// </remarks>
         /// <param name="oldPromotion"></param>
         /// <param name="newPromotion"></param>
-        /// <returns></returns>
+        /// <returns>int based on update</returns>
         public int UpdatePromotion(Promotion oldPromotion, Promotion newPromotion)
         {
             int rows = 0;
@@ -124,7 +129,7 @@ namespace DataAccessFakes
 
             for (int i = 0; i < promotions.Count; i++)
             {
-                if (promotions[i].PromotionID == oldPromotion.PromotionID 
+                if (promotions[i].PromotionID == oldPromotion.PromotionID
                     && promotions[i].PromotionTypeID == oldPromotion.PromotionTypeID
                     && promotions[i].StartDate == oldPromotion.StartDate
                     && promotions[i].EndDate == oldPromotion.EndDate
@@ -136,7 +141,6 @@ namespace DataAccessFakes
                     rows++;
                 }
             }
-
             return rows;
         }
     }

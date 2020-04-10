@@ -9,34 +9,27 @@ using DataTransferObjects;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Ethan Holmes
-    /// DATE: 2/6/2020
-    /// APPROVER: Josh Jackson, Timothy Licktieg
+    /// Creator: Ethan Holmes
+    /// Created: 2/6/2020
+    /// Approver: Josh Jackson, Timothy Licktieg
     /// 
     /// This DataAccessFakes 
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: N/A
-    /// UPDATE DATE: N/A
-    /// CHANGE DESCRIPTION: N/A
-    /// </remarks>
     public class FakeVolunteerTaskAccessor : IVolunteerTaskAccessor
     {
 
-
-
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
-        /// APPROVER: Josh Jackson, Timothy Licktieg
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
         /// 
         /// This DataAccessFakeVolunteerTaskAccessor provides
         /// fake test data to use in the Accessor Tests.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATE DATE: N/A
-        /// CHANGE DESCRIPTION: N/A
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Updater: N/A
         /// </remarks>
         public FakeVolunteerTaskAccessor()
         {
@@ -60,28 +53,26 @@ namespace DataAccessFakes
                     DueDate = "02/04/2020",
                     TaskDescription = "Fake desc"
                 }
-
             };
-
         }
 
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
-        /// APPROVER: Josh Jackson, Timothy Licktieg
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
         /// 
         /// This is the Fake Method for CreateVolunteerTask()
         /// </summary>
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Updater: N/A
+        /// </remarks>
         /// <param name="assignmentGroup"></param>
         /// <param name="dueDate"></param>
         /// <param name="taskDescription"></param>
         /// <param name="taskName"></param>
         /// <param name="taskType"></param>
-        /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATE DATE: N/A
-        /// CHANGE DESCRIPTION: N/A
-        /// </remarks>
         public int CreateVolunteerTask(string taskName, string taskType, string assignmentGroup, string taskDescription, DateTime dueDate)
         {
             if (taskDescription != null && taskDescription != "")
@@ -98,22 +89,19 @@ namespace DataAccessFakes
             }
         }
 
-
-
-
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
-        /// APPROVER: Josh Jackson, Timothy Licktieg
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
         /// 
         /// This is a Fake GetAllVolunteerTasks() method which
         /// returns a fake list of VolunteerTaskVM's
         /// </summary>
         ///
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATE DATE: N/A
-        /// CHANGE DESCRIPTION: N/A
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Updater: N/A
         /// </remarks>
         public List<VolunteerTaskVM> GetAllVolunteerTasks()
         {
@@ -127,25 +115,23 @@ namespace DataAccessFakes
                     DueDate = "02/04/2020",
                     TaskDescription = "Fake desc"
                 }
-
             };
-
             return volTasks;
         }
 
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
-        /// APPROVER: Josh Jackson, Timothy Licktieg
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
         /// 
         /// This is a fake method for GetVolunteerTaskByName() which returns a fake
         /// VolunteerTask() object.
         /// </summary>
         /// <param name="volunteerTaskName"></param>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATE DATE: N/A
-        /// CHANGE DESCRIPTION: N/A
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Updater: N/A
         /// </remarks>
         public VolunteerTask GetVolunteerTaskByName(string volunteerTaskName)
         {
@@ -174,11 +160,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
-        /// APPROVER: Josh Jackson, Timothy Licktieg
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
+        /// 
         /// testing the updating of a task record.
         /// </summary>
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Updater: N/A
+        /// </remarks>
         /// <param name="taskName"></param>
         /// <param name="taskType"></param>
         /// <param name="assignmentGroup"></param>
@@ -196,7 +188,6 @@ namespace DataAccessFakes
                 TaskDescription = "Desc"
             };
 
-
             _updateTask.TaskName = taskName;
             _updateTask.TaskType = taskType;
             _updateTask.DueDate = dueDate;
@@ -210,16 +201,20 @@ namespace DataAccessFakes
             {
                 return 0;
             }
-
         }
 
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
-        /// APPROVER: 
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
         /// 
         /// testing the updating of a task record.
         /// </summary>
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Updater: N/A
+        /// </remarks>
         /// <param name="taskName"></param>
         /// <returns></returns>
         public int DeleteVolunteerTask(string taskName)

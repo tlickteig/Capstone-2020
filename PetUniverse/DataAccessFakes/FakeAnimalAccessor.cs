@@ -121,13 +121,13 @@ namespace DataAccessFakes
             {
                 return 0;
             }
-
         }
 
         /// <summary>
         /// Creator: Michael Thompson
         /// Created: 2/13/2020
         /// Approver: Austin Gee
+        /// 
         /// The fake data access method for selecting all of the animal profiles
         /// </summary>
         /// <remarks>
@@ -182,8 +182,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 2/19/2020
-        /// Approver: Zach Behrensmeyer
-        /// Approver: 
+        /// Approver: Zach Behrensmeyer        
         /// 
         /// The fake data access method for selecting all of the inactive animals
         /// in the database
@@ -413,8 +412,6 @@ namespace DataAccessFakes
         /// <returns>The number of animals that match the supplied primary key. Should either be 0 (fail) or 1 (success)</returns>
         public int DeactivateAnimal(int animalID)
         {
-
-
             return (from a in animals
                     where a.AnimalID == animalID
                     select a).Count();
@@ -476,8 +473,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver:
+        /// Approver: Carl Davis, 3/18/2020         
         /// 
         /// The fake data access method for deleting an animal species
         /// </summary>
@@ -511,8 +507,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver:
+        /// Approver: Carl Davis, 3/18/2020         
         /// 
         /// The fake data access method for updating an animal species
         /// </summary>

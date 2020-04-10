@@ -8,9 +8,17 @@ using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
+    /// <summary>
+    /// Creator: Jordan Lindo
+    /// Created: 3/17/2020
+    /// Approver: Chase Schulte
+    /// 
+    /// Fake class for the BaseScheduleAccessor
+    /// </summary>
     public class FakeBaseScheduleAccessor : IBaseScheduleAccessor
     {
 
+        //Base Schedule object
         private static BaseScheduleVM _baseScheduleVM = new BaseScheduleVM()
         {
             Active = true,
@@ -20,6 +28,7 @@ namespace DataAccessFakes
             BaseScheduleLines = _lines
         };
 
+        //Line items for the Base Schedule
         private static List<BaseScheduleLine> _lines = new List<BaseScheduleLine>()
             {
                 new BaseScheduleLine()
@@ -30,6 +39,7 @@ namespace DataAccessFakes
                     ShiftTimeID = 1000000,
                     Count = 1
                 },
+
                 new BaseScheduleLine()
                 {
                     BaseScheduleID = 1000000,
@@ -53,17 +63,26 @@ namespace DataAccessFakes
         /// Fake insert
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated: 
-        /// Approver: NA
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/9/2020
+        /// Update: Added if else block and result value to logic
         /// 
         /// </remarks>
         /// <param name="baseScheduleVM"></param>
         /// <returns></returns>
         public int InsertBaseScheduleVM(BaseScheduleVM baseScheduleVM)
         {
-            _baseSchedules.Add(baseScheduleVM);
-            return 1;
+            int result = 0;
+            if(baseScheduleVM != null)
+            {
+                _baseSchedules.Add(baseScheduleVM);
+                result = 1;
+            }
+            else
+            {
+                throw new ApplicationException("Could not insert data");
+            }            
+            return result;
         }
 
         /// <summary>

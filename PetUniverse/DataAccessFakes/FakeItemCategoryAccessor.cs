@@ -10,7 +10,7 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Brandyn T. Coverdill
-    /// Created: 2020/02/22
+    /// Created: 02/22/2020
     /// Approver: Dalton Reierson
     /// Approver: Jesse Tomash
     ///
@@ -21,7 +21,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/02/22
+        /// Created: 02/22/2020
         /// Approver: Dalton Reierson
         /// Approver: Jesse Tomash
         ///
@@ -38,6 +38,7 @@ namespace DataAccessFakes
         {
             bool itemCategoryID = itemCategory.ItemCategoryID.Equals("Tool");
             bool categoryName = itemCategory.Description.Equals("Tool Description.");
+
             if (itemCategoryID && categoryName)
             {
                 return true;
@@ -50,7 +51,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/02/22
+        /// Created: 02/22/2020
         /// Approver: Dalton Reierson
         /// Approver: Jesse Tomash
         ///
@@ -71,21 +72,21 @@ namespace DataAccessFakes
                     ItemCategoryID = "Tool",
                     Description = "Tool"
                 },
+
                 new ItemCategory
                 {
                     ItemCategoryID = "Medical",
                     Description = "Medical"
                 }
             };
-
             return itemCategory;
         }
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/02/22
+        /// Created: 02/22/2020
         /// Approver: Dalton Reierson
-        /// Approver:  Jesse Tomash
+        /// Approver: Jesse Tomash
         ///
         /// Method that gets the ItemCategoryID.
         /// </summary>
@@ -97,9 +98,8 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="categoryName"></param>
         public int getItemCategoryID(string categoryName)
-        {
-            int result = 0;
-            return result;
+        {            
+            return 0;
         }
     }
 }

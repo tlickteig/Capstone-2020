@@ -10,32 +10,32 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Mohamed Elamin
-    /// Created: 2020/02/29
-    /// Approver:  Awaab Elamin, 2020/03/03
+    /// Created: 02/29/2020
+    /// Approver: Awaab Elamin 03/03/2020
     ///
-    /// This Class for creation a fake Adoption Applictions which will used 
-    /// for testing Logic layer methodes.
+    /// This Class is for creation of fake Adoption Applications which will be used 
+    /// for testing Logic layer methods.
     /// </summary>
     public class FakeAdoptionInterviewerAccessor : IAdoptionInterviewerAccessor
     {
-        private List<AdoptionAppointment> adoptionAppointments = null;
 
+        private List<AdoptionAppointment> adoptionAppointments = null;
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
-        /// Approver:  Awaab Elamin, 2020/03/03
+        /// Created: 02/19/2020
+        /// Approver:  Awaab Elamin, 03/03/2020
         /// 
-        /// This method will get fake Adoption Appliction when whenever it called. 
+        /// This method will get a fake Adoption Application when whenever it called. 
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/9/2020
+        /// Update: Fixed Comments and spelling errors
         /// </remarks>
         /// <param name=""></param>
-        /// <returns>fake Adoption Applications</returns>
+        /// <returns>Fake Adoption Applications</returns>
 
         public FakeAdoptionInterviewerAccessor()
         {
@@ -47,7 +47,7 @@ namespace DataAccessFakes
                     AdoptionApplicationID = 100001,
                     AppointmentTypeID = "facilitator",
                     AppointmentDateTime =  DateTime.Now,
-                    Notes = "This is a my notes",
+                    Notes = "These are my notes",
                     Decision = "facilitator",
                     LocationID =12033
                 },
@@ -58,36 +58,36 @@ namespace DataAccessFakes
                     AdoptionApplicationID = 100001,
                     AppointmentTypeID = "Interviewer",
                     AppointmentDateTime = DateTime.Now,
-                    Notes = "This is a my notes",
+                    Notes = "These are my notes",
                     Decision = "Interviewer",
                     LocationID = 12033
                 },
+
                 new AdoptionAppointment()
                 {
                     AppointmentID = 100003,
                     AdoptionApplicationID = 100001,
                     AppointmentTypeID = "facilitator",
                     AppointmentDateTime = DateTime.Now,
-                    Notes = "This is a my notes",
+                    Notes = "These are my notes",
                     Decision = "facilitator",
                     LocationID = 12033
                 },
             };
-
         }
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/29
-        /// Approver: Awaab Elamin, 2020/03/03
+        /// Created: 02/29/2020
+        /// Approver: Awaab Elamin, 03/03/2020
         /// 
-        /// This fake method is called to get a fake list of Adoption Applictions. 
+        /// This fake method is called to get a fake list of Adoption Applications. 
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/9/2020
+        /// Update: Fixed Comments and spelling errors
         /// </remarks>
         /// <param name=""></param>
         /// <returns>fake list of Adoption Applications</returns>
@@ -100,19 +100,18 @@ namespace DataAccessFakes
             return _adoptionAppointments;
         }
 
-
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/29
-        /// Approver:  Awaab Elamin, 2020/03/03
+        /// Created: 02/29/2020
+        /// Approver:  Awaab Elamin, 03/03/2020
         /// 
-        /// This fake method is called to get a fake list of Adoption Applictions. 
+        /// This fake method is called to get a fake list of Adoption Applications. 
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/9/2020
+        /// Update: Fixed Comments, spelling errors, and formatting
         /// </remarks>
         /// <param name="AdoptionAppointment"></param>
         /// <param name="AdoptionAppointment"></param>
@@ -122,16 +121,11 @@ namespace DataAccessFakes
             int result = 0;
             foreach (AdoptionAppointment adoption in adoptionAppointments)
             {
-                if(
-                    (adoption.AppointmentID == oldAdoptionAppointment.AppointmentID)
-                    && 
-                    (adoption.Notes == oldAdoptionAppointment.Notes)
-                   )
-
+                if((adoption.AppointmentID == oldAdoptionAppointment.AppointmentID) 
+                    && (adoption.Notes == oldAdoptionAppointment.Notes))
                 {
                     adoption.Notes = newAdoptionAppointment.Notes;
                     result++;
-
                 }
             }
             return result;

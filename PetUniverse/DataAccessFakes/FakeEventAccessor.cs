@@ -9,26 +9,35 @@ using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
-    /// <summary>
-    /// 
-    /// NAME: Steve Coonrod
-    /// DATE: 2020-02-06
-    /// CHECKED BY: Ryan Morganti
+    /// <summary>    
+    /// Creator: Steve Coonrod
+    /// Created: 02/06/2020
+    /// Approver: Ryan Morganti
     /// 
     /// The Fake Event Data to ensure the classes and methods work properly.
-    /// 
-    /// Updated By:
-    /// Updated On:
-    /// 
     /// </summary>
     public class FakeEventAccessor : IEventAccessor
     {
+
         private List<PUEvent> puEvents = null;
         private List<Request> requests = null;
         private List<EventRequest> puEventRequests = null;
         private List<EventType> eventTypes = null;
         private EventApprovalVM eventApprovalVM = null;
 
+        /// <summary>
+        /// Creator: Steve Coonrod
+        /// Created: 02/06/2020
+        /// Approver: Ryan Morganti
+        /// 
+        /// No arg constructor
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         public FakeEventAccessor()
         {
             //A fake repository containing 4 events
@@ -50,6 +59,7 @@ namespace DataAccessFakes
                     Status = "PendingApproval",
                     Description = "Billy Little is hosting a childrens animal parade."
                 },
+
                 new PUEvent()
                 {
                     EventID = 1000001,
@@ -66,6 +76,7 @@ namespace DataAccessFakes
                     Status = "PendingApproval",
                     Description = "Come spend some time with our animals out at Fawn Lake Animal Shelter."
                 },
+
                 new PUEvent()
                 {
                     EventID = 1000023,
@@ -82,6 +93,7 @@ namespace DataAccessFakes
                     Status = "PendingApproval",
                     Description = "Animals are cruel and you need to know about it."
                 },
+
                 new PUEvent()
                 {
                     EventID = 1000418,
@@ -110,6 +122,7 @@ namespace DataAccessFakes
                     RequestTypeID = "Event",
                     Open = true
                 },
+
                 new Request()
                 {
                     RequestID = 1000001,
@@ -117,6 +130,7 @@ namespace DataAccessFakes
                     RequestTypeID = "Event",
                     Open = true
                 },
+
                 new Request()
                 {
                     RequestID = 1000002,
@@ -124,6 +138,7 @@ namespace DataAccessFakes
                     RequestTypeID = "Event",
                     Open = true
                 },
+
                 new Request()
                 {
                     RequestID = 1000003,
@@ -145,6 +160,7 @@ namespace DataAccessFakes
                     DesiredVolunteers = 5,
                     Active = true
                 },
+
                 new EventRequest()
                 {
                     EventID = 1000001,
@@ -154,6 +170,7 @@ namespace DataAccessFakes
                     DesiredVolunteers = 6,
                     Active = true
                 },
+
                 new EventRequest()
                 {
                     EventID = 1000023,
@@ -163,6 +180,7 @@ namespace DataAccessFakes
                     DesiredVolunteers = 4,
                     Active = true
                 },
+
                 new EventRequest()
                 {
                     EventID = 1000418,
@@ -181,16 +199,19 @@ namespace DataAccessFakes
                     EventTypeID = "Adoption",
                     Description = "An Adoption Event"
                 },
+
                 new EventType()
                 {
                     EventTypeID = "Awareness",
                     Description = "An Awareness Event"
                 },
+
                 new EventType()
                 {
                     EventTypeID = "Fundraiser",
                     Description = "A Fundraising Event"
                 },
+
                 new EventType()
                 {
                     EventTypeID = "Recruiting",
@@ -216,30 +237,31 @@ namespace DataAccessFakes
                 DisapprovalReason = null,
                 ReviewerName = null
             };
-
-
         }
 
         /// <summary>
-        /// 
-        /// NAME: Steve Coonrod, Matt Deaton
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Steve Coonrod, Matt Deaton
+        /// Created: 02/06/2020
+        /// Approver: Ryan Morganti
         /// 
         /// The method used to add a test event to the fake repository
         /// Returns 0 if failed
         /// Returns 1 if successful
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
+        /// </remarks>
         /// <param name="puEvent"></param>
-        /// <returns> 1 </returns>
+        /// <returns>result</returns>
         public int InsertEvent(PUEvent puEvent)
         {
-            int intToReturn = 0;//Actual method returns the scope_identity EventID
+            //Actual method returns the scope_identity EventID
+            int result = 0;
+
             if (puEvent.EventName.Length < 8 || puEvent.EventName.Length > 150)
             {
                 throw new ApplicationException("The Event Name value was outside the acceptable range.");
@@ -277,35 +299,37 @@ namespace DataAccessFakes
                 puEvents.Add(puEvent);
                 if (puEvents.Count == 5)
                 {
-                    intToReturn = 1;
+                    result = 1;
                 }
 
             }
-            return intToReturn;
+            return result;
         }
 
 
         /// <summary>
-        /// 
-        /// /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY:Ryan Morganti
+        /// Creator: Steve Coonrod
+        /// Created: 02/06/2020
+        /// Approver: Ryan Morganti
         /// 
         /// The method used to Edit a test event in the fake repository
         /// Returns false if failed
         /// Returns true if successful
-        /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
-        /// 
+        ///
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <param name="oldEvent"></param>
         /// <param name="newEvent"></param>
         /// <returns></returns>
         public bool UpdateEventDetails(PUEvent oldEvent, PUEvent newEvent)
         {
             bool successfulEdit = false;
+
             if (newEvent.EventName.Length < 8 || newEvent.EventName.Length > 150)
             {
                 throw new ApplicationException("The Event Name value was outside the acceptable range.");
@@ -372,25 +396,25 @@ namespace DataAccessFakes
             {
                 successfulEdit = true;
             }
-
             return successfulEdit;
         }
 
 
         /// <summary>
-        /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Steve Coonrod
+        /// Created: 02/06/2020
+        /// Approver: Ryan Morganti
         /// 
         /// The method used to add a test event to the fake repository
         /// Returns false if failed
         /// Returns true if successful
-        /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <returns></returns>
         public bool DeleteEvent(int eventID)
@@ -405,20 +429,21 @@ namespace DataAccessFakes
             return successfulDelete;
         }
 
-
         /// <summary>
-        /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Steve Coonrod
+        /// Created: 02/06/2020
+        /// Approver: Ryan Morganti
         /// 
         /// The method used to add a test event request to the fake repository
         /// Returns 1 if the event request was successfully added to the list
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <param name="eventRequest"></param>
         /// <returns></returns>
         public int InsertEventRequest(EventRequest eventRequest)
@@ -434,18 +459,20 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Steve Coonrod
+        /// Created: 02/06/2020
+        /// Approver: Ryan Morganti
         /// 
         /// The method used to add a test Request to the fake repository
         /// Returns 1 if the Request was successfully added to the list
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <param name="request"></param>
         /// <returns></returns>
         public int InsertRequest(Request request)
@@ -460,18 +487,20 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Steve Coonrod
+        /// Created: 02/06/2020
+        /// Approver: Ryan Morganti
         /// 
         /// The method used to select a test event from the fake repository by EventID
         /// Returns the event with the matching ID
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <returns></returns>
         public List<EventType> SelectAllEventTypes()
         {
@@ -483,18 +512,20 @@ namespace DataAccessFakes
 
 
         /// <summary>
-        /// 
-        /// /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Steve Coonrod
+        /// Created: 02/06/2020
+        /// Approver: Ryan Morganti
         /// 
         /// The method used to select a test event from the fake repository by EventID
         /// Returns the event with the matching ID
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <returns></returns>
         public PUEvent SelectEventByID(int eventID)
@@ -507,19 +538,21 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// 
-        /// /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// Creator: Steve Coonrod
+        /// Created: 02/06/2020
+        /// Approver: Ryan Morganti
         /// 
         /// The method used to select all test events from the fake repository
         /// Returns 0 if failed
         /// Returns 1 if successful
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <returns></returns>
         public List<PUEvent> SelectEventsAll()
         {
@@ -528,21 +561,20 @@ namespace DataAccessFakes
             return selectedEvents;
         }
 
-
-        //==============================================================\\
-
         /// <summary>
-        /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// Creator: Steve Coonrod
+        /// Created: 3/15/2020
+        /// Approver: Ryan Morganti
         /// 
         /// A fake accessor method for testing the SelectEventApprovalVM Method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <param name="createdByID"></param>
         /// <returns></returns>
@@ -559,17 +591,19 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// Creator: Steve Coonrod
+        /// Created: 3/15/2020
+        /// Approver: Ryan Morganti
         /// 
         /// A fake accessor method for testing the SelectEventRequestByEventID Method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <returns></returns>
         public EventRequest SelectEventRequestByEventID(int eventID)
@@ -581,17 +615,19 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// Creator: Steve Coonrod
+        /// Created: 3/15/2020
+        /// Approver: Ryan Morganti
         /// 
         /// A fake accessor method for testing the UpdateEventRequest Method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <param name="oldEventRequest"></param>
         /// <param name="newEventRequest"></param>
         /// <returns></returns>
@@ -632,17 +668,19 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// Creator: Steve Coonrod
+        /// Created: 3/15/2020
+        /// Approver: Ryan Morganti
         /// 
         /// A fake accessor method for testing the SelectEventsByStatus Method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <param name="status"></param>
         /// <returns></returns>
         public List<PUEvent> SelectEventsByStatus(string status)
@@ -654,17 +692,19 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// Creator: Steve Coonrod
+        /// Created: 3/15/2020
+        /// Approver: Ryan Morganti
         /// 
         /// A fake accessor method for testing the UpdateEventStatus Method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <param name="status"></param>
         /// <returns></returns>
@@ -675,20 +715,22 @@ namespace DataAccessFakes
             var selectedEvent = (from e in puEvents
                                  where e.EventID == eventID
                                  select e).SingleOrDefault();
+
             //keep its pre-update status
             string currentStatus = selectedEvent.Status;
             //Update the events status
             selectedEvent.Status = status;
+
             //Retrieve the same event after the update
             var checkEvent = (from e in puEvents
                               where e.EventID == eventID
                               select e).SingleOrDefault();
+
             //Check that the event's pre-update and post-update status is different
             if (checkEvent.Status != currentStatus)
             {
                 successfulUpdate = true;
             }
-
             return successfulUpdate;
         }
 

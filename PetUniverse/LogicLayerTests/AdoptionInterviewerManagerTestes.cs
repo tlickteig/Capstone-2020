@@ -109,7 +109,7 @@ namespace LogicLayerTests
                     AdoptionApplicationID = 100001,
                     AppointmentTypeID = "facilitator",
                     AppointmentDateTime = DateTime.Now,
-                    Notes = "This is a my notes",
+                    Notes = "These are my notes",
                     Decision = "facilitator",
                     LocationID = 12033
                 };
@@ -120,7 +120,7 @@ namespace LogicLayerTests
                     AdoptionApplicationID = 100001,
                     AppointmentTypeID = "facilitator",
                     AppointmentDateTime = DateTime.Now,
-                    Notes = "This is a my notes",
+                    Notes = "These are my notes",
                     Decision = "Deny",
                     LocationID = 12033
 

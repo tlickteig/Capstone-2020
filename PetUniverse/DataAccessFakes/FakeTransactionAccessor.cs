@@ -48,6 +48,7 @@ namespace DataAccessFakes
                     TransactionTypeID = "FAKE_TYPE_1",
                     TransactionStatusID = "FAKE_STATUS_1"
                 },
+
                 new TransactionVM()
                 {
                     TransactionID = 1001,
@@ -69,6 +70,7 @@ namespace DataAccessFakes
                     Quantity = 2,
 
                 },
+
                 new TransactionVM()
                 {
                     TransactionID = 10001,
@@ -76,6 +78,7 @@ namespace DataAccessFakes
                     Quantity = 1,
 
                 },
+
                 new TransactionVM()
                 {
                     TransactionID = 10001,
@@ -83,26 +86,26 @@ namespace DataAccessFakes
                     Quantity = 3,
 
                 }
-
             };
         }
 
         /// <summary>
-        /// NAME: Rasha Mohammed
-        /// DATE: 2/28/2020
-        /// CHECKED BY:  Jaeho Kim
+        /// Creator: Rasha Mohammed
+        /// Created: 2/28/2020
+        /// Approver: Jaeho Kim
         /// 
         /// Method to test delete item from the transactionLine 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// 
         /// </remarks>
         public int DeleteItemFromTransaction(string productID)
         {
             int result = 0;
+
             foreach (var item in items)
             {
                 if (item.ProductID == productID)
@@ -111,7 +114,6 @@ namespace DataAccessFakes
                     result++;
                     break;
                 }
-
             }
             return result;
         }
@@ -137,17 +139,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// CREATED: 2/27/2020
-        /// APPROVER: Rasha Mohammed
+        /// Creator: Jaeho Kim
+        /// Created: 2/27/2020
+        /// Approver: Rasha Mohammed
         /// 
         /// Fake Transaction Accessor Method, uses dummy data for testing.
         /// </summary>
         /// <remarks>
-        /// UPDATER: Jaeho Kim
-        /// UPDATED: 2020/03/03
-        /// UPDATE: Added missing properties from the data transfer object.
-        /// 
+        /// Updater: Jaeho Kim
+        /// Updated: 2020/03/03
+        /// Update: Added missing properties from the data transfer object.
         /// </remarks>
         public List<TransactionVM> SelectAllTransactions()
         {
@@ -155,22 +156,20 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// CREATED: 3/05/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 3/05/2020
+        /// Approver: Rasha Mohammed
         /// 
         /// Fake Transaction Accessor Method, uses dummy data for testing.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate)
         {
             throw new NotImplementedException();
         }
-
     }
 }

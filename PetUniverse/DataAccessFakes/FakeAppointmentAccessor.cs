@@ -10,13 +10,14 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Thomas Dupuy
-    /// Created: 2020/02/06
+    /// Created: 2/6/2020
     /// Approver: Awaab Elamin
     /// 
     /// This fake accessor class is used as an accessor for the data objects
     /// </summary>
     public class FakeAppointmentAccessor : IAppointmentAccessor
     {
+
         private List<Appointment> appointments;
 
         /// <summary>
@@ -46,6 +47,7 @@ namespace DataAccessFakes
                     Decicion = "Undesided",
                     Location = "123 Real Ave, Marion IA"
                 },
+
                 new Appointment()
                 {
                     AppointmentID = 1000001,

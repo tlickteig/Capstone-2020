@@ -11,8 +11,7 @@ namespace DataAccessFakes
     /// <summary>
     /// Creator: Carl Davis
     /// Created: 3/30/2020
-    /// Approver: Ethan Murphy 4/3/2020
-    /// Approver: 
+    /// Approver: Ethan Murphy, 4/3/2020
     /// 
     /// Class to test the logic layer unit tests
     /// </summary>
@@ -29,6 +28,7 @@ namespace DataAccessFakes
                 FacilityInpectionID = 1000000,
                 ItemDescription = "To fill out reports"
             },
+
             new FacilityInspectionItem()
             {
                 FacilityInspectionItemID = 1000001,
@@ -37,6 +37,7 @@ namespace DataAccessFakes
                 FacilityInpectionID = 1000001,
                 ItemDescription = "To fill out reports"
             },
+
             new FacilityInspectionItem()
             {
                 FacilityInspectionItemID = 1000002,
@@ -50,8 +51,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 3/30/2020
-        /// Approver: Ethan Murphy 4/3/2020
-        /// Approver: 
+        /// Approver: Ethan Murphy, 4/3/2020
         /// 
         /// Method to insert a fake FacilityInspectionItem Record
         /// </summary>
@@ -64,24 +64,24 @@ namespace DataAccessFakes
         /// <returns>1 or 0 int depending if record was added</returns>
         public int InsertFacilityInspectionItemRecord(FacilityInspectionItem facilityInspectionItem)
         {
-
+            int result;
             if (facilityInspectionItem.FacilityInspectionItemID == 1000000 && facilityInspectionItem.ItemName == "Pen" && facilityInspectionItem.UserID == 100000
                 && facilityInspectionItem.FacilityInpectionID == 1000000
                 && facilityInspectionItem.ItemDescription == "To fill out reports")
             {
-                return 1;
+                result = 1;
             }
             else
             {
-                return 0;
+                result = 0;
             }
+            return result;
         }
 
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 3/30/2020
-        /// Approver: Ethan Murphy 4/3/2020
-        /// Approver: 
+        /// Approver: Ethan Murphy, 4/3/2020
         /// 
         /// Method to test select all FacilityInspectionItem Records
         /// </summary>
@@ -93,17 +93,14 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance></returns>
         public List<FacilityInspectionItem> SelectAllFacilityInspectionItem()
         {
-            var selectedFacilityInspectionItems = (from f in facilityInspectionItems
-                                                   select f).ToList();
-
-            return selectedFacilityInspectionItems;
+            return (from f in facilityInspectionItems
+                    select f).ToList();
         }
 
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 3/30/2020
-        /// Approver: Ethan Murphy 4/3/2020
-        /// Approver: 
+        /// Approver: Ethan Murphy, 4/3/2020
         /// 
         /// Method to test select FacilityInspectionItem Records by Facility Inspection ID
         /// </summary>
@@ -116,17 +113,15 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance></returns>
         public List<FacilityInspectionItem> SelectFacilityInspectionByFacilityInspectionID(int facilityInspectionID)
         {
-            var selectedFacilityInspections = (from f in facilityInspectionItems
-                                               where f.FacilityInpectionID == facilityInspectionID
-                                               select f).ToList();
-
-            return selectedFacilityInspections;
+            return (from f in facilityInspectionItems
+                    where f.FacilityInpectionID == facilityInspectionID
+                    select f).ToList();
         }
 
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 3/30/2020
-        /// Approver: Ethan Murphy 4/3/2020
+        /// Approver: Ethan Murphy, 4/3/2020
         /// Approver: 
         /// 
         /// Method to test select FacilityInspectionItem Records by id
@@ -140,18 +135,15 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance></returns>
         public List<FacilityInspectionItem> SelectFacilityInspectionByItemID(int facilityInspectionItemID)
         {
-            var selectedFacilityInspections = (from f in facilityInspectionItems
-                                               where f.FacilityInspectionItemID == facilityInspectionItemID
-                                               select f).ToList();
-
-            return selectedFacilityInspections;
+            return (from f in facilityInspectionItems
+                    where f.FacilityInspectionItemID == facilityInspectionItemID
+                    select f).ToList();
         }
 
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 3/30/2020
-        /// Approver: Ethan Murphy 4/3/2020
-        /// Approver: 
+        /// Approver: Ethan Murphy, 4/3/2020
         /// 
         /// Method to test select FacilityInspectionItem Records by userID
         /// </summary>
@@ -164,18 +156,15 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance></returns>
         public List<FacilityInspectionItem> SelectFacilityInspectionByUserID(int userID)
         {
-            var selectedFacilityInspections = (from f in facilityInspectionItems
-                                               where f.UserID == userID
-                                               select f).ToList();
-
-            return selectedFacilityInspections;
+            return (from f in facilityInspectionItems
+                    where f.UserID == userID
+                    select f).ToList();
         }
 
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 3/30/2020
-        /// Approver: Ethan Murphy 4/3/2020
-        /// Approver: 
+        /// Approver: Ethan Murphy, 4/3/2020
         /// 
         /// Method to test select FacilityInspectionItem Records by item name
         /// </summary>
@@ -188,17 +177,15 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance></returns>
         public List<FacilityInspectionItem> SelectFacilityInspectionItemByItemName(string itemName)
         {
-            var selectedFacilityInspections = (from f in facilityInspectionItems
+            return (from f in facilityInspectionItems
                                                where f.ItemName == itemName
                                                select f).ToList();
-
-            return selectedFacilityInspections;
         }
 
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 3/30/2020
-        /// Approver: Ethan Murphy 4/3/2020
+        /// Approver: Ethan Murphy, 4/3/2020
         /// 
         /// Method to test update a facility inspection item record
         /// </summary>
@@ -212,16 +199,18 @@ namespace DataAccessFakes
         /// <returns>1 or 0 int depending if record was updated</returns>
         public int UpdateFacilityInspectionItem(FacilityInspectionItem oldFacilityInspectionItem, FacilityInspectionItem newFacilityInspectionItem)
         {
+            int result;
             oldFacilityInspectionItem = newFacilityInspectionItem;
 
             if (oldFacilityInspectionItem.Equals(newFacilityInspectionItem))
             {
-                return 1;
+                result = 1;
             }
             else
             {
-                return 0;
+                result = 0;
             }
+            return result;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Robert Holmes
-    /// Created: 2020/02/14
+    /// Created: 02/14/2020
     /// Approver: Cash Carlson
     /// 
     /// Fake product accessor for testing purposes.
@@ -19,9 +19,10 @@ namespace DataAccessFakes
     {
         private List<Product> products;
 
+
         /// <summary>
         /// Creator: Robert Holmes
-        /// Created: 2020/02/21
+        /// Created: 02/21/2020
         /// Approver: Cash Carlson
         /// 
         /// Sets up fake data for testing purposes.
@@ -30,7 +31,6 @@ namespace DataAccessFakes
         /// Updater:
         /// Updated: 
         /// Update: 
-        /// 
         /// </remarks>
         public FakeProductAccessor()
         {
@@ -48,6 +48,7 @@ namespace DataAccessFakes
                     Brand = "Test Brand",
                     Taxable = true
                 },
+
                 new Product()
                 {
                     ProductID = "1234567890120",
@@ -65,7 +66,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Robert Holmes
-        /// Created: 2020/03/17
+        /// Created: 03/17/2020
         /// Approver: Jaeho Kim
         /// 
         /// Tests whether the manager correctly calls the add method.
@@ -74,14 +75,14 @@ namespace DataAccessFakes
         /// Updater: 
         /// Updated: 
         /// Update: 
-        /// 
         /// </remarks>
         /// <param name="product"></param>
-        /// <returns></returns>
+        /// <returns>int based on inserted product</returns>
         public int InsertProduct(Product product)
         {
             int rows = 0;
             bool duplicate = false;
+
             foreach (Product p in products)
             {
                 if (p.ProductID == product.ProductID)
@@ -100,12 +101,13 @@ namespace DataAccessFakes
                 products.Add(product);
                 rows++;
             }
+
             return rows;
         }
 
         /// <summary>
         /// Creator: Robert Holmes
-        /// Created: 2020/03/18
+        /// Created: 03/18/2020
         /// Approver: Jaeho Kim
         /// 
         /// Method that returns a fake collection of product type ids.
@@ -114,25 +116,26 @@ namespace DataAccessFakes
         /// Updater: 
         /// Updated: 
         /// Update: 
-        /// 
         /// </remarks>
         public List<string> SelectAllProductTypeIDs()
         {
-            return new List<string> { "Test Type ID" };
+            return new List<string>
+            {
+                "Test Type ID"
+            };
         }
 
         /// <summary>
         /// Creator: Robert Holmes
-        /// Created: 2020/02/14
+        /// Created: 02/14/2020
         /// Approver: Cash Carlson
         /// 
         /// Returns dummy data for testing.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
         /// </remarks>
         /// <param name="type">The type of item to filter by.</param>
         public List<Product> SelectProductByType(string type)
@@ -150,7 +153,6 @@ namespace DataAccessFakes
                             where p.Type == type
                             select p).ToList();
                 }
-
             }
             else
             {
@@ -159,17 +161,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// CREATOR: Rasha Mohammed
-        /// CREATED: 3/13/2020
-        /// APPROVER: Robert Holmes
+        /// Creator: Rasha Mohammed
+        /// Created: 3/13/2020
+        /// Approver: Robert Holmes
         /// 
         /// Fake Product Accessor Method, return list of product for testing.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Updater: NA
         /// </remarks>
         public List<Product> SelectAllProducts()
         {
@@ -177,17 +178,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// CREATOR: Rasha Mohammed
-        /// CREATED: 3/13/2020
-        /// APPROVER: Robert Holmes
+        /// Creator: Rasha Mohammed
+        /// Created: 3/13/2020
+        /// Approver: Robert Holmes
         /// 
         /// Fake Product Accessor Method to update the product, for testing.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Updater: NA
         /// </remarks>
         public int UpdateProduct(Product oldProduct, Product newProduct)
         {

@@ -9,17 +9,12 @@ using System.Threading.Tasks;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME:Lane Sandburg
-    /// DATE: 02/05/2019
-    /// CHECKED BY:Alex Diers
+    /// Creator: Lane Sandburg
+    /// Created: 02/05/2019
+    /// Approver: Alex Diers
     /// 
     /// the fake class for shift time accessor
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY:NA
-    /// UPDATED DATE:
-    /// WHAT WAS CHANGED:
-    /// </remarks> 
     public class FakeShiftTimeAccessor : IShiftTimeAccessor
     {
         private List<PetUniverseShiftTime> shiftTimes;
@@ -29,6 +24,11 @@ namespace DataAccessFakes
         /// Created: 02/07/2019
         /// Approver: Alex Diers
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
         public FakeShiftTimeAccessor()
         {
             shiftTimes = new List<PetUniverseShiftTime>()
@@ -57,6 +57,7 @@ namespace DataAccessFakes
         /// </remarks>
         public int DeleteShiftTime(int shiftTimeID)
         {
+            int result = 1;
             PetUniverseShiftTime shiftTime = null;
             foreach (var s in shiftTimes)
             {
@@ -68,9 +69,9 @@ namespace DataAccessFakes
 
             if (shiftTime == null)
             {
-                return 0;
+                result = 0;
             }
-            return 1;
+            return result;
         }
 
         /// <summary>
@@ -87,22 +88,21 @@ namespace DataAccessFakes
         /// </remarks> 
         public int InsertShiftTime(PetUniverseShiftTime shiftTime)
         {
+            int result = 0;
             PetUniverseShiftTime newShiftTime = new PetUniverseShiftTime();
-
             newShiftTime = shiftTime;
 
             try
             {
                 shiftTimes.Add(newShiftTime);
-                return 1;
+                result = 1;
             }
             catch (Exception ex)
-            {
-                return 0;
+            {                
                 throw ex;
             }
+            return result;
         }
-
 
         /// <summary>
         /// Creator: Lane Sandburg
@@ -137,19 +137,19 @@ namespace DataAccessFakes
         /// </remarks> 
         public int UpdateShiftTime(PetUniverseShiftTime oldShiftTime, PetUniverseShiftTime newShiftTime)
         {
+            int result = 0;
             PetUniverseShiftTime ShiftTime = oldShiftTime;
 
             try
             {
                 oldShiftTime = newShiftTime;
-                return 1;
+                result = 1;
             }
             catch (Exception ex)
-            {
-                return 0;
+            {                
                 throw ex;
-
             }
+            return result;
         }
 
 
@@ -164,7 +164,6 @@ namespace DataAccessFakes
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
         /// <param name="departmentID"></param>
         /// <returns></returns>
@@ -179,7 +178,6 @@ namespace DataAccessFakes
                     times.Add(time);
                 }
             }
-
             return times;
         }
     }

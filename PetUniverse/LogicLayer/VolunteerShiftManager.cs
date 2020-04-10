@@ -35,7 +35,7 @@ namespace LogicLayer
         /// <returns>VolunteerShiftManager object</returns>
         public VolunteerShiftManager()
         {
-            _accessor = new VolunteerShiftAccessorFake();
+            _accessor = new FakeVolunteerShiftAccessor();
         }
 
         /// <summary>

@@ -9,32 +9,27 @@ using DataAccessInterfaces;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Alex Diers
-    /// DATE: 2/6/2020
-    /// CHECKED BY: NA
+    /// Creator: Alex Diers
+    /// Created: 2/6/2020
+    /// Approver: Lane Sandburg
     /// 
     /// This class is used for testing of the TrainingVideo object
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATED DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// </remarks>
     public class FakeTrainingVideoAccessor : ITrainingVideoAccessor
     {
         private List<TrainingVideo> trainingVideos;
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Creates a TrainingVideo object and adds it to the List for testing purposes
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public FakeTrainingVideoAccessor()
         {
@@ -59,11 +54,25 @@ namespace DataAccessFakes
             };
         }
 
+        /// <summary>
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
+        /// 
+        /// Method to activate video
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="videoID"></param>
+        /// <returns>int</returns>
         public int ActivateTrainingVideo(TrainingVideo videoID)
         {
             TrainingVideo trainingVideo = null;
 
-            //Fail immediatly if null
+            //Fail immediately if null
             if (videoID == null)
             {
                 throw new Exception();
@@ -94,6 +103,20 @@ namespace DataAccessFakes
             return 0;
         }
 
+        /// <summary>
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
+        /// 
+        /// Method to deactivate video
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="videoID"></param>
+        /// <returns></returns>
         public int DeactivateTrainingVideo(TrainingVideo videoID)
         {
             TrainingVideo trainingVideo = null;
@@ -129,18 +152,17 @@ namespace DataAccessFakes
             return 0;
         }
 
-
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Method to test the insertion of a TrainingVideo object
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="video"></param>
         /// <returns></returns>
@@ -164,7 +186,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 03/03/2020
-        /// Approver: 
+        /// Approver: Jordan Lindo
         /// 
         /// Test finding videos based on active state
         /// </summary>
@@ -190,16 +212,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Method tests viewing TrainingVideo objects by Employee
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: Chase Schulte
-        /// UPDATED DATE: 03/01/2020
-        /// WHAT WAS CHANGED: NA
+        /// Updater: Chase Schulte
+        /// Updated: 03/01/2020
+        /// Update: NA
         /// </remarks>
         public List<TrainingVideo> SelectTrainingVideosByEmployee()
         {
@@ -207,15 +229,13 @@ namespace DataAccessFakes
                     select t).ToList();
         }
 
-
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 03/01/2020
-        /// Approver: 
+        /// Approver: Jordan Lindo
         /// 
         /// Method tests viewing TrainingVideo objects by Employee
         /// </summary>
-        ///
         /// <remarks>
         /// Updater:
         /// Updated:
@@ -223,9 +243,7 @@ namespace DataAccessFakes
         /// </remarks>
         public int UpdateTrainingVideo(TrainingVideo oldVideo, TrainingVideo newVideo)
         {
-            bool videoTrue
-                = false;
-
+            bool videoTrue = false;
 
             //Fail immediatly if null
             if (oldVideo == null)
@@ -241,7 +259,6 @@ namespace DataAccessFakes
                 {
                     videoTrue = true;
                 }
-
             }
 
             //Throw exception if eRole isn't in list

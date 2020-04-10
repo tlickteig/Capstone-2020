@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessInterfaces
 {
-    public interface IbackstockAccessor
+    public interface IBackStockAccessor
     {
-
-        List<Item> getAllItemInBackRoomm();
+        List<Item> getAllItemsInBackRoom();
         List<int> getItemLocationsByItemID(int itemID);
-        bool UpdatItemLocation(int itemID, int itemLocationID, int NewItemLocation);
+        bool UpdateItemLocation(int itemID, int itemLocationID, int NewItemLocation);
     }
 }

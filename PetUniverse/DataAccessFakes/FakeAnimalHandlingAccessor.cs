@@ -19,6 +19,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeAnimalHandlingAccessor : IAnimalHandlingAccessor
     {
+
         private List<AnimalHandlingNotes> _handlingList;
 
         /// <summary>
@@ -59,24 +60,25 @@ namespace DataAccessFakes
         /// Simlates adding a record to the database. Gives a deliberate error depending on the PK value.
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/9/2020
+        /// Update: Updated return value so we weren't using a magic number
         /// </remarks>
         /// <param name="notes"></param>
         /// <returns> Represents the number of rows effected. </returns>
         public int InsertAnimalHandlingNotes(AnimalHandlingNotes notes)
         {
+            int result = 0;
             if (notes.HandlingNotesID == 1)
             {
                 _handlingList.Add(notes);
-
-                return 1;
+                result = 1;
             }
             else
             {
                 throw new ApplicationException("Unit Test Insert Handling Notes Exception");
             }
+            return result;
         }
 
         /// <summary>
@@ -102,7 +104,6 @@ namespace DataAccessFakes
             {
                 return _handlingList;
             }
-
             else
             {
                 throw new ApplicationException("data not found");
@@ -141,33 +142,33 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Ben Hanna
         /// Created: 2/29/2020
-        /// Approver: Chuck Baxter, 3/5/2020
-        /// Approver: 
+        /// Approver: Chuck Baxter, 3/5/2020        
         /// 
         /// Simulates a method to Update a an existing handling record.
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/9/2020
+        /// Update: Updated return value so we weren't using a magic number
         /// </remarks>
         /// <param name="oldNotes"></param>
         /// <param name="newNotes"></param>
         /// <returns></returns>
         public int UpdateAnimalHandlingNotes(AnimalHandlingNotes oldNotes, AnimalHandlingNotes newNotes)
         {
+            int result;
             AnimalHandlingNotes note = (_handlingList.Find(n => n.HandlingNotesID == oldNotes.HandlingNotesID));
             if (note != null)
             {
                 int i = _handlingList.IndexOf(note);
                 _handlingList[i] = newNotes;
-
-                return 1;
+                result = 1;
             }
             else
             {
                 throw new ApplicationException("data not found");
             }
+            return result;
         }
     }
 }

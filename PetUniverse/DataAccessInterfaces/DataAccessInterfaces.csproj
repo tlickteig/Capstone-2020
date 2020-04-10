@@ -68,7 +68,7 @@
     <Compile Include="IApplicantAccessor.cs" />
     <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IAppointmentTypeAccessor.cs" />
-    <Compile Include="IbackstockAccessor.cs" />
+    <Compile Include="IBackStockAccessor.cs" />
     <Compile Include="IBaseScheduleAccessor.cs" />
     <Compile Include="ICustomerAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />

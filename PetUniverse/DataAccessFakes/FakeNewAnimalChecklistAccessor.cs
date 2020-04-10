@@ -18,7 +18,9 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeNewAnimalChecklistAccessor : INewAnimalChecklistAccessor
     {
+
         private List<NewAnimalChecklist> animals;
+
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 2/18/2020
@@ -32,159 +34,87 @@ namespace DataAccessFakes
         /// Updated:
         /// Update:
         /// </remarks>
-
         public FakeNewAnimalChecklistAccessor()
         {
             animals = new List<NewAnimalChecklist>()
             {
                 new NewAnimalChecklist()
                 {
-
-
-            AnimalID = 1,
-
-        AnimalName = "Cujo",
-
-        DOB = DateTime.Now,
-
-        AnimalSpeciesID  = "doge",
-
-        AnimalBreed = "No thanks",
-
-        ArrivalDate = DateTime.Now,
-
-        CurrentlyHoused = true,
-
-        Adoptable = false,
-
-        Active = true,
-
-         Vaccinations = "Unknown",
-
-         Spayed_Neutered = true,
-
-         MostRecentVaccinationDate = DateTime.Now,
-
-         AdditionalNotes = "Prefers to be called 'Randy', likes trapp music, vapes constantly",
-
-           TempermantWarning = "None",
-
-                     AnimalHandlingNotes_ = "His favorite food is the McRib from Mcdonalds."
-
+                    AnimalID = 1,
+                    AnimalName = "Cujo",
+                    DOB = DateTime.Now,
+                    AnimalSpeciesID  = "doge",
+                    AnimalBreed = "No thanks",
+                    ArrivalDate = DateTime.Now,
+                    CurrentlyHoused = true,
+                    Adoptable = false,
+                    Active = true,
+                    Vaccinations = "Unknown",
+                    Spayed_Neutered = true,
+                    MostRecentVaccinationDate = DateTime.Now,
+                    AdditionalNotes = "Prefers to be called 'Randy', likes trapp music, vapes constantly",
+                    TempermantWarning = "None",
+                    AnimalHandlingNotes_ = "His favorite food is the McRib from Mcdonalds."
                 },
 
-            new NewAnimalChecklist()
-            {
-                AnimalID = 2,
+                new NewAnimalChecklist()
+                {
+                    AnimalID = 2,
+                    AnimalName = "Unknown",
+                    DOB = DateTime.Now,
+                    AnimalSpeciesID = "Unknown",
+                    AnimalBreed = "Unknown",
+                    ArrivalDate = DateTime.Now,
+                    CurrentlyHoused = true,
+                    Adoptable = true,
+                    Active = true,
+                    Vaccinations = "Unknown",
+                    Spayed_Neutered = false,
+                    MostRecentVaccinationDate = DateTime.Now,
+                    AdditionalNotes = "Not sure what species it is.",
+                    TempermantWarning = "Whatever you do DO NOT make eye-contact",
+                    AnimalHandlingNotes_ = "Send Help"
+                },
 
-                AnimalName = "Unknown",
+                new NewAnimalChecklist()
+                {
+                    AnimalID = 3,
+                    AnimalName = "Snoop",
+                    DOB = DateTime.Now,
+                    AnimalSpeciesID = "Dog",
+                    AnimalBreed = "Doggy Dog",
+                    ArrivalDate = DateTime.Now,
+                    CurrentlyHoused = true,
+                    Adoptable = true,
+                    Active = true,
+                    Vaccinations = "Ebola",
+                    Spayed_Neutered = false,
+                    MostRecentVaccinationDate = DateTime.Now,
+                    AdditionalNotes = "Very calm",
+                    TempermantWarning = "None",
+                    AnimalHandlingNotes_ = "Sleeps constantly"
+                },
 
-                DOB = DateTime.Now,
-
-                AnimalSpeciesID = "Unknown",
-
-                AnimalBreed = "Unknown",
-
-                ArrivalDate = DateTime.Now,
-
-                CurrentlyHoused = true,
-
-                Adoptable = true,
-
-                Active = true,
-
-                Vaccinations = "Unknown",
-
-                Spayed_Neutered = false,
-
-                MostRecentVaccinationDate = DateTime.Now,
-
-                AdditionalNotes = "Not sure what species it is.",
-
-                TempermantWarning = "Whatever you do DO NOT make eye-contact",
-
-                AnimalHandlingNotes_ = "Send Help"
-
-
-            },
-
-              new NewAnimalChecklist()
-            {
-                AnimalID = 3,
-
-                AnimalName = "Snoop",
-
-                DOB = DateTime.Now,
-
-                AnimalSpeciesID = "Dog",
-
-                AnimalBreed = "Doggy Dog",
-
-                ArrivalDate = DateTime.Now,
-
-                CurrentlyHoused = true,
-
-                Adoptable = true,
-
-                Active = true,
-
-                Vaccinations = "Ebola",
-
-                Spayed_Neutered = false,
-
-                MostRecentVaccinationDate = DateTime.Now,
-
-                AdditionalNotes = "Very calm",
-
-                TempermantWarning = "None",
-
-                AnimalHandlingNotes_ = "Sleeps constantly"
-
-
-            },
-
-
-
-
-            new NewAnimalChecklist()
-            {
-                AnimalID = 4,
-
-                AnimalName = "Scooby",
-
-                DOB = DateTime.Now,
-
-                AnimalSpeciesID = "Dog",
-
-                AnimalBreed = "Dooby doo",
-
-                ArrivalDate = DateTime.Now,
-
-                CurrentlyHoused = true,
-
-                Adoptable = true,
-
-                Active = true,
-
-                Vaccinations = "Unknown",
-
-                Spayed_Neutered = false,
-
-                MostRecentVaccinationDate = DateTime.Now,
-
-                AdditionalNotes = "Addiction to Scooby snacks",
-
-                TempermantWarning = "None",
-
-                AnimalHandlingNotes_ = "None"
-
-
-            }
-            };
-
-           
-    }
-
+                new NewAnimalChecklist()
+                {
+                    AnimalID = 4,
+                    AnimalName = "Scooby",
+                    DOB = DateTime.Now,
+                    AnimalSpeciesID = "Dog",
+                    AnimalBreed = "Dooby doo",
+                    ArrivalDate = DateTime.Now,
+                    CurrentlyHoused = true,
+                    Adoptable = true,
+                    Active = true,
+                    Vaccinations = "Unknown",
+                    Spayed_Neutered = false,
+                    MostRecentVaccinationDate = DateTime.Now,
+                    AdditionalNotes = "Addiction to Scooby snacks",
+                    TempermantWarning = "None",
+                    AnimalHandlingNotes_ = "None"
+                }
+            };           
+        }
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -203,8 +133,6 @@ namespace DataAccessFakes
         /// <Returns>
         /// Fake Animal records
         /// </Returns>
-
-
         public List<NewAnimalChecklist> GetNewAnimalChecklistByAnimalID(int AnimalID)
         {
             try
@@ -212,16 +140,12 @@ namespace DataAccessFakes
                 return (from b in animals
                         where b.AnimalID == AnimalID
                         select b).ToList();
-
-
             }
             catch (NullReferenceException ex)
             {
                 throw new NullReferenceException("Animal with ID " + AnimalID + " not found", ex);
-
             }
         }
-
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -241,11 +165,8 @@ namespace DataAccessFakes
         /// </Returns>
         public int GetNumberOfAnimals(bool active = true)
         {
-            int num = animals.Count;
-
-            return num;
+            return animals.Count;            
         }
     }
-
 }
 

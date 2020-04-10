@@ -15,12 +15,6 @@ namespace DataAccessFakes
     /// 
     /// This class contains Data Access fakes for data pertaining to Adoption Customers.
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// 
-    /// </remarks>
     public class FakeAdoptionCustomerAccessor : IAdoptionCustomerAccessor
     {
         private List<AdoptionCustomerVM> adoptionCustomerVMs;
@@ -35,9 +29,9 @@ namespace DataAccessFakes
         /// purposes.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// UPDATED BY: Zach Behrensmeyer
+        /// UPDATE DATE: 4/9/2020
+        /// WHAT WAS CHANGED: Removed commented out code
         /// 
         /// </remarks>
         public FakeAdoptionCustomerAccessor()
@@ -46,17 +40,7 @@ namespace DataAccessFakes
             {
                 new AdoptionCustomerVM()
                 {
-                    //Adoptable = false,
-                    //AdoptionApplicationRecievedDate = DateTime.Parse("2019-10-10"),
-                    //CustomerAdoptionStatus = "Read to pick up animal",
-                    //AnimalActive = true,
-                    //AnimalArrivalDate = DateTime.Parse("2019-2-2"),
-                    //AnimalBreed = "Hound",
-                    //AnimalID = 1,
-                    //AnimalName = "FakeDog",
                     City = "City",
-                    //CurrentlyHoused = true,
-                    //CustomerID = 1,
                     Email = "Fake@Fake.com",
                     FirstName = "Fake Customer First Name",
                     LastName = "Fake Customer Last Name",

@@ -20,7 +20,7 @@ namespace DataAccessLayer
     /// The Access class for the back stok record manger and item class
     /// Contains all methods for gitten the data form the  database
     /// </summary>
-    public class BackStockAccessor : IbackstockAccessor
+    public class BackStockAccessor : IBackStockAccessor
     {
         /// <summary>
         /// Creator: Tener Karar
@@ -40,7 +40,7 @@ namespace DataAccessLayer
         /// </remarks>
 
 
-        public List<Item> getAllItemInBackRoomm()
+        public List<Item> getAllItemsInBackRoom()
         {
             List<Item> items = new List<Item>();
 
@@ -158,7 +158,7 @@ namespace DataAccessLayer
         /// <param name="itemID"></param>
         /// <param name="itemLocationID"></param>
         /// <param name="NewitemLocationID"></param>
-        public bool UpdatItemLocation(int itemID, int itemLocationID, int NewItemLocation)
+        public bool UpdateItemLocation(int itemID, int itemLocationID, int NewItemLocation)
         {
             bool updateSuccess = false;
 

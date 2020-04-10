@@ -9,30 +9,27 @@ using System.Threading.Tasks;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Josh Jackson
-    /// DATE: 02/07/2020
-    /// Checked By: Ethan Holmes, Gabi Legrand
+    /// Creator: Josh Jackson
+    /// Created: 02/07/2020
+    /// Approver: Ethan Holmes, Gabi Legrand
+    /// 
     /// This is a data access class used for testing, uses fake data does not communicate with a DB
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: Josh Jackson
-    /// UPDATE DATE: 02/13/2020
-    /// WHAT WAS CHANGED: Added GetVolunteerByName() method
-    /// </remarks>
     public class FakeVolunteerAccessor : IVolunteerAccessor
     {
         private List<Volunteer> volunteers = new List<Volunteer>();
 
         /// <summary>
-        /// NAME: Josh Jackson
-        /// DATE: 02/07/2020
-        /// Checked By: Ethan H
+        /// Creator: Josh Jackson
+        /// Created: 02/07/2020
+        /// Approver: Ethan Holmes
+        /// 
         /// This is a constructor containing a list of volunteers to be used for testing purposes
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: Josh Jackson
-        /// UPDATE DATE: 02/13/2020
-        /// WHAT WAS CHANGED: Added Fake Volunteer data to list of volunteers
+        /// Updater: Josh Jackson
+        /// Updated: 02/13/2020
+        /// Update: Added Fake Volunteer data to list of volunteers
         /// </remarks>
         public FakeVolunteerAccessor()
         {
@@ -49,6 +46,7 @@ namespace DataAccessFakes
                     Active = true,
                     Skills = new List<string>() { "Dogwalker", "Groomer" }
                 },
+
                  new Volunteer()
                  {
                      VolunteerID = 2,
@@ -60,6 +58,7 @@ namespace DataAccessFakes
                      Active = true,
                      Skills = new List<string>() { "Dogwalker", "Groomer" }
                  },
+
                  new Volunteer()
                  {
                      VolunteerID = 3,
@@ -75,16 +74,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Josh Jackson
-        /// DATE: 03/12/2020
-        /// Checked By: Timothy Lickteig
+        /// Creator: Josh Jackson
+        /// Created: 03/12/2020
+        /// Approver: Timothy Lickteig
+        /// 
         /// This is a fake method used for testing setting an inactive volunteer to active
         /// the save button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATE DATE: 
-        /// WHAT WAS CHANGED:
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="volunteerID"></param>
         /// <returns></returns>
@@ -124,16 +124,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Josh Jackson
-        /// DATE: 03/12/2020
-        /// Checked By: Timothy Lickteig
+        /// Creator: Josh Jackson
+        /// Created: 03/12/2020
+        /// Approver: Timothy Lickteig
         /// This is a fake method used for testing setting an active volunteer to inactive
         /// the save button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATE DATE: 
-        /// WHAT WAS CHANGED:
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="volunteerID"></param>
         /// <returns></returns>
@@ -173,15 +173,15 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Josh Jackson
-        /// DATE: 03/6/2020
-        /// Checked By: Zoey M
+        /// Creator: Josh Jackson
+        /// Created: 03/6/2020
+        /// Approver: Zoey McDonald
         /// This is a data access method used for testing searching for a Volunteer by their first name
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED: 
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="wholeName"></param>
         /// <returns></returns>
@@ -193,15 +193,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Josh Jackson
-        /// DATE: 02/13/2020
-        /// Checked By: Gabi L
+        /// Creator: Josh Jackson
+        /// Created: 02/13/2020
+        /// Approver: Gabi LeGrand
+        /// 
         /// This is a data access method used for testing searching for a Volunteer by their first and last name
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED: 
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="firstName"></param>
         /// <param name="lastName"></param>
@@ -209,16 +210,18 @@ namespace DataAccessFakes
         public List<Volunteer> GetVolunteerByName(string firstName, string lastName)
         {
             return (from v in volunteers
-                    where v.FirstName == "Tony" where v.LastName == "Stark"
+                    where v.FirstName == "Tony"
+                    where v.LastName == "Stark"
                     select v).ToList();
         }
 
+        //Volunteer management needs to implement this
         public List<string> GetVolunteerSkillsByID(int volunteerID)
         {
             throw new NotImplementedException();
         }
 
-        
+        //Volunteer management needs to implement this
         public int InsertOrDeleteVolunteerSkill(int volunteerID, string skill, bool delete = false)
         {
             throw new NotImplementedException();
@@ -227,13 +230,14 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Josh Jackson
         /// DATE: 02/07/2020
-        /// Checked By: Ethan H
+        /// Checked By: Ethan Holmes
+        /// 
         /// This is a data access method used for testing inserting a volunteer
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED: 
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="volunteer"></param>
         /// <returns></returns>
@@ -244,35 +248,37 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Josh Jackson
-        /// DATE: 02/07/2020
-        /// Checked By: Ethan H
+        /// Creator: Josh Jackson
+        /// Created: 02/07/2020
+        /// Approver: Ethan Holmes
+        /// 
         /// This is a data access method used for testing selecting a list of skills
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED: 
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <returns></returns>
         public List<string> SelectAllSkills()
         {
-            List<string> skills = new List<string>() { "Dogwalker", "Groomer"};
+            List<string> skills = new List<string>() { "Dogwalker", "Groomer" };
             return skills;
         }
 
         /// <summary>
-        /// NAME: Gabrielle LeGrand
-        /// DATE: 2/6/2020
-        /// Checked by: Josh J
+        /// Creator: Gabrielle LeGrand
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson
+        /// 
         /// This Test method selects the fake volunteers that are listed as active in the Fake Volunteer Accessor class.
         /// </summary>
         /// <param name="active"></param>
         /// <returns> SelectedVolunteers </returns>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATE DATE: 
-        /// CHANGE DESCRIPTION:
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="active"></param>
         /// <returns></returns>
@@ -288,14 +294,15 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Josh Jackson
         /// DATE: 03/05/2020
-        /// Checked By: Zoey M
+        /// Checked By: Zoey McDonald
+        /// 
         /// This is a fake method used for testing logic layer
         /// the save button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATE DATE: 
-        /// WHAT WAS CHANGED:
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="oldVolunteer"></param>
         /// <param name="newVolunteer"></param>
@@ -313,7 +320,6 @@ namespace DataAccessFakes
             {
                 return 0;
                 throw ex;
-
             }
         }
     }
