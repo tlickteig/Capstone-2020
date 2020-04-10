@@ -8,30 +8,26 @@ using DataTransferObjects;
 namespace DataAccessInterfaces
 {
     /// <summary>
-    /// NAME: Alex Diers
-    /// DATE: 2/6/2020
-    /// CHECKED BY: NA
+    /// Creator: Alex Diers
+    /// Created: 2/6/2020
+    /// Approver: Jordan Lindo
     /// 
     /// Interface for the video accessor
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATED DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// </remarks>
     public interface ITrainingVideoAccessor
     {
+
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Jordan Lindo
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Jordan Lindo
         /// 
         /// used for the creation of a TrainingVideo object
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater 
+        /// Updated:
+        /// Update: 
         /// </remarks>
         /// <param name="video"></param>
         /// <returns></returns>
@@ -39,40 +35,40 @@ namespace DataAccessInterfaces
 
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/13/2020
+        /// Approver: Lane Sangburg
         /// 
         /// Used to select a list of TrainingVideo objects by Employee that needs to view them
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater 
+        /// Updated:
+        /// Update: 
         /// </remarks>
         List<TrainingVideo> SelectTrainingVideosByEmployee();
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/13/2020
+        /// Approver: Lane Sangburg
         /// 
         /// Used to update a TrainingVideo object that needs to be changed
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater 
+        /// Updated:
+        /// Update: 
         /// </remarks>
         int UpdateTrainingVideo(TrainingVideo oldVideo, TrainingVideo newVideo);
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 03/01/2020
-        /// Approver: 
+        /// Approver: Jordan Lindo
         /// 
         /// Activate a video
         /// </summary>
-        ///
         /// <remarks>
         /// Updater 
         /// Updated:
@@ -81,14 +77,14 @@ namespace DataAccessInterfaces
         /// <param name="videoID"></param>
         /// <returns></returns>
         int DeactivateTrainingVideo(TrainingVideo video);
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 03/01/2020
-        /// Approver: 
+        /// Approver: Jordan Lindo
         /// 
         /// Activate a video
         /// </summary>
-        ///
         /// <remarks>
         /// Updater 
         /// Updated:
@@ -97,14 +93,14 @@ namespace DataAccessInterfaces
         /// <param name="video"></param>
         /// <returns></returns>
         int ActivateTrainingVideo(TrainingVideo video);
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 03/03/2020
-        /// Approver: 
+        /// Approver: Jordan Lindo
         /// 
         /// Find videos based on active state
         /// </summary>
-        ///
         /// <remarks>
         /// Updater 
         /// Updated:

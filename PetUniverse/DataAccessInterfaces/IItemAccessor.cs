@@ -9,7 +9,7 @@ namespace DataAccessInterfaces
 {
     /// <summary>
     /// Creator: Brandyn T. Coverdill
-    /// Created: 2020/02/22
+    /// Created: 02/22/2020
     /// Approver: Dalton Reierson
     /// Approver: Jesse Tomash
     ///
@@ -20,15 +20,15 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/02/22
+        /// Created: 02/22/2020
         /// Approver: Dalton Reierson
-        /// Approver:  Jesse Tomash
+        /// Approver: Jesse Tomash
         ///
         /// Interface method that adds a new item to inventory.
         /// </summary>
         ///
         /// <remarks>
-        /// Updated By: 
+        /// Updater: 
         /// Updated: 
         /// Update:
         /// </remarks>
@@ -37,15 +37,14 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/02/23
+        /// Created: 02/22/2020
         /// Approver: Dalton Reierson
-        /// Approver:  Jesse Tomash
+        /// Approver: Jesse Tomash
         ///
         /// Interface method that gets all items for inventory.
         /// </summary>
-        ///
         /// <remarks>
-        /// Updated By: 
+        /// Updater: 
         /// Updated: 
         /// Update:
         /// </remarks>
@@ -54,15 +53,15 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/03/04
-        /// Approver: Dalton Reireson
-        /// Approver:   Jesse Tomash
+        /// Created: 02/22/2020
+        /// Approver: Dalton Reierson
+        /// Approver: Jesse Tomash
         ///
         /// Interface method that updates an item.
         /// </summary>
         ///
         /// <remarks>
-        /// Updated By: 
+        /// Updater: 
         /// Updated: 
         /// Update:
         /// </remarks>
@@ -76,15 +75,15 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Dalton Reierson
-        /// Created: 2020/03/09
-        /// Approver: Brandyn T. Coverdill
-        /// Approver:   Jesse Tomash
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 03/22/2020
+        /// Approver: Dalton Reierson
+        /// Approver: Jesse Tomash
         ///
         /// Interface method that selects all items by their active field
         /// </summary>
-        ///
         /// <remarks>
-        /// Updated By: 
+        /// Updater: 
         /// Updated: 
         /// Update:
         /// </remarks>
@@ -92,89 +91,80 @@ namespace DataAccessInterfaces
         List<Item> getAllItemsByActive(bool active);
 
         /// <summary>
-        /// Creator: Dalton Reierson
-        /// Created: 2020/04/09
-        /// Approver: Brandyn T. Coverdill
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 04/09/2020
+        /// Approver: Dalton Reierson
         /// Approver: Jesse Tomash
         ///
         /// Interface method that sets the active field to 0
         /// </summary>
-        ///
         /// <remarks>
-        /// Updated By: 
+        /// Updater: 
         /// Updated: 
         /// Update:
         /// </remarks>
         /// <param name="item"></param>
         int deactivateItem(Item item);
 
-
-
         /// <summary>
-        /// NAME: Matt Deaton
-        /// DATE: 2020-03-06
-        /// CHECKED BY: Steven Coonrod
+        /// Creator: Matt Deaton
+        /// Created: 03/06/2020
+        /// Approver: Steven Coonrod
         /// 
         /// Method to return a list of shelter use items.
-        /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
-        /// 
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <returns>List of Items marked for shelter use</returns>
         List<Item> SelectShelterItems(bool shelterItem);
 
         /// <summary>
-        /// NAME: Matt Deaton
-        /// DATE: 2020-03-07
-        /// CHECKED BY: Steven Coonrod
+        /// Creator: Matt Deaton
+        /// Created: 03/07/2020
+        /// Approver: Steven Coonrod
         /// 
         /// Method to return a list of needed shelter items.
-        /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
-        /// 
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         /// <param name="shelterThreshold"></param>
         /// <returns></returns>
         List<Item> SelectNeededShelterItems();
 
         /// <summary>
-        /// NAME: Matt Deaton
-        /// DATE: 2020-03-07
-        /// CHECKED BY: Steven Coonrod
+        /// Creator: Matt Deaton
+        /// Created: 03/07/2020
+        /// Approver: Steven Coonrod
         /// 
         /// Method to add a new Shelter Item through donation.
-        /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
-        /// 
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
         /// <param name="donatedItem"></param>
         /// <returns></returns>
         int AddNewDonatedItem(Item donatedItem);
 
         /// <summary>
-        /// NAME: Matt Deaton
-        /// DATE: 2020-03-17
-        /// CHECKED BY: Steven Coonrod
+        /// Creator: Matt Deaton
+        /// Created: 03/07/2020
+        /// Approver: Steven Coonrod
         /// 
         /// Method to update Shelter Item in inventory.
-        /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
-        /// 
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
         /// <param name="oldShelterItem"></param>
         /// <param name="newShelterItem"></param>
         /// <returns></returns>

@@ -11,13 +11,16 @@ namespace DataAccessInterfaces
     /// Creator: Jaeho Kim
     /// Created: 02/27/2020
     /// Approver: Rasha Mohammed
+    /// 
+    /// Interface for the transaction accessor
     /// </summary>
     public interface ITransactionAccessor
     {
+
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 02/27/2020
-        /// APPROVER: Rasha Mohammed
+        /// Creator: Jaeho Kim
+        /// Created: 02/27/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Interface method signature for Selecting all Transactions
         /// </summary>
@@ -30,9 +33,9 @@ namespace DataAccessInterfaces
         List<TransactionVM> SelectAllTransactionVMs();
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/03/2020
-        /// APPROVER: Rasha Mohammed
+        /// Creator: Jaeho Kim
+        /// Created: 03/03/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Interface method signature for Selecting all products using a TransactionID.
         /// </summary>
@@ -45,9 +48,9 @@ namespace DataAccessInterfaces
         List<TransactionVM> SelectAllProductsByTransactionID(int transactionID);
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/05/2020
-        /// APPROVER: NA 
+        /// Creator: Jaeho Kim
+        /// Created: 03/05/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Interface method signature for Selecting transactions using a Transaction DateTime.
         /// </summary>
@@ -60,24 +63,23 @@ namespace DataAccessInterfaces
         List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate);
 
         /// <summary>
-        /// NAME: Rasha Mohammed
-        /// DATE: 2/14/2020
-        /// CHECKED BY: Jaeho Kim
+        /// Creator: Rasha Mohammed
+        /// Created: 2/14/2020
+        /// Approver: Jaeho Kim
         /// 
         /// The method is used to delete the products on the transactionLine by selecting the product ID.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         int DeleteItemFromTransaction(string productID);
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA 
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: NA 
         ///
         /// Interface method signature for inserting a transaction.
         /// </summary>
@@ -92,9 +94,9 @@ namespace DataAccessInterfaces
         int InsertTransactionLineProducts(TransactionLineProducts transactionLineProducts);
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA 
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: NA 
         ///
         /// Interface method signature for selecting the exact latest sales tax date of the zipcode entered.
         /// </summary>
@@ -107,9 +109,9 @@ namespace DataAccessInterfaces
         DateTime SelectLatestSalesTaxDateByZipCode(string zipCode);
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA 
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: NA 
         ///
         /// Interface method signature for selecting the sales tax rate of the zipcode entered, 
         /// and the exact date entered.
@@ -123,9 +125,9 @@ namespace DataAccessInterfaces
         decimal SelectTaxRateBySalesTaxDateAndZipCode(string zipCode, DateTime salesTaxDate);
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 04/04/2020
-        /// APPROVER: NA 
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: NA 
         ///
         /// Interface method signature for selecting the product by product id. 
         /// </summary>
@@ -138,9 +140,9 @@ namespace DataAccessInterfaces
         ProductVM SelectProductByProductID(string productID);
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/08/2020
-        /// APPROVER: NA 
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: NA 
         ///
         /// Interface method signature for Selecting transactions using a Employee Name.
         /// </summary>

@@ -9,7 +9,7 @@ namespace DataAccessInterfaces
 {
     /// <summary>
     /// Creator: Robert Holmes
-    /// Created: 2020/02/14
+    /// Created: 02/14/2020
     /// Approver: Cash Carlson
     /// 
     /// Interface for product data accessor to facilitate loose coupling.
@@ -18,13 +18,12 @@ namespace DataAccessInterfaces
     /// Updater:
     /// Updated: 
     /// Update: 
-    /// 
     /// </remarks>
     public interface IProductAccessor
     {
         /// /// <summary>
         /// Creator: Robert Holmes
-        /// Created: 2020/02/14
+        /// Created: 02/14
         /// Approver: Cash Carlson
         /// 
         /// Interface for a method to get all products by product type.
@@ -33,25 +32,22 @@ namespace DataAccessInterfaces
         /// Updater:
         /// Updated: 
         /// Update: 
-        /// 
         /// </remarks>
         /// <param name="type"></param>
         /// <returns></returns>
         List<Product> SelectProductByType(string type = "All");
 
         /// <summary>
-        /// CREATOR: Rasha Mohammed
-        /// CREATED: 3/1/2020
-        /// APPROVER: Robert Holmes
-        /// 
+        /// Creator: Rasha Mohammed
+        /// Created: 3/1/2020
+        /// Approver: Robert Holmes
         /// 
         /// The method is used to update the product.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// </remarks>
         int UpdateProduct(Product oldProduct, Product newProduct);
 
@@ -69,7 +65,7 @@ namespace DataAccessInterfaces
         /// 
         /// </remarks>
         List<Product> SelectAllProducts();
-		
+
         /// Creator: Robert Holmes
         /// Created: 2020/03/17
         /// Approver: Jaeho Kim

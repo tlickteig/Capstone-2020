@@ -15,13 +15,9 @@ namespace DataAccessInterfaces
     /// 
     /// Interface for accessing Applicants
     /// </summary>
-    /// <remarks>
-    /// Updater: NA
-    /// Updated: NA
-    /// Update: NA
-    /// </remarks>
     public interface IApplicantAccessor
     {
+
         /// <summary>
         /// Creator: Derek Taylor
         /// Created: 2/14/2020

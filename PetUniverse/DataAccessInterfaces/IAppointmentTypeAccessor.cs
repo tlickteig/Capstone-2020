@@ -7,26 +7,25 @@ using System.Threading.Tasks;
 namespace DataAccessInterfaces
 {
     /// <summary>
-    /// NAME: Austin Gee
-    /// DATE: 3/18/2020
-    /// CHECKED BY: 
+    /// Creator: Austin Gee
+    /// Created: 3/18/2020
+    /// Approver: Thomas Dupuy 
     /// 
     /// This is a simple interface for methods that have to do with Appointment Type data accessor
     /// </summary>
     public interface IAppointmentTypeAccessor
     {
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/18/2020
-        /// CHECKED BY: 
+        /// Creator: Austin Gee
+        /// Created: 3/18/2020
+        /// Approver: Thomas Dupuy 
         /// 
         /// Selects all Appointment types
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// 
+        /// Updater: 
+        /// Updated:  
+        /// Update: 
         /// </remarks>
         List<string> SelectAllAppointmentTypes();
     }

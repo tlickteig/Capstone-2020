@@ -17,6 +17,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IFacilityMaintenanceAccessor
     {
+
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 2/6/2020
@@ -46,6 +47,7 @@ namespace DataAccessInterfaces
         /// Updater:
         /// Updated:
         /// Update:
+        /// </remarks>
         /// <param name="facilityMaintenanceID"></param>
         /// <returns>FacilityMaintenance object</returns>
         FacilityMaintenance SelectFacilityMaintenanceByFacilityMaintenanceID(int facilityMaintenanceID, bool active);
@@ -134,7 +136,5 @@ namespace DataAccessInterfaces
         /// <param name="facilityMaintenanceID"></param>
         /// <returns>int 1 or 0 depending if record was deleted</returns>
         int DeactivateFacilityMaintenance(int facilityMaintenanceID);
-
-
     }
 }

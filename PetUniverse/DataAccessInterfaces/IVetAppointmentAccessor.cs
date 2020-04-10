@@ -18,6 +18,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IVetAppointmentAccessor
     {
+
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 2/7/2020
@@ -55,7 +56,6 @@ namespace DataAccessInterfaces
         /// Creator: Ethan Murphy
         /// Created: 3/1/2020
         /// Approver: Ben Hanna, 3/6/2020
-        /// Approver:
         /// 
         /// Updates an existing vet appointment record
         /// </summary>

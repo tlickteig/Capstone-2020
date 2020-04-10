@@ -7,8 +7,8 @@ using DataTransferObjects;
 
 /// <summary>
 ///  Creator: Kaleb Bachert
-///  CREATED: 2/7/2020
-///  APPROVER: Jordan Lindo
+///  Created: 2/7/2020
+///  Approver: Jordan Lindo
 ///  Approver: Zach Behrensmeyer 
 /// 
 ///  Interface for RequestAccessor
@@ -18,33 +18,32 @@ namespace DataAccessInterfaces
 {
     public interface IRequestAccessor
     {
+
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/2/7
-        ///  APPROVER: Jordan Lindo
+        /// Creator: Kaleb Bachert
+        /// Created: 2/7/2020
+        /// Approver: Jordan Lindo
         ///  
-        ///  Interface method for retrieving all requests.
+        /// Interface method for retrieving all requests.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         List<Request> SelectRequestsByStatus(bool open);
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/2/7
-        ///  APPROVER: Jordan Lindo
+        /// Creator: Kaleb Bachert
+        /// Created: 2/7/2020
+        /// Approver: Jordan Lindo
         ///  
-        ///  Interface method for approving a request.
+        /// Interface method for approving a request.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="requestID"></param>
         /// <param name="userID"></param>
@@ -52,17 +51,16 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Ryan Morganti
-        /// Created: 2020/02/13
+        /// Created: 02/13/2020
         /// Approver: Derek Taylor
         ///
         /// This interface method is for selecting New DepartmentRequests
         /// based on a single DepartmentID
         /// </summary>
         /// <remarks>
-        /// Updator:
-        /// Updated:
-        /// Update:
-        ///
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="deptID"></param>
         /// <returns></returns>
@@ -70,17 +68,16 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Ryan Morganti
-        /// Created: 2020/02/13
+        /// Created: 02/13/2020
         /// Approver: Derek Taylor
         ///
         /// This interface method is for selecting Active DepartmentRequests
         /// based on a single DepartmentID
         /// </summary>
         /// <remarks>
-        /// Updator:
-        /// Updated:
-        /// Update:
-        ///
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="deptID"></param>
         /// <returns></returns>
@@ -88,17 +85,16 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Ryan Morganti
-        /// Created: 2020/02/13
-        /// Approver:  Derek Taylor
+        /// Created: 02/13/2020
+        /// Approver: Derek Taylor
         ///
         /// This interface method is for selecting Completed DepartmentRequests
         /// based on a single DepartmentID
         /// </summary>
         /// <remarks>
-        /// Updator:
-        /// Updated:
-        /// Update:
-        ///
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="deptID"></param>
         /// <returns></returns>
@@ -106,68 +102,64 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Ryan Morganti
-        /// Created: 2020/02/22
-        /// Approver:  Derek Taylor
+        /// Created: 02/22/2020
+        /// Approver: Derek Taylor
         ///
         /// This interface method is for selecting an Employee's departments
         /// by their userID.
         /// </summary>
         /// <remarks>
-        /// Updator:
-        /// Updated:
-        /// Update:
-        ///
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="userID"></param>
         /// <returns></returns>
         List<string> SelectAllEmployeeDepartments(int userID);
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/3/3
-        ///  APPROVER: NA
+        /// Creator: Kaleb Bachert
+        /// Created: 3/3/2020
+        /// Approver: Jordan Lindo
         ///  
         ///  Interface method for creating a timeoff request.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="requestID"></param>
         /// <param name="userID"></param>
         int InsertTimeOffRequest(TimeOffRequest request, int requestingUserID);
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/3/17
-        ///  APPROVER: NA
+        /// Creator: Kaleb Bachert
+        /// Created: 3/17/2020
+        /// Approver: Jordan Lindo
         ///  
         ///  Interface method for creating an availability request.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: Lane Sandburg
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="request"></param>
         /// <param name="requestingUserID"></param>
         int InsertAvailabilityRequest(AvailabilityRequestVM request, int requestingUserID);
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/3/7
-        ///  APPROVER: NA
+        /// Creator: Kaleb Bachert
+        /// Created: 3/7/2020
+        /// Approver: Jordan Lindo
         ///  
         ///  Interface method for getting the TimeOffRequest associated with a Request
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="requestID"></param>
         /// <param name="userID"></param>

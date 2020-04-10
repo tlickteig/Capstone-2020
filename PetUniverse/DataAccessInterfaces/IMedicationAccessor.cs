@@ -14,12 +14,6 @@ namespace DataAccessLayer
     /// 
     /// interface for medication accessor
     /// </summary>
-    /// <remarks>
-    /// Updater:
-    /// Updated:
-    /// Update:
-    /// </remarks>
-
     public interface IMedicationAccessor
     {
 
@@ -82,9 +76,5 @@ namespace DataAccessLayer
         /// Update:
         /// </remarks>
         List<Medication> GetMedicationByLowQauntity();
-
-
     }
-
-
 }

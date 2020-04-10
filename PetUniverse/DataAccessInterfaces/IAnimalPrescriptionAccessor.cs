@@ -11,12 +11,12 @@ namespace DataAccessInterfaces
     /// Creator: Ethan Murphy
     /// Created: 2/16/2020
     /// Approver: Carl Davis 2/21/2020
-    /// Approver:
     /// 
     /// An interface for the Animal Prescriptions accessor
     /// </summary>
     public interface IAnimalPrescriptionsAccessor
     {
+
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 2/16/2020

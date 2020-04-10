@@ -16,6 +16,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IAnimalKennelCleaningAccessor
     {
+
         /// <summary>
         /// Creator: Ben Hanna
         /// Created: 4/2/2020

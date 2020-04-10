@@ -8,21 +8,15 @@ using System.Threading.Tasks;
 namespace DataAccessInterfaces
 {
     /// <summary>
-    /// NAME: Jesse Tomash
-    /// DATE: 3/30/2020
-    ///
+    /// Creator: Jesse Tomash
+    /// Created: 3/30/2020    
     /// Approver: Brandyn T. Coverdill
-    /// Approver: 
     /// 
     /// This is the interface for order accessor
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY:
-    /// UPDATE DATE:
-    /// WHAT WAS CHANGED:
-    /// </remarks>
     public interface ISpecialOrderAccessor
     {
+
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/30/2020
@@ -32,13 +26,13 @@ namespace DataAccessInterfaces
         /// 
         /// This is the interface method for selecting all orders
         /// </summary>
-        /// <returns></returns>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: (example: Fixed a problem when user inputs bad data)
         /// </remarks>
         IEnumerable<SpecialOrder> SelectSpecialOrders();
+
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/30/2020
@@ -48,15 +42,16 @@ namespace DataAccessInterfaces
         /// 
         /// This is the interface  method for updating an order
         /// </summary>
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: (example: Fixed a problem when user inputs bad data)
+        /// </remarks>
         /// <param name="oldOrder"></param>
         /// <param name="newOrder"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        /// </remarks>
         int UpdateSpecialOrder(SpecialOrder oldOrder, SpecialOrder newOrder);
+
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/30/2020
@@ -66,14 +61,15 @@ namespace DataAccessInterfaces
         /// 
         /// This is the interface method to insert an order
         /// </summary>
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: (example: Fixed a problem when user inputs bad data)
+        /// </remarks>
         /// <param name="newOrder"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        /// </remarks>
         int InsertSpecialOrder(SpecialOrder newOrder);
+
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/30/2020
@@ -83,13 +79,13 @@ namespace DataAccessInterfaces
         /// 
         /// This is the interface method to delete an order
         /// </summary>
-        /// <param name="orderID"></param>
-        /// <returns></returns>
         /// <remarks>
         /// UPDATED BY:
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
         int DeleteSpecialOrder(int orderID);
     }
 }

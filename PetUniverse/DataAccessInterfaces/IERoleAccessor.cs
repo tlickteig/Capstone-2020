@@ -16,6 +16,7 @@ namespace DataAccessInterfaces
 	/// </summary>
     public interface IERoleAccessor
     {
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2/05/2020
@@ -32,6 +33,7 @@ namespace DataAccessInterfaces
         /// <param name="eRole"></param>
         /// <returns></returns>
         int InsertERole(ERole eRole);
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2/05/2020
@@ -47,6 +49,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns></returns>
         List<ERole> SelectAllERoles();
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2/05/2020
@@ -64,6 +67,7 @@ namespace DataAccessInterfaces
         /// <param name="newERole"></param>
         /// <returns></returns>
         int UpdateERole(ERole oldERole, ERole newERole);
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2/05/2020
@@ -80,6 +84,7 @@ namespace DataAccessInterfaces
         /// <param name="eRoleID"></param>
         /// <returns></returns>
         int DeleteERole(string eRoleID);
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2/05/2020
@@ -96,6 +101,7 @@ namespace DataAccessInterfaces
         /// <param name="eRoleID"></param>
         /// <returns></returns>
         int DeactivateERole(string eRoleID);
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2/05/2020
@@ -112,6 +118,7 @@ namespace DataAccessInterfaces
         /// <param name="eRoleID"></param>
         /// <returns></returns>
         int ActivateERole(string eRoleID);
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2/05/2020
