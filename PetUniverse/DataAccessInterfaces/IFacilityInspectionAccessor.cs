@@ -11,17 +11,16 @@ namespace DataAccessInterfaces
     /// Creator: Carl Davis
     /// Created: 2/6/2020
     /// Approver: Ethan Murphy 3/6/2020
-    /// Approver: 
     /// 
     /// Interface for the FacilityInspectionAccessor
     /// </summary>
     public interface IFacilityInspectionAccessor
     {
+
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 2/28/2020
         /// Approver: Ethan Murphy 3/6/2020
-        /// Approver: 
         /// 
         /// Method to insert a FacilityInspection Record
         /// </summary>
@@ -38,7 +37,6 @@ namespace DataAccessInterfaces
         /// Creator: Carl Davis
         /// Created: 3/11/2020
         /// Approver: Ethan Murphy 3/13/2020
-        /// Approver: 
         /// 
         /// Method to select all FacilityInspection Records
         /// </summary>
@@ -55,7 +53,6 @@ namespace DataAccessInterfaces
         /// Creator: Carl Davis
         /// Created: 3/11/2020
         /// Approver: Ethan Murphy 3/13/2020
-        /// Approver: 
         /// 
         /// Method to select FacilityInspection Records by id
         /// </summary>
@@ -73,7 +70,6 @@ namespace DataAccessInterfaces
         /// Creator: Carl Davis
         /// Created: 3/11/2020
         /// Approver: Ethan Murphy 3/13/2020
-        /// Approver: 
         /// 
         /// Method to select FacilityInspection Records by userID
         /// </summary>
@@ -91,7 +87,6 @@ namespace DataAccessInterfaces
         /// Creator: Carl Davis
         /// Created: 3/11/2020
         /// Approver: Ethan Murphy 3/13/2020
-        /// Approver: 
         /// 
         /// Method to select FacilityInspection Records by inspector name
         /// </summary>

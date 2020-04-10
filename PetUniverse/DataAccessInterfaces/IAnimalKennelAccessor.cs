@@ -17,6 +17,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IAnimalKennelAccessor
     {
+
         /// <summary>
         /// Creator: Ben Hanna
         /// Created: 2/12/2020
@@ -38,7 +39,6 @@ namespace DataAccessInterfaces
         /// Creator: Ben Hanna
         /// Created: 3/12/2020
         /// Approver: Carl Davis, 3/13/2020
-        /// Approver: 
         /// 
         /// Gets a list of all the kennel records in the database
         /// </summary>
@@ -54,7 +54,6 @@ namespace DataAccessInterfaces
         /// Creator: Ben Hanna
         /// Created: 3/15/2020
         /// Approver: Carl Davis, 3/19/2020
-        /// Approver: 
         /// 
         /// Updates a single kennel record
         /// </summary>
@@ -72,7 +71,6 @@ namespace DataAccessInterfaces
         /// Creator: Ben Hanna
         /// Created: 3/15/2020
         /// Approver: Carl Davis, 3/19/2020
-        /// Approver: 
         /// 
         /// Updates a single kennel record without a date out value
         /// </summary>
@@ -90,7 +88,6 @@ namespace DataAccessInterfaces
         /// Creator: Ben Hanna
         /// Created: 3/18/2020
         /// Approver: Carl Davis, 3/19/2020
-        /// Approver: 
         /// 
         /// Adds a DateOut value to a single record
         /// </summary>

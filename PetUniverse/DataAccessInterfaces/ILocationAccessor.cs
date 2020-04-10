@@ -8,9 +8,9 @@ using DataTransferObjects;
 namespace DataAccessInterfaces
 {
     /// <summary>
-    /// NAME: Austin Gee
-    /// DATE: 3/12/2020
-    /// CHECKED BY: Michael Thompson
+    /// Creator: Austin Gee
+    /// Created: 3/12/2020
+    /// Approver: Michael Thompson
     /// 
     /// Interface for Locations
     /// </summary>
@@ -18,64 +18,60 @@ namespace DataAccessInterfaces
     {
 
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/12/2020
-        /// CHECKED BY: Michael Thompson
+        /// Creator: Austin Gee
+        /// Created: 3/12/2020
+        /// Approver: Michael Thompson
         /// 
         /// Inserts a location into the database
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="location"></param>
         /// <returns></returns>
         int InsertLocation(Location location);
 
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/12/2020
-        /// CHECKED BY: Michael Thompson
+        /// Creator: Austin Gee
+        /// Created: 3/12/2020
+        /// Approver: Michael Thompson
         /// 
         /// selects all locations
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         List<Location> SelectAllLocations();
 
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/12/2020
-        /// CHECKED BY: Michael Thompson
+        /// Creator: Austin Gee
+        /// Created: 3/12/2020
+        /// Approver: Michael Thompson
         /// 
         /// Selects a location by its id
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         Location SelectLocationByLocationID();
 
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/12/2020
-        /// CHECKED BY: Michael Thompson
+        /// Creator: Austin Gee
+        /// Created: 3/12/2020
+        /// Approver: Michael Thompson
         /// 
         /// Updates a location
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="oldLocation"></param>
         /// <param name="newLocation"></param>
@@ -83,17 +79,16 @@ namespace DataAccessInterfaces
         int UpdateLocation(Location oldLocation, Location newLocation);
 
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/12/2020
-        /// CHECKED BY: Michael Thompson
+        /// Creator: Austin Gee
+        /// Created: 3/12/2020
+        /// Approver: Michael Thompson
         /// 
         /// Deletes a location
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="location"></param>
         /// <returns></returns>

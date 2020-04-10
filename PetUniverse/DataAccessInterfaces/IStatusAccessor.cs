@@ -15,6 +15,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IStatusAccessor
     {
+
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 3/11/2020
@@ -23,7 +24,7 @@ namespace DataAccessInterfaces
         /// interface for inserting a status
         /// </summary>
         /// <remarks>
-        /// Updated BY: N/A
+        /// Updater: N/A
         /// Updated N/A
         /// Update: N/A
         /// </remarks>

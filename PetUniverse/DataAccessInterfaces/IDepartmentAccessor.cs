@@ -16,6 +16,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IDepartmentAccessor
     {
+
         /// <summary>
         /// Creator: Jordan Lindo
         /// Created: 2/14/2020
@@ -49,7 +50,6 @@ namespace DataAccessInterfaces
         /// 
         /// <returns>List<Department></DepartmentsV></returns>
         List<Department> SelectAllDepartments();
-
 
         /// <summary>
         /// Creator: Jordan Lindo
@@ -86,7 +86,6 @@ namespace DataAccessInterfaces
         /// <returns>int</returns>
         int UpdateDepartment(Department oldDepartment, Department newDepartment);
 
-
         /// <summary>
         /// Creator: Jordan Lindo
         /// Created: 2/29/2020
@@ -104,7 +103,6 @@ namespace DataAccessInterfaces
         /// <param name="active"></param>
         /// <returns></returns>
         int UpdateDepartmentActive(string departmentID, bool active);
-
 
         /// <summary>
         /// Creator: Jordan Lindo

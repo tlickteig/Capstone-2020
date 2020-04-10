@@ -16,6 +16,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IPetUniverseUserERolesAccessor
     {
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 02/29/2020
@@ -47,7 +48,6 @@ namespace DataAccessInterfaces
         /// <param name="userID"></param>
         /// <returns></returns>
         int InsertPetUniverseUserERole(int userID, string eRoleID);
-
 
         /// <summary>
         /// Creator: Chase Schulte

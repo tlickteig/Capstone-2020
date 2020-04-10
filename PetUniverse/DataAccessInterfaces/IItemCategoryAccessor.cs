@@ -9,7 +9,7 @@ namespace DataAccessInterfaces
 {
     /// <summary>
     /// Creator: Brandyn T. Coverdill
-    /// Created: 2020/02/22
+    /// Created: 02/22/2020
     /// Approver: Dalton Reierson
     /// Approver: Jesse Tomash
     ///
@@ -20,13 +20,12 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/02/22
+        /// Created: 02/22/2020
         /// Approver: Dalton Reierson
-        /// Approver:  Jesse Tomash
+        /// Approver: Jesse Tomash
         ///
         /// Method that creates a new Item Category.
         /// </summary>
-        ///
         /// <remarks>
         /// Updated By: 
         /// Updated: 
@@ -37,13 +36,12 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
-        /// Created: 2020/02/22
+        /// Created: 02/22/2020
         /// Approver: Dalton Reierson
-        /// Approver:  Jesse Tomash
+        /// Approver: Jesse Tomash
         ///
         /// Interface method that gets a list of item categories.
         /// </summary>
-        ///
         /// <remarks>
         /// Updated By: 
         /// Updated: 

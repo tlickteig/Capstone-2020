@@ -16,6 +16,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IAnimalStatusAccessor
     {
+
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 3/11/2020

@@ -7,33 +7,27 @@ using DataTransferObjects;
 
 namespace DataAccessInterfaces
 {
+
     /// <summary>
-    /// NAME: Austin Gee
-    /// DATE: 3/5/2020
-    /// CHECKED BY: Thomas Dupuy
+    /// Creator: Austin Gee
+    /// Created: 3/5/2020
+    /// Approver: Thomas Dupuy
     /// 
     /// This class contains Data Access fakes for data pertaining to Adoption Appointments.
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// 
-    /// </remarks>
     public interface IAdoptionAnimalAccessor
     {
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Thomas Dupuy
+        /// Creator: Austin Gee
+        /// Created: 3/5/2020
+        /// Approver: Thomas Dupuy
         /// 
         /// This class contains Data Access fakes for data pertaining to Adoption Appointments.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         List<AdoptionAnimalVM> SelectAdoptionAnimalsByActive(bool active);
     }

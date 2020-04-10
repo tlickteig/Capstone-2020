@@ -11,26 +11,27 @@ using System.Threading.Tasks;
 namespace DataAccessInterfaces
 {
     /// <summary>
-    /// NAME: Ethan Holmes
-    /// DATE: 2/6/2020
-    /// APPROVER: Josh Jackson, Timothy Licktieg
+    /// Creator: Ethan Holmes
+    /// Created: 2/6/2020
+    /// Approver: Josh Jackson, Timothy Licktieg
     /// 
     /// This interface outlines the interface for the Volunteer Task Accessor.
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: N/A
-    /// UPDATE DATE: N/A
-    /// CHANGE DESCRIPTION: N/A
-    /// </remarks>
     public interface IVolunteerTaskAccessor
     {
+
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
-        /// APPROVER: Josh Jackson, Timothy Licktieg
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
         /// 
         /// Create a Volunteer Task Interface definition.
         /// </summary>
+        /// <remarks>
+        /// Creator: N/A
+        /// Created: N/A
+        /// Approver: N/A
+        /// </remarks>
         /// <param name="taskName"></param>
         /// <param name="taskType"></param>
         /// <param name="assignmentGroup"></param>
@@ -40,29 +41,48 @@ namespace DataAccessInterfaces
         int CreateVolunteerTask(string taskName, string taskType, string assignmentGroup, string taskDescription, DateTime dueDate);
 
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
+        /// 
         /// Retrieves a volunteer task by task name.
-        /// APPROVER: Josh Jackson, Timothy Licktieg
         /// </summary>
+        /// <remarks>
+        /// Creator: N/A
+        /// Created: N/A
+        /// Approver: N/A
+        /// </remarks>
         /// <param name="volunteerTaskName"></param>
         /// <returns></returns>
         VolunteerTask GetVolunteerTaskByName(string volunteerTaskName);
 
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
-        /// APPROVER: Josh Jackson, Timothy Licktieg
-        /// Retrives all volunteer task objects.
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
+        /// 
+        /// Retrieves all volunteer task objects.
         /// </summary>
+        /// <remarks>
+        /// Creator: N/A
+        /// Created: N/A
+        /// Approver: N/A
+        /// </remarks>
         /// <returns></returns>
         List<VolunteerTaskVM> GetAllVolunteerTasks();
 
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
-        /// APPROVER: Josh Jackson, Timothy Licktieg 
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
+        /// 
+        /// Updates a volunteer task
         /// </summary>
+        /// <remarks>
+        /// Creator: N/A
+        /// Created: N/A
+        /// Approver: N/A
+        /// </remarks>
         /// <param name="taskName"></param>
         /// <param name="taskType"></param>
         /// <param name="assignmentGroup"></param>
@@ -72,11 +92,17 @@ namespace DataAccessInterfaces
         int UpdateVolunteerTask(string taskName, string taskType, string assignmentGroup, DateTime dueDate, string taskDescription);
 
         /// <summary>
-        /// NAME: Ethan Holmes
-        /// DATE: 2/6/2020
+        /// Creator: Ethan Holmes
+        /// Created: 2/6/2020
+        /// Approver: Josh Jackson, Timothy Licktieg
         /// 
-        /// APPROVER: 
+        /// Deletes a volunteer task 
         /// </summary>
+        /// <remarks>
+        /// Creator: N/A
+        /// Created: N/A
+        /// Approver: N/A
+        /// </remarks>
         /// <param name="taskName"></param>
         /// <returns></returns>
         int DeleteVolunteerTask(string taskName);

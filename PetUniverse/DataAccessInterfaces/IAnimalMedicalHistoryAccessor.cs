@@ -11,18 +11,17 @@ namespace DataAccessInterfaces
     /// <summary>
     /// Creator: Daulton Schilling
     /// Created: 3/13/2020
-    /// Approver: 
-    /// Approver: 
+    /// Approver: Chuck Baxter
     /// 
     /// An interface for AnimalMedicalHistoryAccessor
     /// </summary>
     public interface IAnimalMedicalHistoryAccessor
     {
+
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/13/2020
-        /// Approver: 
-        /// Approver: 
+        /// Approver: Chuck Baxter      
         /// 
         /// Gets an animals medical history
         /// </summary>
@@ -36,6 +35,5 @@ namespace DataAccessInterfaces
         /// List<NewAnimalChecklist>
         /// </Returns>
         List<MedicalHistory> GetAnimalMedicalHistoryByAnimalID(int id);
-
     }
 }

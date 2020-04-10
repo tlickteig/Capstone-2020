@@ -9,17 +9,18 @@ namespace DataAccessInterfaces
 {
     /// <summary>
     /// Creator: Mohamed Elamin
-    /// Created: 2020/02/19
-    /// Approver: Thomas Dupuy , 2020/02/21
+    /// Created: 02/19/2020
+    /// Approver: Thomas Dupuy, 02/21/2020
     ///
     /// This interface for accessing Customer data.
     /// </summary>
     public interface ICustomerAccessor
     {
+
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/29/03
-        /// Approver: 
+        /// Created: 02/19/2020
+        /// Approver: Thomas Dupuy, 02/21/2020
         /// 
         /// This method gets a customer by the Customer Email. 
         /// 

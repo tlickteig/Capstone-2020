@@ -11,14 +11,16 @@ namespace DataAccessInterfaces
     /// Creator: Steven Cardona
     /// Created: 02/07/2020
     /// Approver: Zach Behrensmeyer
+    /// 
+    /// Interface for the user accessor
     /// </summary>
     public interface IUserAccessor
     {
 
         /// <summary>
-        /// CREATOR: Steven Cardona
-        /// DATE: 02/07/2020
-        /// APPROVER: Zach Behrensmeyer
+        /// Creator: Steven Cardona
+        /// Created: 02/07/2020
+        /// Approver: Zach Behrensmeyer
         ///
         /// Interface method signature for inserting a New User
         /// </summary>
@@ -197,4 +199,3 @@ namespace DataAccessInterfaces
         PetUniverseUser getUserByUserID(int UserID);
     }
 }
-

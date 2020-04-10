@@ -22,8 +22,7 @@ namespace DataAccessInterfaces
         /// Approver: Awaab Elamin
         /// 
         /// This method selects all appointments
-        /// </summary>
-        ///
+        /// </summary>        
         /// <remarks>
         /// Updater: 
         /// Updated:  

@@ -16,6 +16,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface ILogAccessor
     {
+
         /// <summary>
         /// Creator: Zach Behrensmeyer
         /// Created: 2/11/2020
@@ -32,6 +33,5 @@ namespace DataAccessInterfaces
         /// <param name="passwordHash"></param>
         /// <returns>Valid User</returns>
         List<LogItem> GetLoginLogout();
-
     }
 }
