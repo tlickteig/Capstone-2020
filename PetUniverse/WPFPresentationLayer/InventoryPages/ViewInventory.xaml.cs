@@ -31,10 +31,12 @@ namespace WPFPresentationLayer.InventoryPages.Items
     {
 
         private IItemManager _itemManager;
+        private IItemCategoryManager _itemCategoryManager;
 
         public ViewInventory()
         {
             _itemManager = new ItemManager();
+            _itemCategoryManager = new ItemCategoryManager();
             InitializeComponent();
         }
 
@@ -176,6 +178,65 @@ namespace WPFPresentationLayer.InventoryPages.Items
             {
                 "Please pick an item to view.".ErrorMessage();
             }
+        }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/02
+        /// Approver: Jesse Tomash
+        /// Approver:  Dalton Reierson
+        /// 
+        /// This method searches for items in item categories. If no text was selected,
+        /// show the list of all the items.
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSearchItem_Click(object sender, RoutedEventArgs e)
+        {
+            if (txtSearchItem.Text.Trim() == "")
+            {
+                dgViewInventory.ItemsSource = _itemManager.retrieveItems();
+            }
+            else
+            {
+                populateViewInventory();
+            }
+        }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/02
+        /// Approver: Jesse Tomash
+        /// Approver:  Dalton Reierson
+        /// 
+        /// This method populates the Datagrid by the Search Field. (Empty Shows all items).
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        private void populateViewInventory()
+        {
+            // Save text from the text area.
+            string searchedCategory = txtSearchItem.Text.ToString();
+            // Get a list of all the items in the database.
+            List<Item> itemsForSearch = new List<Item>();
+            itemsForSearch = _itemManager.retrieveItems();
+            // Get a list of all the categories in the database.
+            List<ItemCategory> itemCategories = new List<ItemCategory>();
+            itemCategories = _itemCategoryManager.listItemCategories();
+            // Search though the categories which contain the text entered by the user, and put them in the data grid.
+            dgViewInventory.ItemsSource = itemsForSearch.Where(r => r.ItemCategoryID.ToLower().Contains(searchedCategory.ToLower()));
         }
     }
 }
