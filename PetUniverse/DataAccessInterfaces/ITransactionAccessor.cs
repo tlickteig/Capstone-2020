@@ -27,7 +27,7 @@ namespace DataAccessInterfaces
         /// Update: NA
         /// </remarks>
         /// <returns>returns List of Transactions</returns>
-        List<TransactionVM> SelectAllTransactions();
+        List<TransactionVM> SelectAllTransactionVMs();
 
         /// <summary>
         /// CREATOR: Jaeho Kim
@@ -74,5 +74,82 @@ namespace DataAccessInterfaces
         /// </remarks>
         int DeleteItemFromTransaction(string productID);
 
+        /// <summary>
+        /// CREATOR: Jaeho Kim
+        /// DATE: 03/19/2020
+        /// APPROVER: NA 
+        ///
+        /// Interface method signature for inserting a transaction.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>rows affected</returns>
+        int InsertTransaction(Transaction transaction);
+
+        int InsertTransactionLineProducts(TransactionLineProducts transactionLineProducts);
+
+        /// <summary>
+        /// CREATOR: Jaeho Kim
+        /// DATE: 03/19/2020
+        /// APPROVER: NA 
+        ///
+        /// Interface method signature for selecting the exact latest sales tax date of the zipcode entered.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>DateTime</returns>
+        DateTime SelectLatestSalesTaxDateByZipCode(string zipCode);
+
+        /// <summary>
+        /// CREATOR: Jaeho Kim
+        /// DATE: 03/19/2020
+        /// APPROVER: NA 
+        ///
+        /// Interface method signature for selecting the sales tax rate of the zipcode entered, 
+        /// and the exact date entered.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TaxRate</returns>
+        decimal SelectTaxRateBySalesTaxDateAndZipCode(string zipCode, DateTime salesTaxDate);
+
+        /// <summary>
+        /// CREATOR: Jaeho Kim
+        /// DATE: 04/04/2020
+        /// APPROVER: NA 
+        ///
+        /// Interface method signature for selecting the product by product id. 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>ProductVM</returns>
+        ProductVM SelectProductByProductID(string productID);
+
+        /// <summary>
+        /// CREATOR: Jaeho Kim
+        /// DATE: 03/08/2020
+        /// APPROVER: NA 
+        ///
+        /// Interface method signature for Selecting transactions using a Employee Name.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>returns a list of transactions</returns>
+        List<TransactionVM> SelectTransactionsByEmployeeName(string firstName, string lastName);
     }
 }

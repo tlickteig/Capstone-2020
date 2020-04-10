@@ -761,24 +761,28 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Create Product Table, Updated to new structure 2020/03/17 by Robert Holmes
+Comment: Create Product Table
 */
 DROP TABLE IF EXISTS [dbo].[Product]
 GO
-print '' print '*** Creating Product table'
+PRINT '' PRINT '*** Creating Product Table'
 GO
 CREATE TABLE [dbo].[Product](
-	[ProductID]		[nvarchar](13)	NOT NULL	PRIMARY KEY,
-	[ItemID]		[INT]			NOT NULL,
-	[ProductTypeID]	[nvarchar](20)	NOT NULL,
-	[Taxable]		[BIT]			NOT NULL,
-	[Price]			[decimal](10,2)	NOT NULL,
-	[Description]	[nvarchar](500)	NOT NULL,
-	[Brand]			[nvarchar](20)	NOT	NULL,
-	[Active]		[BIT]			NOT NULL	DEFAULT 1,
-	CONSTRAINT [fk_Product_ItemID]	FOREIGN KEY ([ItemID])
+	[ProductID] [nvarchar](13) NOT NULL PRIMARY KEY,
+	[ItemID] [int] NOT NULL,
+	[ProductName] [nvarchar](50) NOT NULL,
+	[ProductCategoryID] [nvarchar](20) NOT NULL,
+	[ProductTypeID] [nvarchar](20) NOT NULL,
+	[Description] [nvarchar](250) NOT NULL,
+	[Price] [decimal](10,2) NOT NULL,
+	[Brand] [nvarchar](20) NOT NULL,
+	[Taxable] [bit] NOT NULL DEFAULT 1,
+	[Active] [bit] NOT NULL DEFAULT 1,
+	CONSTRAINT [fk_Product_ItemID] FOREIGN KEY ([ItemID])
 		REFERENCES [dbo].[Item]([ItemID]),
-	CONSTRAINT [fk_Product_ProductTypeID]	FOREIGN KEY ([ProductTypeID])
+	CONSTRAINT [fk_Product_ProductCataGOryID] FOREIGN KEY ([ProductCategoryID])
+		REFERENCES [dbo].[ProductCategory]([ProductCategoryID]),
+	CONSTRAINT [fk_Product_ProductTypeID] FOREIGN KEY ([ProductTypeID])
 		REFERENCES [dbo].[ProductType]([ProductTypeID])
 )
 GO
@@ -1052,11 +1056,15 @@ PRINT '' PRINT '*** Creating Transaction Table'
 GO
 CREATE TABLE [dbo].[Transaction](
 	[TransactionID] 		[int]IDENTITY(1000,1)	NOT NULL,
+	[TransactionDateTime] 	[datetime]				NOT NULL,
+	[TaxRate] 				[decimal](10,4) 		NOT NULL,
+	[SubTotalTaxable] 		[decimal](10,2) 		NOT NULL,
+	[SubTotal] 				[decimal](10,2) 		NOT NULL,
+	[Total] 				[decimal](10,2) 		NOT NULL,
+	[TransactionTypeID] 	[nvarchar](20) 			NOT NULL,
 	[EmployeeID] 			[int] 				 	NOT NULL,
-	[TransactionStatusID] 	[nvarchar](20) 				NOT NULL,
-	[TransactionTypeID] 	[nvarchar](20) 				NOT NULL,
-	[TransactionDate] 		[datetime]				NOT NULL,
-	[Notes] 				[nvarchar](500)		    NOT NULL,
+	[TransactionStatusID] 	[nvarchar](20) 			NOT NULL,
+	[CustomerEmail]			[nvarchar](250)
 
 	CONSTRAINT [pk_Transaction_TransactionID] PRIMARY KEY ([TransactionID] ASC),
 	CONSTRAINT [fk_Transaction_EmployeeID] FOREIGN KEY ([EmployeeID])
@@ -1064,27 +1072,31 @@ CREATE TABLE [dbo].[Transaction](
 	CONSTRAINT [fk_Transaction_TransactionStatusID] FOREIGN KEY ([TransactionStatusID])
 		REFERENCES [TransactionStatus]([TransactionStatusID]) ON UPDATE CASCADE,
 	CONSTRAINT [fk_Transaction_TransactionTypeID] FOREIGN KEY ([TransactionTypeID])
-		REFERENCES [TransactionType]([TransactionTypeID])  ON UPDATE CASCADE
+		REFERENCES [TransactionType]([TransactionTypeID])  ON UPDATE CASCADE,
+	CONSTRAINT [fk_Transaction_CustomerEmail] FOREIGN KEY ([CustomerEmail])
+		REFERENCES [Customer]([Email])  ON UPDATE CASCADE
 )
 GO
 
 /*
 Created by: Jaeho Kim
 Date: 2/27/2020
-Comment: Create TransactionLine Table
+Comment: Create TransactionLineProducts Table
 */
-DROP TABLE IF EXISTS [dbo].[TransactionLine]
+DROP TABLE IF EXISTS [dbo].[TransactionLineProducts]
 GO
-PRINT '' PRINT '*** Creating TransactionLine Table'
+PRINT '' PRINT '*** Creating TransactionLineProducts Table'
 GO
-CREATE TABLE [dbo].[TransactionLine](
-	[TransactionID] 		[int] 		NOT NULL,
-	[ProductID] 			[nvarchar](13) 	NOT NULL,
-	[Quantity]				[int]			NOT NULL,
 
-	CONSTRAINT [fk_TransactionLine_TransactionID] FOREIGN KEY ([TransactionID])
+CREATE TABLE [dbo].[TransactionLineProducts](
+	[TransactionID] 		[int] 				NOT NULL,
+	[ProductID] 			[nvarchar](13) 		NOT NULL,
+	[Quantity]				[int]				NOT NULL,
+	[PriceSold]				[decimal](10,2)		NOT NULL
+
+	CONSTRAINT [fk_TransactionLineProducts_TransactionID] FOREIGN KEY ([TransactionID])
 		REFERENCES [Transaction]([TransactionID]) ON UPDATE CASCADE,
-	CONSTRAINT [fk_TransactionLine_ProductID] FOREIGN KEY ([ProductID])
+	CONSTRAINT [fk_TransactionLineProducts_ProductID] FOREIGN KEY ([ProductID])
 		REFERENCES [Product]([ProductID]) ON UPDATE CASCADE
 )
 GO
@@ -1692,6 +1704,21 @@ CREATE TABLE [dbo].[specialorders] (
 	[Active]					[BIT] 						NOT NULL DEFAULT 1
 	
 	CONSTRAINT [pk_SpecialOrderID] PRIMARY KEY([SpecialOrderID] ASC)
+)
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 03/08/2020
+Comment: Creating Sales Tax History Table.
+*/
+PRINT ''  PRINT '*** Creating Table SalesTaxHistory'
+GO
+CREATE TABLE [dbo].[SalesTaxHistory](
+	[ZipCode]			[nvarchar](50) 		Not Null,
+	[SalesTaxDate] 		[DateTime]			Not Null,
+	[TaxRate] 			[decimal](10,2)		NOT Null,
+	CONSTRAINT [pk_SalesTaxHistory_ZipCode] PRIMARY KEY ([ZipCode] ASC, [SalesTaxDate] ASC)
 )
 GO
 
@@ -4459,13 +4486,12 @@ AS
 BEGIN
     SELECT
         T.[TransactionID]
-        ,T.[TransactionDate]
+        ,T.[TransactionDateTime]
         ,U.[UserID]
         ,U.[FirstName]
         ,U.[LastName]
         ,T.[TransactionTypeID]
         ,T.[TransactionStatusID]
-        ,T.[Notes]
     FROM 	[Transaction] T
     INNER JOIN [User] U
         ON T.[EmployeeID] = U.[UserID]
@@ -5829,27 +5855,26 @@ CREATE PROCEDURE [sp_select_all_products_by_transaction_id]
 )
 AS
 BEGIN
-	SELECT
-	TL.[Quantity],
-	P.[ProductID],
-	I.[ItemName],
-	I.[ItemCategoryID],
-	P.[ProductTypeID],
-	P.[Description],
-	P.[Brand],
-	P.[Price]
-	FROM 	[TransactionLine] TL
-	INNER JOIN [Product] P
-		ON TL.[ProductID] = P.[ProductID]
-	INNER JOIN [Item] I
-		ON P.[ItemID] = I.[ItemID]
-	INNER JOIN [Transaction] T
-		ON TL.[TransactionID] = T.[TransactionID]
-	INNER JOIN [User] U
-		ON T.[EmployeeID] = U.[UserID]
-	INNER JOIN [TransactionType] TT
-		ON TT.[TransactionTypeID] = T.[TransactionTypeID]
-	WHERE @TransactionID = TL.[TransactionID]
+    SELECT
+        TLP.[Quantity]
+        , P.[ProductID]
+        , P.[ProductName]
+        , P.[ProductCategoryID]
+        , P.[ProductTypeID]
+        , P.[Description]
+        , P.[Brand]
+        , P.[Price]
+
+    FROM 	[TransactionLineProducts] TLP
+    INNER JOIN [Product] P
+        ON TLP.[ProductID] = P.[ProductID]
+    INNER JOIN [Transaction] T
+        ON TLP.[TransactionID] = T.[TransactionID]
+    INNER JOIN [User] U
+        ON T.[EmployeeID] = U.[UserID]
+    INNER JOIN [TransactionType] TT
+        ON TT.[TransactionTypeID] = T.[TransactionTypeID]
+    WHERE @TransactionID = TLP.[TransactionID]
 END
 GO
 
@@ -5864,23 +5889,22 @@ PRINT '' PRINT '*** Creating sp_select_transactions_by_datetime'
 GO
 CREATE PROCEDURE sp_select_transactions_by_datetime
 (
-	@TransactionDate	[datetime]
+	@TransactionDateTime	[datetime]
 )
 AS
 BEGIN
     SELECT
         T.[TransactionID]
-        ,T.[TransactionDate]
+        ,T.[TransactionDateTime]
         ,U.[UserID]
         ,U.[FirstName]
         ,U.[LastName]
         ,T.[TransactionTypeID]
         ,T.[TransactionStatusID]
-        ,T.[Notes]
     FROM 	[Transaction] T
     INNER JOIN [User] U
         ON T.[EmployeeID] = U.[UserID]
-    WHERE T.[TransactionDate] = @TransactionDate
+    WHERE T.[TransactionDateTime] = @TransactionDateTime
 END
 GO
 
@@ -8435,6 +8459,162 @@ AS
 GO
 
 /*
+Created by: Jaeho Kim
+Date: 03/08/2020
+Comment: Selects a list of all transactions with employee name.
+*/
+print '' print '*** Creating sp_select_transactions_by_employee_name'
+GO
+CREATE PROCEDURE sp_select_transactions_by_employee_name
+(
+	@FirstName	[nvarchar](50),
+	@LastName	[nvarchar](50)
+)
+AS
+	BEGIN
+		SELECT 	
+		 T.[TransactionID]
+		,T.[TransactionDateTime]
+		,U.[UserID]
+		,U.[FirstName]
+		,U.[LastName]
+		,T.[TransactionTypeID]
+		,T.[TransactionStatusID]
+		FROM 	[Transaction] T
+		INNER JOIN [User] U
+			ON T.[EmployeeID] = U.[UserID]
+		WHERE U.[FirstName] = @FirstName
+		And	  U.[LastName] = @LastName
+	END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 03/08/2020
+Comment: Inserts transaction sale product details.
+*/
+PRINT '' PRINT '*** Creating sp_insert_transaction_line_products'
+GO
+CREATE PROCEDURE [sp_insert_transaction_line_products]
+(
+	@TransactionID	[int],
+	@ProductID		[nvarchar](13),
+	@Quantity		[int],
+	@PriceSold		[decimal](10,2)
+)
+AS
+BEGIN	
+	INSERT INTO [dbo].[TransactionLineProducts]
+	([TransactionID],[ProductID],[Quantity],[PriceSold])
+	VALUES
+	(@TransactionID,@ProductID,@Quantity,@PriceSold)
+	SELECT @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 03/08/2020
+Comment: Inserts the actual transaction.
+*/
+PRINT '' PRINT '*** Creating sp_insert_transaction'
+GO
+CREATE PROCEDURE [sp_insert_transaction]
+(
+	@TransactionDateTime	[datetime],
+	@TaxRate				[decimal](10,2),
+	@SubTotalTaxable		[decimal](10,2),
+	@SubTotal				[decimal](10,2),
+	@Total					[decimal](10,2),
+	@TransactionTypeID		[nvarchar](20),
+	@EmployeeID				[int],
+	@TransactionStatusID	[nvarchar](20),
+	@ReturnTransactionId 	[int] out  
+)
+AS
+BEGIN
+INSERT INTO [Transaction]
+	([TransactionDateTime], [TaxRate], [SubTotalTaxable],
+	[SubTotal], [Total], [TransactionTypeID],
+	[EmployeeID], [TransactionStatusID])
+VALUES
+	(@TransactionDateTime, @TaxRate, @SubTotalTaxable,
+	@SubTotal, @Total, @TransactionTypeID,
+	@EmployeeID, @TransactionStatusID)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 03/08/2020
+Comment: retrieves the latest sales tax date associated with the zip code.
+*/
+PRINT '' PRINT '*** Creating sp_select_latest_salesTaxDate_by_zipCode'
+GO
+CREATE PROCEDURE [sp_select_latest_salesTaxDate_by_zipCode]
+(
+	@ZipCode		[nvarchar](50)
+)
+AS
+BEGIN
+	
+	SELECT MAX(SalesTaxDate) AS "Latest Sales Date"
+	FROM SalesTaxHistory
+	WHERE ZipCode = @ZipCode
+
+END
+GO
+
+PRINT '' PRINT '*** Creating sp_select_taxRate_by_salesTaxDate_and_zipCode'
+GO
+CREATE PROCEDURE [sp_select_taxRate_by_salesTaxDate_and_zipCode]
+(
+	@SalesTaxDate		[datetime],
+	@ZipCode			[nvarchar](50)
+)
+AS
+BEGIN
+	
+	SELECT TaxRate
+	FROM SalesTaxHistory
+	WHERE SalesTaxDate = @SalesTaxDate
+	AND ZipCode = @ZipCode
+
+END
+GO
+
+/*
+Created by: Rasha Mohammed
+Date: 3/16/2020
+Comment: Search for an item 
+*/
+PRINT '' PRINT '*** Creating sp_select_product_by_id'
+GO
+CREATE PROCEDURE sp_select_product_by_id
+(
+	@ProductID				[nvarchar](13)
+)
+AS
+BEGIN
+	SELECT 
+		  P.[ProductID]
+		, I.[ItemName]
+		, P.[Taxable]
+		, P.[Price]
+		, I.[ItemQuantity]
+		, I.[ItemDescription]
+		, P.[Active]
+			
+	FROM [Item] I
+	INNER JOIN [dbo].[Product] P
+	ON I.[ItemID] = P.[ItemID]
+	WHERE P.[ProductID] = @ProductID
+	
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -8835,22 +9015,23 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Insert Sample Data into Product Table, Updated 2020/03/17 to be compatible with new Product table structure by Robert Holmes.
+Comment: Insert Sample Data into Product Table
 */
-print '' print '*** Insert into Product table'
+print '' print '*** Insert Into Product Table ***'
 GO
 INSERT INTO [dbo].[Product](
 	[ProductID],
 	[ItemID],
+	[ProductName],
+	[ProductCategoryID],
 	[ProductTypeID],
-	[Taxable],
-	[Price],
 	[Description],
+	[Price],
 	[Brand]
 )
 VALUES
-	('7084781116',100000,'Cat',1,50.0,'Name brand cat food','OnlyForCats'),
-	('2500006153',100001,'General',1,100.0,'Medical Supplies to Heal Scratch Wounds','AlsoForHumans')
+    ('7084781116',100000,'LoCatMein', 'Food', 'Cat', 'Name brand Cat Food', 50.00, 'OnlyForCats'),
+    ('2500006153',100001,'Scratch Be Gone','Medical', 'General', 'Medical Supplies to Heal Scratch Wounds', 100.00, 'AlsoForHumans')
 GO
 
 /*
@@ -9041,27 +9222,30 @@ Comment: Inserts test data for the Transaction Table
 print ''  print '*** Inserting sample data into Transaction Table'
 GO
 Insert INTO [dbo].[Transaction]
-	([EmployeeID], [TransactionStatusID], [TransactionTypeID], [TransactionDate], [Notes])
+	([TransactionDateTime],[TaxRate],[SubTotalTaxable],[SubTotal],[Total]
+	,[TransactionTypeID],[EmployeeID],[TransactionStatusID],[CustomerEmail])
 	Values
-	(100000, 'tranStatus100','tranTYPE100', '2018-02-10', 'TRAN_NOTES100'),
-	(100001, 'tranStatus200','tranTYPE200', '2017-02-06', 'TRAN_NOTES200'),
-	(100002, 'tranStatus800','tranTYPE800', '2012-04-03', 'TRAN_NOTES800')
+	('2019-10-10 10:10',0.0225,10.39,21.23,21.46,'tranTYPE100'
+	, 100000, 'tranStatus100','zbehrens@PetUniverse.com'),
+	('2020-02-11 9:43',0.0225,41.39,41.39,43.22,'tranTYPE100'
+	, 100000, 'tranStatus100',null),
+	('2018-04-13 10:13',0.014,52.39,51.39,53.22,'tranTYPE100'
+	, 100001, 'tranStatus100',null)
 Go
 
 /*
 Created by: Jaeho Kim
 Date: 02/27/2020
-Comment: Inserts test data for the TransactionLine Table
+Comment: Inserts test data for the TransactionLineProducts Table
 */
-print ''  print '*** Inserting sample data into TransactionLine Table'
+print ''  print '*** Inserting sample data into TransactionLineProducts Table'
 GO
-Insert INTO [dbo].[TransactionLine]
-	([TransactionID], [ProductID], [Quantity])
+Insert INTO [dbo].[TransactionLineProducts]
+	([TransactionID], [ProductID], [Quantity],[PriceSold])
 	Values
-	(1000, '7084781116', 5),
-	(1000, '2500006153', 3),
-	(1001, '7084781116', 2),
-	(1002, '2500006153', 9)
+	(1000, '7084781116', 1, 37.22),
+	(1000, '2500006153', 1, 11.11),
+	(1001, '7084781116', 2, 74.44)
 Go
 
 /*
@@ -9670,6 +9854,61 @@ INSERT INTO [dbo].[Donor](
 VALUES
 (DEFAULT, NULL, DEFAULT),
 ('Matt', 'Deaton', DEFAULT)
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 02/27/2020
+Comment: Inserts test data for the Transaction Table
+*/
+print ''  print '*** Inserting sample data into Transaction Table'
+GO
+Insert INTO [dbo].[Transaction]
+	([TransactionDateTime],[TaxRate],[SubTotalTaxable],[SubTotal],[Total]
+	,[TransactionTypeID],[EmployeeID],[TransactionStatusID],[CustomerEmail])
+	Values
+	('2019-10-10 10:10',0.0225,10.39,21.23,21.46,'tranTYPE100'
+	, 100000, 'tranStatus100','zbehrens@PetUniverse.com'),
+	('2020-02-11 9:43',0.0225,41.39,41.39,43.22,'tranTYPE100'
+	, 100000, 'tranStatus100',null),
+	('2018-04-13 10:13',0.014,52.39,51.39,53.22,'tranTYPE100'
+	, 100001, 'tranStatus100',null)
+Go
+
+/*
+Created by: Jaeho Kim
+Date: 02/27/2020
+Comment: Inserts test data for the TransactionLineProducts Table
+*/
+print ''  print '*** Inserting sample data into TransactionLineProducts Table'
+GO
+Insert INTO [dbo].[TransactionLineProducts]
+	([TransactionID], [ProductID], [Quantity],[PriceSold])
+	Values
+	(1000, '7084781116', 1, 37.22),
+	(1000, '2500006153', 1, 11.11),
+	(1001, '7084781116', 2, 74.44)
+Go
+
+/*
+Created by: Jaeho Kim
+Date: 04/10/2020
+Comment: Inserts test data for the SalesTaxHistory Table
+*/
+PRINT ''  PRINT '*** Creating sample SalesTaxHistory data'
+GO
+INSERT INTO [dbo].[SalesTaxHistory]
+	([ZipCode], [SalesTaxDate], [TaxRate])
+    
+	VALUES
+	('1111', '2002-10-10', 2.33),
+	('1111', '2008-10-10', 3.33),
+	('1111', '2010-10-10', 4.33),
+	('1111', '2019-10-10', 0.0253),
+	('1111', '2012-10-10', 1.33),
+	('2222', '2012-10-10', 0.0345),
+	('2222', '2009-10-10', 11.33)
+GO
 
 /*
 Created by: Rasha Mohammed

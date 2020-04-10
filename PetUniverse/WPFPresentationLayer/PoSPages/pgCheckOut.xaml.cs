@@ -104,13 +104,13 @@ namespace WPFPresentationLayer.PoSPages
             {
                 WPFErrorHandler.ErrorMessage("There was an issue loading Products");
             }
-            List<ProductViewModel> dgItems = new List<ProductViewModel>();
+            List<ProductVM> dgItems = new List<ProductVM>();
             if (_transaction.ProductAmounts.Count > 0)
             {
                 foreach (Product p in _transaction.ProductAmounts.Keys)
                 {
                     _transaction.ProductAmounts.TryGetValue(p, out int qty);
-                    dgItems.Add(new ProductViewModel() { Name = p.Name, Price = p.Price, ProductID = p.ProductID, Quantity = qty });
+                    dgItems.Add(new ProductVM() { Name = p.Name, Price = p.Price, ProductID = p.ProductID, Quantity = qty });
                 }
             }
             dgTransactionItems.ItemsSource = dgItems;

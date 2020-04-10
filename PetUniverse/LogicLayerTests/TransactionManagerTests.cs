@@ -142,5 +142,208 @@ namespace LogicLayerTests
             Assert.AreEqual(true, result);
 
         }
+
+        /// <summary>
+        /// NAME: Jaeho Kim
+        /// DATE: 4/4/2020
+        /// 
+        /// Tests AddTransaction
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        [TestMethod]
+        public void TestAddTransaction()
+        {
+            bool result = false;
+
+            Transaction newTransaction = new Transaction()
+            {
+                EmployeeID = 100002
+            };
+
+            FakeTransactionAccessor _transactionAccessor = new FakeTransactionAccessor();
+
+            result = _transactionAccessor.InsertTransaction(newTransaction) == 1;
+
+            Assert.AreEqual(result, true);
+        }
+
+        /// <summary>
+        /// NAME: Jaeho Kim
+        /// DATE: 4/4/2020
+        /// 
+        /// Tests AddTransactionLineProducts
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        [TestMethod]
+        public void TestAddTransactionLineProducts()
+        {
+            bool result = false;
+
+            TransactionLineProducts newTransactionLineProducts = new TransactionLineProducts()
+            {
+                TransactionID = 100002
+            };
+
+            FakeTransactionAccessor _transactionAccessor = new FakeTransactionAccessor();
+
+            result = _transactionAccessor.InsertTransactionLineProducts(newTransactionLineProducts) == 1;
+
+            Assert.AreEqual(result, true);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/4/2020
+        /// Approver: NA
+        /// 
+        /// This is a unit test for retrieve by zipcode only.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveLatestSalesTaxDateByZipCode()
+        {
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            DateTime salesTaxDate = new DateTime(2002, 10, 18);
+            SalesTax salesTax = new SalesTax()
+            {
+                TaxDate = salesTaxDate,
+                TaxRate = 0.0025M,
+                ZipCode = "1111"
+            };
+
+            DateTime anotherSalesTaxDate = transactionManager.RetrieveLatestSalesTaxDateByZipCode(salesTax.ZipCode);
+
+            Assert.AreEqual(salesTax.TaxDate, anotherSalesTaxDate);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/4/2020
+        /// Approver: NA
+        /// 
+        /// This is a unit test for retrieve by id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveProductByProductID()
+        {
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            string productID = "ProductID100";
+
+            ProductVM anotherProductVM;
+
+            anotherProductVM = transactionManager.RetrieveProductByProductID(productID);
+
+            Assert.AreEqual(anotherProductVM.ProductID, productID);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/4/2020
+        /// Approver: NA
+        /// 
+        /// This is a unit test for retrieve tax rate by date and zipcode.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Approver: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveTaxRateBySalesTaxDateAndZipCode()
+        {
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            DateTime salesTaxDate = new DateTime(2002, 10, 18);
+            SalesTax salesTax = new SalesTax()
+            {
+                TaxDate = salesTaxDate,
+                TaxRate = 0.0025M,
+                ZipCode = "1111"
+            };
+
+            decimal anotherTaxRate = transactionManager
+                .RetrieveTaxRateBySalesTaxDateAndZipCode(salesTax.ZipCode,salesTax.TaxDate);
+
+            Assert.AreEqual(salesTax.TaxRate, anotherTaxRate);
+        }
+
+        /// <summary>
+        ///  Creator: Jaeho Kim
+        ///  Created: 3/05/2020
+        ///  Approver: Rasha Mohammed
+        ///  
+        ///  Test method for retrieving transactions using a transaction date.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveTransactionsByTransactionDate()
+        {
+            // arrange 
+            List<TransactionVM> transactions;
+            DateTime transactionDate1 = new DateTime(2010, 10, 18);
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+            // Act
+            transactions = transactionManager.RetrieveTransactionByTransactionDate(transactionDate1);
+            // assert
+            Assert.AreEqual(1, transactions.Count);
+        }
+
+        /// <summary>
+        ///  Creator: Jaeho Kim
+        ///  Created: 3/08/2020
+        ///  Approver: NA
+        ///  
+        ///  Test method for retreiving transactions by employee name.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveTransactionByEmployeeName()
+        {
+            //arrange
+            List<TransactionVM> transactions;
+            string firstName = "Bob";
+            string lastName = "Jones";
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // Act
+            transactions = transactionManager.RetrieveTransactionByEmployeeName(firstName, lastName);
+
+            // assert
+            Assert.AreEqual(1, transactions.Count);
+
+
+        }
     }
 }

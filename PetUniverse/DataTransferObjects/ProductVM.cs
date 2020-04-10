@@ -19,11 +19,11 @@ namespace DataTransferObjects
     /// Update: 
     /// 
     /// </remarks>
-    public class ProductViewModel
+    public class ProductVM
     {
         public string Name { get; set; }
         public string ProductID { get; set; }
-        public Decimal Price { get; set; }
+        public decimal Price { get; set; }
         public int Quantity { get; set; }
 
         /// <summary>
@@ -39,6 +39,13 @@ namespace DataTransferObjects
         /// Update: 
         /// 
         /// </remarks>
-        public ProductViewModel() { }
+        public ProductVM() { }
+
+
+        public bool Taxable { get; set; }
+        public string ItemDescription { get; set; }
+        public bool Active { get; set; }
+
+        public int QuantityInStock { get; set; }
     }
 }

@@ -46,8 +46,77 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Grid Grid.Row="0" Height="100">
-                    <xctk:TimePicker Grid.Row="0" Width="100" Height="25"/>
+                <Grid Grid.Row="0" Height="200">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <!--Search Single Transaction By Date Time-->
+                        <Grid Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="1" FontSize="15" FontWeight="Bold"
+                                   VerticalAlignment="Center" HorizontalAlignment="Center">
+                                Search Transaction By Date:
+                            </Label>
+
+                            <Label Grid.Row="1" Grid.Column="0"
+                             VerticalAlignment="Center" FontWeight="Bold"
+                             HorizontalAlignment="Right" FontSize="15">Transaction Date Time:</Label>
+
+                            <xctk:DateTimePicker x:Name="dtpTransaction" Grid.Row="1" Grid.Column="1">
+                            </xctk:DateTimePicker>
+
+                            <Button x:Name="btnTransactionSearchByDate" Grid.Row="2" Grid.Column="1" Margin="5 5 5 5" Click="btnTransactionSearchByDate_Click">
+                                Search Transaction
+                            </Button>
+                        </Grid>
+
+                        <!--Search transaction by Employee Name-->
+                        <Grid Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Grid.Column="1"
+                             VerticalAlignment="Center" FontWeight="Bold"
+                             HorizontalAlignment="Center" FontSize="15">Search Transaction By Employee Name:</Label>
+
+                            <Label VerticalAlignment="Center" FontWeight="Bold"
+                                HorizontalAlignment="Center" FontSize="15" Grid.Row="1" Grid.Column="0">First Name:</Label>
+                            <TextBox x:Name="txtEmployeeFirstName" Grid.Row="1" Grid.Column="1" Margin="5 5 5 5"
+                                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                            </TextBox>
+
+                            <Label VerticalAlignment="Center" FontWeight="Bold"
+                                HorizontalAlignment="Center" FontSize="15" Grid.Row="2" Grid.Column="0">Last Name:</Label>
+                            <TextBox x:Name="txtEmployeeLastName" Grid.Row="2" Grid.Column="1" Margin="5 5 5 5"
+                                     VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                            </TextBox>
+
+                            <Button x:Name="btnTransactionSearchByEmployeeName" Grid.Column="1" Grid.Row="3" Margin="5 5 5 5" Click="btnTransactionSearchByEmployeeName_Click">
+                                Search Transaction
+                            </Button>
+                        </Grid>
+
+                    </Grid>
                 </Grid>
 
                 <Grid Grid.Row="1">
@@ -62,7 +131,7 @@
                   Width="1280" Grid.ColumnSpan="1" SelectionMode="Single"
                   Padding="0" IsReadOnly="True" CanUserResizeRows="False" 
                   FontSize="12" FontWeight="Medium" CanUserResizeColumns="False" 
-                  CanUserReorderColumns="False" MouseDoubleClick="DgTransactionsList_MouseDoubleClick" >
+                  CanUserReorderColumns="False" MouseDoubleClick="DgTransactionsList_MouseDoubleClick" AutoGeneratedColumns="dgTransactionsList_AutoGeneratedColumns" >
                     </DataGrid>
 
 
@@ -114,6 +183,7 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
+                        
                         <RowDefinition Height="50"></RowDefinition>
                     </Grid.RowDefinitions>
 
@@ -138,8 +208,10 @@
                     <Label Grid.Row="9" Grid.Column="1" Margin="10 10 10 10">TransactionStatusID:</Label>
                     <TextBox x:Name="txtTransactionStatusID" Grid.Row="9" Grid.Column="2" Margin="10 10 10 10" IsReadOnly="True"></TextBox>
 
-                    <Label Grid.Row="10" Grid.Column="1" Margin="10 10 10 10">Transaction Notes:</Label>
-                    <TextBox x:Name="txtNotes" Grid.Row="10" Grid.Column="2" Margin="10 10 10 10" IsReadOnly="True"></TextBox>
+                    <Label Grid.Row="10" Grid.Column="1" Margin="10 10 10 10">Tax Rate:</Label>
+                    <TextBox x:Name="txtTransactionTaxRate" Grid.Row="10" Grid.Column="2" Margin="10 10 10 10" IsReadOnly="True"></TextBox>
+
+                    
 
 
                 </Grid>
@@ -166,7 +238,7 @@
                               SelectionMode="Single"
                               Padding="0" IsReadOnly="True" CanUserResizeRows="False" 
                               FontSize="12" FontWeight="Medium" CanUserResizeColumns="False" 
-                              CanUserReorderColumns="False"/>
+                              CanUserReorderColumns="False" AutoGeneratedColumns="dgProductList_AutoGeneratedColumns"/>
                     </Grid>
 
                     <Grid Grid.Row="1" Grid.Column="1" Margin="10 10 10 10">

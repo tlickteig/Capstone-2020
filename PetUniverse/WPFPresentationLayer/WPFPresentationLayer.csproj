@@ -223,6 +223,9 @@
     <Compile Include="PoSPages\pgInventoryItems.xaml.cs">
       <DependentUpon>pgInventoryItems.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PoSPages\pgOpenTransaction.xaml.cs">
+      <DependentUpon>pgOpenTransaction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\pgPromotion.xaml.cs">
       <DependentUpon>pgPromotion.xaml</DependentUpon>
     </Compile>
@@ -494,6 +497,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\pgInventoryItems.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PoSPages\pgOpenTransaction.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
