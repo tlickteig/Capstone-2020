@@ -32,6 +32,10 @@ namespace WPFPresentationLayer.FMPages
 
         private PetUniverseUser _user;
 
+        private AnimalKennelCleaningRecord _oldCleaningRecord;
+
+        private bool isAddMode;
+
         /// <summary>
         /// Creator: Ben Hanna
         /// Created: 4/2/2020
@@ -49,6 +53,9 @@ namespace WPFPresentationLayer.FMPages
         {
             InitializeComponent();
             _cleaningManager = new AnimalKennelCleaningManager();
+
+            isAddMode = false;
+            _oldCleaningRecord = null;
         }
 
         /// <summary>
@@ -70,6 +77,29 @@ namespace WPFPresentationLayer.FMPages
             InitializeComponent();
             _cleaningManager = new AnimalKennelCleaningManager();
             _user = user;
+
+            isAddMode = false;
+            _oldCleaningRecord = null;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 4/9/2020
+        /// Approver: Carl Davis 4/10/2020
+        /// 
+        /// Extracted method for enabling editing fields;
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void EnableEditingFields()
+        {
+            txtKennelID.IsEnabled = true;
+            txtNotes.IsEnabled = true;
+            txtUserID.IsEnabled = true;
+            cndCleaningDate.IsEnabled = true;
         }
 
         /// <summary>
@@ -92,6 +122,12 @@ namespace WPFPresentationLayer.FMPages
             canAddKennelCleaningRecord.Visibility = Visibility.Visible;
             txtNotes.Text = "";
             txtUserID.Text = _user.PUUserID.ToString();
+
+            lblTitle.Content = "Add Cleaning Record";
+
+            isAddMode = true;
+
+            EnableEditingFields();
         }
 
         /// <summary>
@@ -134,21 +170,37 @@ namespace WPFPresentationLayer.FMPages
 
             try
             {
-                AnimalKennelCleaningRecord cleaningRecord = new AnimalKennelCleaningRecord
+                AnimalKennelCleaningRecord newCleaningRecord = new AnimalKennelCleaningRecord
                 {
                     UserID = num1,
                     AnimalKennelID = num2,
                     Date = (DateTime)cndCleaningDate.SelectedDate,
                     Notes = txtNotes.Text
                 };
-                if (_cleaningManager.AddKennelCleaningRecord(cleaningRecord))
+                if (isAddMode)
                 {
-                    WPFErrorHandler.SuccessMessage("Cleaning Record successfully added.");
-                    CloseCleaningCanvas();
+
+                    if (_cleaningManager.AddKennelCleaningRecord(newCleaningRecord))
+                    {
+                        WPFErrorHandler.SuccessMessage("Cleaning Record successfully added.");
+                        CloseCleaningCanvas();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cleaning record was not added.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Cleaning record was not added.");
+                    if (_cleaningManager.EditKennelCleaningRecord(_oldCleaningRecord, newCleaningRecord))
+                    {
+                        WPFErrorHandler.SuccessMessage("Cleaning Record successfully edited.");
+                        CloseCleaningCanvas();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cleaning record was not edited.");
+                    }
                 }
             }
             catch (Exception ex)
@@ -186,9 +238,9 @@ namespace WPFPresentationLayer.FMPages
         /// Extracted method for resetting each field and hiding the canvas
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Ben Hanna
+        /// Updated: 4/9/2020
+        /// Update: Added a call to refresh the data
         /// </remarks>
         private void CloseCleaningCanvas()
         {
@@ -197,7 +249,168 @@ namespace WPFPresentationLayer.FMPages
             txtNotes.Text = "";
             cndCleaningDate.SelectedDate = null;
 
+            txtUserID.IsEnabled = false;
+            txtKennelID.IsEnabled = false;
+            txtNotes.IsEnabled = false;
+            cndCleaningDate.IsEnabled = false;
+
+            BtnSubmitCleaningRecord.Visibility = Visibility.Visible;
+            BtnEditCleaning.Visibility = Visibility.Hidden;
+
             canAddKennelCleaningRecord.Visibility = Visibility.Hidden;
+
+            BtnDeleteCleaning.IsEnabled = false;
+            BtnDeleteCleaning.Visibility = Visibility.Hidden;
+
+            RefreshData();
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 4/8/2020
+        /// Approver: Carl Davis 4/10/2020
+        /// 
+        /// Loads the data of a single cleaning record to the view/edit record.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgKennelCleaning_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+            try
+            {
+                _oldCleaningRecord = (AnimalKennelCleaningRecord)dgKennelCleaning.SelectedItem;
+
+                lblTitle.Content = "Viewing Cleaning Record";
+
+                txtKennelID.Text = _oldCleaningRecord.AnimalKennelID.ToString();
+                txtNotes.Text = _oldCleaningRecord.Notes;
+                txtUserID.Text = _oldCleaningRecord.UserID.ToString();
+                cndCleaningDate.SelectedDate = _oldCleaningRecord.Date;
+
+                canAddKennelCleaningRecord.Visibility = Visibility.Visible;
+
+                BtnSubmitCleaningRecord.Visibility = Visibility.Hidden;
+                BtnEditCleaning.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+
+                WPFErrorHandler.ErrorMessage(ex.Message);
+            }
+
+
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 4/8/2020
+        /// Approver: Carl Davis 4/10/2020
+        /// 
+        /// Retrieves all of the kennel cleaning records from the database
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgKennelCleaning_Loaded(object sender, RoutedEventArgs e)
+        {
+            RefreshData();
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 4/8/2020
+        /// Approver: Carl Davis 4/10/2020
+        /// 
+        /// Retrieves all of the kennel cleaning records from the database
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void RefreshData()
+        {
+            try
+            {
+                dgKennelCleaning.ItemsSource = _cleaningManager.RetrieveAllKennelCleaningRecords();
+            }
+            catch (Exception ex)
+            {
+
+                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 4/10/2020
+        /// Approver: Carl Davis 4/10/2020
+        /// 
+        /// Enables all of the editing fields
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnEditCleaningRecord_Click(object sender, RoutedEventArgs e)
+        {
+            BtnSubmitCleaningRecord.Visibility = Visibility.Visible;
+            BtnEditCleaning.Visibility = Visibility.Hidden;
+
+            lblTitle.Content = "Editing Kennel Cleaning Records";
+
+            BtnDeleteCleaning.IsEnabled = true;
+            BtnDeleteCleaning.Visibility = Visibility.Visible;
+
+            EnableEditingFields();
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 4/10/2020
+        /// Approver: Carl Davis 4/10/2020
+        /// 
+        /// Deletes a cleaning record from the database 
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnDeleteCleaning_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Are you sure?", "Delete Cleaning Record",
+                    MessageBoxButton.YesNo, MessageBoxImage.Warning)
+                    == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            try
+            {
+                _cleaningManager.RemoveKennelCleaningRecord(_oldCleaningRecord);
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException);
+            }
+
+            CloseCleaningCanvas();
         }
     }
 }

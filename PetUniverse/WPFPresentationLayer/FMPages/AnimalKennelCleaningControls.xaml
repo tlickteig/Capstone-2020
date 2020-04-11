@@ -25,21 +25,16 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnRefresh" Grid.Row="0" Grid.Column="2" Width="100" Margin="5" HorizontalAlignment="Center" Visibility="Hidden">Refresh</Button>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition Width="170"></ColumnDefinition>
                     <ColumnDefinition Width="120"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <ComboBox x:Name="cmbKennelCleaningFields" Grid.Row="0" Grid.Column="0" Height="30" Width="200"
-                      Margin="5" VerticalContentAlignment="Center" FontSize="16" HorizontalAlignment="Right" Visibility="Hidden" />
-                <TextBox x:Name="txtSearchItem" Grid.Row="0" Grid.Column="1" Width="150" Background="LightGray" Height="30" 
-                     Margin="5" VerticalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16"  Visibility="Hidden"></TextBox>
-                <Button x:Name="btnSearch" Grid.Row="0" Grid.Column="2" Width="100" Margin="5" HorizontalAlignment="Left" Visibility="Hidden">Search</Button>
+
 
             </Grid>
-            <DataGrid x:Name="dgKennelCleaning" Grid.Row="1" Width="1280" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True" ></DataGrid>
+            <DataGrid x:Name="dgKennelCleaning" Grid.Row="1" Width="1280" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgKennelCleaning_MouseDoubleClick" Loaded="dgKennelCleaning_Loaded" ></DataGrid>
 
             <Grid Grid.Row="2" Grid.Column="1">
                 <Grid.ColumnDefinitions>
@@ -71,16 +66,16 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="lblTitle" FontSize="36" VerticalAlignment="Center" Grid.Row="0" Margin="25 0">Enter Kennel Cleaning Record</Label>
-                <Grid Grid.Row="1" Margin="30 0">
+                <Label x:Name="lblTitle" FontSize="36" VerticalAlignment="Center" Grid.Row="0" Margin="40 0">Enter Kennel Cleaning Record</Label>
+                <Grid Grid.Row="1" Margin="50 25">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
-                        <RowDefinition Height="200"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition Height="50"></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition Height="200"></RowDefinition>
+                        <RowDefinition Height="300"></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
@@ -91,29 +86,29 @@
 
                     <!--User ID-->
                     <Label x:Name="lblUserID" Grid.Row="0" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left">User ID:</Label>
-                    <TextBox x:Name="txtUserID"  Grid.Row="0" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsReadOnly="True"></TextBox>
+                    <TextBox x:Name="txtUserID"  Grid.Row="0" Grid.Column="1" Background="LightGray" Height="30" Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsReadOnly="True" IsEnabled="False"></TextBox>
 
                     <!--Kennel ID-->
                     <Label x:Name="lblKennelID" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left">Animal Kennel ID:</Label>
                     <TextBox x:Name="txtKennelID"  Grid.Row="1" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"  IsEnabled="False"></TextBox>
 
                     <!--Cleaning Date-->
-                    <Label x:Name="lblCleaningDate" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
-                       HorizontalAlignment="Left">Cleaning Date:</Label>
-                    <Calendar x:Name="cndCleaningDate" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" 
-                          VerticalAlignment="Center" Margin="25 0 25 0"/>
+                    <Label x:Name="lblCleaningDate" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left">Cleaning Date:</Label>
+                    <DatePicker x:Name="cndCleaningDate" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="25 0 25 0" IsEnabled="False" Width="300"/>
 
                     <!--Notes-->
                     <Label x:Name="lblNotes" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left">Notes:</Label>
-                    <TextBox  x:Name="txtNotes" Grid.Row="3" Grid.Column="1" Background="LightGray" Height="30" 
-                      Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
+                    <TextBox  x:Name="txtNotes" Grid.Row="3" Grid.Column="1" Background="LightGray" Height="30" Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
 
                     <!--Submit-->
-                    <Button x:Name="BtnSubmitCleaningRecord" Grid.Row="7" Grid.Column="0" 
-                    Width="150" FontSize="36" Padding="10"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitCleaningRecord_Click">Submit</Button>
+                    <Button x:Name="BtnSubmitCleaningRecord" Grid.Row="7" Grid.Column="0" Width="150" FontSize="36" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitCleaningRecord_Click">Submit</Button>
+
+                    <!--Edit-->
+                    <Button x:Name="BtnEditCleaning" Grid.Row="7" Grid.Column="0" Width="150" FontSize="36" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnEditCleaningRecord_Click" Visibility="Hidden">Edit</Button>
+
+                    <!--Delete-->
+                    <Button x:Name="BtnDeleteCleaning" Grid.Row="7" Width="150" FontSize="36" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden" IsEnabled="False" Margin="25,0,425,0" Grid.Column="1" Click="BtnDeleteCleaning_Click">Delete</Button>
 
                     <!--Update-->
                     <Button x:Name="btnUpdate" Grid.Row="7" Grid.Column="0" 

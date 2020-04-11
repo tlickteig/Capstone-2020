@@ -8774,6 +8774,99 @@ BEGIN
 END
 GO
 
+                
+/*
+Created by: Ben Hanna
+Date: 04/7/2020
+Comment: Selects all of the kennel cleaning records
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_kennel_cleaning_records]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_kennel_cleaning_records'
+GO
+CREATE PROCEDURE [sp_select_all_kennel_cleaning_records]
+AS
+BEGIN
+	SELECT 
+    [FacilityKennelCleaningID],	
+	[UserID],					
+	[AnimalKennelID],			
+	[Date],						
+	[Notes]						
+ 	FROM [dbo].[FacilityKennelCleaning]
+END
+GO
+                
+/*
+Created by: Ben Hanna
+Date: 4/8/2020
+Comment: Update a kennel cleaning record
+*/ 
+DROP PROCEDURE IF EXISTS [sp_update_kennel_cleaning_record]
+GO     
+PRINT '' PRINT '*** Creating sp_update_kennel_cleaning_record'
+GO
+CREATE PROCEDURE [sp_update_kennel_cleaning_record]
+(
+    @FacilityKennelCleaningID   [int],
+    
+    @NewUserID                  [int],
+    @NewAnimalKennelID          [int], 
+    @NewDate	                [date],
+    @NewNotes                   [nvarchar](250),
+    
+	@OldUserID                  [int],
+    @OldAnimalKennelID          [int], 
+    @OldDate	                [date],
+    @OldNotes                   [nvarchar](250)
+)
+AS
+BEGIN
+	UPDATE [dbo].[FacilityKennelCleaning]
+    SET [UserID]                              = @NewUserID, 
+        [AnimalKennelID]                      = @NewAnimalKennelID,  
+        [Date]                                = @NewDate,
+        [Notes]                               = @NewNotes        
+    WHERE   [FacilityKennelCleaningID]        = @FacilityKennelCleaningID
+    AND     [UserID]                       = @OldUserID
+    AND     [AnimalKennelID]               = @OldAnimalKennelID  
+    AND     [Date]                         = @OldDate
+    AND     [Notes]                        = @OldNotes 
+    RETURN @@ROWCOUNT
+END 
+GO 
+
+                
+/*
+Created by: Ben Hanna
+Date: 4/9/2020
+Comment: Deletes a kennel cleaning record
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_kennel_cleaning_record]
+GO
+print '' print '*** Creating stored procedure sp_delete_kennel_cleaning_record'
+GO
+CREATE PROCEDURE [sp_delete_kennel_cleaning_record]
+(
+	@FacilityKennelCleaningID   [int],
+    
+    @UserID                     [int],
+    @AnimalKennelID             [int], 
+    @Date	                    [date],
+    @Notes                      [nvarchar](250)
+)
+AS
+	BEGIN
+		DELETE FROM [dbo].[FacilityKennelCleaning]
+		WHERE   [FacilityKennelCleaningID]     = @FacilityKennelCleaningID
+        AND     [UserID]                       = @UserID
+        AND     [AnimalKennelID]               = @AnimalKennelID  
+        AND     [Date]                         = @Date
+        AND     [Notes]                        = @Notes 
+	END
+GO                
+
+                
 /*
  ******************************* Inserting Sample Data *****************************
 */
@@ -10151,6 +10244,27 @@ INSERT INTO [dbo].[EventRequest]
 		(1000002, 1000002, 100000, NULL, 4, 0),
 		(1000003, 1000003, NULL, NULL, 0, 1)
 GO
+
+
+/*
+Created by: Ben Hanna
+Date: 4/8/2020
+Comment: Sample data for the cleaning records.
+*/
+
+GO                
+PRINT '' PRINT '*** Inserting Sample Kennel Cleaning records'
+GO
+INSERT INTO [dbo].[FacilityKennelCleaning] 
+        ([UserID],
+         [AnimalKennelID],
+         [Date],
+         [Notes]
+        )
+VALUES 
+        (100000, 1000000, '20200207 12:55:01 PM', 'sample 1 sample 1'),
+        (100001, 1000001, '20200407 12:55:00 PM', 'sample 2 sample 2')
+GO          
 
 
 /*
