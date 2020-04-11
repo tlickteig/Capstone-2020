@@ -7,28 +7,49 @@ using DataTransferObjects;
 
 namespace DataAccessInterfaces
 {
-
     /// <summary>
-    /// Creator: Austin Gee
-    /// Created: 3/5/2020
-    /// Approver: Thomas Dupuy
+    /// NAME: Austin Gee
+    /// DATE: 3/5/2020
+    /// CHECKED BY: Thomas Dupuy
     /// 
     /// This class contains Data Access fakes for data pertaining to Adoption Appointments.
     /// </summary>
+    /// <remarks>
+    /// UPDATED BY: NA
+    /// UPDATE DATE: NA
+    /// WHAT WAS CHANGED: NA
+    /// 
+    /// </remarks>
     public interface IAdoptionAnimalAccessor
     {
         /// <summary>
-        /// Creator: Austin Gee
-        /// Created: 3/5/2020
-        /// Approver: Thomas Dupuy
+        /// NAME: Austin Gee
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Thomas Dupuy
         /// 
         /// This class contains Data Access fakes for data pertaining to Adoption Appointments.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
         /// </remarks>
         List<AdoptionAnimalVM> SelectAdoptionAnimalsByActive(bool active);
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/4/2020
+        /// CHECKED BY: Micheal Thompson, 4/9/2020
+        /// 
+        /// Deactivates an animal
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        int DeactivateAdoptionAnimal(int animalID);
     }
 }

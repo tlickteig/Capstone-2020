@@ -30,5 +30,20 @@ namespace LogicLayerInterfaces
         /// 
         /// </remarks>
         List<AdoptionAnimalVM> RetrieveAdoptionAnimalsByActive(bool active);
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/4/2020
+        /// Approver: 
+        /// 
+        /// Deactivates an animal
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        bool DeactivateAnimal(int animalID); 
     }
 }

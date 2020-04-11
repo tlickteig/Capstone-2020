@@ -65,5 +65,32 @@ namespace LogicLayerTests
             // assert
             Assert.AreEqual(3, adoptionAnimalVMs.Count);
         }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/4/2020
+        /// CHECKED BY: Micheal Thompson, 4/9/2020
+        /// 
+        /// Tests the decativate animal animalID
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionAnimalDeactivateAnimal()
+        {
+            // arrange
+            bool result = false;
+            IAdoptionAnimalManager adoptionAnimalManager = new AdoptionAnimalManager(_fakeAdoptionAnimalAccessor);
+
+            // act
+            result = adoptionAnimalManager.DeactivateAnimal(000);
+
+            // assert
+            Assert.IsTrue(result);
+        }
     }
 }

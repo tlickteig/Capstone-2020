@@ -16,6 +16,7 @@ using LogicLayer;
 using LogicLayerInterfaces;
 using DataTransferObjects;
 using PresentationUtilityCode;
+using System.Windows.Forms;
 
 namespace WPFPresentationLayer.AdoptionPages
 {
@@ -262,7 +263,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 3/11/2020
-        /// Approver: NA
+        /// Approver: Micheal Thompson, 4/9/2020
         /// 
         /// Shows the details for a chosen animal when it is selected and the view button is clicked
         /// </summary>
@@ -309,7 +310,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 3/11/2020
-        /// Approver: NA
+        /// Approver: Micheal Thompson, 4/9/2020
         /// 
         /// This button allows a user to go back to the animal list page from the details page
         /// </summary>
@@ -574,6 +575,38 @@ namespace WPFPresentationLayer.AdoptionPages
                 }
             }
             dgAnimalList.ItemsSource = animals;
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/4/2020
+        /// Approver: Micheal Thompson, 4/9/2020
+        /// 
+        /// When this is clicked a chosen animal is markd out of inventory
+        /// </summary>
+        /// <remarks>
+        /// Updated BY: N/A
+        /// Updated N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAnimalOutOfInventory_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (System.Windows.Forms.MessageBox.Show("Are you sure you want to mark Animal out of Inventory", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                {
+                    _adoptionAnimalManager.DeactivateAnimal(((AdoptionAnimalVM)dgAnimalList.SelectedItem).AnimalID);
+                    PopulateAnimalList();
+                }
+                    
+            }
+            catch (Exception)
+            {
+
+                WPFErrorHandler.ErrorMessage("Please choose an animal first");
+            }
         }
     }
 }

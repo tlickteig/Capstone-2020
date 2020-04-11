@@ -12,7 +12,7 @@ namespace DataAccessFakes
     /// <summary>
     /// Creator: Austin Gee
     /// Created: 3/30/2020
-    /// Approver: Mohammed Elamin
+    /// Approver: Micheal Thompson, 4/9/2020
     ///
     /// This Class for creation a fake Adoption Applications which will used 
     /// for testing Logic layer methodes.
@@ -21,19 +21,6 @@ namespace DataAccessFakes
     {
         List<ApplicationVM> _applicationVMs;
 
-        /// <summary>
-        /// Creator: Austin Gee
-        /// Created: 3/30/2020
-        /// Approver: Mohammed Elamin
-        ///
-        /// No argument constructor for the FakeApplicationAccessor
-        /// </summary>
-        /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// 
-        /// </remarks>
         public FakeApplicationAccessor()
         {
             _applicationVMs = new List<ApplicationVM>
@@ -51,7 +38,6 @@ namespace DataAccessFakes
                     RecievedDate = DateTime.Now,
                     Status = "Fake"
                 },
-
                 new ApplicationVM
                 {
                     AdoptionApplicationID = 001,
@@ -65,7 +51,6 @@ namespace DataAccessFakes
                     RecievedDate = DateTime.Now,
                     Status = "Fake"
                 },
-
                 new ApplicationVM
                 {
                     AdoptionApplicationID = 002,
@@ -83,20 +68,19 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// Creator: Austin Gee
-        /// Created: 3/30/2020
-        /// Approver: Mohammed Elamin
-        ///
-        /// This method is for returning adoption applications by email
+        /// NAME: Austin Gee
+        /// DATE: 2/10/2020
+        /// CHECKED BY: Micheal Thompson, 4/9/2020
+        /// 
+        /// This method returns a fake list of Adoption applications by email. This method will
+        /// be used exclusively for unit testing.
         /// </summary>
-        /// <param name="email"></param>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
         /// 
         /// </remarks>
-        /// <returns></returns>
         public List<ApplicationVM> SelectAdoptionApplicationsByEmail(string email)
         {
             return (from a in _applicationVMs
