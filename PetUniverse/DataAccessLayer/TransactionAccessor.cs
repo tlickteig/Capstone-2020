@@ -10,7 +10,6 @@ using DataTransferObjects;
 
 namespace DataAccessLayer
 {
-
     /// <summary>
     /// Creator: Jaeho Kim
     /// Created: 2/27/2020
@@ -18,30 +17,24 @@ namespace DataAccessLayer
     /// 
     /// This is a DataAccess class for TSQL it implements the ITransactionAccessor
     /// </summary>
-    /// <remarks>
-    /// Updater: NA
-    /// Updated: NA
-    /// Update: NA
-    /// 
-    /// </remarks>
     public class TransactionAccessor : ITransactionAccessor
     {
-
+        // scope identity, used for transaction line products.
         int TransactionID = 0;
 
         /// <summary>
-        /// NAME: Rasha Mohammed
-        /// DATE: 2/21/2020
-        /// CHECKED BY: Jaeho Kim
+        /// Creator: Rasha Mohammed
+        /// Created: 2/21/2020
+        /// Approver: Jaeho Kim
         /// 
-        /// Queries the SQL database for a delete item from trnsactionLine when that match the productID  .
+        /// Queries the SQL database for a delete item from trnsactionLine when that match the productID.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <param name="productID">The product upc number</param>
+        /// <returns>rows effected</returns>
         public int DeleteItemFromTransaction(string productID)
         {
             int rows = 0;
@@ -74,10 +67,10 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
-        ///
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
+        /// 
         /// Implementation for selecting a product by the product upc (productID).
         /// This is part of the search function for populating a ProductVM details 
         /// using the product upc.
@@ -85,8 +78,8 @@ namespace DataAccessLayer
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
-        /// Update: NA
         /// </remarks>
+        /// <param name="productID">The product upc number</param>
         /// <returns>ProductVM</returns>
         public ProductVM SelectProductByProductID(string productID)
         {
@@ -107,7 +100,7 @@ namespace DataAccessLayer
                     product.Name = reader.GetString(1);
                     product.Taxable = reader.GetBoolean(2);
                     product.Price = reader.GetDecimal(3);
-                    product.QuantityInStock = reader.GetInt32(4);
+                    product.ItemQuantity = reader.GetInt32(4);
                     product.ItemDescription = reader.GetString(5);
                     product.Active = reader.GetBoolean(6);
                 }
@@ -124,18 +117,18 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
-        ///
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
+        /// 
         /// Implementation for inserting a transaction.
         /// </summary>
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
-        /// Update: NA
         /// </remarks>
-        /// <returns>rows affected</returns>
+        /// <param name="transaction">The transaction that is inserted to the database.</param>
+        /// <returns>rows effected</returns>
         public int InsertTransaction(Transaction transaction)
         {
             var conn = DBConnection.GetConnection();
@@ -172,18 +165,20 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 04/04/2020
-        /// APPROVER: NA
-        ///
+        /// Creator: Jaeho Kim
+        /// Created: 04/04/2020
+        /// Approver: Rasha Mohammed
+        /// 
         /// Implementation for inserting a products related to the transaction.
         /// </summary>
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
-        /// Update: NA
         /// </remarks>
-        /// <returns>rows affected</returns>
+        /// <param name="transactionLineProducts">
+        /// The products related to the transaction that is inserted to the database.
+        /// </param>
+        /// <returns>rows effected</returns>
         public int InsertTransactionLineProducts(TransactionLineProducts transactionLineProducts)
         {
             int rows = 0;
@@ -207,7 +202,11 @@ namespace DataAccessLayer
 
                     cmd.Parameters[0].Value = TransactionID;
                     cmd.Parameters[1].Value = item.ProductID;
-                    cmd.Parameters[2].Value = item.Quantity;
+
+                    // This is the item quantity that got purchased.
+                    cmd.Parameters[2].Value = item.ItemQuantity;
+
+                    // This is the price that is sold for this transaction.
                     cmd.Parameters[3].Value = item.Price;
                     rows = cmd.ExecuteNonQuery();
                 }
@@ -226,17 +225,17 @@ namespace DataAccessLayer
 
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/05/2020
-        /// APPROVER: Rasha Mohammed
-        ///
+        /// Creator: Jaeho Kim
+        /// Created: 03/05/2020
+        /// Approver: Rasha Mohammed
+        /// 
         /// Implementation for Selecting all products using a TransactionID.
         /// </summary>
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
-        /// Update: NA
         /// </remarks>
+        /// <param name="transactionID">The transaction id that is related to the products</param>
         /// <returns>returns a list of transactions</returns>
         public List<TransactionVM> SelectAllProductsByTransactionID(int transactionID)
         {
@@ -262,9 +261,7 @@ namespace DataAccessLayer
                     transactionVM.ProductName = reader.GetString(2);
                     transactionVM.ProductCategoryID = reader.GetString(3);
                     transactionVM.ProductTypeID = reader.GetString(4);
-                    transactionVM.Description = reader.GetString(5);
-                    transactionVM.Brand = reader.GetString(6);
-                    transactionVM.Price = reader.GetDecimal(7);
+                    transactionVM.Price = reader.GetDecimal(5);
 
                     products.Add(transactionVM);
                 }
@@ -285,66 +282,9 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Jaeho Kim
-        /// Created: 2/27/2020
+        /// Created: 03/19/2020
         /// Approver: Rasha Mohammed
         /// 
-        /// This is a method for selecting all Transactions from the tsql database.
-        /// </summary>
-        /// <remarks>
-        /// Updater: Jaeho Kim
-        /// Updated: 2020/03/03
-        /// Update: Fixed the issue with a stored procedure.
-        /// 
-        /// </remarks>
-        public List<TransactionVM> SelectAllTransactionVMs()
-        {
-            List<TransactionVM> transactions = new List<TransactionVM>();
-
-            var conn = DBConnection.GetConnection();
-            var cmd = new SqlCommand("sp_select_all_transactions", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            try
-            {
-                conn.Open();
-                var reader = cmd.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        TransactionVM transactionVM = new TransactionVM();
-
-                        transactionVM.TransactionID = reader.GetInt32(0);
-                        transactionVM.TransactionDate = reader.GetDateTime(1);
-                        transactionVM.UserID = reader.GetInt32(2);
-                        transactionVM.FirstName = reader.GetString(3);
-                        transactionVM.LastName = reader.GetString(4);
-                        transactionVM.TransactionTypeID = reader.GetString(5);
-                        transactionVM.TransactionStatusID = reader.GetString(6);
-
-                        transactions.Add(transactionVM);
-                    }
-                    reader.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-            return transactions;
-        }
-
-        /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
-        ///
         /// Implementation for selecting the SalesTax by zipCode.
         /// This function retrieves the exact date of the latest 
         /// salesTaxDate of the ZipCode. The tax rate is NOT 
@@ -353,9 +293,9 @@ namespace DataAccessLayer
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
-        /// Update: NA
         /// </remarks>
-        /// <returns>DateTime</returns>
+        /// <param name="zipCode">the zip code of the sales tax rate</param>
+        /// <returns>DateTime of the sales tax rate of the zip code</returns>
         public DateTime SelectLatestSalesTaxDateByZipCode(string zipCode)
         {
             DateTime salesTaxDate = DateTime.Now;
@@ -391,10 +331,10 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
-        ///
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
+        /// 
         /// Implementation for selecting the Sales Tax Rate by zipCode 
         /// and salesTaxDate.
         /// This function retrieves the sales tax rate of the latest 
@@ -403,8 +343,9 @@ namespace DataAccessLayer
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
-        /// Update: NA
         /// </remarks>
+        /// <param name="zipCode">the zip code of the sales tax rate</param>
+        /// <param name="salesTaxDate">the date of the sales tax rate</param>
         /// <returns>TaxRate</returns>
         public decimal SelectTaxRateBySalesTaxDateAndZipCode(string zipCode, DateTime salesTaxDate)
         {
@@ -442,17 +383,20 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/05/2020
-        /// APPROVER: NA
-        ///
+        /// Creator: Jaeho Kim
+        /// Created: 03/05/2020
+        /// Approver: Rasha Mohammed
+        /// 
         /// Implementation for Selecting all transactions using a TransactionDate.
+        /// and salesTaxDate.
+        /// This function retrieves the sales tax rate of the latest 
+        /// salesTaxDate of the ZipCode.
         /// </summary>
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
-        /// Update: NA
         /// </remarks>
+        /// <param name="transactionDate">the date of the transaction</param>
         /// <returns>returns a list of transactions</returns>
         public List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate)
         {
@@ -474,12 +418,16 @@ namespace DataAccessLayer
                     TransactionVM transactionVM = new TransactionVM();
 
                     transactionVM.TransactionID = reader.GetInt32(0);
-                    transactionVM.TransactionDate = reader.GetDateTime(1);
-                    transactionVM.UserID = reader.GetInt32(2);
+                    transactionVM.TransactionDateTime = reader.GetDateTime(1);
+                    transactionVM.EmployeeID = reader.GetInt32(2);
                     transactionVM.FirstName = reader.GetString(3);
                     transactionVM.LastName = reader.GetString(4);
                     transactionVM.TransactionTypeID = reader.GetString(5);
                     transactionVM.TransactionStatusID = reader.GetString(6);
+                    transactionVM.TaxRate = reader.GetDecimal(7);
+                    transactionVM.SubTotalTaxable = reader.GetDecimal(8);
+                    transactionVM.SubTotal = reader.GetDecimal(9);
+                    transactionVM.Total = reader.GetDecimal(10);
 
                     transactions.Add(transactionVM);
                 }
@@ -499,17 +447,18 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/08/2020
-        /// APPROVER: NA
-        ///
+        /// Creator: Jaeho Kim
+        /// Created: 03/08/2020
+        /// Approver: Rasha Mohammed
+        /// 
         /// Implementation for Selecting all transactions using a employee name.
         /// </summary>
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
-        /// Update: NA
         /// </remarks>
+        /// <param name="firstName">the first name of the employee</param>
+        /// <param name="lastName">the last name of the employee</param>
         /// <returns>returns a list of transactions</returns>
         public List<TransactionVM> SelectTransactionsByEmployeeName(string firstName, string lastName)
         {
@@ -532,12 +481,16 @@ namespace DataAccessLayer
                     TransactionVM transactionVM = new TransactionVM();
 
                     transactionVM.TransactionID = reader.GetInt32(0);
-                    transactionVM.TransactionDate = reader.GetDateTime(1);
-                    transactionVM.UserID = reader.GetInt32(2);
+                    transactionVM.TransactionDateTime = reader.GetDateTime(1);
+                    transactionVM.EmployeeID = reader.GetInt32(2);
                     transactionVM.FirstName = reader.GetString(3);
                     transactionVM.LastName = reader.GetString(4);
                     transactionVM.TransactionTypeID = reader.GetString(5);
                     transactionVM.TransactionStatusID = reader.GetString(6);
+                    transactionVM.TaxRate = reader.GetDecimal(7);
+                    transactionVM.SubTotalTaxable = reader.GetDecimal(8);
+                    transactionVM.SubTotal = reader.GetDecimal(9);
+                    transactionVM.Total = reader.GetDecimal(10);
 
                     transactions.Add(transactionVM);
                 }

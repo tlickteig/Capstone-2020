@@ -711,7 +711,7 @@ namespace WPFPresentationLayer
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 2020/03/26
-        /// Approver: 
+        /// Approver: Rasha Mohammed
         /// 
         /// Method to load the open transaction page into the frame.
         /// </summary>

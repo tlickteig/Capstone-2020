@@ -5899,8 +5899,6 @@ BEGIN
         , P.[ProductName]
         , P.[ProductCategoryID]
         , P.[ProductTypeID]
-        , P.[Description]
-        , P.[Brand]
         , P.[Price]
 
     FROM 	[TransactionLineProducts] TLP
@@ -5939,6 +5937,10 @@ BEGIN
         ,U.[LastName]
         ,T.[TransactionTypeID]
         ,T.[TransactionStatusID]
+		,T.[TaxRate]
+		,T.[SubTotalTaxable]
+		,T.[SubTotal]
+		,T.[Total]
     FROM 	[Transaction] T
     INNER JOIN [User] U
         ON T.[EmployeeID] = U.[UserID]
@@ -5991,7 +5993,7 @@ CREATE PROCEDURE [sp_delete_Item_from_Transaction]
 )
 AS
 BEGIN
-	DELETE FROM [dbo].[TransactionLine]
+	DELETE FROM [dbo].[TransactionLineProducts]
 	WHERE	[ProductID] = @ProductID
 	select @@rowcount
 END
@@ -7231,17 +7233,17 @@ CREATE PROCEDURE [sp_select_total_items_sold]
 AS
 BEGIN
     SELECT
-        [TransactionLine].[ProductID],
+        [TransactionLineProducts].[ProductID],
         [Item].[ItemName],
         [Product].[Brand],
         [Item].[ItemCategoryID],
         [Product].[ProductTypeID],
-        SUM ([TransactionLine].[Quantity]) AS 'Total Sales'
-    FROM [dbo].[TransactionLine]
-    LEFT JOIN [Product] ON [TransactionLine].[ProductID] = [Product].[ProductID]
+        SUM ([TransactionLineProducts].[Quantity]) AS 'Total Sales'
+    FROM [dbo].[TransactionLineProducts]
+    LEFT JOIN [Product] ON [TransactionLineProducts].[ProductID] = [Product].[ProductID]
 	LEFT JOIN [Item] ON [Product].[ItemID] = [Item].[ItemID]
     GROUP BY
-        [TransactionLine].[ProductID],
+        [TransactionLineProducts].[ProductID],
         [Item].[ItemName],
         [Product].[Brand],
         [Item].[ItemCategoryID],
@@ -8518,6 +8520,10 @@ AS
 		,U.[LastName]
 		,T.[TransactionTypeID]
 		,T.[TransactionStatusID]
+		,T.[TaxRate]
+		,T.[SubTotalTaxable]
+		,T.[SubTotal]
+		,T.[Total]
 		FROM 	[Transaction] T
 		INNER JOIN [User] U
 			ON T.[EmployeeID] = U.[UserID]

@@ -12,28 +12,27 @@ namespace LogicLayer
 {
 
     /// <summary>
-    ///  Creator: Jaeho Kim
-    ///  Created: 2/27/2020
-    ///  Approver: Rasha Mohammed
-    ///  
-    ///  Manager Class for Transactions
+    /// Creator: Jaeho Kim
+    /// Created: 2/27/2020
+    /// Approver: Rasha Mohammed
+    /// 
+    /// Manager Class for Transactions
     /// </summary>
     public class TransactionManager : ITransactionManager
     {
         private ITransactionAccessor _transactionAccessor;
 
         /// <summary>
-		///  Creator: Jaeho Kim
-		///  Created: 2/27/2020
-		///  Approver: Rasha Mohammed
-		///  
-		///  Default Constructor for instantiating Accessor
+		/// Creator: Jaeho Kim
+		/// Created: 2/27/2020
+		/// Approver: Rasha Mohammed
+		/// 
+		/// Default Constructor for instantiating Accessor
 		/// </summary>
 		/// <remarks>
 		/// Updater: NA
 		/// Updated: NA
 		/// Update: NA
-		/// 
 		/// </remarks>
 		public TransactionManager()
         {
@@ -41,11 +40,11 @@ namespace LogicLayer
         }
 
         /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 2/26/2020
-        ///  Approver: Rasha Mohammed
-        ///  
-        ///  Constructor for passing specific Accessor class
+        /// Creator: Jaeho Kim
+        /// Created: 2/26/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Constructor for passing specific Accessor class
         /// </summary>
         /// <remarks>
         /// Updater: NA
@@ -69,9 +68,9 @@ namespace LogicLayer
         List<ProductVM> TaxableProductsInShoppingCart = new List<ProductVM>();
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of AddProduct method. Adds the product 
         /// to the ShoppingCart List.
@@ -81,7 +80,6 @@ namespace LogicLayer
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>void</returns>
         public void AddProduct(ProductVM productVM)
         {
             try
@@ -96,8 +94,8 @@ namespace LogicLayer
 
         /// <summary>
         /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of AddProductTaxable method. Adds the product 
         /// to the ShoppingCartTaxable List.
@@ -107,7 +105,6 @@ namespace LogicLayer
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>void</returns>
         public void AddProductTaxable(ProductVM productVM)
         {
             try
@@ -121,9 +118,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of AddTransaction method. 
         /// Adds the transaction.
@@ -133,7 +130,6 @@ namespace LogicLayer
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>bool</returns>
         public bool AddTransaction(Transaction transaction)
         {
             bool result = false;
@@ -150,9 +146,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 04/04/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 04/04/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of AddTransactionLineProducts method. 
         /// Adds the transaction.
@@ -179,9 +175,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of CalculateSubTotal method. 
         /// </summary>
@@ -202,9 +198,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of CalculateSubTotalTaxable method. 
         /// </summary>
@@ -225,9 +221,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/22/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/22/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of CalculateSubTotal method. 
         /// The subTotalTaxable is multiplied by the 
@@ -251,9 +247,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 04/04/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 04/04/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of clear shopping cart method. 
         /// </summary>
@@ -262,7 +258,6 @@ namespace LogicLayer
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>decimal</returns>
         public void ClearShoppingCart()
         {
             ShoppingCart.Clear();
@@ -280,7 +275,6 @@ namespace LogicLayer
         /// UPDATED BY:
         /// UPDATED DATE: 
         /// CHANGES: 
-        /// 
         /// </remarks>
         public bool DeleteItem(string productID)
         {
@@ -297,9 +291,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of EnumerableAllProducts method. This implementation 
         /// loads all of the products in the shopping cart. Then the lambda 
@@ -332,9 +326,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of EnumerableTaxableProducts method. This implementation 
         /// loads the taxable products in the shopping cart taxable list. Then 
@@ -366,9 +360,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of GetAllProducts method. This implementation 
         /// gets the IEnumerable and turns it into an ArrayList of AllProducts.
@@ -393,9 +387,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/22/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/22/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of GetTaxableProducts method. This implementation 
         /// gets the IEnumerable and turns it into an ArrayList of TaxableProducts.
@@ -419,6 +413,20 @@ namespace LogicLayer
             return TaxableProductsInShoppingCart;
         }
 
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 03/22/2020
+        /// Approver: Rasha Mohammed
+        ///
+        /// Validates and makes sure the quantity in the shopping cart does 
+        /// not exceed the quantity in stock(item quantity).
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>bool</returns>
         public bool isItemQuantityValid(List<ProductVM> AllProductVMs, ProductVM productVM)
         {
             bool isValid = false;
@@ -457,7 +465,7 @@ namespace LogicLayer
 
                         // verify that it doesn't exceed the quantity in stock.
                         // also verifies the QUANTITY ENTERED is not zero or less.
-                        if (totalQuantity <= productVM.QuantityInStock && productVM.Quantity > 0)
+                        if (totalQuantity <= productVM.ItemQuantity && productVM.Quantity > 0)
                         {
                             isValid = true;
                         }
@@ -466,7 +474,7 @@ namespace LogicLayer
                     // This else statement runs whenever a DIFFERENT product is added.
                     else
                     {
-                        if (productVM.Quantity <= productVM.QuantityInStock && productVM.Quantity > 0)
+                        if (productVM.Quantity <= productVM.ItemQuantity && productVM.Quantity > 0)
                         {
                             isValid = true;
                         }
@@ -480,7 +488,7 @@ namespace LogicLayer
                 // THIS BLOCK OF CODE SHOULD RUN ONLY ONCE!!!
                 else
                 {
-                    if (productVM.Quantity <= productVM.QuantityInStock && productVM.Quantity > 0)
+                    if (productVM.Quantity <= productVM.ItemQuantity && productVM.Quantity > 0)
                     {
                         isValid = true;
                     }
@@ -495,18 +503,18 @@ namespace LogicLayer
         }
 
         /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 3/05/2020
-        ///  Approver: Rasha Mohammed
-        ///  
-        ///  This method calls the Select all products with transaction id method in the DataAccessLayer.
+        /// Creator: Jaeho Kim
+        /// Created: 3/05/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// This method calls the Select all products with transaction id method in the DataAccessLayer.
         /// </summary>
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
+        /// <returns>TransactionVM list</returns>
         public List<TransactionVM> RetrieveAllProductsByTransactionID(int transactionID)
         {
             try
@@ -522,35 +530,9 @@ namespace LogicLayer
 
 
         /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 2/27/2020
-        ///  Approver: Rasha Mohammed
-        ///  
-        ///  This method calls the Select all transactions method in the DataAccessLayer.
-        /// </summary>
-        /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// 
-        /// </remarks>
-        public List<TransactionVM> RetrieveAllTransactions()
-        {
-            try
-            {
-                return _transactionAccessor.SelectAllTransactionVMs();
-            }
-
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Transactions Not Found",ex);
-            }
-        }
-
-        /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of RetrieveLatestSalesTaxDateByZipCode method. 
         /// </summary>
@@ -559,7 +541,7 @@ namespace LogicLayer
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>SalesTax</returns>
+        /// <returns>SalesTax Date</returns>
         public DateTime RetrieveLatestSalesTaxDateByZipCode(string zipCode)
         {
             try
@@ -573,9 +555,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of RetrieveProductByProductID method. 
         /// This implementation is used to populate productVM 
@@ -601,9 +583,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/19/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of RetrieveTaxRateBySalesTaxDateAndZipCode method. 
         /// </summary>
@@ -626,9 +608,9 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 04/04/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 04/04/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Implementation of RetrieveTransactionByTransactionDate method. 
         /// </summary>
@@ -637,7 +619,7 @@ namespace LogicLayer
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>TaxRate</returns>
+        /// <returns>TransactionVM List</returns>
         public List<TransactionVM> RetrieveTransactionByTransactionDate(DateTime transactionDate)
         {
             try
@@ -652,18 +634,20 @@ namespace LogicLayer
         }
 
         /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 3/08/2020
-        ///  Approver: NA
+        /// Creator: Jaeho Kim
+        /// Created: 3/08/2020
+        /// Approver: Rasha Mohammed
         ///  
-        ///  This method calls the Select transactions by name method in the DataAccessLayer.
+        /// This method calls the Select transactions by name method in the DataAccessLayer.
         /// </summary>
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
+        /// <param name="firstName">Employee first name</param>
+        /// <param name="lastName">Employee last name</param>
+        /// <returns>TransactionVM List</returns>
         public List<TransactionVM> RetrieveTransactionByEmployeeName(string firstName, string lastName)
         {
             try

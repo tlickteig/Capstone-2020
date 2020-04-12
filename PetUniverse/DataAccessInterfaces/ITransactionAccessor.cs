@@ -12,30 +12,15 @@ namespace DataAccessInterfaces
     /// Created: 02/27/2020
     /// Approver: Rasha Mohammed
     /// 
-    /// Interface for the transaction accessor
+    /// Interfaces for Transactions.
     /// </summary>
     public interface ITransactionAccessor
     {
 
         /// <summary>
         /// Creator: Jaeho Kim
-        /// Created: 02/27/2020
-        /// Approver: Rasha Mohammed
-        ///
-        /// Interface method signature for Selecting all Transactions
-        /// </summary>
-        /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// </remarks>
-        /// <returns>returns List of Transactions</returns>
-        List<TransactionVM> SelectAllTransactionVMs();
-
-        /// <summary>
-        /// Creator: Jaeho Kim
         /// Created: 03/03/2020
-        /// Approver: Rasha Mohammed
+        /// APPROVER: Rasha Mohammed
         ///
         /// Interface method signature for Selecting all products using a TransactionID.
         /// </summary>
@@ -44,29 +29,30 @@ namespace DataAccessInterfaces
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>returns a list of transactions</returns>
+        /// <param>name="transactionID"</param>
+        /// <returns>The transaction vm the end user needs to see.</returns>
         List<TransactionVM> SelectAllProductsByTransactionID(int transactionID);
 
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 03/05/2020
-        /// Approver: Rasha Mohammed
+        /// APPROVER: Rasha Mohammed
         ///
-        /// Interface method signature for Selecting transactions using a Transaction DateTime.
+        /// Interface method signature for retrieving all transactions by date.
         /// </summary>
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>returns a list of transactions</returns>
+        /// <param>name="transactionDate"</param>
+        /// <returns>The transaction vm the end user needs to see.</returns>
         List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate);
 
-        /// <summary>
         /// Creator: Rasha Mohammed
         /// Created: 2/14/2020
-        /// Approver: Jaeho Kim
-        /// 
+        /// APPROVER: Jaeho Kim
+        ///
         /// The method is used to delete the products on the transactionLine by selecting the product ID.
         /// </summary>
         /// <remarks>
@@ -74,12 +60,14 @@ namespace DataAccessInterfaces
         /// Updated: NA
         /// Update: NA
         /// </remarks>
+        /// <param>name="productID"</param>
+        /// <returns>Rows effected</returns>
         int DeleteItemFromTransaction(string productID);
 
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 03/19/2020
-        /// Approver: NA 
+        /// APPROVER: Rasha Mohammed
         ///
         /// Interface method signature for inserting a transaction.
         /// </summary>
@@ -88,15 +76,30 @@ namespace DataAccessInterfaces
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>rows affected</returns>
+        /// <param>name="transaction"</param>
+        /// <returns>Rows effected</returns>
         int InsertTransaction(Transaction transaction);
 
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 03/19/2020
+        /// APPROVER: Rasha Mohammed
+        ///
+        /// Interface method signature for inserting products related to transaction.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param>name="transactionLineProducts"</param>
+        /// <returns>Rows effected</returns>
         int InsertTransactionLineProducts(TransactionLineProducts transactionLineProducts);
 
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 03/19/2020
-        /// Approver: NA 
+        /// APPROVER: Rasha Mohammed
         ///
         /// Interface method signature for selecting the exact latest sales tax date of the zipcode entered.
         /// </summary>
@@ -105,13 +108,14 @@ namespace DataAccessInterfaces
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>DateTime</returns>
+        /// <param>name="zipCode"</param>
+        /// <returns>the exact latest date of the sales tax rate of the zip code</returns>
         DateTime SelectLatestSalesTaxDateByZipCode(string zipCode);
 
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 03/19/2020
-        /// Approver: NA 
+        /// APPROVER: Rasha Mohammed
         ///
         /// Interface method signature for selecting the sales tax rate of the zipcode entered, 
         /// and the exact date entered.
@@ -121,13 +125,15 @@ namespace DataAccessInterfaces
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>TaxRate</returns>
+        /// <param>name="zipCode"</param>
+        /// <param>name="salesTaxDate"</param>
+        /// <returns>The actual tax rate of the zip code and the tax date</returns>
         decimal SelectTaxRateBySalesTaxDateAndZipCode(string zipCode, DateTime salesTaxDate);
 
         /// <summary>
         /// Creator: Jaeho Kim
-        /// Created: 03/19/2020
-        /// Approver: NA 
+        /// Created: 04/04/2020
+        /// APPROVER: Rasha Mohammed
         ///
         /// Interface method signature for selecting the product by product id. 
         /// </summary>
@@ -136,13 +142,14 @@ namespace DataAccessInterfaces
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>ProductVM</returns>
+        /// <param>name="productID"</param>
+        /// <returns>The product vm</returns>
         ProductVM SelectProductByProductID(string productID);
 
         /// <summary>
         /// Creator: Jaeho Kim
-        /// Created: 03/19/2020
-        /// Approver: NA 
+        /// Created: 03/08/2020
+        /// APPROVER: Rasha Mohammed
         ///
         /// Interface method signature for Selecting transactions using a Employee Name.
         /// </summary>
@@ -151,7 +158,9 @@ namespace DataAccessInterfaces
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>returns a list of transactions</returns>
+        /// <param>name="firstName"</param>
+        /// <param>name="lastName"</param>
+        /// <returns>the transaction vm</returns>
         List<TransactionVM> SelectTransactionsByEmployeeName(string firstName, string lastName);
     }
 }

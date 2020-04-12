@@ -1,4 +1,11 @@
-﻿<Page x:Class="WPFPresentationLayer.PoSPages.pgOpenTransaction"
+﻿<!--
+Creator: Jaeho Kim
+Created: 03/25/2020
+Approver: Rasha Mohammed
+    
+UI for Open Transaction.
+-->
+<Page x:Class="WPFPresentationLayer.PoSPages.pgOpenTransaction"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

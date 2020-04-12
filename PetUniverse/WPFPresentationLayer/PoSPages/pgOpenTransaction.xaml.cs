@@ -19,10 +19,26 @@ using LogicLayerInterfaces;
 namespace WPFPresentationLayer.PoSPages
 {
     /// <summary>
+	/// Creator: Jaeho Kim
+	/// Created: 03/25/2020
+	/// Approver: Rasha Mohammed
     /// Interaction logic for pgOpenTransaction.xaml
-    /// </summary>
+	/// </summary>
     public partial class pgOpenTransaction : Page
     {
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 03/25/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Default constructor
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
         public pgOpenTransaction()
         {
             InitializeComponent();
@@ -31,6 +47,20 @@ namespace WPFPresentationLayer.PoSPages
 
         }
 
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 03/25/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Gets the User that's logged in.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="user"></param>
         public pgOpenTransaction(PetUniverseUser user)
         {
             employeeID = user.PUUserID;
@@ -40,16 +70,19 @@ namespace WPFPresentationLayer.PoSPages
 
         }
 
+        // Instantiate the manager class.
         private ITransactionManager _transactionManager;
 
+        // Instantiate the product
         private ProductVM productVM = null;
 
+        // Instantiate the employee id variable for logging.
         private int employeeID;
 
-        private List<ProductVM> taxableProducts = new List<ProductVM>();
-
+        // Instantiate the quantity in stock for validations.
         private int quantityInStock = 0;
 
+        // Retrieving the transaction sale data for transaction entry.
         private decimal taxRate;
         private decimal subTotalTaxable;
         private decimal subTotal;
@@ -83,13 +116,28 @@ namespace WPFPresentationLayer.PoSPages
             txtQuantity.Text = "1";
             txtItemDescription.Text = productVM.ItemDescription;
 
-            quantityInStock = productVM.QuantityInStock;
+            quantityInStock = productVM.ItemQuantity;
 
             btnAddProduct.Visibility = Visibility.Visible;
 
 
         }
 
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 03/25/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Loading the page.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             txtItemName.IsReadOnly = true;
@@ -106,9 +154,9 @@ namespace WPFPresentationLayer.PoSPages
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// DATE: 03/25/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 03/25/2020
+        /// Approver: Rasha Mohammed
         ///
         /// Adds a product to the shopping cart.
         /// </summary>
@@ -117,7 +165,8 @@ namespace WPFPresentationLayer.PoSPages
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <returns>void</returns>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -145,7 +194,7 @@ namespace WPFPresentationLayer.PoSPages
                     Price = decimal.Parse(txtPrice.Text),
                     Quantity = int.Parse(txtQuantity.Text),
                     ItemDescription = txtItemDescription.Text.ToString(),
-                    QuantityInStock = quantityInStock,
+                    ItemQuantity = quantityInStock,
                     Active = true
                 };
 
@@ -208,11 +257,37 @@ namespace WPFPresentationLayer.PoSPages
         }
 
 
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 03/25/2020
+        /// Approver: Rasha Mohammed
+        ///
+        /// Completes the transaction and performs the transaction entry operation.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void btnCompleteTransaction_Click(object sender, RoutedEventArgs e)
         {
+
+            // This transactionDate operation 
+            // involves ignoring Milliseconds.
+            // Seconds do count however!
+            DateTime transactionDate = DateTime.Now;
+            transactionDate = new DateTime(
+            transactionDate.Ticks - 
+            (transactionDate.Ticks % TimeSpan.TicksPerSecond),
+            transactionDate.Kind
+            );
+            // end transactionDate ignore milliseconds operation.
+
             Transaction transaction = new Transaction()
             {
-                TransactionDateTime = DateTime.Now,
+                TransactionDateTime = transactionDate,
                 TaxRate = taxRate,
                 SubTotalTaxable = subTotalTaxable,
                 SubTotal = subTotal,
@@ -266,15 +341,52 @@ namespace WPFPresentationLayer.PoSPages
 
         }
 
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 03/25/2020
+        /// Approver: Rasha Mohammed
+        ///
+        /// Auto generates the shopping cart columns. Removes 
+        /// unnecessary inherited properties.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void dgShoppingCart_AutoGeneratedColumns(object sender, EventArgs e)
         {
-            dgShoppingCart.Columns.RemoveAt(7);
+            dgShoppingCart.Columns.RemoveAt(15);
+            dgShoppingCart.Columns.RemoveAt(14);
+            dgShoppingCart.Columns.RemoveAt(13);
+            dgShoppingCart.Columns.RemoveAt(12);
+            dgShoppingCart.Columns.RemoveAt(11);
+            dgShoppingCart.Columns.RemoveAt(10);
+            dgShoppingCart.Columns.RemoveAt(9);
+            dgShoppingCart.Columns.RemoveAt(8);
             dgShoppingCart.Columns.RemoveAt(6);
             dgShoppingCart.Columns.RemoveAt(5);
-            dgShoppingCart.Columns.RemoveAt(4);
+            dgShoppingCart.Columns.RemoveAt(3);
+            dgShoppingCart.Columns.RemoveAt(1);
             dgShoppingCart.Columns.RemoveAt(0);
         }
 
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 03/25/2020
+        /// Approver: Rasha Mohammed
+        ///
+        /// Clears the shopping cart, but also closes the transaction.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void btnClearShoppingCart_Click(object sender, RoutedEventArgs e)
         {
             txtSearchProduct.Text = "";

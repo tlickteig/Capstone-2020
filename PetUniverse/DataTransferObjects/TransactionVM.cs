@@ -18,16 +18,10 @@ namespace DataTransferObjects
     /// UPDATE DATE: N/A
     /// CHANGE DESCRIPTION: N/A
     /// </remarks>
-    public class TransactionVM
+    public class TransactionVM : Transaction
     {
-
-        public int TransactionID { get; set; }
-        public DateTime TransactionDate { get; set; }
-        public int UserID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string TransactionTypeID { get; set; }
-        public string TransactionStatusID { get; set; }
 
         //View Model Details:
         public int Quantity { get; set; }
@@ -35,13 +29,7 @@ namespace DataTransferObjects
         public string ProductName { get; set; }
         public string ProductCategoryID { get; set; }
         public string ProductTypeID { get; set; }
-        public string Description { get; set; }
-        public string Brand { get; set; }
         public decimal Price { get; set; }
-        public decimal TaxRate { get; set; }
-        public decimal SubTotalTaxable { get; set; }
-        public decimal SubTotal { get; set; }
-        public decimal Total { get; set; }
 
     }
 }

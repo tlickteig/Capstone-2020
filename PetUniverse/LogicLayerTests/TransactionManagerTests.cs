@@ -11,11 +11,11 @@ namespace LogicLayerTests
 {
 
     /// <summary>
-    ///  Creator: Jaeho Kim
-    ///  Created: 2/27/2020
-    ///  Approver: Rasha Mohammed
+    /// Creator: Jaeho Kim
+    /// Created: 2/27/2020
+    /// Approver: Rasha Mohammed
     ///  
-    ///  Test Class for TransactionManager
+    /// Test Class for TransactionManager
     /// </summary>
     [TestClass]
     public class TransactionManagerTests
@@ -26,17 +26,16 @@ namespace LogicLayerTests
         private TransactionManager _transactionManager;
 
         /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 2/27/2020
-        ///  Approver: Rasha Mohammed
-        ///  
-        ///  Constructor for instantiating FakeTransactionAccessor
+        /// Creator: Jaeho Kim
+        /// Created: 2/27/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Constructor for instantiating FakeTransactionAccessor
         /// </summary>
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
         public TransactionManagerTests()
         {
@@ -51,10 +50,9 @@ namespace LogicLayerTests
         /// Load fake transcationLine accessor for testing purposes
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// </remarks>
         [TestInitialize]
         public void TestSetup()
@@ -63,39 +61,13 @@ namespace LogicLayerTests
             _transactionManager = new TransactionManager(_transactionAccessor);
         }
 
-        /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 2/27/2020
-        ///  Approver: Rasha Mohammed
-        ///  
-        ///  Test method for retrieving all transactions
-        /// </summary>
-        /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// 
-        /// </remarks>
-        [TestMethod]
-        public void TestRetrieveAllTransactions()
-        {
-            //arrange
-            List<TransactionVM> transactions;
-            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
-
-            //act
-            transactions = transactionManager.RetrieveAllTransactions();
-
-            //assert
-            Assert.AreEqual(2, transactions.Count);
-        }
 
         /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 3/05/2020
-        ///  Approver: Rasha Mohammed
+        /// Creator: Jaeho Kim
+        /// Created: 3/05/2020
+        /// Approver: Rasha Mohammed
         ///  
-        ///  Test method for retrieving all products using a transactionId
+        /// Test method for retrieving all products using a transactionId
         /// </summary>
         /// <remarks>
         /// Updater: NA
@@ -144,15 +116,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Jaeho Kim
-        /// DATE: 4/4/2020
+        /// Creator: Jaeho Kim
+        /// Created: 4/4/2020
+        /// Approver: Rasha Mohammed
         /// 
         /// Tests AddTransaction
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater:
+        /// Updated:
+        /// Update:
         /// </remarks>
         [TestMethod]
         public void TestAddTransaction()
@@ -172,15 +145,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Jaeho Kim
-        /// DATE: 4/4/2020
+        /// Creator: Jaeho Kim
+        /// Created: 4/4/2020
+        /// Approver: Rasha Mohammed
         /// 
         /// Tests AddTransactionLineProducts
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater:
+        /// Updated:
+        /// Update:
         /// </remarks>
         [TestMethod]
         public void TestAddTransactionLineProducts()
@@ -202,15 +176,14 @@ namespace LogicLayerTests
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 4/4/2020
-        /// Approver: NA
+        /// Approver: Rasha Mohammed
         /// 
         /// This is a unit test for retrieve by zipcode only.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Approver: NA
-        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
         /// </remarks>
         [TestMethod]
         public void TestRetrieveLatestSalesTaxDateByZipCode()
@@ -233,15 +206,14 @@ namespace LogicLayerTests
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 4/4/2020
-        /// Approver: NA
+        /// Approver: Rasha Mohammed
         /// 
         /// This is a unit test for retrieve by id.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Approver: NA
-        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
         /// </remarks>
         [TestMethod]
         public void TestRetrieveProductByProductID()
@@ -260,15 +232,14 @@ namespace LogicLayerTests
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 4/4/2020
-        /// Approver: NA
+        /// Approver: Rasha Mohammed
         /// 
         /// This is a unit test for retrieve tax rate by date and zipcode.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Approver: NA
-        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
         /// </remarks>
         [TestMethod]
         public void TestRetrieveTaxRateBySalesTaxDateAndZipCode()
@@ -290,17 +261,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 3/05/2020
-        ///  Approver: Rasha Mohammed
-        ///  
-        ///  Test method for retrieving transactions using a transaction date.
+        /// Creator: Jaeho Kim
+        /// Created: 3/05/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Test method for retrieving transactions using a transaction date.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
         /// </remarks>
         [TestMethod]
         public void TestRetrieveTransactionsByTransactionDate()
@@ -316,17 +286,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 3/08/2020
-        ///  Approver: NA
-        ///  
-        ///  Test method for retreiving transactions by employee name.
+        /// Creator: Jaeho Kim
+        /// Created: 3/08/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Test method for retreiving transactions by employee name.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
         /// </remarks>
         [TestMethod]
         public void TestRetrieveTransactionByEmployeeName()
@@ -342,7 +311,6 @@ namespace LogicLayerTests
 
             // assert
             Assert.AreEqual(1, transactions.Count);
-
 
         }
     }

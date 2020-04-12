@@ -9,8 +9,8 @@ using DataAccessInterfaces;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// CREATOR: Jaeho Kim
-    /// CREATED: 02/27/2020
+    /// Creator: Jaeho Kim
+    /// Created: 02/27/2020
     /// APPROVER: Rasha Mohammed
     /// 
     /// Fake Transaction Accessor Class for Unit Testing
@@ -43,11 +43,9 @@ namespace DataAccessFakes
         /// </summary>
         /// <remarks>
         /// Updater: Jaeho Kim
-        /// Updated: 2020/03/05
+        /// Updated: 03/05/2020
         /// Update: Implemented the Select All Products by Transaction ID.
-        /// 
         /// </remarks>
-        /// <returns>Fake TransactionAccessor</returns>
         public FakeTransactionAccessor()
         {
 
@@ -59,8 +57,8 @@ namespace DataAccessFakes
                 new TransactionVM()
                 {
                     TransactionID = 1000,
-                    TransactionDate = transactionDate1,
-                    UserID = 100000,
+                    TransactionDateTime = transactionDate1,
+                    EmployeeID = 100000,
                     FirstName = "Bob",
                     LastName = "Jones",
                     TransactionTypeID = "FAKE_TYPE_1",
@@ -69,8 +67,8 @@ namespace DataAccessFakes
                 new TransactionVM()
                 {
                     TransactionID = 1001,
-                    TransactionDate = transactionDate2,
-                    UserID = 100001,
+                    TransactionDateTime = transactionDate2,
+                    EmployeeID = 100001,
                     FirstName = "Shawn",
                     LastName = "Gunner",
                     TransactionTypeID = "FAKE_TYPE_2",
@@ -228,18 +226,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Jaeho Kim
-        /// DATE: 4/04/2020
-        /// CHECKED BY:  Jaeho Kim
+        /// Creator: Jaeho Kim
+        /// Created: 4/04/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Method to test insert transaction
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <param name="transaction">The transaction object that is added to the database</param>
         public int InsertTransaction(Transaction transaction)
         {
             int result = 0;
@@ -255,18 +252,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Jaeho Kim
-        /// DATE: 4/04/2020
-        /// CHECKED BY:  Jaeho Kim
+        /// Creator: Jaeho Kim
+        /// Created: 4/04/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Method to test insert products related to transaction
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <param name="transactionLineProducts">The products related to the transaction</param>
         public int InsertTransactionLineProducts(TransactionLineProducts transactionLineProducts)
         {
             int result = 0;
@@ -283,18 +279,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// CREATED: 3/05/2020
-        /// APPROVER: Rasha Mohammed
+        /// Creator: Jaeho Kim
+        /// Created: 3/05/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Fake Transaction Accessor Method, uses dummy data for testing.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <param name="transactionID">the transaction id that is related to the products</param>
         public List<TransactionVM> SelectAllProductsByTransactionID(int transactionID)
         {
             return (from v in _transactionsVMs
@@ -303,72 +298,71 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// CREATED: 2/27/2020
-        /// APPROVER: Rasha Mohammed
+        /// Creator: Jaeho Kim
+        /// Created: 2/27/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Fake Transaction Accessor Method, uses dummy data for testing.
         /// </summary>
         /// <remarks>
-        /// UPDATER: Jaeho Kim
-        /// UPDATED: 2020/03/03
-        /// UPDATE: Added missing properties from the data transfer object.
+        /// Updater: Jaeho Kim
+        /// Updated: 2020/03/03
         /// 
+        /// Added missing properties from the data transfer object.
         /// </remarks>
+        /// <returns>TransactionVM</returns>
         public List<TransactionVM> SelectAllTransactionVMs()
         {
             return _transactionsVMs;
         }
 
         /// <summary>
-        /// NAME: Jaeho Kim
-        /// DATE: 4/04/2020
-        /// CHECKED BY:  Jaeho Kim
+        /// Creator: Jaeho Kim
+        /// Created: 4/04/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Method to test select all transactions
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <returns>TransactionVM</returns>
         public List<Transaction> SelectAllTransactions()
         {
             return _transactions;
         }
 
         /// <summary>
-        /// NAME: Jaeho Kim
-        /// DATE: 4/04/2020
-        /// CHECKED BY:  Jaeho Kim
+        /// Creator: Jaeho Kim
+        /// Created: 4/04/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Method to test transaction line products
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <returns>TransactionLineProducts</returns>
         public List<TransactionLineProducts> SelectAllTransactionLineProducts()
         {
             return _transactionLineProducts;
         }
 
         /// <summary>
-        /// NAME: Jaeho Kim
-        /// DATE: 4/04/2020
-        /// CHECKED BY:  Jaeho Kim
+        /// Creator: Jaeho Kim
+        /// Created: 4/04/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Method to test select latest sales tax date
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <param name="zipCode">The zip code of the sales tax rate</param>
+        /// <returns>The Exact Date of the Sales Tax Rate of the Zip Code</returns>
         public DateTime SelectLatestSalesTaxDateByZipCode(string zipCode)
         {
             SalesTax salesTax = null;
@@ -382,19 +376,20 @@ namespace DataAccessFakes
             return salesTax.TaxDate;
         }
 
+        
         /// <summary>
-        /// NAME: Jaeho Kim
-        /// DATE: 4/04/2020
-        /// CHECKED BY:  Jaeho Kim
+        /// Creator: Jaeho Kim
+        /// Created: 4/04/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Method to test select product by id.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <param name="productID">the product upc number</param>
+        /// <returns>ProductVM</returns>
         public ProductVM SelectProductByProductID(string productID)
         {
             ProductVM productVM = null;
@@ -409,18 +404,19 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Jaeho Kim
-        /// DATE: 4/04/2020
-        /// CHECKED BY:  Jaeho Kim
+        /// Creator: Jaeho Kim
+        /// Created: 4/04/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Method to test select tax rate by zip code and latest date retrieved.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <param name="zipCode">the zip code of the tax rate</param>
+        /// <param name="salesTaxDate">the date of the tax rate</param>
+        /// <returns>the tax rate</returns>
         public decimal SelectTaxRateBySalesTaxDateAndZipCode(string zipCode, DateTime salesTaxDate)
         {
             SalesTax salesTax = null;
@@ -435,39 +431,40 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Jaeho Kim
-        /// DATE: 4/04/2020
-        /// CHECKED BY:  Jaeho Kim
+        /// Creator: Jaeho Kim
+        /// Created: 4/04/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Method to test select transactions by date.
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <param name="transactionDate">the date of the transaction</param>
+        /// <returns>TransactionVM</returns>
         public List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate)
         {
             DateTime transactionDate1 = new DateTime(2010, 10, 18);
             return (from v in _transactionsVMs
-                    where v.TransactionDate == transactionDate1
+                    where v.TransactionDateTime == transactionDate1
                     select v).ToList();
         }
 
         /// <summary>
-        /// CREATOR: Jaeho Kim
-        /// CREATED: 3/08/2020
-        /// APPROVER: NA
+        /// Creator: Jaeho Kim
+        /// Created: 3/08/2020
+        /// Approver:  Rasha Mohammed
         /// 
         /// Fake Transaction Accessor Method, uses dummy data for testing.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
         /// </remarks>
+        /// <param name="firstName">the employee's first name</param>
+        /// <param name="lastName">the employee's last name</param>
+        /// <returns>TransactionVM</returns>
         public List<TransactionVM> SelectTransactionsByEmployeeName(string firstName, string lastName)
         {
             return (from v in _transactionsVMs
