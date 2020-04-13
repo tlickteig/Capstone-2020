@@ -8092,6 +8092,25 @@ BEGIN
 END
 GO
 
+/*
+Created by: Ryan Morganti
+Date: 2020/04/04
+Comment: Stored Procedure to pull all donations over the past year
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_donations_from_past_year]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_donations_from_past_year'
+GO
+CREATE PROCEDURE [sp_select_all_donations_from_past_year]
+AS
+BEGIN
+	SELECT do.[DonationID], d.[DonorID], d.[FirstName], d.[LastName], do.[DateOfDonation], do.[TypeOfDonation], do.[DonationAmount]
+	FROM [dbo].[Donor] AS d JOIN [dbo].[Donations] AS do ON
+	d.[DonorID] = do.[DonorID]
+	WHERE do.[DateOfDonation] > DATEADD(year, -1, GETDATE())
+END
+GO
+
 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -9690,4 +9709,54 @@ BEGIN
 	SET		[Status] = @Status
 	WHERE	[EventID] = @EventID
 END
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/04/03
+Comment: Sample Donor Records
+*/
+PRINT '' PRINT '*** inserting sample donor records ***'
+GO
+INSERT INTO [dbo].[Donor]
+(
+	[FirstName],
+	[LastName]
+)
+VALUES
+	('Matt', 'Hill'),
+	(DEFAULT, NULL),
+	('Ryan', 'Morganti'),
+	('Derek', 'Taylor'),
+	(DEFAULT, NULL),
+	('Ryan', 'Morganti'),
+	('Emilio', 'Pena'),
+	('Austin', 'Delaney'),
+	('Ryan', 'Morganti')
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/04/04
+Comment: Sample Donation Records
+*/
+PRINT '' PRINT '*** inserting sample donation records ***'
+GO
+INSERT INTO [dbo].[Donations]
+(
+	[DonorID],
+	[TypeOfDonation],
+	[DateOfDonation],
+	[DonationAmount]
+)
+VALUES
+	(1000, 'Monetary', '03-12-2019', 100.00),
+	(1001, 'Monetary', '05-19-2019', 100.00),
+	(1002, 'Supplies', '07-20-2019', NULL),
+	(1003, 'Monetary', '08-13-2019', 20.00),
+	(1004, 'Supplies', '09-13-2019', NULL),
+	(1005, 'Monetary', '10-12-2019', 175.00),
+	(1006, 'Supplies', '12-30-2019', NULL),
+	(1007, 'Monetary', '01-12-2020', 10000.00),
+	(1008, 'Monetary', '03-12-2020', 3000.00)
 GO

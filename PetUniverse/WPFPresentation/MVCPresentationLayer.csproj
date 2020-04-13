@@ -353,6 +353,7 @@
     <Content Include="Views\PoliciesAndStandards\Index.cshtml" />
     <Content Include="Views\Donations\DonationFAQ.cshtml" />
     <Content Include="Views\Donations\Index.cshtml" />
+    <Content Include="Views\Donations\PastDonations.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -70,6 +70,7 @@
     <Compile Include="BaseScheduleManager.cs" />
     <Compile Include="CustomerManager.cs" />
     <Compile Include="DepartmentManager.cs" />
+    <Compile Include="DonationManager.cs" />
     <Compile Include="ERoleManager.cs" />
     <Compile Include="FacilityInspectionItemManager.cs" />
     <Compile Include="FacilityInspectionManager.cs" />

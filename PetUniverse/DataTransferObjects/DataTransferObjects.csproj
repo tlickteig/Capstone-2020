@@ -85,6 +85,8 @@
     <Compile Include="CustomerQuestionnarVM.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="DepartmentRequest.cs" />
+    <Compile Include="Donation.cs" />
+    <Compile Include="Donor.cs" />
     <Compile Include="ERole.cs" />
     <Compile Include="EventApprovalVM.cs" />
     <Compile Include="EventRequest.cs" />
