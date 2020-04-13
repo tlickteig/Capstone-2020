@@ -11,8 +11,7 @@ namespace DataAccessFakes
     /// <summary>
     /// Creator: Carl Davis
     /// Created: 2/28/2020
-    /// Approver: 
-    /// Approver: 
+    /// Approver: Ethan Murphy, 3/6/2020
     /// 
     /// Class to test the logic layer unit tests
     /// </summary>
@@ -53,8 +52,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 2/28/2020
-        /// Approver: Ethan Murphy 3/6/2020
-        /// Approver: 
+        /// Approver: Ethan Murphy, 3/6/2020
         /// 
         /// Method to insert a fake FacilityInspectioneRecord
         /// </summary>
@@ -67,25 +65,27 @@ namespace DataAccessFakes
         /// <returns>1 or 0 depending if the record matches the data</returns>
         public int InsertFacilityInspectionRecord(FacilityInspection facilityInspection)
         {
+            int result = 0;
+
             DateTime insepctionDate = new DateTime(2018, 7, 10, 7, 10, 24);
             if (facilityInspection.FacilityInspectionID == 1000000 && facilityInspection.UserID == 100000 && facilityInspection.InspectorName == "Bob"
                 && facilityInspection.InspectionDate == insepctionDate
                 && facilityInspection.InspectionDescription == "Inspect cracked window"
                 && facilityInspection.InspectionCompleted == false)
             {
-                return 1;
+                result = 1;
             }
             else
             {
-                return 0;
+                result = 0;
             }
+            return result;
         }
 
         /// <summary>
         /// Creator: Carl Davis
         /// Created: 3/11/2020
-        /// Approver: Ethan Murphy 3/13/2020
-        /// Approver: 
+        /// Approver: Ethan Murphy, 3/13/2020
         /// 
         /// Method to test select all FacilityInspection Records
         /// </summary>
@@ -98,10 +98,8 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance></returns>
         public List<FacilityInspection> SelectAllFacilityInspection(bool inspectionComplete)
         {
-            var selectedFacilityInspections = (from f in facilityInspections
-                                               select f).ToList();
-
-            return selectedFacilityInspections;
+            return (from f in facilityInspections
+                    select f).ToList();
         }
 
         /// <summary>
@@ -122,11 +120,9 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance></returns>
         public List<FacilityInspection> SelectFacilityInspectionByID(int facilityInspectionID, bool inspectionComplete)
         {
-            var selectedFacilityInspections = (from f in facilityInspections
-                                               where f.FacilityInspectionID == facilityInspectionID
-                                               select f).ToList();
-
-            return selectedFacilityInspections;
+            return (from f in facilityInspections
+                    where f.FacilityInspectionID == facilityInspectionID
+                    select f).ToList();
         }
 
         /// <summary>
@@ -147,11 +143,9 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance></returns>
         public List<FacilityInspection> SelectFacilityInspectionByInspectorName(string inspectorName, bool inspectionComplete)
         {
-            var selectedFacilityInspections = (from f in facilityInspections
-                                               where f.InspectorName == inspectorName
-                                               select f).ToList();
-
-            return selectedFacilityInspections;
+            return (from f in facilityInspections
+                    where f.InspectorName == inspectorName
+                    select f).ToList();
         }
 
         /// <summary>
@@ -172,11 +166,9 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance></returns>
         public List<FacilityInspection> SelectFacilityInspectionByUserID(int userID, bool inspectionComplete)
         {
-            var selectedFacilityInspections = (from f in facilityInspections
-                                               where f.UserID == userID
-                                               select f).ToList();
-
-            return selectedFacilityInspections;
+            return (from f in facilityInspections
+                    where f.UserID == userID
+                    select f).ToList();
         }
 
         /// <summary>
@@ -196,16 +188,18 @@ namespace DataAccessFakes
         /// <returns>1 or 0 int if they are equal</returns>
         public int UpdateFacilityInspection(FacilityInspection oldFacilityInspection, FacilityInspection newFacilityInspection)
         {
+            int result;
             oldFacilityInspection = newFacilityInspection;
 
             if (oldFacilityInspection.Equals(newFacilityInspection))
             {
-                return 1;
+                result = 1;
             }
             else
             {
-                return 0;
+                result = 0;
             }
+            return result;
         }
     }
 }

@@ -17,9 +17,11 @@ namespace DataAccessFakes
     /// </summary>    
     public class FakeApplicantAccessor : IApplicantAccessor
     {
+
         private List<Applicant> applicants = null;
+
         /// <summary>
-        /// Creatpr: Derek Taylor
+        /// Creator: Derek Taylor
         /// Created: 2/14/2020
         /// Approver: Ryan Morganti
         /// 
@@ -50,6 +52,7 @@ namespace DataAccessFakes
                     State = "IA",
                     Zipcode = "55555"
                 },
+
                 new Applicant()
                 {
                     AddressLineOne = "123 Fake Street",
@@ -64,6 +67,7 @@ namespace DataAccessFakes
                     State = "IA",
                     Zipcode = "55555"
                 },
+
                 new Applicant()
                 {
                     AddressLineOne = "123 Fake Street",

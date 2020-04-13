@@ -17,6 +17,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeAnimalStatusAccessor : IAnimalStatusAccessor
     {
+
         private List<AnimalStatus> _animalStatuses = new List<AnimalStatus>();
 
         /// <summary>
@@ -42,16 +43,19 @@ namespace DataAccessFakes
                     AnimalID = 1,
                     StatusID = "Fake1"
                 },
+
                 new AnimalStatus()
                 {
                     AnimalID = 2,
                     StatusID = "Fake2"
                 },
+
                 new AnimalStatus()
                 {
                     AnimalID = 3,
                     StatusID = "Fake3"
                 },
+
                 new AnimalStatus()
                 {
                     AnimalID = 4,
@@ -79,9 +83,9 @@ namespace DataAccessFakes
         public int DeleteAnimalStatus(int animalID, string statusID)
         {
             int rows = 0;
-            foreach(var a in _animalStatuses)
+            foreach (var a in _animalStatuses)
             {
-                if(a.AnimalID == animalID && a.StatusID == statusID)
+                if (a.AnimalID == animalID && a.StatusID == statusID)
                 {
                     //_animalStatuses.Remove(a);
                     rows = 1;
@@ -109,6 +113,7 @@ namespace DataAccessFakes
         public int InsertAnimalStatus(int animalID, string statusID)
         {
             int rows = 0;
+
             AnimalStatus animalStatus = new AnimalStatus()
             {
                 AnimalID = animalID,
@@ -116,7 +121,6 @@ namespace DataAccessFakes
             };
             try
             {
-                
                 _animalStatuses.Add(animalStatus);
                 rows = 1;
             }
@@ -145,11 +149,12 @@ namespace DataAccessFakes
         public List<string> SelectAnimalStatusesByAnimalID(int animalID)
         {
             List<string> statuses = new List<string>();
+
             try
             {
-                foreach(AnimalStatus a in _animalStatuses)
+                foreach (AnimalStatus a in _animalStatuses)
                 {
-                    if(a.AnimalID == animalID)
+                    if (a.AnimalID == animalID)
                     {
                         statuses.Add(a.StatusID);
                     }

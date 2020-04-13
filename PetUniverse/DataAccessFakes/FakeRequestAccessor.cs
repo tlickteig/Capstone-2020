@@ -7,11 +7,11 @@ using DataAccessInterfaces;
 using DataTransferObjects;
 
 /// <summary>
-///  CREATOR: Kaleb Bachert
-///  CREATED: 2020/2/7
-///  APPROVER: Jordan Lindo
-///  
-///   Fake Request Accessor Class for Unit Testing
+/// Creator: Kaleb Bachert
+/// Created: 2/7/2020
+/// Approver: Jordan Lindo
+/// 
+/// Fake Request Accessor Class for Unit Testing
 /// </summary>
 
 namespace DataAccessFakes
@@ -24,17 +24,16 @@ namespace DataAccessFakes
         private List<AvailabilityRequestVM> availabilityRequestVMs;
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/2/7
-        ///  APPROVER: Jordan Lindo
+        /// Creator: Kaleb Bachert
+        /// Created: 2/7/2020
+        /// Approver: Jordan Lindo
         ///  
-        ///   Fake Request Accessor Method, uses dummy data for testing.
+        /// Fake Request Accessor Method, uses dummy data for testing.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public FakeRequestAccessor()
         {
@@ -48,6 +47,7 @@ namespace DataAccessFakes
                     DateCreated = DateTime.Now.AddDays(-5),
                     Open = true
                 },
+
                 new Request()
                 {
                     RequestID = 1000001,
@@ -56,6 +56,7 @@ namespace DataAccessFakes
                     DateCreated = DateTime.Now.AddDays(-3),
                     Open = true
                 },
+
                 new Request()
                 {
                     RequestID = 1000002,
@@ -75,6 +76,7 @@ namespace DataAccessFakes
                     EffectiveEnd = DateTime.Now.AddDays(1).ToString(),
                     RequestID = 1000000
                 },
+
                 new TimeOffRequestVM()
                 {
                     TimeOffRequestID = 1000001,
@@ -93,6 +95,7 @@ namespace DataAccessFakes
                     EffectiveEnd = DateTime.Now.AddDays(1),
                     RequestID = 1000000
                 },
+
                 new TimeOffRequest()
                 {
                     TimeOffRequestID = 1000001,
@@ -183,127 +186,113 @@ namespace DataAccessFakes
         };
 
         /// <summary>
-        /// NAME: Ryan Morganti
-        /// DATE: 2020-02-13
-        /// CHECKED BY: Derek Taylor
+        /// Creator: Ryan Morganti
+        /// Created: 02/13/2020
+        /// Approver: Derek Taylor
         ///
         /// This is the mock access method for Active Requests
         /// queried based on DepartmentID and year value of DateAcknowledged
         /// and DateCompleted
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        ///
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="deptID"></param>
-        /// <returns></returns>
+        /// <returns>List of requests</returns>
         public List<DepartmentRequest> SelectActiveRequestsByDepartmentID(string deptID)
         {
-            var requests = (from r in _requests
-                            where (r.RequesteeGroupID == deptID ||
-                            r.RequestorGroupID == deptID) &&
-                            (r.DateAcknowledged.Year > 2000 &&
-                            r.DateCompleted.Year < 2000)
-                            select r).ToList();
-
-            return requests;
+            return (from r in _requests
+                    where (r.RequesteeGroupID == deptID ||
+                    r.RequestorGroupID == deptID) &&
+                    (r.DateAcknowledged.Year > 2000 &&
+                    r.DateCompleted.Year < 2000)
+                    select r).ToList();
         }
 
         /// <summary>
-        /// NAME: Ryan Morganti
-        /// DATE: 2020-02-22
-        /// CHECKED BY: Derek Taylor
+        /// Creator: Ryan Morganti
+        /// Created: 02/13/2020
+        /// Approver: Derek Taylor
         ///
         /// Mock Access Method for selecting a list of departments based on UserID
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        ///
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="deptID"></param>
         /// <returns></returns>
         public List<string> SelectAllEmployeeDepartments(int userID)
         {
-            var departments = (from e in EmployeeDepts
-                               where e[0] == userID.ToString()
-                               select e[1]).ToList();
-            return departments;
+            return (from e in EmployeeDepts
+                    where e[0] == userID.ToString()
+                    select e[1]).ToList();
         }
 
-
         /// <summary>
-        /// NAME: Ryan Morganti
-        /// DATE: 2020-02-13
-        /// CHECKED BY: Derek Taylor
+        /// Creator: Ryan Morganti
+        /// Created: 02/13/2020
+        /// Approver: Derek Taylor
         ///
         /// This is the mock access method for Complete Requests
         /// queried based on DepartmentID and year values of DateAcknowledged
         /// and DateCompleted
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        ///
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="deptID"></param>
-        /// <returns></returns>
+        /// <returns>List of complete requests</returns>
         public List<DepartmentRequest> SelectCompleteRequestsByDepartmentID(string deptID)
         {
-            var requests = (from r in _requests
-                            where (r.RequesteeGroupID == deptID ||
-                            r.RequestorGroupID == deptID) &&
-                            (r.DateAcknowledged.Year > 2000 &&
-                            r.DateCompleted.Year > 2000)
-                            select r).ToList();
-
-            return requests;
+            return (from r in _requests
+                    where (r.RequesteeGroupID == deptID ||
+                    r.RequestorGroupID == deptID) &&
+                    (r.DateAcknowledged.Year > 2000 &&
+                    r.DateCompleted.Year > 2000)
+                    select r).ToList();
         }
 
         /// <summary>
-        /// NAME: Ryan Morganti
-        /// DATE: 2020-02-13
-        /// CHECKED BY: Derek Taylor
+        /// Creator: Ryan Morganti
+        /// Created: 02/13/2020
+        /// Approver: Derek Taylor
         ///
         /// This is the mock access method for New Requests
         /// queried based on DepartmentID and year values of DateAcknowledged
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        ///
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="deptID"></param>
-        /// <returns></returns>
+        /// <returns>List of new requests</returns>
         public List<DepartmentRequest> SelectNewRequestsByDepartmentID(string deptID)
         {
-            var requests = (from r in _requests
-                            where (r.RequesteeGroupID == deptID ||
-                            r.RequestorGroupID == deptID) &&
-                            r.DateAcknowledged.Year < 2000
-                            select r).ToList();
-
-            return requests;
+            return (from r in _requests
+                    where (r.RequesteeGroupID == deptID ||
+                    r.RequestorGroupID == deptID) &&
+                    r.DateAcknowledged.Year < 2000
+                    select r).ToList();
         }
 
-
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/2/7
-        ///  APPROVER: Jordan Lindo
+        /// Creator: Kaleb Bachert
+        /// Created: 2/7/2020
+        /// Approver: Jordan Lindo
         ///  
-        ///   Method that retrieves all the dummy Requests, for testing
+        /// Method that retrieves all the dummy Requests, for testing
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public List<Request> SelectRequestsByStatus(bool open)
         {
@@ -313,17 +302,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/2/7
-        ///  APPROVER: Jordan Lindo
+        /// Creator: Kaleb Bachert
+        /// Created: 2/7/2020
+        /// Approver: Jordan Lindo
         ///  
-        ///   Method that approves a dummy Request, for testing
+        /// Method that approves a dummy Request, for testing
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public int ApproveRequest(int requestID, int userID, string requestType)
         {
@@ -334,17 +322,16 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/3/3
-        ///  APPROVER: Lane Sandburg
+        /// Creator: Kaleb Bachert
+        /// Created: 3/3/2020
+        /// Approver: Lane Sandburg
         ///  
-        ///   Method that inserts a dummy Request, for testing
+        /// Method that inserts a dummy Request, for testing
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public int InsertTimeOffRequest(TimeOffRequest request, int requestingUserID)
         {
@@ -356,36 +343,33 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/3/5
-        ///  APPROVER: Lane Sandburg
+        /// Creator: Kaleb Bachert
+        /// Created: 3/5/2020
+        /// Approver: Lane Sandburg
         ///  
-        ///   Method that retrieves a dummy request by ID
+        /// Method that retrieves a dummy request by ID
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public TimeOffRequestVM SelectTimeOffRequestByRequestID(int RequestID)
         {
             return timeOffRequestVMs.Where(request => request.RequestID == RequestID).First();
         }
 
-
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/3/17
-        ///  APPROVER: Lane Sandburg
+        /// Creator: Kaleb Bachert
+        /// Created: 3/17/2020
+        /// Approver: Lane Sandburg
         ///  
-        ///   Method that inserts a new availability request
+        /// Method that inserts a new availability request
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public int InsertAvailabilityRequest(AvailabilityRequestVM request, int requestingUserID)
         {

@@ -148,6 +148,12 @@
     <Compile Include="InventoryPages\AddDonationItem.xaml.cs">
       <DependentUpon>AddDonationItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\AddItemReport.xaml.cs">
+      <DependentUpon>AddItemReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\EditItemReports.xaml.cs">
+      <DependentUpon>EditItemReports.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\ShelterInventory.xaml.cs">
       <DependentUpon>ShelterInventory.xaml</DependentUpon>
     </Compile>
@@ -157,11 +163,23 @@
     <Compile Include="InventoryPages\ViewAddOrder.xaml.cs">
       <DependentUpon>ViewAddOrder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\ViewAddSpecialOrder.xaml.cs">
+      <DependentUpon>ViewAddSpecialOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\ViewItemReports.xaml.cs">
+      <DependentUpon>ViewItemReports.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\ViewOrders.xaml.cs">
       <DependentUpon>ViewOrders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\ViewSpecialOrders.xaml.cs">
+      <DependentUpon>ViewSpecialOrders.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PersonnelPages\BaseScheduleControls.xaml.cs">
       <DependentUpon>BaseScheduleControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PoSPages\FilterItem.xaml.cs">
+      <DependentUpon>FilterItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\pgAddEditViewPromotion.xaml.cs">
       <DependentUpon>pgAddEditViewPromotion.xaml</DependentUpon>
@@ -216,6 +234,9 @@
     </Compile>
     <Compile Include="PoSPages\pgInventoryItems.xaml.cs">
       <DependentUpon>pgInventoryItems.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PoSPages\pgOpenTransaction.xaml.cs">
+      <DependentUpon>pgOpenTransaction.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\pgPromotion.xaml.cs">
       <DependentUpon>pgPromotion.xaml</DependentUpon>
@@ -391,6 +412,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\AddItemReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\EditItemReports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\ShelterInventory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -403,13 +432,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\ViewAddSpecialOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\ViewItemReports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\ViewOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\ViewSpecialOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PersonnelPages\BaseScheduleControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PoSPages\FilterItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
       <SubType>Designer</SubType>
@@ -480,6 +525,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\pgInventoryItems.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PoSPages\pgOpenTransaction.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

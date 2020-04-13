@@ -18,6 +18,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeFacilityMaintenanceAccessor : IFacilityMaintenanceAccessor
     {
+
         private FacilityMaintenance _facilityMaintenance;
 
         /// <summary>
@@ -26,7 +27,7 @@ namespace DataAccessFakes
         /// Approver: Chuck Baxter, 2/7/2020
         /// Approver: Daulton Schilling, 2/7/2020
         /// 
-        /// Constructor to instanciate the test objects
+        /// Constructor to instantiate the test objects
         /// </summary>
         /// <remarks>
         /// Updater:
@@ -55,6 +56,7 @@ namespace DataAccessFakes
                 MaintenanceInterval = "5 hours",
                 MaintenanceDescription = "Fix cracked window"
             },
+
             new FacilityMaintenance()
             {
                 FacilityMaintenanceID = 1000001,
@@ -63,7 +65,7 @@ namespace DataAccessFakes
                 MaintenanceInterval = "5 hours",
                 MaintenanceDescription = "Fix cracked window"
             }
-    };
+        };
 
         /// <summary>
         /// Creator: Carl Davis
@@ -82,16 +84,20 @@ namespace DataAccessFakes
         /// <returns>1 or 0 depending if the record matches the data</returns>
         public int InsertFacilityMaintenanceRecord(FacilityMaintenance facilityMaintenance)
         {
-            if (facilityMaintenance.FacilityMaintenanceID == 1000000 && facilityMaintenance.UserID == 1000000 && facilityMaintenance.MaintenanceName == "Window"
+            int result = 0;
+            if (facilityMaintenance.FacilityMaintenanceID == 1000000
+                && facilityMaintenance.UserID == 1000000
+                && facilityMaintenance.MaintenanceName == "Window"
                 && facilityMaintenance.MaintenanceInterval == "5 hours"
                 && facilityMaintenance.MaintenanceDescription == "Fix cracked window")
             {
-                return 1;
+                result = 1;
             }
             else
             {
-                return 0;
+                result = 0;
             }
+            return result;
         }
 
         /// <summary>
@@ -144,11 +150,9 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance> objects</returns>
         public List<FacilityMaintenance> SelectFacilityMaintenanceByUserID(int userID, bool active)
         {
-            var selectedFacilityMaintenances = (from f in facilityMaintenances
-                                                where f.UserID == userID
-                                                select f).ToList();
-
-            return selectedFacilityMaintenances;
+            return (from f in facilityMaintenances
+                    where f.UserID == userID
+                    select f).ToList();
         }
 
         /// <summary>
@@ -168,11 +172,9 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance></returns>
         public List<FacilityMaintenance> SelectFacilityMaintenanceFacilityMaintenanceName(string facilityMaintenanceName, bool active)
         {
-            var selectedFacilityMaintenances = (from f in facilityMaintenances
-                                                where f.MaintenanceName == facilityMaintenanceName
-                                                select f).ToList();
-
-            return selectedFacilityMaintenances;
+            return (from f in facilityMaintenances
+                    where f.MaintenanceName == facilityMaintenanceName
+                    select f).ToList();
         }
 
         /// <summary>
@@ -191,10 +193,8 @@ namespace DataAccessFakes
         /// <returns>List<FacilityMaintenance> objects</returns>
         public List<FacilityMaintenance> SelectAllFacilityMaintenance(bool active)
         {
-            var selectedFacilityMaintenances = (from f in facilityMaintenances
-                                                select f).ToList();
-
-            return selectedFacilityMaintenances;
+            return (from f in facilityMaintenances
+                    select f).ToList();
         }
 
         /// <summary>
@@ -215,16 +215,18 @@ namespace DataAccessFakes
         /// <returns>1 or 0 int if they are equal</returns>
         public int UpdateFacilityMaintenance(FacilityMaintenance oldFacilityMaintenance, FacilityMaintenance newFacilityMaintenance)
         {
+            int result = 0;
             oldFacilityMaintenance = newFacilityMaintenance;
 
             if (oldFacilityMaintenance.Equals(newFacilityMaintenance))
             {
-                return 1;
+                result = 1;
             }
             else
             {
-                return 0;
+                result = 0;
             }
+            return result;
         }
 
         /// <summary>
@@ -244,17 +246,20 @@ namespace DataAccessFakes
         /// <returns>int 1 or 0 depending if record was deleted</returns>
         public int DeactivateFacilityMaintenance(int facilityMaintenanceID)
         {
+            int result = 0;
+
             if (facilityMaintenanceID == _facilityMaintenance.FacilityMaintenanceID)
             {
                 _facilityMaintenance.Active = false;
                 if (_facilityMaintenance.Active)
                 {
-                    return 1;
+                    result = 1;
                 }
                 else
                 {
-                    return 0;
+                    result = 0;
                 }
+                return result;
             }
             else
             {

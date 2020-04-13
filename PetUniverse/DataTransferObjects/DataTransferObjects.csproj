@@ -100,6 +100,7 @@
     <Compile Include="Item.cs" />
     <Compile Include="ItemCategory.cs" />
     <Compile Include="ItemLocation.cs" />
+    <Compile Include="ItemReport.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="MedicalHistory.cs" />
@@ -113,8 +114,9 @@
     <Compile Include="Order.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />
+    <Compile Include="Picture.cs" />
     <Compile Include="Product.cs" />
-    <Compile Include="ProductViewModel.cs" />
+    <Compile Include="ProductVM.cs" />
     <Compile Include="Promotion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PUEvent.cs" />
@@ -122,11 +124,14 @@
     <Compile Include="Request.cs" />
     <Compile Include="RequestVM.cs" />
     <Compile Include="SalesDataVM.cs" />
+    <Compile Include="SalesTax.cs" />
+    <Compile Include="SpecialOrder.cs" />
     <Compile Include="States.cs" />
     <Compile Include="TimeOffRequest.cs" />
     <Compile Include="TimeOffRequestVM.cs" />
     <Compile Include="TrainingVideo.cs" />
     <Compile Include="Transaction.cs" />
+    <Compile Include="TransactionLineProducts.cs" />
     <Compile Include="TransactionVM.cs" />
     <Compile Include="Volunteer.cs" />
     <Compile Include="VolunteerEvent.cs" />

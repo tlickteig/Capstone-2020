@@ -81,6 +81,7 @@
     <Compile Include="IInventoryItemsManager.cs" />
     <Compile Include="IItemCategoryManager.cs" />
     <Compile Include="IItemManager.cs" />
+    <Compile Include="IItemReportManager.cs" />
     <Compile Include="ILocationManager.cs" />
     <Compile Include="ILogManager.cs" />
     <Compile Include="IMedicationManager.cs" />
@@ -89,12 +90,14 @@
     <Compile Include="INewAnimalChecklistManager.cs" />
     <Compile Include="IOrderManager.cs" />
     <Compile Include="IPetUniverseUserERolesManager.cs" />
+    <Compile Include="IPictureManager.cs" />
     <Compile Include="IProductManager.cs" />
     <Compile Include="IManageBackstockRecords.cs" />
     <Compile Include="IPUEventManager.cs" />
     <Compile Include="IRequestManager.cs" />
     <Compile Include="ISalesDataManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
+    <Compile Include="ISpecialOrderManager.cs" />
     <Compile Include="IStatusManager.cs" />
     <Compile Include="ITrainingVideoManager.cs" />
     <Compile Include="ITransactionManager.cs" />

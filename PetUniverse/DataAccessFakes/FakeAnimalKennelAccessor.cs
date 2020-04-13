@@ -22,6 +22,7 @@ namespace DataAccessFakes
     /// </remarks>
     public class FakeAnimalKennelAccessor : IAnimalKennelAccessor
     {
+
         private List<AnimalKennel> records;
 
         /// <summary>
@@ -82,15 +83,12 @@ namespace DataAccessFakes
             int kennelIndex = records.FindIndex(k => k.AnimalKennelID == kennel.AnimalKennelID);
 
             AnimalKennel animalKennel = records[kennelIndex];
-
             animalKennel.AnimalKennelDateOut = kennel.AnimalKennelDateOut;
-
             records[kennelIndex] = animalKennel;
 
             return (from k in records
                     where k.AnimalKennelID == kennel.AnimalKennelID
                     select k).Count();
-
         }
 
         /// <summary>
@@ -103,32 +101,32 @@ namespace DataAccessFakes
         /// Will intentionally throw an exception if the kennel ID isn't 1.
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/9/2020
+        /// Update: Updated return value so we weren't using a magic number
         /// </remarks>
         /// <param name="kennel"></param>
         /// <returns> Represents the number of rows effected.</returns>
         public int InsertKennelRecord(AnimalKennel kennel)
         {
+            int result = 0;
+
             if (kennel.AnimalKennelID == 1)
             {
                 records.Add(kennel);
-
-                return 1;
+                result = 1;
             }
             else
             {
                 throw new Exception("Test exception");
             }
-
+            return result;
         }
 
         /// <summary>
         /// Creator: Ben Hanna
         /// Created: 2/12/2020
-        /// Approver: Carl Davis, 3/13/2020
-        /// Approver: 
+        /// Approver: Carl Davis, 3/13/2020        
         /// 
         /// Gets all kennel records
         /// </summary>
@@ -152,28 +150,29 @@ namespace DataAccessFakes
         /// Simulates updating a kennel record
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/9/2020
+        /// Update: Updated return value so we weren't using a magic number
         /// </remarks>
         /// <param name="oldKennel"></param>
         /// <param name="newKennel"></param>
         /// <returns></returns>
         public int UpdateKennelRecord(AnimalKennel oldKennel, AnimalKennel newKennel)
         {
+            int result;
             AnimalKennel kennel = null;
             kennel = (records.Find(n => n.AnimalKennelID == oldKennel.AnimalKennelID));
+
             if (kennel != null)
             {
-
                 records[(oldKennel.AnimalKennelID - 1)] = newKennel;
-
-                return 1;
+                result = 1;
             }
             else
             {
                 throw new ApplicationException("data not found");
             }
+            return result;
         }
 
         /// <summary>
@@ -185,28 +184,29 @@ namespace DataAccessFakes
         /// Same method as above. Just here to make sure the interface works
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/9/2020
+        /// Update: Updated return value so we weren't using a magic number
         /// </remarks>
         /// <param name="oldKennel"></param>
         /// <param name="newKennel"></param>
         /// <returns></returns>
         public int UpdateKennelRecordNoDateOut(AnimalKennel oldKennel, AnimalKennel newKennel)
         {
+            int result = 0;
             AnimalKennel kennel = null;
             kennel = (records.Find(n => n.AnimalKennelID == oldKennel.AnimalKennelID));
+
             if (kennel != null)
             {
-
                 records[(oldKennel.AnimalKennelID - 1)] = newKennel;
-
-                return 1;
+                result = 1;
             }
             else
             {
                 throw new ApplicationException("data not found");
             }
+            return result;
         }
     }
 }

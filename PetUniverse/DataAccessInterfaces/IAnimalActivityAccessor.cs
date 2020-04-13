@@ -68,7 +68,6 @@ namespace DataAccessLayer
         /// <returns>List of animal activity types</returns>
         List<AnimalActivityType> GetAnimalActivityTypes();
 
-
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/2/2020

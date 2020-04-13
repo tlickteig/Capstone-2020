@@ -9,28 +9,30 @@ using DataTransferObjects;
 namespace DataAccessFakes
 {
     /// <summary>
-    ///     AUTHOR: Timothy Lickteig
-    ///     CONTRIBUTERS: Kaleb Bachert
-    ///     DATE: 2020-02-05
-    ///     CHECKED BY: Zoey McDonald
-    ///     Class for emulating an actual data access class for volunteer shifts
+    /// Creator: Timothy Lickteig
+    /// Contributor: Kaleb Bachert
+    /// Created: 02/05/2020
+    /// Approver: Zoey McDonald
+    /// 
+    /// Class for emulating an actual data access class for volunteer shifts
     /// </summary>
-    /// <remarks>
-    ///     UPDATED BY: N/A
-    ///     UPDATE DATE: N/A
-    ///     WHAT WAS CHANGED: N/A
-    /// </remarks>
-    public class VolunteerShiftAccessorFake : IVolunteerShiftAccessor
+    public class FakeVolunteerShiftAccessor : IVolunteerShiftAccessor
     {
         private List<VolunteerShift> _volunteerShifts = new List<VolunteerShift>();
 
         /// <summary>
-        ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-02-05
-        ///     CHECKED BY: Zoey McDonald
-        ///     Main constructor for the class
+        /// Creator: Timothy Lickteig
+        /// Created: 02/05/2020
+        /// Approver: Zoey McDonald
+        /// 
+        /// Main constructor for the class
         /// </summary>
-        public VolunteerShiftAccessorFake()
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        public FakeVolunteerShiftAccessor()
         {
             _volunteerShifts.Add(new VolunteerShift()
             {
@@ -66,10 +68,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-02-05
-        ///     CHECKED BY: Zoey McDonald
+        /// Creator: Timothy Lickteig
+        /// Created: 02/05/2020
+        /// Approver: Zoey McDonald
+        /// 
+        /// Fake add shift method
         /// </summary>
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks> 
         /// <param name="shift">Volunteer shift to be added</param>
         /// <returns>The number of rows affected</returns>
         public int AddShift(VolunteerShift shift)
@@ -79,10 +88,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-03-08
-        ///     CHECKED BY: Zoey McDonald
+        /// Creator: Timothy Lickteig
+        /// Created: 02/05/2020
+        /// Approver: Zoey McDonald
+        /// 
+        /// Fake method to cancel
         /// </summary>        
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
         /// <param name="volunteerID">The volunteerID to use</param>
         /// <param name="volunteerShiftID">The volunteerShiftID to use</param>
         /// <returns>The number of rows affected</returns>
@@ -99,10 +115,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-02-08
-        ///     CHECKED BY: Zoey McDonald
+        /// Creator: Timothy Lickteig
+        /// Created: 02/05/2020
+        /// Approver: Zoey McDonald
+        /// 
+        /// Fake to move a shift
         /// </summary>
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
         /// <param name="shift">ID of the Volunteer shift to remove</param>
         /// <returns>The number of rows affected</returns>
         public int RemoveShift(int shiftID)
@@ -123,21 +146,35 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-02-17
-        ///     CHECKED BY: Zoey McDonald
-        /// </summary>        
+        /// Creator: Timothy Lickteig
+        /// Created: 02/17/2020
+        /// Approver: Zoey McDonald
+        /// 
+        /// Fake to get all shifts
+        /// </summary>  
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
         /// <returns>A list of shifts from the list</returns>
         public List<VolunteerShift> SelectAllShifts()
-        {            
+        {
             return _volunteerShifts;
         }
 
         /// <summary>
-        ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-03-01
-        ///     CHECKED BY: Zoey McDonald
-        /// </summary>        
+        /// Creator: Timothy Lickteig
+        /// Created: 02/03/2020
+        /// Approver: Zoey McDonald
+        /// 
+        /// Fake to select all volunteer shifts
+        /// </summary>  
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
         /// <param name="volunteerID">The volunteerID to query</param>
         /// <returns>A list of shifts from the emulated database</returns>
         public List<VolunteerShift> SelectAllShiftsForAVolunteer(int volunteerID)
@@ -151,15 +188,21 @@ namespace DataAccessFakes
                     tempList.Add(shift);
                 }
             }
-
             return tempList;
         }
 
         /// <summary>
-        ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-03-01
-        ///     CHECKED BY: Zoey McDonald
-        /// </summary>        
+        /// Creator: Timothy Lickteig
+        /// Created: 01/03/2020
+        /// Approver: Zoey McDonald
+        /// 
+        /// Fake select shift method
+        /// </summary>   
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
         /// <param name="shiftID">The shiftID to query</param>
         /// <returns>A shift from the emulated database</returns>
         public VolunteerShift SelectShift(int shiftID)
@@ -173,15 +216,21 @@ namespace DataAccessFakes
                     shift = shift2;
                 }
             }
-
             return shift;
         }
 
         /// <summary>
-        ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-03-02
-        ///     CHECKED BY: Zoey McDonald
-        /// </summary>        
+        /// Creator: Timothy Lickteig
+        /// Created: 02/03/2020
+        /// Approver: Zoey McDonald
+        /// 
+        /// Fake to sign volunteer up for shift
+        /// </summary> 
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
         /// <param name="volunteerID">The volunteerID to use</param>
         /// <param name="volunteerShiftID">The volunteerShiftID to use</param>
         /// <returns>The simluated number of rows affected</returns>
@@ -198,10 +247,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-02-10
-        ///     CHECKED BY: Zoey McDonald
+        /// Creator: Timothy Lickteig
+        /// Created: 02/10/2020
+        /// Approver: Zoey McDonald
+        /// 
+        /// Fake to update shift
         /// </summary>
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
         /// <param name="oldShift">Old shift to be replaced</param>
         /// <param name="newShift">New shift as replacement</param>
         /// <returns>The number of rows affected</returns>
@@ -211,9 +267,9 @@ namespace DataAccessFakes
             int index = 0;
 
             foreach (VolunteerShift tempShift in _volunteerShifts)
-            {                
+            {
                 if (tempShift.VolunteerShiftID == oldShift.VolunteerShiftID)
-                {                    
+                {
                     rows = 1;
                     break;
                 }
@@ -224,7 +280,6 @@ namespace DataAccessFakes
             {
                 _volunteerShifts[index] = newShift;
             }
-
             return rows;
         }
     }

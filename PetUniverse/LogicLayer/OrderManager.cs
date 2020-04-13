@@ -13,6 +13,9 @@ namespace LogicLayer
     /// <summary>
     /// NAME: Jesse Tomash
     /// DATE: 3/12/2020
+    ///
+    /// Approver: Brandyn T. Coverdill
+    /// Approver: Dalton Reierson
     /// 
     /// This is the class for handling logic for Orders
     /// </summary>
@@ -21,11 +24,14 @@ namespace LogicLayer
     /// UPDATE DATE:
     /// WHAT WAS CHANGED:
     /// </remarks>
-    public class OrderAccessor : IOrderManager
+    public class OrderManager : IOrderManager
     {
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This is the instance of orderAccessor used in this class
         /// </summary>
@@ -39,6 +45,9 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This is the default manager constructor that receives the fake orderaccessor
         /// </summary>
@@ -47,7 +56,7 @@ namespace LogicLayer
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        public OrderAccessor()
+        public OrderManager()
         {
             _orderAccessor = new DataAccessLayer.OrderAccessor();
         }
@@ -55,6 +64,9 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This is the constructor that receives the real orderaccessor
         /// </summary>
@@ -64,7 +76,7 @@ namespace LogicLayer
         /// WHAT WAS CHANGED:
         /// </remarks>
         /// <param name="orderAccessor"></param>
-        public OrderAccessor(IOrderAccessor orderInvoiceAccessor)
+        public OrderManager(IOrderAccessor orderInvoiceAccessor)
         {
             _orderAccessor = orderInvoiceAccessor;
         }
@@ -72,6 +84,9 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This is the method that handles logic between SelectOrders() and the presentation
         /// </summary>
@@ -84,7 +99,7 @@ namespace LogicLayer
         public IEnumerable<Order> RetrieveOrders()
         {
             {
-                IEnumerable<Order> orderInvoices; ;
+                IEnumerable<Order> orderInvoices;
 
                 try
                 {
@@ -102,6 +117,9 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This is the method that handles logic between UpdateOrder() and the presentation
         /// </summary>
@@ -131,6 +149,9 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This is the method that handles logic between InsertOrder() and the presentation
         /// </summary>
@@ -160,6 +181,9 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This is the method that handles logic between DeleteOrder() and the presentation
         /// </summary>

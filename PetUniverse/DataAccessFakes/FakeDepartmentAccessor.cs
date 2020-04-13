@@ -17,6 +17,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeDepartmentAccessor : IDepartmentAccessor
     {
+
         private List<Department> _departments;
         private List<string> _deactivatedDepartmentIDs;
 
@@ -72,8 +73,6 @@ namespace DataAccessFakes
         {
             return 1;
         }
-
-
 
         /// <summary>
         /// Creator: Jordan Lindo
@@ -164,9 +163,8 @@ namespace DataAccessFakes
         /// 
         /// </remarks>
         public int UpdateDepartment(Department oldDepartment, Department newDepartment)
-        {
-            int rows = 1;
-            return rows;
+        {            
+            return 1;
         }
 
         /// <summary>

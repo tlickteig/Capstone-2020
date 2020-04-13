@@ -60,8 +60,35 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Austin Gee
+        /// Created: 4/4/2020
+        /// Approver: Micheal Thompson, 4/9/2020
+        /// 
+        /// Deactivates an animal
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="animalID"></param>
+        /// <returns></returns>
+        public bool DeactivateAnimal(int animalID)
+        {
+            try
+            {
+                return 1 == _adoptionAnimalAccessor.DeactivateAdoptionAnimal(animalID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Animal was not deactivated.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
         /// Created: 3/5/2020
-        /// Approver: NA
+        /// Approver: Micheal Thompson, 4/9/2020
         /// 
         /// Retrieves a list of adoption animal VMs from data access layer
         /// </summary>

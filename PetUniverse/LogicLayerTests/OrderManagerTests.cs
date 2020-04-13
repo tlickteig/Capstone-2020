@@ -13,6 +13,9 @@ namespace LogicLayerTests
     /// <summary>
     /// NAME: Jesse Tomash
     /// DATE: 2/7/2020
+    ///
+    /// Approver: Brandyn T. Coverdill
+    /// Approver: Dalton Reierson
     /// 
     /// This is the Test class for OrderManager
     /// </summary>
@@ -27,6 +30,9 @@ namespace LogicLayerTests
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// Tests RetrieveOrders
         /// </summary>
@@ -50,6 +56,9 @@ namespace LogicLayerTests
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// Tests EditORder
         /// </summary>
@@ -85,6 +94,9 @@ namespace LogicLayerTests
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// Tests AddOrder
         /// </summary>
@@ -113,6 +125,9 @@ namespace LogicLayerTests
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// Tests DeleteOrder
         /// </summary>

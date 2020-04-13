@@ -11,21 +11,22 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Mohamed Elamin
-    /// Created: 2020/02/19
-    /// Approver:Thomas Dupuy ,2020/02/21
+    /// Created: 02/19/2020
+    /// Approver:Thomas Dupuy, 02/21/2020
     ///
-    /// This Class for creating a fake Customer data which will used 
-    /// for testing Logic layer public methodes.
+    /// This Class is for creating  fake Customer data which will be used 
+    /// for testing Logic layer public methods.
     /// </summary>
     public class FakeCustomerAccessor : ICustomerAccessor
     {
+
         private List<Customer> customers = null;
         private Customer customer = new Customer();
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
-        /// Approver: Thomas Dupuy ,2020/02/21
+        /// Created: 02/19/2020
+        /// Approver: Thomas Dupuy, 02/21/2020
         /// 
         /// This method will get fake Customer when whene it called. 
         /// </summary>
@@ -56,41 +57,42 @@ namespace DataAccessFakes
                 Active = true
                 },
 
-            new Customer()
-            {
-                UserID = 10008,
-                FirstName = "Ali",
-                LastName = "Ahmed",
-                PhoneNumber = "3193762955",
-                Email = "ali@hotmail.com",
-                AddressLineOne = "12 kirkwood street SW",
-                AddressLineTwo = "Apt1",
-                ZipCode = "52487",
-                State = "IA",
-                City = "cedar rapids",
-                Active = true
-            },
-            new Customer()
-            {
-                UserID = 10007,
-                FirstName = "Zaic",
-                LastName = "kamal",
-                PhoneNumber = "9299556722",
-                Email = "zaic@hotmail.com",
-                AddressLineOne = "12 k street SW",
-                AddressLineTwo = "Apt4",
-                ZipCode = "50987",
-                State = "IA",
-                City = "cedar rapids",
-                Active = true
-            },
-        };
+                new Customer()
+                {
+                    UserID = 10008,
+                    FirstName = "Ali",
+                    LastName = "Ahmed",
+                    PhoneNumber = "3193762955",
+                    Email = "ali@hotmail.com",
+                    AddressLineOne = "12 kirkwood street SW",
+                    AddressLineTwo = "Apt1",
+                    ZipCode = "52487",
+                    State = "IA",
+                    City = "cedar rapids",
+                    Active = true
+                },
+
+                new Customer()
+                {
+                    UserID = 10007,
+                    FirstName = "Zaic",
+                    LastName = "kamal",
+                    PhoneNumber = "9299556722",
+                    Email = "zaic@hotmail.com",
+                    AddressLineOne = "12 k street SW",
+                    AddressLineTwo = "Apt4",
+                    ZipCode = "50987",
+                    State = "IA",
+                    City = "cedar rapids",
+                    Active = true
+                }
+            };
         }
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
-        /// Approver: Thomas Dupuy ,2020/02/21
+        /// Created: 02/19/2020
+        /// Approver: Thomas Dupuy, 02/21/2020
         /// 
         /// This fake method is called to get a fake Customer which has the same 
         /// passed last name. 

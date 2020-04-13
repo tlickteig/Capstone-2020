@@ -31,7 +31,6 @@ namespace DataAccessFakes
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
         public FakeStatusAccessor()
         {
@@ -55,7 +54,6 @@ namespace DataAccessFakes
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
         public int InsertStatus(string StatusID)
         {
@@ -83,7 +81,6 @@ namespace DataAccessFakes
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
         public List<string> SelectAllStatuses()
         {

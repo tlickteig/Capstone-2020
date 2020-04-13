@@ -11,16 +11,17 @@ namespace DataAccessInterfaces
     /// <summary>
     /// Creator: Mohamed Elamin
     /// Created: 02/29/2020
-    /// Approver: Awaab Elamin, 2020/03/03
+    /// Approver: Awaab Elamin, 03/03/2020
     ///
     /// This interface for accessing Appointment Applications data.
     /// </summary>
     public interface IAdoptionInterviewerAccessor
     {
+
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2/5/2020
-        /// Approve: Awaab Elamin, 2020/03/03
+        /// Approve: Awaab Elamin, 03/03/2020
         /// 
         /// This method used to get Adoption Applictions if their status
         /// is In-home Inspection. 
@@ -39,7 +40,7 @@ namespace DataAccessInterfaces
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2/5/2020
-        /// Approver: Awaab Elamin, 2020/03/03
+        /// Approver: Awaab Elamin, 03/03/2020
         /// 
         /// This method used to get Adoption Applictions if their status
         /// is Interviewer. 
@@ -54,4 +55,3 @@ namespace DataAccessInterfaces
         List<AdoptionAppointment> SelectAdoptionAappointmentsByAppointmentType();
     }
 }
-

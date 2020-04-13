@@ -17,6 +17,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeMessageAccessor : IMessagesAccessor
     {
+
         private List<string> _departments = new List<string>();
         private List<string> _users = new List<string>();
 
@@ -55,7 +56,6 @@ namespace DataAccessFakes
             List<string> emptyList = new List<string>();
             if (Input != null)
             {
-
                 return _departments;
             }
             else
@@ -64,6 +64,20 @@ namespace DataAccessFakes
             }
         }
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/16/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Fake logic to get messages for a user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="RecipientID"></param>
+        /// <returns></returns>
         public List<Messages> GetMessagesByRecipient(int RecipientID)
         {
             List<Messages> _messages = new List<Messages>();
@@ -77,7 +91,6 @@ namespace DataAccessFakes
                 RecipientID = 100001,
                 Seen = false
             };
-
 
             if (RecipientID >= 100000)
             {
@@ -98,7 +111,9 @@ namespace DataAccessFakes
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// </remarks>  
+        /// </remarks> 
+        /// <param name="Input"></param>
+        /// <returns>List of user like the input</returns>
         public List<string> GetUsersLikeInput(string Input)
         {
             List<string> emptyList = new List<string>();
@@ -124,6 +139,11 @@ namespace DataAccessFakes
         /// Updated: NA
         /// Update: NA
         /// </remarks> 
+        /// <param name="content"></param>
+        /// <param name="subject"></param>
+        /// <param name="senderID"></param>
+        /// <param name="recieverID"></param>
+        /// <returns>Boolean value of email being sent</returns>
         public bool sendEmail(string content, string subject, int senderID, int recieverID)
         {
             if (content != "" && subject != "" && senderID != 0 && recieverID != 0)
@@ -137,10 +157,19 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 03/16/2020
+        /// Approver: Steven Cardona
         /// 
+        /// Set a message seen
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
         /// <param name="MessageID"></param>
-        /// <returns></returns>
+        /// <returns>Boolean value of setting message seen</returns>
         public bool setMessageSeen(int MessageID)
         {
             if (MessageID >= 10000)

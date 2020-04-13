@@ -29,7 +29,7 @@ namespace LogicLayerTests
 		[TestInitialize]
 		public void InventoryItemsTestSetup()
 		{
-			_salesDataAccessor = new SalesDataFakes();
+			_salesDataAccessor = new FakeSalesData();
 		}
 
 		[TestMethod]

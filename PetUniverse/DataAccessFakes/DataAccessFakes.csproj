@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackRecordAccessorFakes.cs" />
     <Compile Include="FakeAdoptionAnimalAccessor.cs" />
     <Compile Include="FakeAdoptionAppointmentAccessor.cs" />
     <Compile Include="FakeAdoptionCustomerAccessor.cs" />
@@ -67,6 +66,7 @@
     <Compile Include="FakeApplicationAccessor.cs" />
     <Compile Include="FakeAppointmentAccessor.cs" />
     <Compile Include="FakeAppointmentTypeAccessor.cs" />
+    <Compile Include="FakeBackRecordAccessor.cs" />
     <Compile Include="FakeBaseScheduleAccessor.cs" />
     <Compile Include="FakeCustomerAccessor.cs" />
     <Compile Include="FakeDepartmentAccessor.cs" />
@@ -82,6 +82,7 @@
     <Compile Include="FakeInventoryItemsAccessor.cs" />
     <Compile Include="FakeItemAccessor.cs" />
     <Compile Include="FakeItemCategoryAccessor.cs" />
+    <Compile Include="FakeItemReportAccessor.cs" />
     <Compile Include="FakeLocationAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
     <Compile Include="FakeMedicalHistoryAccessor.cs" />
@@ -91,11 +92,13 @@
     <Compile Include="FakeNewAnimalChecklistAccessor.cs" />
     <Compile Include="FakeOrderAccessor.cs" />
     <Compile Include="FakePetUniverseUserERolesAccessor.cs" />
+    <Compile Include="FakePictureAccessor.cs" />
     <Compile Include="FakeProductAccessor.cs" />
     <Compile Include="FakePromotionAccessor.cs" />
     <Compile Include="FakeRequestAccessor.cs" />
     <Compile Include="FakeReviewerAccessor.cs" />
     <Compile Include="FakeShiftTimeAccessor.cs" />
+    <Compile Include="FakeSpecialOrderAccessor.cs" />
     <Compile Include="FakeStatusAccessor.cs" />
     <Compile Include="FakeTrainingVideoAccessor.cs" />
     <Compile Include="FakeTransactionAccessor.cs" />
@@ -105,8 +108,8 @@
     <Compile Include="FakeVolunteerEventAccessor.cs" />
     <Compile Include="FakeVolunteerTaskAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SalesDataFakes.cs" />
-    <Compile Include="VolunteerShiftAccessorFake.cs" />
+    <Compile Include="FakeSalesData.cs" />
+    <Compile Include="FakeVolunteerShiftAccessor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataAccessInterfaces\DataAccessInterfaces.csproj">

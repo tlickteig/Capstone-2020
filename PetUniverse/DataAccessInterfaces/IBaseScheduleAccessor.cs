@@ -16,6 +16,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IBaseScheduleAccessor
     {
+
         /// <summary>
         /// Creator: Jordan Lindo
         /// Created: 3/18/2020
@@ -27,7 +28,6 @@ namespace DataAccessInterfaces
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
         BaseScheduleVM RetrieveActiveBaseSchedule();
 
@@ -42,7 +42,6 @@ namespace DataAccessInterfaces
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
         List<BaseSchedule> RetrieveAllBaseSchedules();
 
@@ -57,7 +56,6 @@ namespace DataAccessInterfaces
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
         List<BaseScheduleLine> RetrieveBaseScheduleLinesByBaseScheduleID(int baseScheduleID);
 
@@ -72,9 +70,7 @@ namespace DataAccessInterfaces
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
         int InsertBaseScheduleVM(BaseScheduleVM baseScheduleVM);
-
     }
 }

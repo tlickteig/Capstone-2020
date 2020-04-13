@@ -20,13 +20,19 @@ namespace DataTransferObjects
     /// </remarks>
     public class Transaction
     {
-        public int TransactionID { get; set; }
-        public int EmployeeID { get; set; }
-        public string Notes { get; set; }
+
         public Dictionary<Product, int> ProductAmounts { get; set; }
-        public DateTime Date { get; set; }
-        public string Status { get; set; }
-        public string Type { get; set; }
+
+
+        public int TransactionID { get; set; }
+        public DateTime TransactionDateTime { get; set; }
+        public decimal TaxRate { get; set; }
+        public decimal SubTotalTaxable { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal Total { get; set; }
+        public string TransactionTypeID { get; set; }
+        public int EmployeeID { get; set; }
+        public string TransactionStatusID { get; set; }
 
         /// <summary>
         /// Creator: Robert Holmes

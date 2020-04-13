@@ -7,10 +7,11 @@ using DataTransferObjects;
 
 namespace DataAccessInterfaces
 {
+
     /// <summary>
-    /// NAME: Austin Gee
-    /// DATE: 3/18/2020
-    /// CHECKED BY: 
+    /// Creator: Austin Gee
+    /// Created: 3/18/2020
+    /// Approver: Thomas Dupuy
     /// 
     /// Interface that contains methods that relate to adoption application
     /// data access methods
@@ -19,17 +20,16 @@ namespace DataAccessInterfaces
     {
 
         /// <summary>
-        /// NAME: Austin Gee
-        /// DATE: 3/18/2020
-        /// CHECKED BY: 
+        /// Creator: Austin Gee
+        /// Created: 3/18/2020
+        /// Approver: Thomas Dupuy
         /// 
         /// selects a list of ApplicationVMs by on Email
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         List<ApplicationVM> SelectAdoptionApplicationsByEmail(string email);
     }

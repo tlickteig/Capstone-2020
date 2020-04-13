@@ -13,6 +13,9 @@ namespace DataAccessLayer
     /// <summary>
     /// NAME: Jesse Tomash
     /// DATE: 2/18/2020
+    ///
+    /// Approver: Brandyn T. Coverdill
+    /// Approver: Dalton Reierson
     /// 
     /// Data Access class for orders
     /// </summary>
@@ -26,6 +29,9 @@ namespace DataAccessLayer
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/18/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// Selects all order Invoices
         /// </summary>
@@ -40,10 +46,8 @@ namespace DataAccessLayer
             List<Order> orderList = new List<Order>();
 
             var conn = DBConnection.GetConnection();
-            string cmdText = @"sp_retrieve_all_orders";
-            string cmdText2 = @"sp_retrieve_order_by_id";
+            string cmdText = @"sp_select_all_orders";
             SqlCommand cmd = new SqlCommand(cmdText, conn);
-            SqlCommand cmd2 = new SqlCommand(cmdText2, conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             try
@@ -76,6 +80,9 @@ namespace DataAccessLayer
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/18/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// Updates an Order Invoice
         /// </summary>
@@ -127,6 +134,9 @@ namespace DataAccessLayer
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/18/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// Inserts a new Order Invoice
         /// </summary>
@@ -168,6 +178,9 @@ namespace DataAccessLayer
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 2/18/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// Delets an Order Invoice according to its ID
         /// </summary>

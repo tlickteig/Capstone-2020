@@ -11,20 +11,22 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Mohamed Elamin
-    /// Created: 2020/02/19
-    /// Approver:  Awaab Elamin, 2020/02/21
+    /// Created: 02/19/2020
+    /// Approver:  Awaab Elamin, 02/21/2020
     ///
     /// This Class for creation a fake Adoption Applictions which will used 
     /// for testing Logic layer methodes.
     /// </summary>
     public class FakeInHomeInspectionAppointmentDecisionAccessor : IInHomeInspectionAppointmentDecisionAccessor
     {
+
         private List<HomeInspectorAdoptionAppointmentDecision> inHomeInspectionAppointmentDecisions = null;
         private List<AdoptionAppointmentVM> adoptionAppointmentVMs;
+
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
-        /// Approver:  Awaab Elamin, 2020/02/21
+        /// Created: 02/19/2020
+        /// Approver: Awaab Elamin, 02/21/2020
         /// 
         /// This method will get fake Adoption Appliction when whenever it called. 
         /// </summary>
@@ -38,7 +40,7 @@ namespace DataAccessFakes
         /// <returns>fake Adoption Applications</returns>
         public FakeInHomeInspectionAppointmentDecisionAccessor()
         {
-            inHomeInspectionAppointmentDecisions =new List<HomeInspectorAdoptionAppointmentDecision>()
+            inHomeInspectionAppointmentDecisions = new List<HomeInspectorAdoptionAppointmentDecision>()
             {
                 new HomeInspectorAdoptionAppointmentDecision()
                 {
@@ -46,7 +48,7 @@ namespace DataAccessFakes
                     AdoptionApplicationID = 100001,
                     AppointmentTypeID = "facilitator",
                     DateTime = DateTime.Now,
-                    Notes = "This is a my notes",
+                    Notes = "These are my notes",
                     Decision = "facilitator",
                     LocationID =12033,
                     Active = true
@@ -58,25 +60,25 @@ namespace DataAccessFakes
                     AdoptionApplicationID = 100002,
                     AppointmentTypeID = "inHomeInspection",
                     DateTime = DateTime.Now,
-                    Notes = "This is a my notes",
+                    Notes = "These are my notes",
                     Decision = "profiler",
                     LocationID =1000029,
                     Active = true
-
-
                 },
+
                 new HomeInspectorAdoptionAppointmentDecision()
                 {
                     AppointmentID = 100003,
                     AdoptionApplicationID = 100003,
                     AppointmentTypeID = "inHomeInspection",
                     DateTime = DateTime.Now,
-                    Notes = "This is a my notes",
+                    Notes = "These are my notes",
                     Decision = "profiler",
                     LocationID =1000029,
                     Active = true
-                },
+                }
             };
+
             adoptionAppointmentVMs = new List<AdoptionAppointmentVM>()
             {
                 new AdoptionAppointmentVM()
@@ -117,6 +119,7 @@ namespace DataAccessFakes
                     AnimalAdoptable = true,
                     AnimalActive = true
                 },
+
                 new AdoptionAppointmentVM()
                 {
                     AppointmentID = 000,
@@ -154,17 +157,16 @@ namespace DataAccessFakes
                     AnimalCurrentlyHoused = true,
                     AnimalAdoptable = true,
                     AnimalActive = true
-                },
+                }
             };
         }
-    
 
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 02/19/2020
         /// Approved By:  Awaab Elamin, 02/21/2020
         /// 
-        /// This is Mock Access Method for Customer Email By Adoption Application ID.
+        /// This is Mock Access Method for getting Customer Email By Adoption Application ID.
         /// </summary>
         ///
         /// <remarks>
@@ -178,26 +180,24 @@ namespace DataAccessFakes
         public string GetCustomerEmailByAdoptionApplicationID(int adoptionApplicationId)
         {
             string userEmail = "";
+
             foreach (AdoptionAppointmentVM a in adoptionAppointmentVMs)
             {
                 if (adoptionApplicationId == a.AdoptionApplicationID)
                 {
                     userEmail = a.CustomerEmail;
-
                     break;
                 }
             }
-
             return userEmail;
         }
 
-
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
-        /// Approver:
+        /// Created: 02/19/2020
+        /// Approved By:  Awaab Elamin, 02/21/2020
         /// 
-        /// This fake method is called to get a fake list of Adoption Applictions. 
+        /// This fake method is called to get a fake list of Adoption Applications. 
         /// </summary>
         ///
         /// <remarks>
@@ -209,11 +209,9 @@ namespace DataAccessFakes
         /// <returns>fake list of Adoption Applications</returns>
         public List<HomeInspectorAdoptionAppointmentDecision> SelectAdoptionApplicationsAappointmentsByAppointmentType()
         {
-            List<HomeInspectorAdoptionAppointmentDecision> _inHomeInspectionAppointmentDecision;
-            _inHomeInspectionAppointmentDecision = (from InHomeInspectionAppointmentDecision in inHomeInspectionAppointmentDecisions
-                                                    where InHomeInspectionAppointmentDecision.AppointmentTypeID == "inHomeInspection"
-                                                   select InHomeInspectionAppointmentDecision).ToList();
-            return _inHomeInspectionAppointmentDecision;
+            return (from InHomeInspectionAppointmentDecision in inHomeInspectionAppointmentDecisions
+                    where InHomeInspectionAppointmentDecision.AppointmentTypeID == "inHomeInspection"
+                    select InHomeInspectionAppointmentDecision).ToList();
         }
 
         /// <summary>
@@ -235,31 +233,32 @@ namespace DataAccessFakes
         /// <param name="decision"></param>
         public int UpdateHomeInspectorDecision(int adoptionApplicationID, string decision)
         {
-            int rowsEffects = 0;
+            int rowsAffected = 0;
+
             foreach (AdoptionAppointmentVM adoptionApplication in adoptionAppointmentVMs)
             {
                 if (adoptionApplicationID == adoptionApplication.AdoptionApplicationID)
                 {
                     if (decision == "approved")
                     {
-                        rowsEffects = 1;
+                        rowsAffected = 1;
                         adoptionApplication.AdoptionApplicationStatus = "Facilitator";
                     }
                     else
                     {
-                        rowsEffects = 1;
+                        rowsAffected = 1;
                         adoptionApplication.AdoptionApplicationStatus = "Deny";
                     }
                     break;
                 }
             }
-            return rowsEffects;
+            return rowsAffected;
         }
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
-        /// Approver:  Awaab Elamin, 2020/02/21
+        /// Created: 02/19/2020
+        /// Approver:  Awaab Elamin, 02/21/2020
         /// 
         /// This fake method is called to get a fake list of Adoption Applictions. 
         /// </summary>
@@ -271,22 +270,16 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name=""></param>
         /// <returns>fake list of Adoption Applications</returns>
-
-
-
         int IInHomeInspectionAppointmentDecisionAccessor.UpdateAppoinment(HomeInspectorAdoptionAppointmentDecision oldHomeInspectorAdoptionAppointmentDecision,
             HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision)
         {
             int result = 0;
+
             foreach (HomeInspectorAdoptionAppointmentDecision HomeInspectorAdoptionAppointmentDecision in inHomeInspectionAppointmentDecisions)
             {
-                if (
-                    (HomeInspectorAdoptionAppointmentDecision.AdoptionApplicationID == oldHomeInspectorAdoptionAppointmentDecision.AdoptionApplicationID)
-                    &&
-                    (HomeInspectorAdoptionAppointmentDecision.AppointmentID == oldHomeInspectorAdoptionAppointmentDecision.AppointmentID)
-                    &&
-                    (HomeInspectorAdoptionAppointmentDecision.Decision == oldHomeInspectorAdoptionAppointmentDecision.Decision)
-                    )
+                if ((HomeInspectorAdoptionAppointmentDecision.AdoptionApplicationID == oldHomeInspectorAdoptionAppointmentDecision.AdoptionApplicationID)
+                    && (HomeInspectorAdoptionAppointmentDecision.AppointmentID == oldHomeInspectorAdoptionAppointmentDecision.AppointmentID)
+                    &&(HomeInspectorAdoptionAppointmentDecision.Decision == oldHomeInspectorAdoptionAppointmentDecision.Decision))
                 {
                     HomeInspectorAdoptionAppointmentDecision.Decision = newHomeInspectorAdoptionAppointmentDecision.Decision;
                     result++;

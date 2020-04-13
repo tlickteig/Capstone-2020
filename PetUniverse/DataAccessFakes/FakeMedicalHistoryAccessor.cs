@@ -12,7 +12,7 @@ namespace DataAccessFakes
     /// <summary>
     /// Creator: Daulton Schilling
     /// Created: 3/13/2020
-    /// Approver: 
+    /// Approver: Chuck Baxter
     /// 
     /// Fake medical record class
     /// </summary>    
@@ -21,7 +21,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/13/2020
-        /// Approver: 
+        /// Approver: Chuck Baxter
         /// 
         /// Fake medical history records
         /// </summary>
@@ -39,38 +39,22 @@ namespace DataAccessFakes
             {
                 new MedicalHistory()
                 {
-
-
-            AnimalID = 1,
-
-        AnimalName = "Cujo",
-
-        AnimalSpeciesID  = "doge",
-
-         Vaccinations = "Unknown",
-
-         Spayed_Neutered = true,
-
-         MostRecentVaccinationDate = DateTime.Now,
-
-         AdditionalNotes = "Prefers to be called 'Randy', likes trapp music, vapes constantly",
-
+                    AnimalID = 1,
+                    AnimalName = "Cujo",
+                    AnimalSpeciesID  = "doge",
+                    Vaccinations = "Unknown",
+                    Spayed_Neutered = true,
+                    MostRecentVaccinationDate = DateTime.Now,
+                    AdditionalNotes = "Prefers to be called 'Randy', likes trapp music, vapes constantly",
                 }
-
-
-
-
             };
-
-
         }
 
 
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/13/2020
-        /// Approver: 
-        /// Approver: 
+        /// Approver: Chuck Baxter
         /// 
         /// Fake method to an animals medical history
         /// </summary>
@@ -89,13 +73,10 @@ namespace DataAccessFakes
                 return (from b in MH
                         where b.AnimalID == id
                         select b).ToList();
-
-
             }
             catch (NullReferenceException ex)
             {
                 throw new NullReferenceException("Animal with ID " + id + " not found", ex);
-
             }
         }
     }

@@ -16,16 +16,11 @@ namespace DataAccessFakes
     /// 
     /// This class contains Data Access fakes for data pertaining to Adoption Appointments.
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATE DATE: NA
-    /// WHAT WAS CHANGED: NA
-    /// 
-    /// </remarks>
     public class FakeAdoptionAppointmentAccessor : IAdoptionAppointmentAccessor
     {
         private List<AdoptionAppointmentVM> adoptionAppointmentVMs;
         private List<AdoptionAppointment> _adoptionAppointments = new List<AdoptionAppointment>();
+
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 2/10/2020

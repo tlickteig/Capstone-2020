@@ -10,7 +10,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFPresentationLayer"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
-        Title="PetUniverse" Height="900" Width="1500" Background="#fff8e3" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="PetUniverse" Height="900" Width="1500" Background="#fff8e3" Loaded="Window_Loaded">
     <Grid MinHeight="4" Margin="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -144,6 +144,12 @@
                 </TabItem>
                 <TabItem x:Name="tabViewOrders" Header="View Orders" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./InventoryPages/ViewOrders.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="tabViewSpecialOrders" Header="View Special Orders" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./InventoryPages/ViewSpecialOrders.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="tabViewItemReports" Header="View Item Reports" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./InventoryPages/ViewItemReports.xaml" NavigationUIVisibility="Hidden" />
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -300,6 +306,23 @@
 
                 <TabItem x:Name="tabProduct" Header="Product" FontSize="18" FontWeight="Bold" Background="#fff8e3" >
                     <Frame Source="./PoSPages/Product.xaml"/>
+                </TabItem>
+
+                <TabItem x:Name="tabOpenTransaction" Header="Open Transaction" 
+                         FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="tabOpenTransaction_Loaded">
+                    <Frame x:Name="frmOpenTransaction"/>
+                </TabItem>
+                <!-- Creator: Rasha Mohammed
+                 Date: 4/8/2020
+                 CHECKED BY: Ethan Holmes
+             
+                 This TabItem takes you to the Filter Item Page
+              
+                 UPDATE BY: NA
+                 UPDATED NA
+                 CHANGE: NA -->
+                <TabItem x:Name="tabPicture" Header="Filter Item" FontSize="18" FontWeight="Bold" Background="#fff8e3" >
+                    <Frame Source="./PoSPages/FilterItem.xaml"/>
                 </TabItem>
             </TabControl>
         </Canvas>

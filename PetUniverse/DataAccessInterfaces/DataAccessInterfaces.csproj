@@ -68,7 +68,7 @@
     <Compile Include="IApplicantAccessor.cs" />
     <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IAppointmentTypeAccessor.cs" />
-    <Compile Include="IbackstockAccessor.cs" />
+    <Compile Include="IBackStockAccessor.cs" />
     <Compile Include="IBaseScheduleAccessor.cs" />
     <Compile Include="ICustomerAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
@@ -78,11 +78,12 @@
     <Compile Include="IFacilityInspectionAccessor.cs" />
     <Compile Include="IFacilityInspectionItemAccessor.cs" />
     <Compile Include="IFacilityMaintenanceAccessor.cs" />
-    <Compile Include="IHomeInspectoAccessor.cs" />
+    <Compile Include="IHomeInspectorAccessor.cs" />
     <Compile Include="IInHomeInspectionAppointmentDecisionAccessor.cs" />
     <Compile Include="IInventoryItemsAccessor.cs" />
     <Compile Include="IItemAccessor.cs" />
     <Compile Include="IItemCategoryAccessor.cs" />
+    <Compile Include="IItemReportAccessor.cs" />
     <Compile Include="ILocationAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IMedicationAccessor.cs" />
@@ -91,11 +92,13 @@
     <Compile Include="INewAnimalChecklistAccessor.cs" />
     <Compile Include="IOrderAccessor.cs" />
     <Compile Include="IPetUniverseUserERolesAccessor.cs" />
+    <Compile Include="IPictureAccessor.cs" />
     <Compile Include="IProductAccessor.cs" />
     <Compile Include="IPromotionAccessor.cs" />
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="ISalesDataAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
+    <Compile Include="ISpecialOrderAccessor.cs" />
     <Compile Include="IStatusAccessor.cs" />
     <Compile Include="ITrainingVideoAccessor.cs" />
     <Compile Include="ITransactionAccessor.cs" />

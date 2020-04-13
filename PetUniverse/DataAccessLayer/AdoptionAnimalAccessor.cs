@@ -22,6 +22,49 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Austin Gee
+        /// Created: 4/4/2020
+        /// Approver: Micheal Thompson, 4/9/2020
+        /// 
+        /// Deactivates a chosen animal
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="animalID"></param>
+        /// <returns></returns>
+        public int DeactivateAdoptionAnimal(int animalID)
+        {
+            int rows = 0;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_deactivate_animal", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@AnimalID", animalID);
+
+            try
+            {
+                conn.Open();
+
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
         /// Created: 3/5/2020
         /// Approver: Thomas Dupuy
         /// 

@@ -12,7 +12,7 @@ namespace DataAccessFakes
     /// <summary>
     /// Creator: Austin Gee
     /// Created: 3/30/2020
-    /// Approver: 
+    /// Approver: Micheal Thompson, 4/9/2020
     ///
     /// This Class for creation a fake Adoption Applications which will used 
     /// for testing Logic layer methodes.
@@ -67,6 +67,20 @@ namespace DataAccessFakes
             };
         }
 
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 2/10/2020
+        /// CHECKED BY: Micheal Thompson, 4/9/2020
+        /// 
+        /// This method returns a fake list of Adoption applications by email. This method will
+        /// be used exclusively for unit testing.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
         public List<ApplicationVM> SelectAdoptionApplicationsByEmail(string email)
         {
             return (from a in _applicationVMs

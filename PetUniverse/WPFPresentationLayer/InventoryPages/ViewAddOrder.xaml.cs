@@ -23,18 +23,75 @@ namespace WPFPresentationLayer.InventoryPages
     /// </summary>
     public partial class ViewAddOrder : Page
     {
-        OrderAccessor _orderManager;
+        OrderManager _orderManager;
         Order _order;
+
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 3/30/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        /// 
+        /// Iconstructor  for ViewSpecialOrders.xaml
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
         public ViewAddOrder()
         {
             InitializeComponent();
-            _orderManager = new OrderAccessor();
+            _orderManager = new OrderManager();
             _order = new Order();
+            btnBack.Visibility = Visibility.Visible;
+            btnSaveOrder.Visibility = Visibility.Visible;
+            txtEmployeeID.Visibility = Visibility.Visible;
+            txtOrderID.Visibility = Visibility.Visible;
+            txtOrderID.IsReadOnly = true;
+            txtOrderID.Text = "(Automatically Generated)";
         }
 
-        private void btnSaveOrder_Click_1(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 3/30/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        /// 
+        /// Goes back to view all orders
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
+        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            OrderAccessor _orderManager = new OrderAccessor();
+            this.NavigationService?.Navigate(new ViewOrders());
+        }
+
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 3/30/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        /// 
+        /// action to save new order
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
+        private void btnSaveOrder_Click(object sender, RoutedEventArgs e)
+        {
+            OrderManager _orderManager = new OrderManager();
             try
             {
                 if (txtEmployeeID.Text == "")
@@ -62,11 +119,6 @@ namespace WPFPresentationLayer.InventoryPages
             {
                 throw;
             }
-        }
-
-        private void btnBack_Click(object sender, RoutedEventArgs e)
-        {
-            this.NavigationService?.Navigate(new ViewOrders());
         }
     }
 }

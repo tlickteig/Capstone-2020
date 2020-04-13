@@ -83,6 +83,7 @@ namespace DataAccessFakes
                     ZipCode = "52406",
                     Active = true
                 },
+
                 new PetUniverseUser()
                 {
                     PUUserID = 100001,
@@ -95,6 +96,7 @@ namespace DataAccessFakes
                     ZipCode = "10021",
                     Active = true
                 },
+
                 new PetUniverseUser()
                 {
                     PUUserID = 100002,
@@ -106,7 +108,7 @@ namespace DataAccessFakes
                     State = "IN",
                     ZipCode = "77821",
                     Active = false
-                },
+                }
             };
 
             users = (from user in users
@@ -270,6 +272,7 @@ namespace DataAccessFakes
             }
             return isLocked;
         }
+
         /// <summary>
         /// Creator: Zach Behrensmeyer
         /// Created: 3/5/2020
@@ -297,6 +300,7 @@ namespace DataAccessFakes
             }
             return unlockDate;
         }
+
         /// <summary>
         /// Creator: Zach Behrensmeyer
         /// Created: 3/16/2020
@@ -348,7 +352,7 @@ namespace DataAccessFakes
         /// Update: NA
         /// </remarks> 
         /// <param name="userName"></param>
-        /// <returns></returns>
+        /// <returns>Users in a department</returns>
         public List<PetUniverseUser> GetDepartmentUsers(string DepartmentID)
         {
             List<PetUniverseUser> users = new List<PetUniverseUser>();
@@ -389,7 +393,7 @@ namespace DataAccessFakes
         /// Update: NA
         /// </remarks> 
         /// <param name="UserID"></param>
-        /// <returns></returns>
+        /// <returns>Int if user has read policies</returns>
         public int ChangeUserHasReadPoliciesStandards(int UserID)
         {
             _user = new PetUniverseUser()
@@ -451,6 +455,7 @@ namespace DataAccessFakes
                 State = "IA",
                 ZipCode = "52404"
             };
+
             if (UserID >= 100000)
             {
                 return user;

@@ -83,6 +83,7 @@
     <Compile Include="InventoryItemsAccessor.cs" />
     <Compile Include="ItemAccessor.cs" />
     <Compile Include="ItemCategoryAccessor.cs" />
+    <Compile Include="ItemReportAccessor.cs" />
     <Compile Include="LocationAccessor.cs" />
     <Compile Include="LogAccessor.cs" />
     <Compile Include="MedicationAccessor.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="NewAnimalChecklistAccessor.cs" />
     <Compile Include="OrderAccessor.cs" />
     <Compile Include="PetUniverseERolesAccessor.cs" />
+    <Compile Include="PictureAccessor.cs" />
     <Compile Include="ProductAccessor.cs" />
     <Compile Include="PromotionAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="ReviewerAccessor.cs" />
     <Compile Include="SalesDataAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
+    <Compile Include="SpecialOrderAccessor.cs" />
     <Compile Include="StatusAccessor.cs" />
     <Compile Include="TrainingVideoAccessor.cs" />
     <Compile Include="TransactionAccessor.cs" />

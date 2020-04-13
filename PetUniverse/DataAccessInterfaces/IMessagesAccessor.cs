@@ -88,6 +88,5 @@ namespace DataAccessInterfaces
         /// <param name="MessageID"></param>
         /// <returns>Boolean value to determine if message is viewed</returns>
         bool setMessageSeen(int MessageID);
-
     }
 }

@@ -16,7 +16,7 @@ namespace DataAccessFakes
 	/// 
 	/// This class is used to create fake sales data for testing.
 	/// </summary>
-	public class SalesDataFakes : ISalesDataAccessor
+	public class FakeSalesData : ISalesDataAccessor
 	{
 		private List<SalesDataVM> salesDataVMs;
 
@@ -27,7 +27,12 @@ namespace DataAccessFakes
 		/// 
 		/// Constructor loading in fake data for testing
 		/// </summary>
-		public SalesDataFakes()
+		/// <remarks>
+		/// Updater: N/A
+		/// Updated: N/A
+		/// Updater: N/A
+		/// </remarks>
+		public FakeSalesData()
 		{
 			salesDataVMs = new List<SalesDataVM>() 
 			{ 
@@ -50,6 +55,11 @@ namespace DataAccessFakes
 		/// 
 		/// Return all total sales data accessor.
 		/// </summary>
+		/// <remarks>
+		/// Updater: N/A
+		/// Updated: N/A
+		/// Updater: N/A
+		/// </remarks>
 		/// <returns></returns>
 		public List<SalesDataVM> RetrieveAllTotalSalesData()
 		{

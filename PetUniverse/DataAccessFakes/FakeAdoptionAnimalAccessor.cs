@@ -18,6 +18,7 @@ namespace DataAccessFakes
     public class FakeAdoptionAnimalAccessor : IAdoptionAnimalAccessor
     {
         private List<AdoptionAnimalVM> _adoptionAnimalVMs;
+        private List<Animal> _animals;
 
         /// <summary>
         /// Creator: Austin Gee
@@ -115,6 +116,80 @@ namespace DataAccessFakes
 
                 }
             };
+
+            _animals = new List<Animal>{
+                new Animal
+                {
+                    AnimalID = 000,
+                    AnimalName = "Fake",
+                    AnimalSpeciesID = "Fake",
+                    Active = true,
+                    Adoptable = true,
+                    AnimalBreed = "Fake",
+                    ArrivalDate = DateTime.Now,
+                    CurrentlyHoused = true,
+                    Dob = DateTime.Now.AddDays(-100),
+                    ProfileDescription = "Fake",
+                    ProfileImage = "Fake"
+                },
+                new Animal
+                {
+                    AnimalID = 001,
+                    AnimalName = "Fake",
+                    AnimalSpeciesID = "Fake",
+                    Active = true,
+                    Adoptable = true,
+                    AnimalBreed = "Fake",
+                    ArrivalDate = DateTime.Now,
+                    CurrentlyHoused = true,
+                    Dob = DateTime.Now.AddDays(-100),
+                    ProfileDescription = "Fake",
+                    ProfileImage = "Fake"
+                },
+                new Animal
+                {
+                    AnimalID = 002,
+                    AnimalName = "Fake",
+                    AnimalSpeciesID = "Fake",
+                    Active = true,
+                    Adoptable = true,
+                    AnimalBreed = "Fake",
+                    ArrivalDate = DateTime.Now,
+                    CurrentlyHoused = true,
+                    Dob = DateTime.Now.AddDays(-100),
+                    ProfileDescription = "Fake",
+                    ProfileImage = "Fake"
+                },
+            };
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/4/2020
+        /// Approver: Micheal Thompson, 4/9/2020
+        /// 
+        /// Deactivate a fake adotion animal.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="animalID"></param>
+        /// <returns></returns>
+        public int DeactivateAdoptionAnimal(int animalID)
+        {
+            int rows = 0;
+            foreach(var item in _animals)
+            {
+                if (animalID == item.AnimalID)
+                {
+                    item.Active = false;
+                    rows += 1;
+                }
+            }
+            return rows;
         }
 
         /// <summary>

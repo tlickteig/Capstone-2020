@@ -21,23 +21,6 @@ GO
  ******************************* CREATE TABLEs *****************************
 */
 PRINT '' PRINT '******************* CREATE TABLEs *********************'
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: Order table
-*/
-print '' print '*** Creating Order Table'
-GO
-CREATE TABLE [dbo].[orders] (
-	[OrderID]					[int] IDENTITY(100000, 1) 	NOT NULL,
-	[EmployeeID]				[int]						NOT NULL,
-	[Active]					[BIT] 						NOT NULL DEFAULT 1
-	
-	CONSTRAINT [pk_OrderID] PRIMARY KEY([OrderID] ASC)
-)
-GO
 
 /*
  * Created by: Jordan Lindo
@@ -778,24 +761,28 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Create Product Table, Updated to new structure 2020/03/17 by Robert Holmes
+Comment: Create Product Table
 */
 DROP TABLE IF EXISTS [dbo].[Product]
 GO
-print '' print '*** Creating Product table'
+PRINT '' PRINT '*** Creating Product Table'
 GO
 CREATE TABLE [dbo].[Product](
-	[ProductID]		[nvarchar](13)	NOT NULL	PRIMARY KEY,
-	[ItemID]		[INT]			NOT NULL,
-	[ProductTypeID]	[nvarchar](20)	NOT NULL,
-	[Taxable]		[BIT]			NOT NULL,
-	[Price]			[decimal](10,2)	NOT NULL,
-	[Description]	[nvarchar](500)	NOT NULL,
-	[Brand]			[nvarchar](20)	NOT	NULL,
-	[Active]		[BIT]			NOT NULL	DEFAULT 1,
-	CONSTRAINT [fk_Product_ItemID]	FOREIGN KEY ([ItemID])
+	[ProductID] [nvarchar](13) NOT NULL PRIMARY KEY,
+	[ItemID] [int] NOT NULL,
+	[ProductName] [nvarchar](50) NOT NULL,
+	[ProductCategoryID] [nvarchar](20) NOT NULL,
+	[ProductTypeID] [nvarchar](20) NOT NULL,
+	[Description] [nvarchar](250) NOT NULL,
+	[Price] [decimal](10,2) NOT NULL,
+	[Brand] [nvarchar](20) NOT NULL,
+	[Taxable] [bit] NOT NULL DEFAULT 1,
+	[Active] [bit] NOT NULL DEFAULT 1,
+	CONSTRAINT [fk_Product_ItemID] FOREIGN KEY ([ItemID])
 		REFERENCES [dbo].[Item]([ItemID]),
-	CONSTRAINT [fk_Product_ProductTypeID]	FOREIGN KEY ([ProductTypeID])
+	CONSTRAINT [fk_Product_ProductCataGOryID] FOREIGN KEY ([ProductCategoryID])
+		REFERENCES [dbo].[ProductCategory]([ProductCategoryID]),
+	CONSTRAINT [fk_Product_ProductTypeID] FOREIGN KEY ([ProductTypeID])
 		REFERENCES [dbo].[ProductType]([ProductTypeID])
 )
 GO
@@ -1069,11 +1056,15 @@ PRINT '' PRINT '*** Creating Transaction Table'
 GO
 CREATE TABLE [dbo].[Transaction](
 	[TransactionID] 		[int]IDENTITY(1000,1)	NOT NULL,
+	[TransactionDateTime] 	[datetime]				NOT NULL,
+	[TaxRate] 				[decimal](10,4) 		NOT NULL,
+	[SubTotalTaxable] 		[decimal](10,2) 		NOT NULL,
+	[SubTotal] 				[decimal](10,2) 		NOT NULL,
+	[Total] 				[decimal](10,2) 		NOT NULL,
+	[TransactionTypeID] 	[nvarchar](20) 			NOT NULL,
 	[EmployeeID] 			[int] 				 	NOT NULL,
-	[TransactionStatusID] 	[nvarchar](20) 				NOT NULL,
-	[TransactionTypeID] 	[nvarchar](20) 				NOT NULL,
-	[TransactionDate] 		[datetime]				NOT NULL,
-	[Notes] 				[nvarchar](500)		    NOT NULL,
+	[TransactionStatusID] 	[nvarchar](20) 			NOT NULL,
+	[CustomerEmail]			[nvarchar](250)
 
 	CONSTRAINT [pk_Transaction_TransactionID] PRIMARY KEY ([TransactionID] ASC),
 	CONSTRAINT [fk_Transaction_EmployeeID] FOREIGN KEY ([EmployeeID])
@@ -1081,27 +1072,31 @@ CREATE TABLE [dbo].[Transaction](
 	CONSTRAINT [fk_Transaction_TransactionStatusID] FOREIGN KEY ([TransactionStatusID])
 		REFERENCES [TransactionStatus]([TransactionStatusID]) ON UPDATE CASCADE,
 	CONSTRAINT [fk_Transaction_TransactionTypeID] FOREIGN KEY ([TransactionTypeID])
-		REFERENCES [TransactionType]([TransactionTypeID])  ON UPDATE CASCADE
+		REFERENCES [TransactionType]([TransactionTypeID])  ON UPDATE CASCADE,
+	CONSTRAINT [fk_Transaction_CustomerEmail] FOREIGN KEY ([CustomerEmail])
+		REFERENCES [Customer]([Email])  ON UPDATE CASCADE
 )
 GO
 
 /*
 Created by: Jaeho Kim
 Date: 2/27/2020
-Comment: Create TransactionLine Table
+Comment: Create TransactionLineProducts Table
 */
-DROP TABLE IF EXISTS [dbo].[TransactionLine]
+DROP TABLE IF EXISTS [dbo].[TransactionLineProducts]
 GO
-PRINT '' PRINT '*** Creating TransactionLine Table'
+PRINT '' PRINT '*** Creating TransactionLineProducts Table'
 GO
-CREATE TABLE [dbo].[TransactionLine](
-	[TransactionID] 		[int] 		NOT NULL,
-	[ProductID] 			[nvarchar](13) 	NOT NULL,
-	[Quantity]				[int]			NOT NULL,
 
-	CONSTRAINT [fk_TransactionLine_TransactionID] FOREIGN KEY ([TransactionID])
+CREATE TABLE [dbo].[TransactionLineProducts](
+	[TransactionID] 		[int] 				NOT NULL,
+	[ProductID] 			[nvarchar](13) 		NOT NULL,
+	[Quantity]				[int]				NOT NULL,
+	[PriceSold]				[decimal](10,2)		NOT NULL
+
+	CONSTRAINT [fk_TransactionLineProducts_TransactionID] FOREIGN KEY ([TransactionID])
 		REFERENCES [Transaction]([TransactionID]) ON UPDATE CASCADE,
-	CONSTRAINT [fk_TransactionLine_ProductID] FOREIGN KEY ([ProductID])
+	CONSTRAINT [fk_TransactionLineProducts_ProductID] FOREIGN KEY ([ProductID])
 		REFERENCES [Product]([ProductID]) ON UPDATE CASCADE
 )
 GO
@@ -1676,8 +1671,93 @@ CREATE TABLE [dbo].[DonationItem](
 )
 GO
 
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: Order table
+*/
+DROP TABLE IF EXISTS [dbo].[orders]
+GO
+print '' print '*** Creating Order Table'
+GO
+CREATE TABLE [dbo].[orders] (
+	[OrderID]					[int] IDENTITY(100000, 1) 	NOT NULL,
+	[EmployeeID]				[int]						NOT NULL,
+	[Active]					[BIT] 						NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_OrderID] PRIMARY KEY([OrderID] ASC)
+)
+GO
 
+/*
+Created by: Jesse Tomash
+Date: 3/30/2020
+Comment: Special Order table
+*/
+DROP TABLE IF EXISTS [dbo].[specialorders]
+GO
+print '' print '*** Creating Special Order Table'
+GO
+CREATE TABLE [dbo].[specialorders] (
+	[SpecialOrderID]			[int] IDENTITY(100000, 1) 	NOT NULL,
+	[SpecialOrderEmployeeID]	[int]						NOT NULL,
+	[Active]					[BIT] 						NOT NULL DEFAULT 1
+	
+	CONSTRAINT [pk_SpecialOrderID] PRIMARY KEY([SpecialOrderID] ASC)
+)
+GO
 
+/*
+Created by: Jaeho Kim
+Date: 03/08/2020
+Comment: Creating Sales Tax History Table.
+*/
+PRINT ''  PRINT '*** Creating Table SalesTaxHistory'
+GO
+CREATE TABLE [dbo].[SalesTaxHistory](
+	[ZipCode]			[nvarchar](50) 		Not Null,
+	[SalesTaxDate] 		[DateTime]			Not Null,
+	[TaxRate] 			[decimal](10,2)		NOT Null,
+	CONSTRAINT [pk_SalesTaxHistory_ZipCode] PRIMARY KEY ([ZipCode] ASC, [SalesTaxDate] ASC)
+)
+GO
+
+/*
+Created by: Rasha Mohammed
+Date: 3/27/2020
+Comment: Create Picture table
+*/
+DROP TABLE IF EXISTS [dbo].[Picture]
+GO
+print '' print '*** Creating Picture table'
+GO
+CREATE TABLE [dbo].[Picture]
+(
+   [PictureID] 	 	[INT] 		 		NOT NULL  PRIMARY KEY,
+   [ProductID] 		[NVARCHAR](13)		NOT NULL,
+   [ImagePath] 		[NVARCHAR](MAX)		NOT NULL,
+	CONSTRAINT [fk_Picture_ProductID] FOREIGN KEY ([ProductID])
+		REFERENCES [dbo].[Product]([ProductID]) 
+)
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Table for Reporting Damaged or Missing Items from the Shelf.
+*/
+DROP TABLE IF EXISTS [dbo].[ItemReport]
+GO
+print '' print '*** Creating ItemReport Table'
+GO
+CREATE TABLE [dbo].[ItemReport](
+	[ItemID]		[int]				NOT NULL,
+	[ItemQuantity]	[int]				NOT NULL,
+	[Report]		[nvarchar](250)		NOT NULL,
+	CONSTRAINT [fk_ItemReport_ItemID] FOREIGN KEY([ItemID])
+		REFERENCES [Item]([ItemID])
+)
+GO
 
 
 /*
@@ -4444,13 +4524,12 @@ AS
 BEGIN
     SELECT
         T.[TransactionID]
-        ,T.[TransactionDate]
+        ,T.[TransactionDateTime]
         ,U.[UserID]
         ,U.[FirstName]
         ,U.[LastName]
         ,T.[TransactionTypeID]
         ,T.[TransactionStatusID]
-        ,T.[Notes]
     FROM 	[Transaction] T
     INNER JOIN [User] U
         ON T.[EmployeeID] = U.[UserID]
@@ -5814,27 +5893,24 @@ CREATE PROCEDURE [sp_select_all_products_by_transaction_id]
 )
 AS
 BEGIN
-	SELECT
-	TL.[Quantity],
-	P.[ProductID],
-	I.[ItemName],
-	I.[ItemCategoryID],
-	P.[ProductTypeID],
-	P.[Description],
-	P.[Brand],
-	P.[Price]
-	FROM 	[TransactionLine] TL
-	INNER JOIN [Product] P
-		ON TL.[ProductID] = P.[ProductID]
-	INNER JOIN [Item] I
-		ON P.[ItemID] = I.[ItemID]
-	INNER JOIN [Transaction] T
-		ON TL.[TransactionID] = T.[TransactionID]
-	INNER JOIN [User] U
-		ON T.[EmployeeID] = U.[UserID]
-	INNER JOIN [TransactionType] TT
-		ON TT.[TransactionTypeID] = T.[TransactionTypeID]
-	WHERE @TransactionID = TL.[TransactionID]
+    SELECT
+        TLP.[Quantity]
+        , P.[ProductID]
+        , P.[ProductName]
+        , P.[ProductCategoryID]
+        , P.[ProductTypeID]
+        , P.[Price]
+
+    FROM 	[TransactionLineProducts] TLP
+    INNER JOIN [Product] P
+        ON TLP.[ProductID] = P.[ProductID]
+    INNER JOIN [Transaction] T
+        ON TLP.[TransactionID] = T.[TransactionID]
+    INNER JOIN [User] U
+        ON T.[EmployeeID] = U.[UserID]
+    INNER JOIN [TransactionType] TT
+        ON TT.[TransactionTypeID] = T.[TransactionTypeID]
+    WHERE @TransactionID = TLP.[TransactionID]
 END
 GO
 
@@ -5849,23 +5925,26 @@ PRINT '' PRINT '*** Creating sp_select_transactions_by_datetime'
 GO
 CREATE PROCEDURE sp_select_transactions_by_datetime
 (
-	@TransactionDate	[datetime]
+	@TransactionDateTime	[datetime]
 )
 AS
 BEGIN
     SELECT
         T.[TransactionID]
-        ,T.[TransactionDate]
+        ,T.[TransactionDateTime]
         ,U.[UserID]
         ,U.[FirstName]
         ,U.[LastName]
         ,T.[TransactionTypeID]
         ,T.[TransactionStatusID]
-        ,T.[Notes]
+		,T.[TaxRate]
+		,T.[SubTotalTaxable]
+		,T.[SubTotal]
+		,T.[Total]
     FROM 	[Transaction] T
     INNER JOIN [User] U
         ON T.[EmployeeID] = U.[UserID]
-    WHERE T.[TransactionDate] = @TransactionDate
+    WHERE T.[TransactionDateTime] = @TransactionDateTime
 END
 GO
 
@@ -5914,7 +5993,7 @@ CREATE PROCEDURE [sp_delete_Item_from_Transaction]
 )
 AS
 BEGIN
-	DELETE FROM [dbo].[TransactionLine]
+	DELETE FROM [dbo].[TransactionLineProducts]
 	WHERE	[ProductID] = @ProductID
 	select @@rowcount
 END
@@ -7154,17 +7233,17 @@ CREATE PROCEDURE [sp_select_total_items_sold]
 AS
 BEGIN
     SELECT
-        [TransactionLine].[ProductID],
+        [TransactionLineProducts].[ProductID],
         [Item].[ItemName],
         [Product].[Brand],
         [Item].[ItemCategoryID],
         [Product].[ProductTypeID],
-        SUM ([TransactionLine].[Quantity]) AS 'Total Sales'
-    FROM [dbo].[TransactionLine]
-    LEFT JOIN [Product] ON [TransactionLine].[ProductID] = [Product].[ProductID]
+        SUM ([TransactionLineProducts].[Quantity]) AS 'Total Sales'
+    FROM [dbo].[TransactionLineProducts]
+    LEFT JOIN [Product] ON [TransactionLineProducts].[ProductID] = [Product].[ProductID]
 	LEFT JOIN [Item] ON [Product].[ItemID] = [Item].[ItemID]
     GROUP BY
-        [TransactionLine].[ProductID],
+        [TransactionLineProducts].[ProductID],
         [Item].[ItemName],
         [Product].[Brand],
         [Item].[ItemCategoryID],
@@ -8113,6 +8192,708 @@ GO
 
 
 /*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: insert order sp
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_order]
+GO
+print '' print '*** Creating sp_insert_order'
+GO
+CREATE PROCEDURE sp_insert_order
+	(
+        @EmployeeID					[int],
+		@Active						[bit]
+	)
+AS
+	BEGIN
+		INSERT INTO [orders]
+			([EmployeeID], [Active])
+		VALUES
+			(@EmployeeID, @Active)
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: insert order sp
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_special_order]
+GO
+print '' print '*** Creating sp_insert_special_order'
+GO
+CREATE PROCEDURE sp_insert_special_order
+	(
+        @SpecialOrderEmployeeID		[int],
+		@Active						[bit]
+	)
+AS
+	BEGIN
+		INSERT INTO [specialorders]
+			([SpecialOrderEmployeeID], [Active])
+		VALUES
+			(@SpecialOrderEmployeeID, @Active)
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: retrieves all special orders
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_orders]
+GO
+print '' print '*** Creating sp_select_orders'
+GO
+CREATE PROCEDURE sp_select_all_orders
+AS
+	BEGIN
+		SELECT [OrderID], [EmployeeID]
+		FROM [orders]
+		Order BY [OrderID]
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: retrieves all special orders
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_special_orders]
+GO
+print '' print '*** Creating sp_select_all_special_orders'
+GO
+CREATE PROCEDURE sp_select_all_special_orders
+AS
+	BEGIN
+		SELECT [SpecialOrderID], [SpecialOrderEmployeeID]
+		FROM [specialorders]
+		Order BY [SpecialOrderID]
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: retrieves order by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_order_by_id]
+GO
+print '' print '*** Creating sp_select_order_by_id'
+GO
+CREATE PROCEDURE sp_select_order_by_id
+	(
+		@OrderID		[int]
+	)
+AS
+	BEGIN
+		SELECT [OrderID], [EmployeeID]
+		FROM [Orders]
+		WHERE [OrderID] = @OrderID
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: retrieves special order by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_special_order_by_id]
+GO
+print '' print '*** Creating sp_select_special_order_by_id'
+GO
+CREATE PROCEDURE sp_select_special_order_by_id
+	(
+		@SpecialOrderID		[int]
+	)
+AS
+	BEGIN
+		SELECT [SpecialOrderID], [SpecialOrderEmployeeID]
+		FROM [SpecialOrders]
+		WHERE [SpecialOrderID] = @SpecialOrderID
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: updates an order
+*/
+DROP PROCEDURE IF EXISTS [sp_update_order_by_id]
+GO
+print '' print '*** Creating sp_update_order_by_id'
+GO
+CREATE PROCEDURE sp_update_order_by_id
+	(
+		@OrderID					[int],
+        @EmployeeID					[int],
+		@Active						[bit],
+		
+		@OldOrderID					[int],
+        @OldEmployeeID				[int],
+		@OldActive					[bit]
+	)
+AS
+	BEGIN
+		UPDATE  [orders]
+		SET 	[EmployeeID] = @EmployeeID,
+				[Active] = @Active
+		WHERE 	[OrderID] = @OldOrderID
+		  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: updates a special order
+*/
+DROP PROCEDURE IF EXISTS [sp_update_special_order_by_id]
+GO
+print '' print '*** Creating sp_update_order_by_id'
+GO
+CREATE PROCEDURE sp_update_special_order_by_id
+	(
+		@SpecialOrderID				[int],
+        @SpecialOrderEmployeeID		[int],
+		@Active						[bit],
+		
+		@OldSpecialOrderID			[int],
+        @OldSpecialOrderEmployeeID	[int],
+		@OldActive					[bit]
+	)
+AS
+	BEGIN
+		UPDATE  [specialorders]
+		SET 	[SpecialOrderEmployeeID] = @SpecialOrderEmployeeID,
+				[Active] = @Active
+		WHERE 	[SpecialOrderID] = @SpecialOrderID
+		  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: Delets an order
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_order_by_id]
+GO
+print '' print '*** Creating sp_delete_order_by_id'
+GO
+CREATE PROCEDURE sp_delete_order_by_id
+	(
+		@OrderID				[int]
+	)
+AS
+	BEGIN
+		DELETE  
+		FROM 	[orders]
+		WHERE 	[OrderID] = @OrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: Delets an order
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_special_order_by_id]
+GO
+print '' print '*** Creating sp_delete_special_order_by_id'
+GO
+CREATE PROCEDURE sp_delete_special_order_by_id
+	(
+		@SpecialOrderID				[int]
+	)
+AS
+	BEGIN
+		DELETE  
+		FROM 	[specialorders]
+		WHERE 	[SpecialOrderID] = @SpecialOrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: deactivates an order
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_order_by_id]
+GO
+print '' print '*** Creating sp_deactivate_order_by_id'
+GO
+CREATE PROCEDURE sp_deactivate_order_by_id
+	(
+		@OrderID					[int]
+	)
+AS
+	BEGIN
+		UPDATE  [orders]  
+		SET 	[Active] = 0
+		WHERE 	[OrderID] = @OrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: deactivates an order
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_special_order_by_id]
+GO
+print '' print '*** Creating sp_deactivate_special_order_by_id'
+GO
+CREATE PROCEDURE sp_deactivate_special_order_by_id
+	(
+		@SpecialOrderID					[int]
+	)
+AS
+	BEGIN
+		UPDATE  [specialorders]  
+		SET 	[Active] = 0
+		WHERE 	[SpecialOrderID] = @SpecialOrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: activates an order
+*/
+DROP PROCEDURE IF EXISTS [sp_activate_order_by_id]
+GO
+print '' print '*** Creating sp_activate_order_by_id'
+GO
+CREATE PROCEDURE sp_activate_order_by_id
+	(
+		@OrderID				[int]
+	)
+AS
+	BEGIN
+		UPDATE  [orders]  
+		SET 	[Active] = 1
+		WHERE 	[OrderID] = @OrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 3/10/2020
+Comment: activates an order
+*/
+DROP PROCEDURE IF EXISTS [sp_activate_special_order_by_id]
+GO
+print '' print '*** Creating sp_activate_special_order_by_id'
+GO
+CREATE PROCEDURE sp_activate_special_order_by_id
+	(
+		@SpecialOrderID				[int]
+	)
+AS
+	BEGIN
+		UPDATE  [specialorders]  
+		SET 	[Active] = 1
+		WHERE 	[SpecialOrderID] = @SpecialOrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 03/08/2020
+Comment: Selects a list of all transactions with employee name.
+*/
+print '' print '*** Creating sp_select_transactions_by_employee_name'
+GO
+CREATE PROCEDURE sp_select_transactions_by_employee_name
+(
+	@FirstName	[nvarchar](50),
+	@LastName	[nvarchar](50)
+)
+AS
+	BEGIN
+		SELECT 	
+		 T.[TransactionID]
+		,T.[TransactionDateTime]
+		,U.[UserID]
+		,U.[FirstName]
+		,U.[LastName]
+		,T.[TransactionTypeID]
+		,T.[TransactionStatusID]
+		,T.[TaxRate]
+		,T.[SubTotalTaxable]
+		,T.[SubTotal]
+		,T.[Total]
+		FROM 	[Transaction] T
+		INNER JOIN [User] U
+			ON T.[EmployeeID] = U.[UserID]
+		WHERE U.[FirstName] = @FirstName
+		And	  U.[LastName] = @LastName
+	END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 03/08/2020
+Comment: Inserts transaction sale product details.
+*/
+PRINT '' PRINT '*** Creating sp_insert_transaction_line_products'
+GO
+CREATE PROCEDURE [sp_insert_transaction_line_products]
+(
+	@TransactionID	[int],
+	@ProductID		[nvarchar](13),
+	@Quantity		[int],
+	@PriceSold		[decimal](10,2)
+)
+AS
+BEGIN	
+	INSERT INTO [dbo].[TransactionLineProducts]
+	([TransactionID],[ProductID],[Quantity],[PriceSold])
+	VALUES
+	(@TransactionID,@ProductID,@Quantity,@PriceSold)
+	SELECT @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 03/08/2020
+Comment: Inserts the actual transaction.
+*/
+PRINT '' PRINT '*** Creating sp_insert_transaction'
+GO
+CREATE PROCEDURE [sp_insert_transaction]
+(
+	@TransactionDateTime	[datetime],
+	@TaxRate				[decimal](10,2),
+	@SubTotalTaxable		[decimal](10,2),
+	@SubTotal				[decimal](10,2),
+	@Total					[decimal](10,2),
+	@TransactionTypeID		[nvarchar](20),
+	@EmployeeID				[int],
+	@TransactionStatusID	[nvarchar](20),
+	@ReturnTransactionId 	[int] out  
+)
+AS
+BEGIN
+INSERT INTO [Transaction]
+	([TransactionDateTime], [TaxRate], [SubTotalTaxable],
+	[SubTotal], [Total], [TransactionTypeID],
+	[EmployeeID], [TransactionStatusID])
+VALUES
+	(@TransactionDateTime, @TaxRate, @SubTotalTaxable,
+	@SubTotal, @Total, @TransactionTypeID,
+	@EmployeeID, @TransactionStatusID)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 03/08/2020
+Comment: retrieves the latest sales tax date associated with the zip code.
+*/
+PRINT '' PRINT '*** Creating sp_select_latest_salesTaxDate_by_zipCode'
+GO
+CREATE PROCEDURE [sp_select_latest_salesTaxDate_by_zipCode]
+(
+	@ZipCode		[nvarchar](50)
+)
+AS
+BEGIN
+	
+	SELECT MAX(SalesTaxDate) AS "Latest Sales Date"
+	FROM SalesTaxHistory
+	WHERE ZipCode = @ZipCode
+
+END
+GO
+
+PRINT '' PRINT '*** Creating sp_select_taxRate_by_salesTaxDate_and_zipCode'
+GO
+CREATE PROCEDURE [sp_select_taxRate_by_salesTaxDate_and_zipCode]
+(
+	@SalesTaxDate		[datetime],
+	@ZipCode			[nvarchar](50)
+)
+AS
+BEGIN
+	
+	SELECT TaxRate
+	FROM SalesTaxHistory
+	WHERE SalesTaxDate = @SalesTaxDate
+	AND ZipCode = @ZipCode
+
+END
+GO
+
+/*
+Created by: Rasha Mohammed
+Date: 3/16/2020
+Comment: Search for an item 
+*/
+PRINT '' PRINT '*** Creating sp_select_product_by_id'
+GO
+CREATE PROCEDURE sp_select_product_by_id
+(
+	@ProductID				[nvarchar](13)
+)
+AS
+BEGIN
+	SELECT 
+		  P.[ProductID]
+		, I.[ItemName]
+		, P.[Taxable]
+		, P.[Price]
+		, I.[ItemQuantity]
+		, I.[ItemDescription]
+		, P.[Active]
+			
+	FROM [Item] I
+	INNER JOIN [dbo].[Product] P
+	ON I.[ItemID] = P.[ItemID]
+	WHERE P.[ProductID] = @ProductID
+	
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Stored Procedure that adds a new Report to Missing / Damaged Items from the Shelf.
+*/
+DROP PROCEDURE IF EXISTS [sp_add_item_report]
+GO
+print '' print '*** Creating sp_add_item_report'
+GO
+CREATE PROCEDURE [sp_add_item_report]
+(
+	@ItemID			[int],
+	@ItemQuantity 	[int],
+	@Report			[nvarchar](250)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[ItemReport]
+	([ItemID], [ItemQuantity], [Report])
+	VALUES
+	(@ItemID, @ItemQuantity, @Report)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Stored Procedure that selects all Reports of Missing / Damaged Items from the Shelf.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_item_reports]
+GO
+print '' print '*** Creating sp_select_all_item_reports'
+GO
+CREATE PROCEDURE [sp_select_all_item_reports]
+AS
+BEGIN
+	SELECT [ItemReport].[ItemID],
+		   [Item].[ItemName],
+		   [ItemReport].[ItemQuantity],
+		   [ItemReport].[Report]
+	FROM [dbo].[ItemReport]
+	INNER JOIN [dbo].[Item] ON [ItemReport].[ItemID] = [Item].[ItemID]
+	ORDER BY [ItemReport].[ItemID]
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Stored Procedure that selects a Report of a Missing / Damaged Item from the Shelf.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_item_report_by_item_id]
+GO
+print '' print '*** creating sp_select_item_report_by_item_id'
+GO
+CREATE PROCEDURE [sp_select_item_report_by_item_id]
+AS
+BEGIN
+	SELECT [ItemReport].[ItemID],
+		   [Item].[ItemName],
+		   [ItemReport].[ItemQuantity],
+		   [ItemReport].[Report]
+	FROM [dbo].[ItemReport]
+	INNER JOIN [dbo].[Item] ON [ItemReport].[ItemID] = [Item].[ItemID]
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Stored Procedure that updates a Report of a Missing / Damaged Item from the Shelf.
+*/
+DROP PROCEDURE IF EXISTS [sp_update_item_report]
+GO
+print '' print '*** Creating sp_update_item_report'
+GO
+CREATE PROCEDURE [sp_update_item_report]
+(
+	@OldItemQuantity 	[int],
+	@OldReport			[nvarchar](250),
+	@NewItemQuantity 	[int],
+	@NewReport			[nvarchar](250),
+	@ItemID				[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[ItemReport]
+	SET   [ItemQuantity] = @NewItemQuantity,
+		  [Report]       = @NewReport
+	WHERE [ItemID]       = @ItemID
+	AND   [ItemQuantity] = @OldItemQuantity
+	AND	  [Report]		 = @OldReport
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 2020-04-07
+Comment: Stored Procedure that removes a Report of a Missing / Damaged Item from the Shelf.
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_item_report]
+GO
+print '' print '*** Creating sp_delete_item_report'
+GO
+CREATE PROCEDURE [sp_delete_item_report]
+(
+	@ItemID 	  [int],
+	@Report 	  [nvarchar](250),
+	@ItemQuantity [int]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[ItemReport]
+	WHERE [ItemID] = @ItemID
+	AND [Report] = @Report
+	AND [ItemQuantity] = @ItemQuantity
+	RETURN @@ROWCOUNT
+END
+GO
+
+                
+/*
+Created by: Ben Hanna
+Date: 04/7/2020
+Comment: Selects all of the kennel cleaning records
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_kennel_cleaning_records]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_kennel_cleaning_records'
+GO
+CREATE PROCEDURE [sp_select_all_kennel_cleaning_records]
+AS
+BEGIN
+	SELECT 
+    [FacilityKennelCleaningID],	
+	[UserID],					
+	[AnimalKennelID],			
+	[Date],						
+	[Notes]						
+ 	FROM [dbo].[FacilityKennelCleaning]
+END
+GO
+                
+/*
+Created by: Ben Hanna
+Date: 4/8/2020
+Comment: Update a kennel cleaning record
+*/ 
+DROP PROCEDURE IF EXISTS [sp_update_kennel_cleaning_record]
+GO     
+PRINT '' PRINT '*** Creating sp_update_kennel_cleaning_record'
+GO
+CREATE PROCEDURE [sp_update_kennel_cleaning_record]
+(
+    @FacilityKennelCleaningID   [int],
+    
+    @NewUserID                  [int],
+    @NewAnimalKennelID          [int], 
+    @NewDate	                [date],
+    @NewNotes                   [nvarchar](250),
+    
+	@OldUserID                  [int],
+    @OldAnimalKennelID          [int], 
+    @OldDate	                [date],
+    @OldNotes                   [nvarchar](250)
+)
+AS
+BEGIN
+	UPDATE [dbo].[FacilityKennelCleaning]
+    SET [UserID]                              = @NewUserID, 
+        [AnimalKennelID]                      = @NewAnimalKennelID,  
+        [Date]                                = @NewDate,
+        [Notes]                               = @NewNotes        
+    WHERE   [FacilityKennelCleaningID]        = @FacilityKennelCleaningID
+    AND     [UserID]                       = @OldUserID
+    AND     [AnimalKennelID]               = @OldAnimalKennelID  
+    AND     [Date]                         = @OldDate
+    AND     [Notes]                        = @OldNotes 
+    RETURN @@ROWCOUNT
+END 
+GO 
+
+                
+/*
+Created by: Ben Hanna
+Date: 4/9/2020
+Comment: Deletes a kennel cleaning record
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_kennel_cleaning_record]
+GO
+print '' print '*** Creating stored procedure sp_delete_kennel_cleaning_record'
+GO
+CREATE PROCEDURE [sp_delete_kennel_cleaning_record]
+(
+	@FacilityKennelCleaningID   [int],
+    
+    @UserID                     [int],
+    @AnimalKennelID             [int], 
+    @Date	                    [date],
+    @Notes                      [nvarchar](250)
+)
+AS
+	BEGIN
+		DELETE FROM [dbo].[FacilityKennelCleaning]
+		WHERE   [FacilityKennelCleaningID]     = @FacilityKennelCleaningID
+        AND     [UserID]                       = @UserID
+        AND     [AnimalKennelID]               = @AnimalKennelID  
+        AND     [Date]                         = @Date
+        AND     [Notes]                        = @Notes 
+	END
+GO                
+
+                
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -8513,22 +9294,23 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Insert Sample Data into Product Table, Updated 2020/03/17 to be compatible with new Product table structure by Robert Holmes.
+Comment: Insert Sample Data into Product Table
 */
-print '' print '*** Insert into Product table'
+print '' print '*** Insert Into Product Table ***'
 GO
 INSERT INTO [dbo].[Product](
 	[ProductID],
 	[ItemID],
+	[ProductName],
+	[ProductCategoryID],
 	[ProductTypeID],
-	[Taxable],
-	[Price],
 	[Description],
+	[Price],
 	[Brand]
 )
 VALUES
-	('7084781116',100000,'Cat',1,50.0,'Name brand cat food','OnlyForCats'),
-	('2500006153',100001,'General',1,100.0,'Medical Supplies to Heal Scratch Wounds','AlsoForHumans')
+    ('7084781116',100000,'LoCatMein', 'Food', 'Cat', 'Name brand Cat Food', 50.00, 'OnlyForCats'),
+    ('2500006153',100001,'Scratch Be Gone','Medical', 'General', 'Medical Supplies to Heal Scratch Wounds', 100.00, 'AlsoForHumans')
 GO
 
 /*
@@ -8719,27 +9501,30 @@ Comment: Inserts test data for the Transaction Table
 print ''  print '*** Inserting sample data into Transaction Table'
 GO
 Insert INTO [dbo].[Transaction]
-	([EmployeeID], [TransactionStatusID], [TransactionTypeID], [TransactionDate], [Notes])
+	([TransactionDateTime],[TaxRate],[SubTotalTaxable],[SubTotal],[Total]
+	,[TransactionTypeID],[EmployeeID],[TransactionStatusID],[CustomerEmail])
 	Values
-	(100000, 'tranStatus100','tranTYPE100', '2018-02-10', 'TRAN_NOTES100'),
-	(100001, 'tranStatus200','tranTYPE200', '2017-02-06', 'TRAN_NOTES200'),
-	(100002, 'tranStatus800','tranTYPE800', '2012-04-03', 'TRAN_NOTES800')
+	('2019-10-10 10:10',0.0225,10.39,21.23,21.46,'tranTYPE100'
+	, 100000, 'tranStatus100','zbehrens@PetUniverse.com'),
+	('2020-02-11 9:43',0.0225,41.39,41.39,43.22,'tranTYPE100'
+	, 100000, 'tranStatus100',null),
+	('2018-04-13 10:13',0.014,52.39,51.39,53.22,'tranTYPE100'
+	, 100001, 'tranStatus100',null)
 Go
 
 /*
 Created by: Jaeho Kim
 Date: 02/27/2020
-Comment: Inserts test data for the TransactionLine Table
+Comment: Inserts test data for the TransactionLineProducts Table
 */
-print ''  print '*** Inserting sample data into TransactionLine Table'
+print ''  print '*** Inserting sample data into TransactionLineProducts Table'
 GO
-Insert INTO [dbo].[TransactionLine]
-	([TransactionID], [ProductID], [Quantity])
+Insert INTO [dbo].[TransactionLineProducts]
+	([TransactionID], [ProductID], [Quantity],[PriceSold])
 	Values
-	(1000, '7084781116', 5),
-	(1000, '2500006153', 3),
-	(1001, '7084781116', 2),
-	(1002, '2500006153', 9)
+	(1000, '7084781116', 1, 37.22),
+	(1000, '2500006153', 1, 11.11),
+	(1001, '7084781116', 2, 74.44)
 Go
 
 /*
@@ -9348,158 +10133,60 @@ INSERT INTO [dbo].[Donor](
 VALUES
 (DEFAULT, NULL, DEFAULT),
 ('Matt', 'Deaton', DEFAULT)
-
-
-
-
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: insert order sp
-*/
-print '' print '*** Creating sp_insert_order'
-GO
-CREATE PROCEDURE sp_insert_order
-	(
-        @EmployeeID					[int],
-		@Active						[bit]
-	)
-AS
-	BEGIN
-		INSERT INTO [orders]
-			([EmployeeID], [Active])
-		VALUES
-			(@EmployeeID, @Active)
-	  
-		RETURN @@ROWCOUNT
-	END
 GO
 
 /*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: retrieves all orders
+Created by: Jaeho Kim
+Date: 02/27/2020
+Comment: Inserts test data for the Transaction Table
 */
-print '' print '*** Creating sp_retrieve_all_orders'
+print ''  print '*** Inserting sample data into Transaction Table'
 GO
-create PROCEDURE sp_retrieve_all_orders
-AS
-	BEGIN
-		SELECT [OrderID], [EmployeeID]
-		FROM [orders]
-		Order BY [OrderID]
-	END
-GO
+Insert INTO [dbo].[Transaction]
+	([TransactionDateTime],[TaxRate],[SubTotalTaxable],[SubTotal],[Total]
+	,[TransactionTypeID],[EmployeeID],[TransactionStatusID],[CustomerEmail])
+	Values
+	('2019-10-10 10:10',0.0225,10.39,21.23,21.46,'tranTYPE100'
+	, 100000, 'tranStatus100','zbehrens@PetUniverse.com'),
+	('2020-02-11 9:43',0.0225,41.39,41.39,43.22,'tranTYPE100'
+	, 100000, 'tranStatus100',null),
+	('2018-04-13 10:13',0.014,52.39,51.39,53.22,'tranTYPE100'
+	, 100001, 'tranStatus100',null)
+Go
 
 /*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: retrieves order by id
+Created by: Jaeho Kim
+Date: 02/27/2020
+Comment: Inserts test data for the TransactionLineProducts Table
 */
-print '' print '*** Creating sp_retrieve_order_by_id'
+print ''  print '*** Inserting sample data into TransactionLineProducts Table'
 GO
-CREATE PROCEDURE sp_retrieve_order_by_id
-	(
-		@OrderID		[int]
-	)
-AS
-	BEGIN
-		SELECT [OrderID], [EmployeeID]
-		FROM [Orders]
-		WHERE [OrderID] = @OrderID
-	END
-GO
+Insert INTO [dbo].[TransactionLineProducts]
+	([TransactionID], [ProductID], [Quantity],[PriceSold])
+	Values
+	(1000, '7084781116', 1, 37.22),
+	(1000, '2500006153', 1, 11.11),
+	(1001, '7084781116', 2, 74.44)
+Go
 
 /*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: updates an order
+Created by: Jaeho Kim
+Date: 04/10/2020
+Comment: Inserts test data for the SalesTaxHistory Table
 */
-print '' print '*** Creating sp_update_order_by_id'
+PRINT ''  PRINT '*** Creating sample SalesTaxHistory data'
 GO
-CREATE PROCEDURE sp_update_order_by_id
-	(
-		@OrderID					[int],
-        @EmployeeID					[int],
-		@Active						[bit],
-		
-		@OldOrderID					[int],
-        @OldEmployeeID				[int],
-		@OldActive					[bit]
-	)
-AS
-	BEGIN
-		UPDATE  [orders]
-		SET 	[EmployeeID] = @EmployeeID,
-				[Active] = @Active
-		WHERE 	[OrderID] = @OldOrderID
-		  
-		RETURN @@ROWCOUNT
-	END
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: deactivates an order
-*/
-print '' print '*** Creating sp_deactivate_order_by_id'
-GO
-CREATE PROCEDURE sp_deactivate_order_by_id
-	(
-		@OrderID					[int]
-	)
-AS
-	BEGIN
-		UPDATE  [orders]  
-		SET 	[Active] = 0
-		WHERE 	[OrderID] = @OrderID
-	  
-		RETURN @@ROWCOUNT
-	END
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: Delets an order
-*/
-print '' print '*** Creating sp_delete_order_by_id'
-GO
-CREATE PROCEDURE sp_delete_order_by_id
-	(
-		@OrderID				[int]
-	)
-AS
-	BEGIN
-		DELETE  
-		FROM 	[orders]
-		WHERE 	[OrderID] = @OrderID
-	  
-		RETURN @@ROWCOUNT
-	END
-GO
-
-/*
-Created by: Jesse Tomash
-Date: 3/10/2020
-Comment: activates an order
-*/
-print '' print '*** Creating sp_activate_order_by_id'
-GO
-CREATE PROCEDURE sp_activate_order_by_id
-	(
-		@OrderID				[int]
-	)
-AS
-	BEGIN
-		UPDATE  [orders]  
-		SET 	[Active] = 1
-		WHERE 	[OrderID] = @OrderID
-	  
-		RETURN @@ROWCOUNT
-	END
+INSERT INTO [dbo].[SalesTaxHistory]
+	([ZipCode], [SalesTaxDate], [TaxRate])
+    
+	VALUES
+	('1111', '2002-10-10', 2.33),
+	('1111', '2008-10-10', 3.33),
+	('1111', '2010-10-10', 4.33),
+	('1111', '2019-10-10', 0.0253),
+	('1111', '2012-10-10', 1.33),
+	('2222', '2012-10-10', 0.0345),
+	('2222', '2009-10-10', 11.33)
 GO
 
 /*
@@ -9583,6 +10270,27 @@ INSERT INTO [dbo].[EventRequest]
 		(1000002, 1000002, 100000, NULL, 4, 0),
 		(1000003, 1000003, NULL, NULL, 0, 1)
 GO
+
+
+/*
+Created by: Ben Hanna
+Date: 4/8/2020
+Comment: Sample data for the cleaning records.
+*/
+
+GO                
+PRINT '' PRINT '*** Inserting Sample Kennel Cleaning records'
+GO
+INSERT INTO [dbo].[FacilityKennelCleaning] 
+        ([UserID],
+         [AnimalKennelID],
+         [Date],
+         [Notes]
+        )
+VALUES 
+        (100000, 1000000, '20200207 12:55:01 PM', 'sample 1 sample 1'),
+        (100001, 1000001, '20200407 12:55:00 PM', 'sample 2 sample 2')
+GO          
 
 
 /*
@@ -9760,3 +10468,33 @@ VALUES
 	(1007, 'Monetary', '01-12-2020', 10000.00),
 	(1008, 'Monetary', '03-12-2020', 3000.00)
 GO
+
+/*Created by: Rasha Mohammed
+Date: 3/31/2020
+Comment: Insert sample data into Picture table
+*/
+print ''  print '*** Insert sample record to picture'
+GO
+INSERT INTO [dbo].[Picture]
+	([PictureID], [ProductID],[ImagePath])
+	VALUES
+	(1, '7084781116', 'LoCatMein.jpg'),
+	(2, '2500006153', 'ScratchBeGone.jpg')
+GO
+
+
+/*Created by: Rasha Mohammed
+Date: 3/30/2020
+Comment: Select images from picture table 
+*/
+print '' print '*** Creating sp_select__all_image'
+GO
+CREATE PROCEDURE [sp_select__all_image]
+AS
+BEGIN
+	SELECT  [Picture].[PictureID], [Product].[ProductID], [Picture].[ImagePath]	
+	FROM 	[Picture]
+    JOIN 	[Product] ON [Product].[ProductID] = [Picture].[ProductID]
+		
+END
+GO	

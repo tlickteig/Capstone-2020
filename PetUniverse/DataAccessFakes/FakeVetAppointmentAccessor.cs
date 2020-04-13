@@ -51,6 +51,7 @@ namespace DataAccessFakes
                     FollowUpDateTime = null,
                     Active = true
                 },
+
                 new AnimalVetAppointment()
                 {
                     VetAppointmentID = 2,
@@ -64,6 +65,7 @@ namespace DataAccessFakes
                     FollowUpDateTime = DateTime.Parse("2/20/2021 2:00PM"),
                     Active = true
                 },
+
                 new AnimalVetAppointment()
                 {
                     VetAppointmentID = 3,
@@ -112,7 +114,6 @@ namespace DataAccessFakes
             {
                 throw ex;
             }
-
             return result;
         }
 
@@ -165,7 +166,6 @@ namespace DataAccessFakes
             {
                 result = true;
             }
-
             return result;
         }
     }

@@ -11,11 +11,11 @@ namespace LogicLayerTests
 {
 
     /// <summary>
-    ///  Creator: Jaeho Kim
-    ///  Created: 2/27/2020
-    ///  Approver: Rasha Mohammed
+    /// Creator: Jaeho Kim
+    /// Created: 2/27/2020
+    /// Approver: Rasha Mohammed
     ///  
-    ///  Test Class for TransactionManager
+    /// Test Class for TransactionManager
     /// </summary>
     [TestClass]
     public class TransactionManagerTests
@@ -26,17 +26,16 @@ namespace LogicLayerTests
         private TransactionManager _transactionManager;
 
         /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 2/27/2020
-        ///  Approver: Rasha Mohammed
-        ///  
-        ///  Constructor for instantiating FakeTransactionAccessor
+        /// Creator: Jaeho Kim
+        /// Created: 2/27/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Constructor for instantiating FakeTransactionAccessor
         /// </summary>
         /// <remarks>
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
-        /// 
         /// </remarks>
         public TransactionManagerTests()
         {
@@ -51,10 +50,9 @@ namespace LogicLayerTests
         /// Load fake transcationLine accessor for testing purposes
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED DATE: 
-        /// CHANGES: 
-        /// 
+        /// Updater:
+        /// Updated: 
+        /// Update: 
         /// </remarks>
         [TestInitialize]
         public void TestSetup()
@@ -63,39 +61,13 @@ namespace LogicLayerTests
             _transactionManager = new TransactionManager(_transactionAccessor);
         }
 
-        /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 2/27/2020
-        ///  Approver: Rasha Mohammed
-        ///  
-        ///  Test method for retrieving all transactions
-        /// </summary>
-        /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// 
-        /// </remarks>
-        [TestMethod]
-        public void TestRetrieveAllTransactions()
-        {
-            //arrange
-            List<TransactionVM> transactions;
-            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
-
-            //act
-            transactions = transactionManager.RetrieveAllTransactions();
-
-            //assert
-            Assert.AreEqual(2, transactions.Count);
-        }
 
         /// <summary>
-        ///  Creator: Jaeho Kim
-        ///  Created: 3/05/2020
-        ///  Approver: Rasha Mohammed
+        /// Creator: Jaeho Kim
+        /// Created: 3/05/2020
+        /// Approver: Rasha Mohammed
         ///  
-        ///  Test method for retrieving all products using a transactionId
+        /// Test method for retrieving all products using a transactionId
         /// </summary>
         /// <remarks>
         /// Updater: NA
@@ -140,6 +112,205 @@ namespace LogicLayerTests
 
             // assert
             Assert.AreEqual(true, result);
+
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/4/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Tests AddTransaction
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestAddTransaction()
+        {
+            bool result = false;
+
+            Transaction newTransaction = new Transaction()
+            {
+                EmployeeID = 100002
+            };
+
+            FakeTransactionAccessor _transactionAccessor = new FakeTransactionAccessor();
+
+            result = _transactionAccessor.InsertTransaction(newTransaction) == 1;
+
+            Assert.AreEqual(result, true);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/4/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Tests AddTransactionLineProducts
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestAddTransactionLineProducts()
+        {
+            bool result = false;
+
+            TransactionLineProducts newTransactionLineProducts = new TransactionLineProducts()
+            {
+                TransactionID = 100002
+            };
+
+            FakeTransactionAccessor _transactionAccessor = new FakeTransactionAccessor();
+
+            result = _transactionAccessor.InsertTransactionLineProducts(newTransactionLineProducts) == 1;
+
+            Assert.AreEqual(result, true);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/4/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// This is a unit test for retrieve by zipcode only.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveLatestSalesTaxDateByZipCode()
+        {
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            DateTime salesTaxDate = new DateTime(2002, 10, 18);
+            SalesTax salesTax = new SalesTax()
+            {
+                TaxDate = salesTaxDate,
+                TaxRate = 0.0025M,
+                ZipCode = "1111"
+            };
+
+            DateTime anotherSalesTaxDate = transactionManager.RetrieveLatestSalesTaxDateByZipCode(salesTax.ZipCode);
+
+            Assert.AreEqual(salesTax.TaxDate, anotherSalesTaxDate);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/4/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// This is a unit test for retrieve by id.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveProductByProductID()
+        {
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            string productID = "ProductID100";
+
+            ProductVM anotherProductVM;
+
+            anotherProductVM = transactionManager.RetrieveProductByProductID(productID);
+
+            Assert.AreEqual(anotherProductVM.ProductID, productID);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/4/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// This is a unit test for retrieve tax rate by date and zipcode.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveTaxRateBySalesTaxDateAndZipCode()
+        {
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            DateTime salesTaxDate = new DateTime(2002, 10, 18);
+            SalesTax salesTax = new SalesTax()
+            {
+                TaxDate = salesTaxDate,
+                TaxRate = 0.0025M,
+                ZipCode = "1111"
+            };
+
+            decimal anotherTaxRate = transactionManager
+                .RetrieveTaxRateBySalesTaxDateAndZipCode(salesTax.ZipCode,salesTax.TaxDate);
+
+            Assert.AreEqual(salesTax.TaxRate, anotherTaxRate);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 3/05/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Test method for retrieving transactions using a transaction date.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveTransactionsByTransactionDate()
+        {
+            // arrange 
+            List<TransactionVM> transactions;
+            DateTime transactionDate1 = new DateTime(2010, 10, 18);
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+            // Act
+            transactions = transactionManager.RetrieveTransactionByTransactionDate(transactionDate1);
+            // assert
+            Assert.AreEqual(1, transactions.Count);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 3/08/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Test method for retreiving transactions by employee name.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveTransactionByEmployeeName()
+        {
+            //arrange
+            List<TransactionVM> transactions;
+            string firstName = "Bob";
+            string lastName = "Jones";
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // Act
+            transactions = transactionManager.RetrieveTransactionByEmployeeName(firstName, lastName);
+
+            // assert
+            Assert.AreEqual(1, transactions.Count);
 
         }
     }

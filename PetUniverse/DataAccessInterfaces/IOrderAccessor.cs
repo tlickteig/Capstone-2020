@@ -8,73 +8,77 @@ using System.Threading.Tasks;
 namespace DataAccessInterfaces
 {
     /// <summary>
-    /// NAME: Jesse Tomash
-    /// DATE: 3/12/2020
+    /// Creator: Jesse Tomash
+    /// Created: 3/12/2020
+    /// Approver: Dalton Rierson
     /// 
     /// This is the interface for order accessor
     /// </summary>
-    /// <remarks>
-    /// UPDATED BY:
-    /// UPDATE DATE:
-    /// WHAT WAS CHANGED:
-    /// </remarks>
     public interface IOrderAccessor
     {
+
         /// <summary>
-        /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// Creator: Jesse Tomash
+        /// Created: 3/12/2020
+        /// Approver: Dalton Rierson
         /// 
         /// This is the interface method for selecting all orders
         /// </summary>
-        /// <returns></returns>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
+        /// Updater:
+        /// Update:
+        /// Updated:
         /// </remarks>
+        /// <returns></returns>
         IEnumerable<Order> SelectOrders();
+
         /// <summary>
-        /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// Creator: Jesse Tomash
+        /// Created: 3/12/2020
+        /// Approver: Dalton Rierson
         /// 
         /// This is the interface  method for updating an order
         /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Update:
+        /// Updated:
+        /// </remarks>
         /// <param name="oldOrder"></param>
         /// <param name="newOrder"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        /// </remarks>
         int UpdateOrder(Order oldOrder, Order newOrder);
+
         /// <summary>
-        /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// Creator: Jesse Tomash
+        /// Created: 3/12/2020
+        /// Approver: Dalton Rierson
         /// 
         /// This is the interface method to insert an order
         /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Update:
+        /// Updated:
+        /// </remarks>
         /// <param name="newOrder"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        /// </remarks>
         int InsertOrder(Order newOrder);
+
         /// <summary>
-        /// NAME: Jesse Tomash
-        /// DATE: 3/12/2020
+        /// Creator: Jesse Tomash
+        /// Created: 3/12/2020
+        /// Approver: Dalton Rierson
         /// 
         /// This is the interface method to delete an order
         /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Update:
+        /// Updated:
+        /// </remarks>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        /// </remarks>
         int DeleteOrder(int orderID);
     }
 }

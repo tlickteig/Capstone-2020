@@ -17,6 +17,7 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IAnimalHandlingAccessor
     {
+
         /// <summary>
         /// Creator: Ben Hanna
         /// Created: 2/21/2020

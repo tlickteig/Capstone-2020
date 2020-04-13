@@ -61,6 +61,7 @@
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+                    <Button x:Name="btnAnimalOutOfInventory" Grid.Column="1" Width="160" Height="30" Content="Mark Out of Inventory" HorizontalAlignment="Left" Click="btnAnimalOutOfInventory_Click"/>
                     <Button x:Name="btnView" Grid.Column="5" Width="100" Height="30" Content="View" HorizontalAlignment="Right" Click="btnView_Click"/>
 
                 </Grid>

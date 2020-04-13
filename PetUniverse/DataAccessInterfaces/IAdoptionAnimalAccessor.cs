@@ -36,5 +36,20 @@ namespace DataAccessInterfaces
         /// 
         /// </remarks>
         List<AdoptionAnimalVM> SelectAdoptionAnimalsByActive(bool active);
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/4/2020
+        /// CHECKED BY: Micheal Thompson, 4/9/2020
+        /// 
+        /// Deactivates an animal
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        int DeactivateAdoptionAnimal(int animalID);
     }
 }

@@ -73,7 +73,7 @@ namespace DataAccessFakes
         {
             ERole eRole = null;
 
-            //Fail immediatly if null
+            //Fail immediately if null
             if (eRoleID == null)
             {
                 throw new Exception();
@@ -204,14 +204,14 @@ namespace DataAccessFakes
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
+        /// Updater:
         /// Updated:
         /// Update: 
         /// </remarks>
         /// <param name="eRole"></param>
         /// <returns></returns>
         public int InsertERole(ERole eRole)
-        {
+        {           
             //Check if new eRoleID is null
             if (eRole.ERoleID == null || eRole.ERoleID == "")
             {
@@ -253,8 +253,8 @@ namespace DataAccessFakes
 
             //returns fake rows effected if it passed all tests
             return 1;
-
         }
+
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 02/09/2020
@@ -336,7 +336,6 @@ namespace DataAccessFakes
                 {
                     eRoleTrue = true;
                 }
-
             }
 
             //Throw exception if eRole isn't in list
@@ -416,7 +415,6 @@ namespace DataAccessFakes
                     roles.Add(role);
                 }
             }
-
             return roles;
         }
     }

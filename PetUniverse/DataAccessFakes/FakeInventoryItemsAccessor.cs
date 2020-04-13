@@ -10,7 +10,7 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Cash Carlson
-    /// Created: 2020/02/21
+    /// Created: 02/21/2020
     /// Approver: Zach Behrensmeyer
     ///
     /// Fake Accessor class for inventory items to use instead of calling from the database during testing
@@ -21,7 +21,7 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Cash Carlson
-        /// Created: 2020/02/21
+        /// Created: 02/21/2020
         /// Approver: Zach Behrensmeyer
         ///
         /// List of fake Inventory Items to use instead of a database
@@ -50,17 +50,17 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Cash Carlson
-        /// Created: 2020/02/21
+        /// Created: 02/21/2020
         /// Approver: Zach Behrensmeyer
         ///
         /// Returns all inventory items from the accessor
         /// </summary>
-        /// <returns></returns>
         /// <remarks>
-        /// Updater 
+        /// Updater:
         /// Updated:
         /// Update: 
         /// </remarks>
+        /// <returns></returns>
         public List<InventoryItems> SelectAllInventory()
 		{
 			return inventoryItems;

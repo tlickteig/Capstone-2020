@@ -24,13 +24,14 @@ namespace DataAccessFakes
     /// </remarks>
     public class FakeAnimalActivityAccessor : IAnimalActivityAccessor
     {
+
         private List<AnimalActivity> _animalActivity;
         private List<AnimalActivityType> activityTypes;
 
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 2/18/2020
-        /// Approver: Carl Davis 4/3/2020
+        /// Approver: Carl Davis, 4/3/2020
         /// 
         /// fake animal activity records
         /// </summary>
@@ -49,17 +50,20 @@ namespace DataAccessFakes
                     ActivityDateTime = DateTime.Now,
                     AnimalActivityTypeID = "Feeding",
                 },
+
                 new AnimalActivity() {
                     AnimalID = 2,
                     ActivityDateTime = DateTime.Now,
                     AnimalActivityTypeID = "Feeding",
                 },
+
                 new AnimalActivity()
                 {
                     AnimalActivityId = 3,
                     ActivityDateTime = DateTime.Now,
                     AnimalActivityTypeID = "Play"
                 },
+
                 new AnimalActivity()
                 {
                     AnimalActivityId = 4,
@@ -74,6 +78,7 @@ namespace DataAccessFakes
                 {
                     ActivityTypeId = "Feeding"
                 },
+
                 new AnimalActivityType()
                 {
                     ActivityTypeId = "Play"
@@ -84,7 +89,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/2/2020
-        /// Approver: Carl Davis 4/3/2020
+        /// Approver: Carl Davis, 4/3/2020
         /// 
         /// Retrieves a list of fake animal activity records
         /// by activity type
@@ -104,7 +109,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/2/2020
-        /// Approver: Carl Davis 4/3/2020
+        /// Approver: Carl Davis, 4/3/2020
         /// 
         /// Retrieves a list of fake animal activity types
         /// </summary>
@@ -135,15 +140,12 @@ namespace DataAccessFakes
         public List<AnimalActivity> GetAnimalFeedingRecords()
         {
             return _animalActivity.ToList();
-
-
-
         }
 
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/2/2020
-        /// Approver: Carl Davis 4/3/2020
+        /// Approver: Carl Davis, 4/3/2020
         /// 
         /// Inserts an animal activity into the existing list
         /// of fake animal activity records
@@ -165,7 +167,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/6/2020
-        /// Approver: Chuck Baxter 4/7/2020
+        /// Approver: Chuck Baxter, 4/7/2020
         /// 
         /// Updates an existing animal activity record
         /// </summary>
@@ -188,14 +190,12 @@ namespace DataAccessFakes
                                                         a.AnimalActivityTypeID == oldAnimalActivity.AnimalActivityTypeID &&
                                                         a.ActivityDateTime == oldAnimalActivity.ActivityDateTime &&
                                                         a.Description == oldAnimalActivity.Description);
-
             if (foundRecord != null)
             {
                 _animalActivity[_animalActivity.IndexOf(foundRecord)] = newAnimalActivity;
                 recordsUpdated = ((!_animalActivity.Contains(foundRecord)) &&
                                 _animalActivity.Contains(newAnimalActivity)) ? 1 : 0;
             }
-
             return recordsUpdated;
         }
     }

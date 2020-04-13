@@ -11,21 +11,20 @@ namespace DataAccessFakes
     /// <summary>
     /// Creator: Ethan Murphy
     /// Created: 2/16/2020
-    /// Approver: Carl Davis 2/21/2020
-    /// Approver:
+    /// Approver: Carl Davis 2/21/2020    
     /// 
     /// Creates a fake list of animal prescription records
     /// for testing accessor methods
     /// </summary>
     public class FakeAnimalPrescriptionsAccessor : IAnimalPrescriptionsAccessor
     {
+
         private List<AnimalPrescriptionVM> AnimalPrescriptionVMs;
 
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 2/16/2020
-        /// Approver: Carl Davis 2/21/2020
-        /// Approver:
+        /// Approver: Carl Davis 2/21/2020        
         /// 
         /// No argument constructor that creates a list
         /// of fake animal prescription records for testing
@@ -53,6 +52,7 @@ namespace DataAccessFakes
                     Description = "test",
                     AnimalName = "fawuief"
                 },
+
                 new AnimalPrescriptionVM()
                 {
                     AnimalID = 2,
@@ -67,6 +67,7 @@ namespace DataAccessFakes
                     Description = "test2",
                     AnimalName = "sgadgase"
                 },
+
                 new AnimalPrescriptionVM()
                 {
                     AnimalID = 3,
@@ -81,6 +82,7 @@ namespace DataAccessFakes
                     Description = "test3",
                     AnimalName = "hrehara"
                 },
+
                 new AnimalPrescriptionVM()
                 {
                     AnimalID = 4,
@@ -101,8 +103,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 2/16/2020
-        /// Approver: Carl Davis 2/21/2020
-        /// Approver:
+        /// Approver: Carl Davis 2/21/2020        
         /// 
         /// Creates a fake animal prescription record
         /// </summary>
@@ -122,7 +123,6 @@ namespace DataAccessFakes
             {
                 result = true;
             }
-
             return result;
         }
 

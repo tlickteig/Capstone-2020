@@ -10,6 +10,9 @@ namespace DataAccessFakes
     /// <summary>
     /// NAME: Jesse Tomash
     /// DATE:3/12/2020
+    ///
+    /// Approver: Brandyn T. Coverdill
+    /// Approver: Dalton Reierson
     /// 
     /// Fake Order class for testing
     /// </summary>
@@ -18,6 +21,9 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver:  Dalton Reierson
         /// 
         /// This is a list of orders
         /// </summary>
@@ -31,6 +37,9 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This method returns a fake list of Ordersfor testing
         /// </summary>
@@ -57,6 +66,9 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This is the method used to test updating the fake orders 
         /// </summary>
@@ -84,6 +96,9 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This is the method used to test inserting a new order to the list
         /// </summary>
@@ -111,6 +126,9 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
         /// 
         /// This is the method used to test deleting an order from the list 
         /// </summary>

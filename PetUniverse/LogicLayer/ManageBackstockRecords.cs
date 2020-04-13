@@ -20,7 +20,7 @@ namespace LogicLayer
     /// </summary>
     public class ManageBackstockRecords : IManageBackstockRecords
     {
-        private IbackstockAccessor BackRecordAccessor;
+        private IBackStockAccessor BackRecordAccessor;
         /// <summary>
         /// Creator: Tener Karar
         /// Created: 2020/02/7
@@ -54,7 +54,7 @@ namespace LogicLayer
         /// Update: 
         /// </remarks>
         /// <param name="backRecordAccessorFakes"></param>
-        public ManageBackstockRecords(IbackstockAccessor backRecordAccessorFakes)
+        public ManageBackstockRecords(IBackStockAccessor backRecordAccessorFakes)
         {
             this.BackRecordAccessor = backRecordAccessorFakes;
         }
@@ -64,7 +64,7 @@ namespace LogicLayer
             bool result;
             try
             {
-                result = BackRecordAccessor.UpdatItemLocation(itemID, itemLocationID, NewItemLocation);
+                result = BackRecordAccessor.UpdateItemLocation(itemID, itemLocationID, NewItemLocation);
             }
             catch (Exception)
             {
@@ -125,7 +125,7 @@ namespace LogicLayer
             List<Item> result = null;
             try
             {
-                result = BackRecordAccessor.getAllItemInBackRoomm();
+                result = BackRecordAccessor.getAllItemsInBackRoom();
             }
             catch (Exception)
             {

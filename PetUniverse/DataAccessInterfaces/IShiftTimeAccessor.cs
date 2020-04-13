@@ -16,13 +16,13 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IShiftTimeAccessor
     {
+
         /// <summary>
         /// Creator: Lane Sandburg
         /// Created: 02/07/2020
         /// Approver: Alex Diers
         /// 
-        /// definition for Insert a new ShiftTime
-        /// and sets parameters for insertion
+        /// definition for Insert a new ShiftTime and sets parameters for insertion
         /// </summary>
         ///
         /// <remarks>
@@ -38,8 +38,7 @@ namespace DataAccessInterfaces
         /// Created: 02/13/2020
         /// Approver: Alex Diers
         /// 
-        /// definition for update a new ShiftTime
-        /// and sets parameters for insertion
+        /// definition for update a new ShiftTime and sets parameters for insertion
         /// </summary>
         ///
         /// <remarks>
@@ -56,8 +55,7 @@ namespace DataAccessInterfaces
         /// Created: 02/13/2020
         /// Approver: Alex Diers
         /// 
-        /// definition for select all ShiftTime
-        /// and sets parameters for insertion
+        /// definition for select all ShiftTime and sets parameters for insertion
         /// </summary>
         ///
         /// <remarks>
@@ -72,8 +70,7 @@ namespace DataAccessInterfaces
         /// Created: 03/05/2020
         /// Approver: Kaleb Bachert
         /// 
-        /// definition for Deleteing a new ShiftTime
-        /// and sets parameters for delete
+        /// definition for Deleteing a new ShiftTime and sets parameters for delete
         /// </summary>
         ///
         /// <remarks>

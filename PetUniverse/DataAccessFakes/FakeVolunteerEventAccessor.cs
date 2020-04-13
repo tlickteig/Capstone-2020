@@ -9,29 +9,30 @@ using DataTransferObjects;
 namespace DataAccessFakes
 {
     /// <summary>
-    /// NAME: Zoey McDonald
-    /// DATE: 2/7/2020
-    /// CHECKED BY: Ethan Holmes
+    /// Creator: Zoey McDonald
+    /// Created: 2/7/2020
+    /// Approver: Ethan Holmes
     /// 
     /// This is a fake accessor class for a volunteer event.
-    /// 
     /// </summary>
     public class FakeVolunteerEventAccessor : IVolunteerEventAccessor
     {
+        
         private List<VolunteerEvent> _volunteerEvents = new List<VolunteerEvent>();
         private List<VolunteerEventVM> _volunteerEventVMs = new List<VolunteerEventVM>();
+
         /// <summary>
-        /// NAME: Zoey McDonald
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Ethan Holmes
+        /// Creator: Zoey McDonald
+        /// Created: 2/7/2020
+        /// Apprvoer: Ethan Holmes
         /// 
         /// This is an fake accessor method for adding a volunteer event.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED DATE: N/A
-        /// WHAT WAS CHANGED: N/A
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         public FakeVolunteerEventAccessor()
         {
@@ -64,21 +65,20 @@ namespace DataAccessFakes
                 EventDescription = "YEET",
                 Active = true
             });
-
         }
 
         /// <summary>
-        /// NAME: Zoey McDonald
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Ethan Holmes
+        /// Creator: Zoey McDonald
+        /// Created: 2/7/2020
+        /// Approver: Ethan Holmes
         /// 
         /// This is an fake accessor method for inserting a volunteer event.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED DATE: N/A
-        /// WHAT WAS CHANGED: N/A
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         public int InsertVolunteerEvent(VolunteerEventVM volunteerEvent)
         {
@@ -87,17 +87,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Zoey McDonald
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Ethan Holmes
+        /// Creator: Zoey McDonald
+        /// Created: 2/7/2020
+        /// Approver: Ethan Holmes
         /// 
         /// This is an fake accessor method for removing a volunteer event.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED DATE: N/A
-        /// WHAT WAS CHANGED: N/A
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         public int RemoveVolunteerEvent(int volunteerEventID)
         {
@@ -118,17 +118,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Zoey McDonald
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Ethan Holmes
+        /// Creator: Zoey McDonald
+        /// Created: 2/7/2020
+        /// Approver: Ethan Holmes
         /// 
         /// This is an fake accessor method for selecting all volunteer events.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED DATE: N/A
-        /// WHAT WAS CHANGED: N/A
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         public List<VolunteerEvent> SelectAllEvents()
         {
@@ -136,17 +136,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Zoey McDonald
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Ethan Holmes
+        /// Creator: Zoey McDonald
+        /// Created: 2/7/2020
+        /// Approver: Ethan Holmes
         /// 
         /// This is an fake accessor method for selecting a volunteer event. NOT DONE YET.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED DATE: N/A
-        /// WHAT WAS CHANGED: N/A
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         public VolunteerEvent SelectEvent(int VolunteerEventID)
         {
@@ -154,17 +154,17 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// NAME: Zoey McDonald
-        /// DATE: 2/7/2020
-        /// CHECKED BY: Ethan Holmes
+        /// Creator: Zoey McDonald
+        /// Created: 2/7/2020
+        /// Approver: Ethan Holmes
         /// 
         /// This is an fake accessor method for updating a volunteer event.
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: N/A
-        /// UPDATED DATE: N/A
-        /// WHAT WAS CHANGED: N/A
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
         public int UpdateVolunteerEvent(VolunteerEvent oldVolunteerEvent, VolunteerEvent newVolunteerEvent)
         {
