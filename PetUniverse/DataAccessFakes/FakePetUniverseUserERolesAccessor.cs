@@ -17,9 +17,9 @@ namespace DataAccessFakes
     public class FakePetUniverseUserERolesAccessor : IPetUniverseUserERolesAccessor
     {
 
-        List<PetUniverseUser> userERoles = null;
+        List<ERole> userERoles = null;
         List<ERole> availableERoles = null;
-        List<PetUniverseUser> availablePUUsers = null;
+        List<ERole> availablePUUsers = null;
 
         /// <summary>
         /// Creator: Chase Schulte
@@ -29,28 +29,29 @@ namespace DataAccessFakes
         /// Populate the role and department list 
         /// </summary>
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte
+        /// Updated: 04/10/2020
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         public FakePetUniverseUserERolesAccessor()
         {
             //Fake data for EroleAcessor
-            userERoles = new List<PetUniverseUser>()
+            userERoles = new List<ERole>()
             {
-                new PetUniverseUser()
+                new ERole()
                 {
                     PUUserID=100000,
                     ERoleID="Manager"
                 },
 
-                new PetUniverseUser()
+                new ERole()
                 {
                     PUUserID=100001,
                     ERoleID="Cashier"
                 },
 
-                new PetUniverseUser()
+                new ERole()
                 {
                     PUUserID=100001,
                     ERoleID="Event Organizer"
@@ -79,20 +80,19 @@ namespace DataAccessFakes
                     ERoleID="Event Manager"
                 }
             };
-
-            availablePUUsers = new List<PetUniverseUser>()
+            availablePUUsers = new List<ERole>()
             {
-                new PetUniverseUser()
+                new ERole()
                 {
                     PUUserID=100000
                 },
-                
-                new PetUniverseUser()
+
+                new ERole()
                 {
                     PUUserID=100001
                 },
-                
-                new PetUniverseUser()
+
+                new ERole()
                 {
                     PUUserID=100002
                 }
@@ -107,9 +107,10 @@ namespace DataAccessFakes
         /// Test Delete userERole and department list 
         /// </summary>
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte
+        /// Updated: 04/10/2020
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         /// <param name="userID"></param>
         /// <param name="eRoleID"></param>
@@ -150,9 +151,10 @@ namespace DataAccessFakes
         /// Test Insert UserERole 
         /// </summary>
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte
+        /// Updated: 04/10/2020
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         /// <param name="userID"></param>
         /// <param name="eRoleID"></param>
@@ -193,7 +195,7 @@ namespace DataAccessFakes
             }
 
             //Add new user into list
-            userERoles.Add(new PetUniverseUser() { PUUserID = userID, ERoleID = eRoleID });
+            userERoles.Add(new ERole() { PUUserID = userID, ERoleID = eRoleID });
 
             //Make sure it was added
             if (userERoles.Find(r => r.ERoleID == eRoleID && r.PUUserID == userID) != null)
@@ -213,9 +215,10 @@ namespace DataAccessFakes
         /// Test Select UserERole by PUUserID 
         /// </summary>
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte
+        /// Updated: 04/10/2020
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         /// <param name="userID"></param>
         /// <returns></returns>
