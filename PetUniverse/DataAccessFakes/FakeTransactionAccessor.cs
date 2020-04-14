@@ -17,6 +17,8 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeTransactionAccessor : ITransactionAccessor
     {
+        private List<Product> products;
+
         // initializing list of transaction VMs for testing
         private List<TransactionVM> _transactionsVMs;
 
@@ -51,6 +53,23 @@ namespace DataAccessFakes
 
             DateTime transactionDate1 = new DateTime(2010, 10, 18);
             DateTime transactionDate2 = new DateTime(2011, 11, 19);
+
+            // Sample product for testing to update price 
+            products = new List<Product>()
+            {
+                new Product()
+                {
+                    ProductID = "1234567890120",
+                    ItemID = 0,
+                    Name = "Test",
+                    Category = "Test Category",
+                    Type = "Test Type",
+                    Description = "A test product description.",
+                    Price = 0.50M,
+                    Brand = "Test Brand",
+                    Taxable = true
+                },
+            };
 
             _transactionsVMs = new List<TransactionVM>()
             {
@@ -470,6 +489,44 @@ namespace DataAccessFakes
             return (from v in _transactionsVMs
                     where v.FirstName == "Bob" && v.LastName == "Jones"
                     select v).ToList();
+        }
+
+        /// <summary>
+        /// CREATOR: Rashs Mohammed
+        /// CREATED: 4/11/2020
+        /// APPROVER: Robert Holmes
+        /// 
+        /// Fake Transaction Accessor Method, uses dummy data for testing to update the price.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public int UpdateProduct(ProductVM oldProduct, ProductVM newProduct)
+        {
+
+
+
+            int rows = 0;
+
+            foreach (Product product in products)
+            {
+                if (
+
+                    product.Price == oldProduct.Price
+
+                  )
+                {
+
+                    product.Price = newProduct.Price;
+
+
+                    rows++;
+                }
+            }
+            return rows;
         }
     }
 }
