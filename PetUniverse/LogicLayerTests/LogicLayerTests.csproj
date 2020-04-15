@@ -103,10 +103,12 @@
     <Compile Include="LogManagerTests.cs" />
     <Compile Include="RequestManagerTests.cs" />
     <Compile Include="ReviewerManagerTest.cs" />
+    <Compile Include="SalesTaxManagerTests.cs" />
     <Compile Include="ShiftTimeManagerTests.cs" />
     <Compile Include="SpecialOrderManagerTests.cs" />
     <Compile Include="StatusManagerTests.cs" />
     <Compile Include="TrainingVideoTests.cs" />
+    <Compile Include="TransactionAdminTests.cs" />
     <Compile Include="TransactionManagerTests.cs" />
     <Compile Include="PromotionManagerTests.cs" />
     <Compile Include="SalesDataManagerTests.cs" />

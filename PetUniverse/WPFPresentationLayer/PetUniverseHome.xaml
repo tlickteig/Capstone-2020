@@ -304,25 +304,20 @@
                     <Frame x:Name="frmPromotions" NavigationUIVisibility="Hidden" />
                 </TabItem>
 
-                <!--
                 <TabItem x:Name="tabProduct" Header="Product" FontSize="18" FontWeight="Bold" Background="#fff8e3" >
                     <Frame Source="./PoSPages/Product.xaml"/>
                 </TabItem>
-                -->
 
-                
                 <TabItem x:Name="tabOpenTransaction" Header="Open Transaction" 
                          FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="tabOpenTransaction_Loaded">
                     <Frame x:Name="frmOpenTransaction"/>
                 </TabItem>
-                
 
-                <!--
                 <TabItem x:Name="tabTransactionAdmin" Header="Transaction Admin" 
                          FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PosPages/pgTransactionAdmin.xaml"/>
                 </TabItem>
-                -->
+                
 
                 <TabItem x:Name="tabSalesTax" Header="Sales Tax" 
                          FontSize="18" FontWeight="Bold" Background="#fff8e3">

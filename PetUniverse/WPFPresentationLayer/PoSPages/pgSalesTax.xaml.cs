@@ -91,7 +91,21 @@ namespace WPFPresentationLayer.PoSPages
 		/// <param name="e"></param>
 		private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-			
+
+			if (txtTaxRate.Text == "")
+			{
+				txtTaxRate.Text = null;
+				MessageBox.Show("Please enter the tax rate");
+				return;
+			}
+
+			if (txtZipCode.Text == "")
+			{
+				txtZipCode.Text = null;
+				MessageBox.Show("Please enter the zip code");
+				return;
+			}
+
 
 			try
 			{
