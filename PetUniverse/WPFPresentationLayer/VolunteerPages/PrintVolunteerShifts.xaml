@@ -15,6 +15,23 @@
       Title="PrintVolunteerShifts">
 
     <Grid>
-        <DataGrid x:Name="dgShiftList"></DataGrid>
+        <DataGrid x:Name="dgShiftList" Height="400" VerticalAlignment="Top"
+                  BeginningEdit="DgShiftList_BeginningEdit"                  
+                  SelectedCellsChanged="DgShiftList_SelectedCellsChanged"></DataGrid>
+        <Grid VerticalAlignment="Bottom">
+            <Button x:Name="btnSaveChanges" Height="50" 
+                    HorizontalAlignment="Right"
+                    Width="200"
+                    Click="BtnSaveChanges_Click">Save Changes</Button>
+            <Button x:Name="btnRefresh"
+                    Height="50"
+                    HorizontalAlignment="Left"
+                    Width="200"
+                    Click="BtnRefresh_Click">Refresh</Button>
+            <Label HorizontalAlignment="Center">Only Show Available</Label>
+            <CheckBox  x:Name="chkAvailable" HorizontalAlignment="Center" 
+                      VerticalAlignment="Center"
+                       Click="ChkAvailable_Click"></CheckBox>
+        </Grid>
     </Grid>
 </Page>

@@ -1,6 +1,5 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
-using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,40 +12,46 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.VolunteerPages
 {
     /// <summary>
-    /// Interaction logic for Page1.xaml
+    /// Interaction logic for frmSignUpForShift.xaml
     /// </summary>
-    public partial class VolunteerSchedule : Page
+    public partial class frmSignUpForShift : Window
     {
-        IVolunteerShiftManager _manager = new VolunteerShiftManager();
+        private VolunteerShiftManager _shiftManager = new VolunteerShiftManager();
+        private int _volunteerID = 0;
+        private List<VolunteerShift> _shifts = new List<VolunteerShift>();
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-03-06
-        ///     CHECKED BY: Zoey McDonald        
-        /// </summary>    
-        public VolunteerSchedule()
+        ///     DATE: 2020-03-31
+        ///     CHECKED BY: Zoey McDonald
+        ///     Main constructor for the class
+        /// </summary>
+        public frmSignUpForShift(int volunteerID)
         {
             InitializeComponent();
+
+            _volunteerID = volunteerID;
+
+            refreshShifts();
         }
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
-        ///     DATE: 2020-03-06
-        ///     CHECKED BY: Zoey McDonald        
-        /// </summary>                
-        private void BtnSubmit_Click(object sender, RoutedEventArgs e)
+        ///     DATE: 2020-03-31
+        ///     CHECKED BY: Zoey McDonald
+        ///     Method for refreshing the available shifts
+        /// </summary>
+        private void refreshShifts()
         {
             try
             {
-                int id = Convert.ToInt32(txtVolunteerID.Text);
-                List<VolunteerShift> shifts = _manager.ReturnAllVolunteerShiftsForAVolunteer(id);
-                dteShiftList.ItemsSource = shifts;
+                List<VolunteerShift> shifts = _shiftManager.ReturnAllVolunteerShifts().Where(x => x.VolunteerID == 0).ToList();
+                dgShiftList.ItemsSource = shifts;
             }
             catch (Exception ex)
             {
@@ -58,13 +63,14 @@ namespace WPFPresentationLayer.VolunteerPages
         ///     AUTHOR: Timothy Lickteig
         ///     DATE: 2020-03-31
         ///     CHECKED BY: Zoey McDonald
+        ///     Event handler for the add shift button
         /// </summary>
         private void BtnAddShift_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                frmSignUpForShift window = new frmSignUpForShift(Convert.ToInt32(txtVolunteerID.Text));
-                window.ShowDialog();
+                VolunteerShift shift = (VolunteerShift)dgShiftList.SelectedItem;
+                _shiftManager.SignVolunteerUpForShift(_volunteerID, shift.VolunteerShiftID);
             }
             catch (Exception ex)
             {

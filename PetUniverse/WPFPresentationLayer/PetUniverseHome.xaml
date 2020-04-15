@@ -372,6 +372,14 @@
                 <TabItem x:Name="tabViewTasks" Header="Tasks" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
                     <Frame x:Name="ViewTasks" Source="./VolunteerPages/TaskControls.xaml"/>
                 </TabItem>
+                <TabItem x:Name="ViewAllVolunteerSchedules"
+                         Header="All Volunteer Schedules"
+                         FontSize="18"
+                         FontWeight="Bold"
+                         Background="#fff8e3">
+                    <Frame x:Name="frmViewAllVolunteerSchedules"
+                           Source="./VolunteerPages/ViewAllVolunteerSchedules.xaml" />
+                </TabItem>
             </TabControl>
         </Canvas>
 
