@@ -354,6 +354,8 @@
     <Content Include="Views\Donations\DonationFAQ.cshtml" />
     <Content Include="Views\Donations\Index.cshtml" />
     <Content Include="Views\Donations\PastDonations.cshtml" />
+    <Content Include="Views\Adoption\CustomerApplicationDetails.cshtml" />
+    <Content Include="Views\Adoption\CustomerApplicationList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

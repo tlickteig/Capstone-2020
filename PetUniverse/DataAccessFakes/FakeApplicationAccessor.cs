@@ -69,6 +69,29 @@ namespace DataAccessFakes
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/11/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This method returns a fake Adoption application by id. This method will
+        /// be used exclusively for unit testing.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <returns></returns>
+        public ApplicationVM SelectAdoptionApplicationByID(int adoptionApplicationID)
+        {
+            return (from a in _applicationVMs
+                    where a.AdoptionApplicationID == adoptionApplicationID
+                    select a).First();
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 2/10/2020
         /// CHECKED BY: Micheal Thompson, 4/9/2020
         /// 
@@ -81,10 +104,11 @@ namespace DataAccessFakes
         /// WHAT WAS CHANGED: NA
         /// 
         /// </remarks>
-        public List<ApplicationVM> SelectAdoptionApplicationsByEmail(string email)
+        public List<ApplicationVM> SelectAdoptionApplicationsByEmail(string email, bool active)
         {
             return (from a in _applicationVMs
-                    where a.CustomerEmail == email
+                    where a.CustomerEmail == email 
+                    && a.ApplicationActive == active
                     select a).ToList();
         }
     }

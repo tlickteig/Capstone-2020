@@ -1017,8 +1017,9 @@ GO
 PRINT '' PRINT '*** Creating TransactionStatus Table'
 GO
 CREATE TABLE [dbo].[TransactionStatus](
-	[TransactionStatusID] 	[nvarchar](20) NOT NULL,
+	[TransactionStatusID] 	[nvarchar](20)  NOT NULL,
 	[Description] 			[nvarchar](500) NOT NULL,
+	[DefaultInStore]		[bit]			NOT NULL	DEFAULT 0,
 
 	CONSTRAINT [pk_TransactionStatus_TransactionStatusID] PRIMARY KEY ([TransactionStatusID] ASC)
 )
@@ -1036,6 +1037,7 @@ GO
 CREATE TABLE [dbo].[TransactionType](
 	[TransactionTypeID] 	[nvarchar](20) 		NOT NULL,
 	[Description] 			[nvarchar](500) 	NOT NULL,
+	[DefaultInStore]		[bit]				NOT Null	DEFAULT 0,
 
 	CONSTRAINT [pk_TransactionType_TransactionTypeID] PRIMARY KEY ([TransactionTypeID] ASC)
 )
@@ -1713,7 +1715,7 @@ GO
 CREATE TABLE [dbo].[SalesTaxHistory](
 	[ZipCode]			[nvarchar](50) 		Not Null,
 	[SalesTaxDate] 		[DateTime]			Not Null,
-	[TaxRate] 			[decimal](10,2)		NOT Null,
+	[TaxRate] 			[decimal](10,5)		NOT Null,
 	CONSTRAINT [pk_SalesTaxHistory_ZipCode] PRIMARY KEY ([ZipCode] ASC, [SalesTaxDate] ASC)
 )
 GO
@@ -4506,31 +4508,6 @@ BEGIN
 	WHERE	[CustomerEmail] = @customerEmail
 END
 GO
-/*
-Created by: Jaeho Kim
-Date: 03/05/2020
-Comment: Selects a list of all transactions with join tables for the customer
-*/
-DROP PROCEDURE IF EXISTS [sp_select_all_transactions]
-GO
-PRINT '' PRINT '*** Creating sp_select_all_transactions'
-GO
-CREATE PROCEDURE sp_select_all_transactions
-AS
-BEGIN
-    SELECT
-        T.[TransactionID]
-        ,T.[TransactionDateTime]
-        ,U.[UserID]
-        ,U.[FirstName]
-        ,U.[LastName]
-        ,T.[TransactionTypeID]
-        ,T.[TransactionStatusID]
-    FROM 	[Transaction] T
-    INNER JOIN [User] U
-        ON T.[EmployeeID] = U.[UserID]
-END
-GO
 
 /*
 Created by: Alex Diers
@@ -5921,10 +5898,12 @@ PRINT '' PRINT '*** Creating sp_select_transactions_by_datetime'
 GO
 CREATE PROCEDURE sp_select_transactions_by_datetime
 (
-	@TransactionDateTime	[datetime]
+	@TransactionDateTime		[datetime],
+	@SecondTransactionDateTime	[datetime]
 )
 AS
 BEGIN
+	
     SELECT
         T.[TransactionID]
         ,T.[TransactionDateTime]
@@ -5940,7 +5919,11 @@ BEGIN
     FROM 	[Transaction] T
     INNER JOIN [User] U
         ON T.[EmployeeID] = U.[UserID]
-    WHERE T.[TransactionDateTime] = @TransactionDateTime
+		
+    --WHERE T.[TransactionDateTime] = @TransactionDateTime
+	
+	WHERE T.[TransactionDateTime] 
+		BETWEEN @TransactionDateTime AND @SecondTransactionDateTime
 END
 GO
 
@@ -7639,13 +7622,14 @@ Author: Austin Gee
 Date: 3/18/2020
 Comment: Creating procedure for selecting an adoption application by email
 */
-DROP PROCEDURE IF EXISTS [sp_select_adoption_application_by_email]
+DROP PROCEDURE IF EXISTS [sp_select_adoption_applications_by_email_and_active]
 GO
-print '' print '*** Creating sp_select_adoption_application_by_email'
+print '' print '*** Creating sp_select_adoption_applications_by_email'
 GO
-CREATE PROCEDURE [sp_select_adoption_application_by_email] (
+CREATE PROCEDURE [sp_select_adoption_applications_by_email_and_active] (
 
-	@Email [nvarchar] (250)
+	@Email [nvarchar] (250),
+	@Active [bit]
 )
 AS
 BEGIN
@@ -7663,6 +7647,7 @@ BEGIN
 	FROM [AdoptionApplication]
 	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
 	WHERE [CustomerEmail] = @Email
+	AND [AdoptionApplication].[Active] = @Active
 END
 GO
  
@@ -8550,6 +8535,38 @@ GO
 
 /*
 Created by: Jaeho Kim
+Date: 04/13/2020
+Comment: Selects a list of all transactions with transaction id.
+*/
+print '' print '*** Creating sp_select_transactions_by_transaction_id'
+GO
+CREATE PROCEDURE sp_select_transactions_by_transaction_id
+(
+	@TransactionID	[int]
+)
+AS
+	BEGIN
+		SELECT 	
+		 T.[TransactionID]
+		,T.[TransactionDateTime]
+		,U.[UserID]
+		,U.[FirstName]
+		,U.[LastName]
+		,T.[TransactionTypeID]
+		,T.[TransactionStatusID]
+		,T.[TaxRate]
+		,T.[SubTotalTaxable]
+		,T.[SubTotal]
+		,T.[Total]
+		FROM 	[Transaction] T
+		INNER JOIN [User] U
+			ON T.[EmployeeID] = U.[UserID]
+		WHERE T.[TransactionID] = @TransactionID
+	END
+GO
+
+/*
+Created by: Jaeho Kim
 Date: 03/08/2020
 Comment: Inserts transaction sale product details.
 */
@@ -8607,6 +8624,30 @@ GO
 
 /*
 Created by: Jaeho Kim
+Date: 2020-04-13
+Comment: Stored Procedure for inserting sales tax.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_sales_tax]
+GO
+print '' print '*** Creating sp_insert_sales_tax'
+GO
+CREATE PROCEDURE [sp_insert_sales_tax]
+(
+	@ZipCode			[nvarchar](50),
+	@TaxRate 			[decimal](10,4),
+	@SalesTaxDate		[datetime]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[SalesTaxHistory]
+	([ZipCode], [TaxRate], [SalesTaxDate])
+	VALUES
+	(@ZipCode, @TaxRate, @SalesTaxDate)
+END
+GO 
+
+/*
+Created by: Jaeho Kim
 Date: 03/08/2020
 Comment: retrieves the latest sales tax date associated with the zip code.
 */
@@ -8641,6 +8682,64 @@ BEGIN
 	WHERE SalesTaxDate = @SalesTaxDate
 	AND ZipCode = @ZipCode
 
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-14
+Comment: Stored Procedure for inserting transaction type.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_transaction_type]
+GO
+print '' print '*** Creating sp_insert_transaction_type'
+GO
+CREATE PROCEDURE [sp_insert_transaction_type]
+(
+	@TransactionTypeID	[nvarchar](20),
+	@Description 		[nvarchar](500),
+	@DefaultInStore		[bit]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[TransactionType]
+	([TransactionTypeID], [Description], [DefaultInStore])
+	VALUES
+	(@TransactionTypeID, @Description, @DefaultInStore)
+	
+	IF @DefaultInStore >= 0
+		UPDATE [dbo].[TransactionType]
+		SET [DefaultInStore] = 0
+		WHERE [TransactionTypeID] != @TransactionTypeID
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-14
+Comment: Stored Procedure for inserting transaction status.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_transaction_status]
+GO
+print '' print '*** Creating sp_insert_transaction_status'
+GO
+CREATE PROCEDURE [sp_insert_transaction_status]
+(
+	@TransactionStatusID	[nvarchar](20),
+	@Description 			[nvarchar](500),
+	@DefaultInStore			[bit]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[TransactionStatus]
+	([TransactionStatusID], [Description], [DefaultInStore])
+	VALUES
+	(@TransactionStatusID, @Description, @DefaultInStore)
+	
+	IF @DefaultInStore >= 0
+		UPDATE [dbo].[TransactionStatus]
+		SET [DefaultInStore] = 0
+		WHERE [TransactionStatusID] != @TransactionStatusID
 END
 GO
 
@@ -8934,6 +9033,37 @@ BEGIN
 END
 GO           
 
+/*
+Author: Austin Gee
+Date: 4/11/2020
+Comment: Creating procedure for selecting an adoption application by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_application_by_id]
+GO
+print '' print '*** Creating sp_select_adoption_application_by_id'
+GO
+CREATE PROCEDURE [sp_select_adoption_application_by_id] 
+(
+	@AdoptionApplicationID [int]
+)
+AS
+BEGIN
+	SELECT
+	[AdoptionApplicationID]
+	,[CustomerEmail]
+	,[AdoptionApplication].[AnimalID]
+	,[Status]
+	,[RecievedDate]
+	,[AnimalName]
+	,[AnimalSpeciesID]
+	,[AnimalBreed]
+	,[Animal].[Active]
+	,[AdoptionApplication].[Active]
+	FROM [AdoptionApplication]
+	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
+	WHERE [AdoptionApplicationID] = @AdoptionApplicationID
+END
+GO
                 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -9533,40 +9663,6 @@ Insert INTO [dbo].[TransactionType]
 	('tranTYPE500', 'TYPEdescription 500'),
 	('tranTYPE800', 'TYPEdescription 800')
 GO
-
-/*
-Created by: Jaeho Kim
-Date: 02/27/2020
-Comment: Inserts test data for the Transaction Table
-*/
-print ''  print '*** Inserting sample data into Transaction Table'
-GO
-Insert INTO [dbo].[Transaction]
-	([TransactionDateTime],[TaxRate],[SubTotalTaxable],[SubTotal],[Total]
-	,[TransactionTypeID],[EmployeeID],[TransactionStatusID],[CustomerEmail])
-	Values
-	('2019-10-10 10:10',0.0225,10.39,21.23,21.46,'tranTYPE100'
-	, 100000, 'tranStatus100','zbehrens@PetUniverse.com'),
-	('2020-02-11 9:43',0.0225,41.39,41.39,43.22,'tranTYPE100'
-	, 100000, 'tranStatus100',null),
-	('2018-04-13 10:13',0.014,52.39,51.39,53.22,'tranTYPE100'
-	, 100001, 'tranStatus100',null)
-Go
-
-/*
-Created by: Jaeho Kim
-Date: 02/27/2020
-Comment: Inserts test data for the TransactionLineProducts Table
-*/
-print ''  print '*** Inserting sample data into TransactionLineProducts Table'
-GO
-Insert INTO [dbo].[TransactionLineProducts]
-	([TransactionID], [ProductID], [Quantity],[PriceSold])
-	Values
-	(1000, '7084781116', 1, 37.22),
-	(1000, '2500006153', 1, 11.11),
-	(1001, '7084781116', 2, 74.44)
-Go
 
 /*
 Created by: Alex Diers
