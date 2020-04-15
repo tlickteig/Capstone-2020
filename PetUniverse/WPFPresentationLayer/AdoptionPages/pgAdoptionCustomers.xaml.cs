@@ -336,7 +336,7 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             try
             {
-                dgAdoptionApplications.ItemsSource = _adoptionApplicationManager.RetrieveAdoptionApplicationsByEmail(_adoptionCustomerVM.Email);
+                dgAdoptionApplications.ItemsSource = _adoptionApplicationManager.RetrieveAdoptionApplicationsByEmailAndActive(_adoptionCustomerVM.Email);
                 cmbAppointmentType.ItemsSource = _appointmentTypeManager.RetrieveAllAppontmentTypes();
             }
             catch (Exception)

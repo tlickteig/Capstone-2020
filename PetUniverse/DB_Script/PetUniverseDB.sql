@@ -7624,13 +7624,14 @@ Author: Austin Gee
 Date: 3/18/2020
 Comment: Creating procedure for selecting an adoption application by email
 */
-DROP PROCEDURE IF EXISTS [sp_select_adoption_application_by_email]
+DROP PROCEDURE IF EXISTS [sp_select_adoption_applications_by_email_and_active]
 GO
-print '' print '*** Creating sp_select_adoption_application_by_email'
+print '' print '*** Creating sp_select_adoption_applications_by_email'
 GO
-CREATE PROCEDURE [sp_select_adoption_application_by_email] (
+CREATE PROCEDURE [sp_select_adoption_applications_by_email_and_active] (
 
-	@Email [nvarchar] (250)
+	@Email [nvarchar] (250),
+	@Active [bit]
 )
 AS
 BEGIN
@@ -7648,6 +7649,7 @@ BEGIN
 	FROM [AdoptionApplication]
 	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
 	WHERE [CustomerEmail] = @Email
+	AND [AdoptionApplication].[Active] = @Active
 END
 GO
  
@@ -9033,6 +9035,37 @@ BEGIN
 END
 GO           
 
+/*
+Author: Austin Gee
+Date: 4/11/2020
+Comment: Creating procedure for selecting an adoption application by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_application_by_id]
+GO
+print '' print '*** Creating sp_select_adoption_application_by_id'
+GO
+CREATE PROCEDURE [sp_select_adoption_application_by_id] 
+(
+	@AdoptionApplicationID [int]
+)
+AS
+BEGIN
+	SELECT
+	[AdoptionApplicationID]
+	,[CustomerEmail]
+	,[AdoptionApplication].[AnimalID]
+	,[Status]
+	,[RecievedDate]
+	,[AnimalName]
+	,[AnimalSpeciesID]
+	,[AnimalBreed]
+	,[Animal].[Active]
+	,[AdoptionApplication].[Active]
+	FROM [AdoptionApplication]
+	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
+	WHERE [AdoptionApplicationID] = @AdoptionApplicationID
+END
+GO
                 
 /*
  ******************************* Inserting Sample Data *****************************

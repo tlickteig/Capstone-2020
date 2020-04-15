@@ -25,12 +25,16 @@ namespace WPFPresentation.Controllers
         private MVCAdoptionApplication adoptionApplication;
         private IAdoptionManager adoptionApplicationManager;
         private MVCQuestionnair questionnair;
+        private IAdoptionCustomerManager _adoptionCustomerManager;
+        private IAdoptionApplicationManager _adoptionApplicationManager;
 
         public AdoptionController()
         {
             adoptionApplication = new MVCAdoptionApplication();
             adoptionApplicationManager = new ReviewerManager();
             questionnair = new MVCQuestionnair();
+            _adoptionCustomerManager = new AdoptionCustomerManager();
+            _adoptionApplicationManager = new AdoptionApplicationManager();
         }
 
 
@@ -152,7 +156,52 @@ namespace WPFPresentation.Controllers
             }
         }
 
-        
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/11/2020
+        /// Approver: Michael Thompson
+        ///
+        /// returns a list view of applications for a particular customer
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA        
+        /// </remarks>
+        /// <param name="customerEmail"></param>
+        /// <returns></returns>
+        public ActionResult CustomerApplicationList(string customerEmail = "tdupuy@PetUniverse.com")
+        {
+            var customer = _adoptionCustomerManager.RetrieveAdoptionCustomerByEmail(customerEmail);
+            var applications = _adoptionApplicationManager.RetrieveAdoptionApplicationsByEmailAndActive(customerEmail);
+            ViewBag.Title = "Animals you have applied to adopt";
+
+
+            return View(applications);
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/11/2020
+        /// Approver: Michael Thompson
+        ///
+        /// returns a detail view of a customer adoption application
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA        
+        /// </remarks>
+        public ActionResult CustomerApplicationDetails(int adoptionApplicationID)
+        {
+            var adoptionApplication = _adoptionApplicationManager.RetrieveAdoptionApplicationByID(adoptionApplicationID);
+            ViewBag.CustomerEmail = adoptionApplication.CustomerEmail;
+            ViewBag.Title = "Your Adoption Application";
+            return View(adoptionApplication);
+        }
+
         
     }
 

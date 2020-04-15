@@ -1,0 +1,63 @@
+﻿@model DataTransferObjects.ApplicationVM
+
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.CustomerEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CustomerEmail)
+        </dd>
+
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RecievedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RecievedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnimalName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnimalName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnimalSpeciesID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnimalSpeciesID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AnimalBreed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AnimalBreed)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "CustomerApplicationList", new { email = ViewBag.CustomerEmail }, new { @class = "btn btn-default"})
+</p>
