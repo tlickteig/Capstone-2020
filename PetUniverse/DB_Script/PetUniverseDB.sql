@@ -5869,14 +5869,16 @@ BEGIN
     SELECT
         TLP.[Quantity]
         , P.[ProductID]
-        , P.[ProductName]
-        , P.[ProductCategoryID]
+        , I.[ItemName]
+        , I.[ItemCategoryID]
         , P.[ProductTypeID]
         , P.[Price]
 
     FROM 	[TransactionLineProducts] TLP
     INNER JOIN [Product] P
         ON TLP.[ProductID] = P.[ProductID]
+	INNER JOIN [Item] I
+        ON P.[ItemID] = I.[ItemID]
     INNER JOIN [Transaction] T
         ON TLP.[TransactionID] = T.[TransactionID]
     INNER JOIN [User] U
