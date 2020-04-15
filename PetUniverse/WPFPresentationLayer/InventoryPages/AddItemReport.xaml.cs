@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using DataTransferObjects;
 using LogicLayerInterfaces;
 using LogicLayer;
-using WPFPresentationLayer.InventoryPages.Items;
 using PresentationUtilityCode;
 
 namespace WPFPresentationLayer.InventoryPages

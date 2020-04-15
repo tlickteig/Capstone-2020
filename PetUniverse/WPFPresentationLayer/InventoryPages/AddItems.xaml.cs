@@ -16,7 +16,6 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
-using WPFPresentationLayer.InventoryPages.Items;
 
 namespace WPFPresentationLayer.InventoryPages
 {
@@ -177,6 +176,22 @@ namespace WPFPresentationLayer.InventoryPages
             }
         }
 
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/02/22
+        /// Approver: 
+        /// Approver:  
+        ///
+        /// This method refreshes the ComboBox that shows Item Categories to choose from.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/13/2020
+        /// Update: Redirect to ViewInventory page upon click
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService?.Navigate(new ViewInventory());

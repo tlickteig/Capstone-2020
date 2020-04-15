@@ -214,9 +214,6 @@
     <Compile Include="InventoryPages\ViewInventory.xaml.cs">
       <DependentUpon>ViewInventory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InventoryPages\viewItems.xaml.cs">
-      <DependentUpon>viewItems.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PersonnelPages\Departments.xaml.cs">
       <DependentUpon>Departments.xaml</DependentUpon>
     </Compile>
@@ -509,10 +506,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="InventoryPages\ViewInventory.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="InventoryPages\viewItems.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
