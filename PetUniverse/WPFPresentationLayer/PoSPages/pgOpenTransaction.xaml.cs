@@ -103,7 +103,33 @@ namespace WPFPresentationLayer.PoSPages
         /// <returns>returns a Transaction</returns>
         private void btnSearchProduct_Click(object sender, RoutedEventArgs e)
         {
+            ShowProduct();
 
+            quantityInStock = productVM.ItemQuantity;
+
+            btnAddProduct.Visibility = Visibility.Visible;
+
+
+        }
+
+        /// <summary>
+        /// Creator: Rasha Mohammed
+        /// Created: 4/12/2020
+        /// Approver: Robert Holmes
+        /// 
+        /// This method return a product that its UPC match the productID 
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowProduct()
+        {
             string productUPC = txtSearchProduct.Text.ToString();
 
             productVM = _transactionManager.RetrieveProductByProductID(productUPC);
@@ -115,12 +141,6 @@ namespace WPFPresentationLayer.PoSPages
             txtPrice.Text = productVM.Price.ToString();
             txtQuantity.Text = "1";
             txtItemDescription.Text = productVM.ItemDescription;
-
-            quantityInStock = productVM.ItemQuantity;
-
-            btnAddProduct.Visibility = Visibility.Visible;
-
-
         }
 
         /// <summary>
@@ -407,6 +427,58 @@ namespace WPFPresentationLayer.PoSPages
             dgShoppingCart.ItemsSource = null;
             btnAddProduct.Visibility = Visibility.Hidden;
             _transactionManager.ClearShoppingCart();
+        }
+
+        /// <summary>
+        /// Creator: Rasha Mohammed
+        /// Created: 4/12/2020
+        /// Approver: Robert Holmes
+        /// 
+        /// This method Validate the Updated price and retrieve it after update
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnEditPrice_Click(object sender, RoutedEventArgs e)
+        {
+
+            try
+            {
+                txtPrice.IsReadOnly = false;
+                txtPrice.Focus();
+
+                ProductVM newProduct = new ProductVM()
+                {
+
+                    Price = Convert.ToDecimal(txtPrice.Text),
+
+                };
+
+                if (_transactionManager.EditProduct(productVM, newProduct))
+                {
+                    ShowProduct();
+
+                }
+                else
+                {
+                    MessageBox.Show("The price did not change");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("You must enter a valid price. \n \n" + ex.Message);
+
+            }
+
+
         }
     }
 }

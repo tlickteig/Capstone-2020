@@ -16,6 +16,20 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface ITransactionAccessor
     {
+        /// <summary>
+        /// Creator: Rasha Mohammed
+        /// Created: 4/11/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for updating the price on transaction
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        int UpdateProduct(ProductVM oldProduct, ProductVM newProduct);
+
 
         /// <summary>
         /// Creator: Jaeho Kim

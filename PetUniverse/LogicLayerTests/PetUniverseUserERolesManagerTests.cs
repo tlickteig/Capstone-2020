@@ -70,19 +70,20 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         public void TestPUUserERolesRetrieveSuccess()
         {
             int sameValues = 0;
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100000 };
+            ERole ERole = new ERole() { PUUserID = 100000 };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            List<string> actualResult = _userERoleManager.RetrievePetUniverseUserERolesByPetUniverseUser(petUniverseUser.PUUserID);
+            List<string> actualResult = _userERoleManager.RetrievePetUniverseUserERolesByPetUniverseUser(ERole.PUUserID);
             List<string> expectedResult = new List<string>() { "Manager" };
             //Assert
             foreach (var actual in actualResult)
@@ -106,19 +107,20 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         public void TestPUUserERolesRetrieveMutipleERoles()
         {
             int sameValues = 0;
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100001 };
+            ERole ERole = new ERole() { PUUserID = 100001 };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            List<string> actualResult = _userERoleManager.RetrievePetUniverseUserERolesByPetUniverseUser(petUniverseUser.PUUserID);
+            List<string> actualResult = _userERoleManager.RetrievePetUniverseUserERolesByPetUniverseUser(ERole.PUUserID);
             List<string> expectedResult = new List<string>() { "Cashier", "Event Organizer" };
             foreach (var actual in actualResult)
             {
@@ -142,19 +144,20 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
         public void TestPUUserERolesRetrieveNonExistantUserID()
         {
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100003 };
+            ERole ERole = new ERole() { PUUserID = 100003 };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            List<string> actualResult = _userERoleManager.RetrievePetUniverseUserERolesByPetUniverseUser(petUniverseUser.PUUserID);
+            List<string> actualResult = _userERoleManager.RetrievePetUniverseUserERolesByPetUniverseUser(ERole.PUUserID);
 
         }
         /// <summary>
@@ -166,18 +169,19 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         public void TestPUUserERolesDeleteSuccess()
         {
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100000, ERoleID = "Manager" };
+            ERole ERole = new ERole() { PUUserID = 100000, ERoleID = "Manager" };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            bool actualResult = _userERoleManager.DeletePetUniverseUserERole(petUniverseUser.PUUserID, petUniverseUser.ERoleID);
+            bool actualResult = _userERoleManager.DeletePetUniverseUserERole(ERole.PUUserID, ERole.ERoleID);
             bool expectedResult = true;
             //Assert
             Assert.AreEqual(actualResult, expectedResult);
@@ -191,19 +195,20 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
         public void TestPUUserERolesDeleteNonExistantUserID()
         {
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100003, ERoleID = "Manager" };
+            ERole ERole = new ERole() { PUUserID = 100003, ERoleID = "Manager" };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            bool actualResult = _userERoleManager.DeletePetUniverseUserERole(petUniverseUser.PUUserID, petUniverseUser.ERoleID);
+            bool actualResult = _userERoleManager.DeletePetUniverseUserERole(ERole.PUUserID, ERole.ERoleID);
 
         }
         /// <summary>
@@ -215,19 +220,20 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
         public void TestPUUserERolesDeleteNonExistantERole()
         {
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100000, ERoleID = "NotManager" };
+            ERole ERole = new ERole() { PUUserID = 100000, ERoleID = "NotManager" };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            bool actualResult = _userERoleManager.DeletePetUniverseUserERole(petUniverseUser.PUUserID, petUniverseUser.ERoleID);
+            bool actualResult = _userERoleManager.DeletePetUniverseUserERole(ERole.PUUserID, ERole.ERoleID);
 
         }
         /// <summary>
@@ -239,19 +245,20 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
         public void TestPUUserERolesDeleteNonExistantERoleAndUserID()
         {
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100003, ERoleID = "NotManager" };
+            ERole ERole = new ERole() { PUUserID = 100003, ERoleID = "NotManager" };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            bool actualResult = _userERoleManager.DeletePetUniverseUserERole(petUniverseUser.PUUserID, petUniverseUser.ERoleID);
+            bool actualResult = _userERoleManager.DeletePetUniverseUserERole(ERole.PUUserID, ERole.ERoleID);
 
         }
 
@@ -264,18 +271,19 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         public void TestPUUserERolesAddSuccess()
         {
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100000, ERoleID = "Cashier" };
+            ERole ERole = new ERole() { PUUserID = 100000, ERoleID = "Cashier" };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            bool actualResult = _userERoleManager.AddPetUniverseUserERole(petUniverseUser.PUUserID, petUniverseUser.ERoleID);
+            bool actualResult = _userERoleManager.AddPetUniverseUserERole(ERole.PUUserID, ERole.ERoleID);
             bool expectedResult = true;
             //Assert
             Assert.AreEqual(actualResult, expectedResult);
@@ -298,10 +306,10 @@ namespace LogicLayerTests
         public void TestPUUserERolesAddAlreadyExistantUserErole()
         {
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100000, ERoleID = "Manager" };
+            ERole ERole = new ERole() { PUUserID = 100000, ERoleID = "Manager" };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            bool actualResult = _userERoleManager.AddPetUniverseUserERole(petUniverseUser.PUUserID, petUniverseUser.ERoleID);
+            bool actualResult = _userERoleManager.AddPetUniverseUserERole(ERole.PUUserID, ERole.ERoleID);
 
         }
         /// <summary>
@@ -313,19 +321,20 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
         public void TestPUUserERolesAddNonExistantUserID()
         {
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100003, ERoleID = "Manager" };
+            ERole ERole = new ERole() { PUUserID = 100003, ERoleID = "Manager" };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            bool actualResult = _userERoleManager.AddPetUniverseUserERole(petUniverseUser.PUUserID, petUniverseUser.ERoleID);
+            bool actualResult = _userERoleManager.AddPetUniverseUserERole(ERole.PUUserID, ERole.ERoleID);
 
         }
         /// <summary>
@@ -337,19 +346,20 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
         public void TestPUUserERolesAddNonExistantERole()
         {
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100000, ERoleID = "" };
+            ERole ERole = new ERole() { PUUserID = 100000, ERoleID = "" };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            bool actualResult = _userERoleManager.AddPetUniverseUserERole(petUniverseUser.PUUserID, petUniverseUser.ERoleID);
+            bool actualResult = _userERoleManager.AddPetUniverseUserERole(ERole.PUUserID, ERole.ERoleID);
 
         }
         /// <summary>
@@ -361,19 +371,20 @@ namespace LogicLayerTests
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Chase Schulte 
+        /// Updated: 04/10/2020 
+        /// Update: Changed functionality to inherit ERole
+        /// Approver: Kaleb Bachert
         /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException))]
         public void TestPUUserERolesAddNonExistantERoleAndUserID()
         {
             //Arrange
-            PetUniverseUser petUniverseUser = new PetUniverseUser() { PUUserID = 100003, ERoleID = "NotManager" };
+            ERole ERole = new ERole() { PUUserID = 100003, ERoleID = "NotManager" };
             IPetUniverseUserERolesManager _userERoleManager = new PetUniverseUserERolesManager(_pUUserERoleAccessor);
             //Act
-            bool actualResult = _userERoleManager.AddPetUniverseUserERole(petUniverseUser.PUUserID, petUniverseUser.ERoleID);
+            bool actualResult = _userERoleManager.AddPetUniverseUserERole(ERole.PUUserID, ERole.ERoleID);
 
         }
     }

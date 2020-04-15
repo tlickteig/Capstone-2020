@@ -20,8 +20,13 @@ namespace DataTransferObjects
     /// Updater: Lane Sandburg
     /// Updated: 3/17/2020
     /// Update: Added HasViewedPolAndStan
+    /// Updater: Chase Schulte
+    /// Updated: 04/10/2020
+    /// Update: No longer inheirs ERole
+    /// Approver: Kaleb Bachert
+
     /// </remarks>
-    public class PetUniverseUser : ERole
+    public class PetUniverseUser
     {
         public int PUUserID { get; set; }
         public string FirstName { get; set; }

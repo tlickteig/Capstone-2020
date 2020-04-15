@@ -313,5 +313,43 @@ namespace LogicLayerTests
             Assert.AreEqual(1, transactions.Count);
 
         }
+
+        /// <summary>
+        ///  Creator: Rasha Mohammed
+        ///  Created: 4/12/2020
+        ///  Approver: Robert Holmes
+        ///  
+        ///  Test method for edit product priceon transaction.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestEditProductPrice()
+        {
+            // arrange, the attribute that need
+            ProductVM oldProduct = new ProductVM();
+            ProductVM newProduct = new ProductVM();
+            bool result = false;
+            bool expected = true;
+
+            //act
+
+            oldProduct.Price = 0.50M;
+
+
+            newProduct.Price = 10.00M;
+
+
+            result = _transactionManager.EditProduct(oldProduct, newProduct);
+
+
+            // Assert
+            Assert.AreEqual(expected, result);
+
+        }
     }
 }

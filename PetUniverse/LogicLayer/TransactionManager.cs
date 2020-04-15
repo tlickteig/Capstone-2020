@@ -660,5 +660,36 @@ namespace LogicLayer
                 throw new ApplicationException("Transactions Not Found", ex);
             }
         }
+
+        /// <summary>
+        /// CREATOR: Rashs Mohammed
+        /// CREATED: 4/11/2020
+        /// APPROVER: Robert Holmes
+        ///
+        /// Implementation of EditProduct method that edit the price on transaction. 
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>bool</returns>
+        public bool EditProduct(ProductVM oldProduct, ProductVM newProduct)
+        {
+            bool result = false;
+
+            try
+            {
+                result = true;
+                
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update failed", ex);
+            }
+
+            return result;
+        }
     }
 }

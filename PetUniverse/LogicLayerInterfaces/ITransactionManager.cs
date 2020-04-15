@@ -18,6 +18,22 @@ namespace LogicLayerInterfaces
     {
 
         /// <summary>
+        /// CREATOR: Rashs Mohammed
+        /// CREATED: 4/12/2020
+        /// APPROVER: Robert Holmes
+        ///  
+        ///  Interface method for edit product price on transaction
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        bool EditProduct(ProductVM oldProduct, ProductVM newProduct);
+
+
+        /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 03/03/2020
         /// Approver: Rasha Mohammed
