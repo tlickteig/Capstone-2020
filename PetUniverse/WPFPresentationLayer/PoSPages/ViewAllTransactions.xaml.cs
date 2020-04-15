@@ -45,7 +45,6 @@ namespace WPFPresentationLayer.PoSPages
         public ViewAllTransactions()
         {
             _transactionManager = new TransactionManager();
-            //_transactionLineManager = new TransactionLineManager();
             InitializeComponent();
         }
 
@@ -257,24 +256,35 @@ namespace WPFPresentationLayer.PoSPages
             try
             {
                 /**
-                 * This logic defaults the date time picker to the current date 
-                 * if the end user didn't pick a date.
+                 * This logic defaults the transaction search to past 30 days of the current date.
                  */
-                if (dtpTransaction.Value == null)
+                if (dtpTransaction.Value == null || dtpTransaction2.Value == null)
                 {
-                    dtpTransaction.Value = DateTime.Today;
+                   
+
+                    dtpTransaction2.Value = DateTime.Today;
+
+                    dtpTransaction.Value = DateTime.Now.AddDays(-30);
+
+
                 }
 
 
 
-                //// Convert the date time picker object to string
+                // Convert the date time picker object to string
                 string td = dtpTransaction.Value.ToString();
-
-                //// Parse the string into DateTime
+                // Parse the string into DateTime
                 DateTime transactionDate = DateTime.Parse(td);
 
-                //// Retrieve transactions
-                dgTransactionsList.ItemsSource = _transactionManager.RetrieveTransactionByTransactionDate(transactionDate);
+                // Convert the second date time picker object to string
+                string td2 = dtpTransaction2.Value.ToString();
+                DateTime secondTransactionDate = DateTime.Parse(td2);
+
+
+
+                // Retrieve transactions
+                dgTransactionsList.ItemsSource = _transactionManager.
+                    RetrieveTransactionByTransactionDate(transactionDate, secondTransactionDate);
             }
             catch (Exception ex)
             {
@@ -282,6 +292,34 @@ namespace WPFPresentationLayer.PoSPages
             }
         }
 
+        /// <summary>
+        /// Creator : Jaeho Kim
+        /// Created: 2020/04/13
+        /// Approver: NA
+        /// 
+        /// This button searches through transaction with a given transaction id (receipt number).
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnTransactionSearchByTransactionID_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string tID = txtTransactionIDSearch.Text.ToString();
+                int transactionID = int.Parse(tID);
 
+                // Retrieve transactions
+                dgTransactionsList.ItemsSource = _transactionManager.RetrieveTransactionByTransactionID(transactionID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

@@ -241,6 +241,12 @@
     <Compile Include="PoSPages\pgPromotion.xaml.cs">
       <DependentUpon>pgPromotion.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PoSPages\pgSalesTax.xaml.cs">
+      <DependentUpon>pgSalesTax.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PoSPages\pgTransactionAdmin.xaml.cs">
+      <DependentUpon>pgTransactionAdmin.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\pgViewSalesData.xaml.cs">
       <DependentUpon>pgViewSalesData.xaml</DependentUpon>
     </Compile>
@@ -535,6 +541,14 @@
     <Page Include="PoSPages\pgPromotion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PoSPages\pgSalesTax.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PoSPages\pgTransactionAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PoSPages\pgViewSalesData.xaml">
       <SubType>Designer</SubType>

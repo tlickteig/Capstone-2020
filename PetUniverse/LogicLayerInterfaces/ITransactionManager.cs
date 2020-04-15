@@ -32,7 +32,6 @@ namespace LogicLayerInterfaces
         /// </remarks>
         bool EditProduct(ProductVM oldProduct, ProductVM newProduct);
 
-
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 03/03/2020
@@ -353,8 +352,9 @@ namespace LogicLayerInterfaces
         /// Update: NA
         /// </remarks>
         /// <param name="transactionDate"></param>
+        /// <param name="secondTransactionDate"></param>
         /// <returns>returns a Transaction list</returns>
-        List<TransactionVM> RetrieveTransactionByTransactionDate(DateTime transactionDate);
+        List<TransactionVM> RetrieveTransactionByTransactionDate(DateTime transactionDate, DateTime secondTransactionDate);
 
         /// <summary>
         /// Creator: Jaeho Kim
@@ -372,5 +372,21 @@ namespace LogicLayerInterfaces
         /// <param name="lastName"></param>
         /// <returns>returns a Transaction</returns>
         List<TransactionVM> RetrieveTransactionByEmployeeName(string firstName, string lastName);
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/13
+        /// Approver: Rob Holmes
+        ///
+        /// Interface method signature for Selecting all Transactions with a transaction id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="transactionID"></param>
+        /// <returns>returns Transactions</returns>
+        List<TransactionVM> RetrieveTransactionByTransactionID(int transactionID);
     }
 }

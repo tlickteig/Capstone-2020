@@ -82,14 +82,7 @@ namespace LogicLayer
         /// </remarks>
         public void AddProduct(ProductVM productVM)
         {
-            try
-            {
-                ShoppingCart.Add(productVM);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Could Not Add Product.", ex);
-            }
+            ShoppingCart.Add(productVM);
         }
 
         /// <summary>
@@ -429,77 +422,75 @@ namespace LogicLayer
         /// <returns>bool</returns>
         public bool isItemQuantityValid(List<ProductVM> AllProductVMs, ProductVM productVM)
         {
+
+
             bool isValid = false;
-            try
+
+            // First, the logic must check if there is already a list of products. This 
+            // is done ONLY to check if there is any duplicate product UPCs. If there is, 
+            // the logic must CHECK that the product item quantity (that's already in 
+            // the list) added to the product item quantity that's being added, must 
+            // NOT EXCEED the quantity in stock. THE LOGIC BELOW ONLY CHECKS AND 
+            // VERIFIES THE PROPERTY VALUES!!!
+            if (AllProductVMs.Count != 0)
             {
-                // First, the logic must check if there is already a list of products. This 
-                // is done ONLY to check if there is any duplicate product UPCs. If there is, 
-                // the logic must CHECK that the product item quantity (that's already in 
-                // the list) added to the product item quantity that's being added, must 
-                // NOT EXCEED the quantity in stock. THE LOGIC BELOW ONLY CHECKS AND 
-                // VERIFIES THE PROPERTY VALUES!!!
-                if (AllProductVMs.Count != 0)
+
+                bool isDuplicate = false;
+
+                // This value represents the item quantity that's already 
+                // in the list, if duplicate product UPCs are found.
+                int itemQuantity = 0;
+
+                // Search through all of the items in the master product list.
+                foreach (var item in AllProductVMs)
                 {
 
-                    bool isDuplicate = false;
-
-                    // This value represents the item quantity that's already 
-                    // in the list, if duplicate product UPCs are found.
-                    int itemQuantity = 0;
-
-                    // Search through all of the items in the master product list.
-                    foreach (var item in AllProductVMs)
+                    if (item.ProductID == productVM.ProductID)
                     {
-
-                        if (item.ProductID == productVM.ProductID)
-                        {
-                            // Duplicate Product has been found
-                            itemQuantity = item.Quantity;
-                            isDuplicate = true;
-                        }
+                        // Duplicate Product has been found
+                        itemQuantity = item.Quantity;
+                        isDuplicate = true;
                     }
-                    if (isDuplicate)
+                }
+                if (isDuplicate)
+                {
+                    // add the sum of BOTH item quantities.
+                    int totalQuantity = itemQuantity + productVM.Quantity;
+
+                    // verify that it doesn't exceed the quantity in stock.
+                    // also verifies the QUANTITY ENTERED is not zero or less.
+                    if (totalQuantity <= productVM.ItemQuantity && productVM.Quantity > 0)
                     {
-                        // add the sum of BOTH item quantities.
-                        int totalQuantity = itemQuantity + productVM.Quantity;
-
-                        // verify that it doesn't exceed the quantity in stock.
-                        // also verifies the QUANTITY ENTERED is not zero or less.
-                        if (totalQuantity <= productVM.ItemQuantity && productVM.Quantity > 0)
-                        {
-                            isValid = true;
-                        }
+                        isValid = true;
                     }
-
-                    // This else statement runs whenever a DIFFERENT product is added.
-                    else
-                    {
-                        if (productVM.Quantity <= productVM.ItemQuantity && productVM.Quantity > 0)
-                        {
-                            isValid = true;
-                        }
-                    }
-
                 }
 
-                // If the program is adding the product to the shopping cart for the 
-                // FIRST TIME ONLY, all the logic needs to do is make sure the quantity 
-                // that's being added does not exceed the quantity in stock.
-                // THIS BLOCK OF CODE SHOULD RUN ONLY ONCE!!!
+                // This else statement runs whenever a DIFFERENT product is added.
                 else
                 {
                     if (productVM.Quantity <= productVM.ItemQuantity && productVM.Quantity > 0)
                     {
                         isValid = true;
                     }
-
                 }
-                return isValid;
+
             }
-            catch (Exception ex)
+
+            // If the program is adding the product to the shopping cart for the 
+            // FIRST TIME ONLY, all the logic needs to do is make sure the quantity 
+            // that's being added does not exceed the quantity in stock.
+            // THIS BLOCK OF CODE SHOULD RUN ONLY ONCE!!!
+            else
             {
-                throw ex;
+                if (productVM.Quantity <= productVM.ItemQuantity && productVM.Quantity > 0)
+                {
+                    isValid = true;
+                }
+
             }
+            return isValid;
+
+
         }
 
         /// <summary>
@@ -619,12 +610,14 @@ namespace LogicLayer
         /// Updated: NA
         /// Update: NA
         /// </remarks>
+        /// <param name="transactionDate"></param>
+        /// <param name="secondTransactionDate"></param>
         /// <returns>TransactionVM List</returns>
-        public List<TransactionVM> RetrieveTransactionByTransactionDate(DateTime transactionDate)
+        public List<TransactionVM> RetrieveTransactionByTransactionDate(DateTime transactionDate, DateTime secondTransactionDate)
         {
             try
             {
-                return _transactionAccessor.SelectTransactionsByTransactionDate(transactionDate);
+                return _transactionAccessor.SelectTransactionsByTransactionDate(transactionDate, secondTransactionDate);
             }
 
             catch (Exception ex)
@@ -662,6 +655,33 @@ namespace LogicLayer
         }
 
         /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/13
+        /// Approver: Rob Holmes
+        ///  
+        /// This method calls the Select transactions by transaction id method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="transactionID"></param>
+        /// <returns>TransactionVM List</returns>
+        public List<TransactionVM> RetrieveTransactionByTransactionID(int transactionID)
+        {
+            try
+            {
+                return _transactionAccessor.SelectTransactionsByTransactionID(transactionID);
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Transactions Not Found", ex);
+            }
+        }
+
+        /// <summary>
         /// CREATOR: Rashs Mohammed
         /// CREATED: 4/11/2020
         /// APPROVER: Robert Holmes
@@ -682,7 +702,7 @@ namespace LogicLayer
             try
             {
                 result = true;
-                
+
             }
             catch (Exception ex)
             {

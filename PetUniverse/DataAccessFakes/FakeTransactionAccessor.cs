@@ -17,8 +17,6 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeTransactionAccessor : ITransactionAccessor
     {
-        private List<Product> products;
-
         // initializing list of transaction VMs for testing
         private List<TransactionVM> _transactionsVMs;
 
@@ -36,6 +34,8 @@ namespace DataAccessFakes
         // initializing list of sales taxes for testing
         private List<SalesTax> salesTaxes;
 
+        private List<Product> products;
+
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 2/27/2020
@@ -50,9 +50,6 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeTransactionAccessor()
         {
-
-            DateTime transactionDate1 = new DateTime(2010, 10, 18);
-            DateTime transactionDate2 = new DateTime(2011, 11, 19);
 
             // Sample product for testing to update price 
             products = new List<Product>()
@@ -70,6 +67,9 @@ namespace DataAccessFakes
                     Taxable = true
                 },
             };
+
+            DateTime transactionDate1 = new DateTime(2010, 10, 18);
+            DateTime transactionDate2 = new DateTime(2011, 11, 19);
 
             _transactionsVMs = new List<TransactionVM>()
             {
@@ -95,7 +95,7 @@ namespace DataAccessFakes
                 }
             };
 
-            
+
             _transactions = new List<Transaction>()
             {
                 new Transaction()
@@ -286,7 +286,7 @@ namespace DataAccessFakes
         {
             int result = 0;
             FakeTransactionAccessor fakeTransactionAccessor = new FakeTransactionAccessor();
-            List<TransactionLineProducts> transactionLineProductsList = 
+            List<TransactionLineProducts> transactionLineProductsList =
                 fakeTransactionAccessor.SelectAllTransactionLineProducts();
 
             if (!transactionLineProductsList.Contains(transactionLineProducts))
@@ -395,7 +395,7 @@ namespace DataAccessFakes
             return salesTax.TaxDate;
         }
 
-        
+
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 4/04/2020
@@ -457,16 +457,19 @@ namespace DataAccessFakes
         /// Method to test select transactions by date.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
+        /// Updater: Jaeho Kim
+        /// Updated: 4/13/2020
+        /// Update: Added 2nd parameter (second date time) for date time range.
         /// </remarks>
         /// <param name="transactionDate">the date of the transaction</param>
+        /// <param name="secondTransactionDate"></param>
         /// <returns>TransactionVM</returns>
-        public List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate)
+        public List<TransactionVM> SelectTransactionsByTransactionDate
+            (DateTime transactionDate, DateTime secondTransactionDate)
         {
-            DateTime transactionDate1 = new DateTime(2010, 10, 18);
             return (from v in _transactionsVMs
-                    where v.TransactionDateTime == transactionDate1
+                    where v.TransactionDateTime >= transactionDate
+                    && v.TransactionDateTime <= secondTransactionDate
                     select v).ToList();
         }
 
@@ -488,6 +491,26 @@ namespace DataAccessFakes
         {
             return (from v in _transactionsVMs
                     where v.FirstName == "Bob" && v.LastName == "Jones"
+                    select v).ToList();
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/13
+        /// Approver: Rob Holmes
+        /// 
+        /// Fake Transaction Accessor Method, uses dummy data for testing.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// </remarks>
+        /// <param name="transactionID"></param>
+        /// <returns>TransactionVM</returns>
+        public List<TransactionVM> SelectTransactionsByTransactionID(int transactionID)
+        {
+            return (from v in _transactionsVMs
+                    where v.TransactionID == 1000
                     select v).ToList();
         }
 
