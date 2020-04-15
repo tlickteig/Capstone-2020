@@ -428,6 +428,183 @@ namespace LogicLayerTests
             Assert.AreEqual(true, singleRequestAdded);
         }
 
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver: Derek Taylor
+        /// 
+        /// Test Method for retrieving employee names and their associated userID from the database.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:  
+        /// Update: 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveEmployeeNames()
+        {
+            // arrange
+            List<string[]> employeeNames = new List<string[]>();
+
+            // act
+            employeeNames = _requestManager.RetrieveEmployeeNames();
+
+            // assert
+            Assert.AreEqual(4, employeeNames.Count);
+
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver: Derek Taylor
+        /// 
+        /// Test Method for retrieving all RequestTypes from the database.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:  
+        /// Update: 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAllRequestTypes()
+        {
+            // arrange
+            List<string> requestTypes;
+
+            // act
+            requestTypes = _requestManager.RetriveAllRequestTypes();
+
+            // assert
+            Assert.AreEqual(3, requestTypes.Count);
+
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver: Derek Taylor
+        /// 
+        /// Test Method for retrieving all RequestResponses based on a RequestID.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:  
+        /// Update: 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAllResponsesByRequestID()
+        {
+            // arrange
+            int id = 101;
+            List<RequestResponse> responses = new List<RequestResponse>();
+
+            // act
+            responses = _requestManager.RetrieveAllResponsesByRequestID(id);
+
+            // assert
+            Assert.AreEqual(2, responses.Count);
+
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/16
+        /// Approver: Derek Taylor
+        /// 
+        /// Test Method for updating a DepartmentRequest to Acknowledged, with a datetime and userID.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:  
+        /// Update: 
+        /// </remarks>
+        [TestMethod]
+        public void TestSetDeptRequestStatusToAcknowledged()
+        {
+            // arrange
+            int userID = 100001;
+            int requestID = 100001;
+            int result;
+
+            // act
+            result = _requestManager.SetDeptRequestStatusToAcknowledged(userID, requestID);
+
+            // assert
+            Assert.AreEqual(1, result);
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/16
+        /// Approver: Derek Taylor
+        /// 
+        /// Test Method for updating a DepartmentRequest to Complete, with a datetime and userID.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:  
+        /// Update: 
+        /// </remarks>
+        [TestMethod]
+        public void TestSetDeptRequestStatusToComplete()
+        {
+            // arrange
+            int userID = 100001;
+            int requestID = 100002;
+            int result;
+
+            // act
+            result = _requestManager.SetDeptRequestStatusToCompleted(userID, requestID);
+
+            // assert
+            Assert.AreEqual(1, result);
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/18
+        /// Approver: Derek Taylor
+        /// 
+        /// Test Method for updating a DepartmentRequest's details.
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:  
+        /// Update: 
+        /// </remarks>
+        [TestMethod]
+        public void TestEditDepartmentRequestDetails()
+        {
+            // arrange
+            int result;
+            DepartmentRequest originalRequest = new DepartmentRequest
+            {
+                RequestID = 100009,
+                RequestingUserID = 100000,
+                RequesteeGroupID = "Management",
+                Topic = "topic1",
+                Body = "Bodies everywhere"
+            };
+            string newGroupID = "Inventory";
+            string newTopic = "topic2";
+            string newBody = "body body";
+
+            // act
+            result = _requestManager.EditDepartmentRequestDetails(originalRequest.RequestingUserID, originalRequest.RequestID, originalRequest.RequesteeGroupID,
+                                                                    originalRequest.Topic, originalRequest.Body, newGroupID, newTopic, newBody);
+
+            // assert
+            Assert.AreEqual(1, result);
+        }
+
         [TestCleanup]
         public void TestTearDown()
         {

@@ -164,5 +164,116 @@ namespace LogicLayer
         /// <param name="request"></param>
         /// <param name="requestingEmployeeID"></param>
         bool AddAvailabilityRequest(AvailabilityRequestVM request, int requestingEmployeeID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver: Derek Taylor
+        ///
+        /// Interface method for selecting all requests types.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <returns></returns>
+        List<string> RetriveAllRequestTypes();
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver: Derek Taylor
+        ///
+        /// Interface method for selecting all employee names and associated employee numbers.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <returns></returns>
+        List<string[]> RetrieveEmployeeNames();
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver: Derek Taylor
+        ///
+        /// Interface method for selecting all DepartmentRequest responses.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        List<RequestResponse> RetrieveAllResponsesByRequestID(int requestID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/16
+        /// Approver: Derek Taylor
+        ///
+        /// Interface method for updating a DepartmentRequest status from 'new' to 'acknowledged'.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        int SetDeptRequestStatusToAcknowledged(int userID, int requestID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/16
+        /// Approver: Derek Taylor
+        ///
+        /// Interface method for updating a DepartmentRequest status from 'acknowledged' to 'completed'.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        int SetDeptRequestStatusToCompleted(int userID, int requestID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/18
+        /// Approver: Derek Taylor
+        ///
+        /// Interface method for editing a DepartmentRequest's details.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <param name="oldRequestedGroupID"></param>
+        /// <param name="oldRequestTopic"></param>
+        /// <param name="oldRequestBody"></param>
+        /// <param name="newRequestedGroupID"></param>
+        /// <param name="newRequestTopic"></param>
+        /// <param name="newRequestBody"></param>
+        /// <returns></returns>
+        int EditDepartmentRequestDetails(int userID, int requestID, string oldRequestedGroupID, string oldRequestTopic,
+            string oldRequestBody, string newRequestedGroupID, string newRequestTopic, string newRequestBody);
+    
     }
 }

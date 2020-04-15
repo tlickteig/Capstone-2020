@@ -65,7 +65,129 @@ namespace PresentationUtilityCode
             return requests.GroupBy(r => r.RequestID).Select(r => r.First()).ToList();
         }
 
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/08
+        /// Approver: Derek Taylor
+        /// 
+        /// Extension Method for filter out the Department Name from a Department object.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        /// 
+        /// </remarks>
+        /// <param name="depts"></param>
+        /// <returns></returns>
+        public static List<string> DepartmentIDFilter(this List<Department> depts)
+        {
+            return (from n in depts
+                    select n.DepartmentID).ToList();
+        }
 
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver: Derek Taylor
+        /// 
+        /// Extension Method for applying Employee names out of a list into DepartmentRequest ViewModels
+        /// based on their employee number.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        /// 
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <param name="employeeNames"></param>
+        /// <returns></returns>
+        public static DepartmentRequestVM PopulateUserNames(this DepartmentRequestVM request, List<string[]> employeeNames)
+        {
+            request.RequestorFirstName = (from n in employeeNames
+                                          where n[0] == request.RequestingUserID.ToString()
+                                          select n[1]).Single();
+            request.RequestorLastName = (from n in employeeNames
+                                         where n[0] == request.RequestingUserID.ToString()
+                                         select n[2]).Single();
+            if (request.DateAcknowledged.Year > 2000)
+            {
+                request.AcknowledgeFirstName = (from n in employeeNames
+                                                where n[0] == request.AcknowledgingEmployee.ToString()
+                                                select n[1]).Single();
+                request.AcknowledgeLastName = (from n in employeeNames
+                                               where n[0] == request.AcknowledgingEmployee.ToString()
+                                               select n[2]).Single();
+            }
+            if (request.DateCompleted.Year > 2000)
+            {
+                request.CompleteFirstName = (from n in employeeNames
+                                             where n[0] == request.CompletedEmployee.ToString()
+                                             select n[1]).Single();
+                request.CompleteLastName = (from n in employeeNames
+                                            where n[0] == request.CompletedEmployee.ToString()
+                                            select n[2]).Single();
+            }
+            return request;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver: Derek Taylor
+        /// 
+        /// Extension Method for pulling response objects together and creating one large list for display.
+        /// ***THIS MAY NEED TO BE TEMPORARY, COULD NOT FIND A BETTER METHOD ON MY OWN***
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        /// 
+        /// </remarks>
+        /// <param name="responses"></param>
+        /// <param name="employees"></param>
+        /// <returns></returns>
+        public static string ResponseListBuilder(this List<RequestResponse> responses, List<string[]> employees)
+        {
+            string builtResponses = "";
+            List<RequestResponse> responsesOrdered = responses.OrderByDescending(x => x.TimeStamp).ToList();
+
+            foreach (RequestResponse rr in responsesOrdered)
+            {
+                string employeeName = (from n in employees
+                                       where n[0] == rr.UserID.ToString()
+                                       select n[1] + " " + n[2]).Single();
+                string response = employeeName + "\n" + rr.TimeStamp.ToString() + "\n" + rr.Response + "\n\n\n";
+                builtResponses += response;
+            }
+
+            return builtResponses;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/18
+        /// Approver: Derek Taylor
+        /// 
+        /// Extension Method for verifying that a correct DepartmentID is being used when attempting to edit a DepartmentRequest object.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <param name="DeptIDs"></param>
+        /// <returns></returns>
+        public static bool IsValidDepartment(this string departmentID, List<string> DeptIDs)
+        {
+            return (from d in DeptIDs
+                    where d == departmentID
+                    select d).Any();
+        }
 
     }
 }

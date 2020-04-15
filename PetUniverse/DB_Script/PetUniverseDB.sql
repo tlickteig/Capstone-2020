@@ -1278,18 +1278,17 @@ Date: 2020/02/06
 Comment: General request response table, used to track request comments and respones ************************************************DOUBLE CHECK WITH DEREK
 made by various users
 */
-DROP TABLE IF EXISTS [dbo].[RequestResponse]
-GO
-PRINT '' PRINT '*** creating request response table'
+print '' print '*** creating request response table'
 GO
 CREATE TABLE [dbo].[RequestResponse] (
+	[RequestResponseID]		[int]IDENTITY(100000, 1)	NOT NULL,
 	[RequestID]				[int]						NOT NULL,
 	[UserID]				[int]						NOT NULL,
 	[Response]				[nvarchar](4000)			NOT NULL,
 	[ResponseTimeStamp]		[datetime]					NOT NULL DEFAULT GETDATE(),
-	CONSTRAINT [pk_response_RequestID] PRIMARY KEY([RequestID] ASC),
-	CONSTRAINT [fk_response_RequestID] FOREIGN KEY([RequestID]) REFERENCES [request]([RequestID]),
-	CONSTRAINT [fk_requestResponse_UserID] FOREIGN KEY ([UserID]) REFERENCES[User]([UserID])
+	CONSTRAINT [pk_response_RequestResponseID] PRIMARY KEY([RequestResponseID] ASC),
+	CONSTRAINT [fk_response_RequestID] FOREIGN KEY([RequestID]) REFERENCES[Request]([RequestID]),
+	CONSTRAINT [fk_requestResponse_UserID] FOREIGN KEY([UserID]) REFERENCES[User]([UserID])
 )
 GO
 
@@ -1646,6 +1645,7 @@ CREATE TABLE [dbo].[Donations](
 	[DonorID]				[int]							NOT NULL,
 	[TypeOfDonation]		[nvarchar](100)					NOT NULL,
 	[DateOfDonation]		[datetime]						NOT NULL,
+	[DonationAmount]		[decimal](9,2)					NULL,
 	CONSTRAINT [pk_DonationID] PRIMARY KEY([DonationID] ASC),
 	CONSTRAINT [fk_donations_DonorID] FOREIGN KEY([DonorID])
 		REFERENCES[Donor]([DonorID])
@@ -5194,7 +5194,7 @@ CREATE PROCEDURE [sp_select_new_requests_by_departmentID]
 AS
 BEGIN
 	SELECT DISTINCT r.[RequestID], r.[DateCreated], r.[RequestTypeID],
-		r.[RequestingUserID], dr.[RequestGroupID], dr.[RequestedGroupID],
+		dr.[RequestingUserID], dr.[RequestGroupID], dr.[RequestedGroupID],
 		dr.[RequestSubject], dr.[RequestTopic], dr.[RequestBody]
 	FROM [request] AS r JOIN [DepartmentRequest] AS dr ON
 		[RequestID] = [DeptRequestID]
@@ -5219,7 +5219,7 @@ CREATE PROCEDURE [sp_select_active_requests_by_departmentID]
 AS
 BEGIN
 	SELECT DISTINCT r.[RequestID], r.[DateCreated], r.[RequestTypeID],
-		r.[RequestingUserID], dr.[RequestGroupID], dr.[RequestedGroupID],
+		dr.[RequestingUserID], dr.[RequestGroupID], dr.[RequestedGroupID],
 		dr.[DateAcknowledged], dr.[AcknowledgingUserID], dr.[RequestSubject],
 		dr.[RequestTopic], dr.[RequestBody]
 	FROM [request] AS r JOIN [DepartmentRequest] AS dr ON
@@ -5245,7 +5245,7 @@ CREATE PROCEDURE [sp_select_completed_requests_by_departmentID]
 AS
 BEGIN
 	SELECT DISTINCT r.[RequestID], r.[DateCreated], r.[RequestTypeID],
-		r.[RequestingUserID], dr.[RequestGroupID], dr.[RequestedGroupID],
+		dr.[RequestingUserID], dr.[RequestGroupID], dr.[RequestedGroupID],
 		dr.[DateAcknowledged], dr.[AcknowledgingUserID], dr.[DateCompleted],
 		dr.[CompletedUserID], dr.[RequestSubject], dr.[RequestTopic], dr.[RequestBody]
 	FROM [request] AS r JOIN [DepartmentRequest] AS dr ON
@@ -5301,10 +5301,8 @@ GO
 CREATE PROCEDURE [sp_select_all_employee_names]
 AS
 BEGIN
-	SELECT u.[UserID], u.[FirstName], u.[LastName]
-	FROM [User] AS u JOIN [UserRole] AS ur ON
-	u.[UserID] = ur.[UserID]
-	WHERE ur.[RoleID] = 'Employee'
+	SELECT [UserID], [FirstName], [LastName]
+	FROM [User]
 END
 GO
 
@@ -8892,6 +8890,101 @@ AS
 	END
 GO                
 
+/*
+Created by: Ryan Morganti
+Date: 2020/03/10
+Comment: Stored Procedure used to select all responses associated with a particular request
+*/
+print '' print '*** Creating sp_select_all_responses_by_request_id'
+GO
+CREATE PROCEDURE [sp_select_all_responses_by_request_id]
+(
+	@RequestID 				[int]
+)
+AS
+BEGIN
+	SELECT [RequestResponseID], [UserID], [Response], [ResponseTimeStamp]
+	FROM [RequestResponse]
+	WHERE [RequestID] = @RequestID
+END
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/03/16
+Comment: Stored Procedure used to update a new department request to 'acknowledged'
+*/
+print '' print '*** Creating sp_update_department_request_acknowledged'
+GO
+CREATE PROCEDURE [sp_update_department_request_acknowledged]
+(
+	@UserID					[int],
+	@DepartmentRequestID	[int]
+)
+AS
+BEGIN
+	UPDATE [DepartmentRequest]
+	SET [AcknowledgingUserID] = @UserID,
+		[DateAcknowledged] = GETDATE()
+	WHERE [DeptRequestID] = @DepartmentRequestID
+	SELECT @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/03/16
+Comment: Stored Procedure used to update an acknowledged department request to 'completed'
+*/
+print '' print '*** Creating sp_update_department_request_complete'
+GO
+CREATE PROCEDURE [sp_update_department_request_complete]
+(
+	@UserID					[int],
+	@DepartmentRequestID	[int]
+)
+AS
+BEGIN
+	UPDATE [DepartmentRequest]
+	SET [CompletedUserID] = @UserID,
+		[DateCompleted] = GETDATE()
+	WHERE [DeptRequestID] = @DepartmentRequestID
+	SELECT @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/03/18
+Comment: Stored Procedure used to update a DepartmentRequest's data
+*/
+print '' print '*** Creating sp_update_department_request'
+GO
+CREATE PROCEDURE [sp_update_department_request]
+(
+	@UserID					[int],
+	@DepartmentRequestID	[int],
+	@OldRequestedGroupID    [nvarchar](50),
+	@OldRequestTopic		[nvarchar](250),
+	@OldRequestBody			[nvarchar](4000),
+	@NewRequestedGroupID    [nvarchar](50),
+	@NewRequestTopic		[nvarchar](250),
+	@NewRequestBody			[nvarchar](4000)
+)
+AS
+BEGIN
+	UPDATE [DepartmentRequest]
+	SET [RequestedGroupID] = @NewRequestedGroupID,
+		[RequestTopic] = @NewRequestTopic,
+		[RequestBody] = @NewRequestBody
+	WHERE 	[DeptRequestID] = @DepartmentRequestID
+	AND		[RequestingUserID] = @UserID
+	AND		[RequestedGroupID] = @OldRequestedGroupID
+	AND		[RequestTopic] = @OldRequestTopic
+	AND		[RequestBody] = @OldRequestBody
+	SELECT @@ROWCOUNT
+END
+GO
                 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -10498,3 +10591,18 @@ BEGIN
 		
 END
 GO	
+
+/*
+Created by: Ryan Morganti
+Date: 2020/03/10
+Comment: Sample Request Response Data
+*/
+print '' print '*** Inserting Sample Request Response Data'
+GO
+INSERT INTO [dbo].[RequestResponse]
+	([RequestID], [UserID], [Response], [ResponseTimeStamp])
+	VALUES
+	(1000003, 100004, 'Hola response1', '03/10/20 8:15:00'),
+	(1000003, 100005, 'Hola response for my homeboys', '03/11/20 14:33:00'),
+	(1000003, 100004, 'Never!', '03/12/20 10:15:00')
+GO

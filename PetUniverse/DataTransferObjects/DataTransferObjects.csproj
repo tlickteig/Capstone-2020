@@ -85,6 +85,7 @@
     <Compile Include="CustomerQuestionnarVM.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="DepartmentRequest.cs" />
+    <Compile Include="DepartmentRequestVM.cs" />
     <Compile Include="Donation.cs" />
     <Compile Include="Donor.cs" />
     <Compile Include="ERole.cs" />
@@ -122,6 +123,7 @@
     <Compile Include="PUEvent.cs" />
     <Compile Include="questionnair.cs" />
     <Compile Include="Request.cs" />
+    <Compile Include="RequestResponse.cs" />
     <Compile Include="RequestVM.cs" />
     <Compile Include="SalesDataVM.cs" />
     <Compile Include="SalesTax.cs" />

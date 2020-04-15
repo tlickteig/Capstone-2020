@@ -172,7 +172,7 @@ namespace DataAccessLayer
                         newRequest.RequestID = reader.GetInt32(0);
                         newRequest.DateCreated = reader.GetDateTime(1);
                         newRequest.RequestTypeID = reader.GetString(2);
-                        newRequest.RequestorID = reader.GetInt32(3);
+                        newRequest.RequestingUserID = reader.GetInt32(3);
                         newRequest.RequestorGroupID = reader.GetString(4);
                         newRequest.RequesteeGroupID = reader.GetString(5);
                         newRequest.DateAcknowledged = reader.GetDateTime(6);
@@ -284,7 +284,7 @@ namespace DataAccessLayer
                         newRequest.RequestID = reader.GetInt32(0);
                         newRequest.DateCreated = reader.GetDateTime(1);
                         newRequest.RequestTypeID = reader.GetString(2);
-                        newRequest.RequestorID = reader.GetInt32(3);
+                        newRequest.RequestingUserID = reader.GetInt32(3);
                         newRequest.RequestorGroupID = reader.GetString(4);
                         newRequest.RequesteeGroupID = reader.GetString(5);
                         newRequest.DateAcknowledged = reader.GetDateTime(6);
@@ -349,7 +349,7 @@ namespace DataAccessLayer
                         newRequest.RequestID = reader.GetInt32(0);
                         newRequest.DateCreated = reader.GetDateTime(1);
                         newRequest.RequestTypeID = reader.GetString(2);
-                        newRequest.RequestorID = reader.GetInt32(3);
+                        newRequest.RequestingUserID = reader.GetInt32(3);
                         newRequest.RequestorGroupID = reader.GetString(4);
                         newRequest.RequesteeGroupID = reader.GetString(5);
                         newRequest.Subject = reader.GetString(6);
@@ -524,6 +524,303 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approvor: Derek Taylor
+        ///
+        /// Method for pulling all request types to load the request type combo box in detailed view
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <returns></returns>
+        public List<string> SelectAllRequestTypes()
+        {
+            List<string> requestTypes = new List<string>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_all_request_types", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string type = reader.GetString(0);
+                        requestTypes.Add(type);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return requestTypes;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approvor: 
+        ///
+        /// Method for pulling employee names and their associated user numbers.
+        /// Aids in associating names to user numbers for UI views.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <returns></returns>
+        public List<string[]> SelectAllEmployeeNames()
+        {
+            List<string[]> names = new List<string[]>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_all_employee_names", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        string[] nombres = new string[3];
+                        nombres[0] = reader.GetInt32(0).ToString();
+                        nombres[1] = reader.GetString(1);
+                        nombres[2] = reader.GetString(2);
+                        names.Add(nombres);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return names;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approvor: Derek Taylor
+        ///
+        /// Method for pulling all Department Request Responses associated with a request.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public List<RequestResponse> SelectAllRequestResponsesByRequestID(int requestID)
+        {
+            List<RequestResponse> responses = new List<RequestResponse>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_all_responses_by_request_id", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@RequestID", requestID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        RequestResponse response = new RequestResponse();
+                        response.RequestID = requestID;
+                        response.RequestResponseID = reader.GetInt32(0);
+                        response.UserID = reader.GetInt32(1);
+                        response.Response = reader.GetString(2);
+                        response.TimeStamp = reader.GetDateTime(3);
+                        responses.Add(response);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return responses;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/16
+        /// Approvor: Derek Taylor
+        ///
+        /// Method for updating a DepartmentRequest's status to 'Acknowledged'
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public int UpdateDepartmentRequestStatusToAcknowledged(int userID, int requestID)
+        {
+            int results = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_department_request_acknowledged", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", userID);
+            cmd.Parameters.AddWithValue("@DepartmentRequestID", requestID);
+
+            try
+            {
+                conn.Open();
+                results = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return results;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/16
+        /// Approvor: Derek Taylor
+        ///
+        /// Method for updating a DepartmentRequest's status to 'Completed'
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public int UpdateDepartmentRequestStatusToCompleted(int userID, int requestID)
+        {
+            int results = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_department_request_complete", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", userID);
+            cmd.Parameters.AddWithValue("@DepartmentRequestID", requestID);
+
+            try
+            {
+                conn.Open();
+                results = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return results;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/18
+        /// Approvor: Derek Taylor
+        ///
+        /// Method for updating a DepartmentRequest's fields.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <param name="oldRequestedGroupID"></param>
+        /// <param name="oldRequestTopic"></param>
+        /// <param name="oldRequestBody"></param>
+        /// <param name="newRequestedGroupID"></param>
+        /// <param name="newRequestTopic"></param>
+        /// <param name="newRequestBody"></param>
+        /// <returns></returns>
+        public int UpdateDepartmentRequest(int userID, int requestID, string oldRequestedGroupID, string oldRequestTopic,
+            string oldRequestBody, string newRequestedGroupID, string newRequestTopic, string newRequestBody)
+        {
+            int results = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_department_request", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", userID);
+            cmd.Parameters.AddWithValue("@DepartmentRequestID", requestID);
+            cmd.Parameters.AddWithValue("@OldRequestedGroupID", oldRequestedGroupID);
+            cmd.Parameters.AddWithValue("@OldRequestTopic", oldRequestTopic);
+            cmd.Parameters.AddWithValue("@OldRequestBody", oldRequestBody);
+            cmd.Parameters.AddWithValue("@NewRequestedGroupID", newRequestedGroupID);
+            cmd.Parameters.AddWithValue("@NewRequestTopic", newRequestTopic);
+            cmd.Parameters.AddWithValue("@NewRequestBody", newRequestBody);
+
+            try
+            {
+                conn.Open();
+                results = Convert.ToInt32(cmd.ExecuteScalar());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return results;
         }
     }
 }

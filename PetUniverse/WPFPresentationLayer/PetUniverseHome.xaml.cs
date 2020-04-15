@@ -452,9 +452,10 @@ namespace WPFPresentationLayer
         /// <param name="e"></param>
         private void BtnRequest_Click(object sender, RoutedEventArgs e)
         {
-            frNewRequestList.Content = new RecruitingPages.ListNewRequests(_user);
-            frActiveRequestList.Content = new RecruitingPages.ListActiveRequests(_user);
-            frCompleteRequestList.Content = new RecruitingPages.ListCompleteRequests(_user);
+            //frNewRequestList.Content = new RecruitingPages.ListNewRequests(_user);
+            //frActiveRequestList.Content = new RecruitingPages.ListActiveRequests(_user);
+            //frCompleteRequestList.Content = new RecruitingPages.ListCompleteRequests(_user);
+            frListRequests.Content = new RecruitingPages.ListRequests(_user);
 
             desiredScreen = "Requests";
             switchScreen(desiredScreen);

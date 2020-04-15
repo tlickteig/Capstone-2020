@@ -259,6 +259,9 @@
     <Compile Include="RecruitingPages\CreateEventForm.xaml.cs">
       <DependentUpon>CreateEventForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RecruitingPages\DepartmentRequestDetails.xaml.cs">
+      <DependentUpon>DepartmentRequestDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RecruitingPages\EventApprovalForm.xaml.cs">
       <DependentUpon>EventApprovalForm.xaml</DependentUpon>
     </Compile>
@@ -285,6 +288,9 @@
     </Compile>
     <Compile Include="RecruitingPages\ListApprovedEvents.xaml.cs">
       <DependentUpon>ListApprovedEvents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RecruitingPages\ListRequests.xaml.cs">
+      <DependentUpon>ListRequests.xaml</DependentUpon>
     </Compile>
     <Compile Include="SystemAdminPages\LogView.xaml.cs">
       <DependentUpon>LogView.xaml</DependentUpon>
@@ -560,6 +566,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RecruitingPages\DepartmentRequestDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RecruitingPages\EventApprovalForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -593,6 +603,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RecruitingPages\ListApprovedEvents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecruitingPages\ListRequests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

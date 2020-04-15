@@ -185,6 +185,85 @@ namespace DataAccessFakes
             new string[] {"100001", "Inventory"}
         };
 
+        List<string[]> EmployeeNames = new List<string[]>
+        {
+            new string[] {"100000", "Ryan", "Morganti"},
+            new string[] {"100001", "Derek", "Taylor"},
+            new string[] {"100002", "Steve", "Coonrod"},
+            new string[] {"100003", "Matthew", "Deaton"}
+        };
+
+        List<string> RequestTypes = new List<string>
+        {
+            "Department" ,
+            "General",
+            "Scheduling"
+        };
+
+        List<RequestResponse> responses = new List<RequestResponse>
+        {
+            new RequestResponse
+            {
+                RequestResponseID = 100,
+                RequestID = 100,
+                UserID = 100000,
+                Response = "Yo",
+                TimeStamp = DateTime.Now
+            },
+            new RequestResponse
+            {
+                RequestResponseID = 101,
+                RequestID = 101,
+                UserID = 100000,
+                Response = "Yo",
+                TimeStamp = DateTime.Now
+            },
+            new RequestResponse
+            {
+                RequestResponseID = 102,
+                RequestID = 100,
+                UserID = 100000,
+                Response = "Yo",
+                TimeStamp = DateTime.Now
+            },
+            new RequestResponse
+            {
+                RequestResponseID = 103,
+                RequestID = 100,
+                UserID = 100000,
+                Response = "Yo",
+                TimeStamp = DateTime.Now
+            },
+            new RequestResponse
+            {
+                RequestResponseID = 104,
+                RequestID = 101,
+                UserID = 100000,
+                Response = "Yo",
+                TimeStamp = DateTime.Now
+            }
+        };
+
+        List<DepartmentRequest> DepartmentRequestStatuses = new List<DepartmentRequest>
+        {
+            new DepartmentRequest
+            {
+                RequestID = 100001
+            },
+            new DepartmentRequest
+            {
+                RequestID = 100002
+            },
+            new DepartmentRequest
+            {
+                RequestID = 100009,
+                RequestingUserID = 100000,
+                RequesteeGroupID = "Management",
+                Topic = "topic1",
+                Body = "Bodies everywhere"
+            }
+        };
+
         /// <summary>
         /// Creator: Ryan Morganti
         /// Created: 02/13/2020
@@ -378,6 +457,183 @@ namespace DataAccessFakes
             availabilityRequestVMs.Add(request);
 
             return availabilityRequestVMs.Count - oldCount;
+        }
+
+        /// <summary>
+        ///  CREATOR: Ryan Morganti
+        ///  CREATED: 2020/03/10
+        ///  APPROVER: Derek Taylor
+        ///  
+        ///  Method for returning a fake list of RequestTypes from the database.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public List<string> SelectAllRequestTypes()
+        {
+            return (from r in RequestTypes
+                    select r).ToList();
+        }
+
+        /// <summary>
+        ///  CREATOR: Ryan Morganti
+        ///  CREATED: 2020/03/10
+        ///  APPROVER: Derek Taylor
+        ///  
+        ///  Method for returning a fake list of Employee names and their associated userIDs.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public List<string[]> SelectAllEmployeeNames()
+        {
+            return (from r in EmployeeNames
+                    select r).ToList();
+        }
+
+        /// <summary>
+        ///  CREATOR: Ryan Morganti
+        ///  CREATED: 2020/03/10
+        ///  APPROVER: Derek Taylor
+        ///  
+        ///  Method for returning a fake list of RequestResponses linked to a designated Request from the database.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public List<RequestResponse> SelectAllRequestResponsesByRequestID(int requestID)
+        {
+            return (from r in responses
+                    where r.RequestID == requestID
+                    select r).ToList();
+        }
+
+        /// <summary>
+        ///  CREATOR: Ryan Morganti
+        ///  CREATED: 2020/03/16
+        ///  APPROVER: Derek Taylor
+        ///  
+        ///  Method for updating a DepartmentRequest record to Acknowledged, by supplying an accurate requestID and a userID.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="userId"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public int UpdateDepartmentRequestStatusToAcknowledged(int userId, int requestID)
+        {
+            int result;
+            List<DepartmentRequest> requests = new List<DepartmentRequest>();
+            requests = DepartmentRequestStatuses.Where(r => r.RequestID == requestID)
+                                                .Select(r => { r.DateAcknowledged = DateTime.Now; r.AcknowledgingEmployee = userId; return r; })
+                                                .ToList();
+
+            if (requests.Count == 1)
+            {
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///  CREATOR: Ryan Morganti
+        ///  CREATED: 2020/03/16
+        ///  APPROVER: Derek Taylor
+        ///  
+        ///  Method for updating a DepartmentRequest record to Complete, by supplying an accurate requestID and a userID.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public int UpdateDepartmentRequestStatusToCompleted(int userID, int requestID)
+        {
+            int result;
+            List<DepartmentRequest> requests = new List<DepartmentRequest>();
+            requests = DepartmentRequestStatuses.Where(r => r.RequestID == requestID)
+                                                .Select(r => { r.DateCompleted = DateTime.Now; r.CompletedEmployee = userID; return r; })
+                                                .ToList();
+
+            if (requests.Count == 1)
+            {
+                result = 1;
+            }
+            else
+            {
+                result = 0;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///  CREATOR: Ryan Morganti
+        ///  CREATED: 2020/03/16
+        ///  APPROVER: Derek Taylor
+        ///  
+        ///  Method for updating a DepartmentRequest's details, based on a requestID and userID.
+        ///  
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <param name="oldRequestedGroupID"></param>
+        /// <param name="oldRequestTopic"></param>
+        /// <param name="oldRequestBody"></param>
+        /// <param name="newRequestedGroupID"></param>
+        /// <param name="newRequestTopic"></param>
+        /// <param name="newRequestBody"></param>
+        /// <returns></returns>
+        public int UpdateDepartmentRequest(int userID, int requestID, string oldRequestedGroupID, string oldRequestTopic, string oldRequestBody,
+                                            string newRequestedGroupID, string newRequestTopic, string newRequestBody)
+        {
+            List<DepartmentRequest> request = DepartmentRequestStatuses.Where(r => r.RequestingUserID == userID && r.RequestID == requestID
+                                                                        && r.RequesteeGroupID == oldRequestedGroupID && r.Topic == oldRequestTopic
+                                                                        && r.Body == oldRequestBody)
+                                                                 .Select(r =>
+                                                                 {
+                                                                     r.RequesteeGroupID = newRequestedGroupID; r.Topic = newRequestTopic;
+                                                                     r.Body = newRequestBody; return r;
+                                                                 })
+                                                                 .ToList();
+            if (request.Count == 1)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
         }
     }
 }

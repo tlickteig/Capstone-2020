@@ -164,5 +164,115 @@ namespace DataAccessInterfaces
         /// <param name="requestID"></param>
         /// <param name="userID"></param>
         TimeOffRequestVM SelectTimeOffRequestByRequestID(int requestID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver:  Derek Taylor
+        ///
+        /// This interface method is for selecting all Request Types into a List.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <returns></returns>
+        List<string> SelectAllRequestTypes();
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver:  Derek Taylor
+        ///
+        /// This interface method is for selecting all Employee names and userIDs into a List of arrays.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <returns></returns>
+        List<string[]> SelectAllEmployeeNames();
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver:  Derek Taylor
+        ///
+        /// This interface method is for selecting all DepartmentRequest responses associated with a requestID.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        List<RequestResponse> SelectAllRequestResponsesByRequestID(int requestID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/16
+        /// Approver:  Derek Taylor
+        ///
+        /// This interface method is for updating a new DepartmentRequest's status to 'Acknowledged'.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userId"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        int UpdateDepartmentRequestStatusToAcknowledged(int userId, int requestID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/16
+        /// Approver:  Derek Taylor
+        ///
+        /// This interface method is for updating an acknowledged DepartmentRequest's status to 'Completed'.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        int UpdateDepartmentRequestStatusToCompleted(int userID, int requestID);
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/18
+        /// Approver:  Derek Taylor
+        ///
+        /// This interface method is for updating a DepartmentRequest's fields.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <param name="oldRequestedGroupID"></param>
+        /// <param name="oldRequestTopic"></param>
+        /// <param name="oldRequestBody"></param>
+        /// <param name="newRequestedGroupID"></param>
+        /// <param name="newRequestTopic"></param>
+        /// <param name="newRequestBody"></param>
+        /// <returns></returns>
+        int UpdateDepartmentRequest(int userID, int requestID, string oldRequestedGroupID, string oldRequestTopic,
+            string oldRequestBody, string newRequestedGroupID, string newRequestTopic, string newRequestBody);
     }
 }

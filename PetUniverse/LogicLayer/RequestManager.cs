@@ -328,5 +328,186 @@ namespace LogicLayer
                 throw new ApplicationException("Data not added.", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver:  Derek Taylor
+        ///
+        /// Method for calling on the DataAccessLayer to retrieve all request types.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <returns></returns>
+        public List<string> RetriveAllRequestTypes()
+        {
+            List<string> types = new List<string>();
+
+            try
+            {
+                types = _requestAccessor.SelectAllRequestTypes();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to load request types.", ex);
+            }
+
+            return types;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver:  Derek Taylor
+        ///
+        /// Method for calling on the DataAccessLayer to retrieve employee names and associated employee numbers.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <returns></returns>
+        public List<string[]> RetrieveEmployeeNames()
+        {
+            List<string[]> names = new List<string[]>();
+            try
+            {
+                names = _requestAccessor.SelectAllEmployeeNames();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to load employee info", ex);
+            }
+            return names;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver:  Derek Taylor
+        ///
+        /// Method for calling on the DataAccessLayer to retrieve all DepartmentRequest responses based on the requestID.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public List<RequestResponse> RetrieveAllResponsesByRequestID(int requestID)
+        {
+            List<RequestResponse> responses;
+
+            try
+            {
+                responses = _requestAccessor.SelectAllRequestResponsesByRequestID(requestID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to load request responses.", ex);
+            }
+
+            return responses;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/16
+        /// Approver:  Derek Taylor
+        ///
+        /// Method for calling on the DataAccessLayer update a DepartmentRequest status from 'new' to 'acknowledged'
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public int SetDeptRequestStatusToAcknowledged(int userID, int requestID)
+        {
+            try
+            {
+                return _requestAccessor.UpdateDepartmentRequestStatusToAcknowledged(userID, requestID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to update request status.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/16
+        /// Approver:  Derek Taylor
+        ///
+        /// Method for calling on the DataAccessLayer update a DepartmentRequest status from 'acknowledged' to 'completed'
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public int SetDeptRequestStatusToCompleted(int userID, int requestID)
+        {
+            try
+            {
+                return _requestAccessor.UpdateDepartmentRequestStatusToCompleted(userID, requestID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to update request status.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/18
+        /// Approver:  Derek Taylor
+        ///
+        /// Method for editing an existing DepartmentRequest's details.
+        /// </summary>
+        /// <remarks>
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="requestID"></param>
+        /// <param name="oldRequestedGroupID"></param>
+        /// <param name="oldRequestTopic"></param>
+        /// <param name="oldRequestBody"></param>
+        /// <param name="newRequestedGroupID"></param>
+        /// <param name="newRequestTopic"></param>
+        /// <param name="newRequestBody"></param>
+        /// <returns></returns>
+        public int EditDepartmentRequestDetails(int userID, int requestID, string oldRequestedGroupID, string oldRequestTopic,
+            string oldRequestBody, string newRequestedGroupID, string newRequestTopic, string newRequestBody)
+        {
+            try
+            {
+                return _requestAccessor.UpdateDepartmentRequest(userID, requestID, oldRequestedGroupID, oldRequestTopic, oldRequestBody,
+                                                                newRequestedGroupID, newRequestTopic, newRequestBody);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to update request status.", ex);
+            }
+        }
     }
 }
