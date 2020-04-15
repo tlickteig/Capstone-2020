@@ -99,11 +99,13 @@
     <Compile Include="RequestAccessor.cs" />
     <Compile Include="ReviewerAccessor.cs" />
     <Compile Include="SalesDataAccessor.cs" />
+    <Compile Include="SalesTaxAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
     <Compile Include="SpecialOrderAccessor.cs" />
     <Compile Include="StatusAccessor.cs" />
     <Compile Include="TrainingVideoAccessor.cs" />
     <Compile Include="TransactionAccessor.cs" />
+    <Compile Include="TransactionAdminAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
     <Compile Include="VetAppointmentAccessor.cs" />
     <Compile Include="VolunteerAccessor.cs" />

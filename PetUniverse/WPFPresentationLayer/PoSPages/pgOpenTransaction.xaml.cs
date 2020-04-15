@@ -103,33 +103,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <returns>returns a Transaction</returns>
         private void btnSearchProduct_Click(object sender, RoutedEventArgs e)
         {
-            ShowProduct();
 
-            quantityInStock = productVM.ItemQuantity;
-
-            btnAddProduct.Visibility = Visibility.Visible;
-
-
-        }
-
-        /// <summary>
-        /// Creator: Rasha Mohammed
-        /// Created: 4/12/2020
-        /// Approver: Robert Holmes
-        /// 
-        /// This method return a product that its UPC match the productID 
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATED NA
-        /// CHANGE: NA
-        /// 
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ShowProduct()
-        {
             string productUPC = txtSearchProduct.Text.ToString();
 
             productVM = _transactionManager.RetrieveProductByProductID(productUPC);
@@ -141,6 +115,12 @@ namespace WPFPresentationLayer.PoSPages
             txtPrice.Text = productVM.Price.ToString();
             txtQuantity.Text = "1";
             txtItemDescription.Text = productVM.ItemDescription;
+
+            quantityInStock = productVM.ItemQuantity;
+
+            btnAddProduct.Visibility = Visibility.Visible;
+
+
         }
 
         /// <summary>
@@ -189,22 +169,35 @@ namespace WPFPresentationLayer.PoSPages
         /// <param name="sender"></param>
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
+
+
+            var salesTax = new SalesTax();
+
+            // Populates the salesTax data transfer object by zipcode.
+            salesTax.ZipCode = txtZipCode.Text.ToString();
+            salesTax.TaxDate = _transactionManager
+                .RetrieveLatestSalesTaxDateByZipCode(txtZipCode.Text.ToString());
+            salesTax.TaxRate = _transactionManager
+                .RetrieveTaxRateBySalesTaxDateAndZipCode(txtZipCode.Text.ToString(), salesTax.TaxDate);
+            // SalesTax details operation now complete.
+
+            taxRate = salesTax.TaxRate;
+            
+
             try
             {
-
-                var salesTax = new SalesTax();
-
-                // Populates the salesTax data transfer object by zipcode.
-                salesTax.ZipCode = txtZipCode.Text.ToString();
-                salesTax.TaxDate = _transactionManager
-                    .RetrieveLatestSalesTaxDateByZipCode(txtZipCode.Text.ToString());
-                salesTax.TaxRate = _transactionManager
-                    .RetrieveTaxRateBySalesTaxDateAndZipCode(txtZipCode.Text.ToString(), salesTax.TaxDate);
-                // SalesTax details operation now complete.
-
-                taxRate = salesTax.TaxRate;
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
 
+            bool isValid = false;
+            // The logic verifies that the product searched actually exists and is valid.
+            try
+            {
                 // Populates the productVM data transfer object using the product UPC number that was searched.
                 ProductVM productVM = new ProductVM()
                 {
@@ -218,19 +211,8 @@ namespace WPFPresentationLayer.PoSPages
                     Active = true
                 };
 
-                bool isValid = false;
-                // The logic verifies that the product searched actually exists and is valid.
-                try
-                {
-                    isValid = _transactionManager.isItemQuantityValid(_transactionManager.GetAllProducts(), productVM);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
-                }
+                isValid = _transactionManager.isItemQuantityValid(_transactionManager.GetAllProducts(), productVM);
 
-
-                // verify that the item quantity is valid.
                 if (isValid)
                 {
                     _transactionManager.AddProduct(productVM);
@@ -241,39 +223,42 @@ namespace WPFPresentationLayer.PoSPages
                         _transactionManager.AddProductTaxable(productVM);
                     }
                 }
-
-                if (isValid == false)
-                {
-                    // Let the user know that the item quantity did not get entered.
-                    MessageBox.Show("Invalid Item Quantity");
-                }
-
-                // Displays all the products on the data grid.
-                dgShoppingCart.ItemsSource = _transactionManager.GetAllProducts();
-
-
-                // CalculateSubTotal, takes the master list of products.
-                // The reason for storing the variable is the value obtained from the CalculateSubTotal 
-                // is going to be passed to calculate the total.
-                subTotal = _transactionManager.CalculateSubTotal(_transactionManager.GetAllProducts());
-                txtSubTotal.Text = subTotal.ToString();
-
-
-                // CalculateSubTotalTaxable, takes the taxable list of products.
-                // The reason for storing the variable is the value obtained from the CalculateSubTotal 
-                // is going to be passed to calculate the tax.
-                subTotalTaxable = _transactionManager.CalculateSubTotalTaxable(_transactionManager.GetTaxableProducts());
-                txtSubTotalTaxable.Text = subTotalTaxable.ToString();
-
-                // Calculates the total.
-                //txtTotal.Text = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax).ToString();
-                total = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax);
-                txtTotal.Text = total.ToString();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
+                MessageBox.Show(ex.Message);
             }
+
+
+
+            if (isValid == false)
+            {
+                // Let the user know that the item quantity did not get entered.
+                MessageBox.Show("Invalid Item Quantity");
+            }
+
+            // Displays all the products on the data grid.
+            dgShoppingCart.ItemsSource = _transactionManager.GetAllProducts();
+
+
+            // CalculateSubTotal, takes the master list of products.
+            // The reason for storing the variable is the value obtained from the CalculateSubTotal 
+            // is going to be passed to calculate the total.
+            subTotal = _transactionManager.CalculateSubTotal(_transactionManager.GetAllProducts());
+            txtSubTotal.Text = subTotal.ToString();
+
+
+            // CalculateSubTotalTaxable, takes the taxable list of products.
+            // The reason for storing the variable is the value obtained from the CalculateSubTotal 
+            // is going to be passed to calculate the tax.
+            subTotalTaxable = _transactionManager.CalculateSubTotalTaxable(_transactionManager.GetTaxableProducts());
+            txtSubTotalTaxable.Text = subTotalTaxable.ToString();
+
+            // Calculates the total.
+            //txtTotal.Text = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax).ToString();
+            total = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax);
+            txtTotal.Text = total.ToString();
+
         }
 
 
@@ -299,7 +284,7 @@ namespace WPFPresentationLayer.PoSPages
             // Seconds do count however!
             DateTime transactionDate = DateTime.Now;
             transactionDate = new DateTime(
-            transactionDate.Ticks - 
+            transactionDate.Ticks -
             (transactionDate.Ticks % TimeSpan.TicksPerSecond),
             transactionDate.Kind
             );
@@ -326,37 +311,44 @@ namespace WPFPresentationLayer.PoSPages
             }
             transactionLineProducts.ProductsSold = ProductsSoldList;
 
-            // Creating the transaction in the database
-            if (transaction.SubTotal > 0.00M)
+            try
             {
-                _transactionManager.AddTransaction(transaction);
+                // Creating the transaction in the database
+                if (transaction.SubTotal > 0.00M)
+                {
+                    _transactionManager.AddTransaction(transaction);
 
-                _transactionManager.AddTransactionLineProducts(transactionLineProducts);
+                    _transactionManager.AddTransactionLineProducts(transactionLineProducts);
 
-                MessageBox.Show("Success!");
+                    MessageBox.Show("Success!");
 
-                txtSearchProduct.Text = "";
-                txtItemName.Text = "";
-                chkTaxable.IsChecked = false;
-                txtPrice.Text = "";
-                txtQuantity.Text = "";
-                txtItemDescription.Text = "";
+                    txtSearchProduct.Text = "";
+                    txtItemName.Text = "";
+                    chkTaxable.IsChecked = false;
+                    txtPrice.Text = "";
+                    txtQuantity.Text = "";
+                    txtItemDescription.Text = "";
 
-                txtTotal.Text = "";
-                txtSubTotal.Text = "";
-                txtSubTotalTaxable.Text = "";
+                    txtTotal.Text = "";
+                    txtSubTotal.Text = "";
+                    txtSubTotalTaxable.Text = "";
 
-                dgShoppingCart.ItemsSource = null;
-                subTotalTaxable = 0.0M;
-                subTotal = 0.0M;
-                total = 0.0M;
-                _transactionManager.ClearShoppingCart();
+                    dgShoppingCart.ItemsSource = null;
+                    subTotalTaxable = 0.0M;
+                    subTotal = 0.0M;
+                    total = 0.0M;
+                    _transactionManager.ClearShoppingCart();
 
-                btnAddProduct.Visibility = Visibility.Hidden;
+                    btnAddProduct.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    MessageBox.Show("Could Not Add Transaction!");
+                }
             }
-            else
+            catch(ApplicationException ae)
             {
-                MessageBox.Show("Could Not Add Transaction!");
+                MessageBox.Show(ae.Message + "\n\n" + "You Must Enter Transaction Admin Data!");
             }
 
         }
@@ -434,6 +426,37 @@ namespace WPFPresentationLayer.PoSPages
         /// Created: 4/12/2020
         /// Approver: Robert Holmes
         /// 
+        /// This method return a product that its UPC match the productID 
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ShowProduct()
+        {
+            string productUPC = txtSearchProduct.Text.ToString();
+
+            productVM = _transactionManager.RetrieveProductByProductID(productUPC);
+
+
+
+            txtItemName.Text = productVM.Name;
+            chkTaxable.IsChecked = productVM.Taxable;
+            txtPrice.Text = productVM.Price.ToString();
+            txtQuantity.Text = "1";
+            txtItemDescription.Text = productVM.ItemDescription;
+        }
+
+        /// <summary>
+        /// Creator: Rasha Mohammed
+        /// Created: 4/12/2020
+        /// Approver: Robert Holmes
+        /// 
         /// This method Validate the Updated price and retrieve it after update
         /// 
         /// </summary>
@@ -447,7 +470,6 @@ namespace WPFPresentationLayer.PoSPages
         /// <param name="e"></param>
         private void btnEditPrice_Click(object sender, RoutedEventArgs e)
         {
-
             try
             {
                 txtPrice.IsReadOnly = false;
@@ -477,8 +499,6 @@ namespace WPFPresentationLayer.PoSPages
                 MessageBox.Show("You must enter a valid price. \n \n" + ex.Message);
 
             }
-
-
         }
     }
 }

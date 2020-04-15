@@ -16,20 +16,6 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface ITransactionAccessor
     {
-        /// <summary>
-        /// Creator: Rasha Mohammed
-        /// Created: 4/11/2020
-        /// Approver: Robert Holmes
-        ///
-        /// Interface method signature for updating the price on transaction
-        /// </summary>
-        /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// </remarks>
-        int UpdateProduct(ProductVM oldProduct, ProductVM newProduct);
-
 
         /// <summary>
         /// Creator: Jaeho Kim
@@ -59,9 +45,10 @@ namespace DataAccessInterfaces
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        /// <param>name="transactionDate"</param>
+        /// <param name="transactionDate">Initial date</param>
+        /// <param name="secondTransactionDate">Final Date</param>
         /// <returns>The transaction vm the end user needs to see.</returns>
-        List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate);
+        List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate, DateTime secondTransactionDate);
 
         /// Creator: Rasha Mohammed
         /// Created: 2/14/2020
@@ -176,5 +163,35 @@ namespace DataAccessInterfaces
         /// <param>name="lastName"</param>
         /// <returns>the transaction vm</returns>
         List<TransactionVM> SelectTransactionsByEmployeeName(string firstName, string lastName);
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/13
+        /// APPROVER: Rob Holmes
+        ///
+        /// Interface method signature for Selecting transactions using a transaction id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="transactionID"></param>
+        /// <returns>the transaction vm</returns>
+        List<TransactionVM> SelectTransactionsByTransactionID(int transactionID);
+
+        /// <summary>
+        /// Creator: Rasha Mohammed
+        /// Created: 4/11/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for updating the price on transaction
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        int UpdateProduct(ProductVM oldProduct, ProductVM newProduct);
     }
 }

@@ -21,8 +21,15 @@
         <TextBox x:Name="txtVolunteerID"
                  Grid.Row="1">1000000</TextBox>
         <Button x:Name="btnSubmit"
+                Width="400"
+                HorizontalAlignment="Left"
                 Grid.Row="2"
-                Click="BtnSubmit_Click">Enter</Button>
+                Click="BtnSubmit_Click">View Shifts</Button>
+        <Button x:Name="btnAddShift"
+                Width="400"
+                HorizontalAlignment="Right"
+                Grid.Row="2"
+                Click="BtnAddShift_Click">Add a shift</Button>
         <DataGrid x:Name="dteShiftList"
                   Grid.Row="3"></DataGrid>
     </Grid>

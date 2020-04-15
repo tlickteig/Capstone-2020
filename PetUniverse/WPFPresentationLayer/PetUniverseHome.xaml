@@ -312,6 +312,18 @@
                          FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="tabOpenTransaction_Loaded">
                     <Frame x:Name="frmOpenTransaction"/>
                 </TabItem>
+
+                <TabItem x:Name="tabTransactionAdmin" Header="Transaction Admin" 
+                         FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./PosPages/pgTransactionAdmin.xaml"/>
+                </TabItem>
+                
+
+                <TabItem x:Name="tabSalesTax" Header="Sales Tax" 
+                         FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./PosPages/pgSalesTax.xaml"/>
+                </TabItem>
+
                 <!-- Creator: Rasha Mohammed
                  Date: 4/8/2020
                  CHECKED BY: Ethan Holmes
@@ -371,6 +383,14 @@
                 </TabItem>
                 <TabItem x:Name="tabViewTasks" Header="Tasks" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
                     <Frame x:Name="ViewTasks" Source="./VolunteerPages/TaskControls.xaml"/>
+                </TabItem>
+                <TabItem x:Name="ViewAllVolunteerSchedules"
+                         Header="All Volunteer Schedules"
+                         FontSize="18"
+                         FontWeight="Bold"
+                         Background="#fff8e3">
+                    <Frame x:Name="frmViewAllVolunteerSchedules"
+                           Source="./VolunteerPages/ViewAllVolunteerSchedules.xaml" />
                 </TabItem>
             </TabControl>
         </Canvas>
