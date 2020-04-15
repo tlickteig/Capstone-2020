@@ -761,28 +761,24 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Create Product Table
+Comment: Create Product Table, Updated to new structure 2020/03/17 by Robert Holmes
 */
 DROP TABLE IF EXISTS [dbo].[Product]
 GO
-PRINT '' PRINT '*** Creating Product Table'
+print '' print '*** Creating Product table'
 GO
 CREATE TABLE [dbo].[Product](
-	[ProductID] [nvarchar](13) NOT NULL PRIMARY KEY,
-	[ItemID] [int] NOT NULL,
-	[ProductName] [nvarchar](50) NOT NULL,
-	[ProductCategoryID] [nvarchar](20) NOT NULL,
-	[ProductTypeID] [nvarchar](20) NOT NULL,
-	[Description] [nvarchar](250) NOT NULL,
-	[Price] [decimal](10,2) NOT NULL,
-	[Brand] [nvarchar](20) NOT NULL,
-	[Taxable] [bit] NOT NULL DEFAULT 1,
-	[Active] [bit] NOT NULL DEFAULT 1,
-	CONSTRAINT [fk_Product_ItemID] FOREIGN KEY ([ItemID])
+	[ProductID]		[nvarchar](13)	NOT NULL	PRIMARY KEY,
+	[ItemID]		[INT]			NOT NULL,
+	[ProductTypeID]	[nvarchar](20)	NOT NULL,
+	[Taxable]		[BIT]			NOT NULL,
+	[Price]			[decimal](10,2)	NOT NULL,
+	[Description]	[nvarchar](500)	NOT NULL,
+	[Brand]			[nvarchar](20)	NOT	NULL,
+	[Active]		[BIT]			NOT NULL	DEFAULT 1,
+	CONSTRAINT [fk_Product_ItemID]	FOREIGN KEY ([ItemID])
 		REFERENCES [dbo].[Item]([ItemID]),
-	CONSTRAINT [fk_Product_ProductCataGOryID] FOREIGN KEY ([ProductCategoryID])
-		REFERENCES [dbo].[ProductCategory]([ProductCategoryID]),
-	CONSTRAINT [fk_Product_ProductTypeID] FOREIGN KEY ([ProductTypeID])
+	CONSTRAINT [fk_Product_ProductTypeID]	FOREIGN KEY ([ProductTypeID])
 		REFERENCES [dbo].[ProductType]([ProductTypeID])
 )
 GO
@@ -1478,7 +1474,7 @@ CREATE TABLE [dbo].[Promotion](
 	[EndDate]			[datetime]			NOT NULL,
 	[Discount]			[decimal](10, 2)	NOT NULL,
 	[Description]		[nvarchar](500)		NOT NULL,
-	[Active]			[bit]				NOT NULL,
+	[Active]			[bit]				NOT NULL 	DEFAULT 1,
 	CONSTRAINT [fk_Promotion_PromotionType]	FOREIGN KEY([PromotionTypeID])
 		REFERENCES [dbo].[PromotionType]([PromotionTypeID])
 )
@@ -8890,7 +8886,53 @@ AS
         AND     [Date]                         = @Date
         AND     [Notes]                        = @Notes 
 	END
-GO                
+GO     
+
+/*
+Created by: Robert Holmes
+Date: 2020/04/07
+Comment: Stored procedure to deactivate an active promotion.
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_promotion]
+GO
+print '' print '*** Creating sp_deactivate_promotion'
+GO
+CREATE PROCEDURE [sp_deactivate_promotion]
+(
+	@PromotionID	[nvarchar](20)
+)
+AS
+BEGIN
+	UPDATE 	[dbo].[Promotion]
+	SET		[Active] = 0
+	WHERE	[PromotionID] = @PromotionID
+	AND		[Active] = 1
+	RETURN 	@@ROWCOUNT
+END
+GO
+
+/*
+Created by: Robert Holmes
+Date: 2020/04/07
+Comment: Stored procedure to reactivate an inactive promotion.
+*/
+DROP PROCEDURE IF EXISTS [sp_reactivate_promotion]
+GO
+print '' print '*** Creating sp_reactivate_promotion'
+GO
+CREATE PROCEDURE [sp_reactivate_promotion]
+(
+	@PromotionID	[nvarchar](20)
+)
+AS
+BEGIN
+	UPDATE	[dbo].[Promotion]
+	SET		[Active] = 1
+	WHERE	[PromotionID] = @PromotionID
+	AND		[Active] = 0
+	RETURN 	@@ROWCOUNT
+END
+GO           
 
                 
 /*
@@ -9294,23 +9336,22 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Insert Sample Data into Product Table
+Comment: Insert Sample Data into Product Table, Updated 2020/03/17 to be compatible with new Product table structure by Robert Holmes.
 */
-print '' print '*** Insert Into Product Table ***'
+print '' print '*** Insert into Product table'
 GO
 INSERT INTO [dbo].[Product](
 	[ProductID],
 	[ItemID],
-	[ProductName],
-	[ProductCategoryID],
 	[ProductTypeID],
-	[Description],
+	[Taxable],
 	[Price],
+	[Description],
 	[Brand]
 )
 VALUES
-    ('7084781116',100000,'LoCatMein', 'Food', 'Cat', 'Name brand Cat Food', 50.00, 'OnlyForCats'),
-    ('2500006153',100001,'Scratch Be Gone','Medical', 'General', 'Medical Supplies to Heal Scratch Wounds', 100.00, 'AlsoForHumans')
+	('7084781116',100000,'Cat',1,50.0,'Name brand cat food','OnlyForCats'),
+	('2500006153',100001,'General',1,100.0,'Medical Supplies to Heal Scratch Wounds','AlsoForHumans')
 GO
 
 /*
@@ -10498,3 +10539,31 @@ BEGIN
 		
 END
 GO	
+
+/*
+Created by: Robert Holmes
+Date: 4/13/2020
+Comment: Insert sample data into Promotion table.
+*/
+
+print '' print '*** Inserting sample data to Promotion table.'
+GO
+INSERT INTO [dbo].[Promotion]
+	([PromotionID], [PromotionTypeID], [StartDate], [EndDate], [Discount], [Description])
+	VALUES
+	('PROMO1', 'Flat Amount', '20200401 12:00:00 AM', '20200402 12:00:00 AM', 10.00, 'Description')
+GO
+
+/*
+Created by: Robert Holmes
+Date: 4/13/2020
+Comment: Insert sample data into PromoProductLine table.
+*/
+
+print '' print '*** Inserting sample data to PromoProductLine table.'
+GO
+INSERT INTO [dbo].[PromoProductLine]
+    ([PromotionID], [ProductID])
+    VALUES
+    ('PROMO1', '7084781116')
+GO

@@ -30,10 +30,11 @@
         <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Right" Margin="0, 0, 10, 0" Grid.Row="0" VerticalAlignment="Center" Width="75" />
         <TextBox x:Name="txtSearch" HorizontalAlignment="Right" Height="23" Margin="0, 0, 95, 0" Grid.Row="0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="120"/>
         
-        <DataGrid x:Name="dgPromotions" Grid.Row="1" IsReadOnly="True" AutoGeneratingColumn="dgPromotions_AutoGeneratingColumn" MouseDoubleClick="dgPromotions_MouseDoubleClick"></DataGrid>
+        <DataGrid x:Name="dgPromotions" Grid.Row="1" IsReadOnly="True" AutoGeneratingColumn="dgPromotions_AutoGeneratingColumn" MouseDoubleClick="dgPromotions_MouseDoubleClick" 
+                  SelectionMode="Single" SelectionChanged="dgPromotions_SelectionChanged"></DataGrid>
         
         <Button x:Name="btnAddPromotion" Content="Add Promo" HorizontalAlignment="Right" Margin="0, 0, 180, 0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnAddPromotion_Click" />
         <Button x:Name="btnEditPromotion" Content="Edit Promo" HorizontalAlignment="Right" Margin="0, 0, 95, 0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnEditPromotion_Click" />
-        <Button x:Name="btnDeactivatePromotion" Content="Deactivate" HorizontalAlignment="Right" Margin="0, 0, 10, 0" Grid.Row="2" VerticalAlignment="Center" Width="75" />
+        <Button x:Name="btnTogglePromotionActive" Content="Deactivate" HorizontalAlignment="Right" Margin="0, 0, 10, 0" Grid.Row="2" VerticalAlignment="Center" Width="75" Click="btnTogglePromotionActive_Click" />
     </Grid>
 </Page>

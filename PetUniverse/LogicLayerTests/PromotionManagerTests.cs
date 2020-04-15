@@ -160,6 +160,107 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Robert Holmes
+        /// Created: 2020/04/07
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Tests whether an active promo is successfully deactivated.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestDeactivatePromotion()
+        {
+            //Arrange
+            IPromotionManager promotionManager = new PromotionManager(_promotionAccessor);
+            Promotion promotion = new Promotion()
+            {
+                PromotionID = "TESTPROMO",
+                PromotionTypeID = "Percent",
+                Discount = 0.95M,
+                Description = "Test Description",
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today.AddDays(1),
+                Active = true
+            };
+            promotion.Products.Add(new Product()
+            {
+                ProductID = "1234567890123",
+                ItemID = 10000,
+                Brand = "Test Brand",
+                Category = "Test Category",
+                Name = "Test Product",
+                Taxable = true,
+                Type = "Test Type",
+                Description = "Test product description",
+                Price = 1.00M
+            });
+            bool expected = true;
+            bool actual;
+
+            //Act
+            actual = promotionManager.TogglePromotionActive(promotion);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+        
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/07/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Tests whether an inactive promo is successfully reactivated.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestReactivateInactivePromotion()
+        {
+            //Arrange
+            IPromotionManager promotionManager = new PromotionManager(_promotionAccessor);
+            Promotion promotion = new Promotion()
+            {
+                PromotionID = "TESTPROMO",
+                PromotionTypeID = "Percent",
+                Discount = 0.95M,
+                Description = "Test Description",
+                StartDate = DateTime.Today,
+                EndDate = DateTime.Today.AddDays(1),
+                Active = false
+            };
+            promotion.Products.Add(new Product()
+            {
+                ProductID = "1234567890123",
+                ItemID = 10000,
+                Brand = "Test Brand",
+                Category = "Test Category",
+                Name = "Test Product",
+                Taxable = true,
+                Type = "Test Type",
+                Description = "Test product description",
+                Price = 1.00M
+            });
+            bool expected = true;
+            bool actual;
+
+            //Act
+            actual = promotionManager.TogglePromotionActive(promotion);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
         /// Created: 2020/03/19
         /// Approver: Cash Carlson
         /// 

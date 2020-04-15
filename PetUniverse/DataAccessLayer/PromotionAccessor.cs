@@ -359,7 +359,7 @@ namespace DataAccessLayer
         /// Update: 
         /// 
         /// </remarks>
-        public void removePromoProducts(Promotion promotion)
+        private void removePromoProducts(Promotion promotion)
         {
             var conn = DBConnection.GetConnection();
             var cmdText = "sp_delete_promo_products";
@@ -382,6 +382,92 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/04/07
+        /// Approver: Rasha Mohammed
+        /// 
+        /// SQLEXPRESS implementation of deactivating an active promo.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="promotion"></param>
+        /// <returns></returns>
+        public int DeactivatePromo(Promotion promotion)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmdText = @"sp_deactivate_promotion";
+
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@PromotionID", promotion.PromotionID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/04/07
+        /// Approver: Rasha Mohammed
+        /// 
+        /// SQLEXPRESS implementation of reactiveating an inactive promo.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        public int ReactivatePromo(Promotion promotion)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmdText = @"sp_reactivate_promotion";
+
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@PromotionID", promotion.PromotionID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
         }
     }
 }
