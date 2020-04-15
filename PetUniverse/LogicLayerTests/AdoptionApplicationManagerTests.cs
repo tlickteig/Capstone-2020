@@ -24,7 +24,7 @@ namespace LogicLayerTests
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 3/5/2020
-        /// Approver: NA
+        /// Approver: Michael Thompson
         /// 
         /// constructor for this class
         /// </summary>
@@ -42,7 +42,7 @@ namespace LogicLayerTests
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 3/5/2020
-        /// Approver: NA
+        /// Approver: Micheal Thompson,
         /// 
         /// Tests
         /// </summary>
@@ -60,10 +60,36 @@ namespace LogicLayerTests
             IAdoptionApplicationManager adoptionApplicationManager = new AdoptionApplicationManager(_fakeAdoptionApplicationAccessor);
 
             // act
-            adoptionApplications = adoptionApplicationManager.RetrieveAdoptionApplicationsByEmail("Fake@fake.com");
+            adoptionApplications = adoptionApplicationManager.RetrieveAdoptionApplicationsByEmailAndActive("Fake@fake.com");
 
             //assert
             Assert.AreEqual(1, adoptionApplications.Count);
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 3/5/2020
+        /// Approver: Micheal Thompson,
+        /// 
+        /// Tests
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionApplicationManagerRetrieveAdoptionApplicationByID()
+        {
+            // arrange
+            IAdoptionApplicationManager adoptionApplicationManager = new AdoptionApplicationManager(_fakeAdoptionApplicationAccessor);
+
+            // act
+            var adoptionApplication = adoptionApplicationManager.RetrieveAdoptionApplicationByID(000);
+
+            //assert
+            Assert.AreEqual(000, adoptionApplication.AdoptionApplicationID);
         }
     }
 }

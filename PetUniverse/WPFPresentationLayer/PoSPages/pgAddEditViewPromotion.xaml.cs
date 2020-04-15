@@ -48,6 +48,9 @@ namespace WPFPresentationLayer.PoSPages
             dgProducts.ItemsSource = _promotion.Products;
             _productManager = new ProductManager();
             makeEditable();
+            setupNumUpDown();
+            btnToggleActive.IsEnabled = false;
+            txtActive.Text = "Active";
         }
 
         /// <summary>
@@ -127,11 +130,12 @@ namespace WPFPresentationLayer.PoSPages
         private void makeReadOnly()
         {
             txtPromotionID.IsReadOnly = true;
-            numDiscount.IsEnabled = false;
             dateStartDate.IsEnabled = false;
+            numDiscount.IsEnabled = false;
             dateEndDate.IsEnabled = false;
             cboPromotionType.IsEnabled = false;
             txtDescription.IsReadOnly = true;
+            btnToggleActive.IsEnabled = false;
         }
 
         /// <summary>
@@ -150,11 +154,12 @@ namespace WPFPresentationLayer.PoSPages
         private void makeEditable()
         {
             txtPromotionID.IsReadOnly = false;
-            numDiscount.IsEnabled = true;
             dateStartDate.IsEnabled = true;
             dateEndDate.IsEnabled = true;
+            numDiscount.IsEnabled = true;
             cboPromotionType.IsEnabled = true;
             txtDescription.IsReadOnly = false;
+            btnToggleActive.IsEnabled = true;
         }
 
         /// <summary>
@@ -185,7 +190,7 @@ namespace WPFPresentationLayer.PoSPages
                 {
                     cboPromotionType.SelectedItem = _promotion.PromotionTypeID;
                 }
-                if (_promotion.StartDate != null) 
+                if (_promotion.StartDate != null)
                 {
                     dateStartDate.SelectedDate = _promotion.StartDate;
                 }
@@ -198,6 +203,16 @@ namespace WPFPresentationLayer.PoSPages
                     txtDescription.Text = _promotion.Description;
                 }
                 numDiscount.Value = _promotion.Discount;
+                if (_promotion.Active)
+                {
+                    txtActive.Text = "Active";
+                    btnToggleActive.Content = "Deactivate";
+                }
+                else
+                {
+                    txtActive.Text = "Inactive";
+                    btnToggleActive.Content = "Reactivate";
+                }
                 setupNumUpDown();
                 if (cboPromotionType.SelectedItem.ToString().Equals("Percent"))
                 {
@@ -348,7 +363,7 @@ namespace WPFPresentationLayer.PoSPages
                         catch (Exception)
                         {
                             WPFErrorHandler.ErrorMessage("Unable to add promotion");
-                        }   
+                        }
                     }
                     break;
                 case ("Done"):
@@ -423,7 +438,7 @@ namespace WPFPresentationLayer.PoSPages
                     txtPromotionID.Focus();
                     break;
                 }
-                
+
                 //cboPromotionType
                 if (cboPromotionType.SelectedItem == null)
                 {
@@ -618,6 +633,66 @@ namespace WPFPresentationLayer.PoSPages
                     numDiscount.Watermark = "Select Type First";
                 }
             }
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/07/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Handles active status for current promotion.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnToggleActive_Click(object sender, RoutedEventArgs e)
+        {
+            switch (btnToggleActive.Content)
+            {
+                case ("Deactivate"):
+                    {
+                        if (MessageBoxResult.Yes == MessageBox.Show("Deactivate current promotion?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question))
+                        {
+                            try
+                            {
+                                _promotionManager.TogglePromotionActive(_promotion);
+                                _promotion.Active = false;
+                            }
+                            catch (Exception ex)
+                            {
+                                WPFErrorHandler.ErrorMessage("Unable to deactivate promotion:\n\n" + ex.Message);
+                            }
+                        }
+                        break;
+                    }
+                case ("Reactivate"):
+                    {
+                        if (MessageBoxResult.Yes == MessageBox.Show("Reactivate current promotion?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question))
+                        {
+                            try
+                            {
+                                _promotionManager.TogglePromotionActive(_promotion);
+                                _promotion.Active = true;
+                            }
+                            catch (Exception ex)
+                            {
+                                WPFErrorHandler.ErrorMessage("Unable to reactivate promotion:\n\n" + ex.Message);
+                            }
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+
+            loadFields();
         }
     }
 }

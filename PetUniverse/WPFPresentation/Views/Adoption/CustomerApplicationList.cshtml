@@ -1,0 +1,44 @@
+﻿@model IEnumerable<DataTransferObjects.ApplicationVM>
+
+@{
+
+}
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AnimalName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnimalSpeciesID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnimalBreed)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.AnimalName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AnimalSpeciesID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.AnimalBreed)
+    </td>
+    
+    <td>
+        @Html.ActionLink("View Application", "CustomerApplicationDetails", new { adoptionApplicationID = item.AdoptionApplicationID }, new { @class = "btn btn-default"})
+    </td>
+</tr>
+}
+
+</table>

@@ -214,9 +214,6 @@
     <Compile Include="InventoryPages\ViewInventory.xaml.cs">
       <DependentUpon>ViewInventory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="InventoryPages\viewItems.xaml.cs">
-      <DependentUpon>viewItems.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PersonnelPages\Departments.xaml.cs">
       <DependentUpon>Departments.xaml</DependentUpon>
     </Compile>
@@ -240,6 +237,12 @@
     </Compile>
     <Compile Include="PoSPages\pgPromotion.xaml.cs">
       <DependentUpon>pgPromotion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PoSPages\pgSalesTax.xaml.cs">
+      <DependentUpon>pgSalesTax.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PoSPages\pgTransactionAdmin.xaml.cs">
+      <DependentUpon>pgTransactionAdmin.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\pgViewSalesData.xaml.cs">
       <DependentUpon>pgViewSalesData.xaml</DependentUpon>
@@ -319,11 +322,17 @@
     <Compile Include="VolunteerPages\frmCreateEditVolunteerEvent.xaml.cs">
       <DependentUpon>frmCreateEditVolunteerEvent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VolunteerPages\frmSignUpForShift.xaml.cs">
+      <DependentUpon>frmSignUpForShift.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\PrintVolunteerShifts.xaml.cs">
       <DependentUpon>PrintVolunteerShifts.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\TaskControls.xaml.cs">
       <DependentUpon>TaskControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\ViewAllVolunteerSchedules.xaml.cs">
+      <DependentUpon>ViewAllVolunteerSchedules.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\ViewDeleteCreateMedicine.xaml.cs">
       <DependentUpon>ViewDeleteCreateMedicine.xaml</DependentUpon>
@@ -506,10 +515,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="InventoryPages\viewItems.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="PersonnelPages\Departments.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -541,6 +546,14 @@
     <Page Include="PoSPages\pgPromotion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PoSPages\pgSalesTax.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PoSPages\pgTransactionAdmin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PoSPages\pgViewSalesData.xaml">
       <SubType>Designer</SubType>
@@ -650,6 +663,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VolunteerPages\frmSignUpForShift.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="VolunteerPages\PrintVolunteerShifts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -657,6 +674,10 @@
     <Page Include="VolunteerPages\TaskControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\ViewAllVolunteerSchedules.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="VolunteerPages\ViewDeleteCreateMedicine.xaml">
       <Generator>MSBuild:Compile</Generator>

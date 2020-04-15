@@ -14,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using WPFPresentationLayer.InventoryPages.Items;
 using DataTransferObjects;
 using PresentationUtilityCode;
 
@@ -161,7 +160,7 @@ namespace WPFPresentationLayer.InventoryPages
                 string oldItemDescription = _item.Description.ToString();
                 try
                 {
-                   newItemCount = Int32.Parse(txtItemCount.Text.ToString());
+                    newItemCount = Int32.Parse(txtItemCount.Text.ToString());
                     _itemManager.editItemDetail(oldItemName, oldItemDescription, oldItemCount, newItemName, newItemDescription, newItemCount);
                     result = true;
                 }

@@ -31,6 +31,20 @@ namespace DataAccessInterfaces
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        List<ApplicationVM> SelectAdoptionApplicationsByEmail(string email);
+        List<ApplicationVM> SelectAdoptionApplicationsByEmail(string email, bool active);
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 3/18/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// selects an ApplicationVM by on Email
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        ApplicationVM SelectAdoptionApplicationByID(int adoptionApplicationID);
     }
 }

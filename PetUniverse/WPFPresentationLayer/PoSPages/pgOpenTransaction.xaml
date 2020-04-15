@@ -118,6 +118,13 @@ UI for Open Transaction.
                     <Button x:Name="btnClearShoppingCart" Grid.Column="0" Grid.Row="1" Margin="5 5 5 5" Click="btnClearShoppingCart_Click">Clear Cart</Button>
                     <Button x:Name="btnCompleteTransaction" Grid.Column="0" Grid.Row="2" Margin="5 5 5 5" Click="btnCompleteTransaction_Click">Complete Transaction</Button>
 
+                    <!--
+                    /// Creator: Rasha Mohammed
+                    /// Created: 4/12/2020
+                    /// Approver: Robert Holmes
+                    /// 
+                    /// This button to edit the price an return it after updated -->
+                    <Button x:Name="btnEditPrice" Grid.Column="0" Grid.Row="3" Margin="5 5 5 0" Height="32" VerticalAlignment="Top" Click="btnEditPrice_Click">Edit Price</Button>
 
                     <Label Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"
                        VerticalAlignment="Center">Sub Total:</Label>
@@ -135,7 +142,7 @@ UI for Open Transaction.
                     <TextBox x:Name="txtZipCode" Grid.Column="2" Grid.Row="4" Margin="5 5 5 5" VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Center">1111</TextBox>
 
-                    <TextBox x:Name="txtTotal" Grid.Column="2" Grid.Row="3" Margin="5 5 5 5" VerticalContentAlignment="Center"
+                    <TextBox x:Name="txtTotal" Grid.Column="2" Margin="0,-28,10,39" VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Center"/>
 
                 </Grid>

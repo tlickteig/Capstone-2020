@@ -53,5 +53,23 @@ namespace WPFPresentationLayer.VolunteerPages
                 MessageBox.Show(ex.Message);
             }
         }
+
+        /// <summary>
+        ///     AUTHOR: Timothy Lickteig
+        ///     DATE: 2020-03-31
+        ///     CHECKED BY: Zoey McDonald
+        /// </summary>
+        private void BtnAddShift_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                frmSignUpForShift window = new frmSignUpForShift(Convert.ToInt32(txtVolunteerID.Text));
+                window.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

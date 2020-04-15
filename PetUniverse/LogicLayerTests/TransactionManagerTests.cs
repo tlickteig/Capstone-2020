@@ -130,7 +130,7 @@ namespace LogicLayerTests
         [TestMethod]
         public void TestAddTransaction()
         {
-            bool result = false;
+            
 
             Transaction newTransaction = new Transaction()
             {
@@ -139,7 +139,7 @@ namespace LogicLayerTests
 
             FakeTransactionAccessor _transactionAccessor = new FakeTransactionAccessor();
 
-            result = _transactionAccessor.InsertTransaction(newTransaction) == 1;
+            bool result = _transactionAccessor.InsertTransaction(newTransaction) == 1;
 
             Assert.AreEqual(result, true);
         }
@@ -268,9 +268,9 @@ namespace LogicLayerTests
         /// Test method for retrieving transactions using a transaction date.
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Jaeho Kim
+        /// Updated: 2020/04/13
+        /// Update: Added the second date parameter
         /// </remarks>
         [TestMethod]
         public void TestRetrieveTransactionsByTransactionDate()
@@ -278,11 +278,15 @@ namespace LogicLayerTests
             // arrange 
             List<TransactionVM> transactions;
             DateTime transactionDate1 = new DateTime(2010, 10, 18);
+
+            DateTime transactionDate2 = new DateTime(2011, 11, 19);
+
             ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
             // Act
-            transactions = transactionManager.RetrieveTransactionByTransactionDate(transactionDate1);
+            transactions = transactionManager.RetrieveTransactionByTransactionDate(transactionDate1, transactionDate2);
+            
             // assert
-            Assert.AreEqual(1, transactions.Count);
+            Assert.AreEqual(2, transactions.Count);
         }
 
         /// <summary>
@@ -311,6 +315,72 @@ namespace LogicLayerTests
 
             // assert
             Assert.AreEqual(1, transactions.Count);
+
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/13
+        /// Approver: Rob Holmes
+        /// 
+        /// Test method for retreiving transactions by transaction id.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveTransactionByTransactionID()
+        {
+            //arrange
+            List<TransactionVM> transactions;
+            int transactionID = 1000;
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // Act
+            transactions = transactionManager.RetrieveTransactionByTransactionID(transactionID);
+
+            // assert
+            Assert.AreEqual(1, transactions.Count);
+
+        }
+
+        /// <summary>
+        ///  Creator: Rasha Mohammed
+        ///  Created: 4/12/2020
+        ///  Approver: Robert Holmes
+        ///  
+        ///  Test method for edit product priceon transaction.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestEditProductPrice()
+        {
+            // arrange, the attribute that need
+            ProductVM oldProduct = new ProductVM();
+            ProductVM newProduct = new ProductVM();
+            bool result = false;
+            bool expected = true;
+
+            //act
+
+            oldProduct.Price = 0.50M;
+
+
+            newProduct.Price = 10.00M;
+
+
+            result = _transactionManager.EditProduct(oldProduct, newProduct);
+
+
+            // Assert
+            Assert.AreEqual(expected, result);
 
         }
     }

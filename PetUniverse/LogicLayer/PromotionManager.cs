@@ -139,5 +139,37 @@ namespace LogicLayer
         {
             return _promotionAccessor.SelectAllPromotionTypes();
         }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/04/07
+        /// Approver: Rahsa Mohammed
+        /// 
+        /// Calls the appropriate Data Access layer method to activate/deactivate depending on the status of the promotion.
+        /// </summary>
+        /// <param name="promotion"></param>
+        /// <returns></returns>
+        public bool TogglePromotionActive(Promotion promotion)
+        {
+            bool success = false;
+
+            try
+            {
+                if (promotion.Active)
+                {
+                    success = (1 == _promotionAccessor.DeactivatePromo(promotion));
+                }
+                else
+                {
+                    success = (1 == _promotionAccessor.ReactivatePromo(promotion));
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return success;
+        }
     }
 }

@@ -79,7 +79,7 @@ namespace WPFPresentationLayer.PoSPages
             InitializeComponent();
             try
             {
-                _promotions = _promotionManager.GetAllPromotions();
+                _promotions = _promotionManager.GetAllPromotions(onlyActive: false);
             }
             catch (Exception ex)
             {
@@ -111,7 +111,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/19
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Handles column formating.
         /// </summary>
@@ -155,6 +155,10 @@ namespace WPFPresentationLayer.PoSPages
                 DataGridTextColumn col = e.Column as DataGridTextColumn;
                 col.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
             }
+            else if (columnHeader.Equals("Active"))
+            {
+                e.Column.Header = "Active";
+            }
             else
             {
                 e.Cancel = true;
@@ -164,7 +168,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/19
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Allows for the viewing of promotion details.
         /// </summary>
@@ -185,7 +189,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/19
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Opens the window to edit a promotion.
         /// </summary>
@@ -200,6 +204,100 @@ namespace WPFPresentationLayer.PoSPages
             if (dgPromotions.SelectedItem != null)
             {
                 _frame.Navigate(new pgAddEditViewPromotion(_promotionManager, _frame, (Promotion)dgPromotions.SelectedItem, editMode: true));
+            }
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/04/07
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Changes button content depending on selected promotion.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgPromotions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgPromotions.SelectedItem != null)
+            {
+                Promotion promotion = dgPromotions.SelectedItem as Promotion;
+                if (promotion.Active)
+                {
+                    btnTogglePromotionActive.Content = "Deactivate";
+                }
+                else
+                {
+                    btnTogglePromotionActive.Content = "Reactivate";
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/07/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Switches the active status of seleceted promotion from datagrid.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        ///
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnTogglePromotionActive_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgPromotions.SelectedItem != null)
+            {
+                Promotion selectedPromotion = dgPromotions.SelectedItem as Promotion;
+                switch (btnTogglePromotionActive.Content)
+                {
+                    case ("Deactivate"):
+                        {
+                            if (MessageBoxResult.Yes == MessageBox.Show("Deactivate selected promotion with ID: "+ selectedPromotion.PromotionID 
+                                + "?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question))
+                            {
+                                try
+                                {
+                                    _promotionManager.TogglePromotionActive(selectedPromotion);
+                                }
+                                catch (Exception ex)
+                                {
+                                    WPFErrorHandler.ErrorMessage("Unable to deactivate promotion:\n\n" + ex.Message);
+                                }
+                            }
+                            break;
+                        }
+                    case ("Reactivate"):
+                        {
+                            if (MessageBoxResult.Yes == MessageBox.Show("Reactivate selected promotion with ID: " + selectedPromotion.PromotionID
+                                + "?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question))
+                            {
+                                try
+                                {
+                                    _promotionManager.TogglePromotionActive(selectedPromotion);
+                                }
+                                catch (Exception ex)
+                                {
+                                    WPFErrorHandler.ErrorMessage("Unable to reactivate promotion:\n\n" + ex.Message);
+                                }
+                            }
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+                _frame.Navigate(new pgPromotion(_frame));
             }
         }
     }

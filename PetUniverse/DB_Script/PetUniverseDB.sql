@@ -761,28 +761,24 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Create Product Table
+Comment: Create Product Table, Updated to new structure 2020/03/17 by Robert Holmes
 */
 DROP TABLE IF EXISTS [dbo].[Product]
 GO
-PRINT '' PRINT '*** Creating Product Table'
+print '' print '*** Creating Product table'
 GO
 CREATE TABLE [dbo].[Product](
-	[ProductID] [nvarchar](13) NOT NULL PRIMARY KEY,
-	[ItemID] [int] NOT NULL,
-	[ProductName] [nvarchar](50) NOT NULL,
-	[ProductCategoryID] [nvarchar](20) NOT NULL,
-	[ProductTypeID] [nvarchar](20) NOT NULL,
-	[Description] [nvarchar](250) NOT NULL,
-	[Price] [decimal](10,2) NOT NULL,
-	[Brand] [nvarchar](20) NOT NULL,
-	[Taxable] [bit] NOT NULL DEFAULT 1,
-	[Active] [bit] NOT NULL DEFAULT 1,
-	CONSTRAINT [fk_Product_ItemID] FOREIGN KEY ([ItemID])
+	[ProductID]		[nvarchar](13)	NOT NULL	PRIMARY KEY,
+	[ItemID]		[INT]			NOT NULL,
+	[ProductTypeID]	[nvarchar](20)	NOT NULL,
+	[Taxable]		[BIT]			NOT NULL,
+	[Price]			[decimal](10,2)	NOT NULL,
+	[Description]	[nvarchar](500)	NOT NULL,
+	[Brand]			[nvarchar](20)	NOT	NULL,
+	[Active]		[BIT]			NOT NULL	DEFAULT 1,
+	CONSTRAINT [fk_Product_ItemID]	FOREIGN KEY ([ItemID])
 		REFERENCES [dbo].[Item]([ItemID]),
-	CONSTRAINT [fk_Product_ProductCataGOryID] FOREIGN KEY ([ProductCategoryID])
-		REFERENCES [dbo].[ProductCategory]([ProductCategoryID]),
-	CONSTRAINT [fk_Product_ProductTypeID] FOREIGN KEY ([ProductTypeID])
+	CONSTRAINT [fk_Product_ProductTypeID]	FOREIGN KEY ([ProductTypeID])
 		REFERENCES [dbo].[ProductType]([ProductTypeID])
 )
 GO
@@ -1021,8 +1017,9 @@ GO
 PRINT '' PRINT '*** Creating TransactionStatus Table'
 GO
 CREATE TABLE [dbo].[TransactionStatus](
-	[TransactionStatusID] 	[nvarchar](20) NOT NULL,
+	[TransactionStatusID] 	[nvarchar](20)  NOT NULL,
 	[Description] 			[nvarchar](500) NOT NULL,
+	[DefaultInStore]		[bit]			NOT NULL	DEFAULT 0,
 
 	CONSTRAINT [pk_TransactionStatus_TransactionStatusID] PRIMARY KEY ([TransactionStatusID] ASC)
 )
@@ -1040,6 +1037,7 @@ GO
 CREATE TABLE [dbo].[TransactionType](
 	[TransactionTypeID] 	[nvarchar](20) 		NOT NULL,
 	[Description] 			[nvarchar](500) 	NOT NULL,
+	[DefaultInStore]		[bit]				NOT Null	DEFAULT 0,
 
 	CONSTRAINT [pk_TransactionType_TransactionTypeID] PRIMARY KEY ([TransactionTypeID] ASC)
 )
@@ -1477,7 +1475,7 @@ CREATE TABLE [dbo].[Promotion](
 	[EndDate]			[datetime]			NOT NULL,
 	[Discount]			[decimal](10, 2)	NOT NULL,
 	[Description]		[nvarchar](500)		NOT NULL,
-	[Active]			[bit]				NOT NULL,
+	[Active]			[bit]				NOT NULL 	DEFAULT 1,
 	CONSTRAINT [fk_Promotion_PromotionType]	FOREIGN KEY([PromotionTypeID])
 		REFERENCES [dbo].[PromotionType]([PromotionTypeID])
 )
@@ -1717,7 +1715,7 @@ GO
 CREATE TABLE [dbo].[SalesTaxHistory](
 	[ZipCode]			[nvarchar](50) 		Not Null,
 	[SalesTaxDate] 		[DateTime]			Not Null,
-	[TaxRate] 			[decimal](10,2)		NOT Null,
+	[TaxRate] 			[decimal](10,5)		NOT Null,
 	CONSTRAINT [pk_SalesTaxHistory_ZipCode] PRIMARY KEY ([ZipCode] ASC, [SalesTaxDate] ASC)
 )
 GO
@@ -4510,31 +4508,6 @@ BEGIN
 	WHERE	[CustomerEmail] = @customerEmail
 END
 GO
-/*
-Created by: Jaeho Kim
-Date: 03/05/2020
-Comment: Selects a list of all transactions with join tables for the customer
-*/
-DROP PROCEDURE IF EXISTS [sp_select_all_transactions]
-GO
-PRINT '' PRINT '*** Creating sp_select_all_transactions'
-GO
-CREATE PROCEDURE sp_select_all_transactions
-AS
-BEGIN
-    SELECT
-        T.[TransactionID]
-        ,T.[TransactionDateTime]
-        ,U.[UserID]
-        ,U.[FirstName]
-        ,U.[LastName]
-        ,T.[TransactionTypeID]
-        ,T.[TransactionStatusID]
-    FROM 	[Transaction] T
-    INNER JOIN [User] U
-        ON T.[EmployeeID] = U.[UserID]
-END
-GO
 
 /*
 Created by: Alex Diers
@@ -5894,14 +5867,16 @@ BEGIN
     SELECT
         TLP.[Quantity]
         , P.[ProductID]
-        , P.[ProductName]
-        , P.[ProductCategoryID]
+        , I.[ItemName]
+        , I.[ItemCategoryID]
         , P.[ProductTypeID]
         , P.[Price]
 
     FROM 	[TransactionLineProducts] TLP
     INNER JOIN [Product] P
         ON TLP.[ProductID] = P.[ProductID]
+	INNER JOIN [Item] I
+        ON P.[ItemID] = I.[ItemID]
     INNER JOIN [Transaction] T
         ON TLP.[TransactionID] = T.[TransactionID]
     INNER JOIN [User] U
@@ -5923,10 +5898,12 @@ PRINT '' PRINT '*** Creating sp_select_transactions_by_datetime'
 GO
 CREATE PROCEDURE sp_select_transactions_by_datetime
 (
-	@TransactionDateTime	[datetime]
+	@TransactionDateTime		[datetime],
+	@SecondTransactionDateTime	[datetime]
 )
 AS
 BEGIN
+	
     SELECT
         T.[TransactionID]
         ,T.[TransactionDateTime]
@@ -5942,7 +5919,11 @@ BEGIN
     FROM 	[Transaction] T
     INNER JOIN [User] U
         ON T.[EmployeeID] = U.[UserID]
-    WHERE T.[TransactionDateTime] = @TransactionDateTime
+		
+    --WHERE T.[TransactionDateTime] = @TransactionDateTime
+	
+	WHERE T.[TransactionDateTime] 
+		BETWEEN @TransactionDateTime AND @SecondTransactionDateTime
 END
 GO
 
@@ -7641,13 +7622,14 @@ Author: Austin Gee
 Date: 3/18/2020
 Comment: Creating procedure for selecting an adoption application by email
 */
-DROP PROCEDURE IF EXISTS [sp_select_adoption_application_by_email]
+DROP PROCEDURE IF EXISTS [sp_select_adoption_applications_by_email_and_active]
 GO
-print '' print '*** Creating sp_select_adoption_application_by_email'
+print '' print '*** Creating sp_select_adoption_applications_by_email'
 GO
-CREATE PROCEDURE [sp_select_adoption_application_by_email] (
+CREATE PROCEDURE [sp_select_adoption_applications_by_email_and_active] (
 
-	@Email [nvarchar] (250)
+	@Email [nvarchar] (250),
+	@Active [bit]
 )
 AS
 BEGIN
@@ -7665,6 +7647,7 @@ BEGIN
 	FROM [AdoptionApplication]
 	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
 	WHERE [CustomerEmail] = @Email
+	AND [AdoptionApplication].[Active] = @Active
 END
 GO
  
@@ -8552,6 +8535,38 @@ GO
 
 /*
 Created by: Jaeho Kim
+Date: 04/13/2020
+Comment: Selects a list of all transactions with transaction id.
+*/
+print '' print '*** Creating sp_select_transactions_by_transaction_id'
+GO
+CREATE PROCEDURE sp_select_transactions_by_transaction_id
+(
+	@TransactionID	[int]
+)
+AS
+	BEGIN
+		SELECT 	
+		 T.[TransactionID]
+		,T.[TransactionDateTime]
+		,U.[UserID]
+		,U.[FirstName]
+		,U.[LastName]
+		,T.[TransactionTypeID]
+		,T.[TransactionStatusID]
+		,T.[TaxRate]
+		,T.[SubTotalTaxable]
+		,T.[SubTotal]
+		,T.[Total]
+		FROM 	[Transaction] T
+		INNER JOIN [User] U
+			ON T.[EmployeeID] = U.[UserID]
+		WHERE T.[TransactionID] = @TransactionID
+	END
+GO
+
+/*
+Created by: Jaeho Kim
 Date: 03/08/2020
 Comment: Inserts transaction sale product details.
 */
@@ -8609,6 +8624,30 @@ GO
 
 /*
 Created by: Jaeho Kim
+Date: 2020-04-13
+Comment: Stored Procedure for inserting sales tax.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_sales_tax]
+GO
+print '' print '*** Creating sp_insert_sales_tax'
+GO
+CREATE PROCEDURE [sp_insert_sales_tax]
+(
+	@ZipCode			[nvarchar](50),
+	@TaxRate 			[decimal](10,4),
+	@SalesTaxDate		[datetime]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[SalesTaxHistory]
+	([ZipCode], [TaxRate], [SalesTaxDate])
+	VALUES
+	(@ZipCode, @TaxRate, @SalesTaxDate)
+END
+GO 
+
+/*
+Created by: Jaeho Kim
 Date: 03/08/2020
 Comment: retrieves the latest sales tax date associated with the zip code.
 */
@@ -8643,6 +8682,64 @@ BEGIN
 	WHERE SalesTaxDate = @SalesTaxDate
 	AND ZipCode = @ZipCode
 
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-14
+Comment: Stored Procedure for inserting transaction type.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_transaction_type]
+GO
+print '' print '*** Creating sp_insert_transaction_type'
+GO
+CREATE PROCEDURE [sp_insert_transaction_type]
+(
+	@TransactionTypeID	[nvarchar](20),
+	@Description 		[nvarchar](500),
+	@DefaultInStore		[bit]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[TransactionType]
+	([TransactionTypeID], [Description], [DefaultInStore])
+	VALUES
+	(@TransactionTypeID, @Description, @DefaultInStore)
+	
+	IF @DefaultInStore >= 0
+		UPDATE [dbo].[TransactionType]
+		SET [DefaultInStore] = 0
+		WHERE [TransactionTypeID] != @TransactionTypeID
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-14
+Comment: Stored Procedure for inserting transaction status.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_transaction_status]
+GO
+print '' print '*** Creating sp_insert_transaction_status'
+GO
+CREATE PROCEDURE [sp_insert_transaction_status]
+(
+	@TransactionStatusID	[nvarchar](20),
+	@Description 			[nvarchar](500),
+	@DefaultInStore			[bit]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[TransactionStatus]
+	([TransactionStatusID], [Description], [DefaultInStore])
+	VALUES
+	(@TransactionStatusID, @Description, @DefaultInStore)
+	
+	IF @DefaultInStore >= 0
+		UPDATE [dbo].[TransactionStatus]
+		SET [DefaultInStore] = 0
+		WHERE [TransactionStatusID] != @TransactionStatusID
 END
 GO
 
@@ -8888,7 +8985,85 @@ AS
         AND     [Date]                         = @Date
         AND     [Notes]                        = @Notes 
 	END
-GO                
+GO     
+
+/*
+Created by: Robert Holmes
+Date: 2020/04/07
+Comment: Stored procedure to deactivate an active promotion.
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_promotion]
+GO
+print '' print '*** Creating sp_deactivate_promotion'
+GO
+CREATE PROCEDURE [sp_deactivate_promotion]
+(
+	@PromotionID	[nvarchar](20)
+)
+AS
+BEGIN
+	UPDATE 	[dbo].[Promotion]
+	SET		[Active] = 0
+	WHERE	[PromotionID] = @PromotionID
+	AND		[Active] = 1
+	RETURN 	@@ROWCOUNT
+END
+GO
+
+/*
+Created by: Robert Holmes
+Date: 2020/04/07
+Comment: Stored procedure to reactivate an inactive promotion.
+*/
+DROP PROCEDURE IF EXISTS [sp_reactivate_promotion]
+GO
+print '' print '*** Creating sp_reactivate_promotion'
+GO
+CREATE PROCEDURE [sp_reactivate_promotion]
+(
+	@PromotionID	[nvarchar](20)
+)
+AS
+BEGIN
+	UPDATE	[dbo].[Promotion]
+	SET		[Active] = 1
+	WHERE	[PromotionID] = @PromotionID
+	AND		[Active] = 0
+	RETURN 	@@ROWCOUNT
+END
+GO           
+
+/*
+Author: Austin Gee
+Date: 4/11/2020
+Comment: Creating procedure for selecting an adoption application by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_application_by_id]
+GO
+print '' print '*** Creating sp_select_adoption_application_by_id'
+GO
+CREATE PROCEDURE [sp_select_adoption_application_by_id] 
+(
+	@AdoptionApplicationID [int]
+)
+AS
+BEGIN
+	SELECT
+	[AdoptionApplicationID]
+	,[CustomerEmail]
+	,[AdoptionApplication].[AnimalID]
+	,[Status]
+	,[RecievedDate]
+	,[AnimalName]
+	,[AnimalSpeciesID]
+	,[AnimalBreed]
+	,[Animal].[Active]
+	,[AdoptionApplication].[Active]
+	FROM [AdoptionApplication]
+	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
+	WHERE [AdoptionApplicationID] = @AdoptionApplicationID
+END
+GO
 
 /*
 Created by: Ryan Morganti
@@ -9387,23 +9562,22 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Insert Sample Data into Product Table
+Comment: Insert Sample Data into Product Table, Updated 2020/03/17 to be compatible with new Product table structure by Robert Holmes.
 */
-print '' print '*** Insert Into Product Table ***'
+print '' print '*** Insert into Product table'
 GO
 INSERT INTO [dbo].[Product](
 	[ProductID],
 	[ItemID],
-	[ProductName],
-	[ProductCategoryID],
 	[ProductTypeID],
-	[Description],
+	[Taxable],
 	[Price],
+	[Description],
 	[Brand]
 )
 VALUES
-    ('7084781116',100000,'LoCatMein', 'Food', 'Cat', 'Name brand Cat Food', 50.00, 'OnlyForCats'),
-    ('2500006153',100001,'Scratch Be Gone','Medical', 'General', 'Medical Supplies to Heal Scratch Wounds', 100.00, 'AlsoForHumans')
+	('7084781116',100000,'Cat',1,50.0,'Name brand cat food','OnlyForCats'),
+	('2500006153',100001,'General',1,100.0,'Medical Supplies to Heal Scratch Wounds','AlsoForHumans')
 GO
 
 /*
@@ -9585,40 +9759,6 @@ Insert INTO [dbo].[TransactionType]
 	('tranTYPE500', 'TYPEdescription 500'),
 	('tranTYPE800', 'TYPEdescription 800')
 GO
-
-/*
-Created by: Jaeho Kim
-Date: 02/27/2020
-Comment: Inserts test data for the Transaction Table
-*/
-print ''  print '*** Inserting sample data into Transaction Table'
-GO
-Insert INTO [dbo].[Transaction]
-	([TransactionDateTime],[TaxRate],[SubTotalTaxable],[SubTotal],[Total]
-	,[TransactionTypeID],[EmployeeID],[TransactionStatusID],[CustomerEmail])
-	Values
-	('2019-10-10 10:10',0.0225,10.39,21.23,21.46,'tranTYPE100'
-	, 100000, 'tranStatus100','zbehrens@PetUniverse.com'),
-	('2020-02-11 9:43',0.0225,41.39,41.39,43.22,'tranTYPE100'
-	, 100000, 'tranStatus100',null),
-	('2018-04-13 10:13',0.014,52.39,51.39,53.22,'tranTYPE100'
-	, 100001, 'tranStatus100',null)
-Go
-
-/*
-Created by: Jaeho Kim
-Date: 02/27/2020
-Comment: Inserts test data for the TransactionLineProducts Table
-*/
-print ''  print '*** Inserting sample data into TransactionLineProducts Table'
-GO
-Insert INTO [dbo].[TransactionLineProducts]
-	([TransactionID], [ProductID], [Quantity],[PriceSold])
-	Values
-	(1000, '7084781116', 1, 37.22),
-	(1000, '2500006153', 1, 11.11),
-	(1001, '7084781116', 2, 74.44)
-Go
 
 /*
 Created by: Alex Diers
@@ -10591,6 +10731,34 @@ BEGIN
 		
 END
 GO	
+
+/*
+Created by: Robert Holmes
+Date: 4/13/2020
+Comment: Insert sample data into Promotion table.
+*/
+
+print '' print '*** Inserting sample data to Promotion table.'
+GO
+INSERT INTO [dbo].[Promotion]
+	([PromotionID], [PromotionTypeID], [StartDate], [EndDate], [Discount], [Description])
+	VALUES
+	('PROMO1', 'Flat Amount', '20200401 12:00:00 AM', '20200402 12:00:00 AM', 10.00, 'Description')
+GO
+
+/*
+Created by: Robert Holmes
+Date: 4/13/2020
+Comment: Insert sample data into PromoProductLine table.
+*/
+
+print '' print '*** Inserting sample data to PromoProductLine table.'
+GO
+INSERT INTO [dbo].[PromoProductLine]
+    ([PromotionID], [ProductID])
+    VALUES
+    ('PROMO1', '7084781116')
+GO
 
 /*
 Created by: Ryan Morganti

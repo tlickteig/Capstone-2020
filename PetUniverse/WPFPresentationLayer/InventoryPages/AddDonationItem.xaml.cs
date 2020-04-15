@@ -16,7 +16,6 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
-using WPFPresentationLayer.InventoryPages.Items;
 
 namespace WPFPresentationLayer.InventoryPages
 {

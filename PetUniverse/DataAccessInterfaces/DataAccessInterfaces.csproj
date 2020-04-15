@@ -97,11 +97,13 @@
     <Compile Include="IPromotionAccessor.cs" />
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="ISalesDataAccessor.cs" />
+    <Compile Include="ISalesTaxAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="ISpecialOrderAccessor.cs" />
     <Compile Include="IStatusAccessor.cs" />
     <Compile Include="ITrainingVideoAccessor.cs" />
     <Compile Include="ITransactionAccessor.cs" />
+    <Compile Include="ITransactionAdminAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
     <Compile Include="IVetAppointmentAccessor.cs" />
     <Compile Include="IVolunteerAccessor.cs" />

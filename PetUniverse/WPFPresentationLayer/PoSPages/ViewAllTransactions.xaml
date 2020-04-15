@@ -72,6 +72,7 @@ UI for Open Transaction.
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
                                 <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
                             </Grid.RowDefinitions>
 
                             <Label Grid.Row="0" Grid.Column="1" FontSize="15" FontWeight="Bold"
@@ -81,12 +82,19 @@ UI for Open Transaction.
 
                             <Label Grid.Row="1" Grid.Column="0"
                              VerticalAlignment="Center" FontWeight="Bold"
-                             HorizontalAlignment="Right" FontSize="15">Transaction Date Time:</Label>
+                             HorizontalAlignment="Right" FontSize="15">Initial Transaction Date Time:</Label>
 
-                            <xctk:DateTimePicker x:Name="dtpTransaction" Grid.Row="1" Grid.Column="1">
+                            <Label Grid.Row="2" Grid.Column="0"
+                             VerticalAlignment="Center" FontWeight="Bold"
+                             HorizontalAlignment="Right" FontSize="15">Final Transaction Date Time:</Label>
+
+                            <xctk:DateTimePicker x:Name="dtpTransaction" Grid.Row="1" Grid.Column="1" Margin="5 5 5 5">
                             </xctk:DateTimePicker>
 
-                            <Button x:Name="btnTransactionSearchByDate" Grid.Row="2" Grid.Column="1" Margin="5 5 5 5" Click="btnTransactionSearchByDate_Click">
+                            <xctk:DateTimePicker x:Name="dtpTransaction2" Grid.Row="2" Grid.Column="1" Margin="5 5 5 5">
+                            </xctk:DateTimePicker>
+
+                            <Button x:Name="btnTransactionSearchByDate" Grid.Row="3" Grid.Column="1" Margin="5 5 5 5" Click="btnTransactionSearchByDate_Click">
                                 Search Transaction
                             </Button>
                         </Grid>
@@ -122,6 +130,33 @@ UI for Open Transaction.
                             <Button x:Name="btnTransactionSearchByEmployeeName" Grid.Column="1" Grid.Row="3" Margin="5 5 5 5" Click="btnTransactionSearchByEmployeeName_Click">
                                 Search Transaction
                             </Button>
+                        </Grid>
+
+                        <!--Search transactions by transaction id-->
+                        <Grid Grid.Column="3">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" FontWeight="Bold"
+                                HorizontalAlignment="Center" FontSize="15">Search Transaction By Receipt Number:</Label>
+
+                            <Label Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontWeight="Bold"
+                                HorizontalAlignment="Center" FontSize="15">Receipt Number:</Label>
+
+                            <TextBox x:Name="txtTransactionIDSearch" Grid.Row="1" Grid.Column="1" Margin="5 5 5 5"
+                                     VerticalContentAlignment="Center"
+                                     HorizontalContentAlignment="Center"></TextBox>
+
+                            <Button x:Name="btnTransactionSearchByTransactionID" 
+                                    Grid.Row="2" Grid.Column="1" Margin="5 5 5 5" Click="btnTransactionSearchByTransactionID_Click">Search Transaction</Button>
                         </Grid>
 
                     </Grid>

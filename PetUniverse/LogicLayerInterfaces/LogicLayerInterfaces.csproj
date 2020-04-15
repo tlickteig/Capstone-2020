@@ -96,10 +96,12 @@
     <Compile Include="IPUEventManager.cs" />
     <Compile Include="IRequestManager.cs" />
     <Compile Include="ISalesDataManager.cs" />
+    <Compile Include="ISalesTaxManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
     <Compile Include="ISpecialOrderManager.cs" />
     <Compile Include="IStatusManager.cs" />
     <Compile Include="ITrainingVideoManager.cs" />
+    <Compile Include="ITransactionAdminManager.cs" />
     <Compile Include="ITransactionManager.cs" />
     <Compile Include="IUserManager.cs" />
     <Compile Include="IVetAppointmentManager.cs" />

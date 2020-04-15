@@ -98,10 +98,12 @@
     <Compile Include="RequestManager.cs" />
     <Compile Include="ReviewerManager.cs" />
     <Compile Include="SalesDataManager.cs" />
+    <Compile Include="SalesTaxManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
     <Compile Include="SpecialOrderManager.cs" />
     <Compile Include="StatusManager.cs" />
     <Compile Include="TrainingVideoManager.cs" />
+    <Compile Include="TransactionAdminManager.cs" />
     <Compile Include="TransactionManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="VetAppointmentManager.cs" />

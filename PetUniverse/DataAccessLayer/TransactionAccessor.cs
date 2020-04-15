@@ -398,7 +398,7 @@ namespace DataAccessLayer
         /// </remarks>
         /// <param name="transactionDate">the date of the transaction</param>
         /// <returns>returns a list of transactions</returns>
-        public List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate)
+        public List<TransactionVM> SelectTransactionsByTransactionDate(DateTime transactionDate, DateTime secondTransactionDate)
         {
             List<TransactionVM> transactions = new List<TransactionVM>();
 
@@ -407,6 +407,7 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@TransactionDateTime", transactionDate);
+            cmd.Parameters.AddWithValue("@SecondTransactionDateTime", secondTransactionDate);
 
             try
             {
@@ -507,6 +508,116 @@ namespace DataAccessLayer
             }
 
             return transactions;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/13
+        /// Approver: Rob Holmes
+        /// 
+        /// Implementation for Selecting all transactions using a transaction id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// </remarks>
+        /// <param name="transactionID"></param>
+        /// <returns>returns a list of transactions</returns>
+        public List<TransactionVM> SelectTransactionsByTransactionID(int transactionID)
+        {
+            List<TransactionVM> transactions = new List<TransactionVM>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_transactions_by_transaction_id", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("TransactionID", transactionID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    TransactionVM transactionVM = new TransactionVM();
+
+                    transactionVM.TransactionID = reader.GetInt32(0);
+                    transactionVM.TransactionDateTime = reader.GetDateTime(1);
+                    transactionVM.EmployeeID = reader.GetInt32(2);
+                    transactionVM.FirstName = reader.GetString(3);
+                    transactionVM.LastName = reader.GetString(4);
+                    transactionVM.TransactionTypeID = reader.GetString(5);
+                    transactionVM.TransactionStatusID = reader.GetString(6);
+                    transactionVM.TaxRate = reader.GetDecimal(7);
+                    transactionVM.SubTotalTaxable = reader.GetDecimal(8);
+                    transactionVM.SubTotal = reader.GetDecimal(9);
+                    transactionVM.Total = reader.GetDecimal(10);
+
+                    transactions.Add(transactionVM);
+                }
+                reader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return transactions;
+        }
+
+        /// <summary>
+        /// Creator: Rasha Mohammed
+        /// Created: 4/11/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Implementation for selecting a product by the product upc (productID) to change its price.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>ProductVM</returns>
+        public int UpdateProduct(ProductVM oldProduct, ProductVM newProduct)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_update_product_price", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ProductID", oldProduct.ProductID);
+
+
+            cmd.Parameters.AddWithValue("@NewPrice", newProduct.Price);
+
+            cmd.Parameters.AddWithValue("@OldPrice", oldProduct.Price);
+
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+
         }
     }
 }

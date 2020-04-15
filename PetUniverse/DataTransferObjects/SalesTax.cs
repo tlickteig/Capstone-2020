@@ -9,7 +9,7 @@ namespace DataTransferObjects
     /// <summary>
     /// Creator: Jaeho Kim
     /// Created: 3/19/2020
-    /// Approver: NA
+    /// Approver: Rob Holmes
     /// 
     /// Holds data relevant to a SalesTax.
     /// </summary>
