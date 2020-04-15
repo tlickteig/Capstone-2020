@@ -319,11 +319,17 @@
     <Compile Include="VolunteerPages\frmCreateEditVolunteerEvent.xaml.cs">
       <DependentUpon>frmCreateEditVolunteerEvent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VolunteerPages\frmSignUpForShift.xaml.cs">
+      <DependentUpon>frmSignUpForShift.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\PrintVolunteerShifts.xaml.cs">
       <DependentUpon>PrintVolunteerShifts.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\TaskControls.xaml.cs">
       <DependentUpon>TaskControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\ViewAllVolunteerSchedules.xaml.cs">
+      <DependentUpon>ViewAllVolunteerSchedules.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\ViewDeleteCreateMedicine.xaml.cs">
       <DependentUpon>ViewDeleteCreateMedicine.xaml</DependentUpon>
@@ -650,6 +656,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VolunteerPages\frmSignUpForShift.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="VolunteerPages\PrintVolunteerShifts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -657,6 +667,10 @@
     <Page Include="VolunteerPages\TaskControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\ViewAllVolunteerSchedules.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="VolunteerPages\ViewDeleteCreateMedicine.xaml">
       <Generator>MSBuild:Compile</Generator>

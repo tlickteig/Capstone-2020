@@ -102,7 +102,7 @@ namespace WPFPresentationLayer.PoSPages
         public void RefreshData()
 		{
 			dgInventoryItems.ItemsSource = _inventoryItemsManager.RetrieveInventoryItems();
-			dgInventoryItems.Columns.Remove(dgInventoryItems.Columns[0]);
+            dgInventoryItems.Columns[0].Header = "UPC";
 		}
 
         /// <summary>

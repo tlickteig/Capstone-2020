@@ -67,9 +67,9 @@ namespace LogicLayerInterfaces
         List<string> GetAllPromotionTypes();
 
         /// <summary>
-        /// Creator: Robert
+        /// Creator: Robert Holmes
         /// Created: 2020/03/19
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Interface for a method to edit a promotion.
         /// </summary>
@@ -77,5 +77,16 @@ namespace LogicLayerInterfaces
         /// <param name="newPromotion"></param>
         /// <returns></returns>
         bool EditPromotion(Promotion oldPromotion, Promotion newPromotion);
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 2020/04/07
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Interface for a method to switch a promotion between active and inactive.
+        /// </summary>
+        /// <param name="promotion"></param>
+        /// <returns></returns>
+        bool TogglePromotionActive(Promotion promotion);
     }
 }
