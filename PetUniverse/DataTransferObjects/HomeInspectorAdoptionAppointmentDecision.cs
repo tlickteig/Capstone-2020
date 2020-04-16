@@ -15,7 +15,6 @@ namespace DataTransferObjects
     /// </summary>
     public class HomeInspectorAdoptionAppointmentDecision 
     {
- 
         public int AppointmentID { get; set; }
         public int AdoptionApplicationID { get; set; }
         public string LocationName { get; set; }

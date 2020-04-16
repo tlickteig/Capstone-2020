@@ -75,6 +75,7 @@
     <Compile Include="Application.cs" />
     <Compile Include="ApplicationVM.cs" />
     <Compile Include="Appointment.cs" />
+    <Compile Include="AppointmentLocationVM.cs" />
     <Compile Include="AvailabilityRequest.cs" />
     <Compile Include="AvailabilityRequestVM.cs" />
     <Compile Include="BaseSchedule.cs" />

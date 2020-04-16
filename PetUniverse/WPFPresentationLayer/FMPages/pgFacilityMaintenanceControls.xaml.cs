@@ -165,7 +165,7 @@ namespace WPFPresentationLayer.FMPages
         private void BtnAddFacilityMaintenance_Click(object sender, RoutedEventArgs e)
         {
             txtUserID.Text = _user.PUUserID.ToString();
-            //canViewFacilityMaintenance.Visibility = Visibility.Collapsed;
+            canView.Visibility = Visibility.Hidden;
             canAddFacilityMaintenance.Visibility = Visibility.Visible;
         }
 
@@ -265,6 +265,7 @@ namespace WPFPresentationLayer.FMPages
                 BtnSubmitMaintenanceRecord.Visibility = Visibility.Visible;
             }
             canAddFacilityMaintenance.Visibility = Visibility.Hidden;
+            canView.Visibility = Visibility.Visible;
         }
 
         /// <summary>

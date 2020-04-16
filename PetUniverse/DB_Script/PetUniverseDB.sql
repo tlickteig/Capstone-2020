@@ -10813,7 +10813,6 @@ INSERT INTO [dbo].[RequestResponse]
 	(1000003, 100004, 'Never!', '03/12/20 10:15:00')
 GO
 
-
 /*
 Created by: Ryan Morganti
 Date: 2020/03/19
@@ -10832,3 +10831,136 @@ INSERT INTO [dbo].[JobListing]
 	 0000.01, 'Give us money in exchange for merchandise')
 GO
 
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to select all active appointments.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_appointments_by_active]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_appointments_by_active'
+GO
+CREATE PROCEDURE [sp_select_all_appointments_by_active]
+AS
+BEGIN
+	SELECT
+	[Appointment].[AppointmentID],
+	[Appointment].[AdoptionApplicationID],
+	[Appointment].[AppointmentTypeID],
+	[Appointment].[DateTime],
+	[Appointment].[Notes],
+	[Appointment].[Decision],
+	[Appointment].[LocationID],
+	[Appointment].[Active],
+	[Location].[Name],
+	[Location].[Address1],
+	[Location].[Address2],
+	[Location].[City],
+	[Location].[State],
+	[Location].[Zip]
+	FROM [Appointment]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to select an appointment by its appointment id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_appointment_by_appointment_id]
+GO
+PRINT '' PRINT '*** creating sp_select_appointment_by_appointment_id'
+GO
+CREATE PROCEDURE [sp_select_appointment_by_appointment_id]
+(
+	@AppointmentID [int]
+)
+AS
+BEGIN
+	SELECT
+		[AdoptionApplicationID]
+		,[AppointmentTypeID]
+		,[DateTime]
+		,[Notes]
+		,[Decision]
+		,[LocationID]
+		,[Active]
+	FROM [dbo].[Appointment]
+	WHERE [AppointmentID] = @AppointmentID
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to deactivate an appointment by its id
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_appointment]
+GO
+PRINT '' PRINT '*** creating sp_deactivate_appointment'
+GO
+CREATE PROCEDURE [sp_deactivate_appointment]
+(
+	@AppointmentID			[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET 	[Active] = 0
+			
+	WHERE	[AppointmentID]	= @AppointmentID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/15/2020
+Comment: Stored procedure to update an appointment by its id
+*/
+DROP PROCEDURE IF EXISTS [sp_update_appointment]
+GO
+PRINT '' PRINT '*** creating sp_update_appointment'
+GO
+CREATE PROCEDURE [sp_update_appointment]
+(
+	@AppointmentID			[int],
+	
+	@OldAdoptionApplicationID	[int],
+	@OldAppointmentTypeID		[nvarchar](100),
+	@OldDateTime				[datetime],
+	@OldNotes					[nvarchar](1000),
+	@OldDecision				[nvarchar](50),
+	@OldLocationID				[int],
+	@OldActive					[bit],
+	
+	@NewAdoptionApplicationID	[int],
+	@NewAppointmentTypeID		[nvarchar](100),
+	@NewDateTime				[datetime],
+	@NewNotes					[nvarchar](1000),
+	@NewDecision				[nvarchar](50),
+	@NewLocationID				[int],
+	@NewActive					[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET		[AdoptionApplicationID] = @NewAdoptionApplicationID,
+			[AppointmentTypeID] = @NewAppointmentTypeID,
+			[DateTime] = @NewDateTime,
+			[Notes] = @NewNotes,
+			[LocationID] = @NewLocationID,
+			[Active] = @NewActive
+			
+	WHERE	[AppointmentID]	= @AppointmentID
+	AND		[AdoptionApplicationID] = @OldAdoptionApplicationID
+	AND		[AppointmentTypeID] = @OldAppointmentTypeID
+	AND		[DateTime] = @OldDateTime
+	AND		[Notes] = @OldNotes
+	AND		[LocationID] = @OldLocationID
+	AND		[Active] = @OldActive
+	RETURN @@ROWCOUNT
+END
+GO

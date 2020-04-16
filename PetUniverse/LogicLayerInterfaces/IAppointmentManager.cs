@@ -21,7 +21,7 @@ namespace LogicLayerInterfaces
         /// Created: 2020/02/06
         /// Approver: Awaab Elamin
         /// 
-        /// This method retrieve all appointments
+        /// This method retrieves all appointments
         /// </summary>
         ///
         /// <remarks>
@@ -29,6 +29,62 @@ namespace LogicLayerInterfaces
         /// Updated:  
         /// Update: 
         /// </remarks>
-        List<Appointment> RetrieveAllAppointments();
+        List<AppointmentLocationVM> RetrieveAllActiveAppointments();
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/12/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method retrieves an appointment by its id
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        AppointmentLocationVM RetrieveAppointmentByID(int id);
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/12/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method removes an appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        int RemoveAppointment(Appointment appointment);
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/12/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method adds an appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        int AddAppointment(Appointment appointment);
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/15/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method updates an appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        int EditAppointment(Appointment oldAppointment, Appointment newAppointment);
     }
 }
