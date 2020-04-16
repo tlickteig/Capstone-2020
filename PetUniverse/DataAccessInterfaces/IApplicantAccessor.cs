@@ -32,5 +32,20 @@ namespace DataAccessInterfaces
         /// Update: NA
         /// </remarks>
         List<Applicant> SelectAllApplicants();
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/19
+        /// Approver: Derek Taylor
+        /// 
+        /// 
+        /// Method is used to retrieve all Positions at PetUniverse
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        List<JobListing> SelectAllJobPositions();
     }
 }

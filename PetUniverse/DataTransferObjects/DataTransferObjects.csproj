@@ -102,6 +102,7 @@
     <Compile Include="ItemCategory.cs" />
     <Compile Include="ItemLocation.cs" />
     <Compile Include="ItemReport.cs" />
+    <Compile Include="JobListing.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="MedicalHistory.cs" />

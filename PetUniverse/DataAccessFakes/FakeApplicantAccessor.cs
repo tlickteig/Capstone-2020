@@ -85,6 +85,14 @@ namespace DataAccessFakes
             };
         }
 
+        List<JobListing> positions = new List<JobListing>
+        {
+            new JobListing{ JobListingID = 1},
+            new JobListing{ JobListingID = 2},
+            new JobListing{ JobListingID = 3}
+        };
+
+
         /// <summary>
         /// Creator: Derek Taylor
         /// Created: 2/14/2020
@@ -104,6 +112,24 @@ namespace DataAccessFakes
             var selectedApplicants = (from a in applicants
                                       select a).ToList();
             return selectedApplicants;
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/19
+        /// Approver:  Derek Taylor
+        /// 
+        /// Fake Accessor Method for returning a list of positions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        public List<JobListing> SelectAllJobPositions()
+        {
+            return positions;
         }
     }
 }

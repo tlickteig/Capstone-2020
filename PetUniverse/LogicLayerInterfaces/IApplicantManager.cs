@@ -32,5 +32,21 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <returns>List of Logs</returns>
         List<Applicant> RetrieveApplicants();
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/19
+        /// Approver: Derek Taylor
+        /// 
+        /// Used to make a call for a list of positions at Pet Universe
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <returns>List of JobListing</returns>
+        List<JobListing> RetrieveAllPositions();
     }
 }

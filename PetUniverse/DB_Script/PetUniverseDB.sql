@@ -1757,6 +1757,27 @@ CREATE TABLE [dbo].[ItemReport](
 )
 GO
 
+/*
+Created by: Ryan Morganti
+Date: 2020/03/19
+Comment: JobListing Table to store open positions at Pet Universe
+*/
+DROP TABLE IF EXISTS [dbo].[JobListing]
+GO
+print '' print '*** creating JobListing table'
+GO
+CREATE TABLE [dbo].[JobListing] (
+	[JobListingID]			[int] IDENTITY(100000, 1)	NOT NULL,
+	[Position]				[nvarchar](50)				NOT NULL,
+	[Benefits]				[nvarchar](250)				NOT NULL,
+	[Requirements]			[nvarchar](250)				NOT NULL,
+	[StartingWage]			[decimal](10,2)						NOT NULL,
+	[Responsibilities]		[nvarchar](750)				NOT NULL,
+	[Active]				[bit]						NOT NULL DEFAULT 1,
+	CONSTRAINT [pk_JobListing_JobListingID] PRIMARY KEY([JobListingID] ASC)
+)
+GO
+
 
 /*
  ******************************* Create Procedures *****************************
@@ -9160,6 +9181,23 @@ BEGIN
 	SELECT @@ROWCOUNT
 END
 GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/03/19
+Comment: Stored Procedure used to select all active JobListings
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_job_listings]
+GO
+print '' print '*** Creating sp_select_all_active_job_listings'
+GO
+CREATE PROCEDURE [sp_select_all_job_listings]
+AS
+BEGIN
+	SELECT [JobListingID], [Position], [Benefits], [Requirements], [StartingWage], [Responsibilities], [Active]
+	FROM [JobListing]
+END
+GO
                 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -10774,3 +10812,23 @@ INSERT INTO [dbo].[RequestResponse]
 	(1000003, 100005, 'Hola response for my homeboys', '03/11/20 14:33:00'),
 	(1000003, 100004, 'Never!', '03/12/20 10:15:00')
 GO
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/03/19
+Comment: Sample JobListing Records
+*/
+print '' print '*** Inserting Sample JobListing record '
+GO
+INSERT INTO [dbo].[JobListing]
+	([Position], [Benefits], [Requirements], [StartingWage], [Responsibilities])
+	VALUES
+	('Volunteer', 'Free Healthcare, Horse-Dental, Jungle Gym Membership',
+	 'Good Enough Degree', 0000.01, 'Do things without expectation of pay'),
+	('Admin', 'Free Healthcare, Horse-Dental, Jungle Gym Membership',
+	 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
+	('Customer', 'No Benefits', 'No Requirements',
+	 0000.01, 'Give us money in exchange for merchandise')
+GO
+
