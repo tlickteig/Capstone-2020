@@ -100,6 +100,7 @@ namespace WPFPresentationLayer.FMPages
         {
             canAddFacilityInspection.Visibility = Visibility.Visible;
             txtUserID.Text = _user.PUUserID.ToString();
+            canView.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -118,7 +119,6 @@ namespace WPFPresentationLayer.FMPages
         /// <param name="e"></param>
         private void BtnSubmitInspectionRecord_Click(object sender, RoutedEventArgs e)
         {
-
 
             if (string.IsNullOrEmpty(txtUserID.Text) || !long.TryParse(txtUserID.Text, out long num))
             {
@@ -199,6 +199,7 @@ namespace WPFPresentationLayer.FMPages
                 chkInspectionCompleted.Visibility = Visibility.Hidden;
             }
             canAddFacilityInspection.Visibility = Visibility.Hidden;
+            canView.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -231,7 +232,6 @@ namespace WPFPresentationLayer.FMPages
             }
             catch (Exception ex)
             {
-
                 WPFErrorHandler.ErrorMessage(ex.Message, "Retrieve");
             }
         }
@@ -460,7 +460,7 @@ namespace WPFPresentationLayer.FMPages
                     InspectionDescription = txtInspectionDescription.Text,
                     InspectionCompleted = (bool)chkInspectionCompleted.IsChecked
                 };
-                if (_facilityInspectionManager.EditFacilityInspection(selectedFacilityInspection ,facilityInspection))
+                if (_facilityInspectionManager.EditFacilityInspection(selectedFacilityInspection, facilityInspection))
                 {
                     MessageBox.Show("Inspection record successfully updated.");
                     canAddFacilityInspection.Visibility = Visibility.Hidden;

@@ -17,54 +17,56 @@
              UPDATED NA
              CHANGE: NA -->
     <Canvas x:Name="canViewFacilityInspection" Height="845" Width="1280">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition Height="675"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="btnRefresh" Grid.Row="0" Grid.Column="2" Width="100" Margin="5" HorizontalAlignment="Center" Click="btnRefresh_Click">Refresh</Button>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="170"></ColumnDefinition>
-                    <ColumnDefinition Width="120"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <ComboBox x:Name="cmbFacilityInspectionFields" Grid.Row="0" Grid.Column="0" Height="30" Width="200"
-                      Margin="5" VerticalContentAlignment="Center" FontSize="16" HorizontalAlignment="Right"  />
-                <TextBox x:Name="txtSearchItem" Grid.Row="0" Grid.Column="1" Width="150" Background="LightGray" Height="30" 
-                     Margin="5" VerticalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16" ></TextBox>
-                <Button x:Name="btnSearch" Grid.Row="0" Grid.Column="2" Width="100" Margin="5" HorizontalAlignment="Left" Click="btnSearch_Click">Search</Button>
-
-            </Grid>
-            <DataGrid x:Name="dgFacilityInspection" Grid.Row="1" Width="1280" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True" Loaded="dgFacilityInspection_Loaded" MouseDoubleClick="dgFacilityInspection_MouseDoubleClick"></DataGrid>
-
-            <Grid Grid.Row="2" Grid.Column="1">
+        <Canvas x:Name="canView">
+            <Grid Width="1000" Canvas.Left="80">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="675"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
+                <Button x:Name="btnRefresh" Grid.Column="1" Width="100" Margin="562,8,-162,637" HorizontalAlignment="Center" Click="btnRefresh_Click" Grid.Row="1">Refresh</Button>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="170"></ColumnDefinition>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox x:Name="cmbFacilityInspectionFields" Grid.Row="0" Grid.Column="0" Height="30" Width="200"
+                      Margin="-42,48,52,-38" VerticalContentAlignment="Center" FontSize="16" HorizontalAlignment="Right"  />
+                    <TextBox x:Name="txtSearchItem" Grid.Row="0" Width="150" Background="LightGray" Height="30" 
+                     Margin="163,48,67,-38" VerticalContentAlignment="Center" HorizontalAlignment="Center" FontSize="16" Grid.ColumnSpan="2" />
+                    <Button x:Name="btnSearch" Grid.Row="0" Grid.Column="1" Width="100" Margin="108,48,0,-38" HorizontalAlignment="Left" Click="btnSearch_Click" Grid.ColumnSpan="2">Search</Button>
 
-
-
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Label x:Name="lblActive" Grid.Row="0" HorizontalAlignment="Center">Uncompleted Inspection Records</Label>
-                    <CheckBox x:Name="chkInspected" Grid.Row="1" HorizontalAlignment="Center" IsChecked="False" Click="chkInspected_Click"></CheckBox>
                 </Grid>
+                <DataGrid x:Name="dgFacilityInspection" Grid.Row="1" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True" Loaded="dgFacilityInspection_Loaded" MouseDoubleClick="dgFacilityInspection_MouseDoubleClick" Margin="-42,61,-162,0" Height="620" VerticalAlignment="Top" Grid.RowSpan="2"/>
+
+                <Grid Grid.Row="2" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <Grid Grid.Column="1" Margin="57,23,-57,-23">
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="lblActive" Grid.Row="0" HorizontalAlignment="Center">Uncompleted Inspection Records</Label>
+                        <CheckBox x:Name="chkInspected" Grid.Row="1" HorizontalAlignment="Center" IsChecked="False" Click="chkInspected_Click"></CheckBox>
+                    </Grid>
+                </Grid>
+
+                <Button x:Name="btnAddFacilityInspection" Margin="560,31,-160,-20" Grid.Row="2" Grid.Column="1" Width="100" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Height="30" Click="btnAddFacilityInspection_Click">Add Inspection</Button>
+
             </Grid>
-
-            <Button x:Name="btnAddFacilityInspection" Margin="5" Grid.Row="2" Grid.Column="0" Width="250" HorizontalContentAlignment="Center" HorizontalAlignment="Center" FontSize="20" Height="50" Click="btnAddFacilityInspection_Click">Add Facility Inspection</Button>
-
-        </Grid>
-        <Canvas Height="845" Width="1280" x:Name="canAddFacilityInspection" Background="BlanchedAlmond" Visibility="Hidden">
+        </Canvas>
+        <Canvas Height="845" Width="1280" x:Name="canAddFacilityInspection" Visibility="Hidden">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
@@ -73,8 +75,8 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="lblFacilityInspection" FontSize="36" VerticalAlignment="Center" Grid.Row="0">Enter Facility Inspection Record</Label>
-                <Grid Grid.Row="1">
+                <Label x:Name="lblFacilityInspection" FontSize="36" VerticalAlignment="Center" Grid.Row="0" Margin="329,32,201,10">Enter Facility Inspection Record</Label>
+                <Grid Grid.Row="1" Margin="117,127,-117,-127">
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
@@ -117,9 +119,9 @@
 
 
                     <!--Submit-->
-                    <Button x:Name="BtnSubmitInspectionRecord" Grid.Row="7" Grid.Column="0" 
-                    Width="150" FontSize="36" Padding="10"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitInspectionRecord_Click">Submit</Button>
+                    <Button x:Name="BtnSubmitInspectionRecord" Grid.Row="6" Grid.Column="1" 
+                    Width="100" Height="30"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitInspectionRecord_Click" Margin="523,184,-23,36">Submit</Button>
 
                     <!--Update-->
                     <Button x:Name="btnUpdateBuildingInspectionRecord" Grid.Row="7" Grid.Column="0" 
@@ -127,9 +129,9 @@
                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnUpdateBuildingInspectionRecord_Click">Update</Button>
 
                     <!--Cancel-->
-                    <Button x:Name="btnCancelInspectionRecord" Grid.Row="7" Grid.Column="1" 
-                     Width="150" FontSize="36" Padding="10"
-                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnCancelInspectionRecord_Click">Cancel</Button>
+                    <Button x:Name="btnCancelInspectionRecord" Grid.Row="6" Grid.Column="1" 
+                     Width="100" Height="30" 
+                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnCancelInspectionRecord_Click" Margin="418,184,82,36">Cancel</Button>
 
 
                 </Grid>

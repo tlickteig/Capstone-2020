@@ -115,6 +115,7 @@ namespace WPFPresentationLayer.FMPages
                 }
 
                 cmbFacilityInspectionID.ItemsSource = inspectionIDs;
+                canView.Visibility = Visibility.Hidden;
             }
             catch (Exception ex)
             {
@@ -279,6 +280,7 @@ namespace WPFPresentationLayer.FMPages
                 BtnSubmitInspectionItemRecord.Visibility = Visibility.Visible;
             }
             canAddFacilityInspectionItem.Visibility = Visibility.Hidden;
+            canView.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -446,6 +448,7 @@ namespace WPFPresentationLayer.FMPages
                     txtUserID.Text = "";
                     txtItemName.Text = "";
                     txtItemDescription.Text = "";
+                    canView.Visibility = Visibility.Visible;
                 }
                 else
                 {
