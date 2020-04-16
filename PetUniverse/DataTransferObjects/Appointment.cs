@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,10 +20,15 @@ namespace DataTransferObjects
         public int AppointmentID { get; set; }
         public int AdoptionApplicationID { get; set; }
         public string AppointmentTypeID { get; set; }
+
+        [Required(ErrorMessage = "Please pick a date and time")]
         public DateTime DateTime { get; set; }
+
         public string Notes { get; set; }
         public string Decicion { get; set; }
-        public string Location { get; set; }
         public int LocationID { get; set; }
+
+        [DefaultValue(true)]
+        public bool Active { get; set; }
     }
 }

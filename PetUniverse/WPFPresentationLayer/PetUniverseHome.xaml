@@ -452,7 +452,7 @@
                 <TabItem x:Name="tabviewHomeInspector" Header="Home Inspection" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/frmHomeInspectionForm.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="AppoimentShedule" Header="Appoiment Shedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="AppointmentSchedule" Header="Appointment Schedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AppointmentSchedule.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <TabItem x:Name="InHomeInspector" Header="Inspection Decision" FontSize="18" FontWeight="Bold" Background="#fff8e3">

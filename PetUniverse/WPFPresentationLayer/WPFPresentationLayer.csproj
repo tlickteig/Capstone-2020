@@ -739,9 +739,7 @@
       <Name>PresentationUtilityCode</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="AdoptionsPages\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\Arrow.png" />
     <Resource Include="Resources\ArrowHover.png" />
