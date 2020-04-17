@@ -69,6 +69,7 @@
     <Compile Include="AppointmentTypeManager.cs" />
     <Compile Include="BaseScheduleManager.cs" />
     <Compile Include="CustomerManager.cs" />
+    <Compile Include="CustomerPortalManager.cs" />
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="DonationManager.cs" />
     <Compile Include="ERoleManager.cs" />

@@ -228,6 +228,9 @@
     <Compile Include="PersonnelPages\ViewPersonnelRequests.xaml.cs">
       <DependentUpon>ViewPersonnelRequests.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PoSPages\pgCustomerControls.xaml.cs">
+      <DependentUpon>pgCustomerControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\pgInventoryItems.xaml.cs">
       <DependentUpon>pgInventoryItems.xaml</DependentUpon>
     </Compile>
@@ -527,6 +530,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PersonnelPages\ViewPersonnelRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PoSPages\pgCustomerControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

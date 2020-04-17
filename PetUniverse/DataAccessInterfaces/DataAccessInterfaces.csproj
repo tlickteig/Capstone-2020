@@ -93,6 +93,7 @@
     <Compile Include="IOrderAccessor.cs" />
     <Compile Include="IPetUniverseUserERolesAccessor.cs" />
     <Compile Include="IPictureAccessor.cs" />
+    <Compile Include="IPoSCustomerPortalAccessor.cs" />
     <Compile Include="IProductAccessor.cs" />
     <Compile Include="IPromotionAccessor.cs" />
     <Compile Include="IRequestAccessor.cs" />

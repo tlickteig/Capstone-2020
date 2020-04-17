@@ -82,7 +82,10 @@
     <Compile Include="BaseSchedule.cs" />
     <Compile Include="BaseScheduleLine.cs" />
     <Compile Include="BaseScheduleVM.cs" />
+    <Compile Include="CreditCardVM.cs" />
+    <Compile Include="CreditCardVM2.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="CustomerErrorVM.cs" />
     <Compile Include="CustomerQuestionnar.cs" />
     <Compile Include="CustomerQuestionnarVM.cs" />
     <Compile Include="Department.cs" />
