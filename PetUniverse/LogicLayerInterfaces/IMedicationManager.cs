@@ -51,7 +51,7 @@ namespace LogicLayerInterfaces
         /// Updated:
         /// Update:
         /// </remarks>
-        bool CreateMedicationOrder(int ItemID, string ItemName, int ItemQuantity);
+        bool CreateMedicationOrder(OutgoingOrders order_);
 
         /// <summary>
         /// Creator: Daulton Schilling

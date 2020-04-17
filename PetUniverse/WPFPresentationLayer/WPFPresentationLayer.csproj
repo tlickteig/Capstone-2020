@@ -51,6 +51,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -130,14 +132,11 @@
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AMPages\AnimalFeedingRecords.xaml.cs">
-      <DependentUpon>AnimalFeedingRecords.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AMPages\AnimalManagementInventory.xaml.cs">
       <DependentUpon>AnimalManagementInventory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AMPages\AnimalRecords.xaml.cs">
-      <DependentUpon>AnimalRecords.xaml</DependentUpon>
+    <Compile Include="AMPages\NewAnimals.xaml.cs">
+      <DependentUpon>NewAnimals.xaml</DependentUpon>
     </Compile>
     <Compile Include="FMPages\pgAnimalKennelCleaningControls.xaml.cs">
       <DependentUpon>pgAnimalKennelCleaningControls.xaml</DependentUpon>
@@ -400,10 +399,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AMPages\AnimalControls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AMPages\AnimalFeedingRecords.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -411,7 +406,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AMPages\AnimalRecords.xaml">
+    <Page Include="AMPages\NewAnimals.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -739,10 +734,19 @@
       <Name>PresentationUtilityCode</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Search.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Arrow.png" />
     <Resource Include="Resources\ArrowHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\down.png" />
+    <Resource Include="Resources\PetU.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\X.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

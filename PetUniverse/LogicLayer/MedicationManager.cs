@@ -80,23 +80,25 @@ namespace LogicLayer
         /// Updated:
         /// Update:
         /// </remarks>
-        public bool CreateMedicationOrder(int ItemID, string ItemName, int ItemQuantity)
+        public bool CreateMedicationOrder(OutgoingOrders order_)
         {
-            if (ItemName == null || ItemID < 1 || ItemQuantity < 1)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
             bool result = false;
+            if (order_ == null)
+            {
+                throw new Exception("Record not added.");
+            }
             try
             {
-                result = (1 == _activityAccessor.InsertMedicationOrder(ItemID, ItemName, ItemQuantity));
+                result = _activityAccessor.InsertMedicationOrder(order_) > 0;
             }
-            catch (ArgumentOutOfRangeException ex)
+            catch (Exception ex)
             {
-                throw new ArgumentOutOfRangeException("Meds not ordered", ex);
+                throw new Exception("Record not added.", ex);
             }
+
             return result;
+
+
 
 
         }

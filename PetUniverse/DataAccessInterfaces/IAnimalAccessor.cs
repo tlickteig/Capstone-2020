@@ -7,6 +7,9 @@ using DataTransferObjects;
 
 namespace DataAccessInterfaces
 {
+
+
+
     /// <summary>
     /// Creator: Chuck Baxter
     /// Created: 2/6/2020
@@ -22,6 +25,36 @@ namespace DataAccessInterfaces
     /// </remarks>
     public interface IAnimalAccessor
     {
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
+        /// Approver: 
+        /// Gets an animal by its ID number
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="ID"></param>
+        /// <returns>List of animal attributes</returns>
+        List<Animal> GetAnimalByAnimalID(int ID);
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
+        /// Approver: 
+        /// Gets a list of animal names
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>List of animal names</returns>
+        List<AnimalNames> GetNames();
 
         /// <summary>
         /// Creator: Chuck Baxter
@@ -57,16 +90,16 @@ namespace DataAccessInterfaces
 
         List<Animal> SelectAnimalsByActive(bool active = true);
         /// <summary>
-        /// Creator: Michael Thompson
-        /// Created: 2/20/2020
-        /// Approver: Austin Gee, 2/21/2020
+        /// NAME: Michael Thompson
+        /// DATE: 2/20/2020
+        /// CHECKED BY: Austin Gee, 2/21/2020
         /// 
         /// Updates the animal with their forward facing description and image
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// CHANGE:
         /// </remarks>
         /// <param name="animal">The animal.</param>
         /// <param name="profileDescription">The profile description.</param>
@@ -78,6 +111,7 @@ namespace DataAccessInterfaces
         /// Creator: Michael Thompson
         /// Created: 2/19/2020
         /// Approver: Austin Gee
+        /// Approver: 
         /// 
         /// a data access Interface for retrieving a list of all animal profiles
         /// </summary>
@@ -93,6 +127,7 @@ namespace DataAccessInterfaces
         /// Creator: Chuck Baxter
         /// Created: 2/19/2020
         /// Approver: Zach Behrensmeyer
+        /// Approver: 
         /// 
         /// a data access method for retrieving a list of all animals that are listed as inactive
         /// </summary>
@@ -108,6 +143,7 @@ namespace DataAccessInterfaces
         /// Creator: Chuck Baxter
         /// Created: 2/28/2020
         /// Approver: Jordan Lindo, 2/28/2020
+        /// Approver: 
         /// 
         /// a data access method for retrieving a list of all animals species
         /// </summary>
@@ -122,7 +158,8 @@ namespace DataAccessInterfaces
         /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 3/12/2020
-        /// Approver: Austin Gee, 3/12/2020        
+        /// Approver: Austin Gee, 3/12/2020
+        /// Approver: 
         /// 
         /// a data access method for updating an animal
         /// </summary>
@@ -151,7 +188,6 @@ namespace DataAccessInterfaces
         /// <param name="AnimalID"> The primary key that identifies the animal. </param>
         /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
         int ActivateAnimal(int AnimalID);
-
         /// <summary>
         /// Creator: Ben Hanna
         /// Created: 2/1/2020
@@ -170,6 +206,7 @@ namespace DataAccessInterfaces
         /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
         int DeactivateAnimal(int AnimalID);
 
+
         /// <summary>
         /// Creator: Ben Hanna
         /// Created: 2/1/2020
@@ -187,7 +224,6 @@ namespace DataAccessInterfaces
         /// <param name="AnimalID"> The primary key that identifies the animal. </param>
         /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
         int ActivateAdoptable(int AnimalID);
-
         /// <summary>
         /// Creator: Ben Hanna
         /// Created: 2/1/2020
@@ -242,59 +278,5 @@ namespace DataAccessInterfaces
         /// <param name="AnimalID"> The primary key that identifies the animal. </param>
         /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
         int DeactivateCurrentlyHoused(int AnimalID);
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/13/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver:
-        /// 
-        /// a data access method for creating a new animal species
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="animalSpecies"></param>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        int InsertAnimalSpecies(string animalSpecies, string description);
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver:
-        /// 
-        /// a data access method for deleting an animal species
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="animalSpeciesID"></param>
-        /// <returns></returns>
-        int DeleteAnimalSpecies(string animalSpeciesID);
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020
-        /// Approver:
-        /// 
-        /// a data access method for updating an animal species
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="oldAnimalSpeciesID"></param>
-        /// <param name="newAnimalSpeciesID"></param>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        int UpdateAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description);
     }
 }

@@ -115,21 +115,25 @@ namespace LogicLayerTests
         [TestMethod]
         public void TestCreateMedicationOrder()
         {
-            // arrange
-            bool meds;
-            bool expResult = true;
-            IMedicationManager medManager = new MedicationManager(FakeMedAccessor);
+            // Arrange
+            bool result = false;
 
-            int ItemID = 1;
-            string ItemName = "Med_C";
-            int ItemQuantity = 1;
+            IMedicationManager mm = new MedicationManager(FakeMedAccessor);
 
+            OutgoingOrders MedMan = new OutgoingOrders()
+            {
+                ItemID = 1,
+                UserID = 1,
+                OrderDate = DateTime.Today,
+                ItemQuantity = 2,
+                ItemCategoryID = "Medication"
+            };
 
-            // act
-            meds = medManager.CreateMedicationOrder(ItemID, ItemName, ItemQuantity);
+            // Act
+            result = mm.CreateMedicationOrder(MedMan);
 
-            // assert
-            Assert.AreEqual(expResult, meds);
+            // Assert
+            Assert.IsTrue(result);
 
         }
 
@@ -148,20 +152,18 @@ namespace LogicLayerTests
         /// Update:
         /// </remarks>
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        [ExpectedException(typeof(Exception))]
         public void TestCreateMedicationOrderThrowsCorrectException()
         {
             // arrange
-            IMedicationManager _AnimalChecklistManager = new MedicationManager(FakeMedAccessor);
+            IMedicationManager _AnimalMedManager = new MedicationManager(FakeMedAccessor);
 
-            int ItemID = 0;
 
-            string ItemName = null;
-
-            int ItemQuantity = 0;
+            
+          
 
             // act
-            _AnimalChecklistManager.CreateMedicationOrder(ItemID, ItemName, ItemQuantity);
+            _AnimalMedManager.CreateMedicationOrder(null);
 
         }
 
