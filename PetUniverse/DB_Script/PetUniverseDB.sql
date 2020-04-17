@@ -1273,7 +1273,7 @@ GO
 /*
 Created by: Ryan Morganti
 Date: 2020/02/06
-Comment: General request response table, used to track request comments and respones ************************************************DOUBLE CHECK WITH DEREK
+Comment: General request response table, used to track request comments and respones ********DOUBLE CHECK WITH DEREK
 made by various users
 */
 print '' print '*** creating request response table'
@@ -7561,7 +7561,8 @@ BEGIN
         [addressLineTwo],
         [City],
         [State],
-        [Zipcode]
+        [Zipcode],
+		[Active]
     FROM [dbo].[User]
     Where [Active] = 1
 END
@@ -8146,7 +8147,17 @@ CREATE PROCEDURE [sp_select_user_by_id]
 )
 AS
 BEGIN
-	SELECT 	[FirstName], [LastName], [PhoneNumber], [Email]
+	SELECT 	[UserID],
+			[FirstName],
+			[LastName], 
+			[PhoneNumber],
+			[Email],
+			[addressLineOne],
+			[addressLineTwo],
+			[City],
+			[State],
+			[Zipcode],
+			[Active]
 	FROM 	[dbo].[User]
 	WHERE 	[UserID] = @UserID
 END
@@ -9160,6 +9171,73 @@ BEGIN
 	SELECT @@ROWCOUNT
 END
 GO
+
+/*
+Created by: Steven Cardona
+Date: 4/8/2020
+Commnet: Stored procedure to update user record
+*/
+DROP PROCEDURE IF EXISTS [sp_update_user]
+GO
+PRINT '' PRINT '*** Creating sp_update_user'
+GO
+CREATE PROCEDURE [sp_update_user](
+	@UserID [int],
+	@OldFirstName [nvarchar](50),
+	@OldLastName [nvarchar](50),
+	@OldPhoneNumber [nvarchar](11),
+	@OldEmail [nvarchar](250),
+	@OldActive [bit],
+	@OldaddressLineOne [nvarchar](250),
+	@OldaddressLineTwo [nvarchar](250),
+	@OldCity [nvarchar] (20),
+	@OldState [nvarchar] (2),
+	@OldZipcode [nvarchar] (15),
+	@OldHasViewedPoliciesAndStandards [bit],
+
+	@NewFirstName [nvarchar](50),
+	@NewLastName [nvarchar](50),
+	@NewPhoneNumber [nvarchar](11),
+	@NewEmail [nvarchar](250),
+	@NewActive [bit],
+	@NewaddressLineOne [nvarchar](250),
+	@NewaddressLineTwo [nvarchar](250),
+	@NewCity [nvarchar] (20),
+	@NewState [nvarchar] (2),
+	@NewZipcode [nvarchar] (15),
+	@NewHasViewedPoliciesAndStandards [bit]
+) 
+AS
+BEGIN
+	UPDATE [dbo].[User]
+	SET [FirstName] = @NewFirstName,
+		[LastName] = @NewLastName,
+		[PhoneNumber] = @NewPhoneNumber,
+		[Email] = @NewEmail,
+		[Active] = @NewActive,
+		[addressLineOne] = @NewaddressLineOne,
+		[addressLineTwo] = @NewaddressLineTwo,
+		[City] = @NewCity,
+		[State] = @NewState,
+		[ZipCode] = @NewZipcode,
+		[HasViewedPoliciesAndStandards] = @NewHasViewedPoliciesAndStandards
+	WHERE [UserID] = @UserID
+	AND [FirstName] = @OldFirstName
+	AND [LastName] = @OldLastName
+	AND [PhoneNumber] = @OldPhoneNumber
+	AND [Email] = @OldEmail
+	AND [Active] = @OldActive
+	AND [addressLineOne] = @OldaddressLineOne
+	AND [addressLineTwo] = @OldaddressLineTwo
+	AND [City] = @OldCity
+	AND [State] = @OldState
+	AND [ZipCode] = @OldZipcode
+	AND [HasViewedPoliciesAndStandards] = @OldHasViewedPoliciesAndStandards
+	RETURN @@ROWCOUNT
+End
+GO
+
+
                 
 /*
  ******************************* Inserting Sample Data *****************************

@@ -197,5 +197,23 @@ namespace DataAccessInterfaces
         /// <param name="UserID"></param>
         /// <returns>Returns a user based on ID</returns>
         PetUniverseUser getUserByUserID(int UserID);
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Interface method for update user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="originalUser"></param>
+        /// <param name="updatedUser"></param>
+        /// <returns></returns>
+        bool UpdateUser(PetUniverseUser originalUser, PetUniverseUser updatedUser);
+
     }
 }

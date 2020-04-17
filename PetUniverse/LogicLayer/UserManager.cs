@@ -420,5 +420,35 @@ namespace LogicLayer
             }
             return user;
         }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Logic Layer method for update user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="originalUser"></param>
+        /// <param name="updatedUser"></param>
+        /// <returns></returns>
+        public bool UpdateUser(PetUniverseUser originalUser, PetUniverseUser updatedUser)
+        {
+            bool isUpdated = false;
+            try
+            {
+                isUpdated = _userAccessor.UpdateUser(originalUser, updatedUser);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to update user", ex);
+            }
+
+            return isUpdated;
+        }
     }
 }

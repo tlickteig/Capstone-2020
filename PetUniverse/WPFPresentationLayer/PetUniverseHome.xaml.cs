@@ -728,5 +728,80 @@ namespace WPFPresentationLayer
         {
             frmOpenTransaction.Content = new pgOpenTransaction(_user);
         }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver:
+        /// 
+        /// When mouse up on lblStatusBar will bring up canAdduser to view logged in user Information
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lblStatusBar_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+            canInventory.Visibility = Visibility.Hidden;
+            canAM.Visibility = Visibility.Hidden;
+            canFM.Visibility = Visibility.Hidden;
+            canPoS.Visibility = Visibility.Hidden;
+            canVolHub.Visibility = Visibility.Hidden;
+            canRequests.Visibility = Visibility.Hidden;
+            canSysAd.Visibility = Visibility.Visible;
+            canAdoptions.Visibility = Visibility.Hidden;
+            canDonRec.Visibility = Visibility.Hidden;
+            canPersonnel.Visibility = Visibility.Hidden;
+            txtWelcome.Visibility = Visibility.Hidden;
+            canMessages.Visibility = Visibility.Hidden;
+            tabViewUsers.Focus();
+            UserControls userControls = new UserControls(_user);
+            userControls.canViewUserERoles.Visibility = Visibility.Hidden;
+            userControls.canUserView.Visibility = Visibility.Hidden;
+            userControls.canAddUser.Visibility = Visibility.Visible;
+            frmUserControls.Content = userControls;
+        }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver:
+        /// 
+        /// Changes Cursor when hovered over label
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lblStatusBar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Mouse.OverrideCursor = Cursors.Hand;
+        }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver:
+        /// 
+        /// Changes Cursor when not hovering over label
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lblStatusBar_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Mouse.OverrideCursor = null;
+        }
     }
 }

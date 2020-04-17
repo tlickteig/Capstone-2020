@@ -201,5 +201,23 @@ namespace LogicLayerInterfaces
         /// <param name="UserID"></param>
         /// <returns></returns>
         PetUniverseUser getUserByUserID(int UserID);
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/08/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// update a user profile
+        /// </summary>
+        /// <remarks>        
+        /// Updater: NA
+        /// Update: NA
+        /// Approver: NA
+        /// </remarks>
+        /// <param name="originalUser">The user before the update</param>
+        /// <param name="updatedUser">The updated user information</param>
+        /// <returns>Boolean value to tell if new user was created</returns>
+        bool UpdateUser(PetUniverseUser originalUser, PetUniverseUser updatedUser);
+
     }
 }

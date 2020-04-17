@@ -555,6 +555,55 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Test to verify updateUser is working properly
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        [TestMethod]
+        public void TestUpdateUser()
+        {
+            // Arrange
+            PetUniverseUser originalUser = new PetUniverseUser()
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "jdoe@PetUniverse.com",
+                City = "Cedar Rapids",
+                PhoneNumber = "2255448796",
+                State = "IA",
+                ZipCode = "52404",
+                Active = true
+            };
+
+            // Arrange
+            PetUniverseUser updatedUser = new PetUniverseUser()
+            {
+                FirstName = "Jon",
+                LastName = "Donut",
+                Email = "jdonut@PetUniverse.com",
+                City = "Grand Rapids",
+                PhoneNumber = "7775448796",
+                State = "MI",
+                ZipCode = "52403",
+                Active = true
+            };
+
+            // Call the method
+            bool success = _userManager.UpdateUser(originalUser, updatedUser);
+
+            // Assert
+            Assert.AreEqual(true, success);
+        }
+
+
+        /// <summary>
+        /// Creator: Steven Cardona
         /// Created: 02/07/2020
         /// Approver: Zach Behrensmeyer
         /// 

@@ -6,13 +6,16 @@
     <Application.Resources>
         <Style TargetType="TabItem">
             <Setter Property="FontSize" Value="15"/>
-
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="FontSize" Value="18"/>
         </Style>
         <Style TargetType="Label">
             <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="FontSize" Value="18"/>
         </Style>
     </Application.Resources>
 </Application>

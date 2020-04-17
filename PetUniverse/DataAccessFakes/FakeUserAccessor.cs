@@ -462,5 +462,22 @@ namespace DataAccessFakes
             }
             return null;
         }
+
+         /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Fake for update user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        public bool UpdateUser(PetUniverseUser originalUser, PetUniverseUser updatedUser)
+        {
+            return true;
+        }
     }
 }
