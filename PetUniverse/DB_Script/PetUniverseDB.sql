@@ -447,7 +447,7 @@ CREATE TABLE [dbo].[FacilityInspectionItem] (
 	[ItemName]						[nvarchar](100)					NOT NULL,
 	[UserID]						[int]							NOT NULL,
 	[FacilityInspectionID]			[int]							NOT NULL,
-	[ItemDescription]				[nvarchar](500)					NOT NULL
+	[ItemDescription]				[nvarchar](500)					
 
 	CONSTRAINT [pk_FacilityInspectionItemID] PRIMARY KEY([FacilityInspectionItemID] ASC),
 
@@ -718,13 +718,12 @@ CREATE TABLE [dbo].[Item](
 	[ItemID] [int] NOT NULL IDENTITY(100000, 1) PRIMARY KEY,
 	[ItemName] [nvarchar](50) NOT NULL,
 	[ItemCategoryID] [nvarchar](50) NOT NULL,
-	[ItemDescription] [nvarchar](250) NOT NULL,
+	[ItemDescription] [nvarchar](250) ,
 	[ItemQuantity] [int] NOT NULL,
 	[Active]       [bit] DEFAULT 1 NOT NULL,
 	[ShelterItem] [bit] DEFAULT 0,
-	[ShelterThershold]	[int],
-	CONSTRAINT [fk_Item_ItemCategoryID] FOREIGN KEY ([ItemCategoryID])
-		REFERENCES [dbo].[ItemCategory]([ItemCategoryID])
+	[ShelterThershold]	[int]
+	
 )
 GO
 
@@ -935,6 +934,31 @@ CREATE TABLE [dbo].[timeOffRequest] (
 )
 
 GO
+
+
+/*
+Created by: Daulton Schilling
+Date: 2/8/2020
+Comment: Table that holds outgoing orders
+*/
+DROP TABLE IF EXISTS [dbo].[OutgoingOrders]
+GO
+PRINT '' PRINT '*** Creating OutgoingOrders Table'
+GO
+CREATE TABLE [dbo].[OutgoingOrders] (
+
+	[OutgoingOrderID]	[int] IDENTITY(1000000,1)			NOT NULL,
+	[OrderDate]			[DateTime] 							NOT NULL,
+	[ItemID]			[int] 								NOT NULL,
+	[ItemCategoryID]	[nvarchar](1000) 					NOT NULL,
+	[UserID] 			[int] 								NOT NULL,
+	[ItemQuantity]		[int] 								NOT NULL,
+	
+	CONSTRAINT [pk_OutgoingOrderID] PRIMARY KEY([OutgoingOrderID] ASC)
+	)
+
+GO
+
 
 /*
 Created by: Kaleb Bachert
@@ -1754,6 +1778,27 @@ CREATE TABLE [dbo].[ItemReport](
 	[Report]		[nvarchar](250)		NOT NULL,
 	CONSTRAINT [fk_ItemReport_ItemID] FOREIGN KEY([ItemID])
 		REFERENCES [Item]([ItemID])
+)
+GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/03/19
+Comment: JobListing Table to store open positions at Pet Universe
+*/
+DROP TABLE IF EXISTS [dbo].[JobListing]
+GO
+print '' print '*** creating JobListing table'
+GO
+CREATE TABLE [dbo].[JobListing] (
+	[JobListingID]			[int] IDENTITY(100000, 1)	NOT NULL,
+	[Position]				[nvarchar](50)				NOT NULL,
+	[Benefits]				[nvarchar](250)				NOT NULL,
+	[Requirements]			[nvarchar](250)				NOT NULL,
+	[StartingWage]			[decimal](10,2)						NOT NULL,
+	[Responsibilities]		[nvarchar](750)				NOT NULL,
+	[Active]				[bit]						NOT NULL DEFAULT 1,
+	CONSTRAINT [pk_JobListing_JobListingID] PRIMARY KEY([JobListingID] ASC)
 )
 GO
 
@@ -6748,21 +6793,6 @@ BEGIN
 END
 GO
 
-DROP PROCEDURE IF EXISTS [SP_Create_SpecialOrder]
-GO
-PRINT '' PRINT '*** SP_Create_SpecialOrder'
-GO
-CREATE PROCEDURE [SP_Create_SpecialOrder]
-AS
-BEGIN
-    SELECT 
-        [ItemID],
-        [ItemName],
-        [ItemQuantity],
-        [ItemCategoryID]
-    FROM [Item]
-END
-GO
 
 DROP PROCEDURE IF EXISTS [sp_Select_Animal_By_AnimalID]
 GO
@@ -6781,8 +6811,9 @@ BEGIN
         [AnimalSpeciesID],		
         [AnimalBreed],			
         [ArrivalDate],			
-        [CurrentlyHoused],		
-        [Adoptable]		
+		[CurrentlyHoused],		
+        [Adoptable],
+		[Active]
 
     FROM [Animal] 
     WHERE[AnimalID] = @AnimalID
@@ -6802,42 +6833,6 @@ BEGIN
         [ItemName]						
     FROM [dbo].[Item] 
     WHERE[ItemCategoryID] = 'Medication'
-END
-GO
-
-DROP PROCEDURE IF EXISTS [sp_Select_AnimalMedicalHistory_By_AnimalID]
-GO
-PRINT '' PRINT '*** sp_Select_AnimalMedicalHistory_By_AnimalID'
-GO
-CREATE PROCEDURE [sp_Select_AnimalMedicalHistory_By_AnimalID]
-(
-  @AnimalID [int]
-)
-AS
-BEGIN
-    SELECT 
-        Animal.AnimalID,
-        Animal.AnimalName, 
-        Animal.AnimalSpeciesID,	 			
-        AnimalMedicalInfo.Vaccinations,
-        AnimalMedicalInfo.SpayedNeutered,	
-        AnimalMedicalInfo.MostRecentVaccinationDate,	
-        AnimalMedicalInfo.AdditionalNotes	
-    FROM
-    [Animal] 
-    INNER JOIN 
-    AnimalHandlingNotes
-    ON AnimalHandlingNotes.AnimalID = Animal.AnimalID
-    INNER JOIN 
-    AnimalMedicalInfo
-    ON
-    AnimalMedicalInfo.AnimalID = Animal.AnimalID
-
-    WHERE Animal.AnimalID = @AnimalID
-    AND 
-    AnimalHandlingNotes.AnimalID = @AnimalID
-    AND 
-    AnimalMedicalInfo.AnimalID = @AnimalID
 END
 GO
 
@@ -9237,7 +9232,22 @@ BEGIN
 End
 GO
 
-
+/*
+Created by: Ryan Morganti
+Date: 2020/03/19
+Comment: Stored Procedure used to select all active JobListings
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_job_listings]
+GO
+print '' print '*** Creating sp_select_all_active_job_listings'
+GO
+CREATE PROCEDURE [sp_select_all_job_listings]
+AS
+BEGIN
+	SELECT [JobListingID], [Position], [Benefits], [Requirements], [StartingWage], [Responsibilities], [Active]
+	FROM [JobListing]
+END
+GO
                 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -9403,11 +9413,11 @@ GO
 INSERT INTO [dbo].[Animal]
 	([AnimalName],[Dob],[AnimalBreed],[ArrivalDate],[CurrentlyHoused],[Adoptable],[Active],[AnimalSpeciesID])
 	VALUES
-	('Paul','12-01-2015','Pit Bull','01-20-2020',1,1,1,'Cat'),
+	('Paul','12-01-2015','Pit Bull','03-20-2020',1,1,1,'Cat'),
 	('Snowball II','10-05-2011','Tabby','11-24-2019',0,0,1,'Cat'),
-	('Lassie','04-23-2018','Collie','01-12-2020',1,1,1,'Dog'),
+	('Lassie','04-23-2018','Collie','02-17-2020',1,1,1,'Dog'),
 	('Spot','08-14-2014','French Bulldog','05-10-2019',1,1,1,'Dog'),
-	('fluffs','06-21-2012','Siamese','04-11-2019',0,1,1,'Rat'),
+	('fluffs','06-21-2012','Siamese','04-11-2020',0,1,1,'Rat'),
 	('Doggo','03-06-2015','Shih Tzu','02-22-2019',1,1,0,'Dog')
 GO
 
@@ -10852,3 +10862,301 @@ INSERT INTO [dbo].[RequestResponse]
 	(1000003, 100005, 'Hola response for my homeboys', '03/11/20 14:33:00'),
 	(1000003, 100004, 'Never!', '03/12/20 10:15:00')
 GO
+
+/*
+Created by: Ryan Morganti
+Date: 2020/03/19
+Comment: Sample JobListing Records
+*/
+print '' print '*** Inserting Sample JobListing record '
+GO
+INSERT INTO [dbo].[JobListing]
+	([Position], [Benefits], [Requirements], [StartingWage], [Responsibilities])
+	VALUES
+	('Volunteer', 'Free Healthcare, Horse-Dental, Jungle Gym Membership',
+	 'Good Enough Degree', 0000.01, 'Do things without expectation of pay'),
+	('Admin', 'Free Healthcare, Horse-Dental, Jungle Gym Membership',
+	 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
+	('Customer', 'No Benefits', 'No Requirements',
+	 0000.01, 'Give us money in exchange for merchandise')
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to select all active appointments.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_appointments_by_active]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_appointments_by_active'
+GO
+CREATE PROCEDURE [sp_select_all_appointments_by_active]
+AS
+BEGIN
+	SELECT
+	[Appointment].[AppointmentID],
+	[Appointment].[AdoptionApplicationID],
+	[Appointment].[AppointmentTypeID],
+	[Appointment].[DateTime],
+	[Appointment].[Notes],
+	[Appointment].[Decision],
+	[Appointment].[LocationID],
+	[Appointment].[Active],
+	[Location].[Name],
+	[Location].[Address1],
+	[Location].[Address2],
+	[Location].[City],
+	[Location].[State],
+	[Location].[Zip]
+	FROM [Appointment]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to select an appointment by its appointment id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_appointment_by_appointment_id]
+GO
+PRINT '' PRINT '*** creating sp_select_appointment_by_appointment_id'
+GO
+CREATE PROCEDURE [sp_select_appointment_by_appointment_id]
+(
+	@AppointmentID [int]
+)
+AS
+BEGIN
+	SELECT
+		[AdoptionApplicationID]
+		,[AppointmentTypeID]
+		,[DateTime]
+		,[Notes]
+		,[Decision]
+		,[LocationID]
+		,[Active]
+	FROM [dbo].[Appointment]
+	WHERE [AppointmentID] = @AppointmentID
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to deactivate an appointment by its id
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_appointment]
+GO
+PRINT '' PRINT '*** creating sp_deactivate_appointment'
+GO
+CREATE PROCEDURE [sp_deactivate_appointment]
+(
+	@AppointmentID			[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET 	[Active] = 0
+			
+	WHERE	[AppointmentID]	= @AppointmentID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/15/2020
+Comment: Stored procedure to update an appointment by its id
+*/
+DROP PROCEDURE IF EXISTS [sp_update_appointment]
+GO
+PRINT '' PRINT '*** creating sp_update_appointment'
+GO
+CREATE PROCEDURE [sp_update_appointment]
+(
+	@AppointmentID			[int],
+	
+	@OldAdoptionApplicationID	[int],
+	@OldAppointmentTypeID		[nvarchar](100),
+	@OldDateTime				[datetime],
+	@OldNotes					[nvarchar](1000),
+	@OldDecision				[nvarchar](50),
+	@OldLocationID				[int],
+	@OldActive					[bit],
+	
+	@NewAdoptionApplicationID	[int],
+	@NewAppointmentTypeID		[nvarchar](100),
+	@NewDateTime				[datetime],
+	@NewNotes					[nvarchar](1000),
+	@NewDecision				[nvarchar](50),
+	@NewLocationID				[int],
+	@NewActive					[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET		[AdoptionApplicationID] = @NewAdoptionApplicationID,
+			[AppointmentTypeID] = @NewAppointmentTypeID,
+			[DateTime] = @NewDateTime,
+			[Notes] = @NewNotes,
+			[LocationID] = @NewLocationID,
+			[Active] = @NewActive
+			
+	WHERE	[AppointmentID]	= @AppointmentID
+	AND		[AdoptionApplicationID] = @OldAdoptionApplicationID
+	AND		[AppointmentTypeID] = @OldAppointmentTypeID
+	AND		[DateTime] = @OldDateTime
+	AND		[Notes] = @OldNotes
+	AND		[LocationID] = @OldLocationID
+	AND		[Active] = @OldActive
+	RETURN @@ROWCOUNT
+END
+GO
+
+
+
+
+/*
+Created by: Daulton Schilling
+Date: 4/14/2020
+Comment: Stored procedure to select all the animal names
+*/
+CREATE PROCEDURE [sp_select_Names]
+
+AS
+BEGIN
+SELECT 
+
+[AnimalName] ,
+[AnimalID]
+
+From [Animal]
+
+END;
+
+GO
+
+
+INSERT INTO [dbo].[Item]
+	([ItemCategoryID],[ItemName],[ItemQuantity])
+	VALUES
+	('Medication','Medication1', 4),
+	('Medication','Medication2', 0)
+	
+GO
+
+/*
+Created by: Daulton Schilling
+Date: 4/14/2020
+Comment: Stored procedure to select an animal's medical history by it's ID
+*/
+CREATE PROCEDURE [sp_Select_AnimalMedicalHistory_By_AnimalID]
+(
+  @AnimalID [int]
+)
+AS
+BEGIN
+    SELECT 
+        Animal.AnimalID,
+        Animal.AnimalName, 
+        Animal.AnimalSpeciesID,	 			
+        AnimalMedicalInfo.Vaccinations,
+        AnimalMedicalInfo.SpayedNeutered,	
+        AnimalMedicalInfo.MostRecentVaccinationDate,	
+        AnimalMedicalInfo.AdditionalNotes	
+    FROM
+    [Animal] 
+    INNER JOIN 
+    AnimalHandlingNotes
+    ON AnimalHandlingNotes.AnimalID = Animal.AnimalID
+    INNER JOIN 
+    AnimalMedicalInfo
+    ON
+    AnimalMedicalInfo.AnimalID = Animal.AnimalID
+
+    WHERE Animal.AnimalID = @AnimalID
+    AND 
+    AnimalHandlingNotes.AnimalID = @AnimalID
+    AND 
+    AnimalMedicalInfo.AnimalID = @AnimalID
+END;
+GO
+
+
+
+/*
+ * Created by: Daulton Schilling
+ * Date: 4/12/2020
+ * Comment: SP to create a new outgoing order
+ */
+
+CREATE PROCEDURE [SP_Create_OutgoingOrder]
+(
+	@ItemID 						[int],
+	@OrderDate						[DateTime],
+	@ItemQuantity					[int],
+	@ItemCategoryID					[nvarchar](4000),
+	@UserID							[int]
+	
+)
+AS
+BEGIN
+    INSERT INTO [OutgoingOrders]
+        ([ItemID], [OrderDate], [ItemQuantity],
+        [ItemCategoryID],[UserID])
+    VALUES
+         (@ItemID, @OrderDate, @ItemQuantity,
+        @ItemCategoryID,@UserID)
+	
+END;
+GO
+
+/*
+ * Created by: Daulton Schilling
+ * Date: 4/12/2020
+ * Comment: SP to update animal medical history
+ */
+
+CREATE PROCEDURE [SP_Update_Animal_Medical_History]
+(
+		@AnimalID [int],
+		
+        @NewVaccinations [nvarchar](100),
+        @NewSpayedNeutered [bit],	
+        @NewMostRecentVaccinationDate [date],	
+        @NewAdditionalNotes [nvarchar](100),
+		
+		@OldVaccinations [nvarchar](100),
+        @OldSpayedNeutered [bit],	
+        @OldMostRecentVaccinationDate [date],	
+        @OldAdditionalNotes [nvarchar](100)
+		
+)
+AS
+BEGIN
+	
+	UPDATE [dbo].[AnimalMedicalInfo]
+	
+    SET   
+		 Vaccinations              = @NewVaccinations,
+         SpayedNeutered            = @NewSpayedNeutered,
+         MostRecentVaccinationDate = @NewMostRecentVaccinationDate,
+		 AdditionalNotes           = @NewAdditionalNotes
+		 
+ 
+    FROM
+    [Animal] 
+    INNER JOIN 
+    AnimalMedicalInfo
+    ON
+    AnimalMedicalInfo.AnimalID = Animal.AnimalID
+
+		
+    WHERE   
+	Animal.AnimalID = @AnimalID
+
+END;
+GO
+

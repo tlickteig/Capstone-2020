@@ -73,6 +73,32 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator : Ryan Morganti
+        /// Created: 2020/03/19
+        /// Approver: Derek Taylor
+        /// 
+        /// TestMethod for SelectAllJobPositions() 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>  
+        [TestMethod]
+        public void TestSelectAllJobPositions()
+        {
+            // Arrange
+            List<JobListing> jobs;
+
+            // Act
+            jobs = _applicantManager.RetrieveAllPositions();
+
+            // Assert
+            Assert.AreEqual(3, jobs.Count);
+        }
+
+        /// <summary>
         /// Creator : Derek Taylor
         /// Created: 2/14/2020
         /// Approver: Ryan Morganti

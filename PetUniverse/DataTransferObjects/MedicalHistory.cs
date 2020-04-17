@@ -18,9 +18,9 @@ namespace DataTransferObjects
 
         public string Vaccinations { get; set; }//3
 
-        public bool Spayed_Neutered { get; set; }//4
+        public bool? Spayed_Neutered { get; set; }//4
 
-        public DateTime MostRecentVaccinationDate { get; set; }//5
+        public DateTime? MostRecentVaccinationDate { get; set; }//5
 
         public string AdditionalNotes { get; set; }//6
 

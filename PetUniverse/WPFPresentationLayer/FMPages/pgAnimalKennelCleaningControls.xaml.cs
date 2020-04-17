@@ -26,7 +26,7 @@ namespace WPFPresentationLayer.FMPages
     /// 
     /// Interaction logic for AnimalKennelCleaningControls.xaml
     /// </summary>
-    public partial class AnimalKennelCleaningControls : Page
+    public partial class pgAnimalKennelCleaningControls : Page
     {
         private IAnimalKennelCleaningManager _cleaningManager;
 
@@ -49,7 +49,7 @@ namespace WPFPresentationLayer.FMPages
         /// Updated:
         /// Update:
         /// </remarks>
-        public AnimalKennelCleaningControls()
+        public pgAnimalKennelCleaningControls()
         {
             InitializeComponent();
             _cleaningManager = new AnimalKennelCleaningManager();
@@ -72,7 +72,7 @@ namespace WPFPresentationLayer.FMPages
         /// Update:
         /// </remarks>
         /// <param name="user"></param>
-        public AnimalKennelCleaningControls(PetUniverseUser user)
+        public pgAnimalKennelCleaningControls(PetUniverseUser user)
         {
             InitializeComponent();
             _cleaningManager = new AnimalKennelCleaningManager();
@@ -128,6 +128,7 @@ namespace WPFPresentationLayer.FMPages
             isAddMode = true;
 
             EnableEditingFields();
+            canView.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -262,6 +263,7 @@ namespace WPFPresentationLayer.FMPages
             BtnDeleteCleaning.IsEnabled = false;
             BtnDeleteCleaning.Visibility = Visibility.Hidden;
 
+            canView.Visibility = Visibility.Visible;
             RefreshData();
         }
 

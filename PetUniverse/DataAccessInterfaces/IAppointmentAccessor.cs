@@ -25,9 +25,65 @@ namespace DataAccessInterfaces
         /// </summary>        
         /// <remarks>
         /// Updater: 
-        /// Updated:  
+        /// Updated: 
         /// Update: 
         /// </remarks>
-        List<Appointment> SelectAllAppointments();
+        List<AppointmentLocationVM> SelectAllActiveAppointments();
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/12/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method selects an appointment by its id
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        AppointmentLocationVM SelectAppointmentByID(int id);
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/12/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method deactivates an appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        int DeactivateAppointment(Appointment appointment);
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/12/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method inserts an appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        int InsertAppointment(Appointment appointment);
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/15/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method updates an appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        int UpdateAppointment(Appointment oldAppointment, Appointment newAppointment);
     }
 }

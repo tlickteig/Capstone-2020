@@ -1,5 +1,6 @@
 ﻿using DataAccessFakes;
 using DataAccessInterfaces;
+using DataAccessLayer;
 using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
@@ -24,7 +25,7 @@ namespace LogicLayerTests
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/13/2020
-        /// Approver: 
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
         /// 
         /// Test method for RetrieveAnimalMedicalHistoryByAnimalID- tests with correct value
@@ -39,10 +40,11 @@ namespace LogicLayerTests
         {
             // arrange
             List<MedicalHistory> MH;
-            IAnimalMedicalHistoryManager _AnimalChecklistManager = new AnimalMedicalHistoryManager(animalMedicalHistoryAccessor);
+
+            IAnimalMedicalHistoryManager amhm = new AnimalMedicalHistoryManager(animalMedicalHistoryAccessor);
 
             // act
-            MH = _AnimalChecklistManager.RetrieveAnimalMedicalHistoryByAnimalID(1);
+            MH = amhm.RetrieveAnimalMedicalHistoryByAnimalID(1);
 
             // assert
             Assert.AreEqual(1, MH.Count);
@@ -52,7 +54,7 @@ namespace LogicLayerTests
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/13/2020
-        /// Approver: 
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
         /// 
         /// Test method for RetrieveAnimalMedicalHistoryByAnimalID- tests for throwing the correct exception
@@ -69,12 +71,82 @@ namespace LogicLayerTests
         {
             // arrange
             AnimalMedicalHistoryManager MH = new AnimalMedicalHistoryManager(animalMedicalHistoryAccessor);
-            int TestValue = -100;
+            int TestValue = -1000;
 
             // act
             MH.RetrieveAnimalMedicalHistoryByAnimalID(TestValue);
 
         }
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 3/19/2020
+        /// Approver: Carl Davis 4/16/2020 
+        /// Approver: 
+        /// 
+        /// Test method for UpdateAnimalMedicalHistory
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestUpdateAnimalMedicalHistory()
+        {
+
+            // Arrange
+            int result = 0;
+
+            AnimalMedicalHistoryManager MH = new AnimalMedicalHistoryManager(animalMedicalHistoryAccessor);
+
+            MedicalHistory new_ = new MedicalHistory()
+            {
+               
+            };
+
+            MedicalHistory old_ = new MedicalHistory()
+            {
+
+            };
+
+            // Act
+            result = MH.UpdateAnimalMedicalHistory(new_, old_);
+
+            // Assert
+            Assert.AreEqual(new_, old_);
+
+
+        }
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 3/19/2020
+        /// Approver: Carl Davis 4/16/2020
+        /// Approver: 
+        /// Test method for UpdateAnimalMedicalHistory- test throws correct exception
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(Exception))]
+        public void TestUpdateAnimalMedicalHistoryThrowsCorrectException()
+        {
+            // Arrange
+            int result = 0;
+
+            AnimalMedicalHistoryManager MH = new AnimalMedicalHistoryManager(animalMedicalHistoryAccessor);
+
+            // Act
+            result = MH.UpdateAnimalMedicalHistory(null, null);
+
+          
+
+        }
+
 
     }
 }

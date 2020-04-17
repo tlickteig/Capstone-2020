@@ -51,6 +51,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -130,20 +132,23 @@
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AMPages\AnimalFeedingRecords.xaml.cs">
-      <DependentUpon>AnimalFeedingRecords.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AMPages\AnimalManagementInventory.xaml.cs">
       <DependentUpon>AnimalManagementInventory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AMPages\AnimalRecords.xaml.cs">
-      <DependentUpon>AnimalRecords.xaml</DependentUpon>
+    <Compile Include="AMPages\NewAnimals.xaml.cs">
+      <DependentUpon>NewAnimals.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FMPages\AnimalKennelCleaningControls.xaml.cs">
-      <DependentUpon>AnimalKennelCleaningControls.xaml</DependentUpon>
+    <Compile Include="FMPages\pgAnimalKennelCleaningControls.xaml.cs">
+      <DependentUpon>pgAnimalKennelCleaningControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FMPages\FacilityInspectionItemControls.xaml.cs">
-      <DependentUpon>FacilityInspectionItemControls.xaml</DependentUpon>
+    <Compile Include="FMPages\pgFacilityInspectionControls.xaml.cs">
+      <DependentUpon>pgFacilityInspectionControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FMPages\pgFacilityInspectionItemControls.xaml.cs">
+      <DependentUpon>pgFacilityInspectionItemControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FMPages\pgFacilityMaintenanceControls.xaml.cs">
+      <DependentUpon>pgFacilityMaintenanceControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\AddDonationItem.xaml.cs">
       <DependentUpon>AddDonationItem.xaml</DependentUpon>
@@ -184,9 +189,6 @@
     <Compile Include="PoSPages\pgAddEditViewPromotion.xaml.cs">
       <DependentUpon>pgAddEditViewPromotion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FMPages\FacilityInspectionControls.xaml.cs">
-      <DependentUpon>FacilityInspectionControls.xaml</DependentUpon>
-    </Compile>
     <Compile Include="InventoryPages\ViewItemDetail.xaml.cs">
       <DependentUpon>ViewItemDetail.xaml</DependentUpon>
     </Compile>
@@ -204,9 +206,6 @@
     </Compile>
     <Compile Include="AMPages\VetPrescriptionControls.xaml.cs">
       <DependentUpon>VetPrescriptionControls.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FMPages\FacilityMaintenanceControls.xaml.cs">
-      <DependentUpon>FacilityMaintenanceControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\AddItems.xaml.cs">
       <DependentUpon>AddItems.xaml</DependentUpon>
@@ -400,10 +399,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AMPages\AnimalControls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AMPages\AnimalFeedingRecords.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -411,17 +406,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AMPages\AnimalRecords.xaml">
+    <Page Include="AMPages\NewAnimals.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="FMPages\AnimalKennelCleaningControls.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="FMPages\pgAnimalKennelCleaningControls.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="FMPages\FacilityInspectionItemControls.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="FMPages\pgFacilityInspectionControls.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FMPages\pgFacilityInspectionItemControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FMPages\pgFacilityMaintenanceControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="InventoryPages\AddDonationItem.xaml">
       <SubType>Designer</SubType>
@@ -475,10 +478,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FMPages\FacilityInspectionControls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="InventoryPages\ViewItemDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -500,10 +499,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AMPages\VetPrescriptionControls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="FMPages\FacilityMaintenanceControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -740,11 +735,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AdoptionsPages\" />
+    <Resource Include="Resources\Search.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Arrow.png" />
     <Resource Include="Resources\ArrowHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\down.png" />
+    <Resource Include="Resources\PetU.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\X.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

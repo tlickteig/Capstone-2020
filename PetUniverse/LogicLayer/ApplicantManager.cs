@@ -58,6 +58,31 @@ namespace LogicLayer
         }
 
         /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/19
+        /// Approver: Derek Taylor
+        /// 
+        /// This method calls the ApplicantAccessor to retrieve all positions at PetUniverse 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        public List<JobListing> RetrieveAllPositions()
+        {
+            try
+            {
+                return _applicantAccessor.SelectAllJobPositions();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Positions not found.", ex);
+            }
+        }
+
+        /// <summary>
         /// Creator: Derek Taylor
         /// Created: 2/14/2020
         /// Approver: Ryan Morganti

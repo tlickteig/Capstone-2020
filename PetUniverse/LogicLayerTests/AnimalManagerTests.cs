@@ -622,94 +622,6 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020
-        /// Approver:
-        /// 
-        /// Test for adding a new animal species to the database
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        [TestMethod]
-        public void TestAnimalManagerAddNewAnimalSpecies()
-        {
-            // arrange
-            bool isValidAnimalSpecies = false;
-            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
-
-            // act
-            string animalSpeciesID = "Fish";
-            string animalSpeciesDescription = "It swims";
-            isValidAnimalSpecies = animalManager.AddNewAnimalSpecies(animalSpeciesID, animalSpeciesDescription);
-
-            // assert
-            Assert.IsTrue(isValidAnimalSpecies);
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver:
-        /// 
-        /// Test for deleting an animal species from the database
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        [TestMethod]
-        public void TestAnimalManagerDeleteAnimalSpecies()
-        {
-            // arrange
-            bool isValidAnimalSpecies = false;
-            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
-
-            // act
-            string animalSpeciesID = "Dog";
-            isValidAnimalSpecies = animalManager.DeleteAnimalSpecies(animalSpeciesID);
-
-            // assert
-            Assert.IsTrue(isValidAnimalSpecies);
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// 
-        /// Test for updating an animal species
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        [TestMethod]
-        public void TestAnimalManagerEditAnimalSpecies()
-        {
-            // arrange
-            bool result = false;
-            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
-
-            // act
-            string oldAnimalSpeciesID = "Dog";
-            string newAnimalSpeciesID = "Doggo";
-            string description = "It barks";
-            result = animalManager.EditAnimalSpecies(oldAnimalSpeciesID, newAnimalSpeciesID, description);
-
-            // assert
-            Assert.AreEqual(true, result);
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
         /// Created: 2/6/2020
         /// Approver: Carl Davis, 2/7/2020
         /// Approver: Daulton Schilling, 2/7/2020 
@@ -726,5 +638,65 @@ namespace LogicLayerTests
         {
             _animalAccessor = null;
         }
+
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
+        /// Approver: 
+        /// 
+        /// Test for retrieving animal names
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveNames()
+        {
+            // arrange
+            List<AnimalNames> testAnimals;
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+
+            // act
+            testAnimals = animalManager.RetrieveNames();
+
+            // assert
+            Assert.IsNotNull(testAnimals);
+        }
+
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 4/13/2020
+        /// Approver: Carl Davis 4/16/2020
+        /// Approver: 
+        /// 
+        /// Test for retrieving an animal by animal ID
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAnimalByAnimalID() 
+        {
+
+            // arrange
+            List<Animal> testAnimals;
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+
+            // act
+            testAnimals = animalManager.RetrieveAnimalByAnimalID(1);
+
+            // assert
+            Assert.IsNotNull(testAnimals);
+        }
+
+
+
     }
 }

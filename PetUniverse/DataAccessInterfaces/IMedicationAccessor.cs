@@ -14,6 +14,12 @@ namespace DataAccessLayer
     /// 
     /// interface for medication accessor
     /// </summary>
+    /// <remarks>
+    /// Updater:
+    /// Updated:
+    /// Update:
+    /// </remarks>
+
     public interface IMedicationAccessor
     {
 
@@ -45,8 +51,7 @@ namespace DataAccessLayer
         /// Updated:
         /// Update:
         /// </remarks>
-        int InsertMedicationOrder(int ItemID, string ItemName, int ItemQuantity);
-
+        int InsertMedicationOrder(OutgoingOrders order_);
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/3/2020
@@ -76,5 +81,9 @@ namespace DataAccessLayer
         /// Update:
         /// </remarks>
         List<Medication> GetMedicationByLowQauntity();
+
+
     }
+
+
 }

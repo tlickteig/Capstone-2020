@@ -7,6 +7,7 @@ using DataTransferObjects;
 using LogicLayerInterfaces;
 using DataAccessInterfaces;
 using DataAccessFakes;
+using DataAccessLayer;
 
 namespace LogicLayer
 {
@@ -31,12 +32,12 @@ namespace LogicLayer
         ///
         /// <remarks>
         /// Updater: 
-        /// Updated:  
+        /// Updated: 
         /// Update: 
         /// </remarks>
         public AppointmentManager()
         {
-            _appointmentAccessor = new FakeAppointmentAccessor();
+            _appointmentAccessor = new AppointmentAccessor();
         }
 
         /// <summary>
@@ -60,6 +61,78 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Thomas Dupuy
+        /// Created: 4/12/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method adds an appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        public int AddAppointment(Appointment appointment)
+        {
+            try
+            {
+                return _appointmentAccessor.InsertAppointment(appointment);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/15/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method updates an appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        public int EditAppointment(Appointment oldAppointment, Appointment newAppointment)
+        {
+            try
+            {
+                return _appointmentAccessor.UpdateAppointment(oldAppointment, newAppointment);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/12/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method removes an appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        public int RemoveAppointment(Appointment appointment)
+        {
+            try
+            {
+                return _appointmentAccessor.DeactivateAppointment(appointment);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
         /// Created: 02/06/2020
         /// Approver: Awaab Elamin
         /// 
@@ -71,11 +144,35 @@ namespace LogicLayer
         /// Updated:  
         /// Update: 
         /// </remarks>
-        public List<Appointment> RetrieveAllAppointments()
+        public List<AppointmentLocationVM> RetrieveAllActiveAppointments()
         {
             try
             {
-                return _appointmentAccessor.SelectAllAppointments();
+                return _appointmentAccessor.SelectAllActiveAppointments();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Thomas Dupuy
+        /// Created: 4/12/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// This method retrieves an appointment by its id
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        public AppointmentLocationVM RetrieveAppointmentByID(int id)
+        {
+            try
+            {
+                return _appointmentAccessor.SelectAppointmentByID(id);
             }
             catch (Exception ex)
             {

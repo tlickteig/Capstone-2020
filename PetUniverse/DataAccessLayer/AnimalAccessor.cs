@@ -687,129 +687,132 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/13/2020
-        /// Approver: Carl Davis, 3/18/2020 
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
-        ///
-        /// a data access method that uses a stored procedure to add a new animal species to the database
+        /// Gets a list of animal names
         /// </summary>
         /// <remarks>
-        /// 
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        /// <param name="animal"></param>
-        /// <returns>int</returns>
-        public int InsertAnimalSpecies(string animalSpecies, string description)
+        /// <returns>List of animal names</returns>
+        public List<AnimalNames> GetNames()
         {
-            int speciesID = 0;
+            List<AnimalNames> name = new List<AnimalNames>(20);
             var conn = DBConnection.GetConnection();
-
-            var cmd = new SqlCommand("sp_insert_animal_species", conn);
+            var cmd = new SqlCommand("sp_select_Names");
+            cmd.Connection = conn;
             cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@AnimalSpeciesID", animalSpecies);
-            cmd.Parameters.AddWithValue("@Description", description);
-
             try
             {
                 conn.Open();
-                speciesID = cmd.ExecuteNonQuery();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        AnimalNames names = new AnimalNames();
+
+                        names.AnimalName = reader.GetString(0) + "                    ";//-Small bug
+
+                        names.AnimalID = reader.GetInt32(1);
+
+
+                        name.Add(names);
+                    }
+                }
+
+                reader.Close();
+
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
             finally
             {
                 conn.Close();
+
+
             }
-            return speciesID;
+            return name;
         }
 
         /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
-        ///
-        /// a data access method that uses a stored procedure to delete an animal species from the database
+        /// Gets an animal by its ID number
         /// </summary>
         /// <remarks>
-        /// 
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        /// <param name="animalSpeciesID"></param>
-        /// <returns>int</returns
-        public int DeleteAnimalSpecies(string animalSpeciesID)
+        /// <param name="ID"></param>
+        /// <returns>List of animal attributes</returns>
+        public List<Animal> GetAnimalByAnimalID(int ID)
         {
-            int rows = 0;
-
             var conn = DBConnection.GetConnection();
-            var cmd = new SqlCommand("sp_delete_animal_species", conn);
+
+            var cmd = new SqlCommand("sp_Select_Animal_By_AnimalID");
+
+            List<Animal> animals = new List<Animal>();
+
+            cmd.Connection = conn;
+
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@AnimalSpeciesID", animalSpeciesID);
+
+            cmd.Parameters.Add("@AnimalID", SqlDbType.Int);
+            cmd.Parameters["@AnimalID"].Value = ID;
+            conn.Open();
+            var reader = cmd.ExecuteReader();
 
             try
             {
-                conn.Open();
-                rows = cmd.ExecuteNonQuery();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var animal = new Animal();
+
+                        animal.AnimalID = reader.GetInt32(0);
+                        animal.Dob = reader.GetDateTime(2);
+                        animal.AnimalName = reader.GetString(1);
+                        animal.AnimalSpeciesID = reader.GetString(3);
+                        animal.AnimalBreed = reader.GetString(4);
+                        animal.ArrivalDate = reader.GetDateTime(5);
+
+                        animal.CurrentlyHoused = reader.GetBoolean(6);
+                        animal.Adoptable = reader.GetBoolean(7);
+                        animal.Active = reader.GetBoolean(8);
+
+
+                        animals.Add(animal);
+                    }
+                }
+
+                reader.Close();
+
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
             finally
             {
                 conn.Close();
+
+
             }
-            return rows;
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver: 
-        ///
-        /// a data access method that uses a stored procedure to update an animal species in the database
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="oldAnimalSpeciesID"></param>
-        /// <param name="newAnimalSpeciesID"></param>
-        /// <param name="description"></param>
-        /// <returns>int</returns
-        public int UpdateAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description)
-        {
-            int rows = 0;
-
-            var conn = DBConnection.GetConnection();
-            var cmd = new SqlCommand("sp_update_animal_species", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            cmd.Parameters.AddWithValue("@OldAnimalSpeciesID", oldAnimalSpeciesID);
-            cmd.Parameters.AddWithValue("@NewAnimalSpeciesID", newAnimalSpeciesID);
-            cmd.Parameters.AddWithValue("@NewDescription", description);
-
-            try
-            {
-                conn.Open();
-                rows = cmd.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            return rows;
+            return animals;
         }
     }
 }

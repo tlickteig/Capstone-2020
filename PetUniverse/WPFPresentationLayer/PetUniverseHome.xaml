@@ -9,7 +9,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFPresentationLayer"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowState="Maximized" 
         Title="PetUniverse" Height="900" Width="1500" Background="#fff8e3" Loaded="Window_Loaded">
     <Grid MinHeight="4" Margin="0">
         <Grid.ColumnDefinitions>
@@ -163,13 +163,13 @@
 
         <!--<Canvas x:Name="canRequests" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
             <TabControl x:Name="tabsetRequests" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewNewRequests" Header="New" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewNewRequests" Header="New" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frNewRequestList" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabViewActiveRequests" Header="Active" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewActiveRequests" Header="Active" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frActiveRequestList" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabViewCompletedRequests" Header="Done" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewCompletedRequests" Header="Done" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frCompleteRequestList" NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </TabControl>
@@ -201,32 +201,29 @@
 
         <Canvas x:Name="canAM" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetAM" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewAnimals" Header="View Animals" FontSize="14" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewAnimals" Header="View Animals" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AMPages/AnimalControls.xaml"/>
                 </TabItem>
-                <TabItem x:Name="tabViewKennels" Header="View Location Records" FontSize="14" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewKennels" Header="View Location Records" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frameViewKennelRecords" Source="./AMPages/KennelControls.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabViewHandling" Header="View Handling Records" FontSize="14" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewHandling" Header="View Handling Records" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frameViewHandlingNotes" Source="./AMPages/HandlingControls.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabViewVetAppointments" Header="View Vet Appointments" FontSize="14" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frameViewVetAppointments"></Frame>
+                <TabItem x:Name="tabViewVetAppointments" Header="View Vet Appointments" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewVetAppointments" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
-                <TabItem x:Name="tabViewAnimalPrescriptions" Header="View Animal Prescriptions" FontSize="14" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./AMPages/VetPrescriptionControls.xaml"></Frame>
+                <TabItem x:Name="tabViewAnimalPrescriptions" Header="View Animal Prescriptions" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AMPages/VetPrescriptionControls.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
-
-                <TabItem x:Name="tabViewAnimalActivity" Header="View Activity Records" FontSize="14" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frameViewAnimalActivities"/>
+                <TabItem x:Name="tabViewAnimalActivity" Header="View Activity Records" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewAnimalActivities" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-
-                <TabItem x:Name="tabViewAMInventory" Header="View Inventory" FontSize="14" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./AMPages/AnimalManagementInventory.xaml"/>
+                <TabItem x:Name="tabViewAMInventory" Header="View Inventory" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AMPages/AnimalManagementInventory.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-
-                <TabItem x:Name="tabViewAnimalRecords" Header="View Animal Records" FontSize="14" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./AMPages/AnimalRecords.xaml"></Frame>
+                <TabItem x:Name="tabNewAnimals" Header="View New Animals" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AMPages/NewAnimals.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -250,17 +247,17 @@
         -->
         <Canvas x:Name="canFM" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetFM" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewFacilityMaintenance" Header="View Facility Maintenance" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frameViewFacilityMaintenance"></Frame>
+                <TabItem x:Name="tabViewFacilityMaintenance" Header="View Facility Maintenance" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewFacilityMaintenance" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
-                <TabItem x:Name="tabViewFacilityInspection" Header="View Facility Inspection" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frameViewFacilityInspection"></Frame>
+                <TabItem x:Name="tabViewFacilityInspection" Header="View Facility Inspection" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewFacilityInspection" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
-                <TabItem x:Name="tabViewKennelCleaningRecords" Header="View Kennel Cleaning" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frameViewKennelCleaningRecords"></Frame>
+                <TabItem x:Name="tabViewKennelCleaningRecords" Header="View Kennel Cleaning" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewKennelCleaningRecords" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
-                <TabItem x:Name="tabViewFacilityInspectionItem" Header="View Inspection Item" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frameViewFacilityInspectionItem"></Frame>
+                <TabItem x:Name="tabViewFacilityInspectionItem" Header="View Inspection Item" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewFacilityInspectionItem" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -277,7 +274,7 @@
 
         <Canvas x:Name="canPoS" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
             <TabControl x:Name="tabsetPoS" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                
+
                 <!-- Creator: Robert Holmes
                      Created: 2020/02/14
                      Approver: Cash Carlson
@@ -287,41 +284,38 @@
                      Updater:
                      Updated:
                      Update: -->
-                <TabItem x:Name="tabCheckOut" Header="Check Out" FontSize="18" FontWeight="Bold" Loaded="tabCheckOut_Loaded" >
+                <TabItem x:Name="tabCheckOut" Header="Check Out" FontWeight="Bold" Loaded="tabCheckOut_Loaded" >
                     <Frame x:Name="frmCheckOut" />
                 </TabItem>
-                <TabItem x:Name="tabViewSales" Header="View Sales" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-					<Frame Source="./PoSPages/pgViewSalesData.xaml"/>
-				</TabItem>
-                <TabItem x:Name="InventoryItems" Header="Sale Items Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="InventoryItems_Loaded">
+                <TabItem x:Name="tabViewSales" Header="View Sales" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./PoSPages/pgViewSalesData.xaml"/>
+                </TabItem>
+                <TabItem x:Name="InventoryItems" Header="Sale Items Inventory" FontWeight="Bold" Background="#fff8e3" Loaded="InventoryItems_Loaded">
                     <Frame x:Name="frmInventoryItems" Source="./PoSPages/InventoryItems.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
 
-                <TabItem  x:Name="tabViewTransactions" Header="View Transactions" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem  x:Name="tabViewTransactions" Header="View Transactions" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PoSPages/ViewAllTransactions.xaml"/>
                 </TabItem>
 
-                <TabItem x:Name="tabPromotions" Header="Promotions" FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="tabPromotions_Loaded">
+                <TabItem x:Name="tabPromotions" Header="Promotions" FontWeight="Bold" Background="#fff8e3" Loaded="tabPromotions_Loaded">
                     <Frame x:Name="frmPromotions" NavigationUIVisibility="Hidden" />
                 </TabItem>
 
-                <TabItem x:Name="tabProduct" Header="Product" FontSize="18" FontWeight="Bold" Background="#fff8e3" >
+                <TabItem x:Name="tabProduct" Header="Product" FontWeight="Bold" Background="#fff8e3" >
                     <Frame Source="./PoSPages/Product.xaml"/>
                 </TabItem>
 
                 <TabItem x:Name="tabOpenTransaction" Header="Open Transaction" 
-                         FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="tabOpenTransaction_Loaded">
+                          FontWeight="Bold" Background="#fff8e3" Loaded="tabOpenTransaction_Loaded">
                     <Frame x:Name="frmOpenTransaction"/>
                 </TabItem>
-
                 <TabItem x:Name="tabTransactionAdmin" Header="Transaction Admin" 
-                         FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                         FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PosPages/pgTransactionAdmin.xaml"/>
                 </TabItem>
-                
-
                 <TabItem x:Name="tabSalesTax" Header="Sales Tax" 
-                         FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                         FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PosPages/pgSalesTax.xaml"/>
                 </TabItem>
 
@@ -334,7 +328,7 @@
                  UPDATE BY: NA
                  UPDATED NA
                  CHANGE: NA -->
-                <TabItem x:Name="tabPicture" Header="Filter Item" FontSize="18" FontWeight="Bold" Background="#fff8e3" >
+                <TabItem x:Name="tabPicture" Header="Filter Item" FontWeight="Bold" Background="#fff8e3" >
                     <Frame Source="./PoSPages/FilterItem.xaml"/>
                 </TabItem>
             </TabControl>
@@ -352,42 +346,38 @@
 
         <Canvas x:Name="canVolHub" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetVolHub" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewVolunteers" Header="View Volunteers" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
+                <TabItem x:Name="tabViewVolunteers" Header="View Volunteers" FontWeight="Bold"  Background="#fff8e3">
                     <Frame NavigationUIVisibility="Hidden" Source="./VolunteerPages/ViewVolunteers.xaml"></Frame>
                 </TabItem>
-                <TabItem x:Name="CreateEditShift" Header="Volunteer Shifts" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
+                <TabItem x:Name="CreateEditShift" Header="Volunteer Shifts" FontWeight="Bold"  Background="#fff8e3">
                     <Frame Source="./VolunteerPages/CreateeditShift.xaml"></Frame>
                 </TabItem>
-                <TabItem x:Name="CreateEditVolunteerEvent" Header="Volunteer Events" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="CreateEditVolunteerEvent" Header="Volunteer Events" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./VolunteerPages/frmCreateEditVolunteerEvent.xaml"></Frame>
                 </TabItem>
                 <TabItem x:Name="VolunteerSchedule"
                          Header="Volunteer Schedule"
-                         FontSize="18"
                          FontWeight="Bold"
                          Background="#fff8e3">
                     <Frame Source="./VolunteerPages/VolunteerSchedule.xaml"></Frame>
                 </TabItem>
                 <TabItem x:Name="PrintVolunteerShifts"
                          Header="Print Shifts"
-                         FontSize="18"
                          FontWeight="Bold"
                          Background="#fff8e3">
                     <Frame Source="./VolunteerPages/PrintVolunteerShifts.xaml"></Frame>
                 </TabItem>
                 <TabItem x:Name="Medicine"
                          Header="Medicine"
-                         FontSize="18"
                          FontWeight="Bold"
                          Background="#fff8e3">
                     <Frame Source="./VolunteerPages/ViewDeleteCreateMedicine.xaml"></Frame>
                 </TabItem>
-                <TabItem x:Name="tabViewTasks" Header="Tasks" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
+                <TabItem x:Name="tabViewTasks" Header="Tasks" FontWeight="Bold"  Background="#fff8e3">
                     <Frame x:Name="ViewTasks" Source="./VolunteerPages/TaskControls.xaml"/>
                 </TabItem>
                 <TabItem x:Name="ViewAllVolunteerSchedules"
                          Header="All Volunteer Schedules"
-                         FontSize="18"
                          FontWeight="Bold"
                          Background="#fff8e3">
                     <Frame x:Name="frmViewAllVolunteerSchedules"
@@ -419,13 +409,13 @@
              UPDATED NA
              CHANGE: NA -->
 
-                <TabItem x:Name="tabViewUsers" Header="Users" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewUsers" Header="Users" FontWeight="Bold" Background="#fff8e3">
                     <Grid>
                         <Frame x:Name="frmUserControls"  Source="./SystemAdminPages/UserControls.xaml" NavigationUIVisibility="Hidden"></Frame>
                     </Grid>
                 </TabItem>
 
-                <TabItem x:Name="tabViewLogs" Header="AccessLogs" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewLogs" Header="AccessLogs" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./SystemAdminPages/LogView.xaml"></Frame>
                 </TabItem>
                 <DockPanel Height="100" LastChildFill="False" Width="100"/>
@@ -443,34 +433,34 @@
              CHANGE: NA -->
         <Canvas x:Name="canAdoptions" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetAdoptions" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewAdoption" Header="View Adoptions" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewAdoption" Header="View Adoptions" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AdoptionApplications.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
                 </TabItem>
-                <TabItem x:Name="tabViewInterviewer" Header="Interviewer" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewInterviewer" Header="Interviewer" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/InterviewerPage.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
                 </TabItem>
-                <TabItem x:Name="tabviewHomeInspector" Header="Home Inspection" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabviewHomeInspector" Header="Home Inspection" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/frmHomeInspectionForm.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="AppoimentShedule" Header="Appoiment Shedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="AppointmentSchedule" Header="Appointment Schedule" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AppointmentSchedule.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="InHomeInspector" Header="Inspection Decision" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="InHomeInspector" Header="Inspection Decision" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/frmInHomeInspectorDecision.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabAdoptionCustomers" Header="Adoption Customers" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabAdoptionCustomers" Header="Adoption Customers" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionCustomers.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabMeetAndGreets" Header="Meet And Greets" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabMeetAndGreets" Header="Meet And Greets" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgMeetAndGreets.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabViewAdoptionProfiles" Header="View Profiles" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewAdoptionProfiles" Header="View Profiles" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionsAnimalProfile.xaml" ></Frame>
                 </TabItem>
-                <TabItem x:Name="tabInterviewer" Header="Interviewer Note" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabInterviewer" Header="Interviewer Note" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionInterviewer.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabAdoptionAnimals" Header="Adoption Animals" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabAdoptionAnimals" Header="Adoption Animals" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionAnimalList.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </TabControl>
@@ -488,10 +478,10 @@
 
         <Canvas x:Name="canDonRec" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetDonRec" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewDonMgt" Header="Shelter Inventory" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewDonMgt" Header="Shelter Inventory" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./InventoryPages/ShelterInventory.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
-                <TabItem x:Name="tabViewEventManagement" Header="Events" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewEventManagement" Header="Events" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="fEventMgmt" Source="./RecruitingPages/EventMgmt.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
             </TabControl>
@@ -509,20 +499,20 @@
 
         <Canvas x:Name="canPersonnel" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetPersonnel" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabDepartment" Header="Departments" FontSize="18" FontWeight="Bold"  Background="#fff8e3">
+                <TabItem x:Name="tabDepartment" Header="Departments" FontWeight="Bold"  Background="#fff8e3">
                     <Grid>
                         <Frame Source="./PersonnelPages/Departments.xaml"/>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="tabShiftTimeManager" Header="ShiftTimeManager" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabShiftTimeManager" Header="ShiftTimeManager" FontWeight="Bold" Background="#fff8e3">
                     <Grid Background="#fff8e3">
                         <Frame Source="./PersonnelPages/frameShiftTime.xaml"></Frame>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="tabTrainingVideos" Header="Training Videos" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabTrainingVideos" Header="Training Videos" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PersonnelPages/frameTrainingVideos.xaml"></Frame>
                 </TabItem>
-                <TabItem x:Name="tabBaseSchedule" Header="Base Schedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabBaseSchedule" Header="Base Schedule" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frBaseSchedule"></Frame>
                 </TabItem>
 
@@ -535,7 +525,7 @@
                  UPDATE BY: NA
                  UPDATED NA
                  CHANGE: NA -->
-                <TabItem x:Name="tabViewPersonnelRequests" Header="View Requests" FontSize="18" FontWeight="Bold" Background="#fff8e3" Loaded="tabViewPersonnelRequests_Loaded">
+                <TabItem x:Name="tabViewPersonnelRequests" Header="View Requests" FontWeight="Bold" Background="#fff8e3" Loaded="tabViewPersonnelRequests_Loaded">
                     <Frame x:Name="frmViewPersonnelRequests" HorizontalAlignment="Left" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
 
@@ -548,7 +538,7 @@
              UPDATE BY: NA
              UPDATE DATE: NA
              CHANGE: NA -->
-                <TabItem x:Name="tabViewAllERoles" Header="View Roles" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewAllERoles" Header="View Roles" FontWeight="Bold" Background="#fff8e3">
                     <Grid>
                         <Canvas x:Name="canViewAllRoles">
                             <Frame Source="./PersonnelPages/ViewAllRoles.xaml"></Frame>
@@ -556,7 +546,7 @@
                         </Canvas>
                     </Grid>
                 </TabItem>
-                
+
             </TabControl>
         </Canvas>
 
@@ -567,5 +557,4 @@
         <Label x:Name="lblStatusBar" FontSize="15" Content="Hello," Padding="1150 8 0 0"  Background="#2e3137" HorizontalAlignment="Right" Grid.RowSpan="2" Foreground="White" VerticalAlignment="Top" Width="1494" Height="31" Grid.ColumnSpan="2" MouseUp="lblStatusBar_MouseUp" MouseEnter="lblStatusBar_MouseEnter" MouseLeave="lblStatusBar_MouseLeave"/>
         <TextBlock x:Name="txtWelcome" Grid.Column="1" HorizontalAlignment="Left" Margin="378,366,0,0" Grid.RowSpan="2" FontSize="23" TextWrapping="Wrap" Text="Hello welcome to the PetUniverse Hub! Please select a button on the sidebar." VerticalAlignment="Top" Height="133" Width="448"/>
     </Grid>
-
 </Window>

@@ -610,7 +610,7 @@ namespace WPFPresentationLayer
             switchScreen(desiredScreen);
             frameViewFacilityInspection.Content = new FacilityInspectionControls(_user);
             frameViewFacilityMaintenance.Content = new FacilityMaintenanceControls(_user);
-            frameViewKennelCleaningRecords.Content = new AnimalKennelCleaningControls(_user);
+            frameViewKennelCleaningRecords.Content = new pgAnimalKennelCleaningControls(_user);
             frameViewFacilityInspectionItem.Content = new FacilityInspectionItemControls(_user);
         }
 
