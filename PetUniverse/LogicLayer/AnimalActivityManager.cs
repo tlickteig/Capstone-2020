@@ -213,6 +213,84 @@ namespace LogicLayer
 
             return records;
         }
-    }
 
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Adds an animal activity type record to the DB
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        public bool AddAnimalActivityType(AnimalActivityType animalActivityType)
+        {
+            try
+            {
+                return _activityAccessor.InsertAnimalActivityType(animalActivityType) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to add record", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// updates an animal activity type record in the DB
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="oldAnimalActivityType"></param>
+        /// <param name="newAnimalActivityType"></param>
+        /// <returns></returns>
+        public bool EditAnimalActivityType(AnimalActivityType oldAnimalActivityType, AnimalActivityType newAnimalActivityType)
+        {
+            try
+            {
+                return _activityAccessor.UpdateAnimalActivityType(oldAnimalActivityType, newAnimalActivityType) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to update record", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// deletes an animal activity type record in the DB
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        public bool DeleteAnimalActivityType(AnimalActivityType animalActivityType)
+        {
+            try
+            {
+                return _activityAccessor.DeleteAnimalActivityType(animalActivityType) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to delete record", ex);
+            }
+        }
+    }
 }

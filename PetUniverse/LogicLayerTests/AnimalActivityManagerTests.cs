@@ -280,6 +280,99 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Tests inserting animal activity type record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestAddingAnimalActivityTypeRecord()
+        {
+            // Arrange
+            IAnimalActivityManager manager = new AnimalActivityManager(_fakeActivityAccessor);
+            bool result = false;
+            AnimalActivityType activityType = new AnimalActivityType()
+            {
+                ActivityTypeId = "Sample Activity Type",
+                Description = "This is a description"
+            };
+
+            // Act
+            result = manager.AddAnimalActivityType(activityType);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Tests updating animal activity type record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestUpdatingAnimalActivityTypeRecord()
+        {
+            // Arrange
+            IAnimalActivityManager manager = new AnimalActivityManager(_fakeActivityAccessor);
+            bool result = false;
+            AnimalActivityType activityType = new AnimalActivityType()
+            {
+                ActivityTypeId = "Feeding",
+                Description = "This is a description"
+            };
+
+            // Act
+            result = manager.AddAnimalActivityType(activityType);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Tests deleting animal activity type record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeletingAnimalActivityTypeRecord()
+        {
+            // Arrange
+            IAnimalActivityManager manager = new AnimalActivityManager(_fakeActivityAccessor);
+            bool result = false;
+            AnimalActivityType activityType = new AnimalActivityType()
+            {
+                ActivityTypeId = "Feeding",
+                Description = "This is a description"
+            };
+
+            // Act
+            result = manager.AddAnimalActivityType(activityType);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
         /// Tear down the test
         /// </summary>
         /// <remarks>

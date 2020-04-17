@@ -9,8 +9,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFPresentationLayer"
-        mc:Ignorable="d" WindowStartupLocation="CenterScreen" WindowState="Maximized" 
-        Title="PetUniverse" Height="900" Width="1500" Background="#fff8e3" Loaded="Window_Loaded">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
+        Title="PetUniverse" Height="900" Width="1500" Background="#fff8e3" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid MinHeight="4" Margin="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>

@@ -121,5 +121,54 @@ namespace LogicLayerInterfaces
         /// <returns>Result of edit</returns>
         bool EditExistingAnimalActivityRecord(AnimalActivity oldAnimalActivity,
                                                 AnimalActivity newAnimalActivity);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Adds an animal activity type record to the DB
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        bool AddAnimalActivityType(AnimalActivityType animalActivityType);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// updates an existing animal activity type record in the DB
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="oldAnimalActivityType"></param>
+        /// <param name="newAnimalActivityType"></param>
+        /// <returns></returns>
+        bool EditAnimalActivityType(AnimalActivityType oldAnimalActivityType, AnimalActivityType newAnimalActivityType);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// deletes an existing animal activity type record in the DB
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        bool DeleteAnimalActivityType(AnimalActivityType animalActivityType);
     }
 }

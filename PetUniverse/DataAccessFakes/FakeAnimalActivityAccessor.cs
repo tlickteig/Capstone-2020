@@ -198,5 +198,74 @@ namespace DataAccessFakes
             }
             return recordsUpdated;
         }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Inserts an animal activity type into the existing list
+        /// of fake animal activity type records
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        public int InsertAnimalActivityType(AnimalActivityType animalActivityType)
+        {
+            int startingLength = activityTypes.Count;
+            activityTypes.Add(animalActivityType);
+            return activityTypes.Count - startingLength;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// looks for a matching activity type id from the params in the collection to update
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalActivityType"></param>
+        /// <param name="newAnimalActivityType"></param>
+        /// <returns></returns>
+        public int UpdateAnimalActivityType(AnimalActivityType oldAnimalActivityType, AnimalActivityType newAnimalActivityType)
+        {
+            int recordsUpdated = 0;
+            if (oldAnimalActivityType.ActivityTypeId == "Feeding")
+            {
+                recordsUpdated = 1;
+            }
+            return recordsUpdated;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// looks for a matching activity type id from the params in the collection to delete
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        public int DeleteAnimalActivityType(AnimalActivityType animalActivityType)
+        {
+            int recordsUpdated = 0;
+            if (animalActivityType.ActivityTypeId == "Feeding")
+            {
+                recordsUpdated = 1;
+            }
+            return recordsUpdated;
+        }
     }
 }

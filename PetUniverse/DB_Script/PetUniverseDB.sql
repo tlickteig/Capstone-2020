@@ -567,7 +567,7 @@ CREATE TABLE [dbo].[AnimalActivity] (
 		REFERENCES [User]([UserID]) ON UPDATE CASCADE,
 
 	CONSTRAINT [fk_AnimalActivityType_AnimalActivityTypeID] FOREIGN KEY([AnimalActivityTypeID])
-		REFERENCES [AnimalActivityType]([AnimalActivityTypeID])
+		REFERENCES [AnimalActivityType]([AnimalActivityTypeID]) ON UPDATE CASCADE
 )
 GO
 
@@ -1963,7 +1963,7 @@ PRINT '' PRINT '*** sp_insert_AnimalActivityType'
 GO
 CREATE PROCEDURE [sp_insert_AnimalActivityType]
 (
-	@AnimalActivityTypeID			[nvarchar](200),
+	@AnimalActivityTypeID			[nvarchar](100),
 	@ActivityNotes			        [nvarchar](MAX)
 )
 AS
@@ -9250,6 +9250,51 @@ END
 GO
                 
 /*
+Created by: Chuck Baxter
+Date: 4/16/2020
+Comment: Updates an animal activity type record
+*/
+DROP PROCEDURE IF EXISTS [sp_update_animal_activity_type]
+GO
+print '' print '*** creating sp_update_animal_activity_type'
+GO
+CREATE PROCEDURE [sp_update_animal_activity_type]
+(
+	@OldAnimalActivityTypeID	[nvarchar](100),	
+	@NewAnimalActivityTypeID	[nvarchar](100),
+	@NewActivityNotes			[nvarchar](MAX)
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalActivityType]
+	SET [AnimalActivityTypeID] = @NewAnimalActivityTypeID,
+		[ActivityNotes] = @NewActivityNotes
+	WHERE [AnimalActivityTypeID] = @OldAnimalActivityTypeID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Chuck Baxter
+Date: 3/18/2020
+Comment: Sproc to delete animal activity types
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_animal_activity_type]
+GO
+PRINT '' PRINT '*** creating sp_delete_animal_activity_type'
+GO
+CREATE PROCEDURE [sp_delete_animal_activity_type](
+		@AnimalActivityTypeID [nvarchar](100)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[AnimalActivityType]
+	WHERE [AnimalActivityTypeID] = @AnimalActivityTypeID
+	RETURN @@ROWCOUNT
+END
+GO
+                
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -9448,7 +9493,8 @@ INSERT INTO [dbo].[AnimalActivityType]
 	  ([AnimalActivityTypeID],[ActivityNotes])
 VALUES
 	('Feeding','Feed the Animals'),
-	('Play', 'Record of when an animal was played with')
+	('Playing', 'Record of when an animal was played with'),
+	('Grooming', 'Record of when an animal was played with')
 GO
 
 /*
@@ -9462,10 +9508,10 @@ INSERT INTO [dbo].[AnimalActivity]
 	 ([AnimalID],[AnimalActivityTypeID],[ActivityDateTime],[UserID], [Description])
 VALUES
     (1000000,'Feeding', "2020-02-02", 100000, "test"),
-	(1000001,'Play', "2020-01-02", 100000, "test2"),
-	(1000000,'Play', "2020-06-02", 100000, "test3"),
+	(1000001,'Playing', "2020-01-02", 100000, "test2"),
+	(1000000,'Playing', "2020-06-02", 100000, "test3"),
 	(1000001,'Feeding', "2020-05-02", 100000, "test4"),
-	(1000002,'Play', "2020-04-10", 100000, "test5")
+	(1000002,'Playing', "2020-04-10", 100000, "test5")
 GO
 
 /*

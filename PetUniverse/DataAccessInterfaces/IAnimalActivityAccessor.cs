@@ -101,5 +101,39 @@ namespace DataAccessLayer
         /// <returns>Update successful</returns>
         int UpdateAnimalActivityRecord(AnimalActivity oldAnimalActivity,
             AnimalActivity newAnimalActivity);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Creates a new animal activty type
+        /// </summary>
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        int InsertAnimalActivityType(AnimalActivityType animalActivityType);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// updates an existing animal activty type
+        /// </summary>
+        /// <param name="oldAnimalActivityType"></param>
+        /// <param name="newAnimalActivityType"></param>
+        /// <returns></returns>
+        int UpdateAnimalActivityType(AnimalActivityType oldAnimalActivityType, AnimalActivityType newAnimalActivityType);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// deletes an existing animal activty type
+        /// </summary>
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        int DeleteAnimalActivityType(AnimalActivityType animalActivityType);
     }
 }
