@@ -215,5 +215,19 @@ namespace DataAccessInterfaces
         /// <returns></returns>
         bool UpdateUser(PetUniverseUser originalUser, PetUniverseUser updatedUser);
 
+        /// <summary>
+        /// NAME: Kaleb Bachert
+        /// DATE: 4/14/2020
+        /// APPROVER: Lane Sandburg
+        /// 
+        /// This method is used to get all users with a specified role.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="roleID"></param>
+        List<PetUniverseUser> SelectActiveUsersByRole(string roleID);
     }
 }

@@ -16,12 +16,27 @@ namespace WPFPresentation.Controllers
 {
     public class ChooseRequestTypeController : Controller
     {
-        // GET: ChooseRequestType
-        public ActionResult Index()
-        {
-            ViewBag.Title = "Choose a Request Type";
+		/// <summary>
+		///  CREATOR: Kaleb Bachert
+		///  CREATED: 2020/3/15
+		///  APPROVER: Lane Sandburg
+		///  
+		///  View that allows you to pick from scheduling Request Types to submit
+		/// </summary>
+		/// <remarks>
+		/// UPDATER: NA
+		/// UPDATED: NA
+		/// UPDATE: NA
+		/// 
+		/// </remarks>
+		// GET: ChooseRequestType
+		public ActionResult Index(string outputMessage = null)
+		{
+			ViewBag.Title = "Choose a Request Type";
 
-            return View();
-        }
-    }
+			ViewBag.OutputMessage = outputMessage;
+
+			return View();
+		}
+	}
 }

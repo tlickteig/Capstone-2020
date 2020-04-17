@@ -219,5 +219,25 @@ namespace LogicLayerInterfaces
         /// <returns>Boolean value to tell if new user was created</returns>
         bool UpdateUser(PetUniverseUser originalUser, PetUniverseUser updatedUser);
 
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/14
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for getting the Users who can work a specified shift
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="date"></param>
+        /// <param name="weekDay"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="roleID"></param>
+        List<PetUniverseUser> RetrieveUsersAbleToWork(DateTime date, string weekDay, DateTime startTime, DateTime endTime, string roleID);
+
     }
 }

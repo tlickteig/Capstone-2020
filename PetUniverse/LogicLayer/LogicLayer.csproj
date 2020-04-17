@@ -99,6 +99,7 @@
     <Compile Include="ReviewerManager.cs" />
     <Compile Include="SalesDataManager.cs" />
     <Compile Include="SalesTaxManager.cs" />
+    <Compile Include="ShiftManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
     <Compile Include="SpecialOrderManager.cs" />
     <Compile Include="StatusManager.cs" />

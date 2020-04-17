@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IActiveTimeOffAccessor.cs" />
     <Compile Include="IAdoptionAccessor.cs" />
     <Compile Include="IAdoptionAnimalAccessor.cs" />
     <Compile Include="IAdoptionApplicationAccessor.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="IApplicantAccessor.cs" />
     <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IAppointmentTypeAccessor.cs" />
+    <Compile Include="IAvailabilityAccessor.cs" />
     <Compile Include="IBackStockAccessor.cs" />
     <Compile Include="IBaseScheduleAccessor.cs" />
     <Compile Include="ICustomerAccessor.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="ISalesDataAccessor.cs" />
     <Compile Include="ISalesTaxAccessor.cs" />
+    <Compile Include="IShiftAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="ISpecialOrderAccessor.cs" />
     <Compile Include="IStatusAccessor.cs" />

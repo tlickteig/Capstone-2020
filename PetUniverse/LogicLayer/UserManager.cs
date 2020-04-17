@@ -22,6 +22,9 @@ namespace LogicLayer
     {
 
         private IUserAccessor _userAccessor;
+        private IShiftAccessor _shiftAccessor;
+        private IActiveTimeOffAccessor _activeTimeOffAccessor;
+        private IAvailabilityAccessor _availabilityAccessor;
 
         /// <summary>
         /// Creator: Steven Cardona
@@ -38,6 +41,9 @@ namespace LogicLayer
         public UserManager()
         {
             _userAccessor = new UserAccessor();
+            _shiftAccessor = new ShiftAccessor();
+            _activeTimeOffAccessor = new ActiveTimeOffAccessor();
+            _availabilityAccessor = new AvailabilityAccessor();
         }
 
         /// <summary>
@@ -56,6 +62,33 @@ namespace LogicLayer
         public UserManager(IUserAccessor userAccessor)
         {
             _userAccessor = userAccessor;
+            _shiftAccessor = new ShiftAccessor();
+            _activeTimeOffAccessor = new ActiveTimeOffAccessor();
+            _availabilityAccessor = new AvailabilityAccessor();
+        }
+
+        /// <summary>
+        /// CREATOR: Kaleb Bachert
+        /// DATE: 02/16/2020
+        /// APPROVER: Lane Sandburg
+        /// Constructor for the User Manager that takes an userAccessor, shiftAccessor, activeTimeOffAccessor and availabilityAccessor
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: N/A
+        /// UPDATED DATE: N/A
+        /// UPDATE: N/A
+        /// </remarks>
+        /// <param name="userAccessor">User Accessor that is being used</param>
+        /// <param name="shiftAccessor">Shift Accessor that is being used</param>
+        /// <param name="activeTimeOffAccessor">ActiveTimeOff Accessor that is being used</param>
+        /// <param name="availabilityAccessor">Availability Accessor that is being used</param>
+        public UserManager(IUserAccessor userAccessor, IShiftAccessor shiftAccessor,
+                           IActiveTimeOffAccessor activeTimeOffAccessor, IAvailabilityAccessor availabilityAccessor)
+        {
+            _userAccessor = userAccessor;
+            _shiftAccessor = shiftAccessor;
+            _activeTimeOffAccessor = activeTimeOffAccessor;
+            _availabilityAccessor = availabilityAccessor;
         }
 
         /// <summary>
@@ -449,6 +482,121 @@ namespace LogicLayer
             }
 
             return isUpdated;
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/15
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method will determine which Users are available to work on a specific day and time, with the appropriate role
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public List<PetUniverseUser> RetrieveUsersAbleToWork(DateTime date, string weekDay, DateTime startTime, DateTime endTime, string roleID)
+        {
+            //List of all Users with the specified Role
+            List<PetUniverseUser> usersWithSpecifiedRole = new List<PetUniverseUser>();
+
+            //List of all Shifts on the specified date
+            List<ShiftVM> shiftsOnSpecifiedDay = new List<ShiftVM>();
+
+            //List of all Users' ActiveTimeOff
+            List<ActiveTimeOff> allUsersActiveTimeOff = new List<ActiveTimeOff>();
+
+            //List of all Users' Availability records
+            List<Availability> allUsersAvailabilities = new List<Availability>();
+
+            try
+            {
+                usersWithSpecifiedRole = _userAccessor.SelectActiveUsersByRole(roleID);
+
+                if (usersWithSpecifiedRole != null)
+                {
+                    shiftsOnSpecifiedDay = _shiftAccessor.SelectShiftsByDay(date);
+                    allUsersActiveTimeOff = _activeTimeOffAccessor.SelectAllUsersActiveTimeOff();
+                    allUsersAvailabilities = _availabilityAccessor.SelectAllUsersAvailability();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Couldn't get enough information. Likely a connection problem.", ex);
+            }
+
+            //List of all Users that fit the criteria for Shift replacement
+            List<PetUniverseUser> acceptableReplacementUsers = new List<PetUniverseUser>();
+
+            //Loop through all users who have the correct Role
+            foreach (PetUniverseUser currentUser in usersWithSpecifiedRole)
+            {
+                bool userCanWorkTheShift = true;
+
+                //Check if the User has Time Off on the specified date
+                foreach (ActiveTimeOff activeTimeOff in allUsersActiveTimeOff)
+                {
+                    //Time Off has User's ID and specified date is between Time Off Start and End
+                    if (activeTimeOff.UserID == currentUser.PUUserID && (activeTimeOff.StartDate <= date && activeTimeOff.EndDate >= date))
+                    {
+                        userCanWorkTheShift = false;
+                        break;
+                    }
+                }
+
+                //No Time Off conflicts
+                if (userCanWorkTheShift)
+                {
+                    //Check if the User already works during the specified shift
+                    foreach (ShiftVM scheduledShift in shiftsOnSpecifiedDay)
+                    {
+                        //Scheduled Shift has User's ID, AND scheduled StartTime is before new Shift's StartTime if the scheduled EndTime is also past new StartTime 
+                        //or scheduled StartTime is equal or later than new Shift's StartTime if the schedule StartTime is also before new EndTime
+                        if (scheduledShift.EmployeeWorking == currentUser.PUUserID &&
+                            ((Convert.ToDateTime(scheduledShift.StartTime).TimeOfDay <= startTime.TimeOfDay && Convert.ToDateTime(scheduledShift.EndTime).TimeOfDay > startTime.TimeOfDay) ||
+                            (Convert.ToDateTime(scheduledShift.StartTime).TimeOfDay >= startTime.TimeOfDay && Convert.ToDateTime(scheduledShift.StartTime).TimeOfDay < endTime.TimeOfDay)))
+                        {
+
+                            userCanWorkTheShift = false;
+                            break;
+                        }
+                    }
+
+                    //No Currently Scheduled Shift conflicts
+                    if (userCanWorkTheShift)
+                    {
+
+                        bool userHasAvailability = false;
+
+                        //Check if the User has Availability on the specified Week Day at the specified Time
+                        foreach (Availability availability in allUsersAvailabilities)
+                        {
+                            //Availability record has User's ID and WeekDay matches and Availability StartTime is equal or before new Shift's StartTime
+                            //and Availability EndTime is equal or later than new Shift's EndTime
+                            if (availability.UserID == currentUser.PUUserID && availability.DayOfWeek.Equals(weekDay) &&
+                                ((Convert.ToDateTime(availability.StartTime).TimeOfDay <= startTime.TimeOfDay) && (Convert.ToDateTime(availability.EndTime).TimeOfDay >= endTime.TimeOfDay)))
+                            {
+                                userHasAvailability = true;
+                                break;
+                            }
+                        }
+
+                        //User does not have open availability on that day and time
+                        if (!userHasAvailability)
+                        {
+                            userCanWorkTheShift = false;
+                        }
+                    }
+                }
+                //Finished all foreach loops for this User, Add User if they can work
+                if (userCanWorkTheShift)
+                {
+                    acceptableReplacementUsers.Add(currentUser);
+                }
+            }
+            return acceptableReplacementUsers;
         }
     }
 }

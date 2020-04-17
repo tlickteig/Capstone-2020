@@ -686,5 +686,59 @@ namespace DataAccessLayer
 
             return isUpdated;
         }
+
+        /// <summary>
+        /// NAME: Kaleb Bachert
+        /// DATE: 4/15/2020
+        /// APPROVER: Lane Sandburg
+        /// 
+        /// This method is used to find retrieve all users with the specified role
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="roleID"></param>
+        public List<PetUniverseUser> SelectActiveUsersByRole(string roleID)
+        {
+            List<PetUniverseUser> users = new List<PetUniverseUser>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_users_by_role", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ERoleID", roleID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        PetUniverseUser user = new PetUniverseUser();
+
+                        user.PUUserID = reader.GetInt32(0);
+                        user.Email = reader.GetString(1);
+
+
+                        users.Add(user);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return users;
+        }
     }
 }

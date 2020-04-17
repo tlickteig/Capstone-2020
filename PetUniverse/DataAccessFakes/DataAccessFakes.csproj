@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FakeActiveTimeOffAccessor.cs" />
     <Compile Include="FakeAdoptionAnimalAccessor.cs" />
     <Compile Include="FakeAdoptionAppointmentAccessor.cs" />
     <Compile Include="FakeAdoptionCustomerAccessor.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="FakeApplicationAccessor.cs" />
     <Compile Include="FakeAppointmentAccessor.cs" />
     <Compile Include="FakeAppointmentTypeAccessor.cs" />
+    <Compile Include="FakeAvailabilityAccessor.cs" />
     <Compile Include="FakeBackRecordAccessor.cs" />
     <Compile Include="FakeBaseScheduleAccessor.cs" />
     <Compile Include="FakeCustomerAccessor.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="FakeRequestAccessor.cs" />
     <Compile Include="FakeReviewerAccessor.cs" />
     <Compile Include="FakeSalesTaxAccessor.cs" />
+    <Compile Include="FakeShiftAccessor.cs" />
     <Compile Include="FakeShiftTimeAccessor.cs" />
     <Compile Include="FakeSpecialOrderAccessor.cs" />
     <Compile Include="FakeStatusAccessor.cs" />

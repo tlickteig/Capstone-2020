@@ -18,10 +18,13 @@ namespace DataAccessFakes
 {
     public class FakeRequestAccessor : IRequestAccessor
     {
-        private List<Request> requests;
+        private List<RequestVM> requests;
         private List<TimeOffRequest> timeOffRequests;
         private List<TimeOffRequestVM> timeOffRequestVMs;
         private List<AvailabilityRequestVM> availabilityRequestVMs;
+        private List<ActiveTimeOff> activeTimeOffList;
+        private List<ScheduleChangeRequest> scheduleChangeRequests;
+        private List<ScheduleChangeRequestVM> scheduleChangeRequestVMs;
 
         /// <summary>
         /// Creator: Kaleb Bachert
@@ -37,31 +40,31 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeRequestAccessor()
         {
-            requests = new List<Request>()
+            requests = new List<RequestVM>()
             {
-                new Request()
+                new RequestVM()
                 {
                     RequestID = 1000000,
                     RequestTypeID = "Time Off",
-                    RequestingUserID = 1000001,
+                    RequestingEmployeeID = 1000001,
                     DateCreated = DateTime.Now.AddDays(-5),
                     Open = true
                 },
 
-                new Request()
+                new RequestVM()
                 {
                     RequestID = 1000001,
                     RequestTypeID = "Time Off",
-                    RequestingUserID = 1000001,
+                    RequestingEmployeeID = 1000001,
                     DateCreated = DateTime.Now.AddDays(-3),
                     Open = true
                 },
 
-                new Request()
+                new RequestVM()
                 {
                     RequestID = 1000002,
                     RequestTypeID = "Availability Change",
-                    RequestingUserID = 1000001,
+                    RequestingEmployeeID = 1000001,
                     DateCreated = DateTime.Now,
                     Open = true
                 }
@@ -125,6 +128,27 @@ namespace DataAccessFakes
                     SaturdayEndTime = "TEST TIME",
                     AvailabilityRequestID = 1000000,
                     RequestID = 1000002
+                }
+            };
+
+            activeTimeOffList = new List<ActiveTimeOff>()
+            {
+                new ActiveTimeOff()
+                {
+                    UserID = 100001,
+                    StartDate = DateTime.Now.AddDays(1),
+                    EndDate = DateTime.Now.AddDays(15),
+                }
+            };
+
+            scheduleChangeRequests = new List<ScheduleChangeRequest>();
+
+            scheduleChangeRequestVMs = new List<ScheduleChangeRequestVM>()
+            {
+                new ScheduleChangeRequestVM()
+                {
+                    ScheduleChangeRequestID = 1000000,
+                    RequestID = 1000004
                 }
             };
         }
@@ -373,7 +397,7 @@ namespace DataAccessFakes
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        public List<Request> SelectRequestsByStatus(bool open)
+        public List<RequestVM> SelectRequestsByStatus(bool open)
         {
             return (from r in requests
                     where r.Open = open
@@ -436,6 +460,24 @@ namespace DataAccessFakes
         public TimeOffRequestVM SelectTimeOffRequestByRequestID(int RequestID)
         {
             return timeOffRequestVMs.Where(request => request.RequestID == RequestID).First();
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/9
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Method that retrieves a dummy request by ID
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public ScheduleChangeRequestVM SelectScheduleChangeRequestByRequestID(int RequestID)
+        {
+            return scheduleChangeRequestVMs.Where(request => request.RequestID == RequestID).First();
         }
 
         /// <summary>
@@ -634,6 +676,50 @@ namespace DataAccessFakes
             {
                 return 0;
             }
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/2
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///   Method that inserts a new ActiveTimeOff record (Approved Time Off)
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public int InsertActiveTimeOff(ActiveTimeOff activeTimeOff)
+        {
+            int oldCount = activeTimeOffList.Count;
+
+            activeTimeOffList.Add(activeTimeOff);
+
+            return activeTimeOffList.Count - oldCount;
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/7
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///   Method that inserts a new Schedule Change Request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public int InsertScheduleChangeRequest(ScheduleChangeRequest request, int requestingUserID)
+        {
+            int oldCount = scheduleChangeRequests.Count;
+
+            scheduleChangeRequests.Add(request);
+
+            return scheduleChangeRequests.Count - oldCount;
         }
     }
 }
