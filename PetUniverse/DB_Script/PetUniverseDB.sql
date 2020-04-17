@@ -11741,3 +11741,152 @@ BEGIN
 END;
 GO
 
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Table to store customer errors
+
+
+*/
+DROP TABLE IF EXISTS [dbo].[CustomerErrors]
+GO
+PRINT '' PRINT '*** Creating table CustomerErrors'
+GO
+CREATE TABLE [dbo].[CustomerErrors](
+	[ErrorID] 			[int] IDENTITY(1000000,1) 	NOT NULL,
+	[ErrorType]			[nvarchar](100)				NOT NULL,
+	[Description]		[nvarchar](1000)					,
+	CONSTRAINT [pk_ErrorID] PRIMARY KEY([ErrorID] ASC)
+)
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Sample CustomerErrors data
+*/
+print '' print '*** Inserting Sample data for CustomerErrors'
+GO
+INSERT INTO [dbo].[CustomerErrors]
+		([ErrorType],[Description])
+	VALUES
+		("ErrorType1", "THIS IS A DESCRIPTION OF AN ERROR 1"),
+		("ErrorType2", "THIS IS A DESCRIPTION OF AN ERROR 2"),
+		("ErrorType3", "THIS IS A DESCRIPTION OF AN ERROR 3")
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to insert a Customer Error intot he CustomerErrors table.
+*/
+print '' print '*** Creating sp_insert_customer_error'
+GO
+CREATE PROCEDURE [sp_insert_customer_error]
+(
+	@ErrorType			[nvarchar](100),
+	@Description		[nvarchar](1000)
+)
+AS 
+BEGIN
+	INSERT INTO [dbo].[CustomerErrors]
+			([ErrorType], [Description])
+		VALUES
+			(@ErrorType, @Description)
+	  
+		RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Table to store customer credit cards
+
+
+*/
+DROP TABLE IF EXISTS [dbo].[PoSCreditCards]
+GO
+PRINT '' PRINT '*** Creating table PoSCreditCards'
+GO
+CREATE TABLE [dbo].[PoSCreditCards](
+	[CCID] 				[int] IDENTITY(1000000,1) 	NOT NULL,
+	[CardType]			[nvarchar](100)				NOT NULL,
+	[CardNumber]		[nvarchar](100)						,
+	[SecurityCode]		[nvarchar](25)						,
+	CONSTRAINT [pk_CCID] PRIMARY KEY([CCID] ASC)
+)
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Sample Customer Credit Cards
+*/
+print '' print '*** Inserting Sample data for PoSCreditCards'
+GO
+INSERT INTO [dbo].[PoSCreditCards]
+		([CardType],[CardNumber], [SecurityCode])
+	VALUES
+		("Visa", "12323232323232323", "214"),
+		("MasterCard", "XY3LL 2222 FJFJ 22K2", "442"),
+		("Chase", "2345 JJJJ FFII JK23 FDFF", "123")
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to insert a Credit Card
+*/
+print '' print '*** Creating sp_add_credit_card'
+GO
+CREATE PROCEDURE [sp_add_credit_card]
+(
+	@CardType			[nvarchar](100),
+	@CardNumber			[nvarchar](100),
+	@SecurityCode		[nvarchar](25)
+)
+AS 
+BEGIN
+	INSERT INTO [dbo].[PoSCreditCards]
+			([CardType],[CardNumber], [SecurityCode])
+		VALUES
+			(@CardType, @CardNumber, @SecurityCode)
+	  
+		RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to return all cards
+*/
+print '' print '*** Creating sp_get_all_credit_cards'
+GO
+CREATE PROCEDURE [sp_get_all_credit_cards]
+AS 
+BEGIN
+	SELECT [CardType], [CardNumber]
+	FROM [dbo].[PoSCreditCards]
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to Remove A card
+*/
+print '' print '*** Creating sp_delete_credit_card'
+GO
+CREATE PROCEDURE [sp_delete_credit_card]
+(
+	@CardNumber [nvarchar](100)
+)
+AS 
+BEGIN
+	DELETE FROM [dbo].[PoSCreditCards]
+	WHERE @CardNumber = [CardNumber]
+END
+GO
+

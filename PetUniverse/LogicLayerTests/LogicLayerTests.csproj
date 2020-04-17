@@ -84,6 +84,7 @@
     <Compile Include="MessagesTests.cs" />
     <Compile Include="OrderManagerTests.cs" />
     <Compile Include="PetUniverseUserERolesManagerTests.cs" />
+    <Compile Include="PoSCustomerPortalTests.cs" />
     <Compile Include="ProductManagerTests.cs" />
     <Compile Include="AnimalPrescriptionManagerTests.cs" />
     <Compile Include="ApplicantManagerTests.cs" />

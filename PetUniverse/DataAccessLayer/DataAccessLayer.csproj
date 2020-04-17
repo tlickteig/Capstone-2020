@@ -95,6 +95,7 @@
     <Compile Include="OrderAccessor.cs" />
     <Compile Include="PetUniverseERolesAccessor.cs" />
     <Compile Include="PictureAccessor.cs" />
+    <Compile Include="PoSCustomerPortalAccessor.cs" />
     <Compile Include="ProductAccessor.cs" />
     <Compile Include="PromotionAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
