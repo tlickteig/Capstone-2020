@@ -421,6 +421,9 @@
                 <TabItem x:Name="tabViewLogs" Header="AccessLogs" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./SystemAdminPages/LogView.xaml"></Frame>
                 </TabItem>
+                <TabItem x:Name="tabViewCustomers" Header="Customers" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./SystemAdminPages/pgCustomerControls.xaml"></Frame>
+                </TabItem>
                 <DockPanel Height="100" LastChildFill="False" Width="100"/>
             </TabControl>
         </Canvas>

@@ -9725,6 +9725,463 @@ BEGIN
 	SELECT @@ROWCOUNT
 END
 GO  
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to select all active appointments.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_appointments_by_active]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_appointments_by_active'
+GO
+CREATE PROCEDURE [sp_select_all_appointments_by_active]
+AS
+BEGIN
+	SELECT
+	[Appointment].[AppointmentID],
+	[Appointment].[AdoptionApplicationID],
+	[Appointment].[AppointmentTypeID],
+	[Appointment].[DateTime],
+	[Appointment].[Notes],
+	[Appointment].[Decision],
+	[Appointment].[LocationID],
+	[Appointment].[Active],
+	[Location].[Name],
+	[Location].[Address1],
+	[Location].[Address2],
+	[Location].[City],
+	[Location].[State],
+	[Location].[Zip]
+	FROM [Appointment]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to select an appointment by its appointment id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_appointment_by_appointment_id]
+GO
+PRINT '' PRINT '*** creating sp_select_appointment_by_appointment_id'
+GO
+CREATE PROCEDURE [sp_select_appointment_by_appointment_id]
+(
+	@AppointmentID [int]
+)
+AS
+BEGIN
+	SELECT
+		[AdoptionApplicationID]
+		,[AppointmentTypeID]
+		,[DateTime]
+		,[Notes]
+		,[Decision]
+		,[LocationID]
+		,[Active]
+	FROM [dbo].[Appointment]
+	WHERE [AppointmentID] = @AppointmentID
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to deactivate an appointment by its id
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_appointment]
+GO
+PRINT '' PRINT '*** creating sp_deactivate_appointment'
+GO
+CREATE PROCEDURE [sp_deactivate_appointment]
+(
+	@AppointmentID			[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET 	[Active] = 0
+			
+	WHERE	[AppointmentID]	= @AppointmentID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/15/2020
+Comment: Stored procedure to update an appointment by its id
+*/
+DROP PROCEDURE IF EXISTS [sp_update_appointment]
+GO
+PRINT '' PRINT '*** creating sp_update_appointment'
+GO
+CREATE PROCEDURE [sp_update_appointment]
+(
+	@AppointmentID			[int],
+	
+	@OldAdoptionApplicationID	[int],
+	@OldAppointmentTypeID		[nvarchar](100),
+	@OldDateTime				[datetime],
+	@OldNotes					[nvarchar](1000),
+	@OldDecision				[nvarchar](50),
+	@OldLocationID				[int],
+	@OldActive					[bit],
+	
+	@NewAdoptionApplicationID	[int],
+	@NewAppointmentTypeID		[nvarchar](100),
+	@NewDateTime				[datetime],
+	@NewNotes					[nvarchar](1000),
+	@NewDecision				[nvarchar](50),
+	@NewLocationID				[int],
+	@NewActive					[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET		[AdoptionApplicationID] = @NewAdoptionApplicationID,
+			[AppointmentTypeID] = @NewAppointmentTypeID,
+			[DateTime] = @NewDateTime,
+			[Notes] = @NewNotes,
+			[LocationID] = @NewLocationID,
+			[Active] = @NewActive
+			
+	WHERE	[AppointmentID]	= @AppointmentID
+	AND		[AdoptionApplicationID] = @OldAdoptionApplicationID
+	AND		[AppointmentTypeID] = @OldAppointmentTypeID
+	AND		[DateTime] = @OldDateTime
+	AND		[Notes] = @OldNotes
+	AND		[LocationID] = @OldLocationID
+	AND		[Active] = @OldActive
+	RETURN @@ROWCOUNT
+END
+GO
+
+
+
+
+/*
+Created by: Daulton Schilling
+Date: 4/14/2020
+Comment: Stored procedure to select all the animal names
+*/
+CREATE PROCEDURE [sp_select_Names]
+
+AS
+BEGIN
+SELECT 
+
+[AnimalName] ,
+[AnimalID]
+
+From [Animal]
+
+END;
+
+GO
+
+
+INSERT INTO [dbo].[Item]
+	([ItemCategoryID],[ItemName],[ItemQuantity])
+	VALUES
+	('Medication','Medication1', 4),
+	('Medication','Medication2', 0)
+	
+GO
+
+/*
+Created by: Daulton Schilling
+Date: 4/14/2020
+Comment: Stored procedure to select an animal's medical history by it's ID
+*/
+CREATE PROCEDURE [sp_Select_AnimalMedicalHistory_By_AnimalID]
+(
+  @AnimalID [int]
+)
+AS
+BEGIN
+    SELECT 
+        Animal.AnimalID,
+        Animal.AnimalName, 
+        Animal.AnimalSpeciesID,	 			
+        AnimalMedicalInfo.Vaccinations,
+        AnimalMedicalInfo.SpayedNeutered,	
+        AnimalMedicalInfo.MostRecentVaccinationDate,	
+        AnimalMedicalInfo.AdditionalNotes	
+    FROM
+    [Animal] 
+    INNER JOIN 
+    AnimalHandlingNotes
+    ON AnimalHandlingNotes.AnimalID = Animal.AnimalID
+    INNER JOIN 
+    AnimalMedicalInfo
+    ON
+    AnimalMedicalInfo.AnimalID = Animal.AnimalID
+
+    WHERE Animal.AnimalID = @AnimalID
+    AND 
+    AnimalHandlingNotes.AnimalID = @AnimalID
+    AND 
+    AnimalMedicalInfo.AnimalID = @AnimalID
+END;
+GO
+
+
+
+/*
+ * Created by: Daulton Schilling
+ * Date: 4/12/2020
+ * Comment: SP to create a new outgoing order
+ */
+
+CREATE PROCEDURE [SP_Create_OutgoingOrder]
+(
+	@ItemID 						[int],
+	@OrderDate						[DateTime],
+	@ItemQuantity					[int],
+	@ItemCategoryID					[nvarchar](4000),
+	@UserID							[int]
+	
+)
+AS
+BEGIN
+    INSERT INTO [OutgoingOrders]
+        ([ItemID], [OrderDate], [ItemQuantity],
+        [ItemCategoryID],[UserID])
+    VALUES
+         (@ItemID, @OrderDate, @ItemQuantity,
+        @ItemCategoryID,@UserID)
+	
+END;
+GO
+
+/*
+ * Created by: Daulton Schilling
+ * Date: 4/12/2020
+ * Comment: SP to update animal medical history
+ */
+
+CREATE PROCEDURE [SP_Update_Animal_Medical_History]
+(
+		@AnimalID [int],
+		
+        @NewVaccinations [nvarchar](100),
+        @NewSpayedNeutered [bit],	
+        @NewMostRecentVaccinationDate [date],	
+        @NewAdditionalNotes [nvarchar](100),
+		
+		@OldVaccinations [nvarchar](100),
+        @OldSpayedNeutered [bit],	
+        @OldMostRecentVaccinationDate [date],	
+        @OldAdditionalNotes [nvarchar](100)
+		
+)
+AS
+BEGIN
+	
+	UPDATE [dbo].[AnimalMedicalInfo]
+	
+    SET   
+		 Vaccinations              = @NewVaccinations,
+         SpayedNeutered            = @NewSpayedNeutered,
+         MostRecentVaccinationDate = @NewMostRecentVaccinationDate,
+		 AdditionalNotes           = @NewAdditionalNotes
+		 
+ 
+    FROM
+    [Animal] 
+    INNER JOIN 
+    AnimalMedicalInfo
+    ON
+    AnimalMedicalInfo.AnimalID = Animal.AnimalID
+
+		
+    WHERE   
+	Animal.AnimalID = @AnimalID
+
+END;
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Table to store customer errors
+
+
+*/
+DROP TABLE IF EXISTS [dbo].[CustomerErrors]
+GO
+PRINT '' PRINT '*** Creating table CustomerErrors'
+GO
+CREATE TABLE [dbo].[CustomerErrors](
+	[ErrorID] 			[int] IDENTITY(1000000,1) 	NOT NULL,
+	[ErrorType]			[nvarchar](100)				NOT NULL,
+	[Description]		[nvarchar](1000)					,
+	CONSTRAINT [pk_ErrorID] PRIMARY KEY([ErrorID] ASC)
+)
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Sample CustomerErrors data
+*/
+print '' print '*** Inserting Sample data for CustomerErrors'
+GO
+INSERT INTO [dbo].[CustomerErrors]
+		([ErrorType],[Description])
+	VALUES
+		("ErrorType1", "THIS IS A DESCRIPTION OF AN ERROR 1"),
+		("ErrorType2", "THIS IS A DESCRIPTION OF AN ERROR 2"),
+		("ErrorType3", "THIS IS A DESCRIPTION OF AN ERROR 3")
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to insert a Customer Error intot he CustomerErrors table.
+*/
+print '' print '*** Creating sp_insert_customer_error'
+GO
+CREATE PROCEDURE [sp_insert_customer_error]
+(
+	@ErrorType			[nvarchar](100),
+	@Description		[nvarchar](1000)
+)
+AS 
+BEGIN
+	INSERT INTO [dbo].[CustomerErrors]
+			([ErrorType], [Description])
+		VALUES
+			(@ErrorType, @Description)
+	  
+		RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Table to store customer credit cards
+
+
+*/
+DROP TABLE IF EXISTS [dbo].[PoSCreditCards]
+GO
+PRINT '' PRINT '*** Creating table PoSCreditCards'
+GO
+CREATE TABLE [dbo].[PoSCreditCards](
+	[CCID] 				[int] IDENTITY(1000000,1) 	NOT NULL,
+	[CardType]			[nvarchar](100)				NOT NULL,
+	[CardNumber]		[nvarchar](100)						,
+	[SecurityCode]		[nvarchar](25)						,
+	CONSTRAINT [pk_CCID] PRIMARY KEY([CCID] ASC)
+)
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Sample Customer Credit Cards
+*/
+print '' print '*** Inserting Sample data for PoSCreditCards'
+GO
+INSERT INTO [dbo].[PoSCreditCards]
+		([CardType],[CardNumber], [SecurityCode])
+	VALUES
+		("Visa", "12323232323232323", "214"),
+		("MasterCard", "XY3LL 2222 FJFJ 22K2", "442"),
+		("Chase", "2345 JJJJ FFII JK23 FDFF", "123")
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to insert a Credit Card
+*/
+print '' print '*** Creating sp_add_credit_card'
+GO
+CREATE PROCEDURE [sp_add_credit_card]
+(
+	@CardType			[nvarchar](100),
+	@CardNumber			[nvarchar](100),
+	@SecurityCode		[nvarchar](25)
+)
+AS 
+BEGIN
+	INSERT INTO [dbo].[PoSCreditCards]
+			([CardType],[CardNumber], [SecurityCode])
+		VALUES
+			(@CardType, @CardNumber, @SecurityCode)
+	  
+		RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to return all cards
+*/
+print '' print '*** Creating sp_get_all_credit_cards'
+GO
+CREATE PROCEDURE [sp_get_all_credit_cards]
+AS 
+BEGIN
+	SELECT [CardType], [CardNumber]
+	FROM [dbo].[PoSCreditCards]
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to Remove A card
+*/
+print '' print '*** Creating sp_delete_credit_card'
+GO
+CREATE PROCEDURE [sp_delete_credit_card]
+(
+	@CardNumber [nvarchar](100)
+)
+AS 
+BEGIN
+	DELETE FROM [dbo].[PoSCreditCards]
+	WHERE @CardNumber = [CardNumber]
+END
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 4/17/2020
+Comment: This is used to view all customers
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_active_customers]
+GO
+PRINT '' PRINT '** Create sp_select_all_active_customers'
+GO
+CREATE PROCEDURE [sp_select_all_active_customers]
+AS
+BEGIN
+    SELECT
+        [Email],
+        [FirstName],
+        [LastName], 
+        [PhoneNumber],        
+        [addressLineOne],
+        [addressLineTwo],
+        [City],
+        [State],
+        [Zipcode],
+		[Active]
+    FROM [dbo].[Customer]
+    Where [Active] = 1
+END
+GO
+
 /*
  ******************************* Inserting Sample Data *****************************
 */
@@ -11461,432 +11918,3 @@ INSERT INTO [dbo].[ScheduleHours]
 	(1000000, 100002, 1, 2),
 	(1000001, 100002, 40, 0)
 GO
-
-/*
-Created by: Thomas Dupuy
-Date: 4/12/2020
-Comment: Stored procedure to select all active appointments.
-*/
-DROP PROCEDURE IF EXISTS [sp_select_all_appointments_by_active]
-GO
-PRINT '' PRINT '*** Creating sp_select_all_appointments_by_active'
-GO
-CREATE PROCEDURE [sp_select_all_appointments_by_active]
-AS
-BEGIN
-	SELECT
-	[Appointment].[AppointmentID],
-	[Appointment].[AdoptionApplicationID],
-	[Appointment].[AppointmentTypeID],
-	[Appointment].[DateTime],
-	[Appointment].[Notes],
-	[Appointment].[Decision],
-	[Appointment].[LocationID],
-	[Appointment].[Active],
-	[Location].[Name],
-	[Location].[Address1],
-	[Location].[Address2],
-	[Location].[City],
-	[Location].[State],
-	[Location].[Zip]
-	FROM [Appointment]
-	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
-	ORDER BY [Appointment].[DateTime] DESC
-END
-GO
-
-/*
-Created by: Thomas Dupuy
-Date: 4/12/2020
-Comment: Stored procedure to select an appointment by its appointment id
-*/
-DROP PROCEDURE IF EXISTS [sp_select_appointment_by_appointment_id]
-GO
-PRINT '' PRINT '*** creating sp_select_appointment_by_appointment_id'
-GO
-CREATE PROCEDURE [sp_select_appointment_by_appointment_id]
-(
-	@AppointmentID [int]
-)
-AS
-BEGIN
-	SELECT
-		[AdoptionApplicationID]
-		,[AppointmentTypeID]
-		,[DateTime]
-		,[Notes]
-		,[Decision]
-		,[LocationID]
-		,[Active]
-	FROM [dbo].[Appointment]
-	WHERE [AppointmentID] = @AppointmentID
-END
-GO
-
-/*
-Created by: Thomas Dupuy
-Date: 4/12/2020
-Comment: Stored procedure to deactivate an appointment by its id
-*/
-DROP PROCEDURE IF EXISTS [sp_deactivate_appointment]
-GO
-PRINT '' PRINT '*** creating sp_deactivate_appointment'
-GO
-CREATE PROCEDURE [sp_deactivate_appointment]
-(
-	@AppointmentID			[int]
-)
-AS
-BEGIN
-	UPDATE [dbo].[Appointment]
-	SET 	[Active] = 0
-			
-	WHERE	[AppointmentID]	= @AppointmentID
-	RETURN @@ROWCOUNT
-END
-GO
-
-/*
-Created by: Thomas Dupuy
-Date: 4/15/2020
-Comment: Stored procedure to update an appointment by its id
-*/
-DROP PROCEDURE IF EXISTS [sp_update_appointment]
-GO
-PRINT '' PRINT '*** creating sp_update_appointment'
-GO
-CREATE PROCEDURE [sp_update_appointment]
-(
-	@AppointmentID			[int],
-	
-	@OldAdoptionApplicationID	[int],
-	@OldAppointmentTypeID		[nvarchar](100),
-	@OldDateTime				[datetime],
-	@OldNotes					[nvarchar](1000),
-	@OldDecision				[nvarchar](50),
-	@OldLocationID				[int],
-	@OldActive					[bit],
-	
-	@NewAdoptionApplicationID	[int],
-	@NewAppointmentTypeID		[nvarchar](100),
-	@NewDateTime				[datetime],
-	@NewNotes					[nvarchar](1000),
-	@NewDecision				[nvarchar](50),
-	@NewLocationID				[int],
-	@NewActive					[bit]
-)
-AS
-BEGIN
-	UPDATE [dbo].[Appointment]
-	SET		[AdoptionApplicationID] = @NewAdoptionApplicationID,
-			[AppointmentTypeID] = @NewAppointmentTypeID,
-			[DateTime] = @NewDateTime,
-			[Notes] = @NewNotes,
-			[LocationID] = @NewLocationID,
-			[Active] = @NewActive
-			
-	WHERE	[AppointmentID]	= @AppointmentID
-	AND		[AdoptionApplicationID] = @OldAdoptionApplicationID
-	AND		[AppointmentTypeID] = @OldAppointmentTypeID
-	AND		[DateTime] = @OldDateTime
-	AND		[Notes] = @OldNotes
-	AND		[LocationID] = @OldLocationID
-	AND		[Active] = @OldActive
-	RETURN @@ROWCOUNT
-END
-GO
-
-
-
-
-/*
-Created by: Daulton Schilling
-Date: 4/14/2020
-Comment: Stored procedure to select all the animal names
-*/
-CREATE PROCEDURE [sp_select_Names]
-
-AS
-BEGIN
-SELECT 
-
-[AnimalName] ,
-[AnimalID]
-
-From [Animal]
-
-END;
-
-GO
-
-
-INSERT INTO [dbo].[Item]
-	([ItemCategoryID],[ItemName],[ItemQuantity])
-	VALUES
-	('Medication','Medication1', 4),
-	('Medication','Medication2', 0)
-	
-GO
-
-/*
-Created by: Daulton Schilling
-Date: 4/14/2020
-Comment: Stored procedure to select an animal's medical history by it's ID
-*/
-CREATE PROCEDURE [sp_Select_AnimalMedicalHistory_By_AnimalID]
-(
-  @AnimalID [int]
-)
-AS
-BEGIN
-    SELECT 
-        Animal.AnimalID,
-        Animal.AnimalName, 
-        Animal.AnimalSpeciesID,	 			
-        AnimalMedicalInfo.Vaccinations,
-        AnimalMedicalInfo.SpayedNeutered,	
-        AnimalMedicalInfo.MostRecentVaccinationDate,	
-        AnimalMedicalInfo.AdditionalNotes	
-    FROM
-    [Animal] 
-    INNER JOIN 
-    AnimalHandlingNotes
-    ON AnimalHandlingNotes.AnimalID = Animal.AnimalID
-    INNER JOIN 
-    AnimalMedicalInfo
-    ON
-    AnimalMedicalInfo.AnimalID = Animal.AnimalID
-
-    WHERE Animal.AnimalID = @AnimalID
-    AND 
-    AnimalHandlingNotes.AnimalID = @AnimalID
-    AND 
-    AnimalMedicalInfo.AnimalID = @AnimalID
-END;
-GO
-
-
-
-/*
- * Created by: Daulton Schilling
- * Date: 4/12/2020
- * Comment: SP to create a new outgoing order
- */
-
-CREATE PROCEDURE [SP_Create_OutgoingOrder]
-(
-	@ItemID 						[int],
-	@OrderDate						[DateTime],
-	@ItemQuantity					[int],
-	@ItemCategoryID					[nvarchar](4000),
-	@UserID							[int]
-	
-)
-AS
-BEGIN
-    INSERT INTO [OutgoingOrders]
-        ([ItemID], [OrderDate], [ItemQuantity],
-        [ItemCategoryID],[UserID])
-    VALUES
-         (@ItemID, @OrderDate, @ItemQuantity,
-        @ItemCategoryID,@UserID)
-	
-END;
-GO
-
-/*
- * Created by: Daulton Schilling
- * Date: 4/12/2020
- * Comment: SP to update animal medical history
- */
-
-CREATE PROCEDURE [SP_Update_Animal_Medical_History]
-(
-		@AnimalID [int],
-		
-        @NewVaccinations [nvarchar](100),
-        @NewSpayedNeutered [bit],	
-        @NewMostRecentVaccinationDate [date],	
-        @NewAdditionalNotes [nvarchar](100),
-		
-		@OldVaccinations [nvarchar](100),
-        @OldSpayedNeutered [bit],	
-        @OldMostRecentVaccinationDate [date],	
-        @OldAdditionalNotes [nvarchar](100)
-		
-)
-AS
-BEGIN
-	
-	UPDATE [dbo].[AnimalMedicalInfo]
-	
-    SET   
-		 Vaccinations              = @NewVaccinations,
-         SpayedNeutered            = @NewSpayedNeutered,
-         MostRecentVaccinationDate = @NewMostRecentVaccinationDate,
-		 AdditionalNotes           = @NewAdditionalNotes
-		 
- 
-    FROM
-    [Animal] 
-    INNER JOIN 
-    AnimalMedicalInfo
-    ON
-    AnimalMedicalInfo.AnimalID = Animal.AnimalID
-
-		
-    WHERE   
-	Animal.AnimalID = @AnimalID
-
-END;
-GO
-
-/*
-Created by: Ethan Holmes
-Date: 04/09/2020
-Comment: Table to store customer errors
-
-
-*/
-DROP TABLE IF EXISTS [dbo].[CustomerErrors]
-GO
-PRINT '' PRINT '*** Creating table CustomerErrors'
-GO
-CREATE TABLE [dbo].[CustomerErrors](
-	[ErrorID] 			[int] IDENTITY(1000000,1) 	NOT NULL,
-	[ErrorType]			[nvarchar](100)				NOT NULL,
-	[Description]		[nvarchar](1000)					,
-	CONSTRAINT [pk_ErrorID] PRIMARY KEY([ErrorID] ASC)
-)
-GO
-
-/*
-Created by: Ethan Holmes
-Date: 04/09/2020
-Comment: Sample CustomerErrors data
-*/
-print '' print '*** Inserting Sample data for CustomerErrors'
-GO
-INSERT INTO [dbo].[CustomerErrors]
-		([ErrorType],[Description])
-	VALUES
-		("ErrorType1", "THIS IS A DESCRIPTION OF AN ERROR 1"),
-		("ErrorType2", "THIS IS A DESCRIPTION OF AN ERROR 2"),
-		("ErrorType3", "THIS IS A DESCRIPTION OF AN ERROR 3")
-GO
-
-/*
-Created by: Ethan Holmes
-Date: 04/09/2020
-Comment: Stored Procedure to insert a Customer Error intot he CustomerErrors table.
-*/
-print '' print '*** Creating sp_insert_customer_error'
-GO
-CREATE PROCEDURE [sp_insert_customer_error]
-(
-	@ErrorType			[nvarchar](100),
-	@Description		[nvarchar](1000)
-)
-AS 
-BEGIN
-	INSERT INTO [dbo].[CustomerErrors]
-			([ErrorType], [Description])
-		VALUES
-			(@ErrorType, @Description)
-	  
-		RETURN @@ROWCOUNT
-END
-GO
-
-/*
-Created by: Ethan Holmes
-Date: 04/09/2020
-Comment: Table to store customer credit cards
-
-
-*/
-DROP TABLE IF EXISTS [dbo].[PoSCreditCards]
-GO
-PRINT '' PRINT '*** Creating table PoSCreditCards'
-GO
-CREATE TABLE [dbo].[PoSCreditCards](
-	[CCID] 				[int] IDENTITY(1000000,1) 	NOT NULL,
-	[CardType]			[nvarchar](100)				NOT NULL,
-	[CardNumber]		[nvarchar](100)						,
-	[SecurityCode]		[nvarchar](25)						,
-	CONSTRAINT [pk_CCID] PRIMARY KEY([CCID] ASC)
-)
-GO
-
-/*
-Created by: Ethan Holmes
-Date: 04/09/2020
-Comment: Sample Customer Credit Cards
-*/
-print '' print '*** Inserting Sample data for PoSCreditCards'
-GO
-INSERT INTO [dbo].[PoSCreditCards]
-		([CardType],[CardNumber], [SecurityCode])
-	VALUES
-		("Visa", "12323232323232323", "214"),
-		("MasterCard", "XY3LL 2222 FJFJ 22K2", "442"),
-		("Chase", "2345 JJJJ FFII JK23 FDFF", "123")
-GO
-
-/*
-Created by: Ethan Holmes
-Date: 04/09/2020
-Comment: Stored Procedure to insert a Credit Card
-*/
-print '' print '*** Creating sp_add_credit_card'
-GO
-CREATE PROCEDURE [sp_add_credit_card]
-(
-	@CardType			[nvarchar](100),
-	@CardNumber			[nvarchar](100),
-	@SecurityCode		[nvarchar](25)
-)
-AS 
-BEGIN
-	INSERT INTO [dbo].[PoSCreditCards]
-			([CardType],[CardNumber], [SecurityCode])
-		VALUES
-			(@CardType, @CardNumber, @SecurityCode)
-	  
-		RETURN @@ROWCOUNT
-END
-GO
-
-/*
-Created by: Ethan Holmes
-Date: 04/09/2020
-Comment: Stored Procedure to return all cards
-*/
-print '' print '*** Creating sp_get_all_credit_cards'
-GO
-CREATE PROCEDURE [sp_get_all_credit_cards]
-AS 
-BEGIN
-	SELECT [CardType], [CardNumber]
-	FROM [dbo].[PoSCreditCards]
-END
-GO
-
-/*
-Created by: Ethan Holmes
-Date: 04/09/2020
-Comment: Stored Procedure to Remove A card
-*/
-print '' print '*** Creating sp_delete_credit_card'
-GO
-CREATE PROCEDURE [sp_delete_credit_card]
-(
-	@CardNumber [nvarchar](100)
-)
-AS 
-BEGIN
-	DELETE FROM [dbo].[PoSCreditCards]
-	WHERE @CardNumber = [CardNumber]
-END
-GO
-

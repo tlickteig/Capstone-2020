@@ -35,5 +35,20 @@ namespace DataAccessInterfaces
         /// <returns> a customer </returns>
         /// 
         Customer RetrieveCustomerByCustomerEmail(string customerEmail);
+
+        /// <summary>
+        /// Creator: Zach Bherensmeyer
+        /// Created: 4/17/2020
+        /// Approver: Steven Cardona
+        ///
+        /// Interface method signature for selecting all active customers
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>Returns a list of active customers</returns>
+        List<Customer> SelectAllActiveCustomers();
     }
 }

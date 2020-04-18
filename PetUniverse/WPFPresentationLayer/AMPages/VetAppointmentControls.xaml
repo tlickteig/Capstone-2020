@@ -22,14 +22,13 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="60"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button x:Name="btnFilter" Grid.Column="3" Margin="10 20 40 20" Content="Filter" Click="BtnFilter_Click"></Button>
+            <Button x:Name="btnFilter" Grid.Column="4" Width="100" Height="30"  Margin="30,62,40,648" Content="Filter" Click="BtnFilter_Click" Grid.RowSpan="2"></Button>
             <DataGrid x:Name="dgAppointments" Grid.Row="1" Grid.ColumnSpan="5"
-                  Margin="10 0 40 0" IsReadOnly="True" Loaded="DgAppointments_Loaded"></DataGrid>
-            <Button x:Name="btnBack" Grid.Row="2" Margin="20 15" Content="Back"></Button>
-            <Button x:Name="btnSchedule" Grid.Row="2" Grid.Column="3"
-                Margin="10 15 40 15" Content="Schedule New" Click="BtnSchedule_Click"></Button>
-            <Button x:Name="btnOpen" Grid.Row="2" Grid.Column="4"
-                    Margin="10 15 40 15" Content="Open" Click="BtnOpen_Click"></Button>
+                  Margin="40,35,40,5" IsReadOnly="True" Loaded="DgAppointments_Loaded"></DataGrid>
+            <Button Width="100" Height="30" x:Name="btnSchedule" Grid.Row="2" Grid.Column="4"
+                Margin="30,10,40,20" Content="Schedule New" Click="BtnSchedule_Click"/>
+            <Button x:Name="btnOpen" Width="100" Height="30" Grid.Row="2" Grid.Column="3"
+                    Margin="95,10,145,20" Content="Open" Click="BtnOpen_Click" Grid.ColumnSpan="2"></Button>
         </Grid>
         <Canvas x:Name="canViewVetAppointment" Height="845" Width="1280" Visibility="Hidden" Background="AntiqueWhite">
             <Grid Height="800" Width="1280">

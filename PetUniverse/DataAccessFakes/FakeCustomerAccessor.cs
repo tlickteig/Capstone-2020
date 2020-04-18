@@ -44,22 +44,20 @@ namespace DataAccessFakes
             {
                 new Customer()
                 {
-                UserID = 10009,
-                FirstName = "John",
-                LastName = "Elamin",
-                PhoneNumber = "3192098622",
-                Email = "john@hotmail.com",
-                AddressLineOne = "12 us street SW",
-                AddressLineTwo = "Apt2",
-                ZipCode = "53987",
-                State = "NY",
-                City = "london",
-                Active = true
+                    FirstName = "John",
+                    LastName = "Elamin",
+                    PhoneNumber = "3192098622",
+                    Email = "john@hotmail.com",
+                    AddressLineOne = "12 us street SW",
+                    AddressLineTwo = "Apt2",
+                    ZipCode = "53987",
+                    State = "NY",
+                    City = "london",
+                    Active = true
                 },
 
                 new Customer()
                 {
-                    UserID = 10008,
                     FirstName = "Ali",
                     LastName = "Ahmed",
                     PhoneNumber = "3193762955",
@@ -74,7 +72,6 @@ namespace DataAccessFakes
 
                 new Customer()
                 {
-                    UserID = 10007,
                     FirstName = "Zaic",
                     LastName = "kamal",
                     PhoneNumber = "9299556722",
@@ -117,6 +114,73 @@ namespace DataAccessFakes
                 }
             }
             return _customer;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/17/2020
+        /// Approver: Steven Cardona
+        ///
+        /// Data Access Face for selecting all active customers.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <returns>Returns a list of Customers</returns>
+        public List<Customer> SelectAllActiveCustomers()
+        {
+            List<Customer> customers = new List<Customer>()
+            {
+                new Customer()
+                {
+                    Email = "test1@PetUniverse.com",
+                    FirstName = "Test1",
+                    LastName = "Test1",
+                    PhoneNumber = "5632341221",
+                    AddressLineOne = "Test Address",
+                    AddressLineTwo = "Test Address",
+                    City = "Cedar Rapids",
+                    State = "IA",
+                    ZipCode = "52406",
+                    Active = true
+                },
+
+                new Customer()
+                {
+                    Email = "test1@PetUniverse.com",
+                    FirstName = "Test1",
+                    LastName = "Test1",
+                    PhoneNumber = "5632341221",
+                    AddressLineOne = "Test Address",
+                    AddressLineTwo = "Test Address",
+                    City = "Cedar Rapids",
+                    State = "IA",
+                    ZipCode = "52406",
+                    Active = true
+                },
+
+                new Customer()
+                {
+                    Email = "test1@PetUniverse.com",
+                    FirstName = "Test1",
+                    LastName = "Test1",
+                    PhoneNumber = "5632341221",
+                    AddressLineOne = "Test Address",
+                    AddressLineTwo = "Test Address",
+                    City = "Cedar Rapids",
+                    State = "IA",
+                    ZipCode = "52406",
+                    Active = true
+                }
+            };
+
+            customers = (from user in customers
+                         where user.Active == true
+                         select user).ToList();
+
+            return customers;
         }
     }
 }

@@ -101,6 +101,7 @@ namespace WPFPresentationLayer.AMPages
             addMode = true;
             lblTitle.Content = "Register New Kennel Record";
             txtUserID.Text = _user.PUUserID.ToString();
+            canView.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -164,6 +165,7 @@ namespace WPFPresentationLayer.AMPages
             addMode = false;
             RefreshData();
             oldKennel = null;
+            canView.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -241,6 +243,8 @@ namespace WPFPresentationLayer.AMPages
                     oldKennel = null;
                     RefreshData();
                 }
+                canView.Visibility = Visibility.Visible;
+                canAddRecord.Visibility = Visibility.Hidden;
             }
         }
 
