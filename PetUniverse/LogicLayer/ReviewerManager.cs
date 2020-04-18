@@ -213,6 +213,7 @@ namespace LogicLayer
             catch (Exception)
             {
 
+                
                 throw;
             }
             return questions;
