@@ -15,7 +15,6 @@ using System.Windows.Shapes;
 using DataTransferObjects;
 using LogicLayerInterfaces;
 using LogicLayer;
-using PresentationUtilityCode;
 
 namespace WPFPresentationLayer.AMPages
 {
@@ -74,6 +73,7 @@ namespace WPFPresentationLayer.AMPages
             cmbActivityType2.ItemsSource = cmbActivityType.ItemsSource;
             canViewActivityRecord.Visibility = Visibility.Visible;
             PopulateFields((AnimalActivity)dgActivities.SelectedItem);
+            canView.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -92,6 +92,7 @@ namespace WPFPresentationLayer.AMPages
         {
             EnableAddMode();
             canViewActivityRecord.Visibility = Visibility.Visible;
+            canView.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -279,10 +280,6 @@ namespace WPFPresentationLayer.AMPages
         private void RefreshActivitiesList()
         {
             dgActivities.ItemsSource = null;
-            if (cmbActivityType.SelectedItem == null)
-            {
-                return;
-            }
             try
             {
                 dgActivities.ItemsSource = _activityManager
@@ -478,6 +475,7 @@ namespace WPFPresentationLayer.AMPages
                 ClearFields();
                 DisableEditMode();
             }
+            canView.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -592,6 +590,7 @@ namespace WPFPresentationLayer.AMPages
                         MessageBox.Show("Record added!");
                         DisableAddMode();
                         canViewActivityRecord.Visibility = Visibility.Hidden;
+                        canView.Visibility = Visibility.Visible;
                         RefreshActivitiesList();
                     }
                     else
@@ -617,6 +616,7 @@ namespace WPFPresentationLayer.AMPages
                         MessageBox.Show("Record updated");
                         DisableEditMode();
                         canViewActivityRecord.Visibility = Visibility.Hidden;
+                        canView.Visibility = Visibility.Visible;
                         RefreshActivitiesList();
                     }
                     else
@@ -678,273 +678,6 @@ namespace WPFPresentationLayer.AMPages
             dgAnimalList.Columns.Remove(dgAnimalList.Columns[4]);
             dgAnimalList.Columns.Remove(dgAnimalList.Columns[4]);
             dgAnimalList.Columns.Remove(dgAnimalList.Columns[4]);
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 4/16/2020
-        /// Approver: Ethan Murphy, 4/16/2020
-        ///
-        /// button on the animal activities home page to go to the crud activity type page
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void EditActivityTypes_Click(object sender, RoutedEventArgs e)
-        {
-            canActivityTypes.Visibility = Visibility.Visible;
-            txtActivityName.Text = "";
-            txtActivityNotes.Text = "";
-            cmbSelectActivityType.Text = "";
-            lblCreateActivityType.Visibility = Visibility.Hidden;
-            lblDeleteActivityType.Visibility = Visibility.Hidden;
-            lblEditActivityType.Visibility = Visibility.Hidden;
-            lblSelectActivityType.Visibility = Visibility.Hidden;
-            cmbSelectActivityType.Visibility = Visibility.Hidden;
-            lblActivityName.Visibility = Visibility.Hidden;
-            txtActivityName.Visibility = Visibility.Hidden;
-            lblActivityNotes.Visibility = Visibility.Hidden;
-            txtActivityNotes.Visibility = Visibility.Hidden;
-            btnCreateActivtyTypeSave.Visibility = Visibility.Hidden;
-            btnEditActivtyTypeSave.Visibility = Visibility.Hidden;
-            btnDeleteActivtyTypeSave.Visibility = Visibility.Hidden;
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 4/16/2020
-        /// Approver: Ethan Murphy, 4/16/2020
-        ///
-        /// Shows the create animal activity type functionality
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnCreateActivityType_Click(object sender, RoutedEventArgs e)
-        {
-            lblCreateActivityType.Visibility = Visibility.Visible;
-            lblDeleteActivityType.Visibility = Visibility.Hidden;
-            lblEditActivityType.Visibility = Visibility.Hidden;
-            lblSelectActivityType.Visibility = Visibility.Hidden;
-            cmbSelectActivityType.Visibility = Visibility.Hidden;
-            lblActivityName.Visibility = Visibility.Visible;
-            txtActivityName.Visibility = Visibility.Visible;
-            lblActivityNotes.Visibility = Visibility.Visible;
-            txtActivityNotes.Visibility = Visibility.Visible;
-            btnCreateActivtyTypeSave.Visibility = Visibility.Visible;
-            btnEditActivtyTypeSave.Visibility = Visibility.Hidden;
-            btnDeleteActivtyTypeSave.Visibility = Visibility.Hidden;
-            txtActivityName.Text = "";
-            txtActivityNotes.Text = "";
-            cmbSelectActivityType.Text = "";
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 4/16/2020
-        /// Approver: Ethan Murphy, 4/16/2020
-        ///
-        /// Shows the edit animal activity type functionality
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnEditActivityType_Click(object sender, RoutedEventArgs e)
-        {
-            lblCreateActivityType.Visibility = Visibility.Hidden;
-            lblEditActivityType.Visibility = Visibility.Visible;
-            lblDeleteActivityType.Visibility = Visibility.Hidden;
-            lblSelectActivityType.Visibility = Visibility.Visible;
-            cmbSelectActivityType.Visibility = Visibility.Visible;
-            lblActivityName.Visibility = Visibility.Visible;
-            txtActivityName.Visibility = Visibility.Visible;
-            lblActivityNotes.Visibility = Visibility.Visible;
-            txtActivityNotes.Visibility = Visibility.Visible;
-            btnCreateActivtyTypeSave.Visibility = Visibility.Hidden;
-            btnEditActivtyTypeSave.Visibility = Visibility.Visible;
-            btnDeleteActivtyTypeSave.Visibility = Visibility.Hidden;
-            txtActivityName.Text = "";
-            txtActivityNotes.Text = "";
-            cmbSelectActivityType.ItemsSource = _activityManager.RetrieveAllAnimalActivityTypes().Select(a => a.ActivityTypeId);
-            cmbSelectActivityType.SelectedIndex = 0;
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 4/16/2020
-        /// Approver: Ethan Murphy, 4/16/2020
-        ///
-        /// shows the delete animal activity type functionality
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnDeleteActivityType_Click(object sender, RoutedEventArgs e)
-        {
-            lblCreateActivityType.Visibility = Visibility.Hidden;
-            lblEditActivityType.Visibility = Visibility.Hidden;
-            lblDeleteActivityType.Visibility = Visibility.Visible;
-            lblSelectActivityType.Visibility = Visibility.Visible;
-            cmbSelectActivityType.Visibility = Visibility.Visible;
-            lblActivityName.Visibility = Visibility.Hidden;
-            txtActivityName.Visibility = Visibility.Hidden;
-            lblActivityNotes.Visibility = Visibility.Hidden;
-            txtActivityNotes.Visibility = Visibility.Hidden;
-            btnCreateActivtyTypeSave.Visibility = Visibility.Hidden;
-            btnEditActivtyTypeSave.Visibility = Visibility.Hidden;
-            btnDeleteActivtyTypeSave.Visibility = Visibility.Visible;
-            txtActivityName.Text = "";
-            txtActivityNotes.Text = "";
-            cmbSelectActivityType.ItemsSource = _activityManager.RetrieveAllAnimalActivityTypes().Select(a => a.ActivityTypeId);
-            cmbSelectActivityType.SelectedIndex = 0;
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 4/16/2020
-        /// Approver: Ethan Murphy, 4/16/2020
-        ///
-        /// returns to the animal activty home page
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnReturnToActivityHome_Click(object sender, RoutedEventArgs e)
-        {
-            canActivityTypes.Visibility = Visibility.Hidden;
-            txtActivityName.Text = "";
-            txtActivityNotes.Text = "";
-            cmbSelectActivityType.Text = "";
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 4/16/2020
-        /// Approver: Ethan Murphy, 4/16/2020
-        /// 
-        /// Saving a new animal activity type
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnCreateActivtyTypeSave_Click(object sender, RoutedEventArgs e)
-        {
-            if (String.IsNullOrEmpty(txtActivityName.Text))
-            {
-                MessageBox.Show("Please enter the name of the new activity type.");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtActivityNotes.Text))
-            {
-                MessageBox.Show("Please enter the description of the new activity type.");
-                return;
-            }
-            AnimalActivityType animalActivityType = new AnimalActivityType();
-            animalActivityType.ActivityTypeId = txtActivityName.Text;
-            animalActivityType.Description = txtActivityNotes.Text;
-
-            try
-            {
-                if (_activityManager.AddAnimalActivityType(animalActivityType))
-                {
-                    WPFErrorHandler.SuccessMessage("Activity Type Successfully Added");
-                    cmbActivityType.ItemsSource = _activityManager.RetrieveAllAnimalActivityTypes().Select(a => a.ActivityTypeId);
-                    cmbActivityType.SelectedIndex = 0;
-                    canActivityTypes.Visibility = Visibility.Hidden;
-                }
-            }
-            catch (Exception ex)
-            {
-                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
-                canActivityTypes.Visibility = Visibility.Hidden;
-            }
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 4/16/2020
-        /// Approver: Ethan Murphy, 4/16/2020
-        /// 
-        /// Saving an updated animal activity type
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnEditActivtyTypeSave_Click(object sender, RoutedEventArgs e)
-        {
-            if (String.IsNullOrEmpty(txtActivityName.Text))
-            {
-                MessageBox.Show("Please enter the name of the updated activity type.");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtActivityNotes.Text))
-            {
-                MessageBox.Show("Please enter the description of the updated activity type.");
-                return;
-            }
-
-            AnimalActivityType newAnimalActivityType = new AnimalActivityType();
-            newAnimalActivityType.ActivityTypeId = txtActivityName.Text;
-            newAnimalActivityType.Description = txtActivityNotes.Text;
-
-            AnimalActivityType oldAnimalActivityType = new AnimalActivityType();
-            oldAnimalActivityType.ActivityTypeId = (string)cmbSelectActivityType.SelectedItem;
-
-            try
-            {
-                if (_activityManager.EditAnimalActivityType(oldAnimalActivityType, newAnimalActivityType))
-                {
-                    WPFErrorHandler.SuccessMessage("Activity Type Successfully Updated");
-                    cmbActivityType.ItemsSource = _activityManager.RetrieveAllAnimalActivityTypes().Select(a => a.ActivityTypeId);
-                    cmbActivityType.SelectedIndex = 0;
-                    canActivityTypes.Visibility = Visibility.Hidden;
-                }
-            }
-            catch (Exception ex)
-            {
-                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
-                canActivityTypes.Visibility = Visibility.Hidden;
-            }
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 4/16/2020
-        /// Approver: Ethan Murphy, 4/16/2020
-        /// 
-        /// Deleting animal activity type
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnDeleteActivtyTypeSave_Click(object sender, RoutedEventArgs e)
-        {
-            AnimalActivityType animalActivityType = new AnimalActivityType();
-            animalActivityType.ActivityTypeId = (string)cmbSelectActivityType.SelectedItem;
-            try
-            {
-                if (_activityManager.DeleteAnimalActivityType(animalActivityType))
-                {
-                    WPFErrorHandler.SuccessMessage("Activity Type Successfully Deleted");
-                    cmbActivityType.ItemsSource = _activityManager.RetrieveAllAnimalActivityTypes().Select(a => a.ActivityTypeId);
-                    cmbActivityType.SelectedIndex = 0;
-                    canActivityTypes.Visibility = Visibility.Hidden;
-                }
-            }
-            catch (Exception ex)
-            {
-                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n"
-                    + "Make sure you are not attempting to delete an activity type that has records."
-                    + "\n\n" + ex.InnerException.Message);
-                canActivityTypes.Visibility = Visibility.Hidden;
-            }
         }
     }
 }

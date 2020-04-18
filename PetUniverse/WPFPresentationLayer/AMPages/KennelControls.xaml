@@ -20,30 +20,30 @@
       d:DesignHeight="845" d:DesignWidth="1289"
       Title="KennelControls">
 
-    <Canvas x:Name="canViewKennelList" Height="845" Width="1289" Background="AliceBlue">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="725"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
+    <Canvas x:Name="canViewKennelList" Height="845" Width="1289">
+        <Canvas x:Name="canView">
+            <Grid Width="1000">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="725"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-            <Label Content="Datagrid failed to render." FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-            <DataGrid x:Name="dgAllKennels" Grid.Row="0" Width="1280" Grid.ColumnSpan="2" SelectionMode="Single"
+                <Label Content="Datagrid failed to render." FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                <DataGrid x:Name="dgAllKennels" Grid.Row="0" Grid.ColumnSpan="2" SelectionMode="Single"
                        Padding="0"
                       IsReadOnly="True" CanUserResizeRows="False" 
-                      CanUserResizeColumns="False" CanUserReorderColumns="False"  Visibility="Visible" Loaded="dgAllKennels_Loaded" MouseDoubleClick="dgAllKennels_MouseDoubleClick">
-            </DataGrid>
+                      CanUserResizeColumns="False" CanUserReorderColumns="False"  Visibility="Visible" Loaded="dgAllKennels_Loaded" MouseDoubleClick="dgAllKennels_MouseDoubleClick" Margin="42,104,-244,15"/>
 
-            <Button x:Name="btnAddLocationRecord" Margin="5"  Grid.Row="1" Grid.Column="0" Width="200" Height="50" FontSize="16" Click="btnAddLocationRecord_Click">ADD KENNEL RECORD</Button>
+                <Button x:Name="btnAddLocationRecord" Margin="644,0,-244,10"  Grid.Row="1" Grid.Column="1" Width="100" Height="30" Click="btnAddLocationRecord_Click">Add Record</Button>
 
-        </Grid>
-
+            </Grid>
+        </Canvas>
         <!--Add new record-->
-        <Canvas Height="845" Width=" 1280" x:Name="canAddRecord" Background="AntiqueWhite" Visibility="Hidden">
+        <Canvas Height="845" Width=" 1280" x:Name="canAddRecord" Visibility="Hidden">
             <Grid Height="800" Width=" 1280">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
@@ -52,7 +52,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Name="lblTitle" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">Register New Kennel Record</Label>
+                <Label Name="lblTitle" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0" Margin="434,37,358,5">Register New Kennel Record</Label>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
@@ -65,44 +65,43 @@
 
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="200"></ColumnDefinition>
+                        <ColumnDefinition Width="562"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <!--Animal ID-->
-                    <Label x:Name="lblAnimalID" Grid.Row="0" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Animal ID:</Label>
-                    <TextBox x:Name="txtAnimalID"  Grid.Row="0" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
+                    <Label x:Name="lblAnimalID" Grid.Row="0" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right" Height="40" Margin="0,30" Width="119">Animal ID:</Label>
+                    <TextBox x:Name="txtAnimalID"  Grid.Row="0" Grid.Column="1" Background="LightGray" 
+                     Margin="25,35,350,35" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"/>
 
                     <!--User ID-->
-                    <Label x:Name="lblUserID" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">User ID:</Label>
-                    <TextBox x:Name="txtUserID"  Grid.Row="1" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
+                    <Label x:Name="lblUserID" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right" Height="40" Margin="0,30" Width="91">User ID:</Label>
+                    <TextBox x:Name="txtUserID"  Grid.Row="1" Grid.Column="1" Background="LightGray" 
+                     Margin="25,35,350,35" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"/>
 
                     <!--Kennel ID-->
-                    <Label x:Name="lblKennelID" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">KennelID:</Label>
-                    <TextBox x:Name="txtKennelID"  Grid.Row="2" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
+                    <Label x:Name="lblKennelID" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right" Height="40" Margin="0,30" Width="110">KennelID:</Label>
+                    <TextBox x:Name="txtKennelID"  Grid.Row="2" Grid.Column="1" Background="LightGray" 
+                     Margin="25,35,350,35" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"/>
 
                     <!--Kennel Info-->
-                    <Label x:Name="lblKennelInfo" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Kennel Info:</Label>
-                    <TextBox x:Name="txtKennelInfo"  Grid.Row="3" Grid.Column="1" Background="LightGray" Height="30" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
+                    <Label x:Name="lblKennelInfo" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right" Height="40" Margin="0,30" Width="135">Kennel Info:</Label>
+                    <TextBox x:Name="txtKennelInfo"  Grid.Row="3" Grid.Column="1" Background="LightGray" 
+                     Margin="25,35,350,35" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"/>
 
                     <!--Date in-->
-                    <Label x:Name="lblDateIn" Grid.Row="4" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Date In:</Label>
-                    <TextBox x:Name="txtDateIn"  Grid.Row="4" Grid.Column="1" Background="LightGray" Height="30" Width="800" 
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="16" IsEnabled="False"></TextBox>
+                    <Label x:Name="lblDateIn" Grid.Row="4" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right" Height="40" Margin="0,30" Width="91">Date In:</Label>
+                    <TextBox x:Name="txtDateIn"  Grid.Row="4" Grid.Column="1" Background="LightGray" Width="345" 
+                     Margin="25,35,0,35" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="16" IsEnabled="False"/>
 
                     <!--Date out-->
-                    <Label x:Name="lblDateOut" Grid.Row="5" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right">Date Out:</Label>
-                    <TextBox x:Name="txtDateOut"  Grid.Row="5" Grid.Column="1" Background="LightGray" Height="30" Width="800"
-                     Margin="25 0 25 0" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="16" IsEnabled="False"></TextBox>
-                    <Button x:Name="btnAddDateOut"  Grid.Row="5" Grid.Column="1" Height="30" HorizontalAlignment="Right" 
-                            Margin="25 0 75 0" Width="150" FontSize="16" IsEnabled="False" Visibility="Hidden" Click="btnAddDateOut_Click">Add Date Out</Button>
+                    <Label x:Name="lblDateOut" Grid.Row="5" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Right" Height="40" Margin="0,30" Width="109">Date Out:</Label>
+                    <TextBox x:Name="txtDateOut"  Grid.Row="5" Grid.Column="1" Background="LightGray" Width="345"
+                     Margin="25,35,0,35" VerticalContentAlignment="Center" HorizontalAlignment="Left" FontSize="16" IsEnabled="False"/>
+                    <Button x:Name="btnAddDateOut"  Grid.Row="5" Grid.Column="1" HorizontalAlignment="Right" 
+                            Margin="0,35,75,35" Width="150" FontSize="16" IsEnabled="False" Visibility="Hidden" Click="btnAddDateOut_Click">Add Date Out</Button>
 
-
-                    <Grid Grid.Row="5" Grid.Column="0" Grid.RowSpan="3" Grid.ColumnSpan="2">
+                    <Grid Grid.Row="5" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
                             <RowDefinition></RowDefinition>
                             <RowDefinition Height="80"></RowDefinition>
@@ -114,11 +113,10 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-
                         <!--Submit-->
-                        <Button x:Name="BtnSubmitkennelAdd" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
-                        Width="150" FontSize="36" Padding="10"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitKennelAdd_Click">Submit</Button>
+                        <Button x:Name="BtnSubmitkennelAdd" Grid.Row="1" Grid.Column="3" 
+                        Width="100" Height="30"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitKennelAdd_Click" Margin="294,35,71,15">Submit</Button>
 
                         <!--Edit-->
                         <Button x:Name="BtnEditKennelAdd" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
@@ -126,18 +124,12 @@
                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnEditKennelAdd_Click" Visibility="Hidden">Edit</Button>
 
                         <!--Cancel-->
-                        <Button x:Name="btnCancelKennelAdd" Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="2" 
-                        Width="150" FontSize="36" Padding="10"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnCancelKennelAdd_Click">Cancel</Button>
+                        <Button x:Name="btnCancelKennelAdd" Grid.Row="1" Grid.Column="3" 
+                        Width="100" Height="30" 
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnCancelKennelAdd_Click" Margin="189,35,176,15">Cancel</Button>
                     </Grid>
-
-
                 </Grid>
-
             </Grid>
-        </Canvas>
-        <Canvas Height="845" Width=" 1280" x:Name="can" Background="AntiqueWhite" Visibility="Hidden">
-
         </Canvas>
     </Canvas>
 </Page>

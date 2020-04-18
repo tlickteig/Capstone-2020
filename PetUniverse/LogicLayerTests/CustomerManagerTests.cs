@@ -22,7 +22,7 @@ namespace LogicLayerTests
     ///
     /// </summary>
     [TestClass]
-   public class CustomerManagerTests
+    public class CustomerManagerTests
     {
         private ICustomerAccessor _fakeCustomerAccessor;
         private CustomerManager _customerManager;
@@ -82,6 +82,32 @@ namespace LogicLayerTests
             }
             // assert
             Assert.AreEqual(1, result);
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/17/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Test method to retrieve all Customers
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAllCustomers()
+        {
+            // arrange
+            List<Customer> customers = null;
+            int expectedCount = 3;
+
+            // act
+            customers = _customerManager.RetrieveAllActiveCustomers();
+
+            // assert
+            Assert.AreEqual(expectedCount, customers.Count);
         }
 
         /// <summary>

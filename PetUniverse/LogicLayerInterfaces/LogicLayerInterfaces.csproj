@@ -91,12 +91,14 @@
     <Compile Include="IOrderManager.cs" />
     <Compile Include="IPetUniverseUserERolesManager.cs" />
     <Compile Include="IPictureManager.cs" />
+    <Compile Include="IPoSCustomerPortalManager.cs" />
     <Compile Include="IProductManager.cs" />
     <Compile Include="IManageBackstockRecords.cs" />
     <Compile Include="IPUEventManager.cs" />
     <Compile Include="IRequestManager.cs" />
     <Compile Include="ISalesDataManager.cs" />
     <Compile Include="ISalesTaxManager.cs" />
+    <Compile Include="IShiftManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
     <Compile Include="ISpecialOrderManager.cs" />
     <Compile Include="IStatusManager.cs" />

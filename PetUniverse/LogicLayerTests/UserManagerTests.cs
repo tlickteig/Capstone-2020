@@ -24,6 +24,9 @@ namespace LogicLayerTests
     {
         private PetUniverseUser _user;
         private FakeUserAccessor _fakeUserAccessor;
+        private FakeActiveTimeOffAccessor _fakeActiveTimeOffAccessor;
+        private FakeAvailabilityAccessor _fakeAvailabilityAccessor;
+        private FakeShiftAccessor _fakeShiftAccessor;
         private UserManager _userManager;
 
         /// <summary>
@@ -42,7 +45,10 @@ namespace LogicLayerTests
         public void TestSetup()
         {
             _fakeUserAccessor = new FakeUserAccessor();
-            _userManager = new UserManager(_fakeUserAccessor);
+            _fakeShiftAccessor = new FakeShiftAccessor();
+            _fakeActiveTimeOffAccessor = new FakeActiveTimeOffAccessor();
+            _fakeAvailabilityAccessor = new FakeAvailabilityAccessor();
+            _userManager = new UserManager(_fakeUserAccessor, _fakeShiftAccessor, _fakeActiveTimeOffAccessor, _fakeAvailabilityAccessor);
         }
 
         /// <summary>
@@ -601,6 +607,104 @@ namespace LogicLayerTests
             Assert.AreEqual(true, success);
         }
 
+        /// <summary>
+        /// NAME: Kaleb Bachert
+        /// DATE: 4/16/2020
+        /// APPROVER: Lane Sandburg
+        /// 
+        /// This Test Method is the expected outcome of the TestRetrieveUsersWhoCanWork() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// </summary>
+        [TestMethod]
+        public void TestRetrieveUsersAbleToWork()
+        {
+            //Arrange
+            DateTime date = new DateTime(2020, 4, 21);
+            string weekDay = date.DayOfWeek.ToString();
+            DateTime startTime = new DateTime(2020, 4, 21, 4, 0, 0);
+            DateTime endTime = new DateTime(2020, 4, 21, 8, 0, 0);
+            string roleID = "Customer";
+            List<PetUniverseUser> users;
+
+            //Act
+            users = _userManager.RetrieveUsersAbleToWork(date, weekDay, startTime, endTime, roleID);
+
+            //Assert    
+            Assert.AreEqual(1, users.Count);
+        }
+
+        /// <summary>
+        /// NAME: Kaleb Bachert
+        /// DATE: 4/16/2020
+        /// APPROVER: Lane Sandburg
+        /// 
+        /// This Test Method is the outcome of the TestRetrieveUsersWhoCanWork() method when no User's fit the criteria
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// </summary>
+        [TestMethod]
+        public void TestRetrieveUsersAbleToWorkNoResults()
+        {
+            //Arrange
+            DateTime date = new DateTime(2020, 4, 21);
+            string weekDay = date.DayOfWeek.ToString();
+            DateTime startTime = new DateTime(2020, 4, 21, 9, 0, 0);
+            DateTime endTime = new DateTime(2020, 4, 21, 16, 0, 0);
+            string roleID = "Customer";
+            List<PetUniverseUser> users;
+
+            //Act
+            users = _userManager.RetrieveUsersAbleToWork(date, weekDay, startTime, endTime, roleID);
+
+            //Assert    
+            Assert.AreEqual(0, users.Count);
+        }
+
+        /// <summary>
+        /// NAME: Kaleb Bachert
+        /// DATE: 4/16/2020
+        /// APPROVER: Lane Sandburg
+        /// 
+        /// This Test Method is the outcome of the TestRetrieveUsersWhoCanWork() method when multiple Users fit the criteria
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// </summary>
+        [TestMethod]
+        public void TestRetrieveUsersAbleToWorkMultipleResults()
+        {
+            //Arrange
+            DateTime date = new DateTime(2020, 4, 23);
+            string weekDay = date.DayOfWeek.ToString();
+            DateTime startTime = new DateTime(2020, 4, 23, 8, 0, 0);
+            DateTime endTime = new DateTime(2020, 4, 23, 18, 0, 0);
+            string roleID = "Customer";
+            List<PetUniverseUser> users;
+
+            //Act
+            users = _userManager.RetrieveUsersAbleToWork(date, weekDay, startTime, endTime, roleID);
+
+            //Assert    
+            Assert.AreEqual(2, users.Count);
+        }
 
         /// <summary>
         /// Creator: Steven Cardona

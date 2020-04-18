@@ -1802,6 +1802,144 @@ CREATE TABLE [dbo].[JobListing] (
 )
 GO
 
+/*
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Table holding the schedule Start and End dates
+*/
+DROP TABLE IF EXISTS [dbo].[schedule]
+GO
+PRINT '' PRINT '*** Creating schedule table'
+GO
+CREATE TABLE [dbo].[schedule] (
+	[ScheduleID]	[int]IDENTITY(1000000,1)	NOT NULL,
+	[StartDate]		[date]						NOT NULL,
+	[EndDate]		[date]						NOT NULL,
+	CONSTRAINT [pk_ScheduleID] PRIMARY KEY ([ScheduleID] ASC)
+)
+GO
+
+/*
+Created by: Lane Sandburg
+Date: 3/20/2020
+Comment: Availability table
+*/
+DROP TABLE IF EXISTS [dbo].[Availability]
+GO
+print '' print '** Creating Availability table'
+GO
+CREATE TABLE [dbo].[Availability] (
+    [AvailabilityID]            [int] IDENTITY(100000, 1)     NOT NULL,
+    [EmployeeID]                [int]                         NOT NULL,
+    [DayOfWeek]                 [Nvarchar](9)                 NOT NULL,
+    [StartTime]                 [Nvarchar](20)                NOT NULL,
+    [EndTime]                   [Nvarchar](20)                NOT NULL,
+    [Active]                    [BIT]                         NOT NULL DEFAULT 1
+
+    CONSTRAINT [pk_AvailabilityID] PRIMARY KEY([AvailabilityID] ASC),
+    CONSTRAINT [fk_Availability_EmployeeID] FOREIGN KEY ([EmployeeID])
+    REFERENCES [dbo].[User] (UserID)
+)
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 3/31/2020
+Comment: Table that holds each scheduled Shift
+*/
+DROP TABLE IF EXISTS [dbo].[shift]
+GO
+PRINT '' PRINT '*** Creating Shift table'
+GO
+CREATE TABLE [dbo].[shift] (
+	[ShiftID]				[int]IDENTITY(1000000,1)	NOT NULL,
+	[ShiftTimeID]			[int]						NOT NULL,
+	[ScheduleID]			[int]						NOT NULL,
+	[Date]					[date]						NOT NULL,
+	[UserID]				[int]			  			NOT NULL,
+	[ERoleID]				[nvarchar](50)				NOT NULL,
+	CONSTRAINT [pk_ShiftID] PRIMARY KEY ([ShiftID] ASC),
+	CONSTRAINT [fk_shift_shiftTimeID] FOREIGN KEY([ShiftTimeID])
+		REFERENCES [shiftTime]([ShiftTimeID]) ON UPDATE CASCADE,
+	CONSTRAINT [fk_shift_ScheduleD] FOREIGN KEY ([ScheduleID])
+		REFERENCES [schedule]([ScheduleID]),
+	CONSTRAINT [fk_shift_UserID] FOREIGN KEY ([UserID])
+		REFERENCES [user]([UserID]) ON UPDATE CASCADE,
+	CONSTRAINT [fk_shift_RoleID] FOREIGN KEY ([ERoleID])
+		REFERENCES [eRole]([ERoleID])
+)
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 3/6/2020
+Comment: Table that holds each submitted schedule change request
+*/
+DROP TABLE IF EXISTS [dbo].[scheduleChangeRequest]
+GO
+PRINT '' PRINT '*** Creating scheduleChangeRequest table'
+GO
+CREATE TABLE [dbo].[scheduleChangeRequest] (
+	[ScheduleChangeRequestID]		[int]IDENTITY(1000000,1)	NOT NULL,
+	[ShiftID]						[int]						NOT NULL,
+	[ApprovalDate]					[datetime]						NULL,
+	[ApprovingEmployeeID]			[int]							NULL,
+	[RequestID]						[int]						NOT NULL,
+	CONSTRAINT [pk_ScheduleChangeRequestID] PRIMARY KEY ([ScheduleChangeRequestID] ASC),
+	CONSTRAINT [fk_scheduleChangeRequest_ShiftID] FOREIGN KEY ([ShiftID])
+		REFERENCES [shift]([ShiftID]),
+	CONSTRAINT [fk_scheduleChangeRequest_RequestID] FOREIGN KEY ([RequestID])
+		REFERENCES [request]([RequestID]),
+	CONSTRAINT [fk_scheduleChangeRequest_ApprovingEmployeeID] FOREIGN KEY ([ApprovingEmployeeID])
+		REFERENCES [user]([UserID])
+)
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/2/2020
+Comment: Table that holds Active Time Off, so people aren't 
+		 scheduled when they should have Time Off
+*/
+DROP TABLE IF EXISTS [dbo].[activeTimeOff]
+GO
+PRINT '' PRINT '*** Creating ActiveTimeOff table'
+GO
+CREATE TABLE [dbo].[activeTimeOff] (
+	[TimeOffID]			[int]IDENTITY(1000000, 1)	NOT NULL,
+	[UserID]			[int]						NOT NULL,
+	[StartDate]			[Date]						NOT NULL,
+	[EndDate]			[Date]						NOT NULL,
+	CONSTRAINT [pk_TimeOffID] PRIMARY KEY ([TimeOffID] ASC),
+	CONSTRAINT [fk_activeTimeOff_UserID] FOREIGN KEY ([UserID])
+		REFERENCES [user]([UserID])
+)
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 04/11/2020
+Comment: Table for ScheduleHours
+*/
+DROP TABLE IF EXISTS [dbo].[ScheduleHours]
+GO
+
+print '' print '** Creating ScheduleHours table'
+GO
+
+CREATE TABLE [dbo].[ScheduleHours]
+(
+    [ScheduleID]                [int]                                    NOT NULL,
+    [UserID]                    [int]                                    NOT NULL,
+    [HoursFirstWeek]            [decimal]            DEFAULT 0           NOT NULL,
+    [HoursSecondWeek]           [decimal]            DEFAULT 0           NOT NULL,
+    CONSTRAINT [pk_ScheduleID_UserID] PRIMARY KEY([ScheduleID] ASC,[UserID] ASC),
+    CONSTRAINT [fk_ScheduleID_ScheduleHours] FOREIGN KEY ([ScheduleID])
+        REFERENCES [Schedule]([ScheduleID]),
+    CONSTRAINT [fk_UserID_ScheduleHours] FOREIGN KEY ([UserID])
+        REFERENCES [User]([UserID])
+)
+GO
 
 /*
  ******************************* Create Procedures *****************************
@@ -4315,10 +4453,8 @@ GO
 /*
 Created by: Kaleb Bachert
 Date: 2/13/2020
-Comment: Method to retrieve all submitted requests by status
+Comment: Method to retrieve all submitted scheduling related requests by status
 */
-DROP PROCEDURE IF EXISTS [sp_select_requests_by_status]
-GO
 PRINT '' PRINT '*** Creating sp_select_requests_by_status'
 GO
 CREATE PROCEDURE [sp_select_requests_by_status]
@@ -4327,9 +4463,13 @@ CREATE PROCEDURE [sp_select_requests_by_status]
 )
 AS
 BEGIN
-	SELECT [RequestID], [RequestTypeID], [RequestingUserID], [DateCreated]
+	SELECT [RequestID], [RequestTypeID], [RequestingUserID], [DateCreated], [User].[Email]
 	FROM [dbo].[request]
+	INNER JOIN [dbo].[User] ON [request].[RequestingUserID] = [User].[UserID]
 	WHERE [Open] = @OpenStatus
+	AND ([RequestTypeID] = 'Time Off'
+			OR [RequestTypeID] = 'Availability Change'
+			OR [RequestTypeID] = 'Schedule Change')
 END
 GO
 
@@ -4384,6 +4524,7 @@ BEGIN
 	SELECT @@ROWCOUNT
 END
 GO
+
 /*
 Created by: Awaab Elamin
 Date: 2/18/2020
@@ -9293,7 +9434,754 @@ BEGIN
 	RETURN @@ROWCOUNT
 END
 GO
-                
+
+/*
+Created by: Kaleb Bachert
+Date: 4/14/2020
+Comment: Returns all users with specified role
+*/
+DROP PROCEDURE IF EXISTS [sp_select_users_by_role]
+GO
+PRINT '' PRINT '*** Creating sp_select_users_by_role'
+GO
+CREATE PROCEDURE [sp_select_users_by_role]
+(
+	@ERoleID		[nvarchar](50)
+)
+AS
+BEGIN
+	SELECT [User].[UserID], [Email]
+	FROM [dbo].[User]
+	INNER JOIN [UserERole] ON [User].[UserID] = [UserERole].[UserID]
+	WHERE [ERoleID] = @ERoleID
+	AND [Active] = 1
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/14/2020
+Comment: Returns all users availability records
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_users_availabilities]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_users_availabilities'
+GO
+CREATE PROCEDURE [sp_select_all_users_availabilities]
+AS
+BEGIN
+	SELECT [EmployeeID], [DayOfWeek], [StartTime], [EndTime]
+	FROM [dbo].[availability]
+	WHERE [Active] = 1
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/14/2020
+Comment: Returns all users activeTimeOff records
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_users_activeTimeOff]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_users_activeTimeOff'
+GO
+CREATE PROCEDURE [sp_select_all_users_activeTimeOff]
+AS
+BEGIN
+	SELECT [UserID], [StartDate], [EndDate]
+	FROM [dbo].[activeTimeOff]
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/14/2020
+Comment: Returns all users shift records (with shiftTime information) on a specified day
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shifts_by_day]
+GO
+PRINT '' PRINT '*** Creating sp_select_shifts_by_day'
+GO
+CREATE PROCEDURE [sp_select_shifts_by_day]
+(
+	@Date		[Date]
+)
+AS
+BEGIN
+	SELECT [UserID], [Date], [StartTime], [EndTime]
+	FROM [dbo].[shift]
+	INNER JOIN [shiftTime] ON [shift].[ShiftTimeID] = [shiftTime].[ShiftTimeID]
+	WHERE [Date] = @Date
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/15/2020
+Comment: Returns the current total hours for a User, for the week containing the specified date
+*/
+DROP PROCEDURE IF EXISTS [sp_select_schedule_hours_by_user_and_date]
+GO
+PRINT '' PRINT '*** Creating sp_select_schedule_hours_by_user_and_date'
+GO
+CREATE PROCEDURE [sp_select_schedule_hours_by_user_and_date]
+(
+	@UserID				[int],
+	@DateInSchedule		[Date]
+)
+AS
+BEGIN
+	SELECT [schedule].[ScheduleID], [schedule].[StartDate], [schedule].[EndDate], [HoursFirstWeek], [HoursSecondWeek]
+	FROM [dbo].[schedule]
+	INNER JOIN [dbo].[ScheduleHours] ON [schedule].[ScheduleID] = [ScheduleHours].[ScheduleID]
+	WHERE [ScheduleHours].[UserID] = @UserID
+	AND @DateInSchedule BETWEEN [schedule].[StartDate] AND [schedule].[EndDate]
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/16/2020
+Comment: Changes the value of the hours worked for a specified user, in a specified week, by the specified amount
+*/
+DROP PROCEDURE IF EXISTS [sp_update_employee_hours_worked]
+GO
+PRINT '' PRINT '*** Creating sp_update_employee_hours_worked'
+GO
+CREATE PROCEDURE [sp_update_employee_hours_worked]
+(
+	@UserID			[int],
+	@ScheduleID		[int],
+	@WeekNumber		[int],
+	@ChangeAmount	[decimal]
+)
+AS
+BEGIN
+	IF (@WeekNumber = 1)
+		UPDATE [ScheduleHours]
+		SET [HoursFirstWeek] = [HoursFirstWeek] + @ChangeAmount
+		WHERE [ScheduleID] = @ScheduleID
+		AND [UserID] = @UserID
+	ELSE IF (@WeekNumber = 2)
+		UPDATE [ScheduleHours]
+		SET [HoursSecondWeek] = [HoursSecondWeek] + @ChangeAmount
+		WHERE [ScheduleID] = @ScheduleID
+		AND [UserID] = @UserID
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/16/2020
+Comment: Changes the User working on a specified shift
+*/
+DROP PROCEDURE IF EXISTS [sp_update_shift_user_working]
+GO
+PRINT '' PRINT '*** Creating sp_update_shift_user_working'
+GO
+CREATE PROCEDURE [sp_update_shift_user_working]
+(
+	@ShiftID			[int],
+	@NewUserWorking		[int],
+	@OldUserWorking		[int]
+)
+AS
+BEGIN
+	UPDATE [shift]
+	SET [UserID] = @NewUserWorking
+	WHERE [UserID] = @OldUserWorking
+	AND [ShiftID] = @ShiftID
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/8/2020
+Comment: Method to retrieve a ScheduleChangeRequest with a specified RequestID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_schedule_change_request_by_requestid]
+GO
+PRINT '' PRINT '*** Creating sp_select_schedule_change_request_by_requestid'
+GO
+CREATE PROCEDURE [sp_select_schedule_change_request_by_requestid]
+(
+	@RequestID			[int]
+)
+AS
+BEGIN
+	SELECT [ScheduleChangeRequestID], [ScheduleChangeRequest].[ShiftID], [ApprovalDate], [ApprovingEmployeeID], 
+		   [RequestID], [shift].[UserID], [shift].[Date], [shiftTime].[DepartmentID], 
+		   [shiftTime].[StartTime], [shiftTime].[EndTime], [shift].[ERoleID]
+	FROM [dbo].[scheduleChangeRequest] 
+		INNER JOIN [dbo].[shift] ON [scheduleChangeRequest].[ShiftID] = [shift].[ShiftID]
+		INNER JOIN [dbo].[shiftTime] ON [shift].[ShiftTimeID] = [shiftTime].[ShiftTimeID]
+	WHERE [RequestID] = @RequestID
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/7/2020
+Comment: Procedure to add a Schedule Change Request
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_schedule_change_request]
+GO
+PRINT '' PRINT '*** Creating sp_insert_schedule_change_request'
+GO
+CREATE PROCEDURE [sp_insert_schedule_change_request]
+(
+	@ShiftID				[int],
+	@RequestingUserID		[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[request]
+	([RequestTypeID], [DateCreated], [RequestingUserID])
+	VALUES
+	('Schedule Change', GETDATE(), @RequestingUserID)
+
+	INSERT INTO [dbo].[scheduleChangeRequest]
+	([ShiftID], [RequestID])
+	VALUES
+	(@ShiftID, SCOPE_IDENTITY())
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 2/19/2020
+Comment: Method to get all scheduled Shifts (with shiftTime information) for a User
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shifts_by_user]
+GO
+PRINT '' PRINT '*** Creating sp_select_shifts_by_user'
+GO
+CREATE PROCEDURE [sp_select_shifts_by_user]
+(
+	@UserID			[int]
+)
+AS
+BEGIN
+	SELECT [ShiftID], [shift].[ShiftTimeID], [ScheduleID], 
+		   [Date], [UserID], [ERoleID], 
+		   [DepartmentID], [StartTime], [EndTime]
+	FROM   	[dbo].[shift] INNER JOIN [dbo].[shiftTime]
+	ON		[shift].[ShiftTimeID] = [shiftTime].[ShiftTimeID]
+	WHERE 	[UserID] = @UserID
+END
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/2/2020
+Comment: Method to insert ActiveTimeOff information
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_active_time_off]
+GO
+PRINT '' PRINT '*** Creating sp_insert_active_time_off'
+GO
+CREATE PROCEDURE [sp_insert_active_time_off]
+(
+	@UserID			[int],
+	@StartDate		[Date],
+	@EndDate		[Date]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[activeTimeOff]
+	([UserID], [StartDate], [EndDate])
+	VALUES
+	(@UserID, @StartDate, @EndDate)
+END
+GO
+  
+/*
+Created by: Kaleb Bachert
+Date: 4/16/2020
+Comment: Method to approve a specified request
+*/
+DROP PROCEDURE IF EXISTS [sp_approve_schedule_change_request]
+GO
+PRINT '' PRINT '*** Creating sp_approve_schedule_change_request'
+GO
+CREATE PROCEDURE [sp_approve_schedule_change_request]
+(
+	@RequestID		[int],
+	@UserID			[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[scheduleChangeRequest]
+	SET [ApprovingEmployeeID] = @UserID,
+		[ApprovalDate] = GETDATE()
+	WHERE [RequestID] = @RequestID
+	AND [ApprovingEmployeeID] IS NULL
+
+	UPDATE [dbo].[request]
+	SET [Open] = 0
+	WHERE [RequestID] = @RequestID
+	AND [Open] = 1
+	
+	SELECT @@ROWCOUNT
+END
+GO  
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to select all active appointments.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_appointments_by_active]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_appointments_by_active'
+GO
+CREATE PROCEDURE [sp_select_all_appointments_by_active]
+AS
+BEGIN
+	SELECT
+	[Appointment].[AppointmentID],
+	[Appointment].[AdoptionApplicationID],
+	[Appointment].[AppointmentTypeID],
+	[Appointment].[DateTime],
+	[Appointment].[Notes],
+	[Appointment].[Decision],
+	[Appointment].[LocationID],
+	[Appointment].[Active],
+	[Location].[Name],
+	[Location].[Address1],
+	[Location].[Address2],
+	[Location].[City],
+	[Location].[State],
+	[Location].[Zip]
+	FROM [Appointment]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to select an appointment by its appointment id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_appointment_by_appointment_id]
+GO
+PRINT '' PRINT '*** creating sp_select_appointment_by_appointment_id'
+GO
+CREATE PROCEDURE [sp_select_appointment_by_appointment_id]
+(
+	@AppointmentID [int]
+)
+AS
+BEGIN
+	SELECT
+		[AdoptionApplicationID]
+		,[AppointmentTypeID]
+		,[DateTime]
+		,[Notes]
+		,[Decision]
+		,[LocationID]
+		,[Active]
+	FROM [dbo].[Appointment]
+	WHERE [AppointmentID] = @AppointmentID
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/12/2020
+Comment: Stored procedure to deactivate an appointment by its id
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_appointment]
+GO
+PRINT '' PRINT '*** creating sp_deactivate_appointment'
+GO
+CREATE PROCEDURE [sp_deactivate_appointment]
+(
+	@AppointmentID			[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET 	[Active] = 0
+			
+	WHERE	[AppointmentID]	= @AppointmentID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Thomas Dupuy
+Date: 4/15/2020
+Comment: Stored procedure to update an appointment by its id
+*/
+DROP PROCEDURE IF EXISTS [sp_update_appointment]
+GO
+PRINT '' PRINT '*** creating sp_update_appointment'
+GO
+CREATE PROCEDURE [sp_update_appointment]
+(
+	@AppointmentID			[int],
+	
+	@OldAdoptionApplicationID	[int],
+	@OldAppointmentTypeID		[nvarchar](100),
+	@OldDateTime				[datetime],
+	@OldNotes					[nvarchar](1000),
+	@OldDecision				[nvarchar](50),
+	@OldLocationID				[int],
+	@OldActive					[bit],
+	
+	@NewAdoptionApplicationID	[int],
+	@NewAppointmentTypeID		[nvarchar](100),
+	@NewDateTime				[datetime],
+	@NewNotes					[nvarchar](1000),
+	@NewDecision				[nvarchar](50),
+	@NewLocationID				[int],
+	@NewActive					[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET		[AdoptionApplicationID] = @NewAdoptionApplicationID,
+			[AppointmentTypeID] = @NewAppointmentTypeID,
+			[DateTime] = @NewDateTime,
+			[Notes] = @NewNotes,
+			[LocationID] = @NewLocationID,
+			[Active] = @NewActive
+			
+	WHERE	[AppointmentID]	= @AppointmentID
+	AND		[AdoptionApplicationID] = @OldAdoptionApplicationID
+	AND		[AppointmentTypeID] = @OldAppointmentTypeID
+	AND		[DateTime] = @OldDateTime
+	AND		[Notes] = @OldNotes
+	AND		[LocationID] = @OldLocationID
+	AND		[Active] = @OldActive
+	RETURN @@ROWCOUNT
+END
+GO
+
+
+
+
+/*
+Created by: Daulton Schilling
+Date: 4/14/2020
+Comment: Stored procedure to select all the animal names
+*/
+CREATE PROCEDURE [sp_select_Names]
+
+AS
+BEGIN
+SELECT 
+
+[AnimalName] ,
+[AnimalID]
+
+From [Animal]
+
+END;
+
+GO
+
+
+INSERT INTO [dbo].[Item]
+	([ItemCategoryID],[ItemName],[ItemQuantity])
+	VALUES
+	('Medication','Medication1', 4),
+	('Medication','Medication2', 0)
+	
+GO
+
+/*
+Created by: Daulton Schilling
+Date: 4/14/2020
+Comment: Stored procedure to select an animal's medical history by it's ID
+*/
+CREATE PROCEDURE [sp_Select_AnimalMedicalHistory_By_AnimalID]
+(
+  @AnimalID [int]
+)
+AS
+BEGIN
+    SELECT 
+        Animal.AnimalID,
+        Animal.AnimalName, 
+        Animal.AnimalSpeciesID,	 			
+        AnimalMedicalInfo.Vaccinations,
+        AnimalMedicalInfo.SpayedNeutered,	
+        AnimalMedicalInfo.MostRecentVaccinationDate,	
+        AnimalMedicalInfo.AdditionalNotes	
+    FROM
+    [Animal] 
+    INNER JOIN 
+    AnimalHandlingNotes
+    ON AnimalHandlingNotes.AnimalID = Animal.AnimalID
+    INNER JOIN 
+    AnimalMedicalInfo
+    ON
+    AnimalMedicalInfo.AnimalID = Animal.AnimalID
+
+    WHERE Animal.AnimalID = @AnimalID
+    AND 
+    AnimalHandlingNotes.AnimalID = @AnimalID
+    AND 
+    AnimalMedicalInfo.AnimalID = @AnimalID
+END;
+GO
+
+
+
+/*
+ * Created by: Daulton Schilling
+ * Date: 4/12/2020
+ * Comment: SP to create a new outgoing order
+ */
+
+CREATE PROCEDURE [SP_Create_OutgoingOrder]
+(
+	@ItemID 						[int],
+	@OrderDate						[DateTime],
+	@ItemQuantity					[int],
+	@ItemCategoryID					[nvarchar](4000),
+	@UserID							[int]
+	
+)
+AS
+BEGIN
+    INSERT INTO [OutgoingOrders]
+        ([ItemID], [OrderDate], [ItemQuantity],
+        [ItemCategoryID],[UserID])
+    VALUES
+         (@ItemID, @OrderDate, @ItemQuantity,
+        @ItemCategoryID,@UserID)
+	
+END;
+GO
+
+/*
+ * Created by: Daulton Schilling
+ * Date: 4/12/2020
+ * Comment: SP to update animal medical history
+ */
+
+CREATE PROCEDURE [SP_Update_Animal_Medical_History]
+(
+		@AnimalID [int],
+		
+        @NewVaccinations [nvarchar](100),
+        @NewSpayedNeutered [bit],	
+        @NewMostRecentVaccinationDate [date],	
+        @NewAdditionalNotes [nvarchar](100),
+		
+		@OldVaccinations [nvarchar](100),
+        @OldSpayedNeutered [bit],	
+        @OldMostRecentVaccinationDate [date],	
+        @OldAdditionalNotes [nvarchar](100)
+		
+)
+AS
+BEGIN
+	
+	UPDATE [dbo].[AnimalMedicalInfo]
+	
+    SET   
+		 Vaccinations              = @NewVaccinations,
+         SpayedNeutered            = @NewSpayedNeutered,
+         MostRecentVaccinationDate = @NewMostRecentVaccinationDate,
+		 AdditionalNotes           = @NewAdditionalNotes
+		 
+ 
+    FROM
+    [Animal] 
+    INNER JOIN 
+    AnimalMedicalInfo
+    ON
+    AnimalMedicalInfo.AnimalID = Animal.AnimalID
+
+		
+    WHERE   
+	Animal.AnimalID = @AnimalID
+
+END;
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Table to store customer errors
+
+
+*/
+DROP TABLE IF EXISTS [dbo].[CustomerErrors]
+GO
+PRINT '' PRINT '*** Creating table CustomerErrors'
+GO
+CREATE TABLE [dbo].[CustomerErrors](
+	[ErrorID] 			[int] IDENTITY(1000000,1) 	NOT NULL,
+	[ErrorType]			[nvarchar](100)				NOT NULL,
+	[Description]		[nvarchar](1000)					,
+	CONSTRAINT [pk_ErrorID] PRIMARY KEY([ErrorID] ASC)
+)
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Sample CustomerErrors data
+*/
+print '' print '*** Inserting Sample data for CustomerErrors'
+GO
+INSERT INTO [dbo].[CustomerErrors]
+		([ErrorType],[Description])
+	VALUES
+		("ErrorType1", "THIS IS A DESCRIPTION OF AN ERROR 1"),
+		("ErrorType2", "THIS IS A DESCRIPTION OF AN ERROR 2"),
+		("ErrorType3", "THIS IS A DESCRIPTION OF AN ERROR 3")
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to insert a Customer Error intot he CustomerErrors table.
+*/
+print '' print '*** Creating sp_insert_customer_error'
+GO
+CREATE PROCEDURE [sp_insert_customer_error]
+(
+	@ErrorType			[nvarchar](100),
+	@Description		[nvarchar](1000)
+)
+AS 
+BEGIN
+	INSERT INTO [dbo].[CustomerErrors]
+			([ErrorType], [Description])
+		VALUES
+			(@ErrorType, @Description)
+	  
+		RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Table to store customer credit cards
+
+
+*/
+DROP TABLE IF EXISTS [dbo].[PoSCreditCards]
+GO
+PRINT '' PRINT '*** Creating table PoSCreditCards'
+GO
+CREATE TABLE [dbo].[PoSCreditCards](
+	[CCID] 				[int] IDENTITY(1000000,1) 	NOT NULL,
+	[CardType]			[nvarchar](100)				NOT NULL,
+	[CardNumber]		[nvarchar](100)						,
+	[SecurityCode]		[nvarchar](25)						,
+	CONSTRAINT [pk_CCID] PRIMARY KEY([CCID] ASC)
+)
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Sample Customer Credit Cards
+*/
+print '' print '*** Inserting Sample data for PoSCreditCards'
+GO
+INSERT INTO [dbo].[PoSCreditCards]
+		([CardType],[CardNumber], [SecurityCode])
+	VALUES
+		("Visa", "12323232323232323", "214"),
+		("MasterCard", "XY3LL 2222 FJFJ 22K2", "442"),
+		("Chase", "2345 JJJJ FFII JK23 FDFF", "123")
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to insert a Credit Card
+*/
+print '' print '*** Creating sp_add_credit_card'
+GO
+CREATE PROCEDURE [sp_add_credit_card]
+(
+	@CardType			[nvarchar](100),
+	@CardNumber			[nvarchar](100),
+	@SecurityCode		[nvarchar](25)
+)
+AS 
+BEGIN
+	INSERT INTO [dbo].[PoSCreditCards]
+			([CardType],[CardNumber], [SecurityCode])
+		VALUES
+			(@CardType, @CardNumber, @SecurityCode)
+	  
+		RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to return all cards
+*/
+print '' print '*** Creating sp_get_all_credit_cards'
+GO
+CREATE PROCEDURE [sp_get_all_credit_cards]
+AS 
+BEGIN
+	SELECT [CardType], [CardNumber]
+	FROM [dbo].[PoSCreditCards]
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/09/2020
+Comment: Stored Procedure to Remove A card
+*/
+print '' print '*** Creating sp_delete_credit_card'
+GO
+CREATE PROCEDURE [sp_delete_credit_card]
+(
+	@CardNumber [nvarchar](100)
+)
+AS 
+BEGIN
+	DELETE FROM [dbo].[PoSCreditCards]
+	WHERE @CardNumber = [CardNumber]
+END
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 4/17/2020
+Comment: This is used to view all customers
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_active_customers]
+GO
+PRINT '' PRINT '** Create sp_select_all_active_customers'
+GO
+CREATE PROCEDURE [sp_select_all_active_customers]
+AS
+BEGIN
+    SELECT
+        [Email],
+        [FirstName],
+        [LastName], 
+        [PhoneNumber],        
+        [addressLineOne],
+        [addressLineTwo],
+        [City],
+        [State],
+        [Zipcode],
+		[Active]
+    FROM [dbo].[Customer]
+    Where [Active] = 1
+END
+GO
+
 /*
  ******************************* Inserting Sample Data *****************************
 */
@@ -9394,15 +10282,16 @@ Created by: Zach Behrensmeyer
 Date: 2/6/2020
 Comment: This is used to pair a user with their roles
 */
-print '' print '*** Insert Into Role Table ***'
+print '' print '*** Insert Into ERole Table ***'
 GO
-INSERT INTO [dbo].[Role]
-([RoleID],
-[Description]
+INSERT INTO [dbo].[ERole]
+(
+	[ERoleID], [DepartmentID]
 )
 VALUES
-('Admin', 'User that has elevated privelages'),
-('Volunteer', 'Person who does volunteer work')
+	('Admin', 'Management'),
+	('Customer', 'Sales'),
+	('Volunteer', 'Fake1')
 GO
 
 /*
@@ -9412,11 +10301,15 @@ Comment: This is used to pair a user with their roles
 */
 PRINT '' PRINT '*** Insert Into User Role Table ***'
 GO
-INSERT INTO [dbo].[UserRole]
-	([UserID], [RoleID])
+INSERT INTO [dbo].[UserERole]
+([UserID],  
+[ERoleID]
+)
 VALUES
-	(100000, 'Admin'),
-	(100002, 'Volunteer')
+(100000, 'Admin'),
+(100001, 'Customer'), 
+(100002, 'Volunteer'),
+(100002, 'Admin')
 GO
 
 /*
@@ -10290,10 +11183,12 @@ Created by: Kaleb Bachert
 Date: 2/13/2020
 Comment: Inserting Sample Data for RequestType
 */
+PRINT '' PRINT '*** Inserting sample RequestType data'
+GO
 INSERT INTO [dbo].[requestType]
 	([RequestTypeID])
 	VALUES
-	('Time Off'), ('Availability Change')
+	('Time Off'), ('Availability Change'), ('Schedule Change')
 GO
 
 /*
@@ -10301,6 +11196,8 @@ Created by: Kaleb Bachert
 Date: 2/13/2020
 Comment: Inserting Sample Data for Request
 */
+PRINT '' PRINT '*** Inserting sample Request records'
+GO
 INSERT INTO [dbo].[request]
 	([RequestTypeID], [RequestingUserID], [DateCreated], [Open])
 	VALUES
@@ -10315,6 +11212,8 @@ Created by: Kaleb Bachert
 Date: 2/13/2020
 Comment: Inserting Sample Data for Time Off Request
 */
+PRINT '' PRINT '*** creating sample timeOffRequest records'
+GO
 INSERT INTO [dbo].[timeOffRequest]
 	([EffectiveStart], [EffectiveEnd], RequestID)
 	VALUES
@@ -10928,281 +11827,94 @@ INSERT INTO [dbo].[JobListing]
 GO
 
 /*
-Created by: Thomas Dupuy
-Date: 4/12/2020
-Comment: Stored procedure to select all active appointments.
+Created by: Kaleb Bachert
+Date: 3/31/2020
+Comment: Inserting Sample Data for Schedule
 */
-DROP PROCEDURE IF EXISTS [sp_select_all_appointments_by_active]
+PRINT '' PRINT '*** Inserting sample Schedule data'
 GO
-PRINT '' PRINT '*** Creating sp_select_all_appointments_by_active'
-GO
-CREATE PROCEDURE [sp_select_all_appointments_by_active]
-AS
-BEGIN
-	SELECT
-	[Appointment].[AppointmentID],
-	[Appointment].[AdoptionApplicationID],
-	[Appointment].[AppointmentTypeID],
-	[Appointment].[DateTime],
-	[Appointment].[Notes],
-	[Appointment].[Decision],
-	[Appointment].[LocationID],
-	[Appointment].[Active],
-	[Location].[Name],
-	[Location].[Address1],
-	[Location].[Address2],
-	[Location].[City],
-	[Location].[State],
-	[Location].[Zip]
-	FROM [Appointment]
-	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
-	ORDER BY [Appointment].[DateTime] DESC
-END
-GO
-
-/*
-Created by: Thomas Dupuy
-Date: 4/12/2020
-Comment: Stored procedure to select an appointment by its appointment id
-*/
-DROP PROCEDURE IF EXISTS [sp_select_appointment_by_appointment_id]
-GO
-PRINT '' PRINT '*** creating sp_select_appointment_by_appointment_id'
-GO
-CREATE PROCEDURE [sp_select_appointment_by_appointment_id]
-(
-	@AppointmentID [int]
-)
-AS
-BEGIN
-	SELECT
-		[AdoptionApplicationID]
-		,[AppointmentTypeID]
-		,[DateTime]
-		,[Notes]
-		,[Decision]
-		,[LocationID]
-		,[Active]
-	FROM [dbo].[Appointment]
-	WHERE [AppointmentID] = @AppointmentID
-END
-GO
-
-/*
-Created by: Thomas Dupuy
-Date: 4/12/2020
-Comment: Stored procedure to deactivate an appointment by its id
-*/
-DROP PROCEDURE IF EXISTS [sp_deactivate_appointment]
-GO
-PRINT '' PRINT '*** creating sp_deactivate_appointment'
-GO
-CREATE PROCEDURE [sp_deactivate_appointment]
-(
-	@AppointmentID			[int]
-)
-AS
-BEGIN
-	UPDATE [dbo].[Appointment]
-	SET 	[Active] = 0
-			
-	WHERE	[AppointmentID]	= @AppointmentID
-	RETURN @@ROWCOUNT
-END
-GO
-
-/*
-Created by: Thomas Dupuy
-Date: 4/15/2020
-Comment: Stored procedure to update an appointment by its id
-*/
-DROP PROCEDURE IF EXISTS [sp_update_appointment]
-GO
-PRINT '' PRINT '*** creating sp_update_appointment'
-GO
-CREATE PROCEDURE [sp_update_appointment]
-(
-	@AppointmentID			[int],
-	
-	@OldAdoptionApplicationID	[int],
-	@OldAppointmentTypeID		[nvarchar](100),
-	@OldDateTime				[datetime],
-	@OldNotes					[nvarchar](1000),
-	@OldDecision				[nvarchar](50),
-	@OldLocationID				[int],
-	@OldActive					[bit],
-	
-	@NewAdoptionApplicationID	[int],
-	@NewAppointmentTypeID		[nvarchar](100),
-	@NewDateTime				[datetime],
-	@NewNotes					[nvarchar](1000),
-	@NewDecision				[nvarchar](50),
-	@NewLocationID				[int],
-	@NewActive					[bit]
-)
-AS
-BEGIN
-	UPDATE [dbo].[Appointment]
-	SET		[AdoptionApplicationID] = @NewAdoptionApplicationID,
-			[AppointmentTypeID] = @NewAppointmentTypeID,
-			[DateTime] = @NewDateTime,
-			[Notes] = @NewNotes,
-			[LocationID] = @NewLocationID,
-			[Active] = @NewActive
-			
-	WHERE	[AppointmentID]	= @AppointmentID
-	AND		[AdoptionApplicationID] = @OldAdoptionApplicationID
-	AND		[AppointmentTypeID] = @OldAppointmentTypeID
-	AND		[DateTime] = @OldDateTime
-	AND		[Notes] = @OldNotes
-	AND		[LocationID] = @OldLocationID
-	AND		[Active] = @OldActive
-	RETURN @@ROWCOUNT
-END
-GO
-
-
-
-
-/*
-Created by: Daulton Schilling
-Date: 4/14/2020
-Comment: Stored procedure to select all the animal names
-*/
-CREATE PROCEDURE [sp_select_Names]
-
-AS
-BEGIN
-SELECT 
-
-[AnimalName] ,
-[AnimalID]
-
-From [Animal]
-
-END;
-
-GO
-
-
-INSERT INTO [dbo].[Item]
-	([ItemCategoryID],[ItemName],[ItemQuantity])
+INSERT INTO [dbo].[schedule]
+	([StartDate], [EndDate])
 	VALUES
-	('Medication','Medication1', 4),
-	('Medication','Medication2', 0)
-	
+	('2020-3-29', '2020-4-11'),
+	('2020-4-12', '2020-4-25')
 GO
 
 /*
-Created by: Daulton Schilling
-Date: 4/14/2020
-Comment: Stored procedure to select an animal's medical history by it's ID
+Created by: Kaleb Bachert
+Date: 3/31/2020
+Comment: Inserting Sample Data for Shift
 */
-CREATE PROCEDURE [sp_Select_AnimalMedicalHistory_By_AnimalID]
-(
-  @AnimalID [int]
-)
-AS
-BEGIN
-    SELECT 
-        Animal.AnimalID,
-        Animal.AnimalName, 
-        Animal.AnimalSpeciesID,	 			
-        AnimalMedicalInfo.Vaccinations,
-        AnimalMedicalInfo.SpayedNeutered,	
-        AnimalMedicalInfo.MostRecentVaccinationDate,	
-        AnimalMedicalInfo.AdditionalNotes	
-    FROM
-    [Animal] 
-    INNER JOIN 
-    AnimalHandlingNotes
-    ON AnimalHandlingNotes.AnimalID = Animal.AnimalID
-    INNER JOIN 
-    AnimalMedicalInfo
-    ON
-    AnimalMedicalInfo.AnimalID = Animal.AnimalID
-
-    WHERE Animal.AnimalID = @AnimalID
-    AND 
-    AnimalHandlingNotes.AnimalID = @AnimalID
-    AND 
-    AnimalMedicalInfo.AnimalID = @AnimalID
-END;
+PRINT '' PRINT '*** Insert Into Shift Table ***'
 GO
+INSERT INTO [dbo].[shift]
+	([ShiftTimeID], [ScheduleID], [Date], [UserID], [ERoleID])
+	VALUES
+	(1000000, 1000000, '2020-4-11', 100001, 'Admin'),
+	(1000001, 1000000, '2020-4-11', 100001, 'Customer'),
+	(1000002, 1000000, '2020-4-14', 100001, 'Volunteer'),
+	(1000003, 1000000, '2020-4-17', 100001, 'Admin'),
+	(1000000, 1000000, '2020-4-13', 100002, 'Volunteer'),
+	(1000000, 1000000, '2020-4-14', 100002, 'Volunteer'),
+	(1000000, 1000000, '2020-4-15', 100002, 'Volunteer'),
+	(1000000, 1000000, '2020-4-16', 100002, 'Volunteer'),
+	(1000000, 1000000, '2020-4-18', 100002, 'Volunteer'),
+	(1000003, 1000000, '2020-4-17', 100000, 'Admin'),
+	(1000003, 1000000, '2020-4-25', 100001, 'Admin'),
+	(1000002, 1000000, '2020-4-25', 100001, 'Admin'),
+	(1000000, 1000000, '2020-5-20', 100001, 'Admin'),
+	(1000001, 1000000, '2020-5-20', 100001, 'Admin')
 
-
-
-/*
- * Created by: Daulton Schilling
- * Date: 4/12/2020
- * Comment: SP to create a new outgoing order
- */
-
-CREATE PROCEDURE [SP_Create_OutgoingOrder]
-(
-	@ItemID 						[int],
-	@OrderDate						[DateTime],
-	@ItemQuantity					[int],
-	@ItemCategoryID					[nvarchar](4000),
-	@UserID							[int]
-	
-)
-AS
-BEGIN
-    INSERT INTO [OutgoingOrders]
-        ([ItemID], [OrderDate], [ItemQuantity],
-        [ItemCategoryID],[UserID])
-    VALUES
-         (@ItemID, @OrderDate, @ItemQuantity,
-        @ItemCategoryID,@UserID)
-	
-END;
 GO
 
 /*
- * Created by: Daulton Schilling
- * Date: 4/12/2020
- * Comment: SP to update animal medical history
- */
-
-CREATE PROCEDURE [SP_Update_Animal_Medical_History]
-(
-		@AnimalID [int],
-		
-        @NewVaccinations [nvarchar](100),
-        @NewSpayedNeutered [bit],	
-        @NewMostRecentVaccinationDate [date],	
-        @NewAdditionalNotes [nvarchar](100),
-		
-		@OldVaccinations [nvarchar](100),
-        @OldSpayedNeutered [bit],	
-        @OldMostRecentVaccinationDate [date],	
-        @OldAdditionalNotes [nvarchar](100)
-		
-)
-AS
-BEGIN
-	
-	UPDATE [dbo].[AnimalMedicalInfo]
-	
-    SET   
-		 Vaccinations              = @NewVaccinations,
-         SpayedNeutered            = @NewSpayedNeutered,
-         MostRecentVaccinationDate = @NewMostRecentVaccinationDate,
-		 AdditionalNotes           = @NewAdditionalNotes
-		 
- 
-    FROM
-    [Animal] 
-    INNER JOIN 
-    AnimalMedicalInfo
-    ON
-    AnimalMedicalInfo.AnimalID = Animal.AnimalID
-
-		
-    WHERE   
-	Animal.AnimalID = @AnimalID
-
-END;
+Created by: Kaleb Bachert
+Date: 2/13/2020
+Comment: Inserting Sample Data for ScheduleChangeRequest
+*/
+PRINT '' PRINT '*** Inserting Sample ScheduleChangeRequest Data'
+GO
+EXEC sp_insert_schedule_change_request 1000003, 100001;
 GO
 
+/*
+Created by: Kaleb Bachert
+Date: 3/31/2020
+Comment: Inserting Sample Data for activeTimeOff
+*/
+PRINT '' PRINT '*** Insert Into Active Time Off Table ***'
+GO
+INSERT INTO [dbo].[activeTimeOff]
+	([UserID], [StartDate], [EndDate])
+	VALUES
+	(100000, '2020-4-16', '2020-4-18'),
+	(100002, '2020-5-30', '2020-6-14')
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/10/2020
+Comment: Inserting Sample Data for availability
+*/
+PRINT '' PRINT '*** Insert Into Availability Table ***'
+GO
+INSERT INTO [dbo].[availability]
+	([EmployeeID], [DayOfWeek], [StartTime], [EndTime])
+	VALUES
+	(100002, 'Friday', '08:00:00','22:00:00'),
+	(100000, 'Friday', '14:00:00','22:00:00')
+GO
+
+/*
+Created by: Kaleb Bachert
+Date: 4/10/2020
+Comment: Inserting Sample Data for ScheduleHours
+*/
+PRINT '' PRINT '*** Insert Into ScheduleHours Table ***'
+GO
+INSERT INTO [dbo].[ScheduleHours]
+	([ScheduleID], [UserID], [HoursFirstWeek], [HoursSecondWeek])
+	VALUES
+	(1000000, 100002, 1, 2),
+	(1000001, 100002, 40, 0)
+GO

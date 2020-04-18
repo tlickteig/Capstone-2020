@@ -181,6 +181,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PoliciesAndStandardsController.cs" />
     <Compile Include="Controllers\RequestAvailabilityChangeController.cs" />
+    <Compile Include="Controllers\RequestScheduleChangeController.cs" />
     <Compile Include="Controllers\RequestTimeOffController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -189,6 +190,7 @@
     <Compile Include="Models\ApplicantListViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\UserWithShiftList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -520,6 +522,7 @@
     <Content Include="Views\Shared\_ThumbnailPartial.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
+    <Content Include="Views\RequestScheduleChange\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

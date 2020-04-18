@@ -88,19 +88,19 @@
                 </Grid.ColumnDefinitions>
                 <Label Content="Time Off Request" Grid.Row="0" Grid.ColumnSpan="2" FontSize="35" FontWeight="SemiBold" 
                                     HorizontalAlignment="Center" Padding="0 30 0 0" />
-                <Label Grid.Row="1" Margin="0 0 190 0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                <Label Grid.Row="1" Margin="390 0 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
                                     FontWeight="DemiBold">Start Date</Label>
                 <TextBox x:Name="txtTimeOffStartDate" Grid.Row="1" Margin="0 25 10 0" Width="250" Height="30" VerticalAlignment="Top" 
                                     HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label Grid.Row="1" Margin="0 55 190 0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                <Label Grid.Row="1" Margin="390 55 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
                                     FontWeight="DemiBold">End Date</Label>
                 <TextBox x:Name="txtTimeOffEndDate" Grid.Row="1" Margin="0 80 10 0" Width="250" Height="30" VerticalAlignment="Top" 
                                     HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label Grid.Row="1" Margin="0 110 190 0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                <Label Grid.Row="1" Margin="390 110 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
                                     FontWeight="DemiBold">Start Time</Label>
                 <TextBox x:Name="txtTimeOffStartTime" Grid.Row="1" Margin="0 135 10 0" Width="250" Height="30" VerticalAlignment="Top" 
                                     HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label Grid.Row="1" Margin="0 165 190 0" VerticalAlignment="Top" HorizontalAlignment="Right" 
+                <Label Grid.Row="1" Margin="390 165 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
                                     FontWeight="DemiBold">End Time</Label>
                 <TextBox x:Name="txtTimeOffEndTime" Grid.Row="1" Margin="0 190 10 0" Width="250" Height="30" VerticalAlignment="Top" 
                                     HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
@@ -120,6 +120,81 @@
                 </Button>
                 <Button x:Name="btnTimeOffCancel" Grid.Row="2" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 85 0"
                                     Padding="5 -2 5 2" FontWeight="DemiBold" Click="btnTimeOffCancel_Click">
+                    <Grid Width="80">
+                        <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Canvas>
+        <!-- CREATOR: Kaleb Bachert
+             CREATED: 2020/4/8
+             APPROVER: Lane Sandburg
+              
+             This canvas will contain details for a Schedule Change request, for approval
+               
+             UPDATER: NA
+             UPDATED: NA
+             UPDATE: NA 
+        -->
+        <Canvas x:Name="canScheduleChangeRequestDetails" Visibility="Hidden">
+            <Grid Width="1280">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition Height="75"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label Content="Schedule Change Request" Grid.Row="0" Grid.ColumnSpan="2" FontSize="35" FontWeight="SemiBold" 
+                                    HorizontalAlignment="Center" Padding="0 25 0 0" />
+                <Label Grid.Row="1" Margin="390 0 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold">Employee Scheduled</Label>
+                <TextBox x:Name="txtScheduleChangeEmployeeScheduled" Grid.Row="1" Margin="0 25 10 0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="1" Margin="390 55 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold">Department</Label>
+                <TextBox x:Name="txtScheduleChangeDepartment" Grid.Row="1" Margin="0 80 10 0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="1" Margin="390 110 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold">Shift Date</Label>
+                <TextBox x:Name="txtScheduleChangeShiftDate" Grid.Row="1" Margin="0 135 10 0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="1" Margin="390 165 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold">Start Time</Label>
+                <TextBox x:Name="txtScheduleChangeStartTime" Grid.Row="1" Margin="0 190 10 0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <Label Grid.Row="1" Margin="390 220 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold">End Time</Label>
+                <TextBox x:Name="txtScheduleChangeEndTime" Grid.Row="1" Margin="0 245 10 0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
+
+                <Label Grid.Row="1" Grid.Column="1" Margin="20 0 0 75" VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" FontSize="14">Select a Replacement Employee</Label>
+                <ComboBox x:Name="cmbScheduleChangeReplacementEmployees" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"
+                          Width="400" Height="50" Margin="10 0 0 0" FontWeight="DemiBold" VerticalContentAlignment="Center" FontSize="16">
+                </ComboBox>
+
+                <Button x:Name="btnScheduleChangeApprove" Grid.Row="2" Grid.Column="1" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    Margin="75 5 0 0" Padding="5 -2 5 2" FontWeight="DemiBold" Click="btnScheduleChangeApprove_Click">
+                    <Grid Width="80">
+                        <TextBlock Text="Approve" HorizontalAlignment="Center"/>
+                    </Grid>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="15"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button x:Name="btnScheduleChangeCancel" Grid.Row="2" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 85 0"
+                                    Padding="5 -2 5 2" FontWeight="DemiBold" Click="btnScheduleChangeCancel_Click">
                     <Grid Width="80">
                         <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
                     </Grid>

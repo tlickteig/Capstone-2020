@@ -228,6 +228,9 @@
     <Compile Include="PersonnelPages\ViewPersonnelRequests.xaml.cs">
       <DependentUpon>ViewPersonnelRequests.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PoSPages\pgCustomerControls.xaml.cs">
+      <DependentUpon>pgCustomerControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PoSPages\pgInventoryItems.xaml.cs">
       <DependentUpon>pgInventoryItems.xaml</DependentUpon>
     </Compile>
@@ -302,6 +305,9 @@
     </Compile>
     <Compile Include="PetUniverseHome.xaml.cs">
       <DependentUpon>PetUniverseHome.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SystemAdminPages\pgCustomerControls.xaml.cs">
+      <DependentUpon>pgCustomerControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="SystemAdminPages\pgMessages.xaml.cs">
       <DependentUpon>pgMessages.xaml</DependentUpon>
@@ -530,6 +536,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PoSPages\pgCustomerControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PoSPages\pgInventoryItems.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -634,6 +644,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SystemAdminPages\pgCustomerControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SystemAdminPages\pgMessages.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

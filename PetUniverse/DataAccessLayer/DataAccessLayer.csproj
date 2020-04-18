@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveTimeOffAccessor.cs" />
     <Compile Include="AdoptionAnimalAccessor.cs" />
     <Compile Include="AdoptionApplicationAccessor.cs" />
     <Compile Include="AdoptionAppointmentAccessor.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="ApplicantAccessor.cs" />
     <Compile Include="AppointmentAccessor.cs" />
     <Compile Include="AppointmentTypeAccessor.cs" />
+    <Compile Include="AvailabilityAccessor.cs" />
     <Compile Include="BackStockAccessor.cs" />
     <Compile Include="BaseScheduleAccessor.cs" />
     <Compile Include="CustomerAccessor.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="OrderAccessor.cs" />
     <Compile Include="PetUniverseERolesAccessor.cs" />
     <Compile Include="PictureAccessor.cs" />
+    <Compile Include="PoSCustomerPortalAccessor.cs" />
     <Compile Include="ProductAccessor.cs" />
     <Compile Include="PromotionAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,6 +103,7 @@
     <Compile Include="ReviewerAccessor.cs" />
     <Compile Include="SalesDataAccessor.cs" />
     <Compile Include="SalesTaxAccessor.cs" />
+    <Compile Include="ShiftAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
     <Compile Include="SpecialOrderAccessor.cs" />
     <Compile Include="StatusAccessor.cs" />

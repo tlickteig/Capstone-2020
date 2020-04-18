@@ -69,6 +69,7 @@
     <Compile Include="AppointmentTypeManager.cs" />
     <Compile Include="BaseScheduleManager.cs" />
     <Compile Include="CustomerManager.cs" />
+    <Compile Include="CustomerPortalManager.cs" />
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="DonationManager.cs" />
     <Compile Include="ERoleManager.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="ReviewerManager.cs" />
     <Compile Include="SalesDataManager.cs" />
     <Compile Include="SalesTaxManager.cs" />
+    <Compile Include="ShiftManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
     <Compile Include="SpecialOrderManager.cs" />
     <Compile Include="StatusManager.cs" />

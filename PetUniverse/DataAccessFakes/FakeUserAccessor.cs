@@ -479,5 +479,56 @@ namespace DataAccessFakes
         {
             return true;
         }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/15
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///   Method that retrieves all the dummy Users with specified Role, for testing
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public List<PetUniverseUser> SelectActiveUsersByRole(string roleID)
+        {
+            List<PetUniverseUser> users = new List<PetUniverseUser>();
+
+            users.Add(new PetUniverseUser()
+            {
+                PUUserID = 100000,
+                FirstName = "Test1",
+                LastName = "Test1",
+                City = "Cedar Rapids",
+                Email = "test1@PetUniverse.com",
+                PhoneNumber = "5632341221",
+                State = "IA",
+                ZipCode = "52406",
+                Active = true,
+                PURoles = new List<string>() { "Admin", "Customer" }
+            });
+            users.Add(new PetUniverseUser()
+            {
+                PUUserID = 100001,
+                FirstName = "Test2",
+                LastName = "Test2",
+                City = "New York",
+                Email = "test2@PetUniverse.com",
+                PhoneNumber = "5632348893",
+                State = "NY",
+                ZipCode = "10021",
+                Active = true,
+                PURoles = new List<string>() { "Customer" }
+            });
+
+            users = (from user in users
+                     where user.PURoles.Contains(roleID)
+                     select user).ToList();
+
+            return users;
+        }
     }
 }

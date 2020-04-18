@@ -33,7 +33,22 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <param name="customerEmail"></param>     
         /// <returns>Customer</returns>
-
         Customer RetrieveCustomerByCustomerEmail(string customerEmail);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/17/2020
+        /// Approver: Steven Cardona
+        ///
+        /// Retrieves a list of all active customers
+        /// </summary>
+        /// <remarks>        
+        /// Updater: NA
+        /// Update: NA
+        /// Approver: NA
+        /// </remarks>
+        ///
+        /// <returns>List of all active customers</returns>
+        List<Customer> RetrieveAllActiveCustomers();
     }
 }

@@ -99,6 +99,32 @@ namespace LogicLayer
             return customer;
         }
 
-        
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/17/2020
+        /// Approver: Steven Cardona
+        ///
+        /// Manager method to get all active customers
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>Returns a list of active PetUniverseUsers</returns>
+        public List<Customer> RetrieveAllActiveCustomers()
+        {
+            List<Customer> customers = new List<Customer>();
+
+            try
+            {
+                customers = _customerAccessor.SelectAllActiveCustomers();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No Customers Found", ex);
+            }
+            return customers;
+        }
     }
 }

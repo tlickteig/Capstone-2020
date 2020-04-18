@@ -72,7 +72,7 @@ namespace LogicLayer
         /// UPDATE: NA
         /// 
         /// </remarks>
-        public List<Request> RetrieveRequestsByStatus(bool open)
+        public List<RequestVM> RetrieveRequestsByStatus(bool open)
         {
             try
             {
@@ -304,6 +304,32 @@ namespace LogicLayer
 
         /// <summary>
         ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/9
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method calls the SelectScheduleChangeRequestByRequestID method from the Accessor
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        public ScheduleChangeRequestVM RetrieveScheduleChangeRequestByRequestID(int requestID)
+        {
+            try
+            {
+                return _requestAccessor.SelectScheduleChangeRequestByRequestID(requestID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/3/17
         ///  APPROVER: Lane Sandburg
         ///  
@@ -507,6 +533,59 @@ namespace LogicLayer
             catch (Exception ex)
             {
                 throw new ApplicationException("Unable to update request status.", ex);
+            }
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/2
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for inserting Active Time Off, called once a request is approved
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="activeTimeOff"></param>
+        public bool AddActiveTimeOff(ActiveTimeOff activeTimeOff)
+        {
+            try
+            {
+                return 1 == _requestAccessor.InsertActiveTimeOff(activeTimeOff);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not added.", ex);
+            }
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/7
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method calls the InsertScheduleChangeRequest method from the Accessor
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <param name="requestingUserID"></param>
+        public bool AddScheduleChangeRequest(ScheduleChangeRequest request, int requestingUserID)
+        {
+            try
+            {
+                return 1 == _requestAccessor.InsertScheduleChangeRequest(request, requestingUserID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not added.", ex);
             }
         }
     }

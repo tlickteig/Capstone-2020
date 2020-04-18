@@ -67,7 +67,7 @@ namespace LogicLayerTests
         public void TestRetrieveRequestsByStatusOpen()
         {
             //arrange
-            List<Request> requests;
+            List<RequestVM> requests;
             IRequestManager requestManager = new RequestManager(_requestAccessor);
 
             //act
@@ -94,7 +94,7 @@ namespace LogicLayerTests
         public void TestRetrieveRequestsByStatusClosed()
         {
             //arrange
-            List<Request> requests;
+            List<RequestVM> requests;
             IRequestManager requestManager = new RequestManager(_requestAccessor);
 
             //act
@@ -400,6 +400,33 @@ namespace LogicLayerTests
 
         /// <summary>
         ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/9
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Test method for retrieving a ScheduleChangeRequestByRequestID
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveScheduleChangeRequestByRequestID()
+        {
+            // arrange
+            ScheduleChangeRequestVM request = null;
+            IRequestManager requestManager = new RequestManager(_requestAccessor);
+
+            // act
+            request = requestManager.RetrieveScheduleChangeRequestByRequestID(1000004);
+
+            // assert
+            Assert.IsNotNull(request);
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/2/19
         ///  APPROVER: Lane Sandburg
         ///  
@@ -423,6 +450,37 @@ namespace LogicLayerTests
             {
                 RequestID = 1000003
             }, 1000000);
+
+            //assert
+            Assert.AreEqual(true, singleRequestAdded);
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/7
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Test method for creating an schedule change request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestCreateScheduleChangeRequest()
+        {
+            //arrange
+            bool singleRequestAdded;
+            IRequestManager requestManager = new RequestManager(_requestAccessor);
+
+            //act
+            singleRequestAdded = requestManager.AddScheduleChangeRequest(new ScheduleChangeRequest()
+            {
+                ScheduleChangeRequestID = 1000000,
+                ShiftID = 1000001
+            }, 1000001);
 
             //assert
             Assert.AreEqual(true, singleRequestAdded);
@@ -603,6 +661,36 @@ namespace LogicLayerTests
 
             // assert
             Assert.AreEqual(1, result);
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/2
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Test method for creating an Active Time Off record
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestCreateActiveTimeOff()
+        {
+            //arrange
+            bool singleItemAdded;
+            IRequestManager requestManager = new RequestManager(_requestAccessor);
+
+            //act
+            singleItemAdded = requestManager.AddActiveTimeOff(new ActiveTimeOff()
+            {
+                UserID = 1000001
+            });
+
+            //assert
+            Assert.AreEqual(true, singleItemAdded);
         }
 
         [TestCleanup]
