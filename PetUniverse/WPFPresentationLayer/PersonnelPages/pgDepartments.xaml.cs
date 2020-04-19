@@ -160,7 +160,7 @@ namespace WPFPresentationLayer.PersonnelPages
                         canAddDepartment.Visibility = Visibility.Hidden;
                         canDepartmentList.Visibility = Visibility.Visible;
                         showDGDepartments();
-                    } 
+                    }
                     else
                     {
                         WPFErrorHandler.ErrorMessage("Department not added.");
@@ -175,7 +175,7 @@ namespace WPFPresentationLayer.PersonnelPages
                     txtAddDepartmentDepartmentName.Text = "";
                     txtAddDepartmentDescription.Text = "";
                 }
-            
+
 
             else
             {

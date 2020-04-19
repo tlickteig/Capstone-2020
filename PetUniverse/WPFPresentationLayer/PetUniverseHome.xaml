@@ -507,19 +507,17 @@
             <TabControl x:Name="tabsetPersonnel" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
                 <TabItem x:Name="tabDepartment" Header="Departments" FontWeight="Bold"  Background="#fff8e3">
                     <Grid>
-                        <Frame Source="./PersonnelPages/Departments.xaml"/>
+                        <Frame Source="./PersonnelPages/pgDepartments.xaml" NavigationUIVisibility="Hidden"/>
                     </Grid>
                 </TabItem>
                 <TabItem x:Name="tabShiftTimeManager" Header="ShiftTimeManager" FontWeight="Bold" Background="#fff8e3">
-                    <Grid Background="#fff8e3">
-                        <Frame Source="./PersonnelPages/frameShiftTime.xaml"></Frame>
-                    </Grid>
+                    <Frame Source="./PersonnelPages/pgShiftTime.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
                 <TabItem x:Name="tabTrainingVideos" Header="Training Videos" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./PersonnelPages/frameTrainingVideos.xaml"></Frame>
+                    <Frame Source="./PersonnelPages/pgTrainingVideos.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
                 <TabItem x:Name="tabBaseSchedule" Header="Base Schedule" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frBaseSchedule"></Frame>
+                    <Frame x:Name="frBaseSchedule" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
 
                 <!-- Creator: Kaleb Bachert
@@ -547,8 +545,7 @@
                 <TabItem x:Name="tabViewAllERoles" Header="View Roles" FontWeight="Bold" Background="#fff8e3">
                     <Grid>
                         <Canvas x:Name="canViewAllRoles">
-                            <Frame Source="./PersonnelPages/ViewAllRoles.xaml"></Frame>
-
+                            <Frame Source="./PersonnelPages/ViewAllRoles.xaml" NavigationUIVisibility="Hidden"></Frame>
                         </Canvas>
                     </Grid>
                 </TabItem>

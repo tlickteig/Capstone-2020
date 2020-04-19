@@ -75,7 +75,6 @@ namespace WPFPresentationLayer.PersonnelPages
         private void populateVideoList()
         {
             dgVideoList.ItemsSource = _videoManager.RetrieveTrainingVideosByActive((bool)chkVideosActive.IsChecked);
-
         }
 
         /// <summary>
@@ -124,25 +123,9 @@ namespace WPFPresentationLayer.PersonnelPages
 
         private void showPrompt()
         {
-            btnAddVideo.Visibility = Visibility.Hidden;
-            btnEditVideo.Visibility = Visibility.Hidden;
-            btnViewVideo.Visibility = Visibility.Hidden;
-            btnSaveVideo.Visibility = Visibility.Visible;
-            btnCancel.Visibility = Visibility.Visible;
-            chkVideoActive.Visibility = Visibility.Visible;
-            chkVideosActive.Visibility = Visibility.Hidden;
+            canViewVideos.Visibility = Visibility.Hidden;
 
-            dgVideoList.Visibility = Visibility.Hidden;
-            lblActiveVideos.Visibility = Visibility.Hidden;
-            lblActive.Visibility = Visibility.Visible;
-            lblVideoID.Visibility = Visibility.Visible;
-            lblRunTimeM.Visibility = Visibility.Visible;
-            lblRunTimeS.Visibility = Visibility.Visible;
-            lblVideoDesc.Visibility = Visibility.Visible;
-            txtVideoID.Visibility = Visibility.Visible;
-            txtRunTimeM.Visibility = Visibility.Visible;
-            txtRunTimeS.Visibility = Visibility.Visible;
-            txtVideoDesc.Visibility = Visibility.Visible;
+            canAdd.Visibility = Visibility.Visible;
             if (_editMode == true)
             {
                 txtVideoID.IsReadOnly = false;
@@ -244,25 +227,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </remarks>
         private void hidePrompt()
         {
-            btnAddVideo.Visibility = Visibility.Visible;
-            btnEditVideo.Visibility = Visibility.Visible;
-            btnViewVideo.Visibility = Visibility.Visible;
-            btnSaveVideo.Visibility = Visibility.Hidden;
-            btnCancel.Visibility = Visibility.Hidden;
-            chkVideoActive.Visibility = Visibility.Hidden;
-            chkVideosActive.Visibility = Visibility.Visible;
+            canAdd.Visibility = Visibility.Hidden;
+            canViewVideos.Visibility = Visibility.Visible;
 
-            dgVideoList.Visibility = Visibility.Visible;
-            lblActiveVideos.Visibility = Visibility.Visible;
-            lblActive.Visibility = Visibility.Hidden;
-            lblVideoID.Visibility = Visibility.Hidden;
-            lblRunTimeM.Visibility = Visibility.Hidden;
-            lblRunTimeS.Visibility = Visibility.Hidden;
-            lblVideoDesc.Visibility = Visibility.Hidden;
-            txtVideoID.Visibility = Visibility.Hidden;
-            txtRunTimeM.Visibility = Visibility.Hidden;
-            txtRunTimeS.Visibility = Visibility.Hidden;
-            txtVideoDesc.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -419,6 +386,17 @@ namespace WPFPresentationLayer.PersonnelPages
         private void ChkVideosActive_Click(object sender, RoutedEventArgs e)
         {
             populateVideoList();
+
+
+            if (chkVideoActive.IsChecked == true)
+            {
+                lblActiveVideos.Content = "Inactive";
+            }
+            else
+            {
+                lblActiveVideos.Content = "Active";
+            }
+
         }
     }
 }

@@ -107,7 +107,7 @@ namespace WPFPresentationLayer.PersonnelPages
             }
             catch (Exception ex)
             {
-                WPFErrorHandler.ErrorMessage("Data not found.",ex.Message);
+                WPFErrorHandler.ErrorMessage("Data not found.", ex.Message);
             }
         }
 
@@ -167,7 +167,7 @@ namespace WPFPresentationLayer.PersonnelPages
         /// <param name="e"></param>
         private void cboDepartment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(cboDepartment.SelectedIndex != -1)
+            if (cboDepartment.SelectedIndex != -1)
             {
                 try
                 {
@@ -198,7 +198,7 @@ namespace WPFPresentationLayer.PersonnelPages
                     {
                         foreach (BaseScheduleLine oldLine in oldLines)
                         {
-                            if(line.ERoleID.Equals(oldLine.ERoleID)
+                            if (line.ERoleID.Equals(oldLine.ERoleID)
                                 && line.ShiftTimeID.Equals(oldLine.ShiftTimeID))
                             {
                                 line.Count = oldLine.Count;

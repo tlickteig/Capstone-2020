@@ -180,8 +180,8 @@
     <Compile Include="InventoryPages\ViewSpecialOrders.xaml.cs">
       <DependentUpon>ViewSpecialOrders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\BaseScheduleControls.xaml.cs">
-      <DependentUpon>BaseScheduleControls.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgBaseScheduleControls.xaml.cs">
+      <DependentUpon>pgBaseScheduleControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\FilterItem.xaml.cs">
       <DependentUpon>FilterItem.xaml</DependentUpon>
@@ -213,20 +213,20 @@
     <Compile Include="InventoryPages\ViewInventory.xaml.cs">
       <DependentUpon>ViewInventory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\Departments.xaml.cs">
-      <DependentUpon>Departments.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgDepartments.xaml.cs">
+      <DependentUpon>pgDepartments.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\frameShiftTime.xaml.cs">
-      <DependentUpon>frameShiftTime.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgShiftTime.xaml.cs">
+      <DependentUpon>pgShiftTime.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\frameTrainingVideos.xaml.cs">
-      <DependentUpon>frameTrainingVideos.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgTrainingVideos.xaml.cs">
+      <DependentUpon>pgTrainingVideos.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersonnelPages\ViewAllRoles.xaml.cs">
       <DependentUpon>ViewAllRoles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\ViewPersonnelRequests.xaml.cs">
-      <DependentUpon>ViewPersonnelRequests.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgViewPersonnelRequests.xaml.cs">
+      <DependentUpon>pgViewPersonnelRequests.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\pgCustomerControls.xaml.cs">
       <DependentUpon>pgCustomerControls.xaml</DependentUpon>
@@ -472,7 +472,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PersonnelPages\BaseScheduleControls.xaml">
+    <Page Include="PersonnelPages\pgBaseScheduleControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -516,15 +516,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PersonnelPages\Departments.xaml">
+    <Page Include="PersonnelPages\pgDepartments.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PersonnelPages\frameShiftTime.xaml">
+    <Page Include="PersonnelPages\pgShiftTime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PersonnelPages\frameTrainingVideos.xaml">
+    <Page Include="PersonnelPages\pgTrainingVideos.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -532,7 +532,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PersonnelPages\ViewPersonnelRequests.xaml">
+    <Page Include="PersonnelPages\pgViewPersonnelRequests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
