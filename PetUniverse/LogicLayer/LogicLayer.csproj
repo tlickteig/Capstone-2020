@@ -76,6 +76,7 @@
     <Compile Include="FacilityInspectionItemManager.cs" />
     <Compile Include="FacilityInspectionManager.cs" />
     <Compile Include="FacilityMaintenanceManager.cs" />
+    <Compile Include="FacilityTaskManager.cs" />
     <Compile Include="HomeInspectorManager.cs" />
     <Compile Include="InHomeInspectionAppointmentDecisionManager.cs" />
     <Compile Include="InventoryItemsManager.cs" />

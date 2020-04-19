@@ -114,6 +114,7 @@
     <Compile Include="PromotionManagerTests.cs" />
     <Compile Include="SalesDataManagerTests.cs" />
     <Compile Include="PictureManagerTests.cs" />
+    <Compile Include="FacilityTaskManagerTests.cs" />
     <Compile Include="UserManagerTests.cs" />
     <Compile Include="VetAppointmentManagerTests.cs" />
     <Compile Include="VolunteerEventTests.cs" />
