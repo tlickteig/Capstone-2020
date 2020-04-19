@@ -102,6 +102,7 @@
     <Compile Include="FacilityInspection.cs" />
     <Compile Include="FacilityInspectionItem.cs" />
     <Compile Include="FacilityMaintenance.cs" />
+    <Compile Include="FacilityTask.cs" />
     <Compile Include="GeneralQuestion.cs" />
     <Compile Include="HomeInspectorAdoptionAppointmentDecision.cs" />
     <Compile Include="InventoryItems.cs" />

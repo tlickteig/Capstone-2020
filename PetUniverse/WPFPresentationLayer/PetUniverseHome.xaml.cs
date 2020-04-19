@@ -612,6 +612,7 @@ namespace WPFPresentationLayer
             frameViewFacilityMaintenance.Content = new FacilityMaintenanceControls(_user);
             frameViewKennelCleaningRecords.Content = new pgAnimalKennelCleaningControls(_user);
             frameViewFacilityInspectionItem.Content = new FacilityInspectionItemControls(_user);
+            frameViewFacilityTask.Content = new FacilityTaskControls(_user);
         }
 
 

@@ -461,6 +461,34 @@ CREATE TABLE [dbo].[FacilityInspectionItem] (
 )
 GO
 
+/*
+Created by: Carl Davis
+Date: 4/9/2020
+Comment: Table that houses Facility Task Information
+*/
+DROP TABLE IF EXISTS [dbo].[FacilityTask]
+GO
+PRINT '' PRINT '*** Creating FacilityTask Table'
+GO
+CREATE TABLE [dbo].[FacilityTask] (
+
+	[FacilityTaskID]		[int] IDENTITY(1000000,1) NOT NULL,
+	[FacilityTaskName]		[nvarchar](100)			  NOT NULL,
+	[UserID]				[int]					  NOT NULL,
+	[StartDate]				[date]					  NOT NULL,
+	[CompletionDate]		[date]					  NULL,
+	[FacilityTaskNotes]		[nvarchar](500)			  NOT NULL,
+	[TaskCompleted]			[bit]					  NOT NULL DEFAULT 0
+
+	CONSTRAINT [pk_FacilityTaskID] PRIMARY KEY([FacilityTaskID] ASC),
+
+	CONSTRAINT [fk_FacilityTask_UserID] FOREIGN KEY([UserID])
+		REFERENCES [User]([UserID]) ON UPDATE CASCADE,
+
+	CONSTRAINT [ak_FacilityTaskID] UNIQUE([FacilityTaskID] ASC)
+)
+GO
+
 
 /*
 Created by: Daulton Schilling
@@ -2690,6 +2718,197 @@ BEGIN
 		AND	[FacilityInspectionID] = @OldFacilityInspectionID
 		AND	[ItemDescription] = @OldItemDescription
 	 RETURN @@ROWCOUNT
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/9/2020
+Comment: Sproc to INSERT facility task
+*/
+DROP PROCEDURE IF EXISTS [sp_INSERT_facility_task]
+GO
+PRINT '' PRINT '*** Creating sp_INSERT_facility_task'
+GO
+CREATE PROCEDURE [sp_INSERT_facility_task]
+(
+	@FacilityTaskName				[nvarchar](100),
+    @UserID                        	[int],
+	@StartDate						[date],
+	@CompletionDate					[date],
+    @FacilityTaskNotes            	[nvarchar](500)
+)
+AS
+BEGIN
+    INSERT INTO [dbo].[FacilityTask]
+        ([FacilityTaskName], [UserID], [StartDate], [CompletionDate], [FacilityTaskNotes])
+    VALUES
+        (@FacilityTaskName, @UserID, @StartDate, @CompletionDate, @FacilityTaskNotes)
+    RETURN SCOPE_IDENTITY()
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/9/2020
+Comment: Sproc to select all facility tasks
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_facility_tasks]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_facility_tasks'
+GO
+CREATE PROCEDURE [sp_select_all_facility_tasks]
+(
+	@TaskCompleted  			[bit]
+)
+AS
+BEGIN
+    SELECT [FacilityTaskID], [FacilityTaskName], [UserID], [StartDate], [CompletionDate], [FacilityTaskNotes], [TaskCompleted]
+    FROM [dbo].[FacilityTask]
+	WHERE [TaskCompleted] = @TaskCompleted
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/9/2020
+Comment: Sproc to select facility inspection task by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_facility_task_by_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_facility_task_by_id'
+GO
+CREATE PROCEDURE [sp_select_facility_task_by_id]
+(
+    @FacilityTaskID                        	[int],
+	@TaskCompleted  						[bit]
+)
+AS
+BEGIN
+    SELECT [FacilityTaskID], [FacilityTaskName], [UserID], [StartDate], [CompletionDate], [FacilityTaskNotes], [TaskCompleted]
+    FROM [dbo].[FacilityTask]
+	WHERE [FacilityTaskID] = @FacilityTaskID
+	AND [TaskCompleted] = @TaskCompleted
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/9/2020
+Comment: Sproc to select facility task by name
+*/
+DROP PROCEDURE IF EXISTS [sp_select_facility_task_by_name]
+GO
+PRINT '' PRINT '*** Creating sp_select_facility_task_by_name'
+GO
+CREATE PROCEDURE [sp_select_facility_task_by_name]
+(
+    @FacilityTaskName						[nvarchar](100),
+	@TaskCompleted  						[bit]
+)
+AS
+BEGIN
+    SELECT [FacilityTaskID], [FacilityTaskName], [UserID], [StartDate], [CompletionDate], [FacilityTaskNotes], [TaskCompleted]
+    FROM [dbo].[FacilityTask]
+	WHERE [FacilityTaskName] = @FacilityTaskName
+	AND [TaskCompleted] = @TaskCompleted
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/9/2020
+Comment: Sproc to select facility task by user id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_facility_task_by_user_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_facility_task_by_user_id'
+GO
+CREATE PROCEDURE [sp_select_facility_task_by_user_id]
+(
+    @UserID           								[int],
+	@TaskCompleted  								[bit]
+)
+AS
+BEGIN
+    SELECT [FacilityTaskID], [FacilityTaskName], [UserID], [StartDate], [CompletionDate], [FacilityTaskNotes], [TaskCompleted]
+    FROM [dbo].[FacilityTask]
+	WHERE [UserID] = @UserID
+	AND [TaskCompleted] = @TaskCompleted
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/15/2020
+Comment: Sproc to update facility task
+*/
+DROP PROCEDURE IF EXISTS [sp_update_facility_task]
+GO
+print '' print '*** Creating sp_update_facility_task'
+GO
+CREATE PROCEDURE [sp_update_facility_task]
+(
+	@FacilityTaskID          		[int],
+    @OldFacilityTaskName			[nvarchar](100),
+	@OldUserID						[int],
+	@OldStartDate					[date],
+	@OldCompletionDate				[date],
+	@OldFacilityTaskNotes			[nvarchar](500),
+	@OldTaskCompleted				[bit],
+	@NewFacilityTaskName			[nvarchar](100),
+	@NewUserID						[int],
+	@NewStartDate					[date],
+	@NewCompletionDate				[date],
+	@NewFacilityTaskNotes			[nvarchar](500),
+	@NewTaskCompleted				[bit]
+
+)
+AS
+BEGIN
+    UPDATE 	[dbo].[FacilityTask]
+	SET 	[FacilityTaskName] = @NewFacilityTaskName,
+			[UserID] = @NewUserID,
+			[StartDate] = @NewStartDate,
+			[CompletionDate] = @NewCompletionDate,
+			[FacilityTaskNotes] = @NewFacilityTaskNotes,
+			[TaskCompleted] = @NewTaskCompleted
+			
+	WHERE   [FacilityTaskID] = @FacilityTaskID
+		AND	[FacilityTaskName] = @OldFacilityTaskName
+		AND	[UserID] = @OldUserID
+		AND	[StartDate] = @OldStartDate
+		AND	[CompletionDate] = @OldCompletionDate
+		AND [FacilityTaskNotes] = @OldFacilityTaskNotes
+		AND [TaskCompleted] = @OldTaskCompleted
+	 RETURN @@ROWCOUNT
+
+END
+GO
+
+/*
+Created by: Carl Davis
+Date: 4/15/2020
+Comment: Sproc to delete facility task
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_facility_task]
+GO
+print '' print '*** Creating sp_delete_facility_task'
+GO
+CREATE PROCEDURE [sp_delete_facility_task]
+(
+	@FacilityTaskID          		[int]
+)
+AS
+BEGIN
+    DELETE 
+	FROM [dbo].[FacilityTask]
+	WHERE [FacilityTaskID] = @FacilityTaskID
+	RETURN @@ROWCOUNT
 
 END
 GO

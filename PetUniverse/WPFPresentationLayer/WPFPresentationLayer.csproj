@@ -150,6 +150,9 @@
     <Compile Include="FMPages\pgFacilityMaintenanceControls.xaml.cs">
       <DependentUpon>pgFacilityMaintenanceControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="FMPages\pgFacilityTaskControls.xaml.cs">
+      <DependentUpon>pgFacilityTaskControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\AddDonationItem.xaml.cs">
       <DependentUpon>AddDonationItem.xaml</DependentUpon>
     </Compile>
@@ -431,6 +434,10 @@
     <Page Include="FMPages\pgFacilityMaintenanceControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FMPages\pgFacilityTaskControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InventoryPages\AddDonationItem.xaml">
       <SubType>Designer</SubType>
