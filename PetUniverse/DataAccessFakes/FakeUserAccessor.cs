@@ -1,11 +1,8 @@
 ﻿using DataAccessInterfaces;
 using DataTransferObjects;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -463,7 +460,7 @@ namespace DataAccessFakes
             return null;
         }
 
-         /// <summary>
+        /// <summary>
         /// Creator: Steven Cardona
         /// Created: 04/16/2020
         /// Approver: Zach Behrensmeyer

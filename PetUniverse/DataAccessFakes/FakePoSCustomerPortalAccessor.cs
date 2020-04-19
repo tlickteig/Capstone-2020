@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
+using System;
+using System.Collections.Generic;
 
 namespace DataAccessFakes
 {
@@ -98,17 +95,18 @@ namespace DataAccessFakes
         /// </remarks>
         public int DeleteCreditCard(string cardNumber)
         {
-            if(cardNumber == "1234 5555 JJFF KFD2")
+            if (cardNumber == "1234 5555 JJFF KFD2")
             {
                 return 1;
-            } else
+            }
+            else
             {
                 return 0;
             }
         }
 
-       
-        
+
+
         public List<CreditCardVM2> GetAllCreditCards()
         {
             throw new NotImplementedException();

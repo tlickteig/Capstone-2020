@@ -1,8 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
-using DataTransferObjects;
-using System;
+using System.Web.Mvc;
 
 namespace WPFPresentation.Controllers
 {

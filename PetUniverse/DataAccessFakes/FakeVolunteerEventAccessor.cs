@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
+using System;
+using System.Collections.Generic;
 
 namespace DataAccessFakes
 {
@@ -17,7 +14,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeVolunteerEventAccessor : IVolunteerEventAccessor
     {
-        
+
         private List<VolunteerEvent> _volunteerEvents = new List<VolunteerEvent>();
         private List<VolunteerEventVM> _volunteerEventVMs = new List<VolunteerEventVM>();
 
@@ -36,8 +33,8 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeVolunteerEventAccessor()
         {
-            _volunteerEvents.Add(new VolunteerEvent() 
-            { 
+            _volunteerEvents.Add(new VolunteerEvent()
+            {
                 VolunteerEventID = 1,
                 EventName = "Dog Party",
                 EventDescription = "It's a dog party."
@@ -49,7 +46,7 @@ namespace DataAccessFakes
                 EventName = "Cat Party",
                 EventDescription = "It's a cat party."
             });
-            
+
 
             _volunteerEvents.Add(new VolunteerEvent()
             {
@@ -60,7 +57,7 @@ namespace DataAccessFakes
 
             _volunteerEventVMs.Add(new VolunteerEventVM()
             {
-                
+
                 EventName = "fake event",
                 EventDescription = "YEET",
                 Active = true
@@ -107,7 +104,7 @@ namespace DataAccessFakes
 
             foreach (VolunteerEvent volunteerEvent in _volunteerEvents)
             {
-                if(volunteerEventID == volunteerEvent.VolunteerEventID)
+                if (volunteerEventID == volunteerEvent.VolunteerEventID)
                 {
                     eventToRemove = volunteerEvent;
                     rows++;
@@ -188,5 +185,5 @@ namespace DataAccessFakes
 
             return rows;
         }
-    } 
+    }
 }

@@ -1,9 +1,5 @@
-﻿using System;
+﻿using DataTransferObjects;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 namespace LogicLayerInterfaces
 {
@@ -14,7 +10,7 @@ namespace LogicLayerInterfaces
     /// 
     /// Interface adoption application methods
     /// </summary>
-    
+
     public interface IAdoptionApplicationManager
     {
         /// <summary>

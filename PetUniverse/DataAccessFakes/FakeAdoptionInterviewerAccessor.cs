@@ -1,10 +1,8 @@
-﻿using System;
+﻿using DataAccessInterfaces;
+using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
-using DataTransferObjects;
 
 namespace DataAccessFakes
 {
@@ -121,7 +119,7 @@ namespace DataAccessFakes
             int result = 0;
             foreach (AdoptionAppointment adoption in adoptionAppointments)
             {
-                if((adoption.AppointmentID == oldAdoptionAppointment.AppointmentID) 
+                if ((adoption.AppointmentID == oldAdoptionAppointment.AppointmentID)
                     && (adoption.Notes == oldAdoptionAppointment.Notes))
                 {
                     adoption.Notes = newAdoptionAppointment.Notes;

@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -102,20 +99,20 @@ namespace DataAccessLayer
                 while (reader.Read())
                 {
                     users.Add(new PetUniverseUser()
-                    { 
-                    PUUserID = reader.GetInt32(0),
-                    FirstName = reader.GetString(1),
-                    LastName = reader.GetString(2),
-                    PhoneNumber = reader.GetString(3),
-                    Email = reader.GetString(4),
-                    Address1 = reader.GetString(5),
-                    Address2 = reader.IsDBNull(6) ? null : reader.GetString(6),
-                    City = reader.GetString(7),
-                    State = reader.GetString(8),
-                    ZipCode = reader.GetString(9),
-                    Active = reader.GetBoolean(10),
-                    
-                   });
+                    {
+                        PUUserID = reader.GetInt32(0),
+                        FirstName = reader.GetString(1),
+                        LastName = reader.GetString(2),
+                        PhoneNumber = reader.GetString(3),
+                        Email = reader.GetString(4),
+                        Address1 = reader.GetString(5),
+                        Address2 = reader.IsDBNull(6) ? null : reader.GetString(6),
+                        City = reader.GetString(7),
+                        State = reader.GetString(8),
+                        ZipCode = reader.GetString(9),
+                        Active = reader.GetBoolean(10),
+
+                    });
                 }
                 reader.Close();
             }

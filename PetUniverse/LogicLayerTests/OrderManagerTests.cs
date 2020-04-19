@@ -1,12 +1,7 @@
-﻿using DataTransferObjects;
-using LogicLayer;
+﻿using DataAccessFakes;
+using DataTransferObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessFakes;
 
 namespace LogicLayerTests
 {
@@ -75,13 +70,13 @@ namespace LogicLayerTests
             Order oldOrder = new Order()
             {
                 OrderID = 1,
-                EmployeeID = 532
+                UserID = 100000
             };
 
             Order editedOrder = new Order()
             {
-                OrderID = 1,
-                EmployeeID = 557
+                OrderID = 2,
+                UserID = 100000
             };
 
             FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();
@@ -112,7 +107,7 @@ namespace LogicLayerTests
 
             Order newOrder = new Order()
             {
-                EmployeeID = 346
+                UserID = 100000
             };
 
             FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();
@@ -144,7 +139,7 @@ namespace LogicLayerTests
             Order newOrder = new Order()
             {
                 OrderID = 1,
-                EmployeeID = 3462
+                UserID = 100000
             };
 
             FakeOrderAccessor _orderAccessor = new FakeOrderAccessor();

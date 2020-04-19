@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataTransferObjects
+﻿namespace DataTransferObjects
 {
 
     /// <summary>
@@ -24,7 +18,7 @@ namespace DataTransferObjects
     {
         public int AnimalID { get; set; }
         public string AnimalName { get; set; }
-       
+
 
 
 

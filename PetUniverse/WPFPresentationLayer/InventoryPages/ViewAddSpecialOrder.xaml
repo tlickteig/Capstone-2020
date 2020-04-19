@@ -28,29 +28,36 @@ This page is used to view orders or add orders
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <TextBox x:Name="txtOrderID" Grid.Row="2" Height="40" Margin="20,0,10,0" VerticalAlignment="Center"></TextBox>
                 <Label Grid.Row="1" Content="Order ID" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="txtFirstName" Grid.Row="4" Height="40" Margin="20,0,10,0" VerticalAlignment="Center"></TextBox>
+                <Label  x:Name="lblFirstName" Grid.Row="3" Content="First Name" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="105*"/>
+                    <RowDefinition Height="100"/>
                     <RowDefinition Height="40"/>
                     <RowDefinition Height="40"/>
-                    <RowDefinition Height="31*"/>
-                    <RowDefinition Height="74*"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <TextBox x:Name="txtEmployeeID"  Grid.Row="2" Height="40" Margin="15,0,10,0" VerticalAlignment="Bottom"></TextBox>
-                <Label Grid.Row="1" Content="Employee ID" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="txtUserID"  Grid.Row="2" Height="40" Margin="15,0,10,0" VerticalAlignment="Bottom"></TextBox>
+                <Label Grid.Row="1" Content="User ID" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox x:Name="txtLastName" Grid.Row="4" Height="40" Margin="20,0,10,0" VerticalAlignment="Center"></TextBox>
+                <Label x:Name="lblLastName" Grid.Row="3" Content="Last Name" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
             </Grid>
         </Grid>
-        <Grid Grid.Row="2" Margin="0,0,0,-15">
-            <Button Width="100" Height="30" x:Name="btnSpBack" Content="Back" Margin="975,5,0,5" HorizontalAlignment="Left" Click="btnSpBack_Click" />
-            <Button Width="100" Height="30" x:Name="btnSaveSpecialOrder" Content="Save Order" Margin="1080,5,10,5" Click="btnSaveSpecialOrder_Click" />
+        <Grid Grid.Row="2" Margin="0,0,0,-14">
+            <Button Width="100" Height="30" x:Name="btnBack" Content="Back" Margin="975,5,0,5" HorizontalAlignment="Left" Click="btnBack_Click" />
+            <Button Width="100" Height="30" x:Name="btnSaveOrder" Content="Save Order" Margin="1080,5,10,5" Click="btnSaveOrder_Click" />
         </Grid>
     </Grid>
 </Page>

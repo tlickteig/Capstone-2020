@@ -1,10 +1,9 @@
-﻿using System;
+﻿using DataAccessFakes;
 using DataAccessInterfaces;
-using DataAccessFakes;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using DataTransferObjects;
-using LogicLayerInterfaces;
 using LogicLayer;
+using LogicLayerInterfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 
 namespace LogicLayerTests
@@ -164,7 +163,8 @@ namespace LogicLayerTests
         public void TestUpdateVolunteer()
         {
             // arrange
-            Volunteer oldVolunteer = new Volunteer() {
+            Volunteer oldVolunteer = new Volunteer()
+            {
                 VolunteerID = 1,
                 FirstName = "Tony",
                 LastName = "Stark",
@@ -174,7 +174,8 @@ namespace LogicLayerTests
                 Active = true,
                 Skills = new List<string>() { "Dogwalker", "Groomer" }
             };
-            Volunteer newVolunteer = new Volunteer() {
+            Volunteer newVolunteer = new Volunteer()
+            {
                 VolunteerID = 1,
                 FirstName = "Tony",
                 LastName = "Stark",

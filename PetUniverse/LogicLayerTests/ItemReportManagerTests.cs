@@ -1,11 +1,8 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataAccessFakes;
-using DataAccessInterfaces;
+﻿using DataAccessFakes;
 using DataTransferObjects;
 using LogicLayer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using LogicLayerInterfaces;
 
 namespace LogicLayerTests
 {

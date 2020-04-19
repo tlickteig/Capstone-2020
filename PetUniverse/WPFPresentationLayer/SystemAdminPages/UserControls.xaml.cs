@@ -4,18 +4,9 @@ using LogicLayerInterfaces;
 using PresentationUtilityCode;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.SystemAdminPages
 {
@@ -459,7 +450,7 @@ namespace WPFPresentationLayer.SystemAdminPages
                 WPFErrorHandler.ErrorMessage(ex.Message, "Validation");
             }
 
-            newUser.Active = (bool) chkActive.IsChecked;
+            newUser.Active = (bool)chkActive.IsChecked;
 
             try
             {
@@ -541,7 +532,7 @@ namespace WPFPresentationLayer.SystemAdminPages
         /// <param name="e"></param>
         private void btnEditUser_Click(object sender, RoutedEventArgs e)
         {
-            _originalUser = (PetUniverseUser) dgUserList.SelectedItem;
+            _originalUser = (PetUniverseUser)dgUserList.SelectedItem;
             if (_originalUser != null)
             {
                 canAddUser.Visibility = Visibility.Visible;
@@ -642,7 +633,7 @@ namespace WPFPresentationLayer.SystemAdminPages
                     //Prepare canvas functionality
                     _eRoleManager = new ERoleManager();
                     _petUniverseUserERolesManager = new PetUniverseUserERolesManager();
-                    _petUniverseUser = (PetUniverseUser) dgUserList.SelectedItem;
+                    _petUniverseUser = (PetUniverseUser)dgUserList.SelectedItem;
                     refreshListBox();
                     lblUserID.Content = _petUniverseUser.PUUserID.ToString();
                 }
@@ -790,7 +781,7 @@ namespace WPFPresentationLayer.SystemAdminPages
         /// <param name="e"></param>
         private void dgUserList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            _originalUser = (PetUniverseUser) dgUserList.SelectedItem;
+            _originalUser = (PetUniverseUser)dgUserList.SelectedItem;
             if (_originalUser != null)
             {
                 canAddUser.Visibility = Visibility.Visible;

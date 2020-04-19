@@ -1704,10 +1704,12 @@ print '' print '*** Creating Order Table'
 GO
 CREATE TABLE [dbo].[orders] (
 	[OrderID]					[int] IDENTITY(100000, 1) 	NOT NULL,
-	[EmployeeID]				[int]						NOT NULL,
-	[Active]					[BIT] 						NOT NULL DEFAULT 1
+	[UserID]				    [int]						NOT NULL,
+	[Active]					[BIT] 						NOT NULL DEFAULT 1,
 	
-	CONSTRAINT [pk_OrderID] PRIMARY KEY([OrderID] ASC)
+	CONSTRAINT [pk_OrderID] PRIMARY KEY([OrderID] ASC),
+	CONSTRAINT [fk_UserID] FOREIGN KEY([UserID])
+		REFERENCES [User]([UserID])
 )
 GO
 
@@ -1722,10 +1724,12 @@ print '' print '*** Creating Special Order Table'
 GO
 CREATE TABLE [dbo].[specialorders] (
 	[SpecialOrderID]			[int] IDENTITY(100000, 1) 	NOT NULL,
-	[SpecialOrderEmployeeID]	[int]						NOT NULL,
-	[Active]					[BIT] 						NOT NULL DEFAULT 1
+	[UserID]					[int]						NOT NULL,
+	[Active]					[bit] 						NOT NULL DEFAULT 1,
 	
-	CONSTRAINT [pk_SpecialOrderID] PRIMARY KEY([SpecialOrderID] ASC)
+	CONSTRAINT [pk_SpecialOrderID] PRIMARY KEY([SpecialOrderID] ASC),
+	CONSTRAINT [fk_SpecialOrderUserID] FOREIGN KEY([UserID])
+		REFERENCES [User]([UserID])
 )
 GO
 
@@ -8330,15 +8334,15 @@ print '' print '*** Creating sp_insert_order'
 GO
 CREATE PROCEDURE sp_insert_order
 	(
-        @EmployeeID					[int],
+        @UserID						[int],
 		@Active						[bit]
 	)
 AS
 	BEGIN
 		INSERT INTO [orders]
-			([EmployeeID], [Active])
+			([UserID], [Active])
 		VALUES
-			(@EmployeeID, @Active)
+			(@UserID, @Active)
 	  
 		RETURN @@ROWCOUNT
 	END
@@ -8355,15 +8359,15 @@ print '' print '*** Creating sp_insert_special_order'
 GO
 CREATE PROCEDURE sp_insert_special_order
 	(
-        @SpecialOrderEmployeeID		[int],
+        @UserID						[int],
 		@Active						[bit]
 	)
 AS
 	BEGIN
 		INSERT INTO [specialorders]
-			([SpecialOrderEmployeeID], [Active])
+			([UserID], [Active])
 		VALUES
-			(@SpecialOrderEmployeeID, @Active)
+			(@UserID, @Active)
 	  
 		RETURN @@ROWCOUNT
 	END
@@ -8381,7 +8385,7 @@ GO
 CREATE PROCEDURE sp_select_all_orders
 AS
 	BEGIN
-		SELECT [OrderID], [EmployeeID]
+		SELECT [OrderID], [UserID]
 		FROM [orders]
 		Order BY [OrderID]
 	END
@@ -8399,7 +8403,7 @@ GO
 CREATE PROCEDURE sp_select_all_special_orders
 AS
 	BEGIN
-		SELECT [SpecialOrderID], [SpecialOrderEmployeeID]
+		SELECT [SpecialOrderID], [UserID]
 		FROM [specialorders]
 		Order BY [SpecialOrderID]
 	END
@@ -8420,7 +8424,7 @@ CREATE PROCEDURE sp_select_order_by_id
 	)
 AS
 	BEGIN
-		SELECT [OrderID], [EmployeeID]
+		SELECT [OrderID], [UserID]
 		FROM [Orders]
 		WHERE [OrderID] = @OrderID
 	END
@@ -8441,7 +8445,7 @@ CREATE PROCEDURE sp_select_special_order_by_id
 	)
 AS
 	BEGIN
-		SELECT [SpecialOrderID], [SpecialOrderEmployeeID]
+		SELECT [SpecialOrderID], [UserID]
 		FROM [SpecialOrders]
 		WHERE [SpecialOrderID] = @SpecialOrderID
 	END
@@ -8459,17 +8463,17 @@ GO
 CREATE PROCEDURE sp_update_order_by_id
 	(
 		@OrderID					[int],
-        @EmployeeID					[int],
+        @UserID						[int],
 		@Active						[bit],
 		
 		@OldOrderID					[int],
-        @OldEmployeeID				[int],
+        @OldUserID					[int],
 		@OldActive					[bit]
 	)
 AS
 	BEGIN
 		UPDATE  [orders]
-		SET 	[EmployeeID] = @EmployeeID,
+		SET 	[UserID] = @UserID,
 				[Active] = @Active
 		WHERE 	[OrderID] = @OldOrderID
 		  
@@ -8489,17 +8493,17 @@ GO
 CREATE PROCEDURE sp_update_special_order_by_id
 	(
 		@SpecialOrderID				[int],
-        @SpecialOrderEmployeeID		[int],
+        @UserID						[int],
 		@Active						[bit],
 		
 		@OldSpecialOrderID			[int],
-        @OldSpecialOrderEmployeeID	[int],
+        @OldUserID					[int],
 		@OldActive					[bit]
 	)
 AS
 	BEGIN
 		UPDATE  [specialorders]
-		SET 	[SpecialOrderEmployeeID] = @SpecialOrderEmployeeID,
+		SET 	[UserID] = @UserID,
 				[Active] = @Active
 		WHERE 	[SpecialOrderID] = @SpecialOrderID
 		  

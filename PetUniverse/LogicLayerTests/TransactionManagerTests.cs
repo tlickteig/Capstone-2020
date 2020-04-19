@@ -1,10 +1,10 @@
-﻿using System;
+﻿using DataAccessFakes;
+using DataAccessInterfaces;
+using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
-using DataTransferObjects;
-using DataAccessFakes;
-using DataAccessInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace LogicLayerTests
@@ -130,7 +130,7 @@ namespace LogicLayerTests
         [TestMethod]
         public void TestAddTransaction()
         {
-            
+
 
             Transaction newTransaction = new Transaction()
             {
@@ -255,7 +255,7 @@ namespace LogicLayerTests
             };
 
             decimal anotherTaxRate = transactionManager
-                .RetrieveTaxRateBySalesTaxDateAndZipCode(salesTax.ZipCode,salesTax.TaxDate);
+                .RetrieveTaxRateBySalesTaxDateAndZipCode(salesTax.ZipCode, salesTax.TaxDate);
 
             Assert.AreEqual(salesTax.TaxRate, anotherTaxRate);
         }
@@ -284,7 +284,7 @@ namespace LogicLayerTests
             ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
             // Act
             transactions = transactionManager.RetrieveTransactionByTransactionDate(transactionDate1, transactionDate2);
-            
+
             // assert
             Assert.AreEqual(2, transactions.Count);
         }

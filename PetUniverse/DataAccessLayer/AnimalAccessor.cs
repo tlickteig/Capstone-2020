@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
-// needed to connect to SQL server
-using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 // needed for provides access to classes that represent the ADO.NET architecture
 using System.Data;
+// needed to connect to SQL server
+using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {

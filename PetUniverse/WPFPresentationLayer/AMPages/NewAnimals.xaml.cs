@@ -1,25 +1,16 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
-using PresentationUtilityCode;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.IO;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 
 namespace WPFPresentationLayer.AMPages
 {
@@ -31,7 +22,7 @@ namespace WPFPresentationLayer.AMPages
             InitializeComponent();
 
             Storyboard spinStoryboard = Resources["SlideBack"] as Storyboard;
-           
+
 
             Categories.Visibility = Visibility.Hidden;
 
@@ -40,11 +31,11 @@ namespace WPFPresentationLayer.AMPages
             PrintOptions.Visibility = Visibility.Hidden;
 
             PrintPreview.Visibility = Visibility.Hidden;
-       
+
             _animalManager = new AnimalManager();
 
             cmbAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-          
+
             NewAnimalChecklist.Visibility = Visibility.Hidden;
 
             _animalManager = new AnimalManager();
@@ -62,7 +53,7 @@ namespace WPFPresentationLayer.AMPages
         private INewAnimalChecklistManager _ChecklistManager;
 
         private IAnimalMedicalHistoryManager _MHManager;
-      
+
         public int NumberOfActiveAnimals { get; set; }
 
 
@@ -70,7 +61,7 @@ namespace WPFPresentationLayer.AMPages
         {
             an = _animalManager.RetrieveAnimalsByActive();
 
-          
+
             dgActiveAnimals.ItemsSource = (from c in an
                                            where c.ArrivalDate >= DateTime.Today.AddDays(-30)
                                            select c).ToList().OrderByDescending(c => c.ArrivalDate);
@@ -129,11 +120,11 @@ namespace WPFPresentationLayer.AMPages
                new MedicalHistory()
                {
                    AnimalID = Int32.Parse(AnimalIDNumber.Content.ToString()),
-                 
+
                    Spayed_Neutered = NewSN.IsChecked,
 
-                   
-                };
+
+               };
 
             MedicalHistory Old_ =
               new MedicalHistory()
@@ -147,13 +138,13 @@ namespace WPFPresentationLayer.AMPages
 
             List<NewAnimalChecklist> List = _ChecklistManager.RetrieveNewAnimalChecklistByAnimalID(Int32.Parse(AnimalIDNumber.Content.ToString()));
 
-         
+
 
             NewAnimalChecklist NAC = (NewAnimalChecklist)List[0];
 
             ImportantNotes.Content = NewAdditonalNotes.Text;
 
-            if (NewVacc.Text != "") 
+            if (NewVacc.Text != "")
             {
                 New_.Vaccinations = NewVacc.Text;
                 Vaccinations_.Content = NewVacc.Text;
@@ -176,7 +167,7 @@ namespace WPFPresentationLayer.AMPages
                 New_.AdditionalNotes = ImportantNotes.Content.ToString();
             }
 
-            if(MRVDatePicker.SelectedDate == null)
+            if (MRVDatePicker.SelectedDate == null)
             {
                 MRVDate.Content = DateTime.Today;
                 New_.MostRecentVaccinationDate = DateTime.Today;
@@ -193,8 +184,8 @@ namespace WPFPresentationLayer.AMPages
 
             _MHManager.UpdateAnimalMedicalHistory(Old_, New_);
 
-           
-           
+
+
             NewAnimalChecklist.Visibility = Visibility.Visible;
 
             SelectAnimalMessage.Visibility = Visibility.Hidden;
@@ -251,10 +242,10 @@ namespace WPFPresentationLayer.AMPages
 
             try
             {
-               
+
                 List = _ChecklistManager.RetrieveNewAnimalChecklistByAnimalID(Int32.Parse(ID.ToString()));
 
-              
+
             }
             catch (FormatException ex)
             {
@@ -269,7 +260,7 @@ namespace WPFPresentationLayer.AMPages
                     {
                         object item = dgActiveAnimals.SelectedItem;
                         string ID_ = (dgActiveAnimals.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
-                      
+
                         List = _ChecklistManager.RetrieveNewAnimalChecklistByAnimalID(Int32.Parse(ID_));
 
                         NewAnimalChecklist NAC = (NewAnimalChecklist)List[0];
@@ -317,7 +308,7 @@ namespace WPFPresentationLayer.AMPages
 
 
             }
-          
+
 
             return;
         }
@@ -346,11 +337,11 @@ namespace WPFPresentationLayer.AMPages
 
                 try
                 {
-                    try 
+                    try
                     {
                         object item = dgActiveAnimals.SelectedItem;
                         string ID = (dgActiveAnimals.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
-                      
+
                         List = _ChecklistManager.RetrieveNewAnimalChecklistByAnimalID(Int32.Parse(ID));
 
                         NewAnimalChecklist NAC = (NewAnimalChecklist)List[0];
@@ -391,22 +382,22 @@ namespace WPFPresentationLayer.AMPages
                     {
 
                     }
-                   
+
                 }
                 catch (FormatException ex)
                 {
 
-                
+
                 }
             }
-          
+
 
 
             return;
         }
 
-      
-     
+
+
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 4/12/2020
@@ -431,7 +422,7 @@ namespace WPFPresentationLayer.AMPages
 
             PrintButton_.Visibility = Visibility.Hidden;
             Update.Visibility = Visibility.Hidden;
-            
+
             SelectAnimalMessage.Visibility = Visibility.Hidden;
             List<NewAnimalChecklist> List = null;
 
@@ -439,11 +430,11 @@ namespace WPFPresentationLayer.AMPages
 
             try
             {
-                try 
+                try
                 {
                     object item = dgActiveAnimals.SelectedItem;
                     string ID = (dgActiveAnimals.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
-                   
+
                     List = _ChecklistManager.RetrieveNewAnimalChecklistByAnimalID(Int32.Parse(ID));
 
                     NewAnimalChecklist NAC = (NewAnimalChecklist)List[0];
@@ -514,18 +505,18 @@ namespace WPFPresentationLayer.AMPages
                     {
                         Adoptable.Content = "No";
                     }
-                    
+
                     Warning.Content = NAC.TempermantWarning.ToString();
 
                     ImportantNotes.Content = NAC.AdditionalNotes.ToString();
                 }
                 catch { }
-                
+
             }
             catch (FormatException ex)
             {
 
-               
+
             }
 
             return;
@@ -688,7 +679,7 @@ namespace WPFPresentationLayer.AMPages
 
             if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
-                 dialog.Document.Print();
+                dialog.Document.Print();
             }
         }
 
@@ -820,7 +811,7 @@ namespace WPFPresentationLayer.AMPages
 
                 Categories.Visibility = Visibility.Visible;
             }
-            
+
             List<string> cat = new List<string>();
             cat.Add("One Month");
 
@@ -835,7 +826,7 @@ namespace WPFPresentationLayer.AMPages
             Categories.ItemsSource = cat;
 
             an = _animalManager.RetrieveAnimalsByActive();
-       
+
         }
 
         /// <summary>
@@ -912,9 +903,9 @@ namespace WPFPresentationLayer.AMPages
 
         }
 
-       
+
     }
 
-  
+
 }
 

@@ -1,19 +1,7 @@
 ﻿using LogicLayer;
 using LogicLayerInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.PoSPages
 {
@@ -25,8 +13,8 @@ namespace WPFPresentationLayer.PoSPages
     /// Interaction logic for InventoryItems.xaml
     /// </summary>
     public partial class pgInventoryItems : Page
-	{
-		private IInventoryItemsManager _inventoryItemsManager;
+    {
+        private IInventoryItemsManager _inventoryItemsManager;
         private Frame _frame;
 
         /// <summary>
@@ -42,10 +30,10 @@ namespace WPFPresentationLayer.PoSPages
         /// Update:
         /// </remarks>
         public pgInventoryItems()
-		{
-			_inventoryItemsManager = new InventoryItemsManager();
-			InitializeComponent();
-		}
+        {
+            _inventoryItemsManager = new InventoryItemsManager();
+            InitializeComponent();
+        }
 
         /// <summary>
         /// Creator: Robert Holmes
@@ -82,10 +70,10 @@ namespace WPFPresentationLayer.PoSPages
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void Window_Loaded(object sender, RoutedEventArgs e) 
-		{
-			RefreshData();
-		}
+        public void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            RefreshData();
+        }
 
         /// <summary>
         /// Creator: Cash Carlson
@@ -100,10 +88,10 @@ namespace WPFPresentationLayer.PoSPages
         /// Update:
         /// </remarks>
         public void RefreshData()
-		{
-			dgInventoryItems.ItemsSource = _inventoryItemsManager.RetrieveInventoryItems();
+        {
+            dgInventoryItems.ItemsSource = _inventoryItemsManager.RetrieveInventoryItems();
             dgInventoryItems.Columns[0].Header = "UPC";
-		}
+        }
 
         /// <summary>
         /// Creator: Robert Holmes

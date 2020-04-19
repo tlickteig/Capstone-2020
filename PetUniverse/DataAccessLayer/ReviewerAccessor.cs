@@ -1,616 +1,613 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
-using DataAccessInterfaces;
-using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
-	/// <summary>
-	/// Creator: Awaab Elamin
-	/// Created: 2020/02/04
-	/// Approver
-	///
-	/// Class contains all reviewer Accessor
-	/// </summary>
-	public class ReviewerAccessor : IAdoptionAccessor
-	{
-		public ReviewerAccessor()
-		{
-		}
+    /// <summary>
+    /// Creator: Awaab Elamin
+    /// Created: 2020/02/04
+    /// Approver
+    ///
+    /// Class contains all reviewer Accessor
+    /// </summary>
+    public class ReviewerAccessor : IAdoptionAccessor
+    {
+        public ReviewerAccessor()
+        {
+        }
 
-		/// <summary>
-		/// Creator: Awaab Elamin
-		/// Created: 2020/02/15
-		/// Approver: Mohamed Elamin , 2/21/2020
-		/// 
-		/// Update stauts of addoption application
-		/// to "Interviewer" or Deny
-		/// According to Reviewer Decision 
-		/// </summary>
-		/// Updater Awaab Elamin
-		/// Updated:  3/3/2020
-		/// Approver: Mohamed Elamin , 3/4/2020
-		/// Update: update the status of the adoption application to any status that include in the 
-		/// AdoptionApplicationTable
-		/// 
-		/// <remarks>
-		/// </remarks>
-		/// <param name="decision"></param>
-		public int changeAdoptionApplicationStatus(int adoptionApplicationID, string decision)
-		{
-			int count = 0;
-			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_update_adoption_application_status";
-			var cmd = new SqlCommand(cmdText, conn);
-			cmd.CommandType = CommandType.StoredProcedure;
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/15
+        /// Approver: Mohamed Elamin , 2/21/2020
+        /// 
+        /// Update stauts of addoption application
+        /// to "Interviewer" or Deny
+        /// According to Reviewer Decision 
+        /// </summary>
+        /// Updater Awaab Elamin
+        /// Updated:  3/3/2020
+        /// Approver: Mohamed Elamin , 3/4/2020
+        /// Update: update the status of the adoption application to any status that include in the 
+        /// AdoptionApplicationTable
+        /// 
+        /// <remarks>
+        /// </remarks>
+        /// <param name="decision"></param>
+        public int changeAdoptionApplicationStatus(int adoptionApplicationID, string decision)
+        {
+            int count = 0;
+            var conn = DBConnection.GetConnection();
+            string cmdText = @"sp_update_adoption_application_status";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
 
-			cmd.Parameters.Add("@AdoptionApplicationID", SqlDbType.Int);
-			cmd.Parameters.Add("@status", SqlDbType.NVarChar, 100);
+            cmd.Parameters.Add("@AdoptionApplicationID", SqlDbType.Int);
+            cmd.Parameters.Add("@status", SqlDbType.NVarChar, 100);
 
-			cmd.Parameters["@AdoptionApplicationID"].Value = adoptionApplicationID;
+            cmd.Parameters["@AdoptionApplicationID"].Value = adoptionApplicationID;
 
-		
-				cmd.Parameters["@status"].Value = decision;
-			
-			try
-			{
-				conn.Open();
-				count = cmd.ExecuteNonQuery();
-			}
-			catch (Exception)
-			{
 
-				throw;
-			}
-			finally
-			{
-				conn.Close();
-			}
+            cmd.Parameters["@status"].Value = decision;
 
-			return count;
-		}
+            try
+            {
+                conn.Open();
+                count = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
 
-		/// <summary>
-		/// Creator: Awaab Elamin
-		/// Created: 2020/02/15
-		/// Approver: Mohamed Elamin , 2/21/2020
-		/// 
-		/// retrieve Adoption Application 
-		/// for a customer 
-		/// from Customer Questionnar table
-		/// by his ID
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <param name="customerEmail"></param>
-		public AdoptionApplication getAdoptionApplicationByCustomerEmail(string customerEmail)
-		{
-			AdoptionApplication adoptionApplication = new AdoptionApplication();
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
 
-		//	var conn = DBConnection.GetConnection();
-		//	string cmdText = @"sp_get_Adoption_Application_By_CustomerID";
-		//	var cmd = new SqlCommand(cmdText, conn);
-		//	cmd.CommandType = CommandType.StoredProcedure;
+            return count;
+        }
 
-		//	cmd.Parameters.Add("@customerID", SqlDbType.Int);
-		//	cmd.Parameters["@customerID"].Value = customerID;
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/15
+        /// Approver: Mohamed Elamin , 2/21/2020
+        /// 
+        /// retrieve Adoption Application 
+        /// for a customer 
+        /// from Customer Questionnar table
+        /// by his ID
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="customerEmail"></param>
+        public AdoptionApplication getAdoptionApplicationByCustomerEmail(string customerEmail)
+        {
+            AdoptionApplication adoptionApplication = new AdoptionApplication();
 
-		//	try
-		//	{
-		//		conn.Open();
-		//		SqlDataReader reader = cmd.ExecuteReader();
-		//		if (reader.HasRows)
-		//		{
-		//			while (reader.Read())
-		//			{
+            //	var conn = DBConnection.GetConnection();
+            //	string cmdText = @"sp_get_Adoption_Application_By_CustomerID";
+            //	var cmd = new SqlCommand(cmdText, conn);
+            //	cmd.CommandType = CommandType.StoredProcedure;
 
-		//				adoptionApplication.AdoptionApplicationID = reader.GetInt32(0);
-		//				adoptionApplication.CustomerName = getCustomerLastName(customerID);
-		//				adoptionApplication.AnimalName = getAnimalName(reader.GetInt32(1));
-		//				adoptionApplication.Status = reader.GetString(2);
-		//				adoptionApplication.RecievedDate = reader.GetDateTime(3);
-		//			}
-		//			reader.Close();
-		//		}
-		//	}
-		//	catch (Exception)
-		//	{
+            //	cmd.Parameters.Add("@customerID", SqlDbType.Int);
+            //	cmd.Parameters["@customerID"].Value = customerID;
 
-		//		throw;
-		//	}
-		//	finally
-		//	{
-		//		conn.Close();
-		//	}
-			return adoptionApplication;
-		}
+            //	try
+            //	{
+            //		conn.Open();
+            //		SqlDataReader reader = cmd.ExecuteReader();
+            //		if (reader.HasRows)
+            //		{
+            //			while (reader.Read())
+            //			{
 
-		/// <summary>
-		/// method to get all Adoption Applications
-		/// </summary>
-		/// <remarks>
-		/// Created by Awaab Elamin 4/2/2020
-		/// 
-		/// </remarks>
-		/// <reviewed>
-		/// Mohamed Elamin , 2/21/2020
-		/// </reviewed>
-		/// <returns></returns>
-		public List<AdoptionApplication> getAllAdoptionApplication()
-		{
-			List<AdoptionApplication> adoptionApplications = new List<AdoptionApplication>();
+            //				adoptionApplication.AdoptionApplicationID = reader.GetInt32(0);
+            //				adoptionApplication.CustomerName = getCustomerLastName(customerID);
+            //				adoptionApplication.AnimalName = getAnimalName(reader.GetInt32(1));
+            //				adoptionApplication.Status = reader.GetString(2);
+            //				adoptionApplication.RecievedDate = reader.GetDateTime(3);
+            //			}
+            //			reader.Close();
+            //		}
+            //	}
+            //	catch (Exception)
+            //	{
 
-			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_get_Adoption_Application";
-			var cmd = new SqlCommand(cmdText, conn);
-			cmd.CommandType = CommandType.StoredProcedure;
-			try
-			{
-				conn.Open();
-				SqlDataReader reader = cmd.ExecuteReader();
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
-						AdoptionApplication adoptionApplication = new AdoptionApplication();
-						adoptionApplication.AdoptionApplicationID = reader.GetInt32(0);
-						adoptionApplication.CustomerEmail = reader.GetString(1);
-						adoptionApplication.AnimalName = reader.GetString(2);
-						adoptionApplication.Status = reader.GetString(3);
-						adoptionApplication.RecievedDate = reader.GetDateTime(4);
-						adoptionApplications.Add(adoptionApplication);
-					}
-					reader.Close();
-				}
-			}
-			catch (Exception)
-			{
+            //		throw;
+            //	}
+            //	finally
+            //	{
+            //		conn.Close();
+            //	}
+            return adoptionApplication;
+        }
 
-				throw;
-			}
-			finally
-			{
-				conn.Close();
-			}
-			return adoptionApplications;
+        /// <summary>
+        /// method to get all Adoption Applications
+        /// </summary>
+        /// <remarks>
+        /// Created by Awaab Elamin 4/2/2020
+        /// 
+        /// </remarks>
+        /// <reviewed>
+        /// Mohamed Elamin , 2/21/2020
+        /// </reviewed>
+        /// <returns></returns>
+        public List<AdoptionApplication> getAllAdoptionApplication()
+        {
+            List<AdoptionApplication> adoptionApplications = new List<AdoptionApplication>();
 
-		}
-		/// <summary>
-		/// retrieve the animal name from the animal table
-		/// </summary>
-		/// <param name="animalID"> it is the animal id</param>
-		/// <returns> the animal name</returns>
-		/// <remarks>
-		/// by Awaab Elamin 2/5/2020
-		/// Mohamed Elamin , 2/21/2020
-		/// 
-		/// </remarks>
-		private string getAnimalName(int animalID)
-		{
-			string animalName = "";
-			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_get_animal_by_id";
-			var cmd = new SqlCommand(cmdText, conn);
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@animalId", SqlDbType.Int);
-			cmd.Parameters["@animalId"].Value = animalID;
-			try
-			{
-				conn.Open();
-				SqlDataReader reader = cmd.ExecuteReader();
-				if (reader.HasRows)
-				{
-					reader.Read();
-					Animal animal = new Animal();
-					animal.AnimalID = reader.GetInt32(0);
-					animal.AnimalName = reader.GetString(1);
-					animal.Dob = reader.GetDateTime(2);
-					animal.AnimalBreed = reader.GetString(3);
-					animal.ArrivalDate = reader.GetDateTime(4);
-					animal.CurrentlyHoused = reader.GetBoolean(5);
-					animal.Adoptable = reader.GetBoolean(6);
-					animal.Active = reader.GetBoolean(7);
-					animal.AnimalSpeciesID = reader.GetString(8);
+            var conn = DBConnection.GetConnection();
+            string cmdText = @"sp_get_Adoption_Application";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        AdoptionApplication adoptionApplication = new AdoptionApplication();
+                        adoptionApplication.AdoptionApplicationID = reader.GetInt32(0);
+                        adoptionApplication.CustomerEmail = reader.GetString(1);
+                        adoptionApplication.AnimalName = reader.GetString(2);
+                        adoptionApplication.Status = reader.GetString(3);
+                        adoptionApplication.RecievedDate = reader.GetDateTime(4);
+                        adoptionApplications.Add(adoptionApplication);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception)
+            {
 
-					animalName = animal.AnimalName;
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return adoptionApplications;
 
-				}
+        }
+        /// <summary>
+        /// retrieve the animal name from the animal table
+        /// </summary>
+        /// <param name="animalID"> it is the animal id</param>
+        /// <returns> the animal name</returns>
+        /// <remarks>
+        /// by Awaab Elamin 2/5/2020
+        /// Mohamed Elamin , 2/21/2020
+        /// 
+        /// </remarks>
+        private string getAnimalName(int animalID)
+        {
+            string animalName = "";
+            var conn = DBConnection.GetConnection();
+            string cmdText = @"sp_get_animal_by_id";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@animalId", SqlDbType.Int);
+            cmd.Parameters["@animalId"].Value = animalID;
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    Animal animal = new Animal();
+                    animal.AnimalID = reader.GetInt32(0);
+                    animal.AnimalName = reader.GetString(1);
+                    animal.Dob = reader.GetDateTime(2);
+                    animal.AnimalBreed = reader.GetString(3);
+                    animal.ArrivalDate = reader.GetDateTime(4);
+                    animal.CurrentlyHoused = reader.GetBoolean(5);
+                    animal.Adoptable = reader.GetBoolean(6);
+                    animal.Active = reader.GetBoolean(7);
+                    animal.AnimalSpeciesID = reader.GetString(8);
 
-				reader.Close();
-			}
-			catch (Exception)
-			{
+                    animalName = animal.AnimalName;
 
-				throw;
-			}
-			return animalName;
-		}
+                }
 
-		/// <summary>
-		/// Creator: Awaab Elamin
-		/// Created: 2020/02/15
-		/// Approver: Mohamed Elamin , 2/21/2020
-		/// 
-		/// retrieve Customer record from customer table by his last name
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <param name="customerLastName"></param>
-		public AdoptionCustomer getCustomerByCustomerName(string customerLastName)
-		{
-			AdoptionCustomer ourCustomer = new AdoptionCustomer();
-			//List<AdoptionCustomer> customers = new List<AdoptionCustomer>();
-			//var conn = DBConnection.GetConnection();
-			//string cmdText = @"sp_select_all_active_users";
-			//var cmd = new SqlCommand(cmdText, conn);
-			//cmd.CommandType = CommandType.StoredProcedure;
-			//try
-			//{
-			//	conn.Open();
-			//	SqlDataReader reader = cmd.ExecuteReader();
-			//	if (reader.HasRows)
-			//	{
-			//		while (reader.Read())
-			//		{
-			//			AdoptionCustomer activeCustomer = new AdoptionCustomer();
-			//			activeCustomer.CustomerID = reader.GetInt32(0);
-			//			activeCustomer.FirstName = reader.GetString(1);
-			//			activeCustomer.LastName = reader.GetString(2);
-			//			activeCustomer.PhoneNumber = reader.GetString(3);
-			//			activeCustomer.Email = reader.GetString(4);
-			//			activeCustomer.Active = true;
-			//			customers.Add(activeCustomer);
-			//		}
-			//		reader.Close();
-			//	}
-			//	foreach (AdoptionCustomer customer in customers)
-			//	{
-			//		if (customer.LastName == customerLastName)
-			//		{
-			//			int customerID = getCustomerID(customer.CustomerID);
-			//			ourCustomer = customer;
-			//			ourCustomer.CustomerID = customerID;
-			//		}
-			//	}
-			//}
-			//catch (Exception)
-			//{
+                reader.Close();
+            }
+            catch (Exception)
+            {
 
-			//	throw;
-			//}
-			//finally
-			//{
-			//	conn.Close();
-			//}
-			return ourCustomer;
-		}
+                throw;
+            }
+            return animalName;
+        }
 
-		/// <summary>
-		/// Creator: Awaab Elamin
-		/// Created: 2020/02/25
-		/// 
-		/// retrieve Customer id from customer table by his userID
-		/// </summary>
-		/// <remarks>
-		/// Updated by : Awaab Elamin
-		/// Date: 3/16/2020
-		/// After Customer Table updated in DB, we don not need to below method
-		/// </remarks>
-		/// <param name="customerLastName"></param>
-		//private int getCustomerID(int userID)
-		//{
-		//	int customerID = 0;
-		//	List<AdoptionCustomer> customers = new List<AdoptionCustomer>();
-		//	var conn = DBConnection.GetConnection();
-		//	string cmdText = @"sp_get_CustomerID_By_User_ID";
-		//	var cmd = new SqlCommand(cmdText, conn);
-		//	cmd.CommandType = CommandType.StoredProcedure;
-		//	cmd.Parameters.Add("@UserID", SqlDbType.Int);
-		//	cmd.Parameters["@UserID"].Value = userID;
-		//	try
-		//	{
-		//		conn.Open();
-		//		SqlDataReader reader = cmd.ExecuteReader();
-		//		if (reader.HasRows)
-		//		{
-		//			while (reader.Read())
-		//			{
-		//				customerID = reader.GetInt32(0);
-		//			}
-		//			reader.Close();
-		//		}
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/15
+        /// Approver: Mohamed Elamin , 2/21/2020
+        /// 
+        /// retrieve Customer record from customer table by his last name
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="customerLastName"></param>
+        public AdoptionCustomer getCustomerByCustomerName(string customerLastName)
+        {
+            AdoptionCustomer ourCustomer = new AdoptionCustomer();
+            //List<AdoptionCustomer> customers = new List<AdoptionCustomer>();
+            //var conn = DBConnection.GetConnection();
+            //string cmdText = @"sp_select_all_active_users";
+            //var cmd = new SqlCommand(cmdText, conn);
+            //cmd.CommandType = CommandType.StoredProcedure;
+            //try
+            //{
+            //	conn.Open();
+            //	SqlDataReader reader = cmd.ExecuteReader();
+            //	if (reader.HasRows)
+            //	{
+            //		while (reader.Read())
+            //		{
+            //			AdoptionCustomer activeCustomer = new AdoptionCustomer();
+            //			activeCustomer.CustomerID = reader.GetInt32(0);
+            //			activeCustomer.FirstName = reader.GetString(1);
+            //			activeCustomer.LastName = reader.GetString(2);
+            //			activeCustomer.PhoneNumber = reader.GetString(3);
+            //			activeCustomer.Email = reader.GetString(4);
+            //			activeCustomer.Active = true;
+            //			customers.Add(activeCustomer);
+            //		}
+            //		reader.Close();
+            //	}
+            //	foreach (AdoptionCustomer customer in customers)
+            //	{
+            //		if (customer.LastName == customerLastName)
+            //		{
+            //			int customerID = getCustomerID(customer.CustomerID);
+            //			ourCustomer = customer;
+            //			ourCustomer.CustomerID = customerID;
+            //		}
+            //	}
+            //}
+            //catch (Exception)
+            //{
 
-		//	}
-		//	catch (Exception)
-		//	{
+            //	throw;
+            //}
+            //finally
+            //{
+            //	conn.Close();
+            //}
+            return ourCustomer;
+        }
 
-		//		throw;
-		//	}
-		//	finally
-		//	{
-		//		conn.Close();
-		//	}
-		//	return customerID;
-		//}
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/25
+        /// 
+        /// retrieve Customer id from customer table by his userID
+        /// </summary>
+        /// <remarks>
+        /// Updated by : Awaab Elamin
+        /// Date: 3/16/2020
+        /// After Customer Table updated in DB, we don not need to below method
+        /// </remarks>
+        /// <param name="customerLastName"></param>
+        //private int getCustomerID(int userID)
+        //{
+        //	int customerID = 0;
+        //	List<AdoptionCustomer> customers = new List<AdoptionCustomer>();
+        //	var conn = DBConnection.GetConnection();
+        //	string cmdText = @"sp_get_CustomerID_By_User_ID";
+        //	var cmd = new SqlCommand(cmdText, conn);
+        //	cmd.CommandType = CommandType.StoredProcedure;
+        //	cmd.Parameters.Add("@UserID", SqlDbType.Int);
+        //	cmd.Parameters["@UserID"].Value = userID;
+        //	try
+        //	{
+        //		conn.Open();
+        //		SqlDataReader reader = cmd.ExecuteReader();
+        //		if (reader.HasRows)
+        //		{
+        //			while (reader.Read())
+        //			{
+        //				customerID = reader.GetInt32(0);
+        //			}
+        //			reader.Close();
+        //		}
 
-		/// <summary>
-		/// retrieve the customer full name "first and last
-		/// </summary>
-		/// <param name="customerID"></param>
-		/// <returns> FirstName + Last name</returns>
-		/// /// <remarks>
-		/// by Awaab Elamin 2/5/2020
-		/// Mohamed Elamin , 2/21/2020
-		/// </remarks>
-		public string getCustomerLastName(int customerID)
-		{
-			String customerName = null;
+        //	}
+        //	catch (Exception)
+        //	{
 
-			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_select_CustomerName_by_CustomerID";
-			var cmd = new SqlCommand(cmdText, conn);
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@customerId", SqlDbType.Int);
-			cmd.Parameters["@CustomerID"].Value = customerID;
-			try
-			{
-				conn.Open();
-				SqlDataReader reader = cmd.ExecuteReader();
-				if (reader.HasRows)
-				{
-					reader.Read();
+        //		throw;
+        //	}
+        //	finally
+        //	{
+        //		conn.Close();
+        //	}
+        //	return customerID;
+        //}
 
-					customerName = reader.GetString(1);
+        /// <summary>
+        /// retrieve the customer full name "first and last
+        /// </summary>
+        /// <param name="customerID"></param>
+        /// <returns> FirstName + Last name</returns>
+        /// /// <remarks>
+        /// by Awaab Elamin 2/5/2020
+        /// Mohamed Elamin , 2/21/2020
+        /// </remarks>
+        public string getCustomerLastName(int customerID)
+        {
+            String customerName = null;
 
-				}
+            var conn = DBConnection.GetConnection();
+            string cmdText = @"sp_select_CustomerName_by_CustomerID";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@customerId", SqlDbType.Int);
+            cmd.Parameters["@CustomerID"].Value = customerID;
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
 
-				reader.Close();
-			}
-			catch (Exception)
-			{
+                    customerName = reader.GetString(1);
 
-				throw;
-			}
-			return customerName;
+                }
 
-		}
+                reader.Close();
+            }
+            catch (Exception)
+            {
 
-		/// <summary>
-		/// Creator: Awaab Elamin
-		/// Created: 2020/02/15
-		/// Approver: Mohamed Elamin , 2/21/2020
-		/// 
-		/// retrieve Qyestionnar syntax  from General Questionnair by its ID
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <param name="questionID"></param>
-		public string getQestionDescription(int questionID)
-		{
-			String questionDescription = null;
+                throw;
+            }
+            return customerName;
 
-			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_get_question_description_by_questionId";
-			var cmd = new SqlCommand(cmdText, conn);
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.Add("@QuestionID", SqlDbType.Int);
-			cmd.Parameters["@QuestionID"].Value = questionID;
-			try
-			{
-				conn.Open();
-				SqlDataReader reader = cmd.ExecuteReader();
-				if (reader.HasRows)
-				{
-					reader.Read();
-					questionDescription = reader.GetString(0);
+        }
 
-				}
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/15
+        /// Approver: Mohamed Elamin , 2/21/2020
+        /// 
+        /// retrieve Qyestionnar syntax  from General Questionnair by its ID
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="questionID"></param>
+        public string getQestionDescription(int questionID)
+        {
+            String questionDescription = null;
 
-				reader.Close();
-			}
-			catch (Exception)
-			{
+            var conn = DBConnection.GetConnection();
+            string cmdText = @"sp_get_question_description_by_questionId";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@QuestionID", SqlDbType.Int);
+            cmd.Parameters["@QuestionID"].Value = questionID;
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    questionDescription = reader.GetString(0);
 
-				throw;
-			}
-			return questionDescription;
-		}
+                }
 
-		/// <summary>
-		/// Creator: Awaab Elamin
-		/// Created: 2020/02/15
-		/// Approver: Mohamed Elamin , 2/21/2020
-		/// 
-		/// retrieve Customer Questionnair record from customers Questionnairs table by his ID
-		/// </summary>
-		/// <remarks>
-		/// </remarks>
-		/// <param name="customerID"></param>
-		public List<CustomerQuestionnar> getCustomerQuestionnair(string customerEmail)
-		{
-			List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_get_Customer_Answer_By_CustomrEmail";
-			var cmd = new SqlCommand(cmdText, conn);
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.AddWithValue("@CustomerEmail", customerEmail);
-			try
-			{
-				conn.Open();
-				SqlDataReader reader = cmd.ExecuteReader();
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
-						CustomerQuestionnar customerQuestionnar
-							= new CustomerQuestionnar();
-						customerQuestionnar.QuestionDescription= reader.GetString(0);
-						customerQuestionnar.Answer = reader.GetString(1);
-						customerQuestionnars.Add(customerQuestionnar);
-					}
-					reader.Close();
-				}
-			}
-			catch (Exception)
-			{
+                reader.Close();
+            }
+            catch (Exception)
+            {
 
-				throw;
-			}
-			finally
-			{
-				conn.Close();
-			}
-			return customerQuestionnars;
-		}
+                throw;
+            }
+            return questionDescription;
+        }
 
-		/// <summary>
-		/// Creator: Awaab Elamin
-		/// Created: 2020/2/17
-		/// Approver: Mohamed Elamin , 2/21/2020
-		/// 
-		/// retrieve Questionnaes general questions table
-		/// </summary>
-		/// </remarks>
-		public List<string> getAllQuestions()
-		{
-			List<string> questions = new List<string>();
-			var conn = DBConnection.GetConnection();
-			string cmdText = @"sp_get_all_General_Questions";
-			var cmd = new SqlCommand(cmdText, conn);
-			cmd.CommandType = CommandType.StoredProcedure;
-			try
-			{
-				conn.Open();
-				SqlDataReader reader = cmd.ExecuteReader();
-				if (reader.HasRows)
-				{
-					while (reader.Read())
-					{
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/15
+        /// Approver: Mohamed Elamin , 2/21/2020
+        /// 
+        /// retrieve Customer Questionnair record from customers Questionnairs table by his ID
+        /// </summary>
+        /// <remarks>
+        /// </remarks>
+        /// <param name="customerID"></param>
+        public List<CustomerQuestionnar> getCustomerQuestionnair(string customerEmail)
+        {
+            List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
+            var conn = DBConnection.GetConnection();
+            string cmdText = @"sp_get_Customer_Answer_By_CustomrEmail";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@CustomerEmail", customerEmail);
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        CustomerQuestionnar customerQuestionnar
+                            = new CustomerQuestionnar();
+                        customerQuestionnar.QuestionDescription = reader.GetString(0);
+                        customerQuestionnar.Answer = reader.GetString(1);
+                        customerQuestionnars.Add(customerQuestionnar);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception)
+            {
 
-						questions.Add( reader.GetString(0));
-					}
-					reader.Close();
-				}
-			}
-			catch (Exception)
-			{
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return customerQuestionnars;
+        }
 
-				throw;
-			}
-			finally
-			{
-				conn.Close();
-			}
-			return questions;
-		}
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/2/17
+        /// Approver: Mohamed Elamin , 2/21/2020
+        /// 
+        /// retrieve Questionnaes general questions table
+        /// </summary>
+        /// </remarks>
+        public List<string> getAllQuestions()
+        {
+            List<string> questions = new List<string>();
+            var conn = DBConnection.GetConnection();
+            string cmdText = @"sp_get_all_General_Questions";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
 
-		/// <summary>
-		/// Creator: Awaab Elamin
-		/// Created: 2020/03/06
-		/// Approver: Mohamed Elamin , 2020/03/10
-		/// 
-		/// retrieve Questionnaes general questions table
-		/// </summary>
-		public bool insertAdoptionApplication(MVCAdoptionApplication adoptionApplication)
-		{
-			bool result = false;
-			var conn = DBConnection.GetConnection();
-			var cmd = new SqlCommand("sp_add_new_adoptionApplication", conn);
-			cmd.CommandType = CommandType.StoredProcedure;
-			cmd.Parameters.AddWithValue("@CustomerEmail", adoptionApplication.CustomerEmail);
-			cmd.Parameters.AddWithValue("@RecievedDate", adoptionApplication.RecievedDate);
-			cmd.Parameters.AddWithValue("@Status", adoptionApplication.Status);
-			cmd.Parameters.AddWithValue("@AnimalID", adoptionApplication.AnimalID);
-			try
-			{
-				conn.Open();
-				if ((int)cmd.ExecuteNonQuery() == 1)
-				{
-					result = true;
-				}
-			}
-			catch (Exception ex)
-			{
+                        questions.Add(reader.GetString(0));
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception)
+            {
 
-				throw;
-			}
-			finally
-			{
-				conn.Close();
-			}
-			return result;
-		}
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return questions;
+        }
 
-		/// <summary>
-		/// Creator: Awaab Elamin
-		/// Created: 2020/03/10
-		/// 
-		/// insert Questionnair in customer questionnair table
-		/// </summary>
-		public bool inserQuestionnair(MVCQuestionnair questionnair)
-		{
-			bool result = false;
-			//1\Connect to data base
-			var conn = DBConnection.GetConnection();
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/03/06
+        /// Approver: Mohamed Elamin , 2020/03/10
+        /// 
+        /// retrieve Questionnaes general questions table
+        /// </summary>
+        public bool insertAdoptionApplication(MVCAdoptionApplication adoptionApplication)
+        {
+            bool result = false;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_add_new_adoptionApplication", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@CustomerEmail", adoptionApplication.CustomerEmail);
+            cmd.Parameters.AddWithValue("@RecievedDate", adoptionApplication.RecievedDate);
+            cmd.Parameters.AddWithValue("@Status", adoptionApplication.Status);
+            cmd.Parameters.AddWithValue("@AnimalID", adoptionApplication.AnimalID);
+            try
+            {
+                conn.Open();
+                if ((int)cmd.ExecuteNonQuery() == 1)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
 
-			//2\A-Create a sqol command
-			var cmd = new SqlCommand("sp_add_customer_questionnair", conn);
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
+        }
 
-			//2-B classify the command type
-			cmd.CommandType = CommandType.StoredProcedure;
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/03/10
+        /// 
+        /// insert Questionnair in customer questionnair table
+        /// </summary>
+        public bool inserQuestionnair(MVCQuestionnair questionnair)
+        {
+            bool result = false;
+            //1\Connect to data base
+            var conn = DBConnection.GetConnection();
 
-			//2-b determine the paramerters values
-			cmd.Parameters.AddWithValue("@CustomerEmail", questionnair.CustomerEmail);
-			cmd.Parameters.AddWithValue("@AdoptionApplicationID", questionnair.AdoptionApplicationID);
+            //2\A-Create a sqol command
+            var cmd = new SqlCommand("sp_add_customer_questionnair", conn);
 
-			cmd.Parameters.AddWithValue("@Question1", questionnair.Question1);
-			cmd.Parameters.AddWithValue("@Question2", questionnair.Question2);
-			cmd.Parameters.AddWithValue("@Question3", questionnair.Question3);
-			cmd.Parameters.AddWithValue("@Question4", questionnair.Question4);
-			cmd.Parameters.AddWithValue("@Question5", questionnair.Question5);
-			cmd.Parameters.AddWithValue("@Question6", questionnair.Question6);
-			cmd.Parameters.AddWithValue("@Question7", questionnair.Question7);
-			cmd.Parameters.AddWithValue("@Question8", questionnair.Question8);
-			cmd.Parameters.AddWithValue("@Question9", questionnair.Question9);
-			cmd.Parameters.AddWithValue("@Question10", questionnair.Question10);
+            //2-B classify the command type
+            cmd.CommandType = CommandType.StoredProcedure;
 
-			cmd.Parameters.AddWithValue("@Answer1", questionnair.Answer1);
-			cmd.Parameters.AddWithValue("@Answer2", questionnair.Answer2);
-			cmd.Parameters.AddWithValue("@Answer3", questionnair.Answer3);
-			cmd.Parameters.AddWithValue("@Answer4", questionnair.Answer4);
-			cmd.Parameters.AddWithValue("@Answer5", questionnair.Answer5);
-			cmd.Parameters.AddWithValue("@Answer6", questionnair.Answer6);
-			cmd.Parameters.AddWithValue("@Answer7", questionnair.Answer7);
-			cmd.Parameters.AddWithValue("@Answer8", questionnair.Answer8);
-			cmd.Parameters.AddWithValue("@Answer9", questionnair.Answer9);
-			cmd.Parameters.AddWithValue("@Answer10", questionnair.Answer10);
+            //2-b determine the paramerters values
+            cmd.Parameters.AddWithValue("@CustomerEmail", questionnair.CustomerEmail);
+            cmd.Parameters.AddWithValue("@AdoptionApplicationID", questionnair.AdoptionApplicationID);
 
-			//3 A-try to connect to the data base
-			try
-			{
-				conn.Open();
-				//3 B- run the command
-				if ((int)cmd.ExecuteNonQuery() == 1)
-				{
-					result = true;
-				}
-			}
-			catch (Exception ex)
-			{
+            cmd.Parameters.AddWithValue("@Question1", questionnair.Question1);
+            cmd.Parameters.AddWithValue("@Question2", questionnair.Question2);
+            cmd.Parameters.AddWithValue("@Question3", questionnair.Question3);
+            cmd.Parameters.AddWithValue("@Question4", questionnair.Question4);
+            cmd.Parameters.AddWithValue("@Question5", questionnair.Question5);
+            cmd.Parameters.AddWithValue("@Question6", questionnair.Question6);
+            cmd.Parameters.AddWithValue("@Question7", questionnair.Question7);
+            cmd.Parameters.AddWithValue("@Question8", questionnair.Question8);
+            cmd.Parameters.AddWithValue("@Question9", questionnair.Question9);
+            cmd.Parameters.AddWithValue("@Question10", questionnair.Question10);
 
-				result = false;
-			}
-			finally
-			{
-				//4- close the connection
-				conn.Close();
-			}
-			return result;
-		}
-	}
+            cmd.Parameters.AddWithValue("@Answer1", questionnair.Answer1);
+            cmd.Parameters.AddWithValue("@Answer2", questionnair.Answer2);
+            cmd.Parameters.AddWithValue("@Answer3", questionnair.Answer3);
+            cmd.Parameters.AddWithValue("@Answer4", questionnair.Answer4);
+            cmd.Parameters.AddWithValue("@Answer5", questionnair.Answer5);
+            cmd.Parameters.AddWithValue("@Answer6", questionnair.Answer6);
+            cmd.Parameters.AddWithValue("@Answer7", questionnair.Answer7);
+            cmd.Parameters.AddWithValue("@Answer8", questionnair.Answer8);
+            cmd.Parameters.AddWithValue("@Answer9", questionnair.Answer9);
+            cmd.Parameters.AddWithValue("@Answer10", questionnair.Answer10);
+
+            //3 A-try to connect to the data base
+            try
+            {
+                conn.Open();
+                //3 B- run the command
+                if ((int)cmd.ExecuteNonQuery() == 1)
+                {
+                    result = true;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                result = false;
+            }
+            finally
+            {
+                //4- close the connection
+                conn.Close();
+            }
+            return result;
+        }
+    }
 }

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataTransferObjects
 {
-   public class MedicalHistory
+    public class MedicalHistory
     {
         public int AnimalID { get; set; }//0
 
@@ -14,7 +10,7 @@ namespace DataTransferObjects
 
 
         public string AnimalSpeciesID { get; set; }//2
-      
+
 
         public string Vaccinations { get; set; }//3
 
@@ -24,7 +20,7 @@ namespace DataTransferObjects
 
         public string AdditionalNotes { get; set; }//6
 
-      
+
 
 
     }

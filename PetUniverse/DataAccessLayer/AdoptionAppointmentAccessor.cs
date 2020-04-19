@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
@@ -51,7 +48,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@AppointmentTypeID", adoptionAppointment.AppointmentTypeID);
             cmd.Parameters.AddWithValue("@DateTime", adoptionAppointment.AppointmentDateTime);
             cmd.Parameters.AddWithValue("@LocationID", adoptionAppointment.LocationID);
-            
+
 
             try
             {
@@ -91,7 +88,7 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
-            
+
             try
             {
                 conn.Open();
@@ -187,21 +184,21 @@ namespace DataAccessLayer
                         adoptionAppointment.AdoptionApplicationID = reader.GetInt32(1);
                         adoptionAppointment.AppointmentTypeID = reader.GetString(2);
                         adoptionAppointment.AppointmentDateTime = reader.GetDateTime(3);
-                        if (!reader.IsDBNull(4))adoptionAppointment.Notes = reader.GetString(4);
-                        if (!reader.IsDBNull(5))adoptionAppointment.Decision = reader.GetString(5);
+                        if (!reader.IsDBNull(4)) adoptionAppointment.Notes = reader.GetString(4);
+                        if (!reader.IsDBNull(5)) adoptionAppointment.Decision = reader.GetString(5);
                         adoptionAppointment.LocationID = reader.GetInt32(6);
                         adoptionAppointment.AppointmentActive = reader.GetBoolean(7);
                         adoptionAppointment.CustomerEmail = reader.GetString(8);
                         adoptionAppointment.AnimalID = reader.GetInt32(9);
-                        if (!reader.IsDBNull(10))adoptionAppointment.AdoptionApplicationStatus = reader.GetString(10);
+                        if (!reader.IsDBNull(10)) adoptionAppointment.AdoptionApplicationStatus = reader.GetString(10);
                         adoptionAppointment.AdoptionApplicationRecievedDate = reader.GetDateTime(11);
-                        if (!reader.IsDBNull(12))adoptionAppointment.LocationName = reader.GetString(12);
+                        if (!reader.IsDBNull(12)) adoptionAppointment.LocationName = reader.GetString(12);
                         adoptionAppointment.LocationAddress1 = reader.GetString(13);
-                        if (!reader.IsDBNull(14))adoptionAppointment.LocationAddress2 = reader.GetString(14);
+                        if (!reader.IsDBNull(14)) adoptionAppointment.LocationAddress2 = reader.GetString(14);
                         adoptionAppointment.LocationCity = reader.GetString(15);
                         adoptionAppointment.LocationState = reader.GetString(16);
                         adoptionAppointment.LocationZip = reader.GetString(17);
-                        
+
                         adoptionAppointment.CustomerFirstName = reader.GetString(18);
                         adoptionAppointment.CustomerLastName = reader.GetString(19);
                         adoptionAppointment.CustomerPhoneNumber = reader.GetString(20);
@@ -210,14 +207,14 @@ namespace DataAccessLayer
                         adoptionAppointment.CustomerState = reader.GetString(23);
                         adoptionAppointment.CustomerZipCode = reader.GetString(24);
                         adoptionAppointment.AnimalName = reader.GetString(25);
-                        if (!reader.IsDBNull(26))adoptionAppointment.AnimalDob = reader.GetDateTime(26);
+                        if (!reader.IsDBNull(26)) adoptionAppointment.AnimalDob = reader.GetDateTime(26);
                         adoptionAppointment.AnimalSpeciesID = reader.GetString(27);
-                        if (!reader.IsDBNull(28))adoptionAppointment.AnimalBreed = reader.GetString(28);
+                        if (!reader.IsDBNull(28)) adoptionAppointment.AnimalBreed = reader.GetString(28);
                         adoptionAppointment.AnimalArrivalDate = reader.GetDateTime(29);
                         adoptionAppointment.AnimalCurrentlyHoused = reader.GetBoolean(30);
                         adoptionAppointment.AnimalAdoptable = reader.GetBoolean(31);
                         adoptionAppointment.AnimalActive = reader.GetBoolean(32);
-                        
+
                         adoptionAppointments.Add(adoptionAppointment);
                     }
                 }

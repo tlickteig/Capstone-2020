@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -177,7 +174,7 @@ namespace DataAccessLayer
         public List<VolunteerShift> SelectAllShifts()
         {
             //Declare variables
-            List <VolunteerShift> shifts = new List<VolunteerShift>();
+            List<VolunteerShift> shifts = new List<VolunteerShift>();
             var conn = DBConnection.GetConnection();
             var cmd = new SqlCommand("sp_select_all_volunteer_shifts");
 
@@ -302,7 +299,8 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 var reader = cmd.ExecuteReader();
-                if (reader.Read()) {
+                if (reader.Read())
+                {
                     shift.VolunteerShiftID = reader.GetInt32(0);
                     shift.ShiftDescription = reader.GetString(1);
                     shift.ShiftTitle = reader.GetString(2);
@@ -313,7 +311,7 @@ namespace DataAccessLayer
                     shift.IsSpecialEvent = reader.GetBoolean(7);
                     shift.ShiftNotes = reader.GetString(8);
                     shift.ScheduleID = reader.GetInt32(9);
-                    shift.VolunteerID = reader.IsDBNull(10) 
+                    shift.VolunteerID = reader.IsDBNull(10)
                         ? 0 : reader.GetInt32(10);
                 }
             }

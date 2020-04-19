@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using DataTransferObjects;
-using LogicLayerInterfaces;
+﻿using DataTransferObjects;
 using LogicLayer;
+using LogicLayerInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using WPFPresentation.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
 
 namespace WPFPresentation.Controllers
 {
@@ -61,7 +56,7 @@ namespace WPFPresentation.Controllers
         /// </summary>
         //GET:AdoptionApplication
         [HttpGet]
-        public ActionResult AdoptionApplication(LoginViewModel model) 
+        public ActionResult AdoptionApplication(LoginViewModel model)
         {
             //var user = new ApplicationUser
             //{
@@ -74,7 +69,7 @@ namespace WPFPresentation.Controllers
             this.adoptionApplication.RecievedDate = DateTime.Today;
             //if (adoptionApplication != null)
             //{                
-                this.adoptionApplication.qusetionnair = adoptionApplicationManager.retrieveCustomerQuestionnar(this.adoptionApplication.CustomerEmail);
+            this.adoptionApplication.qusetionnair = adoptionApplicationManager.retrieveCustomerQuestionnar(this.adoptionApplication.CustomerEmail);
             //}
             return View(this.adoptionApplication);
         }
@@ -95,16 +90,16 @@ namespace WPFPresentation.Controllers
         {
             if (adoptionApplicationManager.addAdoptionApplication(adoptionApplication))
             {
-                
+
                 ViewBag.StatusMessage = "update goes right!";
                 return RedirectToAction("Index");
             }
             else
             {
-                
+
                 ViewBag.StatusMessage = "Model state is not valid";
                 return RedirectToAction("Index");
-               
+
                 //return View();
             }
         }
@@ -125,7 +120,7 @@ namespace WPFPresentation.Controllers
             if (model.Email == "")
             {
                 questionnair = new MVCQuestionnair();
-                
+
             }
             questionnair.Question1 = questions[0];
             questionnair.Question2 = questions[1];
@@ -143,7 +138,7 @@ namespace WPFPresentation.Controllers
 
         //POST:Questionnair
         [HttpPost]
-        public ActionResult Questionnair(MVCQuestionnair questionnair) 
+        public ActionResult Questionnair(MVCQuestionnair questionnair)
         {
             if (adoptionApplicationManager.addQuestionnair(questionnair))
             {
@@ -152,7 +147,7 @@ namespace WPFPresentation.Controllers
             else
             {
                 ViewBag.message = "You already filled the Questionnair";
-                    return View(questionnair);
+                return View(questionnair);
             }
         }
 
@@ -202,7 +197,7 @@ namespace WPFPresentation.Controllers
             return View(adoptionApplication);
         }
 
-        
+
     }
 
 }

@@ -1,5 +1,4 @@
-﻿using System;
-using DataAccessFakes;
+﻿using DataAccessFakes;
 using DataTransferObjects;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

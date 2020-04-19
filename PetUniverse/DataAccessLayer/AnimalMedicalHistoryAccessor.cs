@@ -1,12 +1,9 @@
-﻿using System;
+﻿using DataAccessInterfaces;
+using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
-using DataTransferObjects;
 
 namespace DataAccessLayer
 {
@@ -38,7 +35,7 @@ namespace DataAccessLayer
         /// </Returns>
         public List<MedicalHistory> GetAnimalMedicalHistoryByAnimalID(int id)
         {
-           
+
             var conn = DBConnection.GetConnection();
 
             var cmd = new SqlCommand("sp_Select_AnimalMedicalHistory_By_AnimalID");
@@ -128,7 +125,7 @@ namespace DataAccessLayer
 
             cmd.Parameters.AddWithValue("@AnimalID", new_
                 .AnimalID);
-           
+
             cmd.Parameters.AddWithValue("@NewVaccinations",
                 new_.Vaccinations);
 

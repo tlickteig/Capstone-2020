@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
+﻿using DataAccessInterfaces;
 using DataAccessLayer;
-using DataAccessInterfaces;
 using LogicLayerInterfaces;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayer
 {

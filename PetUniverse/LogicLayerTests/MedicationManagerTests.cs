@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using DataAccessFakes;
+﻿using DataAccessFakes;
 using DataTransferObjects;
 using LogicLayer;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using LogicLayerInterfaces;
-using DataAccessLayer;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -159,8 +154,8 @@ namespace LogicLayerTests
             IMedicationManager _AnimalMedManager = new MedicationManager(FakeMedAccessor);
 
 
-            
-          
+
+
 
             // act
             _AnimalMedManager.CreateMedicationOrder(null);

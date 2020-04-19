@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -151,7 +148,7 @@ namespace DataAccessLayer
                         {
                             CardType = reader.GetString(0),
                             CardNumber = reader.GetString(1)
-                            
+
                         });
                     }
                     reader.Close();
@@ -194,7 +191,7 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ErrorType", errorType);
             cmd.Parameters.AddWithValue("@Description", errorDesc);
-            
+
 
 
 

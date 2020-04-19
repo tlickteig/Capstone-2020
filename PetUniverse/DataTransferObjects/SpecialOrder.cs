@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataTransferObjects
+﻿namespace DataTransferObjects
 {
     /// <summary>
     /// NAME: Jesse Tomash
@@ -46,7 +40,7 @@ namespace DataTransferObjects
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        public int SpecialOrderEmployeeID { get; set; }
+        public int UserID { get; set; }
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/30/2020

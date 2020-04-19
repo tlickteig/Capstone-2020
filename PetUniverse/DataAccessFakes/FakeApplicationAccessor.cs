@@ -1,10 +1,8 @@
-﻿using System;
+﻿using DataAccessInterfaces;
+using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
-using DataAccessInterfaces;
 
 namespace DataAccessFakes
 {
@@ -107,7 +105,7 @@ namespace DataAccessFakes
         public List<ApplicationVM> SelectAdoptionApplicationsByEmail(string email, bool active)
         {
             return (from a in _applicationVMs
-                    where a.CustomerEmail == email 
+                    where a.CustomerEmail == email
                     && a.ApplicationActive == active
                     select a).ToList();
         }

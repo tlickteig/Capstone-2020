@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
-using DataAccessInterfaces;
+using System.Collections.Generic;
 
 namespace DataAccessFakes
 {
@@ -163,7 +159,7 @@ namespace DataAccessFakes
         /// 
         /// </remarks>
         public int UpdateDepartment(Department oldDepartment, Department newDepartment)
-        {            
+        {
             return 1;
         }
 

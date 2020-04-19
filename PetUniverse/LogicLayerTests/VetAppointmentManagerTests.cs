@@ -1,12 +1,11 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataAccessFakes;
+﻿using DataAccessFakes;
+using DataAccessInterfaces;
+using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
-using DataTransferObjects;
-using DataAccessInterfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {

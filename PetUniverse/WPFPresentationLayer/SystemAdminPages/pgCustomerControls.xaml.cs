@@ -3,19 +3,8 @@ using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.SystemAdminPages
 {
@@ -67,7 +56,7 @@ namespace WPFPresentationLayer.SystemAdminPages
         /// </remarks>
         public pgCustomerControls(Customer customer)
         {
-            _customerManager = new CustomerManager();            
+            _customerManager = new CustomerManager();
             InitializeComponent();
         }
 
@@ -95,7 +84,7 @@ namespace WPFPresentationLayer.SystemAdminPages
             dgCustomerList.Columns[0].Header = "Email";
             dgCustomerList.Columns[1].Header = "First Name";
             dgCustomerList.Columns[2].Header = "Last Name";
-            dgCustomerList.Columns[3].Header = "Phone Number";            
+            dgCustomerList.Columns[3].Header = "Phone Number";
             dgCustomerList.Columns[4].Header = "Address Line 1";
             dgCustomerList.Columns[5].Header = "Address Line 2";
             dgCustomerList.Columns[6].Header = "City";
@@ -154,6 +143,6 @@ namespace WPFPresentationLayer.SystemAdminPages
                 LogicLayerErrorHandler.DataLoadErrorMessage(ex.Message, ex.InnerException.Message);
             }
 
-        }        
+        }
     }
 }

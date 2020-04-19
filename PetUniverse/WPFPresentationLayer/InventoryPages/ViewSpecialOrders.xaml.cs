@@ -2,18 +2,8 @@
 using LogicLayer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.InventoryPages
 {
@@ -35,6 +25,7 @@ namespace WPFPresentationLayer.InventoryPages
     public partial class ViewSpecialOrders : Page
     {
         private SpecialOrderManager _orderManager = new SpecialOrderManager();
+        private SpecialOrder _specialOrder;
         private List<SpecialOrder> _orders;
         private List<SpecialOrder> _currentOrders;
 
@@ -102,7 +93,6 @@ namespace WPFPresentationLayer.InventoryPages
             dgSpecialOrders.Columns[0].Header = "Special Order ID";
             dgSpecialOrders.Columns[1].Header = "Employee ID";
             dgSpecialOrders.Columns[2].Visibility = Visibility.Hidden;
-            //dgOrders.Columns[2].Visible = false; this is supposed to work?!?
             foreach (var column in this.dgSpecialOrders.Columns)
             {
                 column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
@@ -170,6 +160,74 @@ namespace WPFPresentationLayer.InventoryPages
 
                 btnAddSpecialOrder.Visibility = Visibility.Visible;
                 dgSpecialOrders.ItemsSource = _currentOrders;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 4/15/2020
+        ///
+        /// Approver: 
+        /// Approver: 
+        /// 
+        /// Action to view order when an item on the datagrid is double clicked
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
+        private void btnViewSpecialOrder_Click(object sender, RoutedEventArgs e)
+        {
+            SetUpViewSpecialOrder();
+        }
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 3/30/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        /// 
+        /// Action to view order when an item on the datagrid is double clicked
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
+        
+        private void dgSpecialOrders_PreviewMouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            SetUpViewSpecialOrder();
+        }
+
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 3/30/2020
+        ///
+        /// Approver: 
+        /// Approver: 
+        /// 
+        /// Helper method that sets up view special order
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
+        private void SetUpViewSpecialOrder()
+        {
+            try
+            {
+                _specialOrder = (SpecialOrder)dgSpecialOrders.SelectedItem;
+                this.NavigationService?.Navigate(new ViewAddSpecialOrder(_specialOrder));
             }
             catch (Exception ex)
             {

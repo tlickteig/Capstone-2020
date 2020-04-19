@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using DataAccessLayer;
+using DataTransferObjects;
 using LogicLayerInterfaces;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayer
 {
@@ -68,10 +65,10 @@ namespace LogicLayer
             List<AdoptionApplication> customersFilledQuestionnair = new List<AdoptionApplication>();
             List<CustomerQuestionnar> customerQuestionnar = new List<CustomerQuestionnar>();
             adoptionApplications = adoptionAccessor.getAllAdoptionApplication();
-            
+
             foreach (AdoptionApplication adoptionApplication in adoptionApplications)
             {
-               
+
                 customerQuestionnar = adoptionAccessor.getCustomerQuestionnair(adoptionApplication.CustomerEmail);
                 if (null != customerQuestionnar && customerQuestionnar.Count >= 1)
                 {
@@ -97,8 +94,8 @@ namespace LogicLayer
         /// </remark>
         public List<CustomerQuestionnar> retrieveCustomerQuestionnar(string customerEmail)
         {
-           List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-            if (customerEmail !=null && customerEmail != "")
+            List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
+            if (customerEmail != null && customerEmail != "")
             {
                 customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerEmail);
             }
@@ -106,21 +103,21 @@ namespace LogicLayer
             {
                 //customerQuestionnars = adoptionAccessor.getAllQuestions();
             }
-           
-          // List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-        //    foreach (CustomerQuestionnar customerQ in customerQuestionnars)
-        //    {
-        //        CustomerQuestionnarVM customerQuestionnarVM = new CustomerQuestionnarVM();
-        //        customerQuestionnarVM.AdoptionApplicationID = customerQ.AdoptionApplication;
-        //        customerQuestionnarVM.CustomerLastName =
-        //            adoptionAccessor.getCustomerLastName(customerQ.CustomerID);
-        //        customerQuestionnarVM.QuestionDescription =
-        //            adoptionAccessor.getQestionDescription(customerQ.QuestionID);
-        //        customerQuestionnarVM.CustomerAnswer = customerQ.Answer;
-        //        customerQuestionnarVMs.Add(customerQuestionnarVM);
 
-        //    }
-           return customerQuestionnars;
+            // List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
+            //    foreach (CustomerQuestionnar customerQ in customerQuestionnars)
+            //    {
+            //        CustomerQuestionnarVM customerQuestionnarVM = new CustomerQuestionnarVM();
+            //        customerQuestionnarVM.AdoptionApplicationID = customerQ.AdoptionApplication;
+            //        customerQuestionnarVM.CustomerLastName =
+            //            adoptionAccessor.getCustomerLastName(customerQ.CustomerID);
+            //        customerQuestionnarVM.QuestionDescription =
+            //            adoptionAccessor.getQestionDescription(customerQ.QuestionID);
+            //        customerQuestionnarVM.CustomerAnswer = customerQ.Answer;
+            //        customerQuestionnarVMs.Add(customerQuestionnarVM);
+
+            //    }
+            return customerQuestionnars;
         }
 
         /// <summary>
@@ -186,7 +183,7 @@ namespace LogicLayer
                 if (adoptionAccessor.insertAdoptionApplication(adoptionApplication))
                 {
                     result = true;
-                } 
+                }
             }
             catch (Exception)
             {
@@ -208,12 +205,12 @@ namespace LogicLayer
             try
             {
                 questions = adoptionAccessor.getAllQuestions();
-               
+
             }
             catch (Exception)
             {
 
-                
+
                 throw;
             }
             return questions;
@@ -222,7 +219,7 @@ namespace LogicLayer
         public bool addQuestionnair(MVCQuestionnair questionnair)
         {
             bool result = false;
-           // questionnair.CustomerEmail = model
+            // questionnair.CustomerEmail = model
             if (adoptionAccessor.inserQuestionnair(questionnair))
             {
                 result = true;

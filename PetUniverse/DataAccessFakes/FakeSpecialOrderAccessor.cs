@@ -1,9 +1,6 @@
 ﻿using DataTransferObjects;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -57,7 +54,7 @@ namespace DataAccessFakes
                 new SpecialOrder()
                 {
                     SpecialOrderID = 1,
-                    SpecialOrderEmployeeID = 244
+                    UserID = 244
                 }
             };
             return (IEnumerable<SpecialOrder>)specialOrders;
@@ -87,7 +84,7 @@ namespace DataAccessFakes
             if (!oldOrder.Equals(newOrder))
             {
                 oldOrder.SpecialOrderID = newOrder.SpecialOrderID;
-                oldOrder.SpecialOrderEmployeeID = newOrder.SpecialOrderEmployeeID;
+                oldOrder.UserID = newOrder.UserID;
                 result = 1;
             }
             return result;

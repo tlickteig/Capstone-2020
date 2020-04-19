@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections;
+﻿using DataAccessLayer;
+using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessLayer;
-using DataTransferObjects;
 
 namespace DataAccessFakes
 {
@@ -90,7 +87,7 @@ namespace DataAccessFakes
 
                 ItemCategoryID = "Medication",
 
-               OrderDate = DateTime.Today,
+                OrderDate = DateTime.Today,
 
                 ItemQuantity = 2
 
@@ -100,12 +97,12 @@ namespace DataAccessFakes
 
 
 
-            
 
 
 
 
-    }
+
+        }
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -128,7 +125,7 @@ namespace DataAccessFakes
         }
 
 
-     
+
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -159,7 +156,7 @@ namespace DataAccessFakes
             }
             catch
             {
-                
+
                 Meds = null;
                 return Meds;
             }

@@ -1,10 +1,6 @@
 ﻿using DataAccessInterfaces;
 using DataTransferObjects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -16,8 +12,8 @@ namespace DataAccessFakes
     /// Fake Accessor class for inventory items to use instead of calling from the database during testing
     /// </summary>
     public class FakeInventoryItemsAccessor : IInventoryItemsAccessor
-	{
-		private List<InventoryItems> inventoryItems;
+    {
+        private List<InventoryItems> inventoryItems;
 
         /// <summary>
         /// Creator: Cash Carlson
@@ -32,21 +28,21 @@ namespace DataAccessFakes
         /// Update: 
         /// </remarks>
         public FakeInventoryItemsAccessor()
-		{
-			inventoryItems = new List<InventoryItems>()
-			{
-				new InventoryItems()
-				{
-					ProductID = "100000",
-					Name = "Fake",
-					Brand = "Fake Brand",
-					Category = "Fake Category",
-					Type = "Fake Type",
-					Price = 55.55M,
-					Quantity = 10
-				}
-			};
-		}
+        {
+            inventoryItems = new List<InventoryItems>()
+            {
+                new InventoryItems()
+                {
+                    ProductID = "100000",
+                    Name = "Fake",
+                    Brand = "Fake Brand",
+                    Category = "Fake Category",
+                    Type = "Fake Type",
+                    Price = 55.55M,
+                    Quantity = 10
+                }
+            };
+        }
 
         /// <summary>
         /// Creator: Cash Carlson
@@ -62,8 +58,8 @@ namespace DataAccessFakes
         /// </remarks>
         /// <returns></returns>
         public List<InventoryItems> SelectAllInventory()
-		{
-			return inventoryItems;
-		}
-	}
+        {
+            return inventoryItems;
+        }
+    }
 }

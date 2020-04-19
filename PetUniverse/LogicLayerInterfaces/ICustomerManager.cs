@@ -1,10 +1,5 @@
 ﻿using DataTransferObjects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogicLayerInterfaces;
 
 namespace LogicLayerInterfaces
 {
@@ -16,7 +11,7 @@ namespace LogicLayerInterfaces
     /// This Interface that defines methods for Customer 
     /// </summary>
     public interface ICustomerManager
-   {
+    {
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created On: 2020/29/2020

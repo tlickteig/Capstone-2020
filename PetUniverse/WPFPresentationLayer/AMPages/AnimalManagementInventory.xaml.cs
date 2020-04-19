@@ -4,20 +4,11 @@ using LogicLayer;
 using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace WPFPresentationLayer
 {
@@ -74,7 +65,7 @@ namespace WPFPresentationLayer
             CreateOrder.Visibility = Visibility.Hidden;
 
             Med.Visibility = Visibility.Visible;
-           
+
             MedList.Visibility = Visibility.Visible;
 
             MedList.Width = Double.NaN;
@@ -96,7 +87,7 @@ namespace WPFPresentationLayer
 
             four.Visibility = Visibility.Hidden;
 
-          
+
 
             //Quantity_form.Visibility = Visibility.Hidden;
             Quantity_input.Visibility = Visibility.Hidden;
@@ -130,52 +121,52 @@ namespace WPFPresentationLayer
 
             Medication medication = new Medication();
 
-          
 
 
-           
 
-           if (num == 1)
-                {
-                    Warning2.Content = "! Pet universe is currently running low on " + num + " medication";
-                    Warning2.Foreground = new SolidColorBrush(Colors.DarkOrange);
-                    Warning2.Visibility = Visibility.Visible;
-                }
-                else
-                if (num > 1)
-                {
-                    Warning2.Content = "! Pet universe is currently running low on " + num + " medications";
-                    Warning2.Foreground = new SolidColorBrush(Colors.DarkOrange);
-                    Warning2.Visibility = Visibility.Visible;
-                }
-                else
-                {
+
+
+            if (num == 1)
+            {
+                Warning2.Content = "! Pet universe is currently running low on " + num + " medication";
+                Warning2.Foreground = new SolidColorBrush(Colors.DarkOrange);
+                Warning2.Visibility = Visibility.Visible;
+            }
+            else
+                 if (num > 1)
+            {
+                Warning2.Content = "! Pet universe is currently running low on " + num + " medications";
+                Warning2.Foreground = new SolidColorBrush(Colors.DarkOrange);
+                Warning2.Visibility = Visibility.Visible;
+            }
+            else
+            {
                 Warning2.Visibility = Visibility.Hidden;
-                }
+            }
 
-           if (empty == 1)
-                {
-                    Warning.Content = "! Pet universe is currently out of " + empty + " medication";
-                    Warning.Foreground = new SolidColorBrush(Colors.Red);
-                    Warning.Visibility = Visibility.Visible;
-                }
-                else
-                if (empty > 1)
-                {
-                    Warning.Content = "! Pet universe is currently out of " + empty + " medications";
-                    Warning.Foreground = new SolidColorBrush(Colors.Red);
-                    Warning.Visibility = Visibility.Visible;
-                }
-                else
-                {
+            if (empty == 1)
+            {
+                Warning.Content = "! Pet universe is currently out of " + empty + " medication";
+                Warning.Foreground = new SolidColorBrush(Colors.Red);
+                Warning.Visibility = Visibility.Visible;
+            }
+            else
+                 if (empty > 1)
+            {
+                Warning.Content = "! Pet universe is currently out of " + empty + " medications";
+                Warning.Foreground = new SolidColorBrush(Colors.Red);
+                Warning.Visibility = Visibility.Visible;
+            }
+            else
+            {
                 Warning.Visibility = Visibility.Hidden;
-                }
+            }
 
 
-          
 
-           
-          
+
+
+
 
         }
 
@@ -235,13 +226,13 @@ namespace WPFPresentationLayer
 
             int UserID = 1;
 
-          
+
 
             ItemID_.Text = itemID.ToString();
 
             //Quantity_.Text = Int32.Parse(Quantity_input.Text).ToString();
 
-           OutgoingOrders order = new OutgoingOrders()
+            OutgoingOrders order = new OutgoingOrders()
             {
                 ItemID = 1,
                 OrderDate = OrderDate,
@@ -262,7 +253,7 @@ namespace WPFPresentationLayer
             MedList.Columns[0].Header = "ItemID";
             MedList.Columns[1].Header = "ItemName";
             MedList.Columns[2].Header = "ItemQuantity";
-           
+
 
 
         }
@@ -355,7 +346,7 @@ namespace WPFPresentationLayer
             Name_.Content = ItemName;
 
             Num_.Content = Quantity_input.Text;
-         
+
         }
 
 
@@ -447,12 +438,12 @@ namespace WPFPresentationLayer
         private void MedList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             CreateOrder.Visibility = Visibility.Visible;
-           
+
         }
 
         private void DataGridRow_Selected(object sender, RoutedEventArgs e)
         {
-            
+
 
         }
 

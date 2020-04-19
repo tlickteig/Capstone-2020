@@ -125,7 +125,7 @@ namespace LogicLayerTests
                     VolunteerEventID = 100000
                 },
                 new VolunteerEvent()
-                { 
+                {
                     VolunteerEventID = 100000,
                     EventName = "Cool Event",
                     EventDescription = "It is a cool event."

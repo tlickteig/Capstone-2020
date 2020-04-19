@@ -3,8 +3,6 @@ using DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -98,7 +96,7 @@ namespace DataAccessFakes
                 result = 1;
             }
             catch (Exception ex)
-            {                
+            {
                 throw ex;
             }
             return result;
@@ -146,7 +144,7 @@ namespace DataAccessFakes
                 result = 1;
             }
             catch (Exception ex)
-            {                
+            {
                 throw ex;
             }
             return result;

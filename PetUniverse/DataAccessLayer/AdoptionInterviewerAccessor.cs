@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -183,7 +180,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@AppointmentID", newAdoptionAppointment
                 .AppointmentID);
 
-          
+
 
             cmd.Parameters.AddWithValue("@NewNotes",
                 newAdoptionAppointment.Notes);
@@ -211,5 +208,5 @@ namespace DataAccessLayer
             return rows;
         }
     }
-    
+
 }

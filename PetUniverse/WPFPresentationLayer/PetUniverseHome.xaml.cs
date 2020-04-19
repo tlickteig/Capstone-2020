@@ -1,24 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using DataTransferObjects;
+﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
-using PresentationUtilityCode;
-using WPFPresentationLayer.PoSPages;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using WPFPresentationLayer.AMPages;
-using WPFPresentationLayer.RecruitingPages;
 using WPFPresentationLayer.FMPages;
+using WPFPresentationLayer.PoSPages;
+using WPFPresentationLayer.RecruitingPages;
 using WPFPresentationLayer.SystemAdminPages;
 
 namespace WPFPresentationLayer
@@ -675,7 +664,7 @@ namespace WPFPresentationLayer
         /// Updater: 
         /// Updated: 
         /// Update: 
-		
+
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -685,9 +674,9 @@ namespace WPFPresentationLayer
             switchScreen(desiredScreen);
 
             FrameMessages.Content = new pgMessages(_user);
-		}
-		
-		/// Creator: Robert Holmes
+        }
+
+        /// Creator: Robert Holmes
         /// Created: 2020/03/17
         /// Approver: Jaeho Kim
         /// 

@@ -1,12 +1,9 @@
-﻿using LogicLayerInterfaces;
+﻿using DataAccessInterfaces;
+using DataAccessLayer;
+using DataTransferObjects;
+using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
-using DataAccessInterfaces;
-using DataAccessLayer;
 
 namespace LogicLayer
 {
@@ -19,8 +16,8 @@ namespace LogicLayer
     /// </summary>
     public class AdoptionInterviewerManager : IAdoptionInterviewerManager
     {
-       
-        private IAdoptionInterviewerAccessor    _adoptionInterviewerAccessor;
+
+        private IAdoptionInterviewerAccessor _adoptionInterviewerAccessor;
 
         public AdoptionInterviewerManager(IAdoptionInterviewerAccessor adoptionInterviewerAccessor)
         {
@@ -107,7 +104,7 @@ namespace LogicLayer
             try
             {
                 adoptionApplications = _adoptionInterviewerAccessor.SelectAdoptionAappointmentsByAppointmentType();
-               
+
             }
             catch (Exception ex)
             {

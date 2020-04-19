@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DataTransferObjects;
+﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace WPFPresentationLayer.PoSPages
 {
@@ -182,11 +172,11 @@ namespace WPFPresentationLayer.PoSPages
             // SalesTax details operation now complete.
 
             taxRate = salesTax.TaxRate;
-            
+
 
             try
             {
-                
+
             }
             catch (Exception ex)
             {
@@ -346,7 +336,7 @@ namespace WPFPresentationLayer.PoSPages
                     MessageBox.Show("Could Not Add Transaction!");
                 }
             }
-            catch(ApplicationException ae)
+            catch (ApplicationException ae)
             {
                 MessageBox.Show(ae.Message + "\n\n" + "You Must Enter Transaction Admin Data!");
             }

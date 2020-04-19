@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using DataAccessFakes;
+﻿using DataAccessFakes;
 using DataAccessInterfaces;
 using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -256,16 +256,16 @@ namespace LogicLayerTests
                 ShiftTimeID = 1000000,
                 Count = 1
             };
-            
+
 
             List<BaseScheduleLine> others = baseScheduleManager.GetBaseScheduleLinesByBaseScheduleID(1000000);
             bool success = false;
 
-            if(others.Count == 2)
+            if (others.Count == 2)
             {
                 foreach (BaseScheduleLine line in others)
                 {
-                    if(line.DepartmentID.Equals(baseScheduleLine.DepartmentID)
+                    if (line.DepartmentID.Equals(baseScheduleLine.DepartmentID)
                         && line.ERoleID.Equals(baseScheduleLine.ERoleID)
                         && line.ShiftTimeID == baseScheduleLine.ShiftTimeID
                         && line.BaseScheduleID == baseScheduleLine.BaseScheduleID
@@ -277,7 +277,7 @@ namespace LogicLayerTests
             }
 
             Assert.AreEqual(true, success);
-            
+
         }
     }
 }

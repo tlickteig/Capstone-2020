@@ -1,10 +1,8 @@
-﻿using System;
+﻿using DataAccessInterfaces;
+using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
-using DataAccessInterfaces;
 
 /// <summary>
 ///  CREATOR: Kaleb Bachert
@@ -95,7 +93,7 @@ namespace DataAccessFakes
                     ScheduleStartDate = DateTime.Now.AddDays(14),
                     ScheduleEndDate = DateTime.Now.AddDays(27),
                     FirstWeekHours = 35,
-                    SecondWeekHours = 25                
+                    SecondWeekHours = 25
                 }
             };
         }
@@ -185,7 +183,7 @@ namespace DataAccessFakes
         {
             int recordsUpdated = 0;
 
-            foreach(ShiftVM shift in shiftVMs)
+            foreach (ShiftVM shift in shiftVMs)
             {
                 if (shift.ShiftID == shiftID && shift.EmployeeWorking == oldUserWorking)
                 {
@@ -218,7 +216,7 @@ namespace DataAccessFakes
         {
             int recordsUpdated = 0;
 
-            foreach(ScheduleWithHoursWorked hoursWorked in scheduleHours)
+            foreach (ScheduleWithHoursWorked hoursWorked in scheduleHours)
             {
                 if (hoursWorked.ScheduleID == scheduleID)
                 {

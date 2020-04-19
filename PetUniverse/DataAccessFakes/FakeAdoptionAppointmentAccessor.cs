@@ -1,10 +1,8 @@
 ﻿using DataAccessInterfaces;
+using DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 
 namespace DataAccessFakes
@@ -153,7 +151,7 @@ namespace DataAccessFakes
         public List<AdoptionAppointmentVM> SelectAdoptionAppointmentsByActiveAndType(bool active, string appointmentTypeID)
         {
             return (from a in adoptionAppointmentVMs
-                    where a.AppointmentActive == true 
+                    where a.AppointmentActive == true
                     && a.AppointmentTypeID == appointmentTypeID
                     select a).ToList();
         }

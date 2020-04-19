@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DataTransferObjects;
+﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace WPFPresentationLayer.AdoptionPages
 {
@@ -116,13 +104,13 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <returns></returns>
         private void populatedgAdoptionApplicationsList()
         {
-            
-                dgAdoptionApplicationsList.ItemsSource = _homeInspectorManager.SelectAdoptionApplicationByStatus();
-                dgAdoptionApplicationsList.Columns[0].Header = "Adoption Application ID";
-                dgAdoptionApplicationsList.Columns[1].Header = "Custome Email";
-                dgAdoptionApplicationsList.Columns[2].Header = "Animal Name";
-                dgAdoptionApplicationsList.Columns[3].Header = "Status";
-                dgAdoptionApplicationsList.Columns[4].Header = "Recieved Date and Time"; 
+
+            dgAdoptionApplicationsList.ItemsSource = _homeInspectorManager.SelectAdoptionApplicationByStatus();
+            dgAdoptionApplicationsList.Columns[0].Header = "Adoption Application ID";
+            dgAdoptionApplicationsList.Columns[1].Header = "Custome Email";
+            dgAdoptionApplicationsList.Columns[2].Header = "Animal Name";
+            dgAdoptionApplicationsList.Columns[3].Header = "Status";
+            dgAdoptionApplicationsList.Columns[4].Header = "Recieved Date and Time";
         }
 
         /// <summary>

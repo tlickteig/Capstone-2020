@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessInterfaces;
+using DataAccessLayer;
 using DataTransferObjects;
 using LogicLayerInterfaces;
-using DataAccessInterfaces;
-using DataAccessLayer;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayer
 {
@@ -23,7 +20,7 @@ namespace LogicLayer
     /// WHAT WAS CHANGED: NA
     /// 
     /// </remarks>
-   public class LocationManager : ILocationManager
+    public class LocationManager : ILocationManager
     {
         ILocationAccessor _locationAccessor;
 

@@ -1,19 +1,15 @@
 ﻿using DataAccessFakes;
 using DataAccessInterfaces;
-using DataAccessLayer;
 using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicLayerTests
 {
-   public class AnimalMedicalHistoryManagerTests
+    public class AnimalMedicalHistoryManagerTests
     {
         private IAnimalMedicalHistoryAccessor animalMedicalHistoryAccessor;
 
@@ -102,7 +98,7 @@ namespace LogicLayerTests
 
             MedicalHistory new_ = new MedicalHistory()
             {
-               
+
             };
 
             MedicalHistory old_ = new MedicalHistory()
@@ -143,7 +139,7 @@ namespace LogicLayerTests
             // Act
             result = MH.UpdateAnimalMedicalHistory(null, null);
 
-          
+
 
         }
 

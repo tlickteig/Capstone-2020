@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
+﻿using DataTransferObjects;
+using System;
 
 namespace PresentationUtilityCode
 {
@@ -268,7 +264,7 @@ namespace PresentationUtilityCode
         {
             bool result = false;
 
-            if(address.Length <= 250)
+            if (address.Length <= 250)
             {
                 result = true;
             }

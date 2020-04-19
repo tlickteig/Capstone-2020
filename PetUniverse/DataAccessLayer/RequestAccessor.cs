@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /// <summary>
 ///  Creator: Kaleb Bachert
@@ -24,8 +21,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-	public class RequestAccessor : IRequestAccessor
-	{
+    public class RequestAccessor : IRequestAccessor
+    {
         /// <summary>
         ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/2/9

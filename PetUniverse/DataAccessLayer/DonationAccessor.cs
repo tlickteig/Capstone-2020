@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
+using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -58,14 +55,14 @@ namespace DataAccessLayer
                         {
                             newDonation.LastName = reader.GetString(3);
                         }
-                        
+
                         newDonation.DateOfDonation = reader.GetDateTime(4);
                         newDonation.TypeOfDonation = reader.GetString(5);
                         if (!reader.IsDBNull(6))
                         {
                             newDonation.DonationAmount = reader.GetDecimal(6);
                         }
-                        
+
 
                         donations.Add(newDonation);
                     }

@@ -4,8 +4,6 @@ using DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /// <summary>
 ///  Creator: Kaleb Bachert
@@ -17,47 +15,47 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-	public class RequestManager : IRequestManager
-	{
-		private IRequestAccessor _requestAccessor;
+    public class RequestManager : IRequestManager
+    {
+        private IRequestAccessor _requestAccessor;
 
-		/// <summary>
-		///  Creator: Kaleb Bachert
-		///  Created: 2/9/2020
-		///  Approver: Zach Behrensmeyer
-		///  
-		///  Default Constructor for instantiating Accessor
-		/// </summary>
-		/// <remarks>
-		/// Updater: NA
-		/// Updated: NA
-		/// Update: NA
-		/// 
-		/// </remarks>
-		public RequestManager()
-		{
-			_requestAccessor = new RequestAccessor();
-		}
+        /// <summary>
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2/9/2020
+        ///  Approver: Zach Behrensmeyer
+        ///  
+        ///  Default Constructor for instantiating Accessor
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        public RequestManager()
+        {
+            _requestAccessor = new RequestAccessor();
+        }
 
-		/// <summary>
-		///  Creator: Kaleb Bachert
-		///  Created: 2/9/2020
-		///  Approver: Zach Behrensmeyer
-		///  
-		///  Constructor for passing specific Accessor class
-		/// </summary>
-		/// <remarks>
-		/// Updater: NA
-		/// Updated: NA
-		/// Update: NA
-		/// 
-		/// </remarks>
-		/// <param name="requestAccessor"></param>
+        /// <summary>
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2/9/2020
+        ///  Approver: Zach Behrensmeyer
+        ///  
+        ///  Constructor for passing specific Accessor class
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestAccessor"></param>
 
-		public RequestManager(IRequestAccessor requestAccessor)
-		{
-			_requestAccessor = requestAccessor;
-		}
+        public RequestManager(IRequestAccessor requestAccessor)
+        {
+            _requestAccessor = requestAccessor;
+        }
 
         /// <summary>
         ///  CREATOR: Kaleb Bachert

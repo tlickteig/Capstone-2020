@@ -2,18 +2,9 @@
 using LogicLayer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.InventoryPages
 {
@@ -28,6 +19,7 @@ namespace WPFPresentationLayer.InventoryPages
     public partial class ViewOrders : Page
     {
         private OrderManager _orderManager = new OrderManager();
+        private Order _order;
         private List<Order> _orders;
         private List<Order> _currentOrders;
 
@@ -159,6 +151,74 @@ namespace WPFPresentationLayer.InventoryPages
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 3/30/2020
+        ///
+        /// Approver: 
+        /// Approver: 
+        /// 
+        /// Helper method that sets up view order
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
+        private void SetUpViewOrder()
+        {
+            try
+            {
+                _order = (Order)dgOrders.SelectedItem;
+                this.NavigationService?.Navigate(new ViewAddOrder(_order));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 4/15/2020
+        ///
+        /// Approver: 
+        /// Approver: 
+        /// 
+        /// Action to view order when an item on the datagrid is double clicked
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
+        private void btnViewOrder_Click(object sender, RoutedEventArgs e)
+        {
+            SetUpViewOrder();
+        }
+
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 3/30/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        /// 
+        /// Action to view order when an item on the datagrid is double clicked
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
+        private void dgOrders_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            SetUpViewOrder();
         }
     }
 }

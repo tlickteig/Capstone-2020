@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
-using DataTransferObjects;
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace WPFPresentationLayer.AdoptionPages
 {
@@ -78,8 +68,8 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="sender"></param>
         private void btnOpenRecord_Click(object sender, RoutedEventArgs e)
         {
-           
-           List<Questionnair> questionnairs = new List<Questionnair>(); 
+
+            List<Questionnair> questionnairs = new List<Questionnair>();
             try
             {
                 adoptionApplication = (AdoptionApplication)DGViewData.SelectedItem;
@@ -89,10 +79,10 @@ namespace WPFPresentationLayer.AdoptionPages
                     this.customerEmail = adoptionApplication.CustomerEmail;
                     reviewerManager = new ReviewerManager();
                     customer = reviewerManager.retrieveCustomerByCustomerName(this.customerEmail);
-                    
-                    List<CustomerQuestionnar> customerQuestionnars= reviewerManager.retrieveCustomerQuestionnar(this.customerEmail);
+
+                    List<CustomerQuestionnar> customerQuestionnars = reviewerManager.retrieveCustomerQuestionnar(this.customerEmail);
                     lblCustomerName.Content = adoptionApplication.CustomerEmail;
-                    
+
                     DGViewQuestionnair.ItemsSource = customerQuestionnars;
                     adoptionApplication = new AdoptionApplication();
 
@@ -109,12 +99,12 @@ namespace WPFPresentationLayer.AdoptionPages
             catch (Exception)
             {
                 lblAdoptionApplicationErrorMessage.Content = "This customer did not fill the questionnar!";
-                
-            }
-           
-            
 
-            
+            }
+
+
+
+
         }
 
         /// <summary>
@@ -128,7 +118,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="sender"></param>
         private void btnReviewerDecisionView_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (DGViewData.SelectedItem != null)
             {
                 AdoptionApplication selectedAdoptionApplication = (AdoptionApplication)DGViewData.SelectedItem;
@@ -139,7 +129,7 @@ namespace WPFPresentationLayer.AdoptionPages
                 txtAdoptionApplicationID.Text = selectedAdoptionApplication.AdoptionApplicationID.ToString();
                 txtCustomerLastName.Text = selectedAdoptionApplication.CustomerEmail;
                 txtAnimalName.Text = selectedAdoptionApplication.AnimalName;
-                
+
 
                 ReviewerDecission.Visibility = Visibility.Visible;
                 ViewAdoptionApplications.Visibility = Visibility.Hidden;
@@ -159,7 +149,7 @@ namespace WPFPresentationLayer.AdoptionPages
                 ReviewerDecission.Visibility = Visibility.Hidden;
                 ViewAdoptionApplications.Visibility = Visibility.Visible;
                 CustomerQustionnair.Visibility = Visibility.Hidden;
-                lblAdoptionApplicationErrorMessage.Content = "Please Select Adoption Application"; 
+                lblAdoptionApplicationErrorMessage.Content = "Please Select Adoption Application";
             }
         }
 

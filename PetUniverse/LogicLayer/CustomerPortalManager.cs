@@ -4,9 +4,6 @@ using DataTransferObjects;
 using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicLayer
 {
@@ -29,13 +26,13 @@ namespace LogicLayer
 
         private IPoSCustomerPortalAccessor _accessor;
 
-        
+
         public CustomerPortalManager(IPoSCustomerPortalAccessor accessor)
         {
             _accessor = accessor;
         }
 
-             
+
         public CustomerPortalManager()
         {
             _accessor = new PoSCustomerPortalAccessor();

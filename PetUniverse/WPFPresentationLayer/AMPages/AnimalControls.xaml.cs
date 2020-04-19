@@ -5,17 +5,10 @@ using PresentationUtilityCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.AMPages
 {
@@ -662,7 +655,7 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         public List<AnimalNames> SearchBarTextInputManager()
         {
-           
+
 
             try
             {
@@ -679,7 +672,7 @@ namespace WPFPresentationLayer.AMPages
 
                 if (SearchBar_.Text == "")
                 {
-                     SearchSymbolButton.IsEnabled = false;
+                    SearchSymbolButton.IsEnabled = false;
 
                     mainList = true;
 
@@ -708,7 +701,7 @@ namespace WPFPresentationLayer.AMPages
                 catch
                 {
 
-                  
+
                     if (mainList == true)
                     {
 
@@ -772,27 +765,27 @@ namespace WPFPresentationLayer.AMPages
 
                             SearchBar_.Text = NAC.AnimalName.ToString().TrimEnd().TrimStart();
 
-                           SearchBar_.Select(SearchBar_.Text.Length, 0);
+                            SearchBar_.Select(SearchBar_.Text.Length, 0);
 
                         }
 
-                     
-                        
+
+
 
                     }
 
-                    }
+                }
             }
             catch (Exception ex)
             {
-               
+
 
 
             }
 
-          
 
-          
+
+
 
             return List_;
         }
@@ -825,13 +818,13 @@ namespace WPFPresentationLayer.AMPages
             {
                 List<AnimalNames> List = new List<AnimalNames>();
                 List = new List<AnimalNames>()
-            {
+                {
 
-            //new AnimalNames()
-            //{
-            //    Message ="Search an animal by its name or ID"                                                                                                                                                                                                                   
-            //}
-            };
+                    //new AnimalNames()
+                    //{
+                    //    Message ="Search an animal by its name or ID"                                                                                                                                                                                                                   
+                    //}
+                };
 
                 DG.ItemsSource = List;
 
@@ -839,8 +832,8 @@ namespace WPFPresentationLayer.AMPages
 
         }
 
-      
-       
+
+
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -856,7 +849,7 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void SearchResultList_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if(dgActiveAnimals.Visibility == Visibility)
+            if (dgActiveAnimals.Visibility == Visibility)
             {
                 SearchBar_.Visibility = Visibility.Visible;
             }
@@ -912,14 +905,14 @@ namespace WPFPresentationLayer.AMPages
         {
             if (e.Key == Key.Space)
             {
-                  //SearchBar_.Foreground = Brushes.Black;
+                //SearchBar_.Foreground = Brushes.Black;
 
-                  //  AnimalNames NAC = (AnimalNames)DG.Items[0];
+                //  AnimalNames NAC = (AnimalNames)DG.Items[0];
 
-                  //  SearchBar_.Text = NAC.AnimalName.ToString() + ". ";
+                //  SearchBar_.Text = NAC.AnimalName.ToString() + ". ";
 
-                  //  SearchBar_.Select(SearchBar_.Text.Length + 10, 10);
-                
+                //  SearchBar_.Select(SearchBar_.Text.Length + 10, 10);
+
             }
 
             if (e.Key == Key.Back)
@@ -930,7 +923,7 @@ namespace WPFPresentationLayer.AMPages
 
                     AnimalNames NAC = (AnimalNames)DG.Items[0];
 
-                   
+
 
                     SearchBar_.Text = NAC.AnimalName.ToString();
 
@@ -956,8 +949,8 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void SearchButton(object sender, RoutedEventArgs e)
         {
-             NumberOfResults = DG.Items.Count;
-           // SearchBar_.Select(0, 0);
+            NumberOfResults = DG.Items.Count;
+            // SearchBar_.Select(0, 0);
             //SearchBar_.Clear();
 
             try
@@ -990,9 +983,9 @@ namespace WPFPresentationLayer.AMPages
             catch
             {
                 SearchSymbolButton.IsEnabled = true;
-                     NoResultsCanv.Visibility = Visibility.Visible;
+                NoResultsCanv.Visibility = Visibility.Visible;
 
-                     NoResults.Content = "No results found for " + " ' " + SearchBar_.Text + " ' ";
+                NoResults.Content = "No results found for " + " ' " + SearchBar_.Text + " ' ";
             }
 
 

@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -19,7 +16,7 @@ namespace DataAccessLayer
     /// related.
     /// </summary>
 	public class SalesDataAccessor : ISalesDataAccessor
-	{
+    {
         /// <summary>
         /// Name: Cash Carlson
         /// Date: 03/19/2020
@@ -29,7 +26,7 @@ namespace DataAccessLayer
         /// </summary>
         /// <returns></returns>
 		public List<SalesDataVM> RetrieveAllTotalSalesData()
-		{
+        {
             List<SalesDataVM> salesData = new List<SalesDataVM>();
 
             var conn = DBConnection.GetConnection();
@@ -53,7 +50,7 @@ namespace DataAccessLayer
                         salesDatum.ProductCategory = reader.GetString(3);
                         salesDatum.ProductType = reader.GetString(4);
                         salesDatum.TotalSold = reader.GetInt32(5);
-                        
+
 
                         salesData.Add(salesDatum);
                     }
@@ -71,5 +68,5 @@ namespace DataAccessLayer
             }
             return salesData;
         }
-	}
+    }
 }

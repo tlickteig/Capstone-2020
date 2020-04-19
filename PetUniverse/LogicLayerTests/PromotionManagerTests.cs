@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using DataAccessFakes;
+﻿using DataAccessFakes;
 using DataAccessInterfaces;
 using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -207,7 +207,7 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(expected, actual);
         }
-        
+
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/07/2020

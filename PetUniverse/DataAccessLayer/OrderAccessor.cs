@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -61,7 +58,7 @@ namespace DataAccessLayer
                     orderList.Add(new Order()
                     {
                         OrderID = reader.GetInt32(0),
-                        EmployeeID = reader.GetInt32(1)
+                        UserID = reader.GetInt32(1)
                     });
                 }
 
@@ -111,10 +108,10 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@OrderID", oldOrder.OrderID);
-            cmd.Parameters.AddWithValue("@EmployeeID", newOrder.EmployeeID);
+            cmd.Parameters.AddWithValue("@UserID", newOrder.UserID);
             cmd.Parameters.AddWithValue("@Active", newOrder.Active);
 
-            cmd.Parameters.AddWithValue("@OldEmployeeID", oldOrder.EmployeeID);
+            cmd.Parameters.AddWithValue("@OldUserID", oldOrder.UserID);
             cmd.Parameters.AddWithValue("@OldActive", oldOrder.Active);
             try
             {
@@ -157,7 +154,7 @@ namespace DataAccessLayer
 
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@EmployeeID", newOrder.EmployeeID);
+            cmd.Parameters.AddWithValue("@UserID", newOrder.UserID);
             cmd.Parameters.AddWithValue("@Active", newOrder.Active);
 
             try

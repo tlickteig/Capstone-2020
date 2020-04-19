@@ -1,12 +1,9 @@
-﻿using LogicLayerInterfaces;
+﻿using DataAccessInterfaces;
+using DataAccessLayer;
+using DataTransferObjects;
+using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
-using DataAccessInterfaces;
-using DataAccessLayer;
 
 namespace LogicLayer
 {
@@ -102,7 +99,7 @@ namespace LogicLayer
                 throw new ApplicationException("Update failed.", ex);
             }
             return result;
-           
+
         }
         /// <summary>
         /// Creator: Mohamed Elamin
@@ -164,7 +161,7 @@ namespace LogicLayer
             catch (Exception ex)
             {
 
-                throw new ApplicationException("List not found",ex);
+                throw new ApplicationException("List not found", ex);
             }
 
             return inHomeInspectionAppointmentDecision;

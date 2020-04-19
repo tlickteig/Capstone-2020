@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-/// <summary>
+﻿/// <summary>
 ///  CREATOR: Kaleb Bachert
 ///  CREATED: 2020/3/15
 ///  APPROVER: Lane Sandburg
