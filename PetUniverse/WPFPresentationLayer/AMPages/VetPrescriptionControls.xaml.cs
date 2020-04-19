@@ -114,6 +114,16 @@ namespace WPFPresentationLayer.AMPages
                     MessageBox.Show("Administration method can't be blank");
                     return;
                 }
+                if (dateStartDate.SelectedDate == null)
+                {
+                    MessageBox.Show("Please select a start date");
+                    return;
+                }
+                if (dateEndDate.SelectedDate == null)
+                {
+                    MessageBox.Show("Please select an end date");
+                    return;
+                }
 
                 AnimalPrescriptionVM animalPrescription = new AnimalPrescriptionVM()
                 {
