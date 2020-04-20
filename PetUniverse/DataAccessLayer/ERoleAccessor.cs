@@ -209,10 +209,8 @@ namespace DataAccessLayer
                         {
                             ERoleID = reader.GetString(0),
                             DepartmentID = reader.GetString(1),
-                            Description = reader.GetString(2),
+                            Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
                             EActive = reader.GetBoolean(3)
-
-
                         });
                     }
                     reader.Close();
@@ -264,7 +262,7 @@ namespace DataAccessLayer
                         {
                             ERoleID = reader.GetString(0),
                             DepartmentID = reader.GetString(1),
-                            Description = reader.GetString(2),
+                            Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
                             EActive = reader.GetBoolean(3)
                         });
                     }
@@ -367,7 +365,7 @@ namespace DataAccessLayer
                         eRoles.Add(new ERole()
                         {
                             ERoleID = reader.GetString(0),
-                            Description = reader.GetString(1),
+                            Description = reader.IsDBNull(1) ? "" : reader.GetString(1),
                             EActive = reader.GetBoolean(2),
                             DepartmentID = departmentID,
                         });

@@ -26,9 +26,9 @@ namespace DataAccessLayer
         /// successfull.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Jordan Lindo
+        /// Updated: 4/1/2020
+        /// Update: fixed the cast for the return from cmd
         /// 
         /// </remarks>
         /// <param name="baseScheduleVM"></param>
@@ -44,7 +44,8 @@ namespace DataAccessLayer
             try
             {
                 conn.Open();
-                baseScheduleVM.BaseScheduleID = (int)cmd.ExecuteScalar();
+                var result = cmd.ExecuteScalar();
+                baseScheduleVM.BaseScheduleID = int.Parse(result.ToString());
 
                 foreach (var line in baseScheduleVM.BaseScheduleLines)
                 {
@@ -105,9 +106,11 @@ namespace DataAccessLayer
                     };
 
                 }
-                baseScheduleVM.BaseScheduleLines =
-                    RetrieveBaseScheduleLinesByBaseScheduleID(baseScheduleVM.BaseScheduleID);
-
+                if (null != baseScheduleVM)
+                {
+                    baseScheduleVM.BaseScheduleLines =
+                        RetrieveBaseScheduleLinesByBaseScheduleID(baseScheduleVM.BaseScheduleID);
+                }
             }
             catch (Exception)
             {
@@ -209,6 +212,7 @@ namespace DataAccessLayer
                             ERoleID = reader.GetString(0),
                             ShiftTimeID = reader.GetInt32(1),
                             Count = reader.GetInt32(2),
+                            DepartmentID = reader.GetString(3),
                             BaseScheduleID = baseScheduleID
                         });
                     }

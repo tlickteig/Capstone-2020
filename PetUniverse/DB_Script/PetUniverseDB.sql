@@ -7733,25 +7733,32 @@ CREATE PROCEDURE [sp_insert_baseschedule]
 )
 AS
 BEGIN
-	BEGIN TRANSACTION [tran_one_active]
-		BEGIN TRY
-		
-		UPDATE [dbo].[BaseSchedule]
-		SET [Active] = 0
-		WHERE [Active] = 1
+	SET NOCOUNT ON
+	SET XACT_ABORT ON
 
+	BEGIN TRY
+		BEGIN TRANSACTION
+		
+		IF (SELECT COUNT(BaseScheduleID)
+			FROM [dbo].[BaseSchedule])>0
+			BEGIN
+				UPDATE [dbo].[BaseSchedule]
+				SET [Active] = 0
+				WHERE [Active] = 1
+			END
+			
+			
 		INSERT INTO [dbo].[BaseSchedule]
 		([CreatingUserID],[CreationDate],[Active])
 		VALUES
 		(@CreatingUserID,@CreationDate,1)
-		RETURN SCOPE_IDENTITY()
+		SELECT SCOPE_IDENTITY()
 		
-		COMMIT TRANSACTION [tran_one_active]
+		COMMIT
 		
 		END TRY
-	
 		BEGIN CATCH
-			ROLLBACK TRANSACTION [tran_one_active]
+			ROLLBACK
 		END CATCH
 END
 GO
@@ -7843,8 +7850,8 @@ CREATE PROCEDURE [sp_select_baseschedulelines_by_basescheduleid]
 )
 AS
 BEGIN
-	SELECT [ERoleID],[ShiftTimeID],[Count]
-	FROM [dbo].[BaseScheduleLine]
+	SELECT [ERoleID],[ShiftTime].[ShiftTimeID],[Count],[DepartmentID]
+	FROM [dbo].[BaseScheduleLine] JOIN [dbo].[ShiftTime] ON [BaseScheduleLine].[ShiftTimeID] = [ShiftTime].[ShiftTimeID]
 	WHERE [BaseScheduleID] = @BaseScheduleID
 END
 GO
