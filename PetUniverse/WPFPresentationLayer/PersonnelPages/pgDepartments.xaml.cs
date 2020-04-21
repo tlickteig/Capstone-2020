@@ -32,7 +32,7 @@ namespace WPFPresentationLayer.PersonnelPages
         /// Approver: Alex Diers
         /// 
         /// This is a method for add department click.
-        /// </summ/ary>
+        /// </summary>
         /// <remarks>
         /// UPDATED BY: NA
         /// UPDATE DATE: NA
