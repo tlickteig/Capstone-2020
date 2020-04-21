@@ -291,6 +291,8 @@ namespace DataAccessLayer
         /// Updated:
         /// Update: 
         /// </remarks>
+        /// <param name="oldERole"></param>
+        /// <param name="newERole"></param>
         /// <returns></returns>
         public int UpdateERole(ERole oldERole, ERole newERole)
         {
