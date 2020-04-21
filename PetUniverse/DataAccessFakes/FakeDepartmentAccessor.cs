@@ -158,6 +158,9 @@ namespace DataAccessFakes
         /// Update: NA
         /// 
         /// </remarks>
+        /// <param name="oldDepartment"></param>
+        /// <param name="newDepartment"></param>
+        /// <returns>Number of rows affected</returns>
         public int UpdateDepartment(Department oldDepartment, Department newDepartment)
         {
             return 1;
