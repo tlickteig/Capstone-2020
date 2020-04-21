@@ -28,7 +28,7 @@
       d:DesignHeight="845" d:DesignWidth="1289"
       Title="AnimalControls">
     <Canvas x:Name="canViewAnimalList" Height="845" Width="1289">
-        <Button x:Name="SearchSymbolButton" Width="41" MouseEnter="SearchBar_Hover_ON" MouseLeave="SearchBar_Hover_Off"  Visibility="Visible"  HorizontalAlignment="Left" VerticalAlignment="Top"  Click="SearchButton" Canvas.Left="1060" Canvas.Top="10" Height="30">
+        <Button x:Name="SearchSymbolButton" Width="40" MouseEnter="SearchBar_Hover_ON" MouseLeave="SearchBar_Hover_Off"  Visibility="Visible"  HorizontalAlignment="Left" VerticalAlignment="Top"  Click="SearchButton" Canvas.Left="528" Canvas.Top="10" Height="19">
 
             <Button.Template>
                 <ControlTemplate>
@@ -413,15 +413,16 @@
                 </Grid>
             </Grid>
         </Canvas>
-        <TextBox x:Name="SearchBar_"  PreviewKeyDown="PreviewKeyDown"  Padding="30, 1"  FontSize="15" FontWeight="Bold"
+        <TextBox x:Name="SearchBar_"  Text="Search..." Foreground="LightGray" PreviewKeyDown="PreviewKeyDown"  Padding="30, 1"  FontSize="15" FontWeight="Bold"
   VerticalContentAlignment="Center" MouseEnter="SearchBar_Hover_ON" MouseLeave="SearchBar_Hover_Off"
-  BorderThickness="1" HorizontalContentAlignment="Left" Height="42" VerticalAlignment="Bottom" Width="650" 
-  Canvas.Left="405" Canvas.Top="10" TextChanged="SearchBar1_TextChanged" />
+  BorderThickness="1" HorizontalContentAlignment="Left" Height="26" VerticalAlignment="Bottom" Width="435" 
+  Canvas.Left="93" Canvas.Top="5"  TextChanged="SearchBar1_TextChanged" />
+
+        <CheckBox x:Name="ACE" IsChecked="True" Foreground="Black" Content="Auto-Complete Enabled" HorizontalAlignment="Left" VerticalAlignment="Top" Width="153" Height="20" Canvas.Left="93" Canvas.Top="36"/>
 
 
 
-
-        <DataGrid HeadersVisibility="None" SelectionMode="Extended" IsReadOnly="True" HorizontalScrollBarVisibility="Disabled" MouseEnter="SearchBar_Hover_ON" MouseLeave="SearchBar_Hover_Off" IsTextSearchCaseSensitive="False"  x:Name="DG"  Height="auto" Grid.Row="0" Grid.Column="7" MaxWidth="650" Canvas.Left="405" GridLinesVisibility="None"  Canvas.Top="52" MinWidth="540" Width="650" >
+        <DataGrid HeadersVisibility="None" SelectionMode="Extended" IsReadOnly="True" HorizontalScrollBarVisibility="Disabled" MouseEnter="SearchBar_Hover_ON" MouseLeave="SearchBar_Hover_Off" IsTextSearchCaseSensitive="False"  x:Name="DG"  Height="auto" Grid.Row="0" Grid.Column="7" MaxWidth="435" Canvas.Left="93" GridLinesVisibility="None"  Canvas.Top="29" MinWidth="435" Width="435" >
 
             <DataGrid.ItemContainerStyle>
                 <Style TargetType="{x:Type DataGridRow}">
@@ -430,10 +431,7 @@
             </DataGrid.ItemContainerStyle>
 
         </DataGrid>
-        <Canvas x:Name="NoResultsCanv" Visibility="Hidden"  Height="151" Width="512" Background="LightGray" Canvas.Left="432" Canvas.Top="168">
-            <Border BorderBrush="Black" BorderThickness="3" Height="151" Width="512"></Border>
-            <Label  x:Name="NoResults"  Content="No results found for *******"  FontSize="30" Foreground="Black" HorizontalContentAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Height="114" Width="649" Canvas.Left="-61" Canvas.Top="37"/>
-        </Canvas>
+        <Label  x:Name="NoResults" Visibility="Hidden" Content="No results found for *******"  FontSize="20" Foreground="Black" HorizontalContentAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Height="56" Width="721" Canvas.Left="568" Canvas.Top="-2"/>
 
     </Canvas>
 </Page>
