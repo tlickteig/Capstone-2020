@@ -28,6 +28,8 @@ namespace WPFPresentationLayer.SystemAdminPages
         private bool _addMode = false;
         private PetUniverseUser _originalUser = null;
         private PetUniverseUser _loggedInUser = null;
+        private IEmployeeAvailabilityManager _employeeAvailabilityManager;
+        private List<EmployeeAvailability> availabilities = new List<EmployeeAvailability>();
 
         /// <summary>
         /// Creator: Zach Behrensmeyer
@@ -459,11 +461,15 @@ namespace WPFPresentationLayer.SystemAdminPages
                     isCreated = _userManager.CreateNewUser(newUser);
                     if (isCreated)
                     {
-                        WPFErrorHandler.SuccessMessage("Create new user was successful");
-                    }
+                        WPFErrorHandler.SuccessMessage("Create new user was successful, add starting availability.");
 
+                        canAddUser.Visibility = Visibility.Hidden;
+
+                        canAddAvailability.Visibility = Visibility.Visible;
+
+
+                    }
                     canAddUser.Visibility = Visibility.Hidden;
-                    canUserView.Visibility = Visibility.Visible;
                 }
                 else if (_editMode == true && _originalUser != null)
                 {
@@ -812,5 +818,387 @@ namespace WPFPresentationLayer.SystemAdminPages
         {
             editMode();
         }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 04/09/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// loading the canvas
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void canAddAvailability_Loaded(object sender, RoutedEventArgs e)
+        {
+            btnSaveAvail.IsEnabled = false;
+            dgAvailability.ItemsSource = availabilities;
+            string[] days =
+            {
+                "Sunday",
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday",
+                "Saturday"
+            };
+            cboDayOfWeek.ItemsSource = days;
+
+        }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 04/09/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// populates list and datagrid with created availabilities.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddToDataGrid_Click(object sender, RoutedEventArgs e)
+        {
+            EmployeeAvailability availability = new EmployeeAvailability();
+            try
+            {
+                if (cboDayOfWeek.SelectedItem == null)
+                {
+                    WPFErrorHandler.ErrorMessage("Day cannot be blank", "Validation");
+                    cboDayOfWeek.Focus();
+                    return;
+                }
+                else
+                {
+                    availability.DayOfWeek = cboDayOfWeek.SelectedItem.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message, "Validation");
+            }
+
+            try
+            {
+                if (TPStartTime.Value == null || TPStartTime.Value.ToString().Equals(""))
+                {
+                    WPFErrorHandler.ErrorMessage("StartTime cannot be blank", "Validation");
+                    TPStartTime.Focus();
+                    return;
+                }
+                else
+                {
+                    DateTime time = (DateTime)TPStartTime.Value;
+                    availability.StartTime = time.ToString("HH:mm:ss"); ;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message, "Validation");
+            }
+
+            try
+            {
+                if (TPEndTime.Value == null || TPEndTime.Value.ToString().Equals(""))
+                {
+                    WPFErrorHandler.ErrorMessage("EndTime cannot be blank", "Validation");
+                    TPEndTime.Focus();
+                    return;
+                }
+                else
+                {
+                    DateTime time = (DateTime)TPEndTime.Value;
+                    availability.EndTime = time.ToString("HH:mm:ss");
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message, "Validation");
+            }
+            try
+            {
+                DateTime startTime = (DateTime)TPStartTime.Value;
+                DateTime endTime = (DateTime)TPEndTime.Value;
+                if (endTime <= startTime.AddMinutes(59))
+                {
+                    MessageBox.Show("Shifts must be at least 1Hour.");
+                    TPStartTime.Focus();
+                    return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message, "Validation");
+            }
+
+            try
+            {
+                availability.EmployeeID = _employeeAvailabilityManager.RetrieveLastEmployeeID();
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message, "Validation");
+            }
+
+            try
+            {
+                List<EmployeeAvailability> newAvailabilities = new List<EmployeeAvailability>();
+                bool failed = false;
+                if (availabilities.Count != 0)
+                {
+                    foreach (EmployeeAvailability addedAvailability in availabilities)
+                    {
+                        if (availability.DayOfWeek == addedAvailability.DayOfWeek &&
+                            availability.StartTime == addedAvailability.StartTime &&
+                            availability.EndTime == addedAvailability.EndTime)
+                        {
+                            WPFErrorHandler.ErrorMessage("availability " + availability.DayOfWeek.ToString() + " " + availability.StartTime.ToString() + " " + availability.EndTime.ToString() + "  was a duplicate entry", "Validation");
+                            failed = true;
+                        }
+                        else if (availability.DayOfWeek == addedAvailability.DayOfWeek)
+                        {
+                            DateTime newStartTime = DateTime.Parse(availability.StartTime);
+                            DateTime newEndTime = DateTime.Parse(availability.EndTime);
+                            DateTime addedEndTime = DateTime.Parse(addedAvailability.EndTime);
+                            DateTime addedStartTime = DateTime.Parse(addedAvailability.StartTime);
+
+                            if (newStartTime < addedEndTime)
+                            {
+                                if (newEndTime < addedStartTime != true)
+                                {
+                                    WPFErrorHandler.ErrorMessage("current availability " + availability.DayOfWeek.ToString() + " " + availability.StartTime.ToString() + " " + availability.EndTime.ToString() + " overlaps with "
+                                                + addedAvailability.DayOfWeek.ToString() + " " + addedAvailability.StartTime.ToString() + " " + addedAvailability.EndTime.ToString(), "Validation");
+                                    failed = true;
+                                }
+                                else
+                                {
+                                    newAvailabilities.Add(availability);
+                                }
+                            }
+                            else
+                            {
+                                newAvailabilities.Add(availability);
+                            }
+                        }
+                        else
+                        {
+                            newAvailabilities.Add(availability);
+                        }
+                    }
+                }
+                else
+                {
+                    newAvailabilities.Add(availability);
+                }
+                if (failed == false)
+                {
+                    availabilities.Add(newAvailabilities[0]);
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message, "Validation");
+            }
+
+            dgAvailability.Items.Refresh();
+
+            if (btnSaveAvail.IsEnabled != true)
+            {
+                btnSaveAvail.IsEnabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 04/09/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// save button creates availbilities from lasi of availabilites
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSaveAvail_Click(object sender, RoutedEventArgs e)
+        {
+            bool isCreated = false;
+            foreach (EmployeeAvailability availability in availabilities)
+            {
+                try
+                {
+
+
+                    isCreated = _employeeAvailabilityManager.CreateNewEmployeeAvailability(availability);
+
+                }
+                catch (Exception ex)
+                {
+
+                    WPFErrorHandler.ErrorMessage(ex.Message, "Validation");
+                }
+
+            }
+            if (isCreated)
+            {
+                WPFErrorHandler.SuccessMessage("Create new user availability was successful");
+            }
+
+
+            canAddAvailability.Visibility = Visibility.Hidden;
+            canUserView.Visibility = Visibility.Visible;
+            btnViewUserRoles.IsEnabled = true;
+
+
+        }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 04/09/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// gets rid of unnesecary columns
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgAvailability_AutoGeneratedColumns(object sender, EventArgs e)
+        {
+            dgAvailability.Columns.RemoveAt(5);
+            dgAvailability.Columns.RemoveAt(1);
+            dgAvailability.Columns.RemoveAt(0);
+        }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 04/09/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// click handler for viewing employee availabilities
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnViewUserAvailability_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgUserList.SelectedItem != null)
+            {
+                try
+                {
+
+                    canUserView.Visibility = Visibility.Hidden;
+                    canAddUser.Visibility = Visibility.Hidden;
+                    canViewUserERoles.Visibility = Visibility.Hidden;
+                    canViewAvailability.Visibility = Visibility.Visible;
+                    btnCreateUser.IsEnabled = false;
+                    //Prepare canvas functionality
+                    _employeeAvailabilityManager = new EmployeeAvailabilityManager();
+                    _petUniverseUser = (PetUniverseUser)dgUserList.SelectedItem;
+                    updateDgViewAvailability();
+                    lblHeader.Content = "Availabilities for: " + _petUniverseUser.LastName + ", " + _petUniverseUser.FirstName;
+
+
+
+                }
+                catch (Exception ex)
+                {
+                    WPFErrorHandler.ErrorMessage(ex.Message);
+                }
+            }
+            else
+            {
+                WPFErrorHandler.ErrorMessage("Please select a valid user");
+            }
+        }
+
+
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 03/01/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// Helper method to refresh listboxes after any type of relateed to a user's ERoles update
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void updateDgViewAvailability()
+        {
+            try
+            {
+                var availabilites = _employeeAvailabilityManager.RetrieveAvailabilitiesByEmployeeID(_petUniverseUser.PUUserID);
+                dgViewAvailability.ItemsSource = availabilites;
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message + "\n\n", ex.InnerException.Message);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 03/01/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// autogenerated columns to get rid of non human readable information
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgViewAvailability_AutoGeneratedColumns(object sender, EventArgs e)
+        {
+            dgViewAvailability.Columns.RemoveAt(5);
+            dgViewAvailability.Columns.RemoveAt(1);
+            dgViewAvailability.Columns.RemoveAt(0);
+        }
+
+        /// <summary>
+        /// Creator: Lane Sandburg
+        /// Created: 03/01/2020
+        /// Approver: Jordan Lindo
+        /// 
+        /// event for the back button press
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAvailBack_Click(object sender, RoutedEventArgs e)
+        {
+            canAddUser.Visibility = Visibility.Hidden;
+            canUserView.Visibility = Visibility.Visible;
+            canViewUserERoles.Visibility = Visibility.Hidden;
+            canViewAvailability.Visibility = Visibility.Hidden;
+            btnViewUserRoles.IsEnabled = true;
+            btnCreateUser.IsEnabled = true;
+            RefreshDgUserList();
+        }
+
     }
 }

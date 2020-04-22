@@ -72,6 +72,7 @@
     <Compile Include="ICustomerManager.cs" />
     <Compile Include="IDepartmentManager.cs" />
     <Compile Include="IDonationManager.cs" />
+    <Compile Include="IEmployeeAvailabilityManager.cs" />
     <Compile Include="IERoleManager.cs" />
     <Compile Include="IFacilityInspectionItemManager.cs" />
     <Compile Include="IFacilityInspectionManager.cs" />

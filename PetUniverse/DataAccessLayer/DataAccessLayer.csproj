@@ -75,6 +75,7 @@
     <Compile Include="DBConnection.cs" />
     <Compile Include="DepartmentAccessor.cs" />
     <Compile Include="DonationAccessor.cs" />
+    <Compile Include="EmployeeAvailabilityAccessor.cs" />
     <Compile Include="ERoleAccessor.cs" />
     <Compile Include="EventAccessor.cs" />
     <Compile Include="FacilityInspectionAccessor.cs" />

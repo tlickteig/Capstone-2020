@@ -10413,6 +10413,72 @@ END
 GO
 
 /*
+Author: Lane Sandburg
+Date: 04/02/2020
+Comment: Creating procedure for inserting employee availability
+*/
+print '' print '*** Creating sp_insert_availability'
+GO
+CREATE PROCEDURE [sp_insert_availability] (
+	
+	@EmployeeID 				[int],
+	@DayOfWeek					[Nvarchar](9),
+	@StartTime 					[nvarchar](300),
+	@EndTime 					[nvarchar](500)
+)
+AS
+BEGIN
+
+	insert into [dbo].[Availability]
+	([EmployeeID], [DayOfWeek], [StartTime],[EndTime])
+	values
+	(@EmployeeID, @DayOfWeek, @StartTime,@EndTime)
+END
+GO
+
+/*
+Author: Lane Sandburg
+Date: 04/09/2020
+Comment: Creating procedure for selecting the last created employeeID
+*/
+print '' print '*** Creating sp_Select_Last_UserID'
+GO
+CREATE PROCEDURE [sp_Select_Last_UserID]
+AS
+BEGIN
+
+	SELECT MAX(UserID) FROM [User]
+END
+GO
+
+/*
+Author: Lane Sandburg
+Date: 04/09/2020
+Comment: Creating procedure for selecting all availability for selected user
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_user_availability_by_userID]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_user_availability_by_userID'
+GO
+CREATE PROCEDURE [sp_select_all_user_availability_by_userID]
+(
+	@EmployeeID 			[int]
+)
+AS
+BEGIN
+	SELECT	[AvailabilityID],			
+			[EmployeeID],				
+			[DayOfWeek],			    
+			[StartTime],				
+			[EndTime],				
+			[Active]			
+	FROM [Availability]
+	WHERE [EmployeeID] = @EmployeeID
+	ORDER BY[DayOfWeek]
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'

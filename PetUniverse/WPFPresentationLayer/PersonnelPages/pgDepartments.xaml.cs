@@ -3,6 +3,7 @@ using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -19,6 +20,10 @@ namespace WPFPresentationLayer.PersonnelPages
     {
         private IDepartmentManager _departmentManager;
         private Department _department;
+        private List<PetUniverseShiftTime> DEFAULT_SHIFTTIMES = new List<PetUniverseShiftTime> {
+                                                                new PetUniverseShiftTime { StartTime="06:00:00", EndTime= "12:30:00" },
+                                                                new PetUniverseShiftTime { StartTime = "10:00:00", EndTime = "16:30:00" },
+                                                                new PetUniverseShiftTime { StartTime = "14:00:00", EndTime = "22:30:00" } };
 
         public Departments()
         {
@@ -145,7 +150,22 @@ namespace WPFPresentationLayer.PersonnelPages
                 {
                     if (_departmentManager.AddDepartment(departmentID, description))
                     {
-                        WPFErrorHandler.SuccessMessage("Department added.");
+                        ShiftTimeManager _shiftTimeManger = new ShiftTimeManager();
+                        try
+                        {
+                            foreach (PetUniverseShiftTime shiftTime in DEFAULT_SHIFTTIMES)
+                            {
+                                shiftTime.DepartmentID = departmentID;
+                                _shiftTimeManger.AddShiftTime(shiftTime);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+
+                            WPFErrorHandler.ErrorMessage("failed to save departments Default Shift Times. " + ex.Message);
+                        }
+
+                        WPFErrorHandler.SuccessMessage("Department added, with default shift times");
                         canAddDepartment.Visibility = Visibility.Hidden;
                         canDepartmentList.Visibility = Visibility.Visible;
                         showDGDepartments();
