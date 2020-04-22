@@ -75,6 +75,7 @@
     <Compile Include="ICustomerAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IDonationAccessor.cs" />
+    <Compile Include="IEmployeeAvailabilityAccessor.cs" />
     <Compile Include="IERoleAccessor.cs" />
     <Compile Include="IEventAccessor.cs" />
     <Compile Include="IFacilityInspectionAccessor.cs" />

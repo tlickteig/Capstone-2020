@@ -96,6 +96,7 @@
     <Compile Include="DepartmentRequestVM.cs" />
     <Compile Include="Donation.cs" />
     <Compile Include="Donor.cs" />
+    <Compile Include="EmployeeAvailability.cs" />
     <Compile Include="ERole.cs" />
     <Compile Include="EventApprovalVM.cs" />
     <Compile Include="EventRequest.cs" />

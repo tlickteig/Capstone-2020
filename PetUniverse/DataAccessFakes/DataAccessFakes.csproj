@@ -74,6 +74,7 @@
     <Compile Include="FakeDepartmentAccessor.cs" />
     <Compile Include="FakeDepartmentAccessorFailedConnection.cs" />
     <Compile Include="FakeDonationAccessor.cs" />
+    <Compile Include="FakeEmployeeAvailabilityAccessor.cs" />
     <Compile Include="FakeERoleAccessor.cs" />
     <Compile Include="FakeEventAccessor.cs" />
     <Compile Include="FakeFacilityInspectionAccessor.cs" />
