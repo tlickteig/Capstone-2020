@@ -337,7 +337,7 @@ namespace WPFPresentationLayer.SystemAdminPages
             // Validate Phone Number
             try
             {
-                if (!txtPhoneNumber.Text.IsValidPhoneNumber())
+                if (!txtPhoneNumber.Value.ToString().IsValidPhoneNumber())
                 {
                     WPFErrorHandler.ErrorMessage("Invalid Phone Number", "Validation");
                     txtPhoneNumber.Text = "";
@@ -346,7 +346,7 @@ namespace WPFPresentationLayer.SystemAdminPages
                 }
                 else
                 {
-                    newUser.PhoneNumber = txtPhoneNumber.Text;
+                    newUser.PhoneNumber = txtPhoneNumber.Value.ToString();
                 }
             }
             catch (Exception ex)
