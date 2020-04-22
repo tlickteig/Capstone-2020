@@ -26,5 +26,101 @@ namespace DataAccessInterfaces
         /// 
         /// </remarks>
         List<Availability> SelectAllUsersAvailability();
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/03/28
+        /// Approver: Kaleb Bachert: 
+        /// 
+        /// Interface method for selecting all avalabilites
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        List<Availability> SelectAllAvailabilities();
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/03/28
+        /// Approver: Kaleb Bachert: 
+        /// 
+        /// Interface method for slecting availbilites by User ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        List<AvailabilityVM> SelectAvailabilityByUserID(int userID);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/03/28
+        /// Approver: Kaleb Bachert: 
+        /// 
+        /// Interface method for updating Availability 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="newAvailability"></param>
+        /// <param name="oldAvailability"></param>
+        /// <returns></returns>
+        int UpdateAvailability(Availability newAvailability, Availability oldAvailability);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/03/28
+        /// Approver: Kaleb Bachert: 
+        /// 
+        /// Interface method for activating availability
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="availabilityID"></param>
+        /// <returns></returns>
+        int ActivateAvailability(int availabilityID);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/03/28
+        /// Approver: Kaleb Bachert: 
+        /// 
+        /// Interface method deactivating availability
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="availabilityID"></param>
+        /// <returns></returns>
+        int DeactivateAvailability(int availabilityID);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/03/28
+        /// Approver: Kaleb Bachert: 
+        /// 
+        /// Interface method for inserting availability
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="availability"></param>
+        /// <returns></returns>
+        int InsertAvailability(Availability availability);
     }
 }

@@ -719,5 +719,17 @@ namespace DataAccessFakes
 
             return scheduleChangeRequests.Count - oldCount;
         }
+
+        public AvailabilityRequestVM SelectAvailabilityRequestByID(int requestID)
+        {
+            foreach (var item in availabilityRequestVMs)
+            {
+                if (item.RequestID == requestID)
+                {
+                    return item;
+                }
+            }
+            throw new Exception();
+        }
     }
 }

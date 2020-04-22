@@ -67,6 +67,7 @@
     <Compile Include="ApplicantManager.cs" />
     <Compile Include="AppointmentManager.cs" />
     <Compile Include="AppointmentTypeManager.cs" />
+    <Compile Include="AvailabilityManager.cs" />
     <Compile Include="BaseScheduleManager.cs" />
     <Compile Include="CustomerManager.cs" />
     <Compile Include="CustomerPortalManager.cs" />

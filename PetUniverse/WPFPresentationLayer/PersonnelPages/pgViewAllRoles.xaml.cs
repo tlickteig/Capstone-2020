@@ -90,6 +90,7 @@ namespace WPFPresentationLayer.PersonnelPages
             dgERoleList.Columns.RemoveAt(6);
             dgERoleList.Columns.RemoveAt(5);
             dgERoleList.Columns.RemoveAt(4);
+            dgERoleList.Columns.RemoveAt(3);
             dgERoleList.Columns[0].Header = "Role";
             dgERoleList.Columns[1].Header = "Department";
             dgERoleList.Columns[2].Header = "Description";
@@ -238,6 +239,7 @@ namespace WPFPresentationLayer.PersonnelPages
         /// <param name="e"></param>
         private void disableViewERoles()
         {
+            lblTitle.Visibility = Visibility.Hidden;
             btnViewERole.Visibility = Visibility.Collapsed;
             btnAddERole.Visibility = Visibility.Collapsed;
             btnDeleteERole.Visibility = Visibility.Collapsed;
@@ -263,6 +265,7 @@ namespace WPFPresentationLayer.PersonnelPages
         /// <param name="e"></param>
         private void enableViewERoles()
         {
+            lblTitle.Visibility = Visibility.Visible;
             btnAddERole.Visibility = Visibility.Visible;
             btnDeleteERole.Visibility = Visibility.Visible;
             btnOpenRole.Visibility = Visibility.Visible;

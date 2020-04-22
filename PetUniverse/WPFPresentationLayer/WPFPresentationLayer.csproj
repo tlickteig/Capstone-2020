@@ -225,8 +225,8 @@
     <Compile Include="PersonnelPages\pgTrainingVideos.xaml.cs">
       <DependentUpon>pgTrainingVideos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\ViewAllRoles.xaml.cs">
-      <DependentUpon>ViewAllRoles.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgViewAllRoles.xaml.cs">
+      <DependentUpon>pgViewAllRoles.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersonnelPages\pgViewPersonnelRequests.xaml.cs">
       <DependentUpon>pgViewPersonnelRequests.xaml</DependentUpon>
@@ -535,7 +535,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PersonnelPages\ViewAllRoles.xaml">
+    <Page Include="PersonnelPages\pgViewAllRoles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -6,6 +6,10 @@ View for creating a Schedule Change Request
 -->
 @model WPFPresentation.Models.UserWithShiftList
 
+@{
+    Layout = null;
+}
+
 <br />
 
 <h2>@ViewBag.Title</h2>
@@ -14,42 +18,42 @@ View for creating a Schedule Change Request
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>Select a Shift to Swap</h4>
-    <hr />
+    <div class="form-horizontal">
+        <h4>Select a Shift to Swap</h4>
+        <hr />
 
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <div class="form-group">
-        <label class="control-label col-md-2">Select a Date</label>
-        <div class="col-md-10">
-            <input type="text" name="ShiftDate" id="ShiftDate" data-provide="datepicker" class="form-control" onchange="refreshView()" value="@ViewBag.SelectedDate" />
+        <div class="form-group">
+            <label class="control-label col-md-2">Select a Date</label>
+            <div class="col-md-10">
+                <input type="text" name="ShiftDate" id="ShiftDate" data-provide="datepicker" class="form-control" onchange="refreshView()" value="@ViewBag.SelectedDate" />
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label class="control-label col-md-2">Select a Shift</label>
-        <div class="col-md-10">
-            <select id="shiftList" name="shiftList">
-                <option value="">-- Select A Shift --</option>
-                @if (null != Model.UserShiftList)
-                {
-                    foreach (var shift in Model.UserShiftList)
+        <div class="form-group">
+            <label class="control-label col-md-2">Select a Shift</label>
+            <div class="col-md-10">
+                <select id="shiftList" name="shiftList">
+                    <option value="">-- Select A Shift --</option>
+                    @if (null != Model.UserShiftList)
                     {
-                        <option value="@shift.ShiftID">Department: @shift.Department, Date: @shift.Date, Time: @shift.StartTime - @shift.EndTime</option>
+                        foreach (var shift in Model.UserShiftList)
+                        {
+                            <option value="@shift.ShiftID">Department: @shift.Department, Date: @shift.Date, Time: @shift.StartTime - @shift.EndTime</option>
+                        }
                     }
-                }
-            </select>
+                </select>
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input id="submit" type="submit" value="Submit Schedule Change Request" class="btn btn-default" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="submit" type="submit" value="Submit Schedule Change Request" class="btn btn-default" />
+            </div>
         </div>
-    </div>
 
-    <script>
+        <script>
         $('#ShiftDate').datepicker({
             format: 'MM-dd-yyyy'
         });
@@ -66,10 +70,10 @@ View for creating a Schedule Change Request
 
             window.location.href = link; //Update page
         }
-    </script>
+        </script>
 
-    <div>
-        @Html.ActionLink("Back to Request Types", "Index", "ChooseRequestType")
+        <div>
+            @Html.ActionLink("Back to Request Types", "Index", "ChooseRequestType")
+        </div>
     </div>
-</div>
 }

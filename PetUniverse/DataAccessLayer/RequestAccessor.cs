@@ -92,6 +92,9 @@ namespace DataAccessLayer
         /// UPDATER: Kaleb Bachert
         /// UPDATED: 2020/3/7
         /// UPDATE: Changes Stored Procedure name based on requestType
+        /// UPDATER: Chase Schulte
+        /// UPDATED: 2020/04/08
+        /// UPDATE:  added new request type 
         /// 
         /// </remarks>
         /// <param name="requestID"></param>
@@ -110,6 +113,9 @@ namespace DataAccessLayer
                     break;
                 case "Schedule Change":
                     cmd = new SqlCommand("sp_approve_schedule_change_request", conn);
+                    break;
+                case "Availability Change":
+                    cmd = new SqlCommand("sp_approve_availability_change_request", conn);
                     break;
                 default:
                     throw new ApplicationException("Request Type has no method for approving requests. Must be added to the RequestAccessor.");
@@ -134,6 +140,66 @@ namespace DataAccessLayer
             }
 
             return requestsChanged;
+        }
+        ///  CREATOR: Chase Schulte
+        ///  CREATED: 2020/04/21
+        ///  APPROVER: Kaleb Bachert
+        ///  
+        ///  This method retrieves a availabilityRequestByID
+        /// </summary>
+        /// <remarks>
+        /// UPDATER:
+        /// UPDATED:
+        /// UPDATE: 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public AvailabilityRequestVM SelectAvailabilityRequestByID(int requestID)
+        {
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_availbility_request_by_request_id", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("RequestID", requestID);
+            AvailabilityRequestVM availabilityRequest = new AvailabilityRequestVM();
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    availabilityRequest.AvailabilityRequestID = reader.GetInt32(0);
+                    availabilityRequest.SundayStartTime = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                    availabilityRequest.SundayEndTime = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                    availabilityRequest.MondayStartTime = reader.IsDBNull(3) ? "" : reader.GetString(3);
+                    availabilityRequest.MondayEndTime = reader.IsDBNull(4) ? "" : reader.GetString(4);
+                    availabilityRequest.TuesdayStartTime = reader.IsDBNull(5) ? "" : reader.GetString(5);
+                    availabilityRequest.TuesdayEndTime = reader.IsDBNull(6) ? "" : reader.GetString(6);
+                    availabilityRequest.WednesdayStartTime = reader.IsDBNull(7) ? "" : reader.GetString(7);
+                    availabilityRequest.WednesdayEndTime = reader.IsDBNull(8) ? "" : reader.GetString(8);
+                    availabilityRequest.ThursdayStartTime = reader.IsDBNull(9) ? "" : reader.GetString(9);
+                    availabilityRequest.ThursdayEndTime = reader.IsDBNull(10) ? "" : reader.GetString(10);
+                    availabilityRequest.FridayStartTime = reader.IsDBNull(11) ? "" : reader.GetString(11);
+                    availabilityRequest.FridayEndTime = reader.IsDBNull(12) ? "" : reader.GetString(12);
+                    availabilityRequest.SaturdayStartTime = reader.IsDBNull(13) ? "" : reader.GetString(13);
+                    availabilityRequest.SaturdayEndTime = reader.IsDBNull(14) ? "" : reader.GetString(14);
+                    availabilityRequest.RequestID = reader.GetInt32(15);
+                    availabilityRequest.RequestingUserID = reader.GetInt32(16);
+                    availabilityRequest.FirstName = reader.GetString(17);
+                    availabilityRequest.LastName = reader.GetString(18);
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return availabilityRequest;
         }
 
         /// <summary>

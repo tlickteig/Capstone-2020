@@ -693,6 +693,59 @@ namespace LogicLayerTests
             Assert.AreEqual(true, singleItemAdded);
         }
 
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/21
+        /// Approver: Kaleb Bachert 
+        /// 
+        /// Test Method for viewing an availability request by ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:  
+        /// Update: 
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAvailabiltyRequstByID()
+        {
+            // arrange
+            int requestID = 1000002;
+
+            // act
+            var result = _requestManager.RetrieveAvailabilityRequestByID(requestID);
+
+            // assert
+            Assert.AreEqual(requestID, result.RequestID);
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/21
+        /// Approver: Kaleb Bachert 
+        /// 
+        /// Test Method for fail for viewing an availability request by invalid ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:  
+        /// Update: 
+        /// </remarks>
+        /// 
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestRetrieveAvailabiltyRequstByInvalidID()
+        {
+            // arrange
+            int requestID = 1;
+
+            // act
+            var result = _requestManager.RetrieveAvailabilityRequestByID(requestID);
+
+
+        }
+
         [TestCleanup]
         public void TestTearDown()
         {

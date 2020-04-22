@@ -81,6 +81,7 @@
     <Compile Include="Availability.cs" />
     <Compile Include="AvailabilityRequest.cs" />
     <Compile Include="AvailabilityRequestVM.cs" />
+    <Compile Include="AvilabilityVM.cs" />
     <Compile Include="BaseSchedule.cs" />
     <Compile Include="BaseScheduleLine.cs" />
     <Compile Include="BaseScheduleLineVM.cs" />

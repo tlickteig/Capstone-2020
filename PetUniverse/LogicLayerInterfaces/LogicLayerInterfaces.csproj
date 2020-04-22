@@ -68,6 +68,7 @@
     <Compile Include="IApplicantManager.cs" />
     <Compile Include="IAppointmentManager.cs" />
     <Compile Include="IAppointmentTypeManager.cs" />
+    <Compile Include="IAvailabilityManager.cs" />
     <Compile Include="IBaseScheduleManager.cs" />
     <Compile Include="ICustomerManager.cs" />
     <Compile Include="IDepartmentManager.cs" />

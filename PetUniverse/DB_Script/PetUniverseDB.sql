@@ -1825,14 +1825,14 @@ print '' print '** Creating Availability table'
 GO
 CREATE TABLE [dbo].[Availability] (
     [AvailabilityID]            [int] IDENTITY(100000, 1)     NOT NULL,
-    [EmployeeID]                [int]                         NOT NULL,
+    [UserID]                [int]                         NOT NULL,
     [DayOfWeek]                 [Nvarchar](9)                 NOT NULL,
     [StartTime]                 [Nvarchar](20)                NOT NULL,
     [EndTime]                   [Nvarchar](20)                NOT NULL,
     [Active]                    [BIT]                         NOT NULL DEFAULT 1
 
     CONSTRAINT [pk_AvailabilityID] PRIMARY KEY([AvailabilityID] ASC),
-    CONSTRAINT [fk_Availability_EmployeeID] FOREIGN KEY ([EmployeeID])
+    CONSTRAINT [fk_Availability_UserID] FOREIGN KEY ([UserID])
     REFERENCES [dbo].[User] (UserID)
 )
 GO
@@ -4589,13 +4589,42 @@ END
 GO
 
 /*
+Created by: Chase Schulte
+Date: 04/07/2020
+Comment: pull up a list availbilty and request by availbilityRequest ID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_availbility_request_by_request_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_availbility_request_by_request_id'
+GO
+CREATE PROCEDURE sp_select_availbility_request_by_request_id
+(
+	@RequestID[int]
+)
+AS
+BEGIN
+    SELECT 	[AvailabilityRequestID],[SundayStartTime],[SundayEndTime],[MondayStartTime],[MondayEndTime],
+	[TuesdayStartTime],[TuesdayEndTime],[WednesdayStartTime],[WednesdayEndTime],[ThursdayStartTime],
+	[ThursdayEndTime],[FridayStartTime],[FridayEndTime],[SaturdayStartTime],[SaturdayEndTime],
+	[AvailabilityRequest].[requestID],[RequestingUserID],[FirstName],[LastName]
+	
+	
+	
+    FROM 	[AvailabilityRequest]
+	join [request] on [AvailabilityRequest].[requestID ]= [request].[requestID]
+	join [User] on [User].[userID] = [request].[RequestingUserID]
+	Where	@RequestID = [AvailabilityRequest].[RequestID]
+END
+GO
+
+/*
 Created by: Kaleb Bachert
 Date: 3/17/2020
 Comment: Procedure to add an AvailabilityRequest
 */
-DROP PROCEDURE IF EXISTS [sp_insert_time_availability_request]
+DROP PROCEDURE IF EXISTS [sp_insert_availability_request]
 GO
-print '' print '*** Creating sp_insert_availability_request'
+PRINT '' PRINT '*** Creating sp_insert_availability_request'
 GO
 CREATE PROCEDURE [sp_insert_availability_request]
 (
@@ -9663,9 +9692,194 @@ GO
 CREATE PROCEDURE [sp_select_all_users_availabilities]
 AS
 BEGIN
-	SELECT [EmployeeID], [DayOfWeek], [StartTime], [EndTime]
+	SELECT [UserID], [DayOfWeek], [StartTime], [EndTime]
 	FROM [dbo].[availability]
 	WHERE [Active] = 1
+END
+GO
+
+
+/*
+Created by: Chase Schulte
+Date: 04/08/2020
+Comment: Method to approve a specified request
+*/
+DROP PROCEDURE IF EXISTS [sp_approve_availability_change_request]
+GO
+PRINT '' PRINT '*** Creating sp_approve_availability_change_request'
+GO
+CREATE PROCEDURE [sp_approve_availability_change_request]
+(
+	@RequestID		[int],
+	@UserID			[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[availabilityRequest]
+	SET [ApprovingEmployeeID] = @UserID,
+		[ApprovalDate] = GETDATE()
+	WHERE [RequestID] = @RequestID
+	AND [ApprovingEmployeeID] IS NULL
+	UPDATE [dbo].[request]
+	SET [Open] = 0
+	WHERE [RequestID] = @RequestID
+	AND [Open] = 1
+	
+	SELECT @@ROWCOUNT
+END
+GO
+
+
+/*
+Created by: Chase Schulte
+Date: 03/28/2020
+Comment: update an oldAvailability with a new Availability
+*/
+DROP PROCEDURE IF EXISTS [sp_update_availablity_by_id]
+GO
+PRINT ''  PRINT '*** Creating sp_update_availablity_by_id'
+GO
+CREATE PROCEDURE [sp_update_availablity_by_id]
+(
+	@OldAvailabilityID 	[int],
+	@OldUserID			[int],
+	@OldStartTime		[nvarchar](20),
+	@OldEndTime			[nvarchar](20),
+	@OldDayOfWeek			[nvarchar](9),
+
+	--New rows
+	@NewUserID			[int],
+	@NewStartTime		[nvarchar](20),
+	@NewEndTime			[nvarchar](20),
+	@NewDayOfWeek			[nvarchar](9)
+)
+AS
+BEGIN
+	Update [dbo].[Availability]
+	Set
+	[UserID] = @NewUserID,
+	[StartTime]=@NewStartTime,
+	[EndTime]=@NewEndTime,
+	[DayOfWeek]=@NewDayOfWeek
+	Where [AvailabilityID] = @OldAvailabilityID
+	And [UserID] = @OldUserID
+	And [StartTime]=@OldStartTime
+	And [EndTime]=@OldEndTime
+	And [DayOfWeek]=@OldDayOfWeek
+	Return @@ROWCOUNT
+END
+GO
+
+
+/*
+Created by: Chase Schulte
+Date: 04/10/2020
+Comment: deactivate a availabilities by EmpID
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_availability_by_employee_id]
+GO
+PRINT ''  PRINT '*** Creating sp_deactivate_availability_by_employee_id '
+GO
+CREATE PROCEDURE [sp_deactivate_availability]
+(
+	@AvailabilityID	[int]
+)
+AS
+BEGIN
+	Update [dbo].[Availability]
+	Set	[Active]=0
+	Where [AvailabilityID] = @AvailabilityID
+	Return @@ROWCOUNT
+END
+GO
+/*
+Created by: Chase Schulte
+Date: 2/05/2020
+Comment: activate a eRoleID by ID
+*/
+DROP PROCEDURE IF EXISTS [sp_activate_availability]
+GO
+PRINT ''  PRINT '*** Creating sp_activate_availability '
+GO
+CREATE PROCEDURE [sp_activate_availability]
+(
+	@AvailabilityID	[int]
+)
+AS
+BEGIN
+	Update [dbo].[Availability]
+	Set [Active]=1
+	Where [AvailabilityID] = @AvailabilityID
+	Return @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 03/27/2020
+Comment: delete a availability
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_availability]
+GO
+PRINT '' PRINT '*** Creating sp_delete_availability'
+GO
+CREATE PROCEDURE sp_delete_availability
+(
+    @UserID				[int]
+)
+AS
+BEGIN
+    DELETE
+    FROM 	[Availability]
+    WHERE 	[UserID] = @UserID
+    RETURN @@ROWCOUNT
+END
+GO
+
+
+
+/*
+Created by: Chase Schulte
+Date: 03/27/2020
+Comment: select all availabilities
+*/
+DROP PROCEDURE IF EXISTS [sp_select_availabilties]
+GO
+PRINT '' PRINT '*** Creating sp_select_availabilties'
+GO
+GO
+CREATE PROCEDURE sp_select_availabilties
+(
+	@UserID [int]
+)
+AS
+BEGIN
+	SELECT [AvailabilityID],[UserID],[StartTime],[EndTime],[DayOfWeek]
+	FROM [dbo].[Availability]
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 03/27/2020
+Comment: select all availabilities related to a particular user
+*/
+DROP PROCEDURE IF EXISTS [sp_select_availabilties_by_employee_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_availabilties_by_employee_id'
+GO
+GO
+CREATE PROCEDURE sp_select_availabilties_by_employee_id
+(
+	@UserID [int]
+)
+AS
+BEGIN
+	SELECT [AvailabilityID],[Availability].[UserID],[StartTime],[EndTime],[DayOfWeek],[FirstName],[LastName]
+	FROM [dbo].[Availability]
+	Join [User] On [Availability].[UserID] = [User].[UserID]
+	WHERE [Availability].[UserID] = @UserID
+	And [Availability].[Active] = 1
 END
 GO
 
@@ -10384,7 +10598,7 @@ print '' print '*** Creating sp_insert_availability'
 GO
 CREATE PROCEDURE [sp_insert_availability] (
 	
-	@EmployeeID 				[int],
+	@UserID 				[int],
 	@DayOfWeek					[Nvarchar](9),
 	@StartTime 					[nvarchar](300),
 	@EndTime 					[nvarchar](500)
@@ -10393,9 +10607,9 @@ AS
 BEGIN
 
 	insert into [dbo].[Availability]
-	([EmployeeID], [DayOfWeek], [StartTime],[EndTime])
+	([UserID], [DayOfWeek], [StartTime],[EndTime])
 	values
-	(@EmployeeID, @DayOfWeek, @StartTime,@EndTime)
+	(@UserID, @DayOfWeek, @StartTime,@EndTime)
 END
 GO
 
@@ -10425,18 +10639,18 @@ PRINT '' PRINT '*** Creating sp_select_all_user_availability_by_userID'
 GO
 CREATE PROCEDURE [sp_select_all_user_availability_by_userID]
 (
-	@EmployeeID 			[int]
+	@UserID 			[int]
 )
 AS
 BEGIN
 	SELECT	[AvailabilityID],			
-			[EmployeeID],				
+			[UserID],				
 			[DayOfWeek],			    
 			[StartTime],				
 			[EndTime],				
 			[Active]			
 	FROM [Availability]
-	WHERE [EmployeeID] = @EmployeeID
+	WHERE [UserID] = @UserID
 	ORDER BY[DayOfWeek]
 END
 GO
@@ -12120,6 +12334,27 @@ INSERT INTO [dbo].[activeTimeOff]
 GO
 
 /*
+Created by: Chase Schulte
+Date: 04/07/2020
+Comment: Inserts test data for AvailabilityRequest
+*/
+PRINT '' PRINT '*** Insert Into AvailabilityRequest Table ***'
+GO
+INSERT INTO [dbo].[AvailabilityRequest]
+	(
+	[MondayStartTime],
+	[MondayEndTime],
+	[SundayStartTime],
+	[SundayEndTime],
+	[RequestID])
+
+VALUES
+	('00:00:00', '23:59:00', '00:00:00', '23:59:00',1000008),
+	('11:00:00', '12:00:00','13:00:00', '14:00:00',1000009),
+	('12:01:00', '13:59:00','14:01:00', '15:59:00',1000009)
+GO
+
+/*
 Created by: Kaleb Bachert
 Date: 4/10/2020
 Comment: Inserting Sample Data for availability
@@ -12127,7 +12362,7 @@ Comment: Inserting Sample Data for availability
 PRINT '' PRINT '*** Insert Into Availability Table ***'
 GO
 INSERT INTO [dbo].[availability]
-	([EmployeeID], [DayOfWeek], [StartTime], [EndTime])
+	([UserID], [DayOfWeek], [StartTime], [EndTime])
 	VALUES
 	(100002, 'Friday', '08:00:00','22:00:00'),
 	(100000, 'Friday', '14:00:00','22:00:00')

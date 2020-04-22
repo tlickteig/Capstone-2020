@@ -321,5 +321,22 @@ namespace DataAccessInterfaces
         /// <param name="endDate"></param>
 
         int InsertActiveTimeOff(ActiveTimeOff activeTimeOff);
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/07
+        /// Approver: Kaleb Bachert
+        /// 
+        /// interface method for Selecting Avaibility request by ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        AvailabilityRequestVM SelectAvailabilityRequestByID(int requestID);
     }
 }

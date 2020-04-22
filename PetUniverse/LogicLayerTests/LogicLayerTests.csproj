@@ -73,6 +73,7 @@
     <Compile Include="AnimalMedicalHistoryManagerTests.cs" />
     <Compile Include="AnimalStatusManagerTests.cs" />
     <Compile Include="AppointmentTypeManagerTests.cs" />
+    <Compile Include="AvailabilityManagerTests.cs" />
     <Compile Include="BaseScheduleManagerTests.cs" />
     <Compile Include="DonationManagerTests.cs" />
     <Compile Include="EmployeeAvailabilityManagerTests.cs" />

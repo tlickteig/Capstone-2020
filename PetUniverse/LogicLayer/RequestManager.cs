@@ -586,5 +586,33 @@ namespace LogicLayer
                 throw new ApplicationException("Data not added.", ex);
             }
         }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/07
+        /// Approver: Kaleb Bachert 
+        /// 
+        /// method for Getting AvaibilityRequest 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public AvailabilityRequestVM RetrieveAvailabilityRequestByID(int requestID)
+        {
+            try
+            {
+                return _requestAccessor.SelectAvailabilityRequestByID(requestID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+
     }
 }

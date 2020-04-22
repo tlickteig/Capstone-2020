@@ -548,7 +548,7 @@
                 <TabItem x:Name="tabViewAllERoles" Header="View Roles" FontWeight="Bold" Background="#fff8e3">
                     <Grid>
                         <Canvas x:Name="canViewAllRoles">
-                            <Frame Source="./PersonnelPages/ViewAllRoles.xaml" NavigationUIVisibility="Hidden"></Frame>
+                            <Frame Source="./PersonnelPages/pgViewAllRoles.xaml" NavigationUIVisibility="Hidden"></Frame>
                         </Canvas>
                     </Grid>
                 </TabItem>
