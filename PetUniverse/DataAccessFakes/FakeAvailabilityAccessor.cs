@@ -26,13 +26,24 @@ namespace DataAccessFakes
         public FakeAvailabilityAccessor()
         {
 
-            //Fake data for Availability
             availabilities = new List<Availability>()
             {
-                new Availability(){AvailabilityID = 1, DayOfWeek = "Monday", StartTime="10:00", EndTime = "18:00", UserID =  1},
-                new Availability(){AvailabilityID = 2, DayOfWeek = "Tuesday", StartTime="10:00", EndTime = "18:00", UserID =  1},
-                new Availability(){AvailabilityID = 1, DayOfWeek = "Friday", StartTime="10:00", EndTime = "18:00", UserID =  1}
-
+                new Availability()
+                {
+                   AvailabilityID = 1, UserID = 100000, DayOfWeek = "Monday", StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
+                },
+                new Availability()
+                {
+                   AvailabilityID = 2, UserID = 100001, DayOfWeek = "Tuesday", StartTime = new DateTime(2020, 4, 21, 1, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
+                },
+                new Availability()
+                {
+                   AvailabilityID = 3, UserID = 100000, DayOfWeek = "Thursday", StartTime = new DateTime(2020, 4, 21, 1, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
+                },
+                new Availability()
+                {
+                   AvailabilityID = 4, UserID = 100001, DayOfWeek = "Thursday", StartTime = new DateTime(2020, 4, 21, 1, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
+                }
             };
 
             //Fake data for Availability
@@ -47,8 +58,8 @@ namespace DataAccessFakes
             //Fake Data Users
             petUniverseUsers = new List<PetUniverseUser>()
             {
-                new PetUniverseUser(){PUUserID=1,FirstName="John",LastName="Doe"},
-                new PetUniverseUser(){PUUserID=2,FirstName="Doe",LastName="Jim"}
+                new PetUniverseUser(){PUUserID=100000,FirstName="John",LastName="Doe"},
+                new PetUniverseUser(){PUUserID=100001,FirstName="Doe",LastName="Jim"}
 
             };
 

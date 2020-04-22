@@ -76,7 +76,7 @@ namespace LogicLayerTests
         public void TestInsertAvailabilitySuccess()
         {
             //Arrange
-            Availability availability = new Availability() { AvailabilityID = 4, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", UserID = 1 };
+            Availability availability = new Availability() { AvailabilityID = 5, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", UserID = 100001 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             bool expectResult = true;
             //Act
@@ -144,7 +144,7 @@ namespace LogicLayerTests
         public void TestInsertAvailabilityInvalidAvailabilityDay()
         {
             //Arrange
-            Availability availability = new Availability() { AvailabilityID = 4, DayOfWeek = "Noday", StartTime = "22:00", EndTime = "24:00", UserID = 1 };
+            Availability availability = new Availability() { AvailabilityID = 5, DayOfWeek = "Noday", StartTime = "22:00", EndTime = "24:00", UserID = 100001 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             bool expectResult = false;
             //Act
@@ -212,8 +212,22 @@ namespace LogicLayerTests
         public void TestUpdateAvailabilitySuccess()
         {
             //Arrange
-            Availability oldAvailability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 1 };
-            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", UserID = 1 };
+            Availability oldAvailability = new Availability()
+            {
+                AvailabilityID = 1,
+                UserID = 100000,
+                DayOfWeek = "Monday",
+                StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(),
+                EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
+            };
+            Availability availability = new Availability()
+            {
+                AvailabilityID = 1,
+                UserID = 100000,
+                DayOfWeek = "Tuesday",
+                StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToShortTimeString(),
+                EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToShortTimeString()
+            };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             bool expectResult = true;
             //Act
@@ -283,8 +297,8 @@ namespace LogicLayerTests
         public void TestUpdateNewAvailabilitySuccess()
         {
             //Arrange
-            Availability oldAvailability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 1 };
-            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Noday", StartTime = "22:00", EndTime = "24:00", UserID = 1 };
+            Availability oldAvailability = new Availability() { AvailabilityID = 1, UserID = 100000, DayOfWeek = "Monday", StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString() };
+            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Noday", StartTime = "22:00", EndTime = "24:00", UserID = 100001 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             bool expectResult = false;
             //Act
@@ -308,8 +322,8 @@ namespace LogicLayerTests
         public void TestUpdateNewAvailabilitySucessNoChanges()
         {
             //Arrange
-            Availability oldAvailability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 1 };
-            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 1 };
+            Availability oldAvailability = new Availability() { AvailabilityID = 1, UserID = 100000, DayOfWeek = "Monday", StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString() };
+            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 100001 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             bool expectResult = true;
             //Act
@@ -403,7 +417,7 @@ namespace LogicLayerTests
         {
             //Arrange
 
-            int expectedResult = 3;
+            int expectedResult = 4;
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             //Act
             var actualResult = _availabilityManager.RetrieveAllAvailabilities();
@@ -431,7 +445,7 @@ namespace LogicLayerTests
             int expectedResult = 3;
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             //Act
-            var actualResult = _availabilityManager.RetrieveAvailabilityByUserID(1);
+            var actualResult = _availabilityManager.RetrieveAvailabilityByUserID(100000);
             //Assert
             Assert.AreEqual(expectedResult, actualResult.Count);
         }
