@@ -186,6 +186,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004220428468_InitialCreate.cs" />
+    <Compile Include="Migrations\202004220428468_InitialCreate.Designer.cs">
+      <DependentUpon>202004220428468_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004220431460_Added First and Last Name Fields to User.cs" />
+    <Compile Include="Migrations\202004220431460_Added First and Last Name Fields to User.Designer.cs">
+      <DependentUpon>202004220431460_Added First and Last Name Fields to User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicantListViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -553,6 +562,14 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202004220428468_InitialCreate.resx">
+      <DependentUpon>202004220428468_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004220431460_Added First and Last Name Fields to User.resx">
+      <DependentUpon>202004220431460_Added First and Last Name Fields to User.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
