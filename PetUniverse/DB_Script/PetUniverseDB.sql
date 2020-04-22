@@ -100,43 +100,6 @@ GO
 
 /*
 Created by: Zach Behrensmeyer
-Date: 2/3/2020
-Comment: This is used to store the roles of the different users
-such as admin, manager, etc.
-*/
-DROP TABLE IF EXISTS [dbo].[Role]
-GO
-PRINT '' PRINT '*** Create Role Table ***'
-GO
-CREATE TABLE [dbo].[Role](
-    [RoleID] [nvarchar](50) PRIMARY KEY,
-    [Description] [nvarchar](250) NOT NULL,
-)
-GO
-
-/*
-Created by: Zach Behrensmeyer
-Date: 2/3/2020
-Comment: This is used to pair a user with their roles
-*/
-DROP TABLE IF EXISTS [dbo].[UserRole]
-GO
-PRINT '' PRINT '*** Create User Role Table ***'
-GO
-CREATE TABLE [dbo].[UserRole](
-    [UserID] 		    [int]					 	NOT NULL,
-    [RoleID] 			[nvarchar] (50) 			NOT NULL,
-
-    CONSTRAINT [pk_UserID_RoleID] PRIMARY KEY ([UserID] ASC, [RoleID] ASC),
-    CONSTRAINT [fk_UserRole_UserID] FOREIGN KEY ([UserID])
-    REFERENCES [dbo].[User] (UserID),
-    CONSTRAINT [fk_Role_RoleID] FOREIGN KEY(RoleID)
-    REFERENCES Role (RoleID) ON UPDATE CASCADE
-)
-GO
-
-/*
-Created by: Zach Behrensmeyer
 Date: 2/8/2020
 Comment: This is used to store logs from the program
 */
@@ -2070,8 +2033,8 @@ CREATE PROCEDURE [sp_select_roles_by_userID]
 )
 AS
 BEGIN
-	SELECT 	[RoleID]
-	FROM 	[dbo].[UserRole]
+	SELECT 	[ERoleID]
+	FROM 	[dbo].[UserERole]
 	WHERE 	[UserID] = @UserID
 END
 GO
@@ -9037,7 +9000,7 @@ CREATE PROCEDURE [sp_select_latest_salesTaxDate_by_zipCode]
 AS
 BEGIN
 	
-	SELECT MAX(SalesTaxDate) AS "Latest Sales Date"
+	SELECT MAX(SalesTaxDate) AS 'Latest Sales Date'
 	FROM SalesTaxHistory
 	WHERE ZipCode = @ZipCode
 
@@ -10264,9 +10227,9 @@ GO
 INSERT INTO [dbo].[CustomerErrors]
 		([ErrorType],[Description])
 	VALUES
-		("ErrorType1", "THIS IS A DESCRIPTION OF AN ERROR 1"),
-		("ErrorType2", "THIS IS A DESCRIPTION OF AN ERROR 2"),
-		("ErrorType3", "THIS IS A DESCRIPTION OF AN ERROR 3")
+		('ErrorType1', 'THIS IS A DESCRIPTION OF AN ERROR 1'),
+		('ErrorType2', 'THIS IS A DESCRIPTION OF AN ERROR 2'),
+		('ErrorType3', 'THIS IS A DESCRIPTION OF AN ERROR 3')
 GO
 
 /*
@@ -10322,9 +10285,9 @@ GO
 INSERT INTO [dbo].[PoSCreditCards]
 		([CardType],[CardNumber], [SecurityCode])
 	VALUES
-		("Visa", "12323232323232323", "214"),
-		("MasterCard", "XY3LL 2222 FJFJ 22K2", "442"),
-		("Chase", "2345 JJJJ FFII JK23 FDFF", "123")
+		('Visa', '12323232323232323', '214'),
+		('MasterCard', 'XY3LL 2222 FJFJ 22K2', '442'),
+		('Chase', '2345 JJJJ FFII JK23 FDFF', '123')
 GO
 
 /*
@@ -10630,11 +10593,11 @@ GO
 INSERT INTO [dbo].[AnimalActivity]
 	 ([AnimalID],[AnimalActivityTypeID],[ActivityDateTime],[UserID], [Description])
 VALUES
-    (1000000,'Feeding', "2020-02-02", 100000, "test"),
-	(1000001,'Playing', "2020-01-02", 100000, "test2"),
-	(1000000,'Playing', "2020-06-02", 100000, "test3"),
-	(1000001,'Feeding', "2020-05-02", 100000, "test4"),
-	(1000002,'Playing', "2020-04-10", 100000, "test5")
+    (1000000,'Feeding', '2020-02-02', 100000, 'test'),
+	(1000001,'Playing', '2020-01-02', 100000, 'test2'),
+	(1000000,'Playing', '2020-06-02', 100000, 'test3'),
+	(1000001,'Feeding', '2020-05-02', 100000, 'test4'),
+	(1000002,'Playing', '2020-04-10', 100000, 'test5')
 GO
 
 /*
@@ -11167,19 +11130,6 @@ GO
 
 /*
 Created by: Ryan Morganti
-Date: 2020/02/21
-Comment: Sample RoleID 'Employee'
-*/
-print '' print '*** Inserting Sample Role record Employee'
-GO
-INSERT INTO [dbo].[Role]
-	([RoleID], [Description])
-	VALUES
-	('Employee', 'A Pet Universe Employee')
-GO
-
-/*
-Created by: Ryan Morganti
 Date: 2020/02/06
 Comment: Sample Department Data
 */
@@ -11223,24 +11173,6 @@ INSERT INTO [dbo].[request]
 	('20200208 01:02:03 PM', 'General',  100000),
 	('20200206 03:02:03 PM', 'General',  100000)
 GO 
-
-/*
-Created by: Ryan Morganti
-Date: 2020/02/19
-Comment: Inserting Employee UserRoles
-*/
-print '' print '*** Insert Into User Role Table ***'
-GO
-INSERT INTO [dbo].[UserRole]
-([UserID],
-[RoleID]
-)
-VALUES
-(100000, 'Employee'),
-(100003, 'Employee'),
-(100004, 'Employee'),
-(100005, 'Employee')
-GO
 
 /*
 Created by: Ryan Morganti
