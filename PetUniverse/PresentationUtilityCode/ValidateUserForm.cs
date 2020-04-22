@@ -110,10 +110,7 @@ namespace PresentationUtilityCode
         public static bool IsValidPhoneNumber(this string phoneNumber)
         {
             bool isValid = false;
-
-            // Remove dashes if exists
-            phoneNumber = phoneNumber.Replace("-", "");
-
+            
             // check length
             if (!string.IsNullOrEmpty(phoneNumber) && phoneNumber.Length == 10)
             {
