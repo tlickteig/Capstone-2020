@@ -60,8 +60,17 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Button x:Name="btnView" Grid.Column="5" Width="100" Height="30" Content="View" HorizontalAlignment="Right" Click="btnView_Click"/>
+                    <!--/// <summary>
+                     /// Creator: Mohamed Elamin
+                     /// Created: 2020/04/15
+                     /// Approver:  Austin Gee , 2020/04/15                 
+                     /// This Event will view Welcome Basket Inventory .
+                     /// 
+                     /// </summary>
+                       -->
+                    <Button x:Name="btnWelcomeBasket" Grid.Column="1" Width="150" Height="30" Content="Welcome Basket Inventory" HorizontalAlignment="Left" Click="btnWelcomeBasket_Click"/>
 
-            </Grid>
+                </Grid>
         </Grid>
     </Canvas>
         <Canvas x:Name="canAppointmentDetails" Visibility="Hidden">
@@ -221,7 +230,7 @@
                     <Button x:Name="btnEditNotes" Grid.Column="6" Content="edit" HorizontalAlignment="Right" Width="100" Height="30" Click="btnEditNotes_Click"/>
                     <Button x:Name="btnSaveNotes" Visibility="Hidden" Grid.Column="6" Content="save" HorizontalAlignment="Right" Width="100" Height="30" Click="btnSaveNotes_Click"/>
                     <ComboBox x:Name="cmbDecision" Grid.Column="5" Height="30" Width="120" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                    <Button x:Name="btnSendEmai" Grid.Column="4" Content="Send Email" HorizontalAlignment="Center" Width="100" Height="30" Click="btnSendEmai_Click"/>
+                    <Button x:Name="btnSendEmail" Grid.Column="4" Content="Send Email" HorizontalAlignment="Center" Width="100" Height="30" Click="btnSendEmai_Click"/>
                 </Grid>
             </Grid>
         </Canvas>

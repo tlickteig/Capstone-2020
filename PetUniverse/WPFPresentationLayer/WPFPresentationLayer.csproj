@@ -129,6 +129,9 @@
     <Compile Include="AdoptionPages\pgMeetAndGreets.xaml.cs">
       <DependentUpon>pgMeetAndGreets.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdoptionPages\pgWelcomeHomeBaskets.xaml.cs">
+      <DependentUpon>pgWelcomeHomeBaskets.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AMPages\AnimalActivityRecords.xaml.cs">
       <DependentUpon>AnimalActivityRecords.xaml</DependentUpon>
     </Compile>
@@ -405,6 +408,10 @@
     <Page Include="AdoptionPages\pgMeetAndGreets.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AdoptionPages\pgWelcomeHomeBaskets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AMPages\AnimalActivityRecords.xaml">
       <SubType>Designer</SubType>
