@@ -94,14 +94,50 @@ namespace WPFPresentationLayer
             unlockDate = getUnlockDate(userEmail);
 
             //Validating input
-            if (!userEmail.IsValidEmail() || !userPassword.IsValidPassword())
+            if (!userEmail.IsValidEmail())
             {
                 //Display a message, always say user name or password bad 
                 //so bad users aren't sure what is wrong
                 WPFErrorHandler.ErrorMessage("Invalid Username or Password.", "Login");
-                txtEmail.Text = "";
-                pwdPassword.Password = "";
                 txtEmail.Focus();
+                return;
+            }
+            else if (!userPassword.IsValidPassword())
+            {
+                WPFErrorHandler.ErrorMessage("Invalid Username or Password.", "Login");
+                txtEmail.Focus();
+                if (_userManager.CheckIfUserExists(userEmail) == true)
+                {
+                    if (DateTime.Now > unlockDate)
+                    {
+                        //won't log them in, but will count as an active attempt to login
+                        if (loginCount >= 3)
+                        {
+                            isLocked = true;
+                            UnlockByTime(userEmail);
+                            if (dt == null)
+                            {
+                                setTimer();
+                            }
+                            Lockout(userEmail);
+                            time = 901;
+                            dt.Start();
+                        }
+                    }
+                    else
+                    {
+                        LogHelper.log.Error("User " + txtEmail.Text + " is locked out");
+                        isLocked = true;
+                        UnlockByTime(userEmail);
+                        if (dt == null)
+                        {
+                            setTimer();
+                        }
+                        Lockout(userEmail);
+                        time = 901;
+                        dt.Start();
+                    }
+                }
                 return;
             }
 
