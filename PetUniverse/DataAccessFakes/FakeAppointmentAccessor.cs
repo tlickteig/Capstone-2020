@@ -7,7 +7,7 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Thomas Dupuy
-    /// Created: 2/6/2020
+    /// Created: 2020/02/06
     /// Approver: Awaab Elamin
     /// 
     /// This fake accessor class is used as an accessor for the data objects
@@ -19,16 +19,17 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 2/6/2020
+        /// Created: 22020/02/06
         /// Approver: Awaab Elamin
         /// 
         /// This method is a no-argument constructor
         /// </summary>
         ///
         /// <remarks>
-        /// Updater: 
-        /// Updated:  
-        /// Update: 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments. 
+        /// And updated the date format. 
         /// </remarks>
         public FakeAppointmentAccessor()
         {
@@ -88,16 +89,18 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 4/12/2020
+        /// Created:2020/04/12
         /// Approver: Michael Thompson
-        /// 
         /// This method adds an appointment
         /// </summary>
         /// <remarks>
-        /// Updater: 
-        /// Updated: 
-        /// Update: 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments. 
+        /// And updated the date format. 
         /// </remarks>
+        /// <param name="appointment"></param>
+        /// <returns>One or Zero depending on if record was updated</returns>
         public int DeactivateAppointment(Appointment appointment)
         {
             int i = 0;
@@ -113,16 +116,18 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 4/12/2020
+        /// Created: 2020/04/12
         /// Approver: Michael Thompson
-        /// 
         /// This method removes an appointment
         /// </summary>
         /// <remarks>
-        /// Updater: 
-        /// Updated: 
-        /// Update: 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments. 
+        /// And updated the date format. 
         /// </remarks>
+        /// <param name="appointment"></param>
+        /// <returns>One or Zero depending on if record was inserted</returns>
         public int InsertAppointment(Appointment appointment)
         {
             foreach (var appointmentVar in appointments)
@@ -137,17 +142,17 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 02/06/2020
+        /// Created: 2020/02/06
         /// Approver: Awaab Elamin
-        /// 
         /// This method retrieve all appointments
         /// </summary>
-        ///
         /// <remarks>
-        /// Updater: 
-        /// Updated:  
-        /// Update: 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments. 
+        /// And updated the date format. 
         /// </remarks>
+        /// <returns>activeAppointments</returns>
         public List<AppointmentLocationVM> SelectAllActiveAppointments()
         {
             List<AppointmentLocationVM> activeAppointments = new List<AppointmentLocationVM>();
@@ -163,16 +168,19 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 4/12/2020
-        /// Approver: 
-        /// 
-        /// This method retrieves an appointment by its id
+        /// Created: 2020/02/06
+        /// Approver: Awaab Elamin
+        /// This method retrieve all appointments
         /// </summary>
         /// <remarks>
-        /// Updater: 
-        /// Updated: 
-        /// Update: 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments. 
+        /// And updated the date format. 
         /// </remarks>
+        /// <param name=""></param>
+        /// <param name=""></param>
+        /// <returns>appointment or null depending on if record was found </returns>
         public AppointmentLocationVM SelectAppointmentByID(int id)
         {
             foreach (var appointment in appointments)
@@ -187,16 +195,20 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 4/15/2020
+        /// Created: 2020/04/15
         /// Approver: Michael Thompson
         /// 
         /// This method updates an appointment
         /// </summary>
         /// <remarks>
-        /// Updater: 
-        /// Updated: 
-        /// Update: 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments. 
+        /// And updated the date format. 
         /// </remarks>
+        /// <param name="oldAppointment"></param>
+        /// <param name="newAppointment"></param>
+        /// <returns>One or Zero depending on if record was updated</returns>
         public int UpdateAppointment(Appointment oldAppointment, Appointment newAppointment)
         {
             int i = 0;

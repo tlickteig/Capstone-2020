@@ -80,7 +80,6 @@
     <Compile Include="ApplicationVM.cs" />
     <Compile Include="Appointment.cs" />
     <Compile Include="AppointmentLocationVM.cs" />
-    <Compile Include="Availability.cs" />
     <Compile Include="AvailabilityRequest.cs" />
     <Compile Include="AvailabilityRequestVM.cs" />
     <Compile Include="AvilabilityVM.cs" />

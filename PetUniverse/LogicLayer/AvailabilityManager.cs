@@ -97,7 +97,7 @@ namespace LogicLayer
         /// </remarks>
         /// <param name="availability"></param>
         /// <returns></returns>
-        public bool AddAvailability(Availability availability)
+        public bool AddAvailability(EmployeeAvailability availability)
         {
             bool result = true;
             try
@@ -152,7 +152,7 @@ namespace LogicLayer
         /// Update: 
         /// </remarks>
         /// <returns></returns>
-        public List<Availability> RetrieveAllAvailabilities()
+        public List<EmployeeAvailability> RetrieveAllAvailabilities()
         {
             try
             {
@@ -207,7 +207,7 @@ namespace LogicLayer
         /// <param name="newAvailability"></param>
         /// <param name="oldAvailability"></param>
         /// <returns></returns>
-        public bool EditAvailability(Availability newAvailability, Availability oldAvailability)
+        public bool EditAvailability(EmployeeAvailability newAvailability, EmployeeAvailability oldAvailability)
         {
             bool result = true;
             try

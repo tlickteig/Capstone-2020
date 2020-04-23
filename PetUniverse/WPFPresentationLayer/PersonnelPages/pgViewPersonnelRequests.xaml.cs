@@ -1118,7 +1118,7 @@ namespace WPFPresentationLayer.PersonnelPages
                             if (updated == 0)
                             {
                                 updated++;
-                                _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Monday", StartTime = request.MondayStartTime, EndTime = request.MondayEndTime, UserID = request.RequestingUserID });
+                                _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Monday", StartTime = request.MondayStartTime, EndTime = request.MondayEndTime, EmployeeID = request.RequestingUserID });
                             }
                             //_availabilityManager.UpdateAvailability(new Availability { DayOfWeek = "Monday", StartTime = request.MondayStartTime, EndTime = request.MondayEndTime, UserID = request.RequestingUserID }, item);
 
@@ -1127,7 +1127,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 }
                 if (updated == 0)
                 {
-                    _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Monday", StartTime = request.MondayStartTime, EndTime = request.MondayEndTime, UserID = request.RequestingUserID });
+                    _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Monday", StartTime = request.MondayStartTime, EndTime = request.MondayEndTime, EmployeeID = request.RequestingUserID });
                 }
             }
             if (txtTuesdayStartTime.Text != "" && txtTuesdayEndTime.Text != "")
@@ -1149,7 +1149,7 @@ namespace WPFPresentationLayer.PersonnelPages
                             if (updated == 0)
                             {
                                 updated++;
-                                _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Tuesday", StartTime = request.TuesdayStartTime, EndTime = request.TuesdayEndTime, UserID = request.RequestingUserID });
+                                _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Tuesday", StartTime = request.TuesdayStartTime, EndTime = request.TuesdayEndTime, EmployeeID = request.RequestingUserID });
                             }
 
                         }
@@ -1157,7 +1157,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 }
                 if (updated == 0)
                 {
-                    _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Tuesday", StartTime = request.TuesdayStartTime, EndTime = request.TuesdayEndTime, UserID = request.RequestingUserID });
+                    _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Tuesday", StartTime = request.TuesdayStartTime, EndTime = request.TuesdayEndTime, EmployeeID = request.RequestingUserID });
                 }
             }
             if (txtWednesdayStartTime.Text != "" && txtWednesdayEndTime.Text != "")
@@ -1179,7 +1179,7 @@ namespace WPFPresentationLayer.PersonnelPages
                             if (updated == 0)
                             {
                                 updated++;
-                                _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Wednesday", StartTime = request.WednesdayStartTime, EndTime = request.WednesdayEndTime, UserID = request.RequestingUserID });
+                                _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Wednesday", StartTime = request.WednesdayStartTime, EndTime = request.WednesdayEndTime, EmployeeID = request.RequestingUserID });
                             }
 
 
@@ -1188,7 +1188,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 }
                 if (updated == 0)
                 {
-                    _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Wednesday", StartTime = request.WednesdayStartTime, EndTime = request.WednesdayEndTime, UserID = request.RequestingUserID });
+                    _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Wednesday", StartTime = request.WednesdayStartTime, EndTime = request.WednesdayEndTime, EmployeeID = request.RequestingUserID });
                 }
             }
             if (txtThursdayStartTime.Text != "" && txtThursdayEndTime.Text != "")
@@ -1210,7 +1210,7 @@ namespace WPFPresentationLayer.PersonnelPages
                             if (updated == 0)
                             {
                                 updated++;
-                                _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Thursday", StartTime = request.ThursdayStartTime, EndTime = request.ThursdayEndTime, UserID = request.RequestingUserID });
+                                _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Thursday", StartTime = request.ThursdayStartTime, EndTime = request.ThursdayEndTime, EmployeeID = request.RequestingUserID });
                             }
 
 
@@ -1219,7 +1219,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 }
                 if (updated == 0)
                 {
-                    _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Thursday", StartTime = request.ThursdayStartTime, EndTime = request.ThursdayEndTime, UserID = request.RequestingUserID });
+                    _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Thursday", StartTime = request.ThursdayStartTime, EndTime = request.ThursdayEndTime, EmployeeID = request.RequestingUserID });
                 }
             }
             if (txtFridayStartTime.Text != "" && txtFridayEndTime.Text != "")
@@ -1241,7 +1241,7 @@ namespace WPFPresentationLayer.PersonnelPages
                             if (updated == 0)
                             {
                                 updated++;
-                                _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Friday", StartTime = request.FridayStartTime, EndTime = request.FridayEndTime, UserID = request.RequestingUserID });
+                                _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Friday", StartTime = request.FridayStartTime, EndTime = request.FridayEndTime, EmployeeID = request.RequestingUserID });
                             }
 
 
@@ -1250,7 +1250,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 }
                 if (updated == 0)
                 {
-                    _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Friday", StartTime = request.FridayStartTime, EndTime = request.FridayEndTime, UserID = request.RequestingUserID });
+                    _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Friday", StartTime = request.FridayStartTime, EndTime = request.FridayEndTime, EmployeeID = request.RequestingUserID });
                 }
             }
             if (txtSaturdayStartTime.Text != "" && txtSaturdayEndTime.Text != "")
@@ -1272,7 +1272,7 @@ namespace WPFPresentationLayer.PersonnelPages
                             if (updated == 0)
                             {
                                 updated++;
-                                _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Saturday", StartTime = request.SaturdayStartTime, EndTime = request.SaturdayEndTime, UserID = request.RequestingUserID });
+                                _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Saturday", StartTime = request.SaturdayStartTime, EndTime = request.SaturdayEndTime, EmployeeID = request.RequestingUserID });
                             }
 
 
@@ -1281,7 +1281,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 }
                 if (updated == 0)
                 {
-                    _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Saturday", StartTime = request.SaturdayStartTime, EndTime = request.SaturdayEndTime, UserID = request.RequestingUserID });
+                    _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Saturday", StartTime = request.SaturdayStartTime, EndTime = request.SaturdayEndTime, EmployeeID = request.RequestingUserID });
                 }
             }
             if (txtSundayStartTime.Text != "" && txtSundayEndTime.Text != "")
@@ -1303,7 +1303,7 @@ namespace WPFPresentationLayer.PersonnelPages
                             if (updated == 0)
                             {
                                 updated++;
-                                _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Sunday", StartTime = request.SundayStartTime, EndTime = request.SundayEndTime, UserID = request.RequestingUserID });
+                                _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Sunday", StartTime = request.SundayStartTime, EndTime = request.SundayEndTime, EmployeeID = request.RequestingUserID });
                             }
 
 
@@ -1312,7 +1312,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 }
                 if (updated == 0)
                 {
-                    _availabilityManager.AddAvailability(new Availability { DayOfWeek = "Sunday", StartTime = request.SundayStartTime, EndTime = request.SundayEndTime, UserID = request.RequestingUserID });
+                    _availabilityManager.AddAvailability(new EmployeeAvailability { DayOfWeek = "Sunday", StartTime = request.SundayStartTime, EndTime = request.SundayEndTime, EmployeeID = request.RequestingUserID });
                 }
             }
         }

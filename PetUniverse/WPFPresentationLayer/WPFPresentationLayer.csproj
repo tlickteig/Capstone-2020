@@ -46,6 +46,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -125,6 +128,9 @@
     </Compile>
     <Compile Include="AdoptionPages\pgMeetAndGreets.xaml.cs">
       <DependentUpon>pgMeetAndGreets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AdoptionPages\pgWelcomeHomeBaskets.xaml.cs">
+      <DependentUpon>pgWelcomeHomeBaskets.xaml</DependentUpon>
     </Compile>
     <Compile Include="AMPages\AnimalActivityRecords.xaml.cs">
       <DependentUpon>AnimalActivityRecords.xaml</DependentUpon>
@@ -306,8 +312,8 @@
     <Compile Include="RecruitingPages\ListRequests.xaml.cs">
       <DependentUpon>ListRequests.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SystemAdminPages\LogView.xaml.cs">
-      <DependentUpon>LogView.xaml</DependentUpon>
+    <Compile Include="SystemAdminPages\pgLogView.xaml.cs">
+      <DependentUpon>pgLogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -321,8 +327,8 @@
     <Compile Include="SystemAdminPages\pgMessages.xaml.cs">
       <DependentUpon>pgMessages.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SystemAdminPages\UserControls.xaml.cs">
-      <DependentUpon>UserControls.xaml</DependentUpon>
+    <Compile Include="SystemAdminPages\pgUserControls.xaml.cs">
+      <DependentUpon>pgUserControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\AddEditVolunteer.xaml.cs">
       <DependentUpon>AddEditVolunteer.xaml</DependentUpon>
@@ -408,6 +414,10 @@
     <Page Include="AdoptionPages\pgMeetAndGreets.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AdoptionPages\pgWelcomeHomeBaskets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AMPages\AnimalActivityRecords.xaml">
       <SubType>Designer</SubType>
@@ -649,7 +659,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SystemAdminPages\LogView.xaml">
+    <Page Include="SystemAdminPages\pgLogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -673,7 +683,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SystemAdminPages\UserControls.xaml">
+    <Page Include="SystemAdminPages\pgUserControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

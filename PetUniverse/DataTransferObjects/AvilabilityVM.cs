@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataTransferObjects
 {
-    public class AvailabilityVM : Availability
+    public class AvailabilityVM : EmployeeAvailability
     {
         public string Name { get; set; }
     }

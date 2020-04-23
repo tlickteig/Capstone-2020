@@ -9,26 +9,27 @@ namespace DataAccessLayer
 {
     /// <summary>
     /// Creator: Thomas Dupuy
-    /// Created: 02/06/2020
+    /// Created: 2020/02/06
     /// Approver: Awaab Elamin
     /// 
     /// This Accessor class is used as an accessor for the data objects
     /// </summary>
     public class AppointmentAccessor : IAppointmentAccessor
     {
-
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 4/12/2020
+        /// Created: 2020/04/12
         /// Approver: Michael Thompson
-        /// 
         /// This method deactivates an appointment
         /// </summary>        
         /// <remarks>
-        /// Updater: 
-        /// Updated:  
-        /// Update: 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments.
+        /// And updated the date format. 
         /// </remarks>
+        /// <param name="appointment"></param>
+        /// <returns>rows count</returns>
         public int DeactivateAppointment(Appointment appointment)
         {
             int rows = 0;
@@ -55,16 +56,20 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 4/12/2020
+        /// Created: 2020/04/12
         /// Approver: Michael Thompson
         /// 
         /// This method inserts an appointment
         /// </summary>        
         /// <remarks>
-        /// Updater: 
-        /// Updated:  
-        /// Update: 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments.
+        /// updated the date format .
         /// </remarks>
+        /// <param name="appointment"></param>
+        /// <param name=""></param>
+        /// <returns>rows count</returns>
         public int InsertAppointment(Appointment appointment)
         {
             int rows = 0;
@@ -90,20 +95,23 @@ namespace DataAccessLayer
             }
             return rows;
         }
-
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 02/06/2020
+        /// Created: 2020/02/06
         /// Approver: Awaab Elamin
-        /// 
         /// This method selects all appointments
         /// </summary>
-        ///
         /// <remarks>
         /// Updater: Thomas Dupuy
-        /// Updated: 4/12/2020
+        /// Updated: 2020/04/12
         /// Update: Updated it to match the AppointmentLocationVM instead on the Appointment DTO
+        /// 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments. 
+        /// And updated the date format. 
         /// </remarks>
+        /// <returns>A list of active appointments</returns>
         public List<AppointmentLocationVM> SelectAllActiveAppointments()
         {
             List<AppointmentLocationVM> appointments = new List<AppointmentLocationVM>();
@@ -150,16 +158,18 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 4/12/2020
+        /// Created: 2020/04/12
         /// Approver: Michael Thompson
-        /// 
         /// This method selects an appointment by its id
         /// </summary>        
         /// <remarks>
-        /// Updater: 
-        /// Updated:  
-        /// Update: 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments.
+        /// And updated the date format. 
         /// </remarks>
+        /// <param name="id"></param>
+        /// <returns> An appointment by appointment ID</returns>
         public AppointmentLocationVM SelectAppointmentByID(int id)
         {
             AppointmentLocationVM appointment = new AppointmentLocationVM();
@@ -223,16 +233,20 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Thomas Dupuy
-        /// Created: 4/15/2020
+        /// Created: 2020/04/15
         /// Approver: Michael Thompson
         /// 
         /// This method updates an appointment
         /// </summary>
         /// <remarks>
-        /// Updater: 
-        /// Updated: 
-        /// Update: 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/20
+        /// Update: I Added param, returns tags for the comments.
+        /// And  updated the date format. 
         /// </remarks>
+        /// <param name="oldAppointment"></param>
+        /// <param name="newAppointment"></param>
+        /// <returns>rows count</returns>
         public int UpdateAppointment(Appointment oldAppointment, Appointment newAppointment)
         {
             int rows = 0;

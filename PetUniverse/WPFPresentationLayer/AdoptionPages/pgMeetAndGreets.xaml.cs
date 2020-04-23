@@ -281,6 +281,7 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             txtNotesMeetAndGreet.IsReadOnly = true;
             cmbDecision.IsEnabled = false;
+            btnSendEmail.IsEnabled = true;
         }
 
         /// <summary>
@@ -416,6 +417,8 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             txtNotesMeetAndGreet.IsReadOnly = false;
             cmbDecision.IsEnabled = true;
+            btnSendEmail.IsEnabled = true;
+            btnSendEmail.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -441,6 +444,7 @@ namespace WPFPresentationLayer.AdoptionPages
             disableNotes();
             btnEditNotes.Visibility = Visibility.Visible;
             btnSaveNotes.Visibility = Visibility.Hidden;
+            btnSendEmail.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -592,7 +596,8 @@ namespace WPFPresentationLayer.AdoptionPages
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSendEmai_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -629,6 +634,24 @@ namespace WPFPresentationLayer.AdoptionPages
                 MessageBox.Show("Couldn't send Email", ex.Message + "\n\n" + ex.InnerException.Message);
             }
 
+        }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/04/14
+        /// Approver: Austin Gee , 2020/04/15 
+        /// This is a click event when Welcome Basket button is clicked.
+        /// </summary>
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnWelcomeBasket_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService?.Navigate(new pgWelcomeHomeBaskets());
         }
     }
 }

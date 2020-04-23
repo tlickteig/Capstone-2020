@@ -76,7 +76,7 @@ namespace LogicLayerTests
         public void TestInsertAvailabilitySuccess()
         {
             //Arrange
-            Availability availability = new Availability() { AvailabilityID = 5, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", UserID = 100001 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 5, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", EmployeeID = 100001 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             bool expectResult = true;
             //Act
@@ -101,7 +101,7 @@ namespace LogicLayerTests
         public void TestInsertAvailabilityInvalidUserID()
         {
             //Arrange
-            Availability availability = new Availability() { AvailabilityID = 4, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", UserID = 0 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 4, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", EmployeeID = 0 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             //Act
             bool actualResult = _availabilityManager.AddAvailability(availability);
@@ -123,7 +123,7 @@ namespace LogicLayerTests
         public void TestInsertAvailabilityInvalidAvailabilityID()
         {
             //Arrange
-            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", UserID = 1 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", EmployeeID = 1 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             //Act
             bool actualResult = _availabilityManager.AddAvailability(availability);
@@ -144,7 +144,7 @@ namespace LogicLayerTests
         public void TestInsertAvailabilityInvalidAvailabilityDay()
         {
             //Arrange
-            Availability availability = new Availability() { AvailabilityID = 5, DayOfWeek = "Noday", StartTime = "22:00", EndTime = "24:00", UserID = 100001 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 5, DayOfWeek = "Noday", StartTime = "22:00", EndTime = "24:00", EmployeeID = 100001 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             bool expectResult = false;
             //Act
@@ -169,7 +169,7 @@ namespace LogicLayerTests
         public void TestInsertAvailabilityInvalidAvailabilityStartTimeTooLong()
         {
             //Arrange
-            Availability availability = new Availability() { AvailabilityID = 4, DayOfWeek = "Monday", StartTime = "12345678913245678789132", EndTime = "24:00", UserID = 1 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 4, DayOfWeek = "Monday", StartTime = "12345678913245678789132", EndTime = "24:00", EmployeeID = 1 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             //Act
             bool actualResult = _availabilityManager.AddAvailability(availability);
@@ -191,7 +191,7 @@ namespace LogicLayerTests
         public void TestInsertAvailabilityInvalidAvailabilityEndTimeTooLong()
         {
             //Arrange
-            Availability availability = new Availability() { AvailabilityID = 4, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "12345677889132456789132", UserID = 1 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 4, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "12345677889132456789132", EmployeeID = 1 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             //Act
             bool actualResult = _availabilityManager.AddAvailability(availability);
@@ -212,18 +212,18 @@ namespace LogicLayerTests
         public void TestUpdateAvailabilitySuccess()
         {
             //Arrange
-            Availability oldAvailability = new Availability()
+            EmployeeAvailability oldAvailability = new EmployeeAvailability()
             {
                 AvailabilityID = 1,
-                UserID = 100000,
+                EmployeeID = 100000,
                 DayOfWeek = "Monday",
                 StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(),
                 EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
             };
-            Availability availability = new Availability()
+            EmployeeAvailability availability = new EmployeeAvailability()
             {
                 AvailabilityID = 1,
-                UserID = 100000,
+                EmployeeID = 100000,
                 DayOfWeek = "Tuesday",
                 StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToShortTimeString(),
                 EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToShortTimeString()
@@ -252,8 +252,8 @@ namespace LogicLayerTests
         public void TestUpdateNewAvailabilityInvalidUserID()
         {
             //Arrange
-            Availability oldAvailability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 1 };
-            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", UserID = 0 };
+            EmployeeAvailability oldAvailability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", EmployeeID = 1 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", EmployeeID = 0 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             //Act
             bool actualResult = _availabilityManager.EditAvailability(availability, oldAvailability);
@@ -275,8 +275,8 @@ namespace LogicLayerTests
         public void TestUpdateNewAvailabilityInvalidAvailabilityID()
         {
             //Arrange
-            Availability oldAvailability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 1 };
-            Availability availability = new Availability() { AvailabilityID = 2, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", UserID = 1 };
+            EmployeeAvailability oldAvailability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", EmployeeID = 1 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 2, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "24:00", EmployeeID = 1 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             //Act
             bool actualResult = _availabilityManager.EditAvailability(availability, oldAvailability);
@@ -297,8 +297,8 @@ namespace LogicLayerTests
         public void TestUpdateNewAvailabilitySuccess()
         {
             //Arrange
-            Availability oldAvailability = new Availability() { AvailabilityID = 1, UserID = 100000, DayOfWeek = "Monday", StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString() };
-            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Noday", StartTime = "22:00", EndTime = "24:00", UserID = 100001 };
+            EmployeeAvailability oldAvailability = new EmployeeAvailability() { AvailabilityID = 1, EmployeeID = 100000, DayOfWeek = "Monday", StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString() };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Noday", StartTime = "22:00", EndTime = "24:00", EmployeeID = 100001 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             bool expectResult = false;
             //Act
@@ -322,8 +322,8 @@ namespace LogicLayerTests
         public void TestUpdateNewAvailabilitySucessNoChanges()
         {
             //Arrange
-            Availability oldAvailability = new Availability() { AvailabilityID = 1, UserID = 100000, DayOfWeek = "Monday", StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString() };
-            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 100001 };
+            EmployeeAvailability oldAvailability = new EmployeeAvailability() { AvailabilityID = 1, EmployeeID = 100000, DayOfWeek = "Monday", StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString() };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", EmployeeID = 100001 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             bool expectResult = true;
             //Act
@@ -348,8 +348,8 @@ namespace LogicLayerTests
         public void TestUpdateOldAvailabilityNotReal()
         {
             //Arrange
-            Availability oldAvailability = new Availability() { AvailabilityID = 1, DayOfWeek = "NoDay", StartTime = "10:00", EndTime = "18:00", UserID = 1 };
-            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 1 };
+            EmployeeAvailability oldAvailability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "NoDay", StartTime = "10:00", EndTime = "18:00", EmployeeID = 1 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", EmployeeID = 1 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             bool actualResult = _availabilityManager.EditAvailability(availability, oldAvailability);
 
@@ -371,8 +371,8 @@ namespace LogicLayerTests
         public void TestUpdateNewAvailabilityInvalidAvailabilityStartTimeTooLong()
         {
             //Arrange
-            Availability oldAvailability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 1 };
-            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "12345678913245678789132", EndTime = "24:00", UserID = 1 };
+            EmployeeAvailability oldAvailability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", EmployeeID = 1 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "12345678913245678789132", EndTime = "24:00", EmployeeID = 1 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             //Act
             bool actualResult = _availabilityManager.EditAvailability(availability, oldAvailability);
@@ -394,8 +394,8 @@ namespace LogicLayerTests
         public void TestUpdateNewAvailabilityInvalidAvailabilityEndTimeTooLong()
         {
             //Arrange
-            Availability oldAvailability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", UserID = 1 };
-            Availability availability = new Availability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "12345677889132456789132", UserID = 1 };
+            EmployeeAvailability oldAvailability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "10:00", EndTime = "18:00", EmployeeID = 1 };
+            EmployeeAvailability availability = new EmployeeAvailability() { AvailabilityID = 1, DayOfWeek = "Monday", StartTime = "22:00", EndTime = "12345677889132456789132", EmployeeID = 1 };
             IAvailabilityManager _availabilityManager = new AvailabilityManager(_availabilityAccessor);
             //Act
             bool actualResult = _availabilityManager.EditAvailability(availability, oldAvailability);

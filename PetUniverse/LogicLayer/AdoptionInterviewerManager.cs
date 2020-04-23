@@ -19,52 +19,54 @@ namespace LogicLayer
 
         private IAdoptionInterviewerAccessor _adoptionInterviewerAccessor;
 
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/02/19
+        /// Approver: Awaab Elamin, 2020/03/03
+        /// This is the Constructor method for InHome Inspection 
+        /// Appointment Decision Manager.
+        /// </summary>
+        /// <remarks>
+        /// Updater: Mohamed Elamin
+        /// Updated: 2020/04/22 
+        /// Update: Fixed Comments format.
+        /// </remarks>
+        /// <param name="adoptionInterviewerAccessor"></param>
         public AdoptionInterviewerManager(IAdoptionInterviewerAccessor adoptionInterviewerAccessor)
         {
             _adoptionInterviewerAccessor = adoptionInterviewerAccessor;
         }
 
-
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/03/03
-        /// 
-        /// This is the Constructor method for InHome Inspection 
-        /// Appointment Decision Manager
-        /// 
-        /// 
-        /// 
+        /// This is no argument Constructor method.
         /// </summary>
-        ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
-        /// </remarks>
-        /// <param name=""></param>
-        /// <returns>Customer Name</returns>
+        /// Updater: Mohamed Elamin
+        /// Updated: 2020/04/22 
+        /// Update: Fixed Comments format.
+        /// </remarks> 
         public AdoptionInterviewerManager()
         {
             _adoptionInterviewerAccessor = new AdoptionInterviewerAccessor();
-
         }
+
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/29
         /// Approver: Awaab Elamin, 2020/03/03
-        /// 
-        /// This method used to enter the Appointment notes during the interview.
-        ///  
-        /// 
+        /// This method used to edit the Appointment notes.
         /// </summary>
-        ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
+        /// Updater: Mohamed Elamin
+        /// Updated: 2020/04/22 
+        /// Update: Fixed Comments format.
         /// </remarks>
-        /// <param name=""></param>
+        /// <param name="newAdoptionAppointment"></param>
+        /// <param name="oldAdoptionAppointment"></param>
+        /// <returns>True or false depending if the record was updated</returns>
         public bool EditAppointment(AdoptionAppointment oldAdoptionAppointment, AdoptionAppointment newAdoptionAppointment)
         {
             bool result = false;
@@ -86,18 +88,14 @@ namespace LogicLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/29
         /// Approver: Awaab Elamin, 2020/03/03
-        /// 
         /// This method select Appointments by the appointment type.
-        ///  
-        /// 
         /// </summary>
-        ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
+        /// Updater: Mohamed Elamin
+        /// Updated: 2020/04/22 
+        /// Update: Fixed Comments format.
         /// </remarks>
-        /// <param name=""></param>
+        /// <returns>adoptionApplications</returns>
         public List<AdoptionAppointment> SelectAdoptionAappointmentsByAppointmentType()
         {
             List<AdoptionAppointment> adoptionApplications = null;

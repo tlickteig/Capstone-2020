@@ -30,9 +30,9 @@ namespace DataAccessLayer
         /// UPDATE: NA
         /// 
         /// </remarks>
-        public List<Availability> SelectAllUsersAvailability()
+        public List<EmployeeAvailability> SelectAllUsersAvailability()
         {
-            List<Availability> availabilities = new List<Availability>();
+            List<EmployeeAvailability> availabilities = new List<EmployeeAvailability>();
 
             var conn = DBConnection.GetConnection();
             var cmd = new SqlCommand("sp_select_all_users_availabilities", conn);
@@ -47,9 +47,9 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        Availability availability = new Availability();
+                        EmployeeAvailability availability = new EmployeeAvailability();
 
-                        availability.UserID = reader.GetInt32(0);
+                        availability.EmployeeID = reader.GetInt32(0);
                         availability.DayOfWeek = reader.GetString(1);
                         availability.StartTime = reader.GetString(2);
                         availability.EndTime = reader.GetString(3);
@@ -181,7 +181,7 @@ namespace DataAccessLayer
         /// </remarks>
         /// <param name="availability"></param>
         /// <returns></returns>
-        public int InsertAvailability(Availability availability)
+        public int InsertAvailability(EmployeeAvailability availability)
         {
             int nonQueryResults;
 
@@ -196,7 +196,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@DayOfWeek", availability.DayOfWeek);
             cmd.Parameters.AddWithValue("@StartTime", availability.StartTime);
             cmd.Parameters.AddWithValue("@EndTime", availability.EndTime);
-            cmd.Parameters.AddWithValue("@UserID", availability.UserID);
+            cmd.Parameters.AddWithValue("@UserID", availability.EmployeeID);
 
             //Execute Command
             try
@@ -227,13 +227,13 @@ namespace DataAccessLayer
         /// Updated:
         /// Update: 
         /// </remarks>
-        public List<Availability> SelectAllAvailabilities()
+        public List<EmployeeAvailability> SelectAllAvailabilities()
         {
             //Conn
             var conn = DBConnection.GetConnection();
             var cmd = new SqlCommand("sp_select_availabilties", conn);
             cmd.CommandType = CommandType.StoredProcedure;
-            List<Availability> availabilities = new List<Availability>();
+            List<EmployeeAvailability> availabilities = new List<EmployeeAvailability>();
             try
             {
                 conn.Open();
@@ -244,9 +244,9 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        availabilities.Add(new Availability()
+                        availabilities.Add(new EmployeeAvailability()
                         {
-                            UserID = reader.GetInt32(0),
+                            EmployeeID = reader.GetInt32(0),
                             StartTime = reader.GetString(1),
                             EndTime = reader.GetString(2),
                             DayOfWeek = reader.GetString(3)
@@ -303,7 +303,7 @@ namespace DataAccessLayer
                         availabilities.Add(new AvailabilityVM()
                         {
                             AvailabilityID = reader.GetInt32(0),
-                            UserID = reader.GetInt32(1),
+                            EmployeeID = reader.GetInt32(1),
                             StartTime = reader.GetString(2),
                             EndTime = reader.GetString(3),
                             DayOfWeek = reader.GetString(4),
@@ -338,7 +338,7 @@ namespace DataAccessLayer
         /// Updated:
         /// Update: 
         /// </remarks>
-        public int UpdateAvailability(Availability newAvailability, Availability oldAvailability)
+        public int UpdateAvailability(EmployeeAvailability newAvailability, EmployeeAvailability oldAvailability)
         {
             int nonQueryResults;
 
@@ -351,12 +351,12 @@ namespace DataAccessLayer
 
             //Vals
             cmd.Parameters.AddWithValue("OldAvailabilityID", oldAvailability.AvailabilityID);
-            cmd.Parameters.AddWithValue("OldUserID", oldAvailability.UserID);
+            cmd.Parameters.AddWithValue("OldUserID", oldAvailability.EmployeeID);
             cmd.Parameters.AddWithValue("OldStartTime", oldAvailability.StartTime);
             cmd.Parameters.AddWithValue("OldEndTime", oldAvailability.EndTime);
             cmd.Parameters.AddWithValue("OldDayOfWeek", oldAvailability.DayOfWeek);
 
-            cmd.Parameters.AddWithValue("NewUserID", newAvailability.UserID);
+            cmd.Parameters.AddWithValue("NewUserID", newAvailability.EmployeeID);
             cmd.Parameters.AddWithValue("NewStartTime", newAvailability.StartTime);
             cmd.Parameters.AddWithValue("NewEndTime", newAvailability.EndTime);
             cmd.Parameters.AddWithValue("NewDayOfWeek", newAvailability.DayOfWeek);
