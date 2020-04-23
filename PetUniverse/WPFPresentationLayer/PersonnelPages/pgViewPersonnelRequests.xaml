@@ -67,7 +67,7 @@
              UPDATED: NA
              UPDATE: NA 
         -->
-        <Canvas x:Name="canAvailabilityRequestDetails" Visibility="Hidden">
+        <Canvas x:Name="canAvailabilityRequestDetails" Visibility="Hidden" Margin="-10,76,10,-76">
             <Grid Width="1280">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="75"></RowDefinition>
@@ -77,100 +77,96 @@
                     <RowDefinition Height="40"></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="424*"/>
+                    <ColumnDefinition Width="427*"></ColumnDefinition>
+                    <ColumnDefinition Width="426*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label Content="Availability Change Request" Grid.Row="0" Grid.Column="1" FontSize="32" FontWeight="SemiBold" 
-                                    HorizontalAlignment="Center" VerticalAlignment="Top"  />
-                <Label Grid.Row="1" Margin="0 0 0 0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Day</Label>
-                <ComboBox x:Name="cmbDaySelector" Grid.Row="1" Margin="0 0 50 0" Width="250" Height="30" VerticalAlignment="Top"
-                          HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"  DropDownClosed="CmbDaySelector_DropDownClosed"></ComboBox>
+                <Label Content="Availability Change Request" Grid.Row="0" Grid.Column="2" FontSize="32" FontWeight="SemiBold" 
+                                    HorizontalAlignment="Center" VerticalAlignment="Top" Margin="7,0"  />
+                <Label Grid.Row="1" Margin="7,10,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Day</Label>
+                <ComboBox x:Name="cmbDaySelector" Grid.Row="1" Margin="0,10,43,0" Width="250" Height="30" VerticalAlignment="Top"
+                          HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"  DropDownClosed="CmbDaySelector_DropDownClosed" Grid.Column="2"></ComboBox>
 
 
-                <Label x:Name="lblMondayStartTime" Grid.Row="1" Margin="0 40 0 0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Monday Start Time</Label>
-                <TextBox x:Name="txtMondayStartTime" Grid.Row="1" Margin="0 40 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblMondayEndTime" Grid.Row="1" Margin="0 80 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Monday End Time</Label>
-                <TextBox x:Name="txtMondayEndTime" Grid.Row="1" Margin="0 80 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblTuesdayStartTime" Grid.Row="1" Margin="0 40 0 0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Tuesday Start Time</Label>
-                <TextBox x:Name="txtTuesdayStartTime" Grid.Row="1" Margin="0 40 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblTuesdayEndTime" Grid.Row="1" Margin="0 80 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Tuesday End Time</Label>
-                <TextBox x:Name="txtTuesdayEndTime" Grid.Row="1" Margin="0 80 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblWednesdayStartTime" Grid.Row="1" Margin="0 40 0 0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Wednesday Start Time</Label>
-                <TextBox x:Name="txtWednesdayStartTime" Grid.Row="1" Margin="0 40 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblWednesdayEndTime" Grid.Row="1" Margin="0 80 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Wednesday End Time</Label>
-                <TextBox x:Name="txtWednesdayEndTime" Grid.Row="1" Margin="0 80 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblThursdayStartTime" Grid.Row="1" Margin="0 40 0 0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Thursday Start Time</Label>
-                <TextBox x:Name="txtThursdayStartTime" Grid.Row="1" Margin="0 40 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblThursdayEndTime" Grid.Row="1" Margin="0 80 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Thursday End Time</Label>
-                <TextBox x:Name="txtThursdayEndTime" Grid.Row="1" Margin="0 80 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <Label x:Name="lblMondayStartTime" Grid.Row="1" Margin="7,52,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Monday Start Time</Label>
+                <TextBox x:Name="txtMondayStartTime" Grid.Row="1" Margin="0,52,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblMondayEndTime" Grid.Row="1" Margin="10,92,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Monday End Time</Label>
+                <TextBox x:Name="txtMondayEndTime" Grid.Row="1" Margin="0,92,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblTuesdayStartTime" Grid.Row="1" Margin="6,52,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Tuesday Start Time</Label>
+                <TextBox x:Name="txtTuesdayStartTime" Grid.Row="1" Margin="0,52,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblTuesdayEndTime" Grid.Row="1" Margin="11,92,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Tuesday End Time</Label>
+                <TextBox x:Name="txtTuesdayEndTime" Grid.Row="1" Margin="0,92,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblWednesdayStartTime" Grid.Row="1" Margin="2,52,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Wednesday Start Time</Label>
+                <TextBox x:Name="txtWednesdayStartTime" Grid.Row="1" Margin="0,52,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblWednesdayEndTime" Grid.Row="1" Margin="7,92,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Wednesday End Time</Label>
+                <TextBox x:Name="txtWednesdayEndTime" Grid.Row="1" Margin="0,92,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblThursdayStartTime" Grid.Row="1" Margin="7,52,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Thursday Start Time</Label>
+                <TextBox x:Name="txtThursdayStartTime" Grid.Row="1" Margin="0,52,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblThursdayEndTime" Grid.Row="1" Margin="10,92,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Thursday End Time</Label>
+                <TextBox x:Name="txtThursdayEndTime" Grid.Row="1" Margin="0,92,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
                 <!--Second column of data-->
-                <Label x:Name="lblFridayStartTime" Grid.Row="1" Margin="0 40 0 0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Firday Start Time</Label>
-                <TextBox x:Name="txtFridayStartTime" Grid.Row="1" Margin="0 40 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblFridayEndTime"  Grid.Row="1" Margin="0 80 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Friday End Time</Label>
-                <TextBox x:Name="txtFridayEndTime" Grid.Row="1" Margin="0 80 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblSaturdayStartTime" Grid.Row="1" Margin="0 40 0 0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Saturday Start Time</Label>
-                <TextBox x:Name="txtSaturdayStartTime" Grid.Row="1"  Margin="0 40 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblSaturdayEndTime"  Grid.Row="1" Margin="0 80 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Saturday End Time</Label>
-                <TextBox x:Name="txtSaturdayEndTime" Grid.Row="1" Margin="0 80 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblSundayStartTime" Grid.Row="1" Margin="0 40 0 0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Sunday Start Time</Label>
-                <TextBox x:Name="txtSundayStartTime" Grid.Row="1" Margin="0 40 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label x:Name="lblSundayEndTime" Grid.Row="1" Margin="0 80 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Sunday End Time</Label>
-                <TextBox x:Name="txtSundayEndTime" Grid.Row="1" Margin="0 80 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
-                <Label Grid.Row="1" Margin="0 120 0 0" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                    FontWeight="DemiBold">Employee Name</Label>
-                <TextBox x:Name="txtEmpID" Grid.Row="1" Margin="0 120 50 0" Width="250" Height="30" VerticalAlignment="Top" 
-                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center"/>
+                <Label x:Name="lblFridayStartTime" Grid.Row="1" Margin="10,52,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Firday Start Time</Label>
+                <TextBox x:Name="txtFridayStartTime" Grid.Row="1" Margin="0,52,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblFridayEndTime"  Grid.Row="1" Margin="7,92,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Friday End Time</Label>
+                <TextBox x:Name="txtFridayEndTime" Grid.Row="1" Margin="0,92,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblSaturdayStartTime" Grid.Row="1" Margin="7,52,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Saturday Start Time</Label>
+                <TextBox x:Name="txtSaturdayStartTime" Grid.Row="1"  Margin="0,52,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblSaturdayEndTime"  Grid.Row="1" Margin="7,92,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Saturday End Time</Label>
+                <TextBox x:Name="txtSaturdayEndTime" Grid.Row="1" Margin="0,92,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblSundayStartTime" Grid.Row="1" Margin="7,52,0,0" VerticalAlignment="Top"  HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Sunday Start Time</Label>
+                <TextBox x:Name="txtSundayStartTime" Grid.Row="1" Margin="0,52,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label x:Name="lblSundayEndTime" Grid.Row="1" Margin="10,92,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Sunday End Time</Label>
+                <TextBox x:Name="txtSundayEndTime" Grid.Row="1" Margin="0,92,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
+                <Label Grid.Row="1" Margin="7,130,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    FontWeight="DemiBold" Grid.Column="2">Employee Name</Label>
+                <TextBox x:Name="txtEmpID" Grid.Row="1" Margin="0,130,43,0" Width="250" Height="30" VerticalAlignment="Top" 
+                                    HorizontalAlignment="Right" IsReadOnly="True" VerticalContentAlignment="Center" Grid.Column="2"/>
 
 
 
-                <Label Grid.Column="2"  VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold">New Availabilites</Label>
-                <DataGrid x:Name="dgNewAvailability" VerticalAlignment="Top" Margin="10,0,0,0" Height="330" IsReadOnly="True" SelectionMode="Single" FontSize="12" FontWeight="Medium" ColumnWidth="*" Grid.Column="2" Grid.Row="1" AutoGeneratedColumns="DgNewAvailability_AutoGeneratedColumns"></DataGrid>
-                <Label Grid.Column="1"  VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold">Current Availabilites</Label>
-                <DataGrid x:Name="dgAvailability" VerticalAlignment="Top" Height="145" IsReadOnly="True" SelectionMode="Single" FontSize="12" FontWeight="Medium" ColumnWidth="*" Grid.Column="1" Grid.Row="1" AutoGeneratedColumns="DgAvailability_AutoGeneratedColumns"></DataGrid>
-                <Label Grid.Column="1"  Grid.Row="1" VerticalAlignment="Top" Margin="0,145,0,0" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold">Requested Availabilites</Label>
-                <DataGrid x:Name="dgRequestedAvailability" VerticalAlignment="Top" Margin="0,185,0,0" Height="145" IsReadOnly="True" SelectionMode="Single" FontSize="12" FontWeight="Medium" ColumnWidth="*" Grid.Column="1" Grid.Row="1" AutoGeneratedColumns="DgRequestedAvailability_AutoGeneratedColumns" ></DataGrid>
-                <Button x:Name="btnAvailabilityApprove" Grid.Row="2" Grid.Column="2" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Left" 
-                                    Margin="75 5 0 0" Padding="5 -2 5 2" FontWeight="DemiBold" Click="btnAvailabilityApprove_Click">
-                    <Grid Width="80">
-                        <TextBlock Text="Approve" HorizontalAlignment="Center"/>
-                    </Grid>
+                <Label Grid.Column="2"  VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="401,0,296,105" Grid.ColumnSpan="2" Grid.Row="1">New Availabilites</Label>
+                <DataGrid x:Name="dgNewAvailability" VerticalAlignment="Top" Margin="277,245,160,-185" Height="330" IsReadOnly="True" SelectionMode="Single" FontSize="12" FontWeight="Medium" ColumnWidth="*" Grid.Column="2" Grid.Row="1" AutoGeneratedColumns="DgNewAvailability_AutoGeneratedColumns" Grid.ColumnSpan="2" Grid.RowSpan="2"></DataGrid>
+                <Label Grid.Column="1"  VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Margin="301,0,369,109" Grid.Row="1" Grid.ColumnSpan="2">Current Availabilites</Label>
+                <DataGrid x:Name="dgAvailability" VerticalAlignment="Top" Height="145" IsReadOnly="True" SelectionMode="Single" FontSize="12" FontWeight="Medium" ColumnWidth="*" Grid.Column="1" Grid.Row="1" AutoGeneratedColumns="DgAvailability_AutoGeneratedColumns" Grid.ColumnSpan="2" Margin="178,241,246,0" Grid.RowSpan="2"></DataGrid>
+                <Label Grid.Column="1"  Grid.Row="2" VerticalAlignment="Top" Margin="301,41,344,-35" HorizontalAlignment="Center" FontSize="18" FontWeight="Bold" Grid.ColumnSpan="2">Requested Availabilites</Label>
+                <DataGrid x:Name="dgRequestedAvailability" VerticalAlignment="Top" Margin="178,80,246,-185" Height="145" IsReadOnly="True" SelectionMode="Single" FontSize="12" FontWeight="Medium" ColumnWidth="*" Grid.Column="1" Grid.Row="2" AutoGeneratedColumns="DgRequestedAvailability_AutoGeneratedColumns" Grid.ColumnSpan="2" ></DataGrid>
+                <Button Content="Approve" x:Name="btnAvailabilityApprove" Grid.Row="2" Grid.Column="3" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" 
+                                    Margin="296,252,0,-242" Padding="5 -2 5 2" FontWeight="DemiBold" Click="btnAvailabilityApprove_Click">
+
 
                 </Button>
-                <Button x:Name="btnAvailabilityCancel" Grid.Row="2" FontSize="20" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 5 85 0"
-                                    Padding="5 -2 5 2" FontWeight="DemiBold" Click="btnAvailabilityCancel_Click">
-                    <Grid Width="80">
-                        <TextBlock Text="Cancel" HorizontalAlignment="Center"/>
-                    </Grid>
+                <Button Content="Cancel" x:Name="btnAvailabilityCancel" Grid.Row="2" Width="100" Height="30" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,252,135,-242"
+                                    Padding="5 -2 5 2" FontWeight="DemiBold" Click="btnAvailabilityCancel_Click" Grid.Column="3">
 
                 </Button>
             </Grid>
