@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -74,6 +75,7 @@
     <Compile Include="AnimalStatus.cs" />
     <Compile Include="AnimalVetAppointments.cs" />
     <Compile Include="Applicant.cs" />
+    <Compile Include="ApplicantVM.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="ApplicationVM.cs" />
     <Compile Include="Appointment.cs" />

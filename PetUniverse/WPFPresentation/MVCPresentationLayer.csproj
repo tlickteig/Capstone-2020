@@ -177,6 +177,7 @@
     <Compile Include="Controllers\DonationsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\FosterApplicantController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PoliciesAndStandardsController.cs" />
@@ -532,6 +533,8 @@
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
     <Content Include="Views\RequestScheduleChange\Create.cshtml" />
+    <Content Include="Views\FosterApplicant\Create.cshtml" />
+    <Content Include="Views\FosterApplicant\SuccessDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

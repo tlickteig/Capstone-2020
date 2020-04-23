@@ -786,7 +786,7 @@ CREATE TABLE [dbo].[Applicant](
 	[ApplicantID]			[int]IDENTITY(100000, 1)	NOT NULL,
 	[FirstName]				[nvarchar](50)				NOT NULL,
 	[LastName]				[nvarchar](50)				NOT NULL,
-	[MiddleName]			[nvarchar](50)				NOT NULL,
+	[MiddleName]			[nvarchar](50)				NULL,
 	[Email]					[nvarchar](250)				NOT NULL,
 	[PhoneNumber]			[nvarchar](11)				NOT NULL,
 	[AddressLine1]			[nvarchar](100)				NOT NULL,
@@ -794,6 +794,7 @@ CREATE TABLE [dbo].[Applicant](
 	[City]					[nvarchar](100)				NOT NULL,
 	[State]					[char](2)					NOT NULL,
 	[ZipCode]				[nvarchar](12)				NOT NULL,
+	[Foster]				[bit]						NOT NULL DEFAULT 0,
 	CONSTRAINT [pk_ApplicantID] PRIMARY KEY([ApplicantID] ASC),
 	CONSTRAINT [ak_Applicant_Email] UNIQUE([Email] ASC)
 )
@@ -1933,6 +1934,192 @@ CREATE TABLE [dbo].[ScheduleHours]
         REFERENCES [Schedule]([ScheduleID]),
     CONSTRAINT [fk_UserID_ScheduleHours] FOREIGN KEY ([UserID])
         REFERENCES [User]([UserID])
+)
+GO
+
+/*
+ Application Tables used for creating the application
+ Created By: Derek Talor
+*/ 
+DROP TABLE IF EXISTS [dbo].[Application]
+GO
+PRINT '' PRINT '*** Creating Application Table'
+GO
+CREATE TABLE [dbo].[Application](
+	[ApplicationID]			[int]IDENTITY(100000, 1)	NOT NULL,
+	[ApplicantID]			[int]						NOT NULL,
+	[JobListingID]			[int]						NOT NULL,
+	[SubmissionDate]		[datetime]					NOT NULL,
+	[Status]				[nvarchar](50)				NOT NULL,
+	CONSTRAINT [pk_Application_ApplicationID_ApplicantID] PRIMARY KEY([ApplicationID] ASC),
+	CONSTRAINT [fk_Application_ApplicantID] FOREIGN KEY([ApplicantID]) REFERENCES [Applicant]([ApplicantID]) ON UPDATE CASCADE, 
+	CONSTRAINT [fk_Application_JobListingID] FOREIGN KEY([JobListingID]) REFERENCES [JobListing]([JobListingID])
+)
+GO
+
+/*
+ Application Tables used for creating the application
+ Created By: Derek Talor
+*/ 
+DROP TABLE IF EXISTS [dbo].[ApplicationEducation]
+GO
+PRINT '' PRINT '*** Creating ApplicationEducation Table'
+GO
+CREATE TABLE [dbo].[ApplicationEducation](
+	[ApplicationID]			[int]						NOT NULL,
+	[SchoolName]			[nvarchar](75)				NOT NULL,
+	[City]					[nvarchar](50)				NOT NULL,
+	[State]					[char](2)					NOT NULL,
+	[LevelAchieved]			[nvarchar](100)				NOT NULL,
+	CONSTRAINT [pk_ApplicationID_SchoolName] PRIMARY KEY([ApplicationID] ASC, [SchoolName] ASC),
+	CONSTRAINT [fk_ApplicationEducation_ApplicationID] FOREIGN KEY([ApplicationID]) REFERENCES [Application]([ApplicationID])
+)
+GO
+
+/*
+ Application Tables used for creating the application
+ Created By: Derek Talor
+*/ 
+DROP TABLE IF EXISTS [dbo].[ApplicationReference]
+GO
+PRINT '' PRINT '*** Creating ApplicationReference Table'
+GO
+CREATE TABLE [dbo].[ApplicationReference](
+	[ReferenceID]			[nvarchar](75)				NOT NULL,
+	[ApplicationID]			[int]						NOT NULL,
+	[PhoneNumber]			[nvarchar](11)				NOT NULL,
+	[EmailAddress]			[nvarchar](250)				NOT NULL,
+	[Relationship]			[nvarchar](75)				NOT NULL,
+	CONSTRAINT [pk_ReferenceID_ApplicationID] PRIMARY KEY([ReferenceID] ASC, [ApplicationID] ASC),
+	CONSTRAINT [fk_ApplicationReference_ApplicationID] FOREIGN KEY([ApplicationID]) REFERENCES [Application]([ApplicationID])
+)
+GO
+
+/*
+ Application Tables used for creating the application
+ Created By: Derek Talor
+*/ 
+DROP TABLE IF EXISTS [dbo].[ApplicationResume]
+GO
+PRINT '' PRINT '*** Creating ApplicationResume Table'
+GO
+CREATE TABLE [dbo].[ApplicationResume](
+	[ResumeID]				[int]IDENTITY(100000, 1)	NOT NULL,
+	[ApplicationID]			[int]						NOT NULL,
+	[FilePath]				[nvarchar](250)				NOT NULL,
+	CONSTRAINT [pk_ResumeID_ApplicationID] PRIMARY KEY([ResumeID] ASC, [ApplicationID] ASC),
+	CONSTRAINT [fk_ApplicationResume_ApplicationID] FOREIGN KEY([ApplicationID]) REFERENCES [Application]([ApplicationID])
+)
+GO
+
+/*
+ Application Tables used for creating the application
+ Created By: Derek Talor
+*/ 
+DROP TABLE IF EXISTS [dbo].[ApplicationSkill]
+GO
+PRINT '' PRINT '*** Creating ApplicationSkill Table'
+GO
+CREATE TABLE [dbo].[ApplicationSkill](
+	[ApplicationSkillID]		[nvarchar](75)				NOT NULL,
+	[ApplicationID]				[int]						NOT NULL,
+	[Description]				[nvarchar](200)				NOT NULL,
+	CONSTRAINT [pk_ApplicationSkill] PRIMARY KEY([ApplicationSkillID] ASC, [ApplicationID] ASC),
+	CONSTRAINT [fk_ApplicationSkill_ApplicationID] FOREIGN KEY([ApplicationID]) REFERENCES [Application]([ApplicationID])
+)
+GO
+
+/*
+ Application Tables used for creating the application
+ Created By: Derek Talor
+*/ 
+DROP TABLE IF EXISTS [dbo].[PreviousExperience]
+GO
+PRINT '' PRINT '*** Creating PreviousExperience Table'
+GO
+CREATE TABLE [dbo].[PreviousExperience](
+	[ApplicationID]			[int]						NOT NULL,
+	[PreviousWorkName]		[nvarchar](75)				NOT NULL,
+	[City]					[nvarchar](50)				NOT NULL,
+	[State]					[char](2)					NOT NULL,
+	[Type]					[nvarchar](50)				NOT NULL,
+	CONSTRAINT [pk_PreviousWorkName_ApplicationID_PreviousWorkName] PRIMARY KEY([ApplicationID] ASC, [PreviousWorkName] ASC),
+	CONSTRAINT [fk_PreviousExperience_ApplicationID] FOREIGN KEY([ApplicationID]) REFERENCES [Application]([ApplicationID])
+)
+GO
+
+/*
+ Application Tables used for creating the application
+ Created By: Derek Talor
+*/ 
+DROP TABLE IF EXISTS [dbo].[ApplicationAvailability]
+GO
+PRINT '' PRINT '*** Creating ApplicationAvailability Table'
+GO
+CREATE TABLE [dbo].[ApplicationAvailability](
+	[ApplicationID]			[int]						NOT NULL,
+	[DayOfWeek]				[nvarchar](12)				NOT NULL,
+	[StartTime]				[time]						NOT NULL,
+	[EndTime]				[time]						NOT NULL,
+	CONSTRAINT [pk_ApplicationAvailability_ApplicationID_DayOfWeek] PRIMARY KEY([ApplicationID] ASC, [DayOfWeek] ASC),
+	CONSTRAINT [fk_ApplicationAvailability_ApplicationID] FOREIGN KEY([ApplicationID]) REFERENCES [Application]([ApplicationID])
+)
+GO
+
+/*
+ Application Tables used for creating the application
+ Created By: Derek Talor
+*/ 
+DROP TABLE IF EXISTS [dbo].[BackgroundCheck]
+GO
+PRINT '' PRINT '*** Creating BackgroundCheck Table'
+GO
+CREATE TABLE [dbo].[BackgroundCheck](
+	[ApplicationID]			[int]						NOT NULL,
+	[EmployeeID]			[int]						NOT NULL,
+	[DatePerformed]			[datetime]					NOT NULL,
+	[Notes]					[nvarchar](1000)			NOT NULL,
+	CONSTRAINT [pk_BackgroundCheck_ApplicationID_EmployeeID] PRIMARY KEY([ApplicationID] ASC, [EmployeeID] ASC),
+	CONSTRAINT [fk_BackgroundCheck_ApplicationID] FOREIGN KEY([ApplicationID]) REFERENCES [Application]([ApplicationID]),
+	CONSTRAINT [fk_BackgroundCheck_EmployeeID] FOREIGN KEY([EmployeeID]) REFERENCES [User]([UserID])
+)
+GO
+
+/*
+ Application Tables used for creating the application
+ Created By: Derek Talor
+*/ 
+DROP TABLE IF EXISTS [dbo].[HomeCheck]
+GO
+PRINT '' PRINT '*** Creating HomeCheck Table'
+GO
+CREATE TABLE [dbo].[HomeCheck](
+	[ApplicationID]			[int]						NOT NULL,
+	[EmployeeID]			[int]						NOT NULL,
+	[DatePerformed]			[datetime],
+	[Notes]					[nvarchar](1000),
+	CONSTRAINT [pk_HomeCheck_ApplicationID_EmployeeID] PRIMARY KEY([ApplicationID] ASC, [EmployeeID] ASC),
+	CONSTRAINT [fk_HomeCheck_ApplicationID] FOREIGN KEY([ApplicationID]) REFERENCES [Application]([ApplicationID]),
+	CONSTRAINT [fk_HomeCheck_EmployeeID] FOREIGN KEY([EmployeeID]) REFERENCES [User]([UserID])
+)
+GO
+
+/*
+ Application Tables used for creating the application
+ Created By: Derek Talor
+*/ 
+DROP TABLE IF EXISTS [dbo].[Interview]
+GO
+PRINT '' PRINT '*** Creating Interview Table'
+GO
+CREATE TABLE [dbo].[Interview](
+	[ApplicationID]			[int]						NOT NULL,
+	[EmployeeID]			[int]						NOT NULL,
+	[DatePerformed]			[datetime]					NOT NULL,
+	[Notes]					[nvarchar](1000)			NOT NULL,
+	CONSTRAINT [pk_Interview_ApplicationID_EmployeeID] PRIMARY KEY([ApplicationID] ASC, [EmployeeID] ASC),
+	CONSTRAINT [fk_Interview_ApplicationID] FOREIGN KEY([ApplicationID]) REFERENCES [Application]([ApplicationID]),
+	CONSTRAINT [fk_Interview_EmployeeID] FOREIGN KEY([EmployeeID]) REFERENCES [User]([UserID])
 )
 GO
 
@@ -10656,6 +10843,201 @@ END
 GO
 
 /*
+CREATED BY: Matt Deaton
+DATE: 2020-04-07
+COMMENT: Stored Procedure to insert a foster applicant.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_foster_applicant]
+GO
+PRINT '' PRINT '*** Creating sp_insert_foster_applicant'
+GO
+CREATE PROCEDURE [sp_insert_foster_applicant]
+(
+	@FirstName				[nvarchar](50),
+	@LastName				[nvarchar](50),		
+	@MiddleName				[nvarchar](50) = NULL,
+	@Email					[nvarchar](250),		
+	@PhoneNumber			[nvarchar](11),	
+	@AddressLine1			[nvarchar](100),		
+	@AddressLine2			[nvarchar](100) = NULL,		
+	@City					[nvarchar](100),		
+	@State					[char](2),			
+	@ZipCode				[nvarchar](12),
+	@Foster					[bit]			
+) 
+AS
+BEGIN
+	INSERT INTO [dbo].[Applicant]
+		([FirstName], [LastName], [MiddleName],		
+			[Email], [PhoneNumber], [AddressLine1], [AddressLine2],			
+			[City], [State], [ZipCode], [Foster])
+	VALUES
+		(@FirstName, @LastName, @MiddleName,
+			@Email, @PhoneNumber, @AddressLine1, @AddressLine2,
+			@City, @State, @ZipCode, @Foster)
+END
+GO
+
+/*
+CREATED BY: Matt Deaton
+DATE: 2020-04-07
+COMMENT: Stored Procedure to select an applicant by the applicantID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_applicant_by_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_applicant_by_id'
+GO
+CREATE PROCEDURE [sp_select_applicant_by_id]
+(
+	@ApplicantID 		[int]
+)
+AS	
+BEGIN
+	SELECT 	[ApplicantID], [FirstName], [LastName], [MiddleName],
+			[Email], [PhoneNumber], [AddressLine1], [AddressLine2],
+			[City], [State], [ZipCode], [Foster]
+	FROM	[dbo].[Applicant]
+	WHERE	[ApplicantID] = @ApplicantID
+END
+GO
+
+/*
+CREATED BY: Matt Deaton
+DATE: 2020-04-07
+COMMENT: Stored Procedure to delete an applicant by the applicantID
+*/
+
+DROP PROCEDURE IF EXISTS [sp_select_applicant_for_interview]
+GO
+PRINT '' PRINT '*** Creating sp_select_applicant_for_interview'
+GO
+CREATE PROCEDURE [sp_select_applicant_for_interview]
+(
+	@ApplicantID			[int]
+)
+AS
+BEGIN
+	SELECT
+	[Applicant].[ApplicantID],
+	[Applicant].[FirstName],
+	[Applicant].[LastName],
+	[Applicant].[MiddleName],
+	[Applicant].[Email],
+	[Applicant].[PhoneNumber],
+	[Applicant].[AddressLine1],
+	[Applicant].[AddressLine2],
+	[Applicant].[City],
+	[Applicant].[State],
+	[Applicant].[ZipCode],
+	[JobListing].[Position],
+	[ApplicationEducation].[SchoolName],
+	[ApplicationEducation].[City],
+	[ApplicationEducation].[State],
+	[ApplicationEducation].[LevelAchieved],
+	[ApplicationReference].[ReferenceID],
+	[ApplicationReference].[Relationship],
+	[ApplicationReference].[PhoneNumber],
+	[ApplicationReference].[EmailAddress],
+	[Application].[Status],
+	[ApplicationResume].[FilePath],
+	[Interview].[Notes],
+	[ApplicationSkill].[Description],
+	[PreviousExperience].[PreviousWorkName],
+	[PreviousExperience].[City],
+	[PreviousExperience].[State],
+	[PreviousExperience].[Type],
+	[Application].[ApplicationID],
+	[HomeCheck].[DatePerformed]
+	FROM [Applicant] JOIN [Application] ON [Application].[ApplicantID] = [Applicant].[ApplicantID]
+	JOIN [JobListing] ON [Application].[JobListingID] = [JobListing].[JobListingID]
+	JOIN [ApplicationEducation] ON [ApplicationEducation].[ApplicationID] = [Application].[ApplicationID]
+	JOIN [ApplicationReference] ON [ApplicationReference].[ApplicationID] = [Application].[ApplicationID]
+	JOIN [ApplicationResume] ON [ApplicationResume].[ApplicationID] = [Application].[ApplicationID]
+	JOIN [Interview] ON [Interview].[ApplicationID] = [Application].[ApplicationID]
+	JOIN [ApplicationSkill] ON [ApplicationSkill].[ApplicationID] = [Application].[ApplicationID]
+	JOIN [PreviousExperience] ON [PreviousExperience].[ApplicationID] = [Application].[ApplicationID]
+	JOIN [HomeCheck] ON [HomeCheck].[ApplicationID] = [Application].[ApplicationID]
+	WHERE [Applicant].[ApplicantID] = @ApplicantID
+END
+GO
+
+/*
+CREATED BY: Matt Deaton
+DATE: 2020-04-07
+COMMENT: Stored Procedure to update interview using the ApplicationID
+*/
+DROP PROCEDURE IF EXISTS [sp_update_interview_notes]
+GO
+PRINT '' PRINT '*** Creating sp_update_interview_notes'
+GO
+CREATE PROCEDURE [sp_update_interview_notes]
+(
+	@ApplicationID 		[int],
+	@OldNotes			[nvarchar](1000),
+	@NewNotes			[nvarchar](1000)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Interview]
+	SET [Notes] = @NewNotes
+	WHERE [ApplicationID] = @ApplicationID
+	AND [Notes] = @OldNotes
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+CREATED BY: Matt Deaton
+DATE: 2020-04-07
+COMMENT: Stored Procedure to update application status using the ApplicationID
+*/
+DROP PROCEDURE IF EXISTS [sp_update_application_status]
+GO
+PRINT '' PRINT '*** Creating sp_update_application_status'
+GO
+CREATE PROCEDURE [sp_update_application_status]
+(
+	@ApplicationID 		[int],
+	@OldStatus			[nvarchar](1000),
+	@NewStatus			[nvarchar](1000)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Application]
+	SET [Status] = @NewStatus
+	WHERE [ApplicationID] = @ApplicationID
+	AND [Status] = @OldStatus
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+CREATED BY: Matt Deaton
+DATE: 2020-04-07
+COMMENT: Stored Procedure to update home check date using the ApplicationID
+*/
+DROP PROCEDURE IF EXISTS [sp_update_home_check_date]
+GO
+PRINT '' PRINT '*** Creating sp_update_home_check_date'
+GO
+CREATE PROCEDURE [sp_update_home_check_date]
+(
+	@ApplicationID 				[int],
+	@OldHomeCheckDate			[datetime],
+	@NewHomeCheckDate			[datetime]
+)
+AS
+BEGIN
+	UPDATE [dbo].[HomeCheck]
+	SET [DatePerformed] = @NewHomeCheckDate
+	WHERE [ApplicationID] = @ApplicationID
+	AND [DatePerformed] = @OldHomeCheckDate
+	RETURN @@ROWCOUNT
+END
+GO
+
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -11097,19 +11479,7 @@ INSERT INTO [dbo].[Applicant]
 	('Matt', 'Deaton', 'Franklin','matt@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
 	('Hassan', 'Karar', 'MiddleName','hassan@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
 	('Gabrielle', 'Legrande', 'Sue','gabrielle@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Michael', 'Thompson', 'Michael','michael@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Zach', 'Behrensmeyer', 'Zachariah','zach@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Josh', 'Jackson', 'Barry','josh@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Ethan', 'Murphy', 'Clover','ethan@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Brandyn', 'Cloverdill', 'David','brandyn@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Dalton', 'Reierson', '','dalton@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Jesse', 'Tomash', '','jesse@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Rasha', 'Mohammed', '','rasha@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Zoey', 'McDonald', 'Elizabeth','zoey@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Alex', 'Biers', '','alex@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Ben', 'Hanna', '','ben@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Cash', 'Carlson', '','cash@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555'),
-	('Rob', 'Holmes', '','rob@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555')
+	('Michael', 'Thompson', 'Michael','michael@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555')
 GO
 
 /*
@@ -12265,7 +12635,10 @@ INSERT INTO [dbo].[JobListing]
 	('Admin', 'Free Healthcare, Horse-Dental, Jungle Gym Membership',
 	 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
 	('Customer', 'No Benefits', 'No Requirements',
-	 0000.01, 'Give us money in exchange for merchandise')
+	 0000.01, 'Give us money in exchange for merchandise'),
+	('Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in', 1),
+	('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves', 1),
+	('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own', 1)
 GO
 
 /*
@@ -12380,4 +12753,175 @@ INSERT INTO [dbo].[ScheduleHours]
 	VALUES
 	(1000000, 100002, 1, 2),
 	(1000001, 100002, 40, 0)
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-04-16
+Comment: Sample JobListing Data
+*/
+PRINT '' PRINT '*** Inserting Sample JobListing Data Records'
+GO
+INSERT INTO [dbo].[JobListing]
+		([Position], [Benefits], [Requirements], [StartingWage], [Responsibilities], [Active])
+	VALUES
+		('Dog Walker', 'No Benefits', 'Know how to walk', 7.50, 'Walk the dogs on a leash', 1),
+		('Kennel Cleaner', 'No Benefits', 'Know how to clean', 7.50, 'Clean the kennels out', 1),
+		('Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in', 1),
+		('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves', 1),
+		('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own', 1),
+		('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves', 1),
+		('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own', 1)
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-04-16
+Comment: Sample Application Data
+*/
+PRINT '' PRINT '*** Inserting Sample Application Data Records'
+GO
+INSERT INTO [dbo].[Application]
+		([ApplicantID], [JobListingID], [SubmissionDate], [Status])
+	VALUES
+		(100000, 100004, '20200207 08:55:01 AM', 'Pending Home Check'),
+		(100001, 100003, '20200207 09:55:01 AM', 'Pending Interview'),
+		(100002, 100005, '20200207 10:55:01 AM', 'Pending Interview'),
+		(100003, 100001, '20200207 11:55:01 AM', 'Declined'),
+		(100004, 100000, '20200207 12:55:01 PM', 'Approved'),
+		(100005, 100000, '20200207 01:55:01 PM', 'Approved'),
+		(100006, 100002, '20200207 02:55:01 PM', 'Check Notes')
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-04-16
+Comment: Sample ApplicationEducation Data
+*/
+PRINT '' PRINT '*** Inserting Sample ApplicationEducation Data Records'
+GO
+INSERT INTO [dbo].[ApplicationEducation]
+		([ApplicationID], [SchoolName], [City], [State], [LevelAchieved])
+	VALUES
+		(100000, 'New City High', 'New City', 'NY', 'Diploma'),
+		(100001, 'Kirkwood Community College', 'Iowa City', 'IA', 'Degree'),
+		(100002, 'Oakland City High', 'Oakland', 'CA', 'Diploma'),
+		(100003, 'Newton Senior High School', 'Newton', 'IA', 'Diploma'),
+		(100004, 'New City High', 'New City', 'AL', 'Diploma'),
+		(100005, 'New City High', 'New City', 'WA', 'Diploma'),
+		(100006, 'Kirkwood Community College', 'Cedar Rapids', 'IA', 'Associates Degree')
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-04-16
+Comment: Sample ApplicationReference Data
+*/
+PRINT '' PRINT '*** Inserting Sample ApplicationReference Data Records'
+GO
+INSERT INTO [dbo].[ApplicationReference]
+		([ReferenceID], [ApplicationID], [PhoneNumber], [EmailAddress], [Relationship])
+	VALUES
+		('Bob Trapp', 100000, '15637920291', 'bobbytrapp@infotech.com', 'Professor'),
+		('Jeff Lebowski', 100001, '15637920292', 'thedude@aol.com', 'Bowling Coach'),
+		('Arnold Palmer', 100002, '15637920293', 'lemonadeandtea@msn.com', 'Friend'),
+		('Bill Nye', 100003, '15637920294', 'billnyethescienceguy@sciencerules.com', 'Mentor'),
+		('Jim Glasgow', 100004, '15637920295', 'jim.glasgow@infotech.com', 'Professor'),
+		('Derek Taylor', 100005, '15637920296', 'derektaylor@msn.com', 'Classmate'),
+		('Charles Kwaitkowski', 100006, '13193920297', 'quitecowski@msn.com', 'Mentor')
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-04-16
+Comment: Sample ApplicationReference Data
+*/
+PRINT '' PRINT '*** Inserting Sample ApplicationReference Data Records'
+GO
+INSERT INTO [dbo].[ApplicationResume]
+		([ApplicationID], [FilePath])
+	VALUES
+	(100000, 'derek_taylor_resume.doc'),
+	(100001, 'ryan_morganti_resume.doc'),
+	(100002, 'steven_coonrod_resume.doc'),
+	(100003, 'matt_deaton_resume.doc'),
+	(100004, 'hassan_karar_resume.doc'),
+	(100005, 'gabrielle_legrande_resume.doc'),
+	(100006, 'michael_thompson_resume.doc')
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-04-16
+Comment: Sample ApplicationSkill Data
+*/
+PRINT '' PRINT '*** Inserting Sample ApplicationSkill Data Records'
+GO
+INSERT INTO [dbo].[ApplicationSkill]
+		([ApplicationSkillID], [ApplicationID], [Description])
+	VALUES
+	('Dog Owner', 100000, 'Already owns at least one dog'),
+	('Stock Experience', 100001, 'Shelf stock experience'),
+	('Groom Experience', 100002, 'Pet grooming experience'),
+	('No Experience', 100003, 'No animal experience'),
+	('Animal Walking Experience', 100004, 'Can walk animals'),
+	('Animal Walking Experience', 100005, 'Can walk animals'),
+	('Groom Experience', 100006, 'Pet grooming expert')
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-04-16
+Comment: Sample PreviousExperience Data
+*/
+PRINT '' PRINT '*** Inserting Sample PreviousExperience Data Records'
+GO
+INSERT INTO [dbo].[PreviousExperience]
+		([ApplicationID], [PreviousWorkName], [City], [State], [Type])
+	VALUES
+		(100000, 'Petco', 'New City', 'NY', 'Associate'),
+		(100001, 'Pioneer Coop', 'Iowa City', 'IA', 'Grocer'),
+		(100002, 'Petco', 'Oakland', 'CA', 'Associate'),
+		(100003, 'Student', 'Newton', 'IA', 'Student'),
+		(100004, 'Student', 'New City', 'AL', 'Student'),
+		(100005, 'Student', 'New City', 'WA', 'Student'),
+		(100006, 'Pet Smart', 'Cedar Rapids', 'IA', 'Groomer Expert')
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-04-16
+Comment: Sample Home Check Data
+*/
+PRINT '' PRINT '*** Inserting Sample HomeCheck Data Records'
+GO
+INSERT INTO [dbo].[HomeCheck]
+		([ApplicationID], [EmployeeID], [DatePerformed], [Notes])
+	VALUES
+	(100000, 100000, '20200207 01:55:01 PM', 'No Notes'),
+	(100001, 100000, NULL, NULL),
+	(100002, 100000, NULL, NULL),
+	(100003, 100000, NULL, NULL),
+	(100004, 100000, NULL, NULL),
+	(100005, 100000, NULL, NULL),
+	(100006, 100000, NULL, NULL)
+GO
+
+/*
+Created by: Matt Deaton
+Date: 2020-04-16
+Comment: Sample Interview Data
+*/
+PRINT '' PRINT '*** Inserting Sample Interview Data Records'
+GO
+INSERT INTO [dbo].[Interview]
+		([ApplicationID], [EmployeeID], [DatePerformed], [Notes])
+	VALUES	
+		(100000, 100000, '20200207 01:55:01 PM', 'Great feneced yard. One other dog.'),
+		(100001, 100000, '20200207 01:55:01 PM', ''),
+		(100002, 100000, '20200207 01:55:01 PM', ''),
+		(100003, 100000, '20200207 01:55:01 PM', 'No Experience, wanted too much money.'),
+		(100004, 100000, '20200207 01:55:01 PM', 'Great Applicant. Will Hire for walking dogs.'),
+		(100005, 100000, '20200207 01:55:01 PM', 'Great Applicant. Will Hire for walking dogs.'),
+		(100006, 100000, '20200207 01:55:01 PM', 'Great Applicant, but need to check references.')
 GO

@@ -95,7 +95,7 @@ namespace LogicLayer
         /// </remarks>
         /// 
         /// </summary>        
-        /// <returns>List of Applicantss</returns>
+        /// <returns>List of Applicants</returns>
         public List<Applicant> RetrieveApplicants()
         {
             try
@@ -107,5 +107,199 @@ namespace LogicLayer
                 throw new ApplicationException("Data not found.", ex);
             }
         }
-    }
-}
+
+        /// <summary>
+        /// CREATED BY: Matt Deaton
+        /// DATE CREATED: 2020-04-07
+        /// APPROVED BY:
+        /// 
+        /// Method to add a Foster Applicant.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="fosterApplicant"></param>
+        /// <returns></returns>
+        public bool AddFosterApplicant(Applicant fosterApplicant)
+        {
+            try
+            {
+                return 1 == _applicantAccessor.InsertFosterApplicant(fosterApplicant);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Insert Failed", ex);
+            }
+
+        }// End AddFosterApplicant
+
+        /// <summary>
+        /// CREATED BY: Matt Deaton
+        /// DATE CREATED: 2020-04-07
+        /// APPROVED BY:
+        /// 
+        /// Logic Layer method that retrieves an applicant by their applicantID.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="applicant"></param>
+        /// <returns></returns>
+        public Applicant RetrieveApplicantByID(int applicantID)
+        {
+            Applicant applicant = null;
+
+            try
+            {
+                applicant = _applicantAccessor.SelectApplicantByID(applicantID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Applicant could not be found.", ex);
+            }
+
+            return applicant;
+        }// End RetrieveApplicantByID()
+
+        /// <summary>
+        /// CREATED BY: Matt Deaton
+        /// DATE CREATED: 2020-04-12
+        /// APPROVED BY:
+        /// 
+        /// Logic Layer method that Retrieves an applicant  for an 
+        /// interview using their applicantID.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="applicantID"></param>
+        /// <returns></returns>
+        public ApplicantVM RetrieveApplicantForInterview(int applicantID)
+        {
+            try
+            {
+                return _applicantAccessor.SelectApplicantForInterview(applicantID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Applicant not found.", ex);
+            }
+        }// End RetrieveApplicantForInterview()
+
+        /// <summary>
+        /// CREATED BY: Matt Deaton
+        /// DATE CREATED: 2020-04-12
+        /// APPROVED BY:
+        /// 
+        /// Logic Layer method that updates the notes for an interview.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="applicantionID"></param>
+        /// <param name="oldNotes"></param>
+        /// <param name="newNotes"></param>
+        /// <returns></returns>
+        public bool EditInterviewNotes(int applicantionID, string oldNotes, string newNotes)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _applicantAccessor.UpdateInterviewNotes(applicantionID, oldNotes, newNotes));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Applicant could not be update.", ex);
+            }
+
+            return result;
+        }// End EditInterviewNotes()
+
+        /// <summary>
+        /// CREATED BY: Matt Deaton
+        /// DATE CREATED: 2020-04-07
+        /// APPROVED BY:
+        /// 
+        /// Logic Layer method that will update home check date by using the applicantID.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="applicantionID"></param>
+        /// <param name="oldStatus"></param>
+        /// <param name="newStatus"></param>
+        /// <returns></returns>
+        public bool EditApplicationStatus(int applicantionID, string oldStatus, string newStatus)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _applicantAccessor.UpdateApplicationStatus(applicantionID, oldStatus, newStatus));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Applicant could not be update.", ex);
+            }
+
+            return result;
+        }// End EditApplicationStatus
+
+        /// <summary>
+        /// CREATED BY: Matt Deaton
+        /// DATE CREATED: 2020-04-07
+        /// APPROVED BY:
+        /// 
+        /// Logic Layer method that will update home check date by using the applicantID.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// 
+        /// </remarks>
+        /// <param name="applicationID"></param>
+        /// <param name="oldDate"></param>
+        /// <param name="newDate"></param>
+        /// <returns></returns>
+        public bool EditHomeCheckDate(int applicationID, DateTime? oldDate, DateTime? newDate)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _applicantAccessor.UpdateHomeCheckDate(applicationID, oldDate, newDate));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Date Change Did Not Occur", ex);
+            }
+
+            return result;
+        }// End EditHomeCheckDate
+
+    }// End class ApplicantManager : IApplicantManager
+
+}// End namespace LogicLayer

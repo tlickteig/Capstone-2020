@@ -552,6 +552,19 @@
                         </Canvas>
                     </Grid>
                 </TabItem>
+                
+                <!-- Name: Matt Deaton
+             Date: 2020-04-11
+             CHECKED BY: 
+             
+             This tab will show information to be used during an interview
+              
+             UPDATE BY: NA
+             UPDATE DATE: NA
+             CHANGE: NA -->
+                <TabItem x:Name="tabApplicantInterview" Header="Applicants" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./PersonnelPages/ViewApplicants.xaml" NavigationUIVisibility="Hidden"></Frame>
+                </TabItem>
 
             </TabControl>
         </Canvas>

@@ -183,8 +183,14 @@
     <Compile Include="InventoryPages\ViewSpecialOrders.xaml.cs">
       <DependentUpon>ViewSpecialOrders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonnelPages\InterviewApplicant.xaml.cs">
+      <DependentUpon>InterviewApplicant.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PersonnelPages\pgBaseScheduleControls.xaml.cs">
       <DependentUpon>pgBaseScheduleControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonnelPages\ViewApplicants.xaml.cs">
+      <DependentUpon>ViewApplicants.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\FilterItem.xaml.cs">
       <DependentUpon>FilterItem.xaml</DependentUpon>
@@ -479,9 +485,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PersonnelPages\InterviewApplicant.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PersonnelPages\pgBaseScheduleControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PersonnelPages\ViewApplicants.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\FilterItem.xaml">
       <SubType>Designer</SubType>
