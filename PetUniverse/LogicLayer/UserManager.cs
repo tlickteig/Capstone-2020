@@ -507,7 +507,7 @@ namespace LogicLayer
             List<ActiveTimeOff> allUsersActiveTimeOff = new List<ActiveTimeOff>();
 
             //List of all Users' Availability records
-            List<Availability> allUsersAvailabilities = new List<Availability>();
+            List<EmployeeAvailability> allUsersAvailabilities = new List<EmployeeAvailability>();
 
             try
             {
@@ -569,11 +569,11 @@ namespace LogicLayer
                         bool userHasAvailability = false;
 
                         //Check if the User has Availability on the specified Week Day at the specified Time
-                        foreach (Availability availability in allUsersAvailabilities)
+                        foreach (EmployeeAvailability availability in allUsersAvailabilities)
                         {
                             //Availability record has User's ID and WeekDay matches and Availability StartTime is equal or before new Shift's StartTime
                             //and Availability EndTime is equal or later than new Shift's EndTime
-                            if (availability.UserID == currentUser.PUUserID && availability.DayOfWeek.Equals(weekDay) &&
+                            if (availability.EmployeeID == currentUser.PUUserID && availability.DayOfWeek.Equals(weekDay) &&
                                 ((Convert.ToDateTime(availability.StartTime).TimeOfDay <= startTime.TimeOfDay) && (Convert.ToDateTime(availability.EndTime).TimeOfDay >= endTime.TimeOfDay)))
                             {
                                 userHasAvailability = true;

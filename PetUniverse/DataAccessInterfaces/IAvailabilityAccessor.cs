@@ -25,7 +25,7 @@ namespace DataAccessInterfaces
         /// UPDATE: NA
         /// 
         /// </remarks>
-        List<Availability> SelectAllUsersAvailability();
+        List<EmployeeAvailability> SelectAllUsersAvailability();
 
         /// <summary>
         /// Creator: Chase Schulte
@@ -40,7 +40,7 @@ namespace DataAccessInterfaces
         /// Updated:
         /// Update: 
         /// </remarks>
-        List<Availability> SelectAllAvailabilities();
+        List<EmployeeAvailability> SelectAllAvailabilities();
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2020/03/28
@@ -73,7 +73,7 @@ namespace DataAccessInterfaces
         /// <param name="newAvailability"></param>
         /// <param name="oldAvailability"></param>
         /// <returns></returns>
-        int UpdateAvailability(Availability newAvailability, Availability oldAvailability);
+        int UpdateAvailability(EmployeeAvailability newAvailability, EmployeeAvailability oldAvailability);
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2020/03/28
@@ -121,6 +121,6 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="availability"></param>
         /// <returns></returns>
-        int InsertAvailability(Availability availability);
+        int InsertAvailability(EmployeeAvailability availability);
     }
 }

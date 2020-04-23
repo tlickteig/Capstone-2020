@@ -23,7 +23,7 @@ namespace LogicLayerInterfaces
         /// Update: N/A
         /// </remarks>
         /// <returns></returns>
-        List<Availability> RetrieveAllAvailabilities();
+        List<EmployeeAvailability> RetrieveAllAvailabilities();
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2020/04/07
@@ -56,7 +56,7 @@ namespace LogicLayerInterfaces
         /// <param name="newAvailability"></param>
         /// <param name="oldAvailability"></param>
         /// <returns></returns>
-        bool EditAvailability(Availability newAvailability, Availability oldAvailability);
+        bool EditAvailability(EmployeeAvailability newAvailability, EmployeeAvailability oldAvailability);
         /// <summary>
         /// Creator: Chase Schulte
         /// Created: 2020/04/07
@@ -104,6 +104,6 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <param name="availability"></param>
         /// <returns></returns>
-        bool AddAvailability(Availability availability);
+        bool AddAvailability(EmployeeAvailability availability);
     }
 }

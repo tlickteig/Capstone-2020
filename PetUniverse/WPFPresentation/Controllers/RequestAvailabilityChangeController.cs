@@ -80,13 +80,13 @@ namespace WPFPresentation.Controllers
         {
             List<AvailabilityRequestVM> availabilityRequestList = new List<AvailabilityRequestVM>();
 
-            List<Availability> sundayAvailabilities = new List<Availability>();
-            List<Availability> mondayAvailabilities = new List<Availability>();
-            List<Availability> tuesdayAvailabilities = new List<Availability>();
-            List<Availability> wednesdayAvailabilities = new List<Availability>();
-            List<Availability> thursdayAvailabilities = new List<Availability>();
-            List<Availability> fridayAvailabilities = new List<Availability>();
-            List<Availability> saturdayAvailabilities = new List<Availability>();
+            List<EmployeeAvailability> sundayAvailabilities = new List<EmployeeAvailability>();
+            List<EmployeeAvailability> mondayAvailabilities = new List<EmployeeAvailability>();
+            List<EmployeeAvailability> tuesdayAvailabilities = new List<EmployeeAvailability>();
+            List<EmployeeAvailability> wednesdayAvailabilities = new List<EmployeeAvailability>();
+            List<EmployeeAvailability> thursdayAvailabilities = new List<EmployeeAvailability>();
+            List<EmployeeAvailability> fridayAvailabilities = new List<EmployeeAvailability>();
+            List<EmployeeAvailability> saturdayAvailabilities = new List<EmployeeAvailability>();
 
             //Add each availability to a List of Availabilities for that day
             for (int i = 0; i < availabilityStringList.Count; i = i + 3)
@@ -98,7 +98,7 @@ namespace WPFPresentation.Controllers
                 switch (weekDay)
                 {
                     case "Sunday":
-                        sundayAvailabilities.Add(new Availability()
+                        sundayAvailabilities.Add(new EmployeeAvailability()
                         {
                             DayOfWeek = weekDay,
                             StartTime = startTime,
@@ -106,7 +106,7 @@ namespace WPFPresentation.Controllers
                         });
                         break;
                     case "Monday":
-                        mondayAvailabilities.Add(new Availability()
+                        mondayAvailabilities.Add(new EmployeeAvailability()
                         {
                             DayOfWeek = weekDay,
                             StartTime = startTime,
@@ -114,7 +114,7 @@ namespace WPFPresentation.Controllers
                         });
                         break;
                     case "Tuesday":
-                        tuesdayAvailabilities.Add(new Availability()
+                        tuesdayAvailabilities.Add(new EmployeeAvailability()
                         {
                             DayOfWeek = weekDay,
                             StartTime = startTime,
@@ -122,7 +122,7 @@ namespace WPFPresentation.Controllers
                         });
                         break;
                     case "Wednesday":
-                        wednesdayAvailabilities.Add(new Availability()
+                        wednesdayAvailabilities.Add(new EmployeeAvailability()
                         {
                             DayOfWeek = weekDay,
                             StartTime = startTime,
@@ -130,7 +130,7 @@ namespace WPFPresentation.Controllers
                         });
                         break;
                     case "Thursday":
-                        thursdayAvailabilities.Add(new Availability()
+                        thursdayAvailabilities.Add(new EmployeeAvailability()
                         {
                             DayOfWeek = weekDay,
                             StartTime = startTime,
@@ -138,7 +138,7 @@ namespace WPFPresentation.Controllers
                         });
                         break;
                     case "Friday":
-                        fridayAvailabilities.Add(new Availability()
+                        fridayAvailabilities.Add(new EmployeeAvailability()
                         {
                             DayOfWeek = weekDay,
                             StartTime = startTime,
@@ -146,7 +146,7 @@ namespace WPFPresentation.Controllers
                         });
                         break;
                     case "Saturday":
-                        saturdayAvailabilities.Add(new Availability()
+                        saturdayAvailabilities.Add(new EmployeeAvailability()
                         {
                             DayOfWeek = weekDay,
                             StartTime = startTime,

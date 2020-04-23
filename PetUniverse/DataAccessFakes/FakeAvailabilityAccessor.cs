@@ -8,7 +8,7 @@ namespace DataAccessFakes
     public class FakeAvailabilityAccessor : IAvailabilityAccessor
     {
         List<AvailabilityVM> availabilitiesVM = null;
-        List<Availability> availabilities = null;
+        List<EmployeeAvailability> availabilities = null;
         List<PetUniverseUser> petUniverseUsers = null;
         /// <summary>
         /// Creator: Chase Schulte
@@ -26,32 +26,32 @@ namespace DataAccessFakes
         public FakeAvailabilityAccessor()
         {
 
-            availabilities = new List<Availability>()
+            availabilities = new List<EmployeeAvailability>()
             {
-                new Availability()
+                new EmployeeAvailability()
                 {
-                   AvailabilityID = 1, UserID = 100000, DayOfWeek = "Monday", StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
+                   AvailabilityID = 1, EmployeeID = 100000, DayOfWeek = "Monday", StartTime = new DateTime(2020, 4, 21, 10, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
                 },
-                new Availability()
+                new EmployeeAvailability()
                 {
-                   AvailabilityID = 2, UserID = 100001, DayOfWeek = "Tuesday", StartTime = new DateTime(2020, 4, 21, 1, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
+                   AvailabilityID = 2, EmployeeID = 100001, DayOfWeek = "Tuesday", StartTime = new DateTime(2020, 4, 21, 1, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
                 },
-                new Availability()
+                new EmployeeAvailability()
                 {
-                   AvailabilityID = 3, UserID = 100000, DayOfWeek = "Thursday", StartTime = new DateTime(2020, 4, 21, 1, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
+                   AvailabilityID = 3, EmployeeID = 100000, DayOfWeek = "Thursday", StartTime = new DateTime(2020, 4, 21, 1, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
                 },
-                new Availability()
+                new EmployeeAvailability()
                 {
-                   AvailabilityID = 4, UserID = 100001, DayOfWeek = "Thursday", StartTime = new DateTime(2020, 4, 21, 1, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
+                   AvailabilityID = 4, EmployeeID = 100001, DayOfWeek = "Thursday", StartTime = new DateTime(2020, 4, 21, 1, 0, 0).ToString(), EndTime = new DateTime(2020, 4, 21, 23, 0, 0).ToString()
                 }
             };
 
             //Fake data for Availability
             availabilitiesVM = new List<AvailabilityVM>()
             {
-                new AvailabilityVM(){AvailabilityID = 1, DayOfWeek = "Monday", StartTime="10:00", EndTime = "18:00", UserID =  1},
-                new AvailabilityVM(){AvailabilityID = 2, DayOfWeek = "Tuesday", StartTime="10:00", EndTime = "18:00", UserID =  1},
-                new AvailabilityVM(){AvailabilityID = 3, DayOfWeek = "Friday", StartTime="10:00", EndTime = "18:00", UserID =  1}
+                new AvailabilityVM(){AvailabilityID = 1, DayOfWeek = "Monday", StartTime="10:00", EndTime = "18:00", EmployeeID =  1},
+                new AvailabilityVM(){AvailabilityID = 2, DayOfWeek = "Tuesday", StartTime="10:00", EndTime = "18:00", EmployeeID =  1},
+                new AvailabilityVM(){AvailabilityID = 3, DayOfWeek = "Friday", StartTime="10:00", EndTime = "18:00", EmployeeID =  1}
 
             };
 
@@ -129,7 +129,7 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="availability"></param>
         /// <returns></returns>
-        public int InsertAvailability(Availability availability)
+        public int InsertAvailability(EmployeeAvailability availability)
         {
             int result = 0;
             if (availability.EndTime.Length > 20)
@@ -145,7 +145,7 @@ namespace DataAccessFakes
                 throw new Exception();
             }
             //Make sure user ID is in list
-            if (petUniverseUsers.Find(av => av.PUUserID == availability.UserID) != null)
+            if (petUniverseUsers.Find(av => av.PUUserID == availability.EmployeeID) != null)
             {
                 result = 1;
             }
@@ -174,7 +174,7 @@ namespace DataAccessFakes
         /// Update: 
         /// </remarks>
         /// <returns></returns>
-        public List<Availability> SelectAllAvailabilities()
+        public List<EmployeeAvailability> SelectAllAvailabilities()
         {
             return availabilities;
         }
@@ -195,7 +195,7 @@ namespace DataAccessFakes
         /// <returns></returns>
         public List<AvailabilityVM> SelectAvailabilityByUserID(int userID)
         {
-            if (availabilities.Find(av => av.UserID == userID) != null)
+            if (availabilities.Find(av => av.EmployeeID == userID) != null)
             {
                 return availabilitiesVM;
             }
@@ -217,11 +217,11 @@ namespace DataAccessFakes
         /// <param name="newAvailability"></param>
         /// <param name="oldAvailability"></param>
         /// <returns></returns>
-        public int UpdateAvailability(Availability newAvailability, Availability oldAvailability)
+        public int UpdateAvailability(EmployeeAvailability newAvailability, EmployeeAvailability oldAvailability)
         {
             int result = 0;
             //check old availability
-            if (availabilities.Find(av => av.AvailabilityID == oldAvailability.AvailabilityID && av.DayOfWeek == oldAvailability.DayOfWeek && av.EndTime == oldAvailability.EndTime && av.StartTime == oldAvailability.StartTime && av.UserID == oldAvailability.UserID) != null)
+            if (availabilities.Find(av => av.AvailabilityID == oldAvailability.AvailabilityID && av.DayOfWeek == oldAvailability.DayOfWeek && av.EndTime == oldAvailability.EndTime && av.StartTime == oldAvailability.StartTime && av.EmployeeID == oldAvailability.EmployeeID) != null)
             {
                 result = 1;
             }
@@ -240,7 +240,7 @@ namespace DataAccessFakes
             }
             result = 0;
             //Make sure id match
-            if (petUniverseUsers.Find(pu => pu.PUUserID == newAvailability.UserID) != null)
+            if (petUniverseUsers.Find(pu => pu.PUUserID == newAvailability.EmployeeID) != null)
             {
                 result = 1;
             }
@@ -289,7 +289,7 @@ namespace DataAccessFakes
         /// UPDATE: NA
         /// 
         /// </remarks>
-        public List<Availability> SelectAllUsersAvailability()
+        public List<EmployeeAvailability> SelectAllUsersAvailability()
         {
             return availabilities;
         }
