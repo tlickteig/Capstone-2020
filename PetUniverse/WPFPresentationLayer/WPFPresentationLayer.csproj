@@ -300,8 +300,8 @@
     <Compile Include="RecruitingPages\ListRequests.xaml.cs">
       <DependentUpon>ListRequests.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SystemAdminPages\LogView.xaml.cs">
-      <DependentUpon>LogView.xaml</DependentUpon>
+    <Compile Include="SystemAdminPages\pgLogView.xaml.cs">
+      <DependentUpon>pgLogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -315,8 +315,8 @@
     <Compile Include="SystemAdminPages\pgMessages.xaml.cs">
       <DependentUpon>pgMessages.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SystemAdminPages\UserControls.xaml.cs">
-      <DependentUpon>UserControls.xaml</DependentUpon>
+    <Compile Include="SystemAdminPages\pgUserControls.xaml.cs">
+      <DependentUpon>pgUserControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\AddEditVolunteer.xaml.cs">
       <DependentUpon>AddEditVolunteer.xaml</DependentUpon>
@@ -635,7 +635,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SystemAdminPages\LogView.xaml">
+    <Page Include="SystemAdminPages\pgLogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -659,7 +659,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SystemAdminPages\UserControls.xaml">
+    <Page Include="SystemAdminPages\pgUserControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
