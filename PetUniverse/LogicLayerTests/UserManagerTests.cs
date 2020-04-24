@@ -704,6 +704,21 @@ namespace LogicLayerTests
             Assert.AreEqual(2, users.Count);
         }
 
+        [TestMethod]
+        public void TestChangeUserPassword()
+        {
+            //Arrange
+            int userID = 100000;
+            string currentPassword = "newuser";
+            string newPassword = "PetsRule!";
+
+            //act
+            bool result = _userManager.UpdatePassword(userID, currentPassword, newPassword);
+
+            //Assert
+            Assert.IsTrue(result);
+        }
+
         /// <summary>
         /// Creator: Steven Cardona
         /// Created: 02/07/2020

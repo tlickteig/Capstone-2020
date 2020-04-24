@@ -11036,6 +11036,30 @@ BEGIN
 END
 GO
 
+/*
+CREATED BY: Zach Behrensmeyer
+DATE: 4/23/2020
+COMMENT: Stored Procedure to update Password
+*/
+DROP PROCEDURE IF EXISTS [sp_update_password]
+print '' print '*** Creating sp_update_password'
+GO
+CREATE Procedure sp_update_user_password
+(
+@UserID 	[int],
+@OldPasswordHash	[nvarchar](100),
+@NewPasswordHash	[nvarchar](100)             
+)
+AS
+BEGIN
+UPDATE [dbo].[User]
+SET [PasswordHash] = @NewPasswordHash
+Where [UserID] = @UserID
+AND [PasswordHash] = @OldPasswordHash
+Return @@ROWCOUNT
+END
+GO
+
 
 /*
  ******************************* Inserting Sample Data *****************************

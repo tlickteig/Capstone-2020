@@ -527,5 +527,10 @@ namespace DataAccessFakes
 
             return users;
         }
+
+        public bool UpdatePasswordHash(int userID, string oldPasswordHash, string newPasswordHash)
+        {
+            return true;
+        }
     }
 }

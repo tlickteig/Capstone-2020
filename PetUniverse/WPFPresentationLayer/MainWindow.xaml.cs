@@ -162,13 +162,24 @@ namespace WPFPresentationLayer
                                 }
                             }
 
-                            _userID = _user.PUUserID;
+                            if (pwdPassword.Password == "newuser")
+                            {
+                                var updatePassword = new UpdatePassword(_user, _userManager);
+                                if (updatePassword.ShowDialog() == false)
+                                {
+                                    this.Visibility = Visibility.Hidden;
+                                    var petUniverseHome1 = new PetUniverseHome(_user, userRoles);
+                                }
+                            }
+                            else
+                            {
+                             
+                                this.Visibility = Visibility.Hidden;
 
-                            this.Visibility = Visibility.Hidden;
-
-                            //Log successful login
-                            LogHelper.log.Info("Email: " + txtEmail.Text + " Successfully logged in.");
-                            var petUniverseHome = new PetUniverseHome(_user, userRoles);
+                                //Log successful login
+                                LogHelper.log.Info("Email: " + txtEmail.Text + " Successfully logged in.");
+                                var petUniverseHome = new PetUniverseHome(_user, userRoles);
+                            }                            
                         }
                     }
                     catch (Exception ex)

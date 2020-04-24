@@ -226,5 +226,14 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="roleID"></param>
         List<PetUniverseUser> SelectActiveUsersByRole(string roleID);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="oldPasswordHash"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
+        bool UpdatePasswordHash(int userID, string oldPasswordHash, string newPasswordHash);
     }
 }

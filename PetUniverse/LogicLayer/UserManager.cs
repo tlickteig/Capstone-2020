@@ -596,5 +596,32 @@ namespace LogicLayer
             }
             return acceptableReplacementUsers;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="newPassword"></param>
+        /// <param name="oldPassword"></param>
+        /// <returns></returns>
+        public bool UpdatePassword(int userID, string newPassword, string oldPassword)
+        {
+            bool updated = false;
+
+            string newPasswordHash = hashPassword(newPassword);
+            string oldPasswordHash = hashPassword(oldPassword);
+
+            try
+            {
+                updated = _userAccessor.UpdatePasswordHash(userID,
+                    oldPasswordHash, newPasswordHash);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Password update failed.", ex);
+            }
+            return updated;
+        }
+
     }
 }

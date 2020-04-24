@@ -737,5 +737,44 @@ namespace DataAccessLayer
 
             return users;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="oldPasswordHash"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
+        public bool UpdatePasswordHash(int userID, string oldPasswordHash, string newPasswordHash)
+        {
+            bool succesfulUpdate = false;
+            var dexConn = DBConnection.GetConnection();
+            var dexCmd = new SqlCommand("sp_update_user_password");
+            dexCmd.Connection = dexConn;
+            dexCmd.CommandType = CommandType.StoredProcedure;
+            dexCmd.Parameters.Add("@UserID", SqlDbType.Int);
+            dexCmd.Parameters.Add("@OldPasswordHash", SqlDbType.NVarChar, 100);
+            dexCmd.Parameters.Add("@NewPasswordHash", SqlDbType.NVarChar, 100);
+
+            dexCmd.Parameters["@UserID"].Value = userID;
+            dexCmd.Parameters["@OldPasswordHash"].Value = oldPasswordHash;
+            dexCmd.Parameters["@NewPasswordHash"].Value = newPasswordHash;
+            try
+            {
+                dexConn.Open();
+                int rows = dexCmd.ExecuteNonQuery();
+                succesfulUpdate = (rows == 1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                dexConn.Close();
+            }
+            return succesfulUpdate;
+        }
+
     }
 }

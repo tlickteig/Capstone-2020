@@ -330,6 +330,9 @@
     <Compile Include="SystemAdminPages\pgUserControls.xaml.cs">
       <DependentUpon>pgUserControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UpdatePassword.xaml.cs">
+      <DependentUpon>UpdatePassword.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\AddEditVolunteer.xaml.cs">
       <DependentUpon>AddEditVolunteer.xaml</DependentUpon>
     </Compile>
@@ -684,6 +687,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="SystemAdminPages\pgUserControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdatePassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

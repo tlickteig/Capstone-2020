@@ -236,5 +236,14 @@ namespace LogicLayerInterfaces
         /// <param name="roleID"></param>
         List<PetUniverseUser> RetrieveUsersAbleToWork(DateTime date, string weekDay, DateTime startTime, DateTime endTime, string roleID);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userID"></param>
+        /// <param name="newPassword"></param>
+        /// <param name="oldPassword"></param>
+        /// <returns></returns>
+        bool UpdatePassword(int userID, string newPassword, string oldPassword);
+
     }
 }
