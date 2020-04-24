@@ -58,7 +58,7 @@ steps:
 - task: PythonScript@0
   inputs:
     scriptSource: 'filePath'
-    scriptPath: 'db_transfomer.py'
+    scriptPath: '$(system.defaultworkingdirectory)/db_transfomer.py'
     arguments: 'PetUniverse/DB_Script/PetUniverseDB.sql'
 
 - task: CopyFiles@2
