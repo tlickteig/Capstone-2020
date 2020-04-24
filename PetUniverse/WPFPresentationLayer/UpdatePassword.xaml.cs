@@ -17,13 +17,33 @@ using System.Windows.Shapes;
 namespace WPFPresentationLayer
 {
     /// <summary>
-    /// Interaction logic for UpdatePassword.xaml
+    /// Creator: Zach Behrensmeyer
+    /// Created: 4/24/2020
+    /// Approver: Steven Cardona
+    /// 
+    /// This class controls the UpdatePassword window
+    /// 
     /// </summary>
     public partial class UpdatePassword : Window
     {
         private PetUniverseUser _PUUser = null;
         private IUserManager _userManager = null;
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/24/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This is a constructor for UpdatePassword class
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="PUUser"></param>
+        /// <param name="UserManager"></param>
         public UpdatePassword(PetUniverseUser PUUser, IUserManager UserManager)
         {
             InitializeComponent();
@@ -31,7 +51,21 @@ namespace WPFPresentationLayer
             _userManager = UserManager;
         }
 
-        //Initiates Password change
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/24/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method used to change the password and check to make sure its valid
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnSubmit_Click(object sender, RoutedEventArgs e)
         {
             if (pwdCurrentUserPassword.Password.Length < 7)

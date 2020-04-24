@@ -739,8 +739,17 @@ namespace DataAccessLayer
         }
 
         /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/24/2020
+        /// Approver: Steven Cardona
         /// 
+        /// This method is used to update a user password
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
         /// <param name="userID"></param>
         /// <param name="oldPasswordHash"></param>
         /// <param name="newPasswordHash"></param>

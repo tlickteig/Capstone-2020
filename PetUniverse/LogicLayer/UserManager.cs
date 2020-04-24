@@ -598,11 +598,20 @@ namespace LogicLayer
         }
 
         /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/20/2020
+        /// Approver: Steven Cardona
         /// 
+        /// This method is used to update a user password
         /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
         /// <param name="userID"></param>
-        /// <param name="newPassword"></param>
-        /// <param name="oldPassword"></param>
+        /// <param name="oldPasswordHash"></param>
+        /// <param name="newPasswordHash"></param>
         /// <returns></returns>
         public bool UpdatePassword(int userID, string newPassword, string oldPassword)
         {

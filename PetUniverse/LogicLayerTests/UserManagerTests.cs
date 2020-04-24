@@ -704,6 +704,22 @@ namespace LogicLayerTests
             Assert.AreEqual(2, users.Count);
         }
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/20/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This is the test method that is used to update a user password
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="oldPasswordHash"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
         [TestMethod]
         public void TestChangeUserPassword()
         {
