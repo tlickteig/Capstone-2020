@@ -12660,9 +12660,9 @@ INSERT INTO [dbo].[JobListing]
 	 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
 	('Customer', 'No Benefits', 'No Requirements',
 	 0000.01, 'Give us money in exchange for merchandise'),
-	('Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in', 1),
-	('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves', 1),
-	('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own', 1)
+	('Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in'),
+	('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves'),
+	('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own')
 GO
 
 /*
