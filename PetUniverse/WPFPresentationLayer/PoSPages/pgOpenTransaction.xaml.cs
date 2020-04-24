@@ -1,20 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using PresentationUtilityCode;
 
 namespace WPFPresentationLayer.PoSPages
 {
@@ -316,32 +307,38 @@ namespace WPFPresentationLayer.PoSPages
                 // Creating the transaction in the database
                 if (transaction.SubTotal > 0.00M)
                 {
-                    _transactionManager.AddTransaction(transaction);
+                    if (collectPayment(transaction))
+                    {
+                        _transactionManager.AddTransaction(transaction);
+                        _transactionManager.AddTransactionLineProducts(transactionLineProducts);
 
-                    _transactionManager.AddTransactionLineProducts(transactionLineProducts);
+                        txtSearchProduct.Text = "";
+                        txtItemName.Text = "";
+                        chkTaxable.IsChecked = false;
+                        txtPrice.Text = "";
+                        txtQuantity.Text = "";
+                        txtItemDescription.Text = "";
 
-                    MessageBox.Show("Success!");
+                        txtTotal.Text = "";
+                        txtSubTotal.Text = "";
+                        txtSubTotalTaxable.Text = "";
 
-                    txtSearchProduct.Text = "";
-                    txtItemName.Text = "";
-                    chkTaxable.IsChecked = false;
-                    txtPrice.Text = "";
-                    txtQuantity.Text = "";
-                    txtItemDescription.Text = "";
+                        dgShoppingCart.ItemsSource = null;
+                        subTotalTaxable = 0.0M;
+                        subTotal = 0.0M;
+                        total = 0.0M;
+                        _transactionManager.ClearShoppingCart();
 
-                    txtTotal.Text = "";
-                    txtSubTotal.Text = "";
-                    txtSubTotalTaxable.Text = "";
+                        btnAddProduct.Visibility = Visibility.Hidden;
 
-                    dgShoppingCart.ItemsSource = null;
-                    subTotalTaxable = 0.0M;
-                    subTotal = 0.0M;
-                    total = 0.0M;
-                    _transactionManager.ClearShoppingCart();
-
-                    btnAddProduct.Visibility = Visibility.Hidden;
+                        MessageBox.Show("Transaction Complete", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    else
+                    {
+                        WPFErrorHandler.ErrorMessage("Payment Processing incomplete.");
+                    }
                 }
-                else
+                else 
                 {
                     MessageBox.Show("Could Not Add Transaction!");
                 }
@@ -500,5 +497,53 @@ namespace WPFPresentationLayer.PoSPages
 
             }
         }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/20/2020
+        /// Approver: Jaeho Kimd
+        /// 
+        /// Handles payment recieved from customer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="transaction"></param>
+        /// <returns></returns>
+        private bool collectPayment(Transaction transaction)
+        {
+            bool result = false;
+            PaymentType paymentType = PaymentType.Cancel;
+            var due = new AmountDue(transaction.Total);
+            while (due.Amount > 0m)
+            {
+                var frmPayment = new frmPayment(paymentType, due);
+                frmPayment.ShowDialog();
+                paymentType = frmPayment.PaymentType;
+                if (paymentType == PaymentType.Card)
+                {
+                    var frmCardEntry = new frmCardEntry(due, transaction);
+                    frmCardEntry.ShowDialog();
+                    result = true;
+                }
+                else if (paymentType == PaymentType.Cash)
+                {
+                    var frmCashEntry = new frmCashEntry(due);
+                    frmCashEntry.ShowDialog();
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        
     }
 }

@@ -162,6 +162,8 @@ namespace WPFPresentationLayer.PoSPages
             dgTransactionsList.Columns.RemoveAt(13);
             dgTransactionsList.Columns.RemoveAt(12);
             dgTransactionsList.Columns.RemoveAt(11);
+            dgTransactionsList.Columns.RemoveAt(10);
+            dgTransactionsList.Columns.RemoveAt(9);
             dgTransactionsList.Columns.RemoveAt(8);
             dgTransactionsList.Columns.RemoveAt(7);
             dgTransactionsList.Columns.RemoveAt(6);
@@ -169,7 +171,6 @@ namespace WPFPresentationLayer.PoSPages
             dgTransactionsList.Columns.RemoveAt(4);
             dgTransactionsList.Columns.RemoveAt(3);
             dgTransactionsList.Columns.RemoveAt(2);
-
         }
 
 

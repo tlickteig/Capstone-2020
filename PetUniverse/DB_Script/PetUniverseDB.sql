@@ -1053,16 +1053,17 @@ GO
 PRINT '' PRINT '*** Creating Transaction Table'
 GO
 CREATE TABLE [dbo].[Transaction](
-	[TransactionID] 		[int]IDENTITY(1000,1)	NOT NULL,
-	[TransactionDateTime] 	[datetime]				NOT NULL,
-	[TaxRate] 				[decimal](10,4) 		NOT NULL,
-	[SubTotalTaxable] 		[decimal](10,2) 		NOT NULL,
-	[SubTotal] 				[decimal](10,2) 		NOT NULL,
-	[Total] 				[decimal](10,2) 		NOT NULL,
-	[TransactionTypeID] 	[nvarchar](20) 			NOT NULL,
-	[EmployeeID] 			[int] 				 	NOT NULL,
-	[TransactionStatusID] 	[nvarchar](20) 			NOT NULL,
-	[CustomerEmail]			[nvarchar](250)
+	[TransactionID] 		[int]				IDENTITY(1000,1)	NOT NULL,
+	[TransactionDateTime] 	[datetime]			NOT NULL,
+	[TaxRate] 				[decimal](10,4) 	NOT NULL,
+	[SubTotalTaxable] 		[decimal](10,2) 	NOT NULL,
+	[SubTotal] 				[decimal](10,2) 	NOT NULL,
+	[Total] 				[decimal](10,2) 	NOT NULL,
+	[TransactionTypeID] 	[nvarchar](20) 		NOT NULL,
+	[EmployeeID] 			[int] 				NOT NULL,
+	[TransactionStatusID] 	[nvarchar](20) 		NOT NULL,
+	[CustomerEmail]			[nvarchar](250),
+	[StripeChargeID]		[nvarchar](30)
 
 	CONSTRAINT [pk_Transaction_TransactionID] PRIMARY KEY ([TransactionID] ASC),
 	CONSTRAINT [fk_Transaction_EmployeeID] FOREIGN KEY ([EmployeeID])
@@ -5905,17 +5906,19 @@ AS
 BEGIN
 	
     SELECT
-        T.[TransactionID]
-        ,T.[TransactionDateTime]
-        ,U.[UserID]
-        ,U.[FirstName]
-        ,U.[LastName]
-        ,T.[TransactionTypeID]
-        ,T.[TransactionStatusID]
-		,T.[TaxRate]
-		,T.[SubTotalTaxable]
-		,T.[SubTotal]
-		,T.[Total]
+        T.[TransactionID],
+        T.[TransactionDateTime],
+        T.[EmployeeID],
+        U.[FirstName],
+        U.[LastName],
+        T.[TransactionTypeID],
+        T.[TransactionStatusID],
+		T.[TaxRate],
+		T.[SubTotalTaxable],
+		T.[SubTotal],
+		T.[Total],
+		T.[CustomerEmail],
+		T.[StripeChargeID]
     FROM 	[Transaction] T
     INNER JOIN [User] U
         ON T.[EmployeeID] = U.[UserID]
@@ -8514,17 +8517,19 @@ CREATE PROCEDURE sp_select_transactions_by_employee_name
 AS
 	BEGIN
 		SELECT 	
-		 T.[TransactionID]
-		,T.[TransactionDateTime]
-		,U.[UserID]
-		,U.[FirstName]
-		,U.[LastName]
-		,T.[TransactionTypeID]
-		,T.[TransactionStatusID]
-		,T.[TaxRate]
-		,T.[SubTotalTaxable]
-		,T.[SubTotal]
-		,T.[Total]
+		T.[TransactionID],
+		T.[TransactionDateTime],
+		U.[UserID],
+		U.[FirstName],
+		U.[LastName],
+		T.[TransactionTypeID],
+		T.[TransactionStatusID],
+		T.[TaxRate],
+		T.[SubTotalTaxable],
+		T.[SubTotal],
+		T.[Total],
+		T.[CustomerEmail],
+		T.[StripeChargeID]
 		FROM 	[Transaction] T
 		INNER JOIN [User] U
 			ON T.[EmployeeID] = U.[UserID]
@@ -8546,18 +8551,20 @@ CREATE PROCEDURE sp_select_transactions_by_transaction_id
 )
 AS
 	BEGIN
-		SELECT 	
-		 T.[TransactionID]
-		,T.[TransactionDateTime]
-		,U.[UserID]
-		,U.[FirstName]
-		,U.[LastName]
-		,T.[TransactionTypeID]
-		,T.[TransactionStatusID]
-		,T.[TaxRate]
-		,T.[SubTotalTaxable]
-		,T.[SubTotal]
-		,T.[Total]
+		SELECT
+        T.[TransactionID],
+        T.[TransactionDateTime],
+        T.[EmployeeID],
+        U.[FirstName],
+        U.[LastName],
+        T.[TransactionTypeID],
+        T.[TransactionStatusID],
+		T.[TaxRate],
+		T.[SubTotalTaxable],
+		T.[SubTotal],
+		T.[Total],
+		T.[CustomerEmail],
+		T.[StripeChargeID]
 		FROM 	[Transaction] T
 		INNER JOIN [User] U
 			ON T.[EmployeeID] = U.[UserID]
@@ -8606,6 +8613,8 @@ CREATE PROCEDURE [sp_insert_transaction]
 	@TransactionTypeID		[nvarchar](20),
 	@EmployeeID				[int],
 	@TransactionStatusID	[nvarchar](20),
+	@CustomerEmail			[nvarchar](250),
+	@StripeChargeID			[nvarchar](30),
 	@ReturnTransactionId 	[int] out  
 )
 AS
@@ -8613,11 +8622,11 @@ BEGIN
 INSERT INTO [Transaction]
 	([TransactionDateTime], [TaxRate], [SubTotalTaxable],
 	[SubTotal], [Total], [TransactionTypeID],
-	[EmployeeID], [TransactionStatusID])
+	[EmployeeID], [TransactionStatusID], [CustomerEmail], [StripeChargeID])
 VALUES
 	(@TransactionDateTime, @TaxRate, @SubTotalTaxable,
 	@SubTotal, @Total, @TransactionTypeID,
-	@EmployeeID, @TransactionStatusID)
+	@EmployeeID, @TransactionStatusID, @CustomerEmail, @StripeChargeID)
 	SELECT SCOPE_IDENTITY()
 END
 GO

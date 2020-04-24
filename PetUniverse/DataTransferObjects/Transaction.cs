@@ -15,8 +15,12 @@ namespace DataTransferObjects
     /// </summary>
     /// <remarks>
     /// Updated by: Robert Holmes
-    /// Updated on: 2020/03/03
+    /// Updated on: 03/03/2020
     /// Changes: Added ProductAmounts, Date, Status, and Type fields and constructor.
+    /// 
+    /// Updater: Robert Holmes
+    /// Updated on: 04/21/2020
+    /// Update: Added CustomerEmail and SwipeChargeID
     /// </remarks>
     public class Transaction
     {
@@ -33,6 +37,8 @@ namespace DataTransferObjects
         public string TransactionTypeID { get; set; }
         public int EmployeeID { get; set; }
         public string TransactionStatusID { get; set; }
+        public string CustomerEmail { get; set; }
+        public string StripeChargeID { get; set; }
 
         /// <summary>
         /// Creator: Robert Holmes

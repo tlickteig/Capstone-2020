@@ -225,9 +225,9 @@ namespace LogicLayer
         /// the total is yielded.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Robert Holmes
+        /// Updated: 04/20/2020
+        /// Update: Rounds to the nearest penny.
         /// </remarks>
         /// <returns>decimal</returns>
         public decimal CalculateTotal(decimal subTotal, decimal subTotalTaxable, SalesTax salesTax)
@@ -235,6 +235,8 @@ namespace LogicLayer
             decimal tax = subTotalTaxable * salesTax.TaxRate;
 
             decimal total = subTotal + tax;
+
+            total = Decimal.Round(total, 2);
 
             return total;
         }
