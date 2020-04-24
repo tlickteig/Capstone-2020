@@ -180,6 +180,9 @@ UpgradeLog*.htm
 # Microsoft Fakes
 FakesAssemblies/
 
+# Intellij Files
+*.idea
+
 # =========================
 # Windows detritus
 # =========================
