@@ -58,9 +58,8 @@ steps:
 - task: PythonScript@0
   inputs:
     scriptSource: 'filePath'
-    scriptPath: '$(system.defaultworkingdirectory)/db_transformer.py'
+    scriptPath: 'db_transfomer.py'
     arguments: 'PetUniverse/DB_Script/PetUniverseDB.sql'
-    pythonInterpreter: '.pythonversion'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
