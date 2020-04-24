@@ -63,6 +63,7 @@
     <Compile Include="AdoptionAppointmentVM.cs" />
     <Compile Include="AdoptionCustomer.cs" />
     <Compile Include="AdoptionCustomerVM.cs" />
+    <Compile Include="AmountDue.cs" />
     <Compile Include="Animal.cs" />
     <Compile Include="AnimalActivity.cs" />
     <Compile Include="AnimalActivityType.cs" />

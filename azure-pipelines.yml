@@ -49,6 +49,19 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
 
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.x'
+    addToPath: true
+    architecture: 'x64'
+
+- task: PythonScript@0
+  inputs:
+    scriptSource: 'filePath'
+    scriptPath: '$(system.defaultworkingdirectory)/db_transformer.py'
+    arguments: 'PetUniverse/DB_Script/PetUniverseDB.sql'
+    pythonInterpreter: '.pythonversion'
+
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
@@ -61,3 +74,16 @@ steps:
   displayName: 'Publish Artifact: sql_script'
   inputs:
     ArtifactName: 'sql_script'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: sqlscript.sql
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+    CleanTargetFolder: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: final_script'
+  inputs:
+    ArtifactName: 'final_script'

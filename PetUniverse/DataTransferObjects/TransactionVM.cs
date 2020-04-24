@@ -1,16 +1,16 @@
 ﻿namespace DataTransferObjects
 {
     /// <summary>
-    /// NAME: Jaeho Kim
-    /// DATE: 2/27/20
-    /// APROVER: Rasha Mohammed
+    /// Creator: Jaeho Kim
+    /// Created: 2/27/20
+    /// Approver: Rasha Mohammed
     /// This is the TransactionVM object in which the End User 
     /// will see. It contains data that the end user can understand.
     /// </summary>
     /// <remarks>
-    /// UPDATED BY: N/A
-    /// UPDATE DATE: N/A
-    /// CHANGE DESCRIPTION: N/A
+    /// Updater: 
+    /// Updated: 
+    /// Update: 
     /// </remarks>
     public class TransactionVM : Transaction
     {
@@ -24,6 +24,5 @@
         public string ProductCategoryID { get; set; }
         public string ProductTypeID { get; set; }
         public decimal Price { get; set; }
-
     }
 }

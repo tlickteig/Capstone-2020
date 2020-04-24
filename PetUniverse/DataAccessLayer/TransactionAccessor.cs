@@ -121,8 +121,9 @@ namespace DataAccessLayer
         /// Implementation for inserting a transaction.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
+        /// Updater: Robert Holmes
+        /// Updated: 04/21/2020
+        /// Update: Added CustomerEmail and StripeChargeID.
         /// </remarks>
         /// <param name="transaction">The transaction that is inserted to the database.</param>
         /// <returns>rows effected</returns>
@@ -141,6 +142,22 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@TransactionTypeID", transaction.TransactionTypeID);
             cmd.Parameters.AddWithValue("@EmployeeID", transaction.EmployeeID);
             cmd.Parameters.AddWithValue("@TransactionStatusID", transaction.TransactionStatusID);
+            if (transaction.CustomerEmail != null)
+            {
+                cmd.Parameters.AddWithValue("@CustomerEmail", transaction.CustomerEmail);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@CustomerEmail", DBNull.Value);
+            }
+            if (transaction.StripeChargeID != null)
+            {
+                cmd.Parameters.AddWithValue("@StripeChargeID", transaction.StripeChargeID);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@StripeChargeID", DBNull.Value);
+            }
             cmd.Parameters.AddWithValue("@ReturnTransactionId", 0);
 
 
@@ -149,6 +166,7 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 TransactionID = Convert.ToInt32(cmd.ExecuteScalar());
+                transaction.TransactionID = TransactionID;
             }
             catch (Exception ex)
             {
@@ -169,8 +187,9 @@ namespace DataAccessLayer
         /// Implementation for inserting a products related to the transaction.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
+        /// Updater: Robert Holmes
+        /// Updated: 4/20/2020
+        /// Update: Now actually saves the quantity purchased to the database.
         /// </remarks>
         /// <param name="transactionLineProducts">
         /// The products related to the transaction that is inserted to the database.
@@ -201,7 +220,7 @@ namespace DataAccessLayer
                     cmd.Parameters[1].Value = item.ProductID;
 
                     // This is the item quantity that got purchased.
-                    cmd.Parameters[2].Value = item.ItemQuantity;
+                    cmd.Parameters[2].Value = item.Quantity;
 
                     // This is the price that is sold for this transaction.
                     cmd.Parameters[3].Value = item.Price;
@@ -390,8 +409,9 @@ namespace DataAccessLayer
         /// salesTaxDate of the ZipCode.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
+        /// Updater: Robert Holmes
+        /// Updated: 04/20/2020
+        /// Update: Added CustomerEmail and StripeChargeID
         /// </remarks>
         /// <param name="transactionDate">the date of the transaction</param>
         /// <returns>returns a list of transactions</returns>
@@ -426,6 +446,15 @@ namespace DataAccessLayer
                     transactionVM.SubTotalTaxable = reader.GetDecimal(8);
                     transactionVM.SubTotal = reader.GetDecimal(9);
                     transactionVM.Total = reader.GetDecimal(10);
+                    if (!reader.IsDBNull(11))
+                    {
+                        transactionVM.CustomerEmail = reader.GetString(11);
+
+                    }
+                    if (!reader.IsDBNull(12))
+                    {
+                        transactionVM.StripeChargeID = reader.GetString(12);
+                    }
 
                     transactions.Add(transactionVM);
                 }
@@ -452,8 +481,9 @@ namespace DataAccessLayer
         /// Implementation for Selecting all transactions using a employee name.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
+        /// Updater: Robert Holmes
+        /// Updated: 04/24/2020
+        /// Update: Added CustomerEmail and StripeChargeID
         /// </remarks>
         /// <param name="firstName">the first name of the employee</param>
         /// <param name="lastName">the last name of the employee</param>
@@ -489,6 +519,15 @@ namespace DataAccessLayer
                     transactionVM.SubTotalTaxable = reader.GetDecimal(8);
                     transactionVM.SubTotal = reader.GetDecimal(9);
                     transactionVM.Total = reader.GetDecimal(10);
+                    if (!reader.IsDBNull(11))
+                    {
+                        transactionVM.CustomerEmail = reader.GetString(11);
+
+                    }
+                    if (!reader.IsDBNull(12))
+                    {
+                        transactionVM.StripeChargeID = reader.GetString(12);
+                    }
 
                     transactions.Add(transactionVM);
                 }
@@ -515,8 +554,9 @@ namespace DataAccessLayer
         /// Implementation for Selecting all transactions using a transaction id.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
+        /// Updater: Robert Holmes
+        /// Updated: 04/24/2020
+        /// Update: Added CustomerEmail and StripeChargeID
         /// </remarks>
         /// <param name="transactionID"></param>
         /// <returns>returns a list of transactions</returns>
@@ -528,7 +568,7 @@ namespace DataAccessLayer
             var cmd = new SqlCommand("sp_select_transactions_by_transaction_id", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("TransactionID", transactionID);
+            cmd.Parameters.AddWithValue("@TransactionID", transactionID);
 
             try
             {
@@ -550,6 +590,15 @@ namespace DataAccessLayer
                     transactionVM.SubTotalTaxable = reader.GetDecimal(8);
                     transactionVM.SubTotal = reader.GetDecimal(9);
                     transactionVM.Total = reader.GetDecimal(10);
+                    if (!reader.IsDBNull(11))
+                    {
+                        transactionVM.CustomerEmail = reader.GetString(11);
+
+                    }
+                    if (!reader.IsDBNull(12))
+                    {
+                        transactionVM.StripeChargeID = reader.GetString(12);
+                    }
 
                     transactions.Add(transactionVM);
                 }
