@@ -4,7 +4,7 @@
   /// Created: 2020/02/7
   /// Approver: Steven Cardona
   ///
-  /// The datat transfer object for item class
+  /// The data transfer object for item class
   /// Contains all getter and setter methods for item functions
   /// <remarks>
   /// Updated By: Dalton Reierson
