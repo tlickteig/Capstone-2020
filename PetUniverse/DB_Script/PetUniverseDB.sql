@@ -4268,8 +4268,8 @@ GO
 CREATE PROCEDURE [sp_select_all_applicants]
 AS
 BEGIN
-	SELECT [ApplicantID], [FirstName], [LastName], [MiddleName], [Email], [PhoneNumber]
-	FROM [dbo].[Applicant]
+	SELECT [Applicant].[ApplicantID], [FirstName], [LastName], [MiddleName], [Email], [PhoneNumber], [Application].[Status]
+	FROM [dbo].[Applicant] JOIN [Application] ON [Application].[ApplicantID] = [Applicant].[ApplicantID]
 	ORDER BY [ApplicantID]
 END
 GO
@@ -12900,9 +12900,9 @@ GO
 INSERT INTO [dbo].[HomeCheck]
 		([ApplicationID], [EmployeeID], [DatePerformed], [Notes])
 	VALUES
-	(100000, 100000, '20200207 01:55:01 PM', 'No Notes'),
+	(100000, 100000, NULL, NULL),
 	(100001, 100000, NULL, NULL),
-	(100002, 100000, NULL, NULL),
+	(100002, 100000, '20200207 01:55:01 PM', 'No Notes'),
 	(100003, 100000, NULL, NULL),
 	(100004, 100000, NULL, NULL),
 	(100005, 100000, NULL, NULL),

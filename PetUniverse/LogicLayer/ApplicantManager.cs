@@ -14,6 +14,11 @@ namespace LogicLayer
     /// 
     /// This class is handles the logic for Applicants.
     /// </summary>
+    /// <remarks>
+    /// Updater: Matt Deaton
+    /// Updated: 2020-04-11
+    /// Update: Added more methods to deal with applicants
+    /// </remarks>
     public class ApplicantManager : IApplicantManager
     {
         private IApplicantAccessor _applicantAccessor;
@@ -111,7 +116,7 @@ namespace LogicLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method to add a Foster Applicant.
         /// 
@@ -140,7 +145,7 @@ namespace LogicLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Logic Layer method that retrieves an applicant by their applicantID.
         /// 
@@ -172,7 +177,7 @@ namespace LogicLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-12
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Logic Layer method that Retrieves an applicant  for an 
         /// interview using their applicantID.
@@ -201,7 +206,7 @@ namespace LogicLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-12
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Logic Layer method that updates the notes for an interview.
         /// 
@@ -235,7 +240,7 @@ namespace LogicLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Logic Layer method that will update home check date by using the applicantID.
         /// 
@@ -269,7 +274,7 @@ namespace LogicLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Logic Layer method that will update home check date by using the applicantID.
         /// 

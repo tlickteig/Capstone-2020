@@ -14,6 +14,11 @@ namespace DataAccessLayer
     /// 
     /// This class accesses Applicants 
     /// </summary>
+    /// <remarks>
+    /// Updater: Matt Deaton
+    /// Updated: 2020-04-11
+    /// Update: Added more methods to deal with the applicants
+    /// </remarks>
     public class ApplicantAccessor : IApplicantAccessor
     {
         /// <summary>
@@ -53,7 +58,9 @@ namespace DataAccessLayer
                             LastName = reader.GetString(2),
                             MiddleName = reader.GetString(3),
                             Email = reader.GetString(4),
-                            PhoneNumber = reader.GetString(5)
+                            PhoneNumber = reader.GetString(5),
+                            ApplicantStatus = reader.GetString(6)
+
                         });
                     }
                     reader.Close();
@@ -128,7 +135,7 @@ namespace DataAccessLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method to add a Foster Applicant.
         /// 
@@ -176,7 +183,7 @@ namespace DataAccessLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method to view an Applicant with a provided ID#.
         /// 
@@ -242,7 +249,7 @@ namespace DataAccessLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-11
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Accessor Layer method used to select items of an applicant 
         /// from the database to be used for an interview.
@@ -323,7 +330,7 @@ namespace DataAccessLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-16
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method used to update interview notes using an applicantID from the Database.
         /// 
@@ -370,7 +377,7 @@ namespace DataAccessLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-16
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method used to update application status using an applicantID from the Database.
         /// 
@@ -417,7 +424,7 @@ namespace DataAccessLayer
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-16
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method used to update home check date using an applicantID from the Database.
         /// 

@@ -54,7 +54,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Interface for a Logic Layer method that adds a foster applicant.
         /// 
@@ -72,7 +72,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Interface for a Logic Layer method that retrieves an applicant by their applicantID
         /// to be used for MVC.
@@ -91,7 +91,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Interface for a Logic Layer method that retrieves an applicant by their applicantID
         /// to be used for an interview.
@@ -110,7 +110,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Interface for a Logic Layer method that will update interview notes by using the applicantID.
         /// 
@@ -130,7 +130,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Interface for a Logic Layer method that will update application status by using the applicantID.
         /// 
@@ -150,7 +150,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Interface for a Logic Layer method that will update home check date by using the applicantID.
         /// 

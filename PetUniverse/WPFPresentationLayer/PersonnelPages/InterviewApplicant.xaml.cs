@@ -21,7 +21,7 @@ namespace WPFPresentationLayer.PersonnelPages
 	/// <summary>
 	/// CREATED BY: Matt Deaton
 	/// DATE CREATED: 2020-04-07
-	/// APPROVED BY:
+	/// APPROVED BY: Steve Coonrod
 	/// 
 	/// Class that is used with the InterviewApplicant Page
 	/// 
@@ -40,7 +40,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE CREATED: 2020-04-07
-		/// APPROVED BY:
+		/// APPROVED BY: Steve Coonrod
 		/// 
 		/// Constructor for initializing and applicant and applicant manager object.
 		/// 
@@ -62,7 +62,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE CREATED: 2020-04-07
-		/// APPROVED BY:
+		/// APPROVED BY: Steve Coonrod
 		/// 
 		/// Method used for populating the ApplicationStatusComboBox
 		/// 
@@ -88,7 +88,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE CREATED: 2020-04-07
-		/// APPROVED BY:
+		/// APPROVED BY: Steve Coonrod
 		/// 
 		/// Method used for loading all of the applicants information
 		/// into the page.
@@ -175,7 +175,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE CREATED: 2020-04-07
-		/// APPROVED BY:
+		/// APPROVED BY: Steve Coonrod
 		/// 
 		/// Method used when the Save button is click. 
 		/// Navigates back to ViewApplicants if all is saved correctly.
@@ -213,7 +213,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE CREATED: 2020-04-07
-		/// APPROVED BY:
+		/// APPROVED BY: Steve Coonrod
 		/// 
 		/// Method used for updating Home Check Date
 		/// 
@@ -241,7 +241,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE CREATED: 2020-04-07
-		/// APPROVED BY:
+		/// APPROVED BY: Steve Coonrod
 		/// 
 		/// Method used for updating Interview Notes
 		/// 
@@ -268,7 +268,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE CREATED: 2020-04-07
-		/// APPROVED BY:
+		/// APPROVED BY: Steve Coonrod
 		/// 
 		/// Method used for Updating the Application Status
 		/// 
@@ -295,7 +295,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE CREATED: 2020-04-07
-		/// APPROVED BY:
+		/// APPROVED BY: Steve Coonrod
 		/// 
 		/// Method used for getting the applicants resume.
 		/// 
@@ -328,7 +328,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE CREATED: 2020-04-07
-		/// APPROVED BY:
+		/// APPROVED BY: Steve Coonrod
 		/// 
 		/// Method used highlighting the date on the calander.
 		/// 
@@ -350,7 +350,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE CREATED: 2020-04-07
-		/// APPROVED BY:
+		/// APPROVED BY: Steve Coonrod
 		/// 
 		/// Method used for the cancel button, that navigates back to the ViewAplicants page.
 		/// 
