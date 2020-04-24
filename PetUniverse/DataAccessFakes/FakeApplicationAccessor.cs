@@ -67,6 +67,35 @@ namespace DataAccessFakes
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/22/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This method returns a deactivates a fake adoption application
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <returns></returns>
+        public int DeactivateAdoptionApplication(int adoptionApplicationID)
+        {
+            int rows = 0;
+            foreach(var a in _applicationVMs)
+            {
+                if(a.AdoptionApplicationID == adoptionApplicationID)
+                {
+                    a.ApplicationActive = false;
+                    rows += 1;
+                }
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 4/11/2020
         /// CHECKED BY: Michael Thompson
         /// 

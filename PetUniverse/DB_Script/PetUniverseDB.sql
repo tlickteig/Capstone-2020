@@ -11060,6 +11060,26 @@ Return @@ROWCOUNT
 END
 GO
 
+/*
+Created by: Austin Gee
+Date: 4/21/2020
+Comment: This deactivates an adoption application
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_adoption_application]
+GO
+PRINT '' PRINT '** Create sp_deactivate_adoption_application'
+GO
+CREATE PROCEDURE [sp_deactivate_adoption_application]
+(
+	@AdoptionApplicationID [int]
+)
+AS
+BEGIN
+    UPDATE [dbo].[AdoptionApplication]
+    SET [Active] = 0
+    Where [AdoptionApplicationID] = @AdoptionApplicationID
+END
+GO
 
 /*
  ******************************* Inserting Sample Data *****************************

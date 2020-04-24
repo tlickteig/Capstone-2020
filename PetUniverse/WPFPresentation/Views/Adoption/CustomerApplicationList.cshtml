@@ -3,6 +3,7 @@
 @{
 
 }
+<br />
 <h2>@ViewBag.Title</h2>
 
 <p>
@@ -36,7 +37,8 @@
     </td>
     
     <td>
-        @Html.ActionLink("View Application", "CustomerApplicationDetails", new { adoptionApplicationID = item.AdoptionApplicationID }, new { @class = "btn btn-default"})
+        @Html.ActionLink("View Application", "CustomerApplicationDetails", new { adoptionApplicationID = item.AdoptionApplicationID }, new { @class = "btn btn-primary" })
+        @*@Html.ActionLink("Cancel Adoption", "CustomerCancelAdoption", new { adoptionApplicationID = item.AdoptionApplicationID }, new { @class = "btn btn-primary" })*@
     </td>
 </tr>
 }

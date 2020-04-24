@@ -42,5 +42,21 @@ namespace DataAccessInterfaces
         /// Update: NA
         /// </remarks>
         ApplicationVM SelectAdoptionApplicationByID(int adoptionApplicationID);
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/22/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// selects an ApplicationVM by on Email
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <returns></returns>
+        int DeactivateAdoptionApplication(int adoptionApplicationID);
     }
 }

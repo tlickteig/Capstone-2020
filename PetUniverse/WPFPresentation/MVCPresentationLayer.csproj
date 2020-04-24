@@ -535,6 +535,7 @@
     <Content Include="Views\RequestScheduleChange\Create.cshtml" />
     <Content Include="Views\FosterApplicant\Create.cshtml" />
     <Content Include="Views\FosterApplicant\SuccessDetails.cshtml" />
+    <Content Include="Views\Adoption\CustomerCancelAdoption.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

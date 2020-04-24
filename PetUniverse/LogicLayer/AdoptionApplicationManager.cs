@@ -56,6 +56,34 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/22/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Deactivates an adoption application by id
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <returns></returns>
+        public bool DeactivateAdoptionApplication(int adoptionApplicationID)
+        {
+            try
+            {
+                return 1 == _adoptionApplicationAccessor.DeactivateAdoptionApplication(adoptionApplicationID);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Adoption application was not deactivated", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 4/11/2020
         /// CHECKED BY: Michael Thompson
         /// 

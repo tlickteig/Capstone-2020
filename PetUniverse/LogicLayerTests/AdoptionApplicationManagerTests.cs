@@ -90,5 +90,31 @@ namespace LogicLayerTests
             //assert
             Assert.AreEqual(000, adoptionApplication.AdoptionApplicationID);
         }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/22/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// Tests
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionApplicationManagerDeactivateAdoptionApplicationByID()
+        {
+            // arrange
+            IAdoptionApplicationManager adoptionApplicationManager = new AdoptionApplicationManager(_fakeAdoptionApplicationAccessor);
+
+            // act
+            bool result = adoptionApplicationManager.DeactivateAdoptionApplication(000);
+
+            //assert
+            Assert.AreEqual(result, true);
+        }
     }
 }
