@@ -10549,7 +10549,7 @@ BEGIN
          (@ItemID, @OrderDate, @ItemQuantity,
         @ItemCategoryID,@UserID)
 	
-END;
+END
 GO
 
 /*
