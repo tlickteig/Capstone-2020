@@ -20,20 +20,6 @@ namespace LogicLayerInterfaces
 
     public interface IAnimalActivityManager
     {
-        /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/18/2020
-        /// Approver: Carl Davis, 2/7/2020
-        /// Approver: Chuck Baxter, 2/7/2020
-        /// 
-        /// Retrieves the animal feeding records
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        List<AnimalActivity> RetrieveAnimalFeedingRecords();
 
         /// <summary>
         /// Creator: Ethan Murphy

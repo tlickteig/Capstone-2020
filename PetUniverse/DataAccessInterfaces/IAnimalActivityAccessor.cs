@@ -19,21 +19,6 @@ namespace DataAccessLayer
     {
 
         /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/18/2020
-        /// Approver: Carl Davis, 2/7/2020
-        /// Approver: Chuck Baxter, 2/7/2020
-        /// 
-        /// Gets the animal feeding records
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        List<AnimalActivity> GetAnimalFeedingRecords();
-
-        /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/2/2020
         /// Approver: Carl Davis 4/3/2020

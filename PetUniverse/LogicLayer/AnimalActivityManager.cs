@@ -183,35 +183,6 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/18/2020
-        /// Approver: Carl Davis, 2/7/2020
-        /// Approver: Chuck Baxter, 2/7/2020
-        /// 
-        /// Retrieves the animal feeding records
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        public List<AnimalActivity> RetrieveAnimalFeedingRecords()
-        {
-            List<AnimalActivity> records = null;
-
-            try
-            {
-                records = _activityAccessor.GetAnimalFeedingRecords();
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("records not found", ex);
-            }
-
-            return records;
-        }
-
-        /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 4/16/2020
         /// Approver: Ethan Murphy, 4/16/2020

@@ -123,24 +123,6 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/18/2020
-        /// Approver: Carl Davis, 2/7/2020
-        /// Approver: Chuck Baxter, 2/7/2020
-        /// 
-        /// Retrieves a list of fake animal activity records
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        public List<AnimalActivity> GetAnimalFeedingRecords()
-        {
-            return _animalActivity.ToList();
-        }
-
-        /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/2/2020
         /// Approver: Carl Davis, 4/3/2020

@@ -41,64 +41,6 @@ namespace LogicLayerTests
             _fakeActivityAccessor = new FakeAnimalActivityAccessor();
         }
 
-        /// <summary>
-        /// Tests RetrieveAnimalFeedingRecords against the dataAccessFakes records
-        /// </summary>
-        /// <remarks>
-        /// Name: TestRetrieveAnimalFeedingRecords
-        /// Date: 2/7/2020
-        /// Created by: Daulton Schilling
-        /// Reviewed by: Carl Davis, 2/7/2020
-        /// Reviewed by: Chuck Baxter, 2/7/2020
-        /// </remarks>
-        /// <param>
-        /// </param>
-        /// <returns>
-        ///  Passed
-        /// </returns>
-        [TestMethod]
-        public void TestRetrieveAnimalFeedingRecords()
-        {
-            // arrange
-            List<AnimalActivity> AnimalActivity;
-            IAnimalActivityManager _animalActivity = new AnimalActivityManager(_fakeActivityAccessor);
-
-            // act
-            AnimalActivity = _animalActivity.RetrieveAnimalFeedingRecords();
-
-            // assert
-            Assert.AreEqual(4, AnimalActivity.Count);
-
-        }
-
-        /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/18/2020
-        /// Approver:
-        /// Approver:
-        /// 
-        /// Test method for RetrieveAnimalFeedingRecords- tests for throwing the correct exception
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-
-        [TestMethod]
-        [ExpectedException(typeof(ApplicationException))]
-        public void TestRetrieveAnimalByAnimalIDThrowsCorrectException()
-        {
-
-            // arrange
-            _fakeActivityAccessor = null;
-            IAnimalActivityManager _AnimalChecklistManager = new AnimalActivityManager(_fakeActivityAccessor);
-
-
-            // act
-            _AnimalChecklistManager.RetrieveAnimalFeedingRecords();
-
-        }
 
         /// <summary>
         /// Creator: Ethan Murphy
