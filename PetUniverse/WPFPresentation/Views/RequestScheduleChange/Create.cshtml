@@ -1,0 +1,79 @@
+﻿<!--
+CREATOR: Kaleb Bachert
+CREATED: 2020/3/5
+APPROVER: Lane Sandburg
+View for creating a Schedule Change Request
+-->
+@model WPFPresentation.Models.UserWithShiftList
+
+@{
+    Layout = null;
+}
+
+<br />
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm("Create", "RequestScheduleChange"))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Select a Shift to Swap</h4>
+        <hr />
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select a Date</label>
+            <div class="col-md-10">
+                <input type="text" name="ShiftDate" id="ShiftDate" data-provide="datepicker" class="form-control" onchange="refreshView()" value="@ViewBag.SelectedDate" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Select a Shift</label>
+            <div class="col-md-10">
+                <select id="shiftList" name="shiftList">
+                    <option value="">-- Select A Shift --</option>
+                    @if (null != Model.UserShiftList)
+                    {
+                        foreach (var shift in Model.UserShiftList)
+                        {
+                            <option value="@shift.ShiftID">Department: @shift.Department, Date: @shift.Date, Time: @shift.StartTime - @shift.EndTime</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="submit" type="submit" value="Submit Schedule Change Request" class="btn btn-default" />
+            </div>
+        </div>
+
+        <script>
+        $('#ShiftDate').datepicker({
+            format: 'MM-dd-yyyy'
+        });
+
+        function refreshView() { //This function won't call from a separate file
+            var dateSelection = $("#ShiftDate").val().toString();
+            var currentUserID = @Model.UserID;
+
+            //Building a link to this page with the selected date, updating the shifts for the user that day
+            var link = '@Html.Raw(Url.Action("Create", "RequestScheduleChange", new {userID = "00000", selectedDate = "DATE"}))';
+
+            link = link.replace("DATE", dateSelection);
+            link = link.replace("00000", currentUserID);
+
+            window.location.href = link; //Update page
+        }
+        </script>
+
+        <div>
+            @Html.ActionLink("Back to Request Types", "Index", "ChooseRequestType")
+        </div>
+    </div>
+}

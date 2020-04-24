@@ -1,9 +1,7 @@
 ﻿using LogicLayer;
 using LogicLayerInterfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WPFPresentation.Models;
 
@@ -93,6 +91,45 @@ namespace WPFPresentation.Controllers
                 Applicants = applicants.ToList()
             };
             return View(viewModel);
+        }
+
+        /// <summary>
+        /// Creator : Ryan Morganti
+        /// Created: 2020/03/19
+        /// Approver: Derek Taylor
+        /// 
+        /// This Method returns the Index Page View, which allows for the navigation to other views held by this controller
+        /// </summary>
+        /// <remarks>
+        /// Updator: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Creator : Ryan Morganti
+        /// Created: 2020/03/19
+        /// Approver:
+        /// 
+        /// This Method returns the Positions Page View, which allows the user to view a list of positions
+        /// This list will change depending on whether the user is authorized to activate/deactivate/create/deleted OR
+        /// is browsing open positions to apply for
+        /// </summary>
+        /// <remarks>
+        /// Updator: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        public ActionResult Positions()
+        {
+            var positions = _applicantManager.RetrieveAllPositions();
+            return View(positions);
         }
     }
 }

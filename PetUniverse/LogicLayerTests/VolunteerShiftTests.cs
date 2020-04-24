@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using DataTransferObjects;
+﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -186,7 +186,7 @@ namespace LogicLayerTests
         [TestMethod]
         public void testVolunteerShiftManagerSelectShift()
         {
-            IVolunteerShiftManager manager = new VolunteerShiftManager();            
+            IVolunteerShiftManager manager = new VolunteerShiftManager();
 
             int shiftID = manager.SelectVolunteerShift(1).VolunteerShiftID;
 

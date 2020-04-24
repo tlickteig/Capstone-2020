@@ -4,8 +4,6 @@ using DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /// <summary>
 ///  Creator: Kaleb Bachert
@@ -17,47 +15,47 @@ using System.Threading.Tasks;
 
 namespace LogicLayer
 {
-	public class RequestManager : IRequestManager
-	{
-		private IRequestAccessor _requestAccessor;
+    public class RequestManager : IRequestManager
+    {
+        private IRequestAccessor _requestAccessor;
 
-		/// <summary>
-		///  Creator: Kaleb Bachert
-		///  Created: 2/9/2020
-		///  Approver: Zach Behrensmeyer
-		///  
-		///  Default Constructor for instantiating Accessor
-		/// </summary>
-		/// <remarks>
-		/// Updater: NA
-		/// Updated: NA
-		/// Update: NA
-		/// 
-		/// </remarks>
-		public RequestManager()
-		{
-			_requestAccessor = new RequestAccessor();
-		}
+        /// <summary>
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2/9/2020
+        ///  Approver: Zach Behrensmeyer
+        ///  
+        ///  Default Constructor for instantiating Accessor
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        public RequestManager()
+        {
+            _requestAccessor = new RequestAccessor();
+        }
 
-		/// <summary>
-		///  Creator: Kaleb Bachert
-		///  Created: 2/9/2020
-		///  Approver: Zach Behrensmeyer
-		///  
-		///  Constructor for passing specific Accessor class
-		/// </summary>
-		/// <remarks>
-		/// Updater: NA
-		/// Updated: NA
-		/// Update: NA
-		/// 
-		/// </remarks>
-		/// <param name="requestAccessor"></param>
+        /// <summary>
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2/9/2020
+        ///  Approver: Zach Behrensmeyer
+        ///  
+        ///  Constructor for passing specific Accessor class
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestAccessor"></param>
 
-		public RequestManager(IRequestAccessor requestAccessor)
-		{
-			_requestAccessor = requestAccessor;
-		}
+        public RequestManager(IRequestAccessor requestAccessor)
+        {
+            _requestAccessor = requestAccessor;
+        }
 
         /// <summary>
         ///  CREATOR: Kaleb Bachert
@@ -72,7 +70,7 @@ namespace LogicLayer
         /// UPDATE: NA
         /// 
         /// </remarks>
-        public List<Request> RetrieveRequestsByStatus(bool open)
+        public List<RequestVM> RetrieveRequestsByStatus(bool open)
         {
             try
             {
@@ -304,6 +302,32 @@ namespace LogicLayer
 
         /// <summary>
         ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/9
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method calls the SelectScheduleChangeRequestByRequestID method from the Accessor
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        public ScheduleChangeRequestVM RetrieveScheduleChangeRequestByRequestID(int requestID)
+        {
+            try
+            {
+                return _requestAccessor.SelectScheduleChangeRequestByRequestID(requestID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/3/17
         ///  APPROVER: Lane Sandburg
         ///  
@@ -509,5 +533,86 @@ namespace LogicLayer
                 throw new ApplicationException("Unable to update request status.", ex);
             }
         }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/2
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for inserting Active Time Off, called once a request is approved
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="activeTimeOff"></param>
+        public bool AddActiveTimeOff(ActiveTimeOff activeTimeOff)
+        {
+            try
+            {
+                return 1 == _requestAccessor.InsertActiveTimeOff(activeTimeOff);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not added.", ex);
+            }
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/7
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method calls the InsertScheduleChangeRequest method from the Accessor
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <param name="requestingUserID"></param>
+        public bool AddScheduleChangeRequest(ScheduleChangeRequest request, int requestingUserID)
+        {
+            try
+            {
+                return 1 == _requestAccessor.InsertScheduleChangeRequest(request, requestingUserID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not added.", ex);
+            }
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/07
+        /// Approver: Kaleb Bachert 
+        /// 
+        /// method for Getting AvaibilityRequest 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public AvailabilityRequestVM RetrieveAvailabilityRequestByID(int requestID)
+        {
+            try
+            {
+                return _requestAccessor.SelectAvailabilityRequestByID(requestID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+
     }
 }

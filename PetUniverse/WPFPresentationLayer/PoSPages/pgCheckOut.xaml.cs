@@ -4,18 +4,8 @@ using LogicLayerInterfaces;
 using PresentationUtilityCode;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.PoSPages
 {
@@ -100,7 +90,7 @@ namespace WPFPresentationLayer.PoSPages
             {
                 _allProducts = _productManager.RetrieveAllProductsByType();
             }
-            catch(Exception)
+            catch (Exception)
             {
                 WPFErrorHandler.ErrorMessage("There was an issue loading Products");
             }

@@ -2,19 +2,8 @@
 using LogicLayer;
 using PresentationUtilityCode;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.InventoryPages
 {
@@ -36,7 +25,10 @@ namespace WPFPresentationLayer.InventoryPages
     public partial class ViewAddSpecialOrder : Page
     {
         SpecialOrderManager _orderManager;
+        UserManager _userManager;
         SpecialOrder _order;
+        PetUniverseUser _user;
+        String firstName, lastName;
 
         /// <summary>
         /// NAME: Jesse Tomash
@@ -58,12 +50,53 @@ namespace WPFPresentationLayer.InventoryPages
             InitializeComponent();
             _orderManager = new SpecialOrderManager();
             _order = new SpecialOrder();
-            btnSpBack.Visibility = Visibility.Visible;
-            btnSaveSpecialOrder.Visibility = Visibility.Visible;
-            txtEmployeeID.Visibility = Visibility.Visible;
+            btnBack.Visibility = Visibility.Visible;
+            btnSaveOrder.Visibility = Visibility.Visible;
+            txtUserID.Visibility = Visibility.Visible;
             txtOrderID.Visibility = Visibility.Visible;
             txtOrderID.IsReadOnly = true;
             txtOrderID.Text = "(Automatically Generated)";
+            txtFirstName.Visibility = Visibility.Hidden;
+            txtLastName.Visibility = Visibility.Hidden;
+            lblFirstName.Visibility = Visibility.Hidden;
+            lblLastName.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 4/15/2020
+        ///
+        /// Approver:
+        /// Approver: 
+        /// 
+        /// constructor  for View Order
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
+        public ViewAddSpecialOrder(SpecialOrder order)
+        {
+            InitializeComponent();
+            _orderManager = new SpecialOrderManager();
+            _order = order;
+            btnBack.Visibility = Visibility.Visible;
+            btnSaveOrder.Visibility = Visibility.Hidden;
+            txtUserID.Visibility = Visibility.Visible;
+            txtOrderID.Visibility = Visibility.Visible;
+            txtOrderID.IsReadOnly = true;
+            txtUserID.IsReadOnly = true;
+            txtOrderID.Text = order.SpecialOrderID.ToString();
+            txtUserID.Text = order.UserID.ToString();
+            FetchUserName();
+            txtFirstName.Visibility = Visibility.Visible;
+            txtLastName.Visibility = Visibility.Visible;
+            lblFirstName.Visibility = Visibility.Visible;
+            lblLastName.Visibility = Visibility.Visible;
+            txtFirstName.Text = firstName;
+            txtLastName.Text = lastName;
         }
 
         /// <summary>
@@ -82,7 +115,7 @@ namespace WPFPresentationLayer.InventoryPages
         /// enter a valid employee ID.
         /// </remarks>
         /// <returns></returns>
-        private void btnSpBack_Click(object sender, RoutedEventArgs e)
+        private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService?.Navigate(new ViewSpecialOrders());
         }
@@ -103,12 +136,12 @@ namespace WPFPresentationLayer.InventoryPages
         /// enter a valid employee ID.
         /// </remarks>
         /// <returns></returns>
-        private void btnSaveSpecialOrder_Click(object sender, RoutedEventArgs e)
+        private void btnSaveOrder_Click(object sender, RoutedEventArgs e)
         {
             SpecialOrderManager _orderManager = new SpecialOrderManager();
             try
             {
-                if (txtEmployeeID.Text == "")
+                if (txtUserID.Text == "")
                 {
                     "You must fill out all the Fields.".ErrorMessage();
                     return;
@@ -116,7 +149,7 @@ namespace WPFPresentationLayer.InventoryPages
 
                 SpecialOrder _newOrder = new SpecialOrder()
                 {
-                    SpecialOrderEmployeeID = Int32.Parse(txtEmployeeID.Text)
+                    UserID = Int32.Parse(txtUserID.Text)
                 };
                 try
                 {
@@ -133,6 +166,29 @@ namespace WPFPresentationLayer.InventoryPages
             {
                 "You must enter a valid Employee ID.".ErrorMessage();
             }
+        }
+
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 4/15/2020
+        ///
+        /// Approver:
+        /// Approver: 
+        /// 
+        /// Helper method to retrieve user name from user table
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// <returns></returns>
+        private void FetchUserName()
+        {
+            _userManager = new UserManager();
+            _user = _userManager.getUserByUserID(_order.UserID);
+            firstName = _user.FirstName;
+            lastName = _user.LastName;
         }
     }
 }

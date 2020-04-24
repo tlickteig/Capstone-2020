@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PresentationUtilityCode
+﻿namespace PresentationUtilityCode
 {
-   public static class GenericValidationMethods
+    public static class GenericValidationMethods
     {
         /// <summary>
         /// Creator: Austin Gee
@@ -77,8 +71,8 @@ namespace PresentationUtilityCode
         public static bool IsValidString(this string anyString, int maxLength, int minLength)
         {
             bool result = false;
-            if (!string.IsNullOrWhiteSpace(anyString) 
-                && anyString.Length <= maxLength 
+            if (!string.IsNullOrWhiteSpace(anyString)
+                && anyString.Length <= maxLength
                 && anyString.Length >= minLength)
             {
                 result = true;

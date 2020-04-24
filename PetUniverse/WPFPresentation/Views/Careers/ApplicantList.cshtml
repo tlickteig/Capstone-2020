@@ -2,9 +2,8 @@
 
 @{
     ViewBag.Title = "Applicants";
-    Layout = "~/views/Shared/_CareersLayout.cshtml";
+    Layout = "~/views/Shared/_InternalLayout.cshtml";
 }
-
 <header><h1>Applicants</h1></header>
 <table class="table table-hover table-striped">
     <thead>
@@ -12,6 +11,7 @@
             <th>@Html.ActionLink("Last Name, First Name", "ApplicantList", new { sortOrder = ViewBag.NameSortParam })</th>
             <th>Email</th>
             <th>Phone Number</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>

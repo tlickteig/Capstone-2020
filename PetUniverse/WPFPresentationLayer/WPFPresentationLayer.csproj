@@ -46,6 +46,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -72,6 +75,8 @@
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.2\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -145,26 +150,35 @@
     <Compile Include="AdoptionPages\pgMeetAndGreets.xaml.cs">
       <DependentUpon>pgMeetAndGreets.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdoptionPages\pgWelcomeHomeBaskets.xaml.cs">
+      <DependentUpon>pgWelcomeHomeBaskets.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AMPages\AnimalActivityRecords.xaml.cs">
       <DependentUpon>AnimalActivityRecords.xaml</DependentUpon>
     </Compile>
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AMPages\AnimalFeedingRecords.xaml.cs">
-      <DependentUpon>AnimalFeedingRecords.xaml</DependentUpon>
-    </Compile>
     <Compile Include="AMPages\AnimalManagementInventory.xaml.cs">
       <DependentUpon>AnimalManagementInventory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AMPages\AnimalRecords.xaml.cs">
-      <DependentUpon>AnimalRecords.xaml</DependentUpon>
+    <Compile Include="AMPages\NewAnimals.xaml.cs">
+      <DependentUpon>NewAnimals.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FMPages\AnimalKennelCleaningControls.xaml.cs">
-      <DependentUpon>AnimalKennelCleaningControls.xaml</DependentUpon>
+    <Compile Include="FMPages\pgAnimalKennelCleaningControls.xaml.cs">
+      <DependentUpon>pgAnimalKennelCleaningControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FMPages\FacilityInspectionItemControls.xaml.cs">
-      <DependentUpon>FacilityInspectionItemControls.xaml</DependentUpon>
+    <Compile Include="FMPages\pgFacilityInspectionControls.xaml.cs">
+      <DependentUpon>pgFacilityInspectionControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FMPages\pgFacilityInspectionItemControls.xaml.cs">
+      <DependentUpon>pgFacilityInspectionItemControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FMPages\pgFacilityMaintenanceControls.xaml.cs">
+      <DependentUpon>pgFacilityMaintenanceControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FMPages\pgFacilityTaskControls.xaml.cs">
+      <DependentUpon>pgFacilityTaskControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\AddDonationItem.xaml.cs">
       <DependentUpon>AddDonationItem.xaml</DependentUpon>
@@ -196,8 +210,14 @@
     <Compile Include="InventoryPages\ViewSpecialOrders.xaml.cs">
       <DependentUpon>ViewSpecialOrders.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\BaseScheduleControls.xaml.cs">
-      <DependentUpon>BaseScheduleControls.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\InterviewApplicant.xaml.cs">
+      <DependentUpon>InterviewApplicant.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonnelPages\pgBaseScheduleControls.xaml.cs">
+      <DependentUpon>pgBaseScheduleControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonnelPages\ViewApplicants.xaml.cs">
+      <DependentUpon>ViewApplicants.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\FilterItem.xaml.cs">
       <DependentUpon>FilterItem.xaml</DependentUpon>
@@ -213,9 +233,6 @@
     </Compile>
     <Compile Include="PoSPages\pgAddEditViewPromotion.xaml.cs">
       <DependentUpon>pgAddEditViewPromotion.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="FMPages\FacilityInspectionControls.xaml.cs">
-      <DependentUpon>FacilityInspectionControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\ViewItemDetail.xaml.cs">
       <DependentUpon>ViewItemDetail.xaml</DependentUpon>
@@ -235,29 +252,29 @@
     <Compile Include="AMPages\VetPrescriptionControls.xaml.cs">
       <DependentUpon>VetPrescriptionControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="FMPages\FacilityMaintenanceControls.xaml.cs">
-      <DependentUpon>FacilityMaintenanceControls.xaml</DependentUpon>
-    </Compile>
     <Compile Include="InventoryPages\AddItems.xaml.cs">
       <DependentUpon>AddItems.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\ViewInventory.xaml.cs">
       <DependentUpon>ViewInventory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\Departments.xaml.cs">
-      <DependentUpon>Departments.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgDepartments.xaml.cs">
+      <DependentUpon>pgDepartments.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\frameShiftTime.xaml.cs">
-      <DependentUpon>frameShiftTime.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgShiftTime.xaml.cs">
+      <DependentUpon>pgShiftTime.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\frameTrainingVideos.xaml.cs">
-      <DependentUpon>frameTrainingVideos.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgTrainingVideos.xaml.cs">
+      <DependentUpon>pgTrainingVideos.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\ViewAllRoles.xaml.cs">
-      <DependentUpon>ViewAllRoles.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgViewAllRoles.xaml.cs">
+      <DependentUpon>pgViewAllRoles.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PersonnelPages\ViewPersonnelRequests.xaml.cs">
-      <DependentUpon>ViewPersonnelRequests.xaml</DependentUpon>
+    <Compile Include="PersonnelPages\pgViewPersonnelRequests.xaml.cs">
+      <DependentUpon>pgViewPersonnelRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PoSPages\pgCustomerControls.xaml.cs">
+      <DependentUpon>pgCustomerControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="PoSPages\pgInventoryItems.xaml.cs">
       <DependentUpon>pgInventoryItems.xaml</DependentUpon>
@@ -325,8 +342,8 @@
     <Compile Include="RecruitingPages\ListRequests.xaml.cs">
       <DependentUpon>ListRequests.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SystemAdminPages\LogView.xaml.cs">
-      <DependentUpon>LogView.xaml</DependentUpon>
+    <Compile Include="SystemAdminPages\pgLogView.xaml.cs">
+      <DependentUpon>pgLogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -334,11 +351,17 @@
     <Compile Include="PetUniverseHome.xaml.cs">
       <DependentUpon>PetUniverseHome.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SystemAdminPages\pgCustomerControls.xaml.cs">
+      <DependentUpon>pgCustomerControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SystemAdminPages\pgMessages.xaml.cs">
       <DependentUpon>pgMessages.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SystemAdminPages\UserControls.xaml.cs">
-      <DependentUpon>UserControls.xaml</DependentUpon>
+    <Compile Include="SystemAdminPages\pgUserControls.xaml.cs">
+      <DependentUpon>pgUserControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UpdatePassword.xaml.cs">
+      <DependentUpon>UpdatePassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\AddEditVolunteer.xaml.cs">
       <DependentUpon>AddEditVolunteer.xaml</DependentUpon>
@@ -425,15 +448,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="AdoptionPages\pgWelcomeHomeBaskets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AMPages\AnimalActivityRecords.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AMPages\AnimalControls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="AMPages\AnimalFeedingRecords.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -441,15 +464,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AMPages\AnimalRecords.xaml">
+    <Page Include="AMPages\NewAnimals.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="FMPages\AnimalKennelCleaningControls.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="FMPages\pgAnimalKennelCleaningControls.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="FMPages\FacilityInspectionItemControls.xaml">
+    <Page Include="FMPages\pgFacilityInspectionControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FMPages\pgFacilityInspectionItemControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FMPages\pgFacilityMaintenanceControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FMPages\pgFacilityTaskControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -493,11 +528,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PersonnelPages\BaseScheduleControls.xaml">
+    <Page Include="PersonnelPages\InterviewApplicant.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PersonnelPages\pgBaseScheduleControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PoSPages\FilterItem.xaml">
+    <Page Include="PersonnelPages\ViewApplicants.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -514,10 +553,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
+	  <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PoSPages\FilterItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FMPages\FacilityInspectionControls.xaml">
+    <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -545,10 +588,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="FMPages\FacilityMaintenanceControls.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="InventoryPages\AddItems.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -557,23 +596,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PersonnelPages\Departments.xaml">
+    <Page Include="PersonnelPages\pgDepartments.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PersonnelPages\frameShiftTime.xaml">
+    <Page Include="PersonnelPages\pgShiftTime.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PersonnelPages\frameTrainingVideos.xaml">
+    <Page Include="PersonnelPages\pgTrainingVideos.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PersonnelPages\ViewAllRoles.xaml">
+    <Page Include="PersonnelPages\pgViewAllRoles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="PersonnelPages\ViewPersonnelRequests.xaml">
+    <Page Include="PersonnelPages\pgViewPersonnelRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PoSPages\pgCustomerControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -665,7 +708,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SystemAdminPages\LogView.xaml">
+    <Page Include="SystemAdminPages\pgLogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -681,11 +724,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SystemAdminPages\pgCustomerControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="SystemAdminPages\pgMessages.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="SystemAdminPages\UserControls.xaml">
+    <Page Include="SystemAdminPages\pgUserControls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UpdatePassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -782,11 +833,18 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="AdoptionsPages\" />
+    <Resource Include="Resources\Search.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Arrow.png" />
     <Resource Include="Resources\ArrowHover.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\down.png" />
+    <Resource Include="Resources\PetU.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\X.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

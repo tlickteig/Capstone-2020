@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DataTransferObjects;
+﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
+using System;
+using System.Net.Mail;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace WPFPresentationLayer.AdoptionPages
 {
@@ -60,7 +50,7 @@ namespace WPFPresentationLayer.AdoptionPages
             _adoptionAppointmentManager = new AdoptionAppointmentManager();
             _homeInspectorManager = new InHomeInspectionAppointmentDecisionManager();
             populateAppointmentDataGrid();
-            
+
 
         }
 
@@ -88,7 +78,7 @@ namespace WPFPresentationLayer.AdoptionPages
 
                 //MessageBox.Show("Appoinment information cannot be found.\n\n" + ex.InnerException.Message);
             }
-            
+
         }
 
         /// <summary>
@@ -138,9 +128,9 @@ namespace WPFPresentationLayer.AdoptionPages
             dgAppointments.Columns.RemoveAt(1);
             dgAppointments.Columns.RemoveAt(0);
 
-            
 
-            
+
+
             dgAppointments.Columns[0].Header = "Location Name";
             dgAppointments.Columns[1].Header = "Customer First Name";
             dgAppointments.Columns[2].Header = "Customer Last Name";
@@ -217,7 +207,7 @@ namespace WPFPresentationLayer.AdoptionPages
                     txtDecision.Text = "Undecided";
                 }
             }
-            catch(Exception)
+            catch (Exception)
             {
                 WPFErrorHandler.ErrorMessage("You must select an item from the list");
             }
@@ -268,7 +258,7 @@ namespace WPFPresentationLayer.AdoptionPages
             btnEditNotes.Visibility = Visibility.Visible;
             btnSaveNotes.Visibility = Visibility.Hidden;
             cmbDecision.Items.Clear();
-            
+
 
         }
 
@@ -291,6 +281,7 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             txtNotesMeetAndGreet.IsReadOnly = true;
             cmbDecision.IsEnabled = false;
+            btnSendEmail.IsEnabled = true;
         }
 
         /// <summary>
@@ -378,7 +369,7 @@ namespace WPFPresentationLayer.AdoptionPages
             txtNotesAnimalName.Text = _adoptionAppointment.AnimalName;
             txtNotesCustomerName.Text = _adoptionAppointment.CustomerFirstName + " " + _adoptionAppointment.CustomerLastName;
             txtNotesMeetAndGreet.Text = _adoptionAppointment.Notes;
-            
+
             cmbDecision.Items.Add("Approved");
             cmbDecision.Items.Add("Denied");
 
@@ -426,6 +417,8 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             txtNotesMeetAndGreet.IsReadOnly = false;
             cmbDecision.IsEnabled = true;
+            btnSendEmail.IsEnabled = true;
+            btnSendEmail.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -445,12 +438,13 @@ namespace WPFPresentationLayer.AdoptionPages
         /// </remarks>
         private void btnBackFromNotes_Click(object sender, RoutedEventArgs e)
         {
-            
+
             showAppointmentDetails();
             cmbDecision.Items.Clear();
             disableNotes();
             btnEditNotes.Visibility = Visibility.Visible;
             btnSaveNotes.Visibility = Visibility.Hidden;
+            btnSendEmail.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -469,7 +463,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// </remarks>
         private void showAppointmentDetails()
         {
-            
+
             canAppointmentDetails.Visibility = Visibility.Visible;
             canMeetAndGreetSchedule.Visibility = Visibility.Hidden;
             canMeetAndGreetNotes.Visibility = Visibility.Hidden;
@@ -491,7 +485,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// </remarks>
         private void btnSaveNotes_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (!txtNotesMeetAndGreet.Text.IsValidString())
             {
                 WPFErrorHandler.ErrorMessage("You must enter Valid notes.");
@@ -533,7 +527,7 @@ namespace WPFPresentationLayer.AdoptionPages
             catch (Exception)
             {
                 WPFErrorHandler.ErrorMessage("Appointment update failed");
-                
+
             }
             dgAppointments.Items.Refresh();
             _adoptionAppointment = _adoptionAppointmentManager.RetrieveAdoptionAppointmentByAppointmentID(_adoptionAppointment.AppointmentID);
@@ -602,7 +596,8 @@ namespace WPFPresentationLayer.AdoptionPages
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSendEmai_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -639,6 +634,24 @@ namespace WPFPresentationLayer.AdoptionPages
                 MessageBox.Show("Couldn't send Email", ex.Message + "\n\n" + ex.InnerException.Message);
             }
 
+        }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/04/14
+        /// Approver: Austin Gee , 2020/04/15 
+        /// This is a click event when Welcome Basket button is clicked.
+        /// </summary>
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnWelcomeBasket_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService?.Navigate(new pgWelcomeHomeBaskets());
         }
     }
 }

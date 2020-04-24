@@ -1,10 +1,6 @@
-﻿using System;
+﻿using DataAccessInterfaces;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
-using DataTransferObjects;
 
 namespace DataAccessFakes
 {
@@ -84,7 +80,7 @@ namespace DataAccessFakes
         /// </remarks>
         public List<string> SelectAllStatuses()
         {
-            return _statuses;           
+            return _statuses;
         }
     }
 }

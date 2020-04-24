@@ -1,15 +1,11 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using DataAccessFakes;
 using DataTransferObjects;
-using LogicLayer;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogicLayerInterfaces;
 using DataAccessLayer;
-
+using DataAccessFakes;
+using LogicLayerInterfaces;
+using LogicLayer;
+using System;
 
 namespace LogicLayerTests
 {
@@ -45,64 +41,6 @@ namespace LogicLayerTests
             _fakeActivityAccessor = new FakeAnimalActivityAccessor();
         }
 
-        /// <summary>
-        /// Tests RetrieveAnimalFeedingRecords against the dataAccessFakes records
-        /// </summary>
-        /// <remarks>
-        /// Name: TestRetrieveAnimalFeedingRecords
-        /// Date: 2/7/2020
-        /// Created by: Daulton Schilling
-        /// Reviewed by: Carl Davis, 2/7/2020
-        /// Reviewed by: Chuck Baxter, 2/7/2020
-        /// </remarks>
-        /// <param>
-        /// </param>
-        /// <returns>
-        ///  Passed
-        /// </returns>
-        [TestMethod]
-        public void TestRetrieveAnimalFeedingRecords()
-        {
-            // arrange
-            List<AnimalActivity> AnimalActivity;
-            IAnimalActivityManager _animalActivity = new AnimalActivityManager(_fakeActivityAccessor);
-
-            // act
-            AnimalActivity = _animalActivity.RetrieveAnimalFeedingRecords();
-
-            // assert
-            Assert.AreEqual(4, AnimalActivity.Count);
-
-        }
-
-        /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/18/2020
-        /// Approver:
-        /// Approver:
-        /// 
-        /// Test method for RetrieveAnimalFeedingRecords- tests for throwing the correct exception
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-
-        [TestMethod]
-        [ExpectedException(typeof(ApplicationException))]
-        public void TestRetrieveAnimalByAnimalIDThrowsCorrectException()
-        {
-
-            // arrange
-            _fakeActivityAccessor = null;
-            IAnimalActivityManager _AnimalChecklistManager = new AnimalActivityManager(_fakeActivityAccessor);
-
-
-            // act
-            _AnimalChecklistManager.RetrieveAnimalFeedingRecords();
-
-        }
 
         /// <summary>
         /// Creator: Ethan Murphy
@@ -277,6 +215,99 @@ namespace LogicLayerTests
 
             // Assert
             Assert.IsFalse(result);
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Tests inserting animal activity type record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestAddingAnimalActivityTypeRecord()
+        {
+            // Arrange
+            IAnimalActivityManager manager = new AnimalActivityManager(_fakeActivityAccessor);
+            bool result = false;
+            AnimalActivityType activityType = new AnimalActivityType()
+            {
+                ActivityTypeId = "Sample Activity Type",
+                Description = "This is a description"
+            };
+
+            // Act
+            result = manager.AddAnimalActivityType(activityType);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Tests updating animal activity type record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestUpdatingAnimalActivityTypeRecord()
+        {
+            // Arrange
+            IAnimalActivityManager manager = new AnimalActivityManager(_fakeActivityAccessor);
+            bool result = false;
+            AnimalActivityType activityType = new AnimalActivityType()
+            {
+                ActivityTypeId = "Feeding",
+                Description = "This is a description"
+            };
+
+            // Act
+            result = manager.AddAnimalActivityType(activityType);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Tests deleting animal activity type record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeletingAnimalActivityTypeRecord()
+        {
+            // Arrange
+            IAnimalActivityManager manager = new AnimalActivityManager(_fakeActivityAccessor);
+            bool result = false;
+            AnimalActivityType activityType = new AnimalActivityType()
+            {
+                ActivityTypeId = "Feeding",
+                Description = "This is a description"
+            };
+
+            // Act
+            result = manager.AddAnimalActivityType(activityType);
+
+            // Assert
+            Assert.IsTrue(result);
         }
 
         /// <summary>

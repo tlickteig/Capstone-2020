@@ -1,11 +1,11 @@
-﻿using LogicLayerInterfaces;
+﻿using DataTransferObjects;
+using LogicLayer;
+using LogicLayerInterfaces;
+using PresentationUtilityCode;
 using System;
+using System.Data.SqlClient;
 using System.Windows;
 using System.Windows.Controls;
-using DataTransferObjects;
-using LogicLayer;
-using PresentationUtilityCode;
-using System.Data.SqlClient;
 
 namespace WPFPresentationLayer.PoSPages
 {

@@ -13,7 +13,7 @@
       d:DesignHeight="845" d:DesignWidth="1289"
       Title="HandlingControls" Loaded="Page_Loaded" ShowsNavigationUI="False">
 
-    <Canvas x:Name="canViewHandlingList" Height="845" Width="1289" Background="AliceBlue">
+    <Canvas x:Name="canViewHandlingList" Height="845" Width="1289">
         <Grid Height="845" Width="1289">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"></RowDefinition>
@@ -27,34 +27,31 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition Width="450"></ColumnDefinition>
+                <ColumnDefinition Width="591"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Content="List of Handling Details" HorizontalAlignment="Center" FontSize="16"></Label>
-            <Label Content="Details" Grid.Column="1" HorizontalAlignment="Center" FontSize="16"></Label>
-            <DataGrid x:Name="dgHandlingNotesList" Grid.Row="1" Margin="5" Grid.RowSpan="5" MouseDoubleClick="dgHandlingNotesList_MouseDoubleClick"></DataGrid>
-            <TextBox x:Name="txtSearchForHandling" Grid.Row="6" Height="30" Width="200" HorizontalAlignment="Right" Margin="15" Text="Integers Only"/>
-            <Button x:Name="btnAddHandlingRecord" Grid.Row="6" Height="50" Width="160" HorizontalAlignment="Left" Margin="15" Content="New Record" Click="btnAddHandlingRecord_Click" FontSize="16"/>
-            <Button x:Name="btnSubmitHandlingRecord" Grid.Row="6" Height="50" Width="160" HorizontalAlignment="Left" Margin="15" Content="Submit" Click="btnSubmitHandlingRecord_Click" FontSize="16" Visibility="Hidden"/>
-            <Button x:Name="btnSearchForHandling" Grid.Row="6" Height="50" Width="160" HorizontalAlignment="Center" Margin="200 15 15 15" Content="Search by Animal ID" Click="btnSearchForHandling_Click" FontSize="16"></Button>
-            <Button x:Name="btnCancel" Grid.Row="6" Height="50" Width="160" HorizontalAlignment="Center" Margin="15 15 315 15" Content="Cancel" Click="btnCancel_Click" FontSize="16" Visibility="Hidden"></Button>
-            <Button x:Name="btnUpdateRecord" Grid.Row="6" Height="50" Width="160" HorizontalAlignment="Center" Margin="15 15 315 15" Content="Update" Click="btnUpdateRecord_Click" FontSize="16" Visibility="Visible" IsEnabled="False"></Button>
+            <Label Content="List of Handling Details" HorizontalAlignment="Center" FontSize="16" Margin="256,86,242,10" Grid.Row="1" Width="200"></Label>
+            <Label Content="Details" Grid.Column="1" HorizontalAlignment="Center" FontSize="16" Margin="264,0,265,0" Width="62"></Label>
+            <DataGrid x:Name="dgHandlingNotesList" Grid.Row="2" Margin="40,0,5,40" Grid.RowSpan="5" MouseDoubleClick="dgHandlingNotesList_MouseDoubleClick"></DataGrid>
+            <TextBox x:Name="txtSearchForHandling" Grid.Row="1" Width="200" HorizontalAlignment="Right" Margin="0,16,303,85" Text="Integers Only"/>
+            <Button x:Name="btnAddHandlingRecord" Grid.Row="1" Width="100" HorizontalAlignment="Left" Margin="40,57,0,44" Content="New Record" Click="btnAddHandlingRecord_Click" FontSize="16"/>
+            <Button x:Name="btnSubmitHandlingRecord" Grid.Row="1" Width="100" HorizontalAlignment="Left" Margin="40,57,0,44" Content="Submit" Click="btnSubmitHandlingRecord_Click" Visibility="Hidden"/>
+            <Button x:Name="btnSearchForHandling" Grid.Row="1" Width="150" HorizontalAlignment="Center" Margin="40,16,508,85" Content="Search by Animal ID" Click="btnSearchForHandling_Click" FontSize="16"/>
+            <Button x:Name="btnCancel" Grid.Row="1" Width="100" HorizontalAlignment="Center" Margin="145,57,453,44" Content="Cancel" Click="btnCancel_Click" Visibility="Visible"/>
+            <Button x:Name="btnUpdateRecord" Grid.Row="1" Width="100" HorizontalAlignment="Center" Margin="145,57,453,44" Content="Update" Click="btnUpdateRecord_Click" FontSize="16" Visibility="Hidden" IsEnabled="False"/>
 
 
-            <Label FontSize="16" Content="AnimalHandlingNotes ID:" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
-            <Label FontSize="16" Content="Animal ID:" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
-            <Label FontSize="16" Content="User ID:" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
-            <Label FontSize="16" Content="Handling Notes:" Grid.Column="1" Grid.Row="4" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
-            <Label FontSize="16" Content="Temperment Waring:" Grid.Column="1" Grid.Row="5" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
-            <Label FontSize="16" Content="Update Date:" Grid.Column="1" Grid.Row="6" HorizontalContentAlignment="Left" VerticalContentAlignment="Center"></Label>
-            <TextBox IsEnabled="False" x:Name="txtHandlingNotesID" Grid.Row="1" Grid.Column="2" Height="30" Width="200" HorizontalAlignment="Right" Margin="10" IsReadOnly="True"/>
-            <TextBox IsEnabled="False" x:Name="txtAnimalID" Grid.Row="2" Grid.Column="2" Height="30" Width="200" HorizontalAlignment="Right" Margin="10"/>
-            <TextBox IsEnabled="False" x:Name="txtUserID" Grid.Row="3" Grid.Column="2" Height="30" Width="200" HorizontalAlignment="Right" Margin="10"/>
-            <TextBox IsEnabled="False" x:Name="txtHandlingNotes" Grid.Row="4" Grid.Column="2" Height="100" Width="250" HorizontalAlignment="Right" Margin="10" TextWrapping="Wrap"/>
-            <TextBox IsEnabled="False" x:Name="txtTemperment" Grid.Row="5" Grid.Column="2" Height="100" Width="250" HorizontalAlignment="Right" Margin="10" TextWrapping="Wrap"/>
-            <DatePicker IsEnabled="False" x:Name="dpHandlingUpdateDate" Grid.Row="6" Grid.Column="2" Width="250" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Center"/>
-
+            <Label FontSize="16" Content="AnimalHandlingNotes ID:" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="153,0,232,5"></Label>
+            <Label FontSize="16" Content="Animal ID:" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="153,126,232,10" Grid.RowSpan="2"></Label>
+            <Label FontSize="16" Content="User ID:" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="153,126,291,5" Grid.RowSpan="2"></Label>
+            <Label FontSize="16" Content="Handling Notes:" Grid.Column="1" Grid.Row="4" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="153,0,279,0"></Label>
+            <Label FontSize="16" Content="Temperment Warning:" Grid.Column="1" Grid.Row="5" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="153,0,212,0"></Label>
+            <Label FontSize="16" Content="Update Date:" Grid.Column="1" Grid.Row="5" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="153,121,312,10" Grid.RowSpan="2"></Label>
+            <TextBox IsEnabled="False" x:Name="txtHandlingNotesID" Grid.Row="1" Grid.Column="1" Width="200" HorizontalAlignment="Right" Margin="0,53,27,48" IsReadOnly="True"/>
+            <TextBox IsEnabled="False" x:Name="txtAnimalID" Grid.Row="2" Grid.Column="1" Width="200" HorizontalAlignment="Right" Margin="0,49,27,52"/>
+            <TextBox IsEnabled="False" x:Name="txtUserID" Grid.Row="3" Grid.Column="1" Width="200" HorizontalAlignment="Right" Margin="0,49,27,52"/>
+            <TextBox IsEnabled="False" x:Name="txtHandlingNotes" Grid.Row="4" Grid.Column="1" Width="200" HorizontalAlignment="Right" Margin="0,10,27,21" TextWrapping="Wrap"/>
+            <TextBox IsEnabled="False" x:Name="txtTemperment" Grid.Row="5" Grid.Column="1" Width="200" HorizontalAlignment="Right" Margin="0,17,27,14" TextWrapping="Wrap"/>
+            <DatePicker IsEnabled="False" x:Name="dpHandlingUpdateDate" Grid.Row="6" Grid.Column="1" Width="200" HorizontalAlignment="Right" Margin="0,54,27,52" VerticalAlignment="Center" Height="24"/>
         </Grid>
-
-
     </Canvas>
 </Page>

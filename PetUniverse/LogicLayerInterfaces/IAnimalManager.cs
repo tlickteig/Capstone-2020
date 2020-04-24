@@ -1,9 +1,6 @@
-﻿using System;
+﻿using DataTransferObjects;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 namespace LogicLayerInterfaces
 {
@@ -17,6 +14,37 @@ namespace LogicLayerInterfaces
     /// </summary>
     public interface IAnimalManager
     {
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
+        /// Approver: 
+        /// Gets an animal by its ID number
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="ID"></param>
+        /// <returns>List of animal attributes</returns>
+        List<Animal> RetrieveAnimalByAnimalID(int ID);
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
+        /// Approver: 
+        /// Gets a list of animal names
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <returns>List of animal names</returns>
+        List<AnimalNames> RetrieveNames();
+
         /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 2/6/2020
@@ -187,41 +215,5 @@ namespace LogicLayerInterfaces
         /// <param name="animalID"> The primary key identifying the animal </param>
         /// <returns> Boolean value representig if the method succeeded or not. True is success. </returns>
         bool SetAnimalHousedState(bool housed, int animalID);
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/13/2020
-        /// Approver: Carl Davis, 3/18/2020  
-        /// 
-        /// Interface to add an animal species
-        /// </summary>
-        /// <param name="animalSpecies"></param>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        bool AddNewAnimalSpecies(string animalSpecies, string description);
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020  
-        /// 
-        /// Interface to delete an animal species
-        /// </summary>
-        /// <param name="animalSpeciesID"></param>
-        /// <returns></returns>
-        bool DeleteAnimalSpecies(string animalSpeciesID);
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020  
-        /// 
-        /// Interface to update an animal species
-        /// </summary>
-        /// <param name="oldAnimalSpeciesID"></param>
-        /// <param name="newAnimalSpeciesID"></param>
-        /// <param name="description"></param>
-        /// <returns></returns>
-        bool EditAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description);
     }
 }

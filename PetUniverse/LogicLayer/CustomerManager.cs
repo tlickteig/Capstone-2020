@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
-using DataTransferObjects;
-using LogicLayer;
-using LogicLayerInterfaces;
+﻿using DataAccessInterfaces;
 using DataAccessLayer;
+using DataTransferObjects;
+using LogicLayerInterfaces;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayer
 {
@@ -99,6 +95,32 @@ namespace LogicLayer
             return customer;
         }
 
-        
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/17/2020
+        /// Approver: Steven Cardona
+        ///
+        /// Manager method to get all active customers
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>Returns a list of active PetUniverseUsers</returns>
+        public List<Customer> RetrieveAllActiveCustomers()
+        {
+            List<Customer> customers = new List<Customer>();
+
+            try
+            {
+                customers = _customerAccessor.SelectAllActiveCustomers();
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("No Customers Found", ex);
+            }
+            return customers;
+        }
     }
 }

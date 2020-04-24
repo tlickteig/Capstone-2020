@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataTransferObjects
+﻿namespace DataTransferObjects
 {
     /// <summary>
     /// NAME: Jesse Tomash
@@ -39,14 +33,14 @@ namespace DataTransferObjects
         /// Approver: Brandyn T. Coverdill
         /// Approver: Dalton Reierson
         /// 
-        /// Unique Employee ID
+        /// Unique User ID
         /// </summary>
         /// <remarks>
         /// UPDATED BY:
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
-        public int EmployeeID { get; set; }
+        public int UserID { get; set; }
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020

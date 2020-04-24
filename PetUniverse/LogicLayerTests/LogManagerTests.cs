@@ -1,11 +1,9 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using DataAccessFakes;
 using DataTransferObjects;
-using DataAccessFakes;
-using LogicLayerInterfaces;
 using LogicLayer;
+using LogicLayerInterfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -18,7 +16,7 @@ namespace LogicLayerTests
     /// </summary>
     [TestClass]
     public class LogManagerTests
-    {  
+    {
         private FakeLogAccessor _fakeLogAccessor;
         private ILogManager _logManager;
 
@@ -81,7 +79,7 @@ namespace LogicLayerTests
         public void TestTearDown()
         {
             _fakeLogAccessor = null;
-            _logManager = null;            
+            _logManager = null;
         }
     }
 }

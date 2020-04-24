@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -18,7 +15,7 @@ namespace DataAccessLayer
     /// Accessor class for selecting inventory items
     /// </summary>
     public class InventoryItemsAccessor : IInventoryItemsAccessor
-	{
+    {
         /// <summary>
         /// Creator: Cash Carlson
         /// Created: 2020/02/21
@@ -33,7 +30,7 @@ namespace DataAccessLayer
         /// </remarks>
         /// <returns>A List of Inventory Items</returns>
         public List<InventoryItems> SelectAllInventory()
-		{
+        {
             List<InventoryItems> inventoryItems = new List<InventoryItems>();
 
             var conn = DBConnection.GetConnection();
@@ -74,6 +71,6 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return inventoryItems;
-		}
-	}
+        }
+    }
 }

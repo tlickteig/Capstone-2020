@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using DataAccessLayer;
 using DataTransferObjects;
 using LogicLayerInterfaces;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayer
 {
     /// <summary>
     /// Creator: Daulton Schilling
     /// Created: 3/13/2020
-    /// Approver: 
+    /// Approver: Carl Davis 4/16/2020
     /// 
     /// Class for accessing medical history  
     /// </summary>
@@ -26,7 +23,7 @@ namespace LogicLayer
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/13/2020
-        /// Approver: 
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
         /// 
         /// no argument constructor
@@ -44,7 +41,7 @@ namespace LogicLayer
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/13/2020
-        /// Approver: 
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
         /// 
         /// constructor
@@ -63,8 +60,8 @@ namespace LogicLayer
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 3/13/2020
-        /// Approver: 
-        /// Approver: 
+        /// Approver: Chuck Baxter 3/13/2020
+        /// Approver: Carl Davis 4/16/2020
         /// 
         /// Gets an animals medical history
         /// </summary>
@@ -91,6 +88,37 @@ namespace LogicLayer
             }
 
             return records;
+        }
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 4/6/2020
+        /// Approver: Carl Davis 4/16/2020
+        /// Approver: 
+        /// 
+        /// Method to update an animals medical history
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <Returns>
+        /// int
+        /// </Returns>
+        public int UpdateAnimalMedicalHistory(MedicalHistory old_, MedicalHistory new_)
+        {
+            int result;
+
+            try
+            {
+                result = _medHistoryAccessor.UpdateAnimalMedicalHistory(old_, new_);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Update Failed!", ex);
+            }
+            return result;
         }
     }
 }

@@ -5,17 +5,10 @@ using PresentationUtilityCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.AMPages
 {
@@ -58,6 +51,10 @@ namespace WPFPresentationLayer.AMPages
 
         private IAnimalManager _animalManager;
         private Animal selectedAnimal;
+
+        private AnimalNames an;
+
+
 
         /// <summary>
         /// Creator: Chuck Baxter
@@ -130,15 +127,6 @@ namespace WPFPresentationLayer.AMPages
             dgActiveAnimals.Columns[4].Header = "Currently Housed";
             dgActiveAnimals.Columns[7].Header = "Species";
 
-            dgActiveAnimals.Columns[0].Width = 200;
-            dgActiveAnimals.Columns[1].Width = 200;
-            dgActiveAnimals.Columns[2].Width = 200;
-            dgActiveAnimals.Columns[3].Width = 200;
-            dgActiveAnimals.Columns[4].Width = 90;
-            dgActiveAnimals.Columns[5].Width = 90;
-            dgActiveAnimals.Columns[6].Width = 90;
-            dgActiveAnimals.Columns[7].Width = 200;
-
         }
 
         /// <summary>
@@ -170,15 +158,6 @@ namespace WPFPresentationLayer.AMPages
             dgActiveAnimals.Columns[3].Header = "Arrival Date";
             dgActiveAnimals.Columns[4].Header = "Currently Housed";
             dgActiveAnimals.Columns[7].Header = "Species";
-
-            dgActiveAnimals.Columns[0].Width = 200;
-            dgActiveAnimals.Columns[1].Width = 200;
-            dgActiveAnimals.Columns[2].Width = 200;
-            dgActiveAnimals.Columns[3].Width = 200;
-            dgActiveAnimals.Columns[4].Width = 90;
-            dgActiveAnimals.Columns[5].Width = 90;
-            dgActiveAnimals.Columns[6].Width = 90;
-            dgActiveAnimals.Columns[7].Width = 200;
         }
 
         /// <summary>
@@ -300,8 +279,6 @@ namespace WPFPresentationLayer.AMPages
         {
             canViewAnimalList.Visibility = Visibility.Visible;
             canAddAnimal.Visibility = Visibility.Hidden;
-            refreshActiveData();
-            chkActive.IsChecked = false;
         }
 
         /// <summary>
@@ -319,19 +296,26 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void DgActiveAnimals_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            selectedAnimal = (Animal)dgActiveAnimals.SelectedItem;
+            ACE.Visibility = Visibility.Hidden;
+            SearchBar_.Visibility = Visibility.Hidden;
+            DG.Visibility = Visibility.Hidden;
+            try
+            {
+                selectedAnimal = (Animal)dgActiveAnimals.SelectedItem;
 
-            lblIndividualAnimalName.Content = selectedAnimal.AnimalName;
-            lblIndividualAnimalID.Content = selectedAnimal.AnimalID;
-            lblIndividualAnimalSpecies.Content = selectedAnimal.AnimalSpeciesID;
-            lblIndividualAnimalBreed.Content = selectedAnimal.AnimalBreed;
-            lblIndividualAnimalDob.Content = selectedAnimal.Dob;
-            lblIndividualAnimalArrivalDate.Content = selectedAnimal.ArrivalDate;
-            chkIndvidualActive.IsChecked = selectedAnimal.Active;
-            chkIndvidualAdoptable.IsChecked = selectedAnimal.Adoptable;
-            chkIndvidualCurrentlyHoused.IsChecked = selectedAnimal.CurrentlyHoused;
+                lblIndividualAnimalName.Content = selectedAnimal.AnimalName;
+                lblIndividualAnimalID.Content = selectedAnimal.AnimalID;
+                lblIndividualAnimalSpecies.Content = selectedAnimal.AnimalSpeciesID;
+                lblIndividualAnimalBreed.Content = selectedAnimal.AnimalBreed;
+                lblIndividualAnimalDob.Content = selectedAnimal.Dob;
+                lblIndividualAnimalArrivalDate.Content = selectedAnimal.ArrivalDate;
+                chkIndvidualActive.IsChecked = selectedAnimal.Active;
+                chkIndvidualAdoptable.IsChecked = selectedAnimal.Adoptable;
+                chkIndvidualCurrentlyHoused.IsChecked = selectedAnimal.CurrentlyHoused;
 
-            canIndividualAnimal.Visibility = Visibility;
+                canIndividualAnimal.Visibility = Visibility;
+            }
+            catch { }
 
         }
 
@@ -351,10 +335,16 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void BtnReturnViewIndividualAnimal_Click(object sender, RoutedEventArgs e)
         {
+            ACE.Visibility = Visibility.Visible;
+            
+            DG.Visibility = Visibility.Visible;
+
+            Scroll.ScrollToTop();
+            SearchBar_.Visibility = Visibility.Visible;
+            DG.Visibility = Visibility.Visible;
+            SearchSymbolButton.Visibility = Visibility.Visible;
             canViewAnimalList.Visibility = Visibility.Visible;
             canIndividualAnimal.Visibility = Visibility.Hidden;
-            refreshActiveData();
-            chkActive.IsChecked = false;
         }
 
         /// <summary>
@@ -635,465 +625,401 @@ namespace WPFPresentationLayer.AMPages
             }
         }
 
+
+
         /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
-        /// 
-        /// The method that shows the edit animal species
+        /// Text changed event for the searchbar
         /// </summary>
         /// <remarks>
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnSpecies_Click(object sender, RoutedEventArgs e)
+        public void SearchBar1_TextChanged(object sender, TextChangedEventArgs e)
         {
-            canEditAnimal.Visibility = Visibility.Hidden;
-            canEditAnimalSpecies.Visibility = Visibility.Visible;
-            cmbEditSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-            cmbDeleteSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
-            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
-            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblEditSpecies.Visibility = Visibility.Hidden;
-            cmbEditSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
-            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblDeleteSpecies.Visibility = Visibility.Hidden;
-            cmbDeleteSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
-            chkAddSpecies.IsChecked = false;
-            chkEditSpecies.IsChecked = false;
-            chkDeleteSpecies.IsChecked = false;
-            txtNewAnimalSpecies.Text = "";
-            txtNewAnimalSpeciesDescription.Text = "";
-            cmbEditSpecies.Text = "";
-            cmbDeleteSpecies.Text = "";
-            txtEditAnimalSpecies.Text = "";
-            txtEditAnimalSpeciesDescription.Text = "";
-
+           
+            SearchBarTextInputManager();
         }
+        int NumberOfResults = 0;
+        List<AnimalNames> List_ = new List<AnimalNames>();
+        bool mainList = true;
 
         /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
-        /// 
-        /// The method that cancels the edit animal species
+        /// Handles retrieving reccomendations as the user types into the searchbar
         /// </summary>
         /// <remarks>
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnCancelAnimalEditSpecies_Click(object sender, RoutedEventArgs e)
+        public List<AnimalNames> SearchBarTextInputManager()
         {
-            canEditAnimal.Visibility = Visibility.Visible;
-            canEditAnimalSpecies.Visibility = Visibility.Hidden;
-            txtNewAnimalSpecies.Text = "";
-            txtNewAnimalSpeciesDescription.Text = "";
-            cmbEditSpecies.Text = "";
-            cmbDeleteSpecies.Text = "";
-            txtEditAnimalSpecies.Text = "";
-            txtEditAnimalSpeciesDescription.Text = "";
-            chkAddSpecies.IsChecked = false;
-            chkEditSpecies.IsChecked = false;
-            chkDeleteSpecies.IsChecked = false;
 
+
+            try
+            {
+                NoResults.Visibility = Visibility.Hidden;
+                SearchBar_.Foreground = Brushes.Black;
+
+                NumberOfResults = DG.Items.Count;
+
+                AnimalNames names = new AnimalNames();
+
+                DG.Visibility = Visibility.Visible;
+
+                AnimalManager am = new AnimalManager();
+
+
+                if (SearchBar_.Text == "")
+                {
+                    SearchSymbolButton.IsEnabled = false;
+
+                    mainList = true;
+
+                }
+                else
+                {
+                    SearchSymbolButton.IsEnabled = true;
+
+                }
+                int one = 0;
+                List_ = am.RetrieveNames();
+
+                try
+                {
+                    if (mainList == true)
+                    {
+                        one = Int32.Parse(SearchBar_.Text);
+
+                        DG.ItemsSource = (from c in List_
+                                          where c.AnimalID == Int32.Parse(SearchBar_.Text) + 1000000
+                                          select c).ToList();
+
+                    }
+
+                }
+                catch
+                {
+
+
+                    if (mainList == true)
+                    {
+
+
+                        DG.ItemsSource = (from c in List_
+                                          where c.AnimalName == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                          ||
+                                          c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                          ||
+                                          c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty).Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                          ||
+                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                           ||
+                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                           ||
+                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                           ||
+                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                           ||
+                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                           ||
+                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                           ||
+                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                           ||
+                                             c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                             ||
+                                               c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                               ||
+                                                 c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                                 ||
+                                                  c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                                  ||
+                                                    c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                                    ||
+                                                      c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                                      ||
+                                                       c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                                       ||
+                                                        c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                            ||
+                                               c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[17].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                               ||
+                                               c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[17].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[18].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                                ||
+                                               c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[17].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[18].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[19].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                                ||
+                                               c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[17].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[18].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[19].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[20].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
+                                               ||
+                                                c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[17].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[18].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[19].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[20].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[21].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty).Replace(" ", String.Empty)
+                                          select c).ToList();
+
+
+                        int NumberOfResults = DG.Items.Count;
+
+                        AnimalNames NAC = (AnimalNames)DG.Items[0];
+
+                        if (NumberOfResults <= 3 && SearchBar_.Text.Length >= 4 && ACE.IsChecked == true)
+                        {
+                            SearchSymbolButton.IsEnabled = true;
+
+                            SearchBar_.Foreground = Brushes.LightGray;
+
+                            SearchBar_.Text = NAC.AnimalName.TrimEnd().TrimStart();
+
+                            SearchBar_.Select(SearchBar_.Text.Length + 1, 0);
+
+                            SearchBar_.Focus();
+
+                            SearchBar_.IsReadOnly = true;
+                        }
+
+                        if (NumberOfResults > 3 && SearchBar_.Text.Length != 4)
+                        {
+                            SearchBar_.IsReadOnly = false;
+                        }
+
+
+
+
+
+
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+
+
+            }
+
+
+
+
+
+            return List_;
         }
 
         /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
-        /// 
-        /// The method that when the add species check box is checked, shows the add options and hides the edit and delete options
+        /// MouseEnter and MouseLeave events for the searchbar
         /// </summary>
         /// <remarks>
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void chkAddSpecies_Checked(object sender, RoutedEventArgs e)
+        private void SearchBar_Hover_Off(object sender, MouseEventArgs e)
         {
-            chkEditSpecies.IsChecked = false;
-            chkDeleteSpecies.IsChecked = false;
-            lblNewAnimalSpecies.Visibility = Visibility.Visible;
-            txtNewAnimalSpecies.Visibility = Visibility.Visible;
-            lblNewAnimalSpeciesDescription.Visibility = Visibility.Visible;
-            txtNewAnimalSpeciesDescription.Visibility = Visibility.Visible;
-            lblEditSpecies.Visibility = Visibility.Hidden;
-            cmbEditSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
-            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblDeleteSpecies.Visibility = Visibility.Hidden;
-            cmbDeleteSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Visible;
-            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
+
+            DG.Visibility = Visibility.Hidden;
+
+            if (SearchBar_.Text == "" && SearchBar_.IsFocused == false)
+            {
+                SearchBar_.Text = "Search...";
+                SearchBar_.Foreground = Brushes.LightGray;
+            }
+
+
+
+        }
+        private void SearchBar_Hover_ON(object sender, MouseEventArgs e)
+        {
+            DG.Visibility = Visibility.Visible;
+
+            if (SearchBar_.Text == "Search...")
+            {
+                SearchBar_.Clear();
+                SearchBar_.Foreground = Brushes.Black;
+            }
+        
+
+        
+
         }
 
+
+
+
         /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
-        /// 
-        /// The method that when the edit existing species check box is checked, shows the edit options and hides the add and delete options
+        /// Allows the user to double click on a reccomendation 
         /// </summary>
         /// <remarks>
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void chkEditSpecies_Checked(object sender, RoutedEventArgs e)
+        private void SearchResultList_DoubleClick(object sender, MouseButtonEventArgs e)
         {
-            chkAddSpecies.IsChecked = false;
-            chkDeleteSpecies.IsChecked = false;
-            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
-            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
-            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblEditSpecies.Visibility = Visibility.Visible;
-            cmbEditSpecies.Visibility = Visibility.Visible;
-            lblEditAnimalSpeciesID.Visibility = Visibility.Visible;
-            txtEditAnimalSpecies.Visibility = Visibility.Visible;
-            lblEditAnimalSpeciesDescription.Visibility = Visibility.Visible;
-            txtEditAnimalSpeciesDescription.Visibility = Visibility.Visible;
-            lblDeleteSpecies.Visibility = Visibility.Hidden;
-            cmbDeleteSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Visible;
-            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
+            ACE.Visibility = Visibility.Hidden;
+            if (dgActiveAnimals.Visibility == Visibility)
+            {
+                SearchBar_.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SearchBar_.Visibility = Visibility.Hidden;
+            }
+            try
+            {
+                NoResults.Visibility = Visibility.Hidden;
+
+                NoResults.Visibility = Visibility.Hidden;
+                SearchBar_.Visibility = Visibility.Hidden;
+                DG.Visibility = Visibility.Hidden;
+
+                object item = DG.SelectedItem;
+                string ID = (DG.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+
+                List<Animal> list_ = _animalManager.RetrieveAnimalByAnimalID(Int32.Parse(ID.ToString()));
+
+                Animal NAC = (Animal)list_[0];
+
+                lblIndividualAnimalName.Content = NAC.AnimalName.ToString();
+                lblIndividualAnimalID.Content = NAC.AnimalID.ToString();
+                lblIndividualAnimalSpecies.Content = NAC.AnimalSpeciesID.ToString();
+                lblIndividualAnimalBreed.Content = NAC.AnimalBreed.ToString();
+                lblIndividualAnimalDob.Content = NAC.Dob.ToString();
+                lblIndividualAnimalArrivalDate.Content = NAC.ArrivalDate.ToString();
+
+
+                chkIndvidualActive.IsChecked = NAC.Active;
+                chkIndvidualAdoptable.IsChecked = NAC.Adoptable;
+                chkIndvidualCurrentlyHoused.IsChecked = NAC.CurrentlyHoused;
+
+                canIndividualAnimal.Visibility = Visibility;
+            }
+            catch { }
         }
 
         /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
         /// Approver: 
-        /// 
-        /// The method that when the delete existing species check box is checked, shows the delete options and hides the add and edit options
+        /// Binds a button click for the search bar
         /// </summary>
         /// <remarks>
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void chkDeleteSpecies_Checked(object sender, RoutedEventArgs e)
-        {
-            chkAddSpecies.IsChecked = false;
-            chkEditSpecies.IsChecked = false;
-            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
-            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
-            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblEditSpecies.Visibility = Visibility.Hidden;
-            cmbEditSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
-            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblDeleteSpecies.Visibility = Visibility.Visible;
-            cmbDeleteSpecies.Visibility = Visibility.Visible;
-            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Visible;
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver: 
-        /// 
-        /// The method that when the edit existing species check box is unchecked, everything is hidden
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void chkEditSpecies_Unchecked(object sender, RoutedEventArgs e)
-        {
-            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
-            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
-            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblEditSpecies.Visibility = Visibility.Hidden;
-            cmbEditSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
-            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblDeleteSpecies.Visibility = Visibility.Hidden;
-            cmbDeleteSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver: 
-        /// 
-        /// The method that when the add species check box is unchecked, everything is hidden
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void chkAddSpecies_Unchecked(object sender, RoutedEventArgs e)
-        {
-            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
-            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
-            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblEditSpecies.Visibility = Visibility.Hidden;
-            cmbEditSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
-            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblDeleteSpecies.Visibility = Visibility.Hidden;
-            cmbDeleteSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver: 
-        /// 
-        /// The method that when the delete species check box is unchecked, everything is hidden
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void chkDeleteSpecies_Unchecked(object sender, RoutedEventArgs e)
-        {
-            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
-            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
-            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblEditSpecies.Visibility = Visibility.Hidden;
-            cmbEditSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
-            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
-            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
-            lblDeleteSpecies.Visibility = Visibility.Hidden;
-            cmbDeleteSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
-            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver: 
-        /// 
-        /// The method that populates the edit fields
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void cmbEditSpecies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void PreviewKeyDown(object sender, KeyEventArgs e)
         {
             try
             {
-                txtEditAnimalSpecies.Text = cmbEditSpecies.SelectedItem.ToString();
+                if (e.Key == Key.Space)
+                {
+
+
+                    SearchBar_.Foreground = Brushes.Black;
+
+                    SearchBar_.Text = SearchBar_.Text + " ";
+
+                    SearchBar_.Select(SearchBar_.Text.Length + 1, 0);
+
+                    SearchBar_.Focus();
+
+                    SearchBar_.IsReadOnly = false;
+
+                }
+
+                if (e.Key == Key.Back)
+                {
+
+                    if (SearchBar_.Foreground == Brushes.LightGray && SearchBar_.Text.Length > 2)
+                    {
+
+                        SearchBar_.Foreground = Brushes.Black;
+                        SearchBar_.Clear();
+
+                        SearchBar_.IsReadOnly = false;
+                    }
+                }
+            }
+            catch { }
+        
+        }
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 4/12/2020
+        /// Approver: Carl Davis 4/16/2020
+        /// Approver: 
+        /// Button to allow the user to search for whatever is typed in the searchbar
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void SearchButton(object sender, RoutedEventArgs e)
+        {
+            
+            NumberOfResults = DG.Items.Count;
+            // SearchBar_.Select(0, 0);
+            //SearchBar_.Clear();
+
+            try
+            {
+                NoResults.Visibility = Visibility.Hidden;
+
+                an = (AnimalNames)DG.Items[0];
+
+                SearchBar_.Visibility = Visibility.Hidden;
+                DG.Visibility = Visibility.Hidden;
+
+                List<Animal> list_ = _animalManager.RetrieveAnimalByAnimalID(an.AnimalID);
+
+                Animal NAC = (Animal)list_[0];
+
+                lblIndividualAnimalName.Content = NAC.AnimalName.ToString();
+                lblIndividualAnimalID.Content = NAC.AnimalID.ToString();
+                lblIndividualAnimalSpecies.Content = NAC.AnimalSpeciesID.ToString();
+                lblIndividualAnimalBreed.Content = NAC.AnimalBreed.ToString();
+                lblIndividualAnimalDob.Content = NAC.Dob.ToString();
+                lblIndividualAnimalArrivalDate.Content = NAC.ArrivalDate.ToString();
+
+
+                chkIndvidualActive.IsChecked = NAC.Active;
+                chkIndvidualAdoptable.IsChecked = NAC.Adoptable;
+                chkIndvidualCurrentlyHoused.IsChecked = NAC.CurrentlyHoused;
+
+                canIndividualAnimal.Visibility = Visibility;
+                ACE.Visibility = Visibility.Hidden;
             }
             catch
             {
-                txtEditAnimalSpecies.Text = "";
+                SearchSymbolButton.IsEnabled = true;
+                NoResults.Visibility = Visibility.Visible;
+
+                NoResults.Content = "No results found for " + " ' " + SearchBar_.Text + " ' ";
             }
+
+
+
+
 
         }
 
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver: 
-        /// 
-        /// The method when the submit add new species button is clicked, calls the animal manager
-        /// to add it to the database
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnSubmitAnimalAddSpecies_Click(object sender, RoutedEventArgs e)
-        {
-            if (String.IsNullOrEmpty(txtNewAnimalSpecies.Text))
-            {
-                MessageBox.Show("Please enter the new animal species");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtNewAnimalSpeciesDescription.Text))
-            {
-                MessageBox.Show("Please enter the animal species description");
-                return;
-            }
-
-            try
-            {
-                if (_animalManager.AddNewAnimalSpecies(txtNewAnimalSpecies.Text, txtNewAnimalSpeciesDescription.Text))
-                {
-                    WPFErrorHandler.SuccessMessage("Animal Species Successfully Added");
-
-                    canEditAnimal.Visibility = Visibility.Visible;
-                    canEditAnimalSpecies.Visibility = Visibility.Hidden;
-                    cmbAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-                    cmbEditAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-                    cmbDeleteSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-                }
-            }
-            catch (Exception ex)
-            {
-                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
-                canEditAnimal.Visibility = Visibility.Visible;
-                canEditAnimalSpecies.Visibility = Visibility.Hidden;
-            }
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver: 
-        /// 
-        /// The method when the submit delete species button is clicked, calls the animal manager
-        /// to delete it from the database
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnSubmitAnimalDeleteSpecies_Click(object sender, RoutedEventArgs e)
-        {
-            if (String.IsNullOrEmpty(cmbDeleteSpecies.Text))
-            {
-                MessageBox.Show("Please enter the animal species that you wish to delete");
-                return;
-            }
-
-            try
-            {
-                if (_animalManager.DeleteAnimalSpecies(cmbDeleteSpecies.Text))
-                {
-                    WPFErrorHandler.SuccessMessage("Animal Species Successfully Deleted");
-
-                    canEditAnimal.Visibility = Visibility.Visible;
-                    canEditAnimalSpecies.Visibility = Visibility.Hidden;
-                    cmbAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-                    cmbEditAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-                    cmbDeleteSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-                }
-            }
-            catch (Exception ex)
-            {
-                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + "no animals can be this species before deletion" + "\n\n" + ex.InnerException.Message);
-                canEditAnimal.Visibility = Visibility.Visible;
-                canEditAnimalSpecies.Visibility = Visibility.Hidden;
-            }
-        }
-
-        /// <summary>
-        /// Creator: Chuck Baxter
-        /// Created: 3/18/2020
-        /// Approver: Carl Davis, 3/18/2020 
-        /// Approver: 
-        /// 
-        /// The method when the submit update species button is clicked, calls the animal manager
-        /// to update it in the database
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void BtnSubmitAnimalEditSpecies_Click(object sender, RoutedEventArgs e)
-        {
-            if (String.IsNullOrEmpty(cmbEditSpecies.Text))
-            {
-                MessageBox.Show("Please enter the animal species that you wish to update");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtEditAnimalSpecies.Text))
-            {
-                MessageBox.Show("Please enter the animal species that you wish to update");
-                return;
-            }
-            if (String.IsNullOrEmpty(txtEditAnimalSpeciesDescription.Text))
-            {
-                MessageBox.Show("Please enter the animal species' description that you wish to update");
-                return;
-            }
-
-            try
-            {
-                if (_animalManager.EditAnimalSpecies(cmbEditSpecies.Text, txtEditAnimalSpecies.Text, txtEditAnimalSpeciesDescription.Text))
-                {
-                    WPFErrorHandler.SuccessMessage("Animal Species Successfully Updated");
-
-                    canEditAnimal.Visibility = Visibility.Visible;
-                    canEditAnimalSpecies.Visibility = Visibility.Hidden;
-                    cmbAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-                    cmbEditAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-                    cmbDeleteSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
-                }
-            }
-            catch (Exception ex)
-            {
-                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
-                canEditAnimal.Visibility = Visibility.Visible;
-                canEditAnimalSpecies.Visibility = Visibility.Hidden;
-                txtEditAnimalSpecies.Text = "";
-            }
-        }
+       
     }
 }

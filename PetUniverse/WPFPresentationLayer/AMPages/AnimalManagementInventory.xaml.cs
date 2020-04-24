@@ -4,20 +4,11 @@ using LogicLayer;
 using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
 
 namespace WPFPresentationLayer
 {
@@ -57,6 +48,30 @@ namespace WPFPresentationLayer
         {
             InitializeComponent();
 
+            StatusCanvas.Visibility = Visibility.Hidden;
+
+            CompleteOrder.Visibility = Visibility.Hidden;
+
+            ItemID_.Text = "";
+
+            ItemName_.Text = "";
+
+
+            Warning.Visibility = Visibility.Hidden;
+            Warning2.Visibility = Visibility.Hidden;
+
+            QuantityAlertManager();
+
+            CreateOrder.Visibility = Visibility.Hidden;
+
+            Med.Visibility = Visibility.Visible;
+
+            MedList.Visibility = Visibility.Visible;
+
+            MedList.Width = Double.NaN;
+
+            MedList.Height = Double.NaN;
+
             OS.Visibility = Visibility.Hidden;
             ID.Visibility = Visibility.Hidden;
             Name.Visibility = Visibility.Hidden;
@@ -66,16 +81,15 @@ namespace WPFPresentationLayer
 
             ItemName_.Visibility = Visibility.Hidden;
 
-            Quantity_.Visibility = Visibility.Hidden;
+            //Quantity_.Visibility = Visibility.Hidden;
 
             OS.Visibility = Visibility.Hidden;
 
             four.Visibility = Visibility.Hidden;
 
-            Med.Visibility = Visibility.Hidden;
-            MedList.Visibility = Visibility.Hidden;
 
-            Quantity_form.Visibility = Visibility.Hidden;
+
+            //Quantity_form.Visibility = Visibility.Hidden;
             Quantity_input.Visibility = Visibility.Hidden;
             four.Visibility = Visibility.Hidden;
 
@@ -83,6 +97,79 @@ namespace WPFPresentationLayer
 
             _medicationManager = new MedicationManager();
         }
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 3/3/2020
+        /// Approver: Carl Davis, 3/6/2020s 
+        /// Approver: 
+        /// 
+        /// Method to handle quantity alerts
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void QuantityAlertManager()
+        {
+            MedicationManager medicationManager = new MedicationManager();
+
+            int num = medicationManager.RetrieveMedicationByLowQauntity().Count();
+
+            int empty = medicationManager.RetrieveMedicationByEmptyQauntity().Count();
+
+            Medication medication = new Medication();
+
+
+
+
+
+
+            if (num == 1)
+            {
+                Warning2.Content = "! Pet universe is currently running low on " + num + " medication";
+                Warning2.Foreground = new SolidColorBrush(Colors.DarkOrange);
+                Warning2.Visibility = Visibility.Visible;
+            }
+            else
+                 if (num > 1)
+            {
+                Warning2.Content = "! Pet universe is currently running low on " + num + " medications";
+                Warning2.Foreground = new SolidColorBrush(Colors.DarkOrange);
+                Warning2.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Warning2.Visibility = Visibility.Hidden;
+            }
+
+            if (empty == 1)
+            {
+                Warning.Content = "! Pet universe is currently out of " + empty + " medication";
+                Warning.Foreground = new SolidColorBrush(Colors.Red);
+                Warning.Visibility = Visibility.Visible;
+            }
+            else
+                 if (empty > 1)
+            {
+                Warning.Content = "! Pet universe is currently out of " + empty + " medications";
+                Warning.Foreground = new SolidColorBrush(Colors.Red);
+                Warning.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                Warning.Visibility = Visibility.Hidden;
+            }
+
+
+
+
+
+
+
+        }
+
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 2/12/2020
@@ -132,19 +219,30 @@ namespace WPFPresentationLayer
 
 
             object item = MedList.SelectedItem;
-            string ItemID = (MedList.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
 
-            string ItemName = (MedList.SelectedCells[1].Column.GetCellContent(item) as TextBlock).Text;
+            string itemID = (MedList.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+
+            DateTime OrderDate = DateTime.Today;
+
+            int UserID = 1;
 
 
 
-            _medicationManager.CreateMedicationOrder(Int32.Parse(ItemID), ItemName, Int32.Parse(Quantity_input.Text));
+            ItemID_.Text = itemID.ToString();
 
-            ItemID_.Text = ItemID.ToString();
+            //Quantity_.Text = Int32.Parse(Quantity_input.Text).ToString();
 
-            ItemName_.Text = ItemName.ToString();
+            OutgoingOrders order = new OutgoingOrders()
+            {
+                ItemID = 1,
+                OrderDate = OrderDate,
+                ItemQuantity = Int32.Parse(Quantity_input.Text),
+                UserID = UserID,
+                ItemCategoryID = "Medication"
 
-            Quantity_.Text = Int32.Parse(Quantity_input.Text).ToString();
+            };
+
+            _medicationManager.CreateMedicationOrder(order);
 
 
 
@@ -155,6 +253,8 @@ namespace WPFPresentationLayer
             MedList.Columns[0].Header = "ItemID";
             MedList.Columns[1].Header = "ItemName";
             MedList.Columns[2].Header = "ItemQuantity";
+
+
 
         }
 
@@ -174,13 +274,136 @@ namespace WPFPresentationLayer
         /// </remarks>
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+            CreateOrder.Visibility = Visibility.Visible;
+            //OS.Visibility = Visibility.Visible;
+            //ID.Visibility = Visibility.Visible;
+            //Name.Visibility = Visibility.Visible;
+            //Number.Visibility = Visibility.Visible;
 
+            //Quantity_form.Visibility = Visibility.Visible;
+            //Quantity_input.Visibility = Visibility.Visible;
+
+
+
+            //ItemID_.Visibility = Visibility.Visible;
+
+            //ItemName_.Visibility = Visibility.Visible;
+
+            //Quantity_.Visibility = Visibility.Visible;
+
+            //OS.Visibility = Visibility.Visible;
+
+
+            //NewAnimalChecklistManager _ChecklistManager = new NewAnimalChecklistManager();
+
+
+            //object item = MedList.SelectedItem;
+            //string ItemID = (MedList.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+
+            //string ItemName = (MedList.SelectedCells[1].Column.GetCellContent(item) as TextBlock).Text;
+
+
+
+            //ItemID_.Text = ItemID;
+
+            //ItemName_.Text = ItemName;
+
+
+
+        }
+
+
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 2/12/2020
+        /// Approver: Carl Davis, 2/13/2020
+        /// Approver: Chuck Baxter, 2/13/2020
+        /// 
+        /// Button to finalize an order
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void FinalizeOrderButton(object sender, RoutedEventArgs e)
+        {
+
+            Order.Visibility = Visibility.Hidden;
+
+            CompleteOrder.Visibility = Visibility.Visible;
+
+            object item = MedList.SelectedItem;
+            string ItemID = (MedList.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
+
+            string ItemName = (MedList.SelectedCells[1].Column.GetCellContent(item) as TextBlock).Text;
+
+
+
+            ID_.Content = ItemID;
+
+            Name_.Content = ItemName;
+
+            Num_.Content = Quantity_input.Text;
+
+        }
+
+
+
+
+        /// <summary>
+        /// Creator: Daulton Schilling
+        /// Created: 2/23/2020
+        /// Approver: 
+        /// Approver: 
+        /// 
+        /// Text change event for quantity input box
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void QC(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+
+                if (Int32.Parse(Quantity_input.Text) >= 1)
+                {
+                    //Quantity_.Text = Int32.Parse(Quantity_input.Text).ToString();
+                    Error.Visibility = Visibility.Hidden;
+                    four.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    Error.Visibility = Visibility.Visible;
+                    four.Visibility = Visibility.Hidden;
+                    Error.Content = "Please order atleast 1 item";
+                    //Quantity_.Text = "";
+
+                }
+            }
+            catch (FormatException ex)
+            {
+                Error.Visibility = Visibility.Visible;
+                four.Visibility = Visibility.Hidden;
+                Error.Content = "Please enter a valid quantity";
+                //Quantity_.Text = "";
+            }
+        }
+
+        private void CreateOrderButton(object sender, RoutedEventArgs e)
+        {
+            Order.Visibility = Visibility.Visible;
+            CreateOrder.Visibility = Visibility.Hidden;
             OS.Visibility = Visibility.Visible;
             ID.Visibility = Visibility.Visible;
             Name.Visibility = Visibility.Visible;
             Number.Visibility = Visibility.Visible;
 
-            Quantity_form.Visibility = Visibility.Visible;
+            //Quantity_form.Visibility = Visibility.Visible;
             Quantity_input.Visibility = Visibility.Visible;
 
 
@@ -189,7 +412,7 @@ namespace WPFPresentationLayer
 
             ItemName_.Visibility = Visibility.Visible;
 
-            Quantity_.Visibility = Visibility.Visible;
+            //Quantity_.Visibility = Visibility.Visible;
 
             OS.Visibility = Visibility.Visible;
 
@@ -212,94 +435,49 @@ namespace WPFPresentationLayer
 
         }
 
-
-
-
-        /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/12/2020
-        /// Approver: Carl Davis, 2/13/2020
-        /// Approver: Chuck Baxter, 2/13/2020
-        /// 
-        /// Button to finalize an order
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        private void btn4(object sender, RoutedEventArgs e)
+        private void MedList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            CreateOrder.Visibility = Visibility.Visible;
+
+        }
+
+        private void DataGridRow_Selected(object sender, RoutedEventArgs e)
+        {
+
+
+        }
+
+        private void Finish(object sender, RoutedEventArgs e)
+        {
+            CompleteOrder.Visibility = Visibility.Hidden;
+
+            StatusCanvas.Visibility = Visibility.Visible;
+
+
             try
             {
                 OrderMedications();
+
+                Status.Content = "Your Order has been Placed!";
+
+
             }
-            catch (Exception) 
+            catch (Exception ex)
             {
-                //Needs an exception
+                Status.Content = "Something went wrong when placing your order :(";
+
             }
+
+
         }
 
-
-        /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/23/2020
-        /// Approver: 
-        /// Approver: 
-        /// 
-        /// Display Medication Inventory
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        private void Med_Click(object sender, RoutedEventArgs e)
+        private void StatusMouseEnter(object sender, MouseEventArgs e)
         {
-            Med.Visibility = Visibility.Visible;
-            Med.Visibility = Visibility.Visible;
-            MedList.Visibility = Visibility.Visible;
+            StatusCanvas.Visibility = Visibility.Visible;
         }
-
-        /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/23/2020
-        /// Approver: 
-        /// Approver: 
-        /// 
-        /// Text change event for quantity input box
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        private void QC(object sender, TextChangedEventArgs e)
+        private void StatusMouseLeave(object sender, MouseEventArgs e)
         {
-            try
-            {
-                if (Int32.Parse(Quantity_input.Text) >= 1)
-                {
-                    Quantity_.Text = Int32.Parse(Quantity_input.Text).ToString();
-                    Error.Visibility = Visibility.Hidden;
-                    four.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    Error.Visibility = Visibility.Visible;
-                    four.Visibility = Visibility.Hidden;
-                    Error.Content = "Please order atleast 1 item";
-                    Quantity_.Text = "";
-
-                }
-            }
-            catch (FormatException)
-            {
-                Error.Visibility = Visibility.Visible;
-                four.Visibility = Visibility.Hidden;
-                Error.Content = "Please enter a valid quantity";
-                Quantity_.Text = "";
-            }
+            StatusCanvas.Visibility = Visibility.Hidden;
         }
     }
 }

@@ -17,7 +17,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="FilterItem">
 
-    <Canvas x:Name="canFilterItem" Height="845" Width="1289" Background="AntiqueWhite" Visibility="Visible">
+    <Canvas x:Name="canFilterItem" Height="845" Width="1289" Visibility="Visible">
         <Grid Grid.Row="0" Name="ViewPicture" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"></RowDefinition>

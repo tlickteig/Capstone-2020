@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using DataAccessFakes;
-using DataTransferObjects;
-using LogicLayer;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogicLayerInterfaces;
+﻿using DataAccessFakes;
 using DataAccessLayer;
-
+using LogicLayer;
+using LogicLayerInterfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using DataTransferObjects;
 
 namespace LogicLayerTests
 {
@@ -28,7 +24,7 @@ namespace LogicLayerTests
     /// </remarks>
 
     [TestClass]
-    public class AnimalChecklistManagerTests 
+    public class AnimalChecklistManagerTests
     {
         private INewAnimalChecklistAccessor _animalChecklistAccessor;
 
@@ -99,7 +95,7 @@ namespace LogicLayerTests
         {
             // arrange
             INewAnimalChecklistManager _AnimalChecklistManager = new NewAnimalChecklistManager(_animalChecklistAccessor);
-            
+
 
             // act
             _AnimalChecklistManager.RetrieveNewAnimalChecklistByAnimalID(-1);

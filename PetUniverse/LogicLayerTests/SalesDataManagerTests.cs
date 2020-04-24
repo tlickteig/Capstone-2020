@@ -1,67 +1,66 @@
-﻿using System;
-using System.Collections.Generic;
-using DataAccessFakes;
+﻿using DataAccessFakes;
 using DataAccessInterfaces;
 using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
-	[TestClass]
-	public class SalesDataManagerTests
-	{
-		private ISalesDataAccessor _salesDataAccessor;
+    [TestClass]
+    public class SalesDataManagerTests
+    {
+        private ISalesDataAccessor _salesDataAccessor;
 
-		/// <summary>
-		/// Creator: Cash Carlson
-		/// Created: 2020/03/19
-		/// Approver: Rob Holmes
-		///
-		/// Passing in SalesDataFakes at the start of every test
-		/// </summary>
-		/// <remarks>
-		/// Updater: Name
-		/// Updated: yyyy/mm/dd 
-		/// Update: ()
-		/// </remarks>
-		[TestInitialize]
-		public void InventoryItemsTestSetup()
-		{
-			_salesDataAccessor = new FakeSalesData();
-		}
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/03/19
+        /// Approver: Rob Holmes
+        ///
+        /// Passing in SalesDataFakes at the start of every test
+        /// </summary>
+        /// <remarks>
+        /// Updater: Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        [TestInitialize]
+        public void InventoryItemsTestSetup()
+        {
+            _salesDataAccessor = new FakeSalesData();
+        }
 
-		[TestMethod]
-		public void TestSalesDataManagerRetrieveAllTotalSalesData()
-		{
-			// arrange
-			List<SalesDataVM> salesData;
-			ISalesDataManager salesDataManager = new SalesDataManager(_salesDataAccessor);
+        [TestMethod]
+        public void TestSalesDataManagerRetrieveAllTotalSalesData()
+        {
+            // arrange
+            List<SalesDataVM> salesData;
+            ISalesDataManager salesDataManager = new SalesDataManager(_salesDataAccessor);
 
-			// act
-			salesData = salesDataManager.RetrieveAllTotalSalesData();
+            // act
+            salesData = salesDataManager.RetrieveAllTotalSalesData();
 
-			//assert
-			Assert.AreEqual(1, salesData.Count);
-		}
+            //assert
+            Assert.AreEqual(1, salesData.Count);
+        }
 
-		/// <summary>
-		/// Creator: Cash Carlson
-		/// Created: 2020/03/19
-		/// Approver: Rob Holmes
-		///
-		/// Tear down method that resets the accessor class
-		/// </summary>
-		/// <remarks>
-		/// Updater: Name
-		/// Updated: yyyy/mm/dd 
-		/// Update: ()
-		/// </remarks>
-		[TestCleanup]
-		public void TestTearDown()
-		{
-			_salesDataAccessor = null;
-		}
-	}
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/03/19
+        /// Approver: Rob Holmes
+        ///
+        /// Tear down method that resets the accessor class
+        /// </summary>
+        /// <remarks>
+        /// Updater: Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        [TestCleanup]
+        public void TestTearDown()
+        {
+            _salesDataAccessor = null;
+        }
+    }
 }

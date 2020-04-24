@@ -28,7 +28,7 @@ UI for Open Transaction.
              UPDATED: 2020-03-06
              UPDATE: NA
         -->
-        <Canvas x:Name="canViewTransactions" Height="845" Width="1289" Background="AntiqueWhite" Visibility="Visible">
+        <Canvas x:Name="canViewTransactions" Height="845" Width="1289"  Visibility="Visible">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>

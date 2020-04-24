@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataAccessInterfaces;
-using DataAccessFakes;
+﻿using DataAccessFakes;
 using DataTransferObjects;
-using LogicLayer;
-using LogicLayerInterfaces;
-
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace LogicLayerTests
 {
@@ -78,13 +70,13 @@ namespace LogicLayerTests
             SpecialOrder oldOrder = new SpecialOrder()
             {
                 SpecialOrderID = 1,
-                SpecialOrderEmployeeID = 532
+                UserID = 100000
             };
 
             SpecialOrder editedOrder = new SpecialOrder()
             {
-                SpecialOrderID = 1,
-                SpecialOrderEmployeeID = 557
+                SpecialOrderID = 2,
+                UserID = 100000
             };
 
             FakeSpecialOrderAccessor _SpecialOrderAccessor = new FakeSpecialOrderAccessor();
@@ -115,7 +107,7 @@ namespace LogicLayerTests
 
             SpecialOrder newOrder = new SpecialOrder()
             {
-                SpecialOrderEmployeeID = 346
+                UserID = 100000
             };
 
             FakeSpecialOrderAccessor _SpecialOrderAccessor = new FakeSpecialOrderAccessor();
@@ -147,7 +139,7 @@ namespace LogicLayerTests
             SpecialOrder newOrder = new SpecialOrder()
             {
                 SpecialOrderID = 1,
-                SpecialOrderEmployeeID = 3462
+                UserID = 100000
             };
 
             FakeSpecialOrderAccessor _specialOrderAccessor = new FakeSpecialOrderAccessor();

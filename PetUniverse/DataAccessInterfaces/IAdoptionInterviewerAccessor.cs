@@ -1,10 +1,5 @@
-﻿using System;
+﻿using DataTransferObjects;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
-using DataTransferObjects;
 
 namespace DataAccessInterfaces
 {

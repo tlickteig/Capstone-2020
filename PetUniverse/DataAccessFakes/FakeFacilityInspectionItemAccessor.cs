@@ -1,10 +1,7 @@
 ﻿using DataAccessInterfaces;
 using DataTransferObjects;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -178,8 +175,8 @@ namespace DataAccessFakes
         public List<FacilityInspectionItem> SelectFacilityInspectionItemByItemName(string itemName)
         {
             return (from f in facilityInspectionItems
-                                               where f.ItemName == itemName
-                                               select f).ToList();
+                    where f.ItemName == itemName
+                    select f).ToList();
         }
 
         /// <summary>

@@ -2,9 +2,6 @@
 using DataTransferObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -73,7 +70,7 @@ namespace DataAccessFakes
         public int InsertBaseScheduleVM(BaseScheduleVM baseScheduleVM)
         {
             int result = 0;
-            if(baseScheduleVM != null)
+            if (baseScheduleVM != null)
             {
                 _baseSchedules.Add(baseScheduleVM);
                 result = 1;
@@ -81,7 +78,7 @@ namespace DataAccessFakes
             else
             {
                 throw new ApplicationException("Could not insert data");
-            }            
+            }
             return result;
         }
 

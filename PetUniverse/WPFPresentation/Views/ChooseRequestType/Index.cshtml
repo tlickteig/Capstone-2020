@@ -5,10 +5,28 @@ APPROVER: Lane Sandburg
 View for selecting a Type of request to submit, the Create View will appear within this View
 -->
 @using DataTransferObjects
-
+@section Scripts{
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/request-type-dropdown-view-selector.js"></script>
+    <script src="~/Scripts/refresh-schedule-change-request-shift-list.js"></script>
+}
 <h2>@ViewBag.Title</h2>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <div class="col-md-10">
+
+    <br />
+
+    @if (null != @ViewBag.outputMessage)
+    {
+        if (@ViewBag.outputMessage.Contains("SUCCESS"))
+        {
+            <h3 class="alert-success">@ViewBag.outputMessage</h3>
+        }
+        else
+        {
+            <h3 class="alert-danger">@ViewBag.outputMessage</h3>
+        }
+    }
 
     <label>
         Select a Request Type
@@ -20,19 +38,22 @@ View for selecting a Type of request to submit, the Create View will appear with
         </select>
     </label>
 
+    @{PetUniverseUser currentUser = new PetUniverseUser { PUUserID = 100001, FirstName = "Steven" };}
+    @{string defaultDateSelection = DateTime.Now.AddDays(1).ToShortDateString();}
+
     <div class="col-md-10 timeOffHideableViewDiv">
 
-        @{ Html.RenderAction("Create", "RequestTimeOff", new PetUniverseUser { PUUserID = 100001 });}
+        @{ Html.RenderAction("Create", "RequestTimeOff", currentUser); }
 
     </div>
     <div class="col-md-10 availabilityHideableViewDiv">
 
-        @{ Html.RenderAction("Create", "RequestAvailabilityChange", new PetUniverseUser { PUUserID = 100001 });}
+        @{ Html.RenderAction("Create", "RequestAvailabilityChange", currentUser); }
 
     </div>
     <div class="col-md-10 scheduleChangeHideableViewDiv">
 
-        <p>SCHED CHANGE</p>
+        @{ Html.RenderAction("Create", "RequestScheduleChange", new { userID = currentUser.PUUserID, selectedDate = defaultDateSelection }); }
 
     </div>
 </div>

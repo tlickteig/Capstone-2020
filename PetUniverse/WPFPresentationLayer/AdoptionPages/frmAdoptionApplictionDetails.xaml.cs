@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataTransferObjects;
+using LogicLayerInterfaces;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using DataTransferObjects;
-using LogicLayerInterfaces;
-using LogicLayer;
 
 
- namespace WPFPresentationLayer
- {
+namespace WPFPresentationLayer
+{
     /// <summary>
     /// Creator: Mohamed Elamin
     /// Created: 2020/02/19
@@ -236,8 +225,8 @@ using LogicLayer;
         /// <param name=" sender"></param>
         /// <param name=" e"></param>
         /// <returns></returns>   
-         private void BtnSave_Click(object sender, RoutedEventArgs e)
-         {
+        private void BtnSave_Click(object sender, RoutedEventArgs e)
+        {
             HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision =
             new HomeInspectorAdoptionAppointmentDecision()
             {
@@ -293,5 +282,4 @@ using LogicLayer;
         }
     }
 }
- 
-                
+

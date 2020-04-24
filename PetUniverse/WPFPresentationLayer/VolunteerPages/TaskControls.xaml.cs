@@ -4,19 +4,9 @@ using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.VolunteerPages
 {
@@ -263,8 +253,8 @@ namespace WPFPresentationLayer.VolunteerPages
             dgVolTaskList.ItemsSource = null;
             dgVolTaskList.ItemsSource = _volunteerTaskManager.GetAllVolunteerTasks();
             canViewTasks.Visibility = Visibility.Visible;
-            
-            
+
+
 
         }
 
@@ -273,7 +263,7 @@ namespace WPFPresentationLayer.VolunteerPages
             VolunteerTaskVM selectedTaskVM = (VolunteerTaskVM)dgVolTaskList.SelectedItem;
             VolunteerTask selectedTask = _volunteerTaskManager.GetVolunteerTaskByName(selectedTaskVM.TaskName.ToString());
 
-            
+
             DialogResult dialogResult = System.Windows.Forms.MessageBox.Show("Deleting this record is permenant, are you sure?", "WARNING", MessageBoxButtons.YesNo);
             if (dialogResult == DialogResult.Yes)
             {
@@ -293,7 +283,7 @@ namespace WPFPresentationLayer.VolunteerPages
         private void BtnAddTask_Click(object sender, RoutedEventArgs e)
         {
             canViewTasks.Visibility = Visibility.Hidden;
-            
+
             canCreateTask.Visibility = Visibility.Visible;
         }
     }

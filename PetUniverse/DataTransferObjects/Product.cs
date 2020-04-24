@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataTransferObjects
+﻿namespace DataTransferObjects
 {
     /// <summary>
     /// Creator: Robert Holmes
@@ -30,9 +24,9 @@ namespace DataTransferObjects
         public string Type { get; set; }
 
         public string Description { get; set; }
-        
+
         public string Brand { get; set; }
-        
+
 
         /// <summary>
         /// Creator: Robert Holmes

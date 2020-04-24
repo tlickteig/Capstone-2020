@@ -1,12 +1,9 @@
-﻿using System;
+﻿using DataAccessInterfaces;
+using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
-using DataTransferObjects;
 
 namespace DataAccessLayer
 {
@@ -178,15 +175,23 @@ namespace DataAccessLayer
                     {
                         products.Add(new Product()
                         {
-                                ProductID = reader.GetString(0)
-                            ,   ItemID = reader.GetInt32(1)
-                            ,   Name = reader.GetString(2)
-                            ,   Category = reader.GetString(3)
-                            ,   Type = reader.GetString(4)
-                            ,   Description = reader.GetString(5)
-                            ,   Price = reader.GetDecimal(6)
-                            ,   Brand = reader.GetString(7)
-                            ,   Taxable = reader.GetBoolean(8)
+                            ProductID = reader.GetString(0)
+                            ,
+                            ItemID = reader.GetInt32(1)
+                            ,
+                            Name = reader.GetString(2)
+                            ,
+                            Category = reader.GetString(3)
+                            ,
+                            Type = reader.GetString(4)
+                            ,
+                            Description = reader.GetString(5)
+                            ,
+                            Price = reader.GetDecimal(6)
+                            ,
+                            Brand = reader.GetString(7)
+                            ,
+                            Taxable = reader.GetBoolean(8)
                         });
 
                     }

@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessFakes;
 using DataAccessInterfaces;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataAccessFakes;
 using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -179,7 +176,7 @@ namespace LogicLayerTests
         /// </remarks>
         [TestMethod]
         public void TestEditProduct()
-        { 
+        {
             // arrange, the attribute that need
             Product oldProduct = new Product();
             Product newProduct = new Product();

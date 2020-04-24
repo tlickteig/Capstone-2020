@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
+﻿using DataTransferObjects;
+using System;
 
 namespace PresentationUtilityCode
 {
@@ -114,10 +110,7 @@ namespace PresentationUtilityCode
         public static bool IsValidPhoneNumber(this string phoneNumber)
         {
             bool isValid = false;
-
-            // Remove dashes if exists
-            phoneNumber = phoneNumber.Replace("-", "");
-
+            
             // check length
             if (!string.IsNullOrEmpty(phoneNumber) && phoneNumber.Length == 10)
             {
@@ -268,7 +261,7 @@ namespace PresentationUtilityCode
         {
             bool result = false;
 
-            if(address.Length <= 250)
+            if (address.Length <= 250)
             {
                 result = true;
             }

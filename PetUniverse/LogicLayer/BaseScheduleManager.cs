@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using DataAccessLayer;
 using DataTransferObjects;
 using LogicLayerInterfaces;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayer
 {
@@ -51,7 +48,7 @@ namespace LogicLayer
             bool goodCount = true;
             foreach (BaseScheduleLine line in baseScheduleVM.BaseScheduleLines)
             {
-                if(goodCount && line.Count < 0)
+                if (goodCount && line.Count < 0)
                 {
                     goodCount = false;
                 }

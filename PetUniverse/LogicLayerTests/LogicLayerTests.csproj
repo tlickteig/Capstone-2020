@@ -73,8 +73,10 @@
     <Compile Include="AnimalMedicalHistoryManagerTests.cs" />
     <Compile Include="AnimalStatusManagerTests.cs" />
     <Compile Include="AppointmentTypeManagerTests.cs" />
+    <Compile Include="AvailabilityManagerTests.cs" />
     <Compile Include="BaseScheduleManagerTests.cs" />
     <Compile Include="DonationManagerTests.cs" />
+    <Compile Include="EmployeeAvailabilityManagerTests.cs" />
     <Compile Include="FacilityInspectionItemManagerTests.cs" />
     <Compile Include="FacilityInspectionManagerTests.cs" />
     <Compile Include="ItemReportManagerTests.cs" />
@@ -84,6 +86,7 @@
     <Compile Include="MessagesTests.cs" />
     <Compile Include="OrderManagerTests.cs" />
     <Compile Include="PetUniverseUserERolesManagerTests.cs" />
+    <Compile Include="PoSCustomerPortalTests.cs" />
     <Compile Include="ProductManagerTests.cs" />
     <Compile Include="AnimalPrescriptionManagerTests.cs" />
     <Compile Include="ApplicantManagerTests.cs" />
@@ -113,6 +116,7 @@
     <Compile Include="PromotionManagerTests.cs" />
     <Compile Include="SalesDataManagerTests.cs" />
     <Compile Include="PictureManagerTests.cs" />
+    <Compile Include="FacilityTaskManagerTests.cs" />
     <Compile Include="UserManagerTests.cs" />
     <Compile Include="VetAppointmentManagerTests.cs" />
     <Compile Include="VolunteerEventTests.cs" />

@@ -47,6 +47,7 @@
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -55,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveTimeOff.cs" />
     <Compile Include="AdoptionAnimalVM.cs" />
     <Compile Include="AdoptionApplication.cs" />
     <Compile Include="AdoptionAppointment.cs" />
@@ -68,20 +70,28 @@
     <Compile Include="AnimalHandlingNotes.cs" />
     <Compile Include="AnimalKennel.cs" />
     <Compile Include="AnimalKennelCleaningRecord.cs" />
+    <Compile Include="AnimalNames.cs" />
     <Compile Include="AnimalPrescriptions.cs" />
     <Compile Include="AnimalPrescriptionVM.cs" />
     <Compile Include="AnimalStatus.cs" />
     <Compile Include="AnimalVetAppointments.cs" />
     <Compile Include="Applicant.cs" />
+    <Compile Include="ApplicantVM.cs" />
     <Compile Include="Application.cs" />
     <Compile Include="ApplicationVM.cs" />
     <Compile Include="Appointment.cs" />
+    <Compile Include="AppointmentLocationVM.cs" />
     <Compile Include="AvailabilityRequest.cs" />
     <Compile Include="AvailabilityRequestVM.cs" />
+    <Compile Include="AvilabilityVM.cs" />
     <Compile Include="BaseSchedule.cs" />
     <Compile Include="BaseScheduleLine.cs" />
+    <Compile Include="BaseScheduleLineVM.cs" />
     <Compile Include="BaseScheduleVM.cs" />
+    <Compile Include="CreditCardVM.cs" />
+    <Compile Include="CreditCardVM2.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="CustomerErrorVM.cs" />
     <Compile Include="CustomerQuestionnar.cs" />
     <Compile Include="CustomerQuestionnarVM.cs" />
     <Compile Include="Department.cs" />
@@ -89,6 +99,7 @@
     <Compile Include="DepartmentRequestVM.cs" />
     <Compile Include="Donation.cs" />
     <Compile Include="Donor.cs" />
+    <Compile Include="EmployeeAvailability.cs" />
     <Compile Include="ERole.cs" />
     <Compile Include="EventApprovalVM.cs" />
     <Compile Include="EventRequest.cs" />
@@ -96,6 +107,7 @@
     <Compile Include="FacilityInspection.cs" />
     <Compile Include="FacilityInspectionItem.cs" />
     <Compile Include="FacilityMaintenance.cs" />
+    <Compile Include="FacilityTask.cs" />
     <Compile Include="GeneralQuestion.cs" />
     <Compile Include="HomeInspectorAdoptionAppointmentDecision.cs" />
     <Compile Include="InventoryItems.cs" />
@@ -103,6 +115,7 @@
     <Compile Include="ItemCategory.cs" />
     <Compile Include="ItemLocation.cs" />
     <Compile Include="ItemReport.cs" />
+    <Compile Include="JobListing.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="LogItem.cs" />
     <Compile Include="MedicalHistory.cs" />
@@ -114,6 +127,7 @@
     <Compile Include="MVCQuestionnair.cs" />
     <Compile Include="NewAnimalChecklist.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OutgoingOrders.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />
     <Compile Include="Picture.cs" />
@@ -128,6 +142,10 @@
     <Compile Include="RequestVM.cs" />
     <Compile Include="SalesDataVM.cs" />
     <Compile Include="SalesTax.cs" />
+    <Compile Include="ScheduleChangeRequest.cs" />
+    <Compile Include="ScheduleChangeRequestVM.cs" />
+    <Compile Include="ScheduleWithHoursWorked.cs" />
+    <Compile Include="ShiftVM.cs" />
     <Compile Include="SpecialOrder.cs" />
     <Compile Include="States.cs" />
     <Compile Include="TimeOffRequest.cs" />

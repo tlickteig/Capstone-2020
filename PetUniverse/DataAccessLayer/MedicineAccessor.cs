@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -42,7 +39,7 @@ namespace DataAccessLayer
             cmd.CommandType = CommandType.StoredProcedure;
 
             //Add parameters
-            cmd.Parameters.AddWithValue("@MedicineID", medicineID);            
+            cmd.Parameters.AddWithValue("@MedicineID", medicineID);
 
             //Try to execute the query
             try

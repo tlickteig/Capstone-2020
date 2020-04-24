@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DataTransferObjects;
+﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
-using Microsoft.VisualBasic;
 using PresentationUtilityCode;
+using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace WPFPresentationLayer.AMPages
 {
@@ -101,6 +90,7 @@ namespace WPFPresentationLayer.AMPages
             addMode = true;
             lblTitle.Content = "Register New Kennel Record";
             txtUserID.Text = _user.PUUserID.ToString();
+            canView.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -164,6 +154,7 @@ namespace WPFPresentationLayer.AMPages
             addMode = false;
             RefreshData();
             oldKennel = null;
+            canView.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -241,6 +232,8 @@ namespace WPFPresentationLayer.AMPages
                     oldKennel = null;
                     RefreshData();
                 }
+                canView.Visibility = Visibility.Visible;
+                canAddRecord.Visibility = Visibility.Hidden;
             }
         }
 

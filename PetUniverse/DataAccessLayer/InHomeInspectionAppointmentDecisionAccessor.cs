@@ -1,12 +1,9 @@
 ﻿using DataAccessInterfaces;
+using DataTransferObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
-using System.Data.SqlClient;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
@@ -227,14 +224,14 @@ namespace DataAccessLayer
             oldHomeInspectorAdoptionAppointmentDecision, HomeInspectorAdoptionAppointmentDecision
             newHomeInspectorAdoptionAppointmentDecision)
         {
-               int rows = 0;
-                var conn = DBConnection.GetConnection();
-                var cmd = new SqlCommand("sp_update_adoption_appointment_decision_note", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
+            int rows = 0;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_adoption_appointment_decision_note", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@AppointmentID", newHomeInspectorAdoptionAppointmentDecision
                 .AppointmentID);
 
-            cmd.Parameters.AddWithValue("@NewNotes", 
+            cmd.Parameters.AddWithValue("@NewNotes",
                 newHomeInspectorAdoptionAppointmentDecision.Notes);
             cmd.Parameters.AddWithValue("@NewDecision",
                 newHomeInspectorAdoptionAppointmentDecision.Decision);
@@ -245,23 +242,23 @@ namespace DataAccessLayer
                 oldHomeInspectorAdoptionAppointmentDecision.Decision);
 
             try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                if (rows == 0)
                 {
-                    conn.Open();
-                    rows = cmd.ExecuteNonQuery();
-                    if (rows == 0)
-                    {
-                        throw new ApplicationException("Record not found.");
-                    }
+                    throw new ApplicationException("Record not found.");
                 }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-                finally
-                {
-                    conn.Close();
-                }
-                return rows;       
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
         }
 
         /// <summary>

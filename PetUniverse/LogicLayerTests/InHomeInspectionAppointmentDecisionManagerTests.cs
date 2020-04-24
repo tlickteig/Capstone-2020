@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using LogicLayer;
-using DataAccessFakes;
+﻿using DataAccessFakes;
 using DataAccessInterfaces;
 using DataTransferObjects;
-using LogicLayerInterfaces;
+using LogicLayer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -24,7 +20,7 @@ namespace LogicLayerTests
     /// </summary>
     [TestClass]
     public class InHomeInspectionAppointmentDecisionManagerTests
-   {
+    {
         private IInHomeInspectionAppointmentDecisionAccessor _fakeInHomeInspectionAppointmentDecisionAccessor;
         private InHomeInspectionAppointmentDecisionManager _inHomeInspectionAppointmentDecisionManager;
 
@@ -201,7 +197,8 @@ namespace LogicLayerTests
             bool expected = true;
             bool result;
             HomeInspectorAdoptionAppointmentDecision oldHomeInspectorAdoptionAppointmentDecision
-                = new HomeInspectorAdoptionAppointmentDecision() {
+                = new HomeInspectorAdoptionAppointmentDecision()
+                {
                     AppointmentID = 100001,
                     AdoptionApplicationID = 100001,
                     AppointmentTypeID = "facilitator",
@@ -212,7 +209,8 @@ namespace LogicLayerTests
                     Active = true
                 };
             HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision
-                = new HomeInspectorAdoptionAppointmentDecision() {
+                = new HomeInspectorAdoptionAppointmentDecision()
+                {
                     AppointmentID = 100001,
                     AdoptionApplicationID = 100001,
                     AppointmentTypeID = "facilitator",
@@ -226,7 +224,7 @@ namespace LogicLayerTests
                     (oldHomeInspectorAdoptionAppointmentDecision,
                     newHomeInspectorAdoptionAppointmentDecision);
 
-            Assert.AreEqual(expected,result);
+            Assert.AreEqual(expected, result);
 
         }
     }

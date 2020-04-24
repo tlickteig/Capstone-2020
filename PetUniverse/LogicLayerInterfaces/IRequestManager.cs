@@ -26,7 +26,7 @@ namespace LogicLayer
         /// UPDATE: NA
         /// 
         /// </remarks>
-        List<Request> RetrieveRequestsByStatus(bool open);
+        List<RequestVM> RetrieveRequestsByStatus(bool open);
 
         /// <summary>
         ///  CREATOR: Kaleb Bachert
@@ -274,6 +274,69 @@ namespace LogicLayer
         /// <returns></returns>
         int EditDepartmentRequestDetails(int userID, int requestID, string oldRequestedGroupID, string oldRequestTopic,
             string oldRequestBody, string newRequestedGroupID, string newRequestTopic, string newRequestBody);
-    
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/7
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for creating a schedule change request.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA     
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestingUserID"></param>
+        bool AddScheduleChangeRequest(ScheduleChangeRequest request, int requestingUserID);
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/2
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for inserting Active Time Off, called once a request is approved
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="activeTimeOff"></param>
+
+        bool AddActiveTimeOff(ActiveTimeOff activeTimeOff);
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/9
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for retrieving a ScheduleChangeRequest by RequestID
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        ScheduleChangeRequestVM RetrieveScheduleChangeRequestByRequestID(int requestID);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/07
+        /// Approver: Kaleb Bachert 
+        /// 
+        /// interface method for Getting AvaibilityRequest 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        AvailabilityRequestVM RetrieveAvailabilityRequestByID(int requestID);
     }
 }

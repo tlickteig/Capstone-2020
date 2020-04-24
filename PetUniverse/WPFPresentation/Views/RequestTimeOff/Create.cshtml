@@ -5,11 +5,17 @@ APPROVER: Lane Sandburg
 View for creating a Time Off Request
 -->
 
+@{
+    Layout = null;
+}
+
 @model DataTransferObjects.TimeOffRequest
+
+<br />
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Create", "RequestTimeOff", new {startDate = Request.Form["StartDate"], endDate = Request.Form["EndDate"], RequestingUserID = ViewBag.RequestingUserID}))
+@using (Html.BeginForm("Create", "RequestTimeOff", new { startDate = Request.Form["StartDate"], endDate = Request.Form["EndDate"], RequestingUserID = ViewBag.RequestingUserID }))
 {
     @Html.AntiForgeryToken()
 
@@ -21,16 +27,18 @@ View for creating a Time Off Request
         <div class="form-group">
             @Html.LabelFor(model => model.EffectiveStart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="text" name="StartDate" id="StartDate" data-provide="datepicker" class="form-control" value="@DateTime.Now.ToShortDateString()" />
+                <input type="text" name="StartDate" id="StartDate" data-provide="datepicker" class="form-control" value="@DateTime.Now.AddDays(1).ToShortDateString()" />
                 @Html.ValidationMessageFor(model => model.EffectiveStart, "", new { @class = "text-danger" })
+                <p class="alert-danger">@ViewBag.StartDateError</p>
             </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.EffectiveEnd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="text" name="EndDate" id="EndDate" data-provide="datepicker" class="form-control" value="@DateTime.Now.ToShortDateString()" />
+                <input type="text" name="EndDate" id="EndDate" data-provide="datepicker" class="form-control" value="@DateTime.Now.AddDays(1).ToShortDateString()" />
                 @Html.ValidationMessageFor(model => model.EffectiveEnd, "", new { @class = "text-danger" })
+                <p class="alert-danger">@ViewBag.EndDateError</p>
             </div>
         </div>
 

@@ -1,21 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
-using DataTransferObjects;
 using PresentationUtilityCode;
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace WPFPresentationLayer.AdoptionPages
 {
@@ -373,7 +364,7 @@ namespace WPFPresentationLayer.AdoptionPages
             {
 
             }
-            
+
         }
 
         /// <summary>
@@ -507,14 +498,15 @@ namespace WPFPresentationLayer.AdoptionPages
                 return;
 
             }
-            
+
             if (!txtScheduledAnimalName.Text.IsValidString())
             {
                 WPFErrorHandler.ErrorMessage("Must choose a valid animal from the list.");
                 dgAdoptionApplications.Focus();
                 return;
             }
-            if (!txtScheduledLocationName.Text.IsValidString()){
+            if (!txtScheduledLocationName.Text.IsValidString())
+            {
                 WPFErrorHandler.ErrorMessage("Must choose a valid location from the list.");
                 dgLocations.Focus();
                 return;
@@ -556,7 +548,7 @@ namespace WPFPresentationLayer.AdoptionPages
                     + "\non " + dateTime.ToShortDateString() + " at " + dateTime.ToShortTimeString());
                 txtAppointmentTime.Text = "00h: 00m am/pm";
 
-                
+
             }
             catch (Exception)
             {
@@ -643,7 +635,7 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             try
             {
-                if (null == ((Location)dgLocations.SelectedItem).Name || !((Location)dgLocations.SelectedItem).Name.IsValidString()) 
+                if (null == ((Location)dgLocations.SelectedItem).Name || !((Location)dgLocations.SelectedItem).Name.IsValidString())
                 {
                     txtScheduledLocationName.Text = ((Location)dgLocations.SelectedItem).Address1;
                 }
@@ -693,8 +685,8 @@ namespace WPFPresentationLayer.AdoptionPages
             txtLocationCity.IsReadOnly = false;
             txtLocationState.IsReadOnly = false;
             txtLocationZip.IsReadOnly = false;
-            
-            
+
+
         }
 
         /// <summary>
@@ -860,7 +852,7 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             _locations = new List<Location>();
             var allLocations = _locationManager.RetrieveAllLocations();
-            foreach(var l in allLocations)
+            foreach (var l in allLocations)
             {
                 if (l.Name == txtLocationSearch.Text)
                 {

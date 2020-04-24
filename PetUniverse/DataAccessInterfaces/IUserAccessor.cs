@@ -1,9 +1,6 @@
 ﻿using DataTransferObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessInterfaces
 {
@@ -197,5 +194,55 @@ namespace DataAccessInterfaces
         /// <param name="UserID"></param>
         /// <returns>Returns a user based on ID</returns>
         PetUniverseUser getUserByUserID(int UserID);
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Interface method for update user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="originalUser"></param>
+        /// <param name="updatedUser"></param>
+        /// <returns></returns>
+        bool UpdateUser(PetUniverseUser originalUser, PetUniverseUser updatedUser);
+
+        /// <summary>
+        /// NAME: Kaleb Bachert
+        /// DATE: 4/14/2020
+        /// APPROVER: Lane Sandburg
+        /// 
+        /// This method is used to get all users with a specified role.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="roleID"></param>
+        List<PetUniverseUser> SelectActiveUsersByRole(string roleID);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/24/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to update a user password
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="oldPasswordHash"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
+        bool UpdatePasswordHash(int userID, string oldPasswordHash, string newPasswordHash);
     }
 }

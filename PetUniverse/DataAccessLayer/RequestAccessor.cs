@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 /// <summary>
 ///  Creator: Kaleb Bachert
@@ -24,8 +21,8 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
-	public class RequestAccessor : IRequestAccessor
-	{
+    public class RequestAccessor : IRequestAccessor
+    {
         /// <summary>
         ///  CREATOR: Kaleb Bachert
         ///  CREATED: 2020/2/9
@@ -41,9 +38,9 @@ namespace DataAccessLayer
         /// UPDATE: Changed the Request DTO, updated fields here
         /// 
         /// </remarks>
-        public List<Request> SelectRequestsByStatus(bool open)
+        public List<RequestVM> SelectRequestsByStatus(bool open)
         {
-            List<Request> requests = new List<Request>();
+            List<RequestVM> requests = new List<RequestVM>();
 
             var conn = DBConnection.GetConnection();
             var cmd = new SqlCommand("sp_select_requests_by_status", conn);
@@ -59,12 +56,13 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        Request request = new Request();
+                        RequestVM request = new RequestVM();
 
                         request.RequestID = reader.GetInt32(0);
                         request.RequestTypeID = reader.GetString(1);
-                        request.RequestingUserID = reader.GetInt32(2);
+                        request.RequestingEmployeeID = reader.GetInt32(2);
                         request.DateCreated = reader.GetDateTime(3);
+                        request.RequestingEmail = reader.GetString(4);
 
                         requests.Add(request);
                     }
@@ -94,6 +92,9 @@ namespace DataAccessLayer
         /// UPDATER: Kaleb Bachert
         /// UPDATED: 2020/3/7
         /// UPDATE: Changes Stored Procedure name based on requestType
+        /// UPDATER: Chase Schulte
+        /// UPDATED: 2020/04/08
+        /// UPDATE:  added new request type 
         /// 
         /// </remarks>
         /// <param name="requestID"></param>
@@ -110,8 +111,14 @@ namespace DataAccessLayer
                 case "Time Off":
                     cmd = new SqlCommand("sp_approve_time_off_request", conn);
                     break;
+                case "Schedule Change":
+                    cmd = new SqlCommand("sp_approve_schedule_change_request", conn);
+                    break;
+                case "Availability Change":
+                    cmd = new SqlCommand("sp_approve_availability_change_request", conn);
+                    break;
                 default:
-                    throw new ApplicationException("Request Type has no method for approving requests.");
+                    throw new ApplicationException("Request Type has no method for approving requests. Must be added to the RequestAccessor.");
             }
             cmd.CommandType = CommandType.StoredProcedure;
 
@@ -133,6 +140,66 @@ namespace DataAccessLayer
             }
 
             return requestsChanged;
+        }
+        ///  CREATOR: Chase Schulte
+        ///  CREATED: 2020/04/21
+        ///  APPROVER: Kaleb Bachert
+        ///  
+        ///  This method retrieves a availabilityRequestByID
+        /// </summary>
+        /// <remarks>
+        /// UPDATER:
+        /// UPDATED:
+        /// UPDATE: 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        public AvailabilityRequestVM SelectAvailabilityRequestByID(int requestID)
+        {
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_availbility_request_by_request_id", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("RequestID", requestID);
+            AvailabilityRequestVM availabilityRequest = new AvailabilityRequestVM();
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    availabilityRequest.AvailabilityRequestID = reader.GetInt32(0);
+                    availabilityRequest.SundayStartTime = reader.IsDBNull(1) ? "" : reader.GetString(1);
+                    availabilityRequest.SundayEndTime = reader.IsDBNull(2) ? "" : reader.GetString(2);
+                    availabilityRequest.MondayStartTime = reader.IsDBNull(3) ? "" : reader.GetString(3);
+                    availabilityRequest.MondayEndTime = reader.IsDBNull(4) ? "" : reader.GetString(4);
+                    availabilityRequest.TuesdayStartTime = reader.IsDBNull(5) ? "" : reader.GetString(5);
+                    availabilityRequest.TuesdayEndTime = reader.IsDBNull(6) ? "" : reader.GetString(6);
+                    availabilityRequest.WednesdayStartTime = reader.IsDBNull(7) ? "" : reader.GetString(7);
+                    availabilityRequest.WednesdayEndTime = reader.IsDBNull(8) ? "" : reader.GetString(8);
+                    availabilityRequest.ThursdayStartTime = reader.IsDBNull(9) ? "" : reader.GetString(9);
+                    availabilityRequest.ThursdayEndTime = reader.IsDBNull(10) ? "" : reader.GetString(10);
+                    availabilityRequest.FridayStartTime = reader.IsDBNull(11) ? "" : reader.GetString(11);
+                    availabilityRequest.FridayEndTime = reader.IsDBNull(12) ? "" : reader.GetString(12);
+                    availabilityRequest.SaturdayStartTime = reader.IsDBNull(13) ? "" : reader.GetString(13);
+                    availabilityRequest.SaturdayEndTime = reader.IsDBNull(14) ? "" : reader.GetString(14);
+                    availabilityRequest.RequestID = reader.GetInt32(15);
+                    availabilityRequest.RequestingUserID = reader.GetInt32(16);
+                    availabilityRequest.FirstName = reader.GetString(17);
+                    availabilityRequest.LastName = reader.GetString(18);
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return availabilityRequest;
         }
 
         /// <summary>
@@ -821,6 +888,150 @@ namespace DataAccessLayer
             }
 
             return results;
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/5
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method adds a new Active Time Off record
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="activeTimeOff"></param>
+        public int InsertActiveTimeOff(ActiveTimeOff activeTimeOff)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_active_time_off", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", activeTimeOff.UserID);
+            cmd.Parameters.AddWithValue("@StartDate", activeTimeOff.StartDate);
+            cmd.Parameters.AddWithValue("@EndDate", activeTimeOff.EndDate);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/7
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method adds a new Schedule Change Request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <param name="requestingUserID"></param>
+        public int InsertScheduleChangeRequest(ScheduleChangeRequest request, int requestingUserID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_schedule_change_request", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ShiftID", request.ShiftID);
+            cmd.Parameters.AddWithValue("@RequestingUserID", requestingUserID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/9
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  This method gets a ScheduleChangeRequest by RequestID
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <param name="userID"></param>
+        public ScheduleChangeRequestVM SelectScheduleChangeRequestByRequestID(int requestID)
+        {
+            ScheduleChangeRequestVM request = null;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_schedule_change_request_by_requestid", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("RequestID", requestID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    {
+                        request = new ScheduleChangeRequestVM();
+
+                        request.ScheduleChangeRequestID = reader.GetInt32(0);
+                        request.ShiftID = reader.GetInt32(1);
+                        request.ApprovalDate = reader.IsDBNull(2) ? "" : reader.GetDateTime(2).ToString();
+                        request.ApprovingUserID = reader.IsDBNull(3) ? 0 : reader.GetInt32(3);
+                        request.RequestID = reader.GetInt32(4);
+                        request.EmployeeWorking = reader.GetInt32(5);
+                        request.Date = reader.GetDateTime(6).ToShortDateString();
+                        request.DepartmentID = reader.GetString(7);
+                        request.StartTime = reader.GetString(8);
+                        request.EndTime = reader.GetString(9);
+                        request.Role = reader.GetString(10);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return request;
         }
     }
 }

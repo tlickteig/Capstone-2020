@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IActiveTimeOffAccessor.cs" />
     <Compile Include="IAdoptionAccessor.cs" />
     <Compile Include="IAdoptionAnimalAccessor.cs" />
     <Compile Include="IAdoptionApplicationAccessor.cs" />
@@ -68,16 +69,19 @@
     <Compile Include="IApplicantAccessor.cs" />
     <Compile Include="IAppointmentAccessor.cs" />
     <Compile Include="IAppointmentTypeAccessor.cs" />
+    <Compile Include="IAvailabilityAccessor.cs" />
     <Compile Include="IBackStockAccessor.cs" />
     <Compile Include="IBaseScheduleAccessor.cs" />
     <Compile Include="ICustomerAccessor.cs" />
     <Compile Include="IDepartmentAccessor.cs" />
     <Compile Include="IDonationAccessor.cs" />
+    <Compile Include="IEmployeeAvailabilityAccessor.cs" />
     <Compile Include="IERoleAccessor.cs" />
     <Compile Include="IEventAccessor.cs" />
     <Compile Include="IFacilityInspectionAccessor.cs" />
     <Compile Include="IFacilityInspectionItemAccessor.cs" />
     <Compile Include="IFacilityMaintenanceAccessor.cs" />
+    <Compile Include="IFacilityTaskAccessor.cs" />
     <Compile Include="IHomeInspectorAccessor.cs" />
     <Compile Include="IInHomeInspectionAppointmentDecisionAccessor.cs" />
     <Compile Include="IInventoryItemsAccessor.cs" />
@@ -93,11 +97,13 @@
     <Compile Include="IOrderAccessor.cs" />
     <Compile Include="IPetUniverseUserERolesAccessor.cs" />
     <Compile Include="IPictureAccessor.cs" />
+    <Compile Include="IPoSCustomerPortalAccessor.cs" />
     <Compile Include="IProductAccessor.cs" />
     <Compile Include="IPromotionAccessor.cs" />
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="ISalesDataAccessor.cs" />
     <Compile Include="ISalesTaxAccessor.cs" />
+    <Compile Include="IShiftAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="ISpecialOrderAccessor.cs" />
     <Compile Include="IStatusAccessor.cs" />

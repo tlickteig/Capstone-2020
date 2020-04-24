@@ -67,14 +67,18 @@
     <Compile Include="ApplicantManager.cs" />
     <Compile Include="AppointmentManager.cs" />
     <Compile Include="AppointmentTypeManager.cs" />
+    <Compile Include="AvailabilityManager.cs" />
     <Compile Include="BaseScheduleManager.cs" />
     <Compile Include="CustomerManager.cs" />
+    <Compile Include="CustomerPortalManager.cs" />
     <Compile Include="DepartmentManager.cs" />
     <Compile Include="DonationManager.cs" />
+    <Compile Include="EmployeeAvailabilityManager.cs" />
     <Compile Include="ERoleManager.cs" />
     <Compile Include="FacilityInspectionItemManager.cs" />
     <Compile Include="FacilityInspectionManager.cs" />
     <Compile Include="FacilityMaintenanceManager.cs" />
+    <Compile Include="FacilityTaskManager.cs" />
     <Compile Include="HomeInspectorManager.cs" />
     <Compile Include="InHomeInspectionAppointmentDecisionManager.cs" />
     <Compile Include="InventoryItemsManager.cs" />
@@ -99,6 +103,7 @@
     <Compile Include="ReviewerManager.cs" />
     <Compile Include="SalesDataManager.cs" />
     <Compile Include="SalesTaxManager.cs" />
+    <Compile Include="ShiftManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
     <Compile Include="SpecialOrderManager.cs" />
     <Compile Include="StatusManager.cs" />

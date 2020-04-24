@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -212,10 +209,8 @@ namespace DataAccessLayer
                         {
                             ERoleID = reader.GetString(0),
                             DepartmentID = reader.GetString(1),
-                            Description = reader.GetString(2),
+                            Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
                             EActive = reader.GetBoolean(3)
-
-
                         });
                     }
                     reader.Close();
@@ -267,7 +262,7 @@ namespace DataAccessLayer
                         {
                             ERoleID = reader.GetString(0),
                             DepartmentID = reader.GetString(1),
-                            Description = reader.GetString(2),
+                            Description = reader.IsDBNull(2) ? "" : reader.GetString(2),
                             EActive = reader.GetBoolean(3)
                         });
                     }
@@ -296,6 +291,8 @@ namespace DataAccessLayer
         /// Updated:
         /// Update: 
         /// </remarks>
+        /// <param name="oldERole"></param>
+        /// <param name="newERole"></param>
         /// <returns></returns>
         public int UpdateERole(ERole oldERole, ERole newERole)
         {
@@ -370,7 +367,7 @@ namespace DataAccessLayer
                         eRoles.Add(new ERole()
                         {
                             ERoleID = reader.GetString(0),
-                            Description = reader.GetString(1),
+                            Description = reader.IsDBNull(1) ? "" : reader.GetString(1),
                             EActive = reader.GetBoolean(2),
                             DepartmentID = departmentID,
                         });

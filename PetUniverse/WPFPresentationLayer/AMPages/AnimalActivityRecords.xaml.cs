@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DataTransferObjects;
+using LogicLayer;
+using LogicLayerInterfaces;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DataTransferObjects;
-using LogicLayerInterfaces;
-using LogicLayer;
 
 namespace WPFPresentationLayer.AMPages
 {
@@ -73,6 +64,7 @@ namespace WPFPresentationLayer.AMPages
             cmbActivityType2.ItemsSource = cmbActivityType.ItemsSource;
             canViewActivityRecord.Visibility = Visibility.Visible;
             PopulateFields((AnimalActivity)dgActivities.SelectedItem);
+            canView.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -91,6 +83,7 @@ namespace WPFPresentationLayer.AMPages
         {
             EnableAddMode();
             canViewActivityRecord.Visibility = Visibility.Visible;
+            canView.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -473,6 +466,7 @@ namespace WPFPresentationLayer.AMPages
                 ClearFields();
                 DisableEditMode();
             }
+            canView.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -587,6 +581,7 @@ namespace WPFPresentationLayer.AMPages
                         MessageBox.Show("Record added!");
                         DisableAddMode();
                         canViewActivityRecord.Visibility = Visibility.Hidden;
+                        canView.Visibility = Visibility.Visible;
                         RefreshActivitiesList();
                     }
                     else
@@ -612,6 +607,7 @@ namespace WPFPresentationLayer.AMPages
                         MessageBox.Show("Record updated");
                         DisableEditMode();
                         canViewActivityRecord.Visibility = Visibility.Hidden;
+                        canView.Visibility = Visibility.Visible;
                         RefreshActivitiesList();
                     }
                     else

@@ -12,6 +12,7 @@
       xmlns:local="clr-namespace:WPFPresentationLayer.InventoryPages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      Background="#2e3137"
       Title="AddDonationItem">
 
     <Grid Loaded="Grid_Loaded">
@@ -26,46 +27,73 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="90"></RowDefinition>
             <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="35"></RowDefinition>
         </Grid.RowDefinitions>
-        <Label x:Name="lblShelterInventoryHeader" Content="Add Donated Item" VerticalAlignment="Center"
+        <Label x:Name="lblShelterInventoryHeader" Content="Add Donated Item" VerticalAlignment="Center" Foreground="#fff8e3"
                HorizontalAlignment="Center" FontWeight="DemiBold" FontSize="30" FontStyle="Italic" Grid.ColumnSpan="2"></Label>
 
-        <Label x:Name="lblDonorNameID" Grid.Column="2" Content="Donor Name and ID" VerticalAlignment="Center"
+        <Label x:Name="lblDonorNameID" Grid.Column="2" Content="Donor Name and ID" VerticalAlignment="Center" Foreground="#fff8e3"
                HorizontalAlignment="Center" FontWeight="DemiBold" FontSize="30" FontStyle="Italic" Grid.ColumnSpan="2"></Label>
 
-        <Label x:Name="lblItemName" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18">Item Name:</Label>
-        <TextBox x:Name="txtItemName" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" Margin="20 0"/>
+        <Label x:Name="lblItemName" Grid.Row="1" Grid.Column="0" Foreground="#fff8e3"
+               HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18">Item Name:</Label>
+        <TextBox x:Name="txtItemName" Grid.Row="1" Grid.Column="1" Background="#fff8e3" Foreground="#2e3137"
+                 VerticalAlignment="Center" Margin="20 0" FontSize="18"/>
 
-        <Label x:Name="lblShelterItem" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18">For Shelter Use:</Label>
-        <CheckBox x:Name="chkShelterItem" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="True"></CheckBox>
+        <Label x:Name="lblShelterItem" Grid.Row="1" Grid.Column="2" Foreground="#fff8e3"
+               HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18">For Shelter Use:</Label>
+        <CheckBox x:Name="chkShelterItem" Grid.Row="1" Grid.Column="3" Background="#fff8e3" Foreground="#2e3137"
+                  HorizontalAlignment="Center" VerticalAlignment="Center" IsEnabled="False" IsChecked="True"></CheckBox>
 
-        <Label x:Name="lblItemQty" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18">Item Quantity:</Label>
-        <TextBox x:Name="txtItemQty" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" Margin="20 0"></TextBox>
+        <Label x:Name="lblItemQty" Grid.Row="2" Grid.Column="0" Foreground="#fff8e3"
+               HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18">Item Quantity:</Label>
+        <TextBox x:Name="txtItemQty" Grid.Row="2" Grid.Column="1" Background="#fff8e3" Foreground="#2e3137"
+                 VerticalAlignment="Center" Margin="20 0" FontSize="18"></TextBox>
 
-        <Label x:Name="lblShelterThreshold" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18">Shelter Theshold:</Label>
-        <TextBox x:Name="txtShelterThreshold" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" Margin="20 0"></TextBox>
+        <Label x:Name="lblShelterThreshold" Grid.Row="2" Grid.Column="2" Foreground="#fff8e3"
+               HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18">Shelter Theshold:</Label>
+        <TextBox x:Name="txtShelterThreshold" Grid.Row="2" Grid.Column="3" Background="#fff8e3" Foreground="#2e3137"
+                 VerticalAlignment="Center" Margin="20 0" FontSize="18"></TextBox>
 
-        <Label x:Name="lblCategory" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18">Item Category:</Label>
-        <ComboBox x:Name="cboBxCategory" Grid.Row="3" Grid.Column="1" Margin="20 20" VerticalAlignment="Center" Loaded="cboBxCategory_Loaded"></ComboBox>
+        <Label x:Name="lblCategory" Grid.Row="3" Grid.Column="0" Foreground="#fff8e3"
+               HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="18">Item Category:</Label>
+        <ComboBox x:Name="cboBxCategory" Grid.Row="3" Grid.Column="1" Background="#fff8e3" Foreground="#2e3137"
+                  Margin="20 20" VerticalAlignment="Center" FontSize="18" Loaded="cboBxCategory_Loaded"></ComboBox>
 
-        <Label x:Name="lblItemDesc" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Right">Item Description:</Label>
-        <TextBox x:Name="txtItemDesc" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" Margin="20 0" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"></TextBox>
+        <Label x:Name="lblItemDesc" Grid.Row="4" Grid.Column="0" Foreground="#fff8e3"
+               VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Right">Item Description:</Label>
+        <TextBox x:Name="txtItemDesc" Grid.Row="4" Grid.Column="1" Background="#fff8e3" Foreground="#2e3137"
+                 VerticalAlignment="Center" Margin="20 0" TextWrapping="Wrap" AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Visible" SpellCheck.IsEnabled="True" Height="80"></TextBox>
 
-        <Label x:Name="lblAddNewCategory" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center">Add New Category:</Label>
-        <TextBox x:Name="txtAddCategory" Grid.Row="3" Grid.Column="3" Margin="20 0" VerticalAlignment="Center"></TextBox>
+        <Label x:Name="lblAddNewCategory" Grid.Row="3" Grid.Column="2" Foreground="#fff8e3"
+               VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center">Add New Category:</Label>
+        <TextBox x:Name="txtAddCategory" Grid.Row="3" Grid.Column="3" Background="#fff8e3" Foreground="#2e3137"
+                 Margin="20 0" VerticalAlignment="Center" FontSize="18"></TextBox>
 
-        <Label x:Name="lblCategoryDesc" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center">New Category Description:</Label>
-        <TextBox x:Name="txtCategoryDesc" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" Margin="20 0" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"></TextBox>
+        <Label x:Name="lblCategoryDesc" Grid.Row="4" Grid.Column="2" Foreground="#fff8e3"
+               VerticalAlignment="Center" FontSize="16" HorizontalAlignment="Center">New Category Description:</Label>
+        <TextBox x:Name="txtCategoryDesc" Grid.Row="4" Grid.Column="3" Background="#fff8e3" Foreground="#2e3137"
+                 VerticalAlignment="Center" Margin="20 0" TextWrapping="Wrap" AcceptsReturn="True" 
+                 VerticalScrollBarVisibility="Visible" SpellCheck.IsEnabled="True" Height="80"></TextBox>
 
 
-        <Button x:Name="btnCancel" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Padding="15 0" Click="btnCancel_Click" >Cancel</Button>
-        <Button x:Name="btnAddDonation" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Click="btnAddDonation_Click" >Add Donation</Button>
-        <Button x:Name="btnAddCategory" Grid.Row="5" Grid.Column="3" FontSize="18" HorizontalAlignment="Center" VerticalAlignment="Center" Click="btnAddCategory_Click">Add New Category</Button>
+        <Button x:Name="btnCancel" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Width="120" Height="40" FontSize="16" Padding="15 0" Background="#FF707080" Foreground="#fff8e3"
+                Click="btnCancel_Click" >Cancel</Button>
 
-        <Label x:Name="lblHelp" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18">
+        <Button x:Name="btnAddDonation" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Width="120" Height="40" FontSize="16"  Background="#FF707080" Foreground="#fff8e3"
+                Click="btnAddDonation_Click" >Add Donation</Button>
+
+        <Button x:Name="btnAddCategory" Grid.Row="5" Grid.Column="3" HorizontalAlignment="Center"
+                Width="150" Height="40" FontSize="16"  Background="#FF707080" Foreground="#fff8e3"
+                VerticalAlignment="Center" Click="btnAddCategory_Click">Add New Category</Button>
+
+        <Label x:Name="lblHelp" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="4" Foreground="#fff8e3"
+               VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="11">
             To add a new category, please enter a category name and description in the field labeled "Add New Category" and press "Add New Category" Button.</Label>
     </Grid>
 </Page>

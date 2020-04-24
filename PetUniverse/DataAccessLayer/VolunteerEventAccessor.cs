@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
-using DataAccessInterfaces;
-using System.Data.SqlClient;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
@@ -18,7 +15,7 @@ namespace DataAccessLayer
     /// This is an accessor class for the volunteer event.
     /// 
     /// </summary>
-    public class VolunteerEventAccessor: IVolunteerEventAccessor
+    public class VolunteerEventAccessor : IVolunteerEventAccessor
     {
         /// <summary>
         /// NAME: Zoey McDonald
@@ -210,7 +207,7 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 var reader = cmd.ExecuteReader();
-                while(reader.Read())
+                while (reader.Read())
                 {
                     VolunteerEvent volunteerEvent = new VolunteerEvent();
                     volunteerEvent.VolunteerEventID = Convert.ToInt32(reader.GetValue(0));
@@ -225,7 +222,7 @@ namespace DataAccessLayer
 
                 throw ex;
             }
-            finally 
+            finally
             {
                 conn.Close();
             }

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using DataAccessLayer;
+using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessLayer;
-using DataTransferObjects;
 
 namespace DataAccessFakes
 {
@@ -113,7 +111,7 @@ namespace DataAccessFakes
                     TempermantWarning = "None",
                     AnimalHandlingNotes_ = "None"
                 }
-            };           
+            };
         }
 
         /// <summary>
@@ -165,7 +163,7 @@ namespace DataAccessFakes
         /// </Returns>
         public int GetNumberOfAnimals(bool active = true)
         {
-            return animals.Count;            
+            return animals.Count;
         }
     }
 }

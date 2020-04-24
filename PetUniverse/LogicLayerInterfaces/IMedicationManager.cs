@@ -1,9 +1,5 @@
-﻿using System;
+﻿using DataTransferObjects;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 namespace LogicLayerInterfaces
 {
@@ -51,7 +47,7 @@ namespace LogicLayerInterfaces
         /// Updated:
         /// Update:
         /// </remarks>
-        bool CreateMedicationOrder(int ItemID, string ItemName, int ItemQuantity);
+        bool CreateMedicationOrder(OutgoingOrders order_);
 
         /// <summary>
         /// Creator: Daulton Schilling

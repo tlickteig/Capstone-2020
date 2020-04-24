@@ -1,10 +1,8 @@
-﻿using System;
+﻿using DataAccessInterfaces;
+using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
-using DataTransferObjects;
 
 namespace DataAccessFakes
 {
@@ -17,7 +15,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeDonationAccessor : IDonationAccessor
     {
-        
+
         private List<Donation> _donations = new List<Donation>()
         {
             new Donation {

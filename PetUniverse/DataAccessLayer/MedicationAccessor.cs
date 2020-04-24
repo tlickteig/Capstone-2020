@@ -1,11 +1,9 @@
-﻿using System;
+﻿using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 namespace DataAccessLayer
 {
@@ -62,7 +60,7 @@ namespace DataAccessLayer
                     while (reader.Read())
                     {
                         var medication = new Medication();
-                        
+
 
                         medication.ItemID = reader.GetInt32(0);
                         medication.ItemQuantity = reader.GetInt32(1);
@@ -84,7 +82,7 @@ namespace DataAccessLayer
             }
             return N.ToList();
 
-           
+
         }
 
         /// <summary>
@@ -123,7 +121,7 @@ namespace DataAccessLayer
                 {
                     while (reader.Read())
                     {
-                        var medication= new Medication();
+                        var medication = new Medication();
 
 
                         medication.ItemID = reader.GetInt32(0);
@@ -206,7 +204,7 @@ namespace DataAccessLayer
             }
             return N.ToList();
         }
-        
+
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 2/12/2020
@@ -220,29 +218,31 @@ namespace DataAccessLayer
         /// Updated:
         /// Update:
         /// </remarks>
-        public int InsertMedicationOrder(int ItemID, string ItemName, int ItemQuantity)
+        public int InsertMedicationOrder(OutgoingOrders order_)
         {
-            int Order = 0;
+            int Order_ = 0;
+
+
 
             var conn = DBConnection.GetConnection();
 
 
-            var cmd = new SqlCommand("SP_Create_SpecialOrder", conn);
+            var cmd = new SqlCommand("SP_Create_OutgoingOrder", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            string CID = "Medication";
-
-            cmd.Parameters.AddWithValue("@ItemID", ItemID);
-            cmd.Parameters.AddWithValue("@ItemName", ItemName);
-            cmd.Parameters.AddWithValue("@ItemQuantity", ItemQuantity);
-            cmd.Parameters.AddWithValue("@ItemCategoryID", CID);
 
 
+            cmd.Parameters.AddWithValue("@ItemID", order_.ItemID);
+
+            cmd.Parameters.AddWithValue("@UserID", order_.UserID);
+            cmd.Parameters.AddWithValue("@OrderDate", order_.OrderDate);
+            cmd.Parameters.AddWithValue("@ItemQuantity", order_.ItemQuantity);
+            cmd.Parameters.AddWithValue("@ItemCategoryID", order_.ItemCategoryID);
 
             try
             {
                 conn.Open();
-                Order = Convert.ToInt32(cmd.ExecuteScalar());
+                Order_ = Convert.ToInt32(cmd.ExecuteScalar());
             }
             catch (Exception ex)
             {
@@ -253,7 +253,7 @@ namespace DataAccessLayer
                 conn.Close();
             }
 
-            return Order;
+            return Order_;
         }
     }
 

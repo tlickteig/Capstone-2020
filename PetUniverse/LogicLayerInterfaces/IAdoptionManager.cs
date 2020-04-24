@@ -1,9 +1,5 @@
-﻿using System;
+﻿using DataTransferObjects;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 namespace LogicLayerInterfaces
 {
@@ -23,7 +19,7 @@ namespace LogicLayerInterfaces
         bool SubmitReviewerDecision(int adoptionApplicationID, string decision);
         List<CustomerQuestionnar> retrieveCustomerQuestionnar(string customerEmail);
         bool addAdoptionApplication(MVCAdoptionApplication adoptionApplication);
-       List<string> retrieveAllQuestions();
+        List<string> retrieveAllQuestions();
         bool addQuestionnair(MVCQuestionnair questionnair);
     }
 }

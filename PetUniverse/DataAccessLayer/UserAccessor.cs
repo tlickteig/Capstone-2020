@@ -4,9 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -112,7 +109,9 @@ namespace DataAccessLayer
                         Address2 = reader.IsDBNull(6) ? null : reader.GetString(6),
                         City = reader.GetString(7),
                         State = reader.GetString(8),
-                        ZipCode = reader.GetString(9)
+                        ZipCode = reader.GetString(9),
+                        Active = reader.GetBoolean(10),
+
                     });
                 }
                 reader.Close();
@@ -556,9 +555,9 @@ namespace DataAccessLayer
         /// This method is used to find retrieve a user based on the provided ID
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Steven Cardona
+        /// Updated: 4/16/2020
+        /// Update: Added field that was needed to bring up logged in user
         /// </remarks>
         /// <param name="UserID"></param>
         /// <returns></returns>
@@ -590,11 +589,17 @@ namespace DataAccessLayer
                     //Create new user to set properties
                     user = new PetUniverseUser();
 
-                    user.PUUserID = UserID;
-                    user.FirstName = reader.GetString(0);
-                    user.LastName = reader.GetString(1);
-                    user.PhoneNumber = reader.GetString(2);
-                    user.Email = reader.GetString(3);
+                    user.PUUserID = reader.GetInt32(0);
+                    user.FirstName = reader.GetString(1);
+                    user.LastName = reader.GetString(2);
+                    user.PhoneNumber = reader.GetString(3);
+                    user.Email = reader.GetString(4);
+                    user.Address1 = reader.GetString(5);
+                    user.Address2 = reader.IsDBNull(6) ? null : reader.GetString(6);
+                    user.City = reader.GetString(7);
+                    user.State = reader.GetString(8);
+                    user.ZipCode = reader.GetString(9);
+                    user.Active = reader.GetBoolean(10);
                 }
                 else
                 {
@@ -611,6 +616,173 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return user;
+        }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Accessor method for update user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="originalUser"></param>
+        /// <param name="updatedUser"></param>
+        /// <returns></returns>
+        public bool UpdateUser(PetUniverseUser originalUser, PetUniverseUser updatedUser)
+        {
+            bool isUpdated = false;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_user", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            cmd.Parameters.AddWithValue("@UserID", originalUser.PUUserID);
+            cmd.Parameters.AddWithValue("@OldFirstName", originalUser.FirstName);
+            cmd.Parameters.AddWithValue("@OldLastName", originalUser.LastName);
+            cmd.Parameters.AddWithValue("@OldPhoneNumber", originalUser.PhoneNumber);
+            cmd.Parameters.AddWithValue("@OldEmail", originalUser.Email);
+            cmd.Parameters.AddWithValue("@OldActive", originalUser.Active);
+            cmd.Parameters.AddWithValue("@OldaddressLineOne", originalUser.Address1);
+            cmd.Parameters.AddWithValue("@OldaddressLineTwo", originalUser.Address2);
+            cmd.Parameters.AddWithValue("@OldCity", originalUser.City);
+            cmd.Parameters.AddWithValue("@OldState", originalUser.State);
+            cmd.Parameters.AddWithValue("@OldZipcode", originalUser.ZipCode);
+            cmd.Parameters.AddWithValue("@OldHasViewedPoliciesAndStandards", originalUser.HasViewedPolAndStan);
+
+            cmd.Parameters.AddWithValue("@NewFirstName", updatedUser.FirstName);
+            cmd.Parameters.AddWithValue("@NewLastName", updatedUser.LastName);
+            cmd.Parameters.AddWithValue("@NewPhoneNumber", updatedUser.PhoneNumber);
+            cmd.Parameters.AddWithValue("@NewEmail", updatedUser.Email);
+            cmd.Parameters.AddWithValue("@NewActive", updatedUser.Active);
+            cmd.Parameters.AddWithValue("@NewaddressLineOne", updatedUser.Address1);
+            cmd.Parameters.AddWithValue("@NewaddressLineTwo", updatedUser.Address2);
+            cmd.Parameters.AddWithValue("@NewCity", updatedUser.City);
+            cmd.Parameters.AddWithValue("@NewState", updatedUser.State);
+            cmd.Parameters.AddWithValue("@NewZipcode", updatedUser.ZipCode);
+            cmd.Parameters.AddWithValue("@NewHasViewedPoliciesAndStandards", updatedUser.HasViewedPolAndStan);
+
+            try
+            {
+                conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+                isUpdated = (rows == 1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return isUpdated;
+        }
+
+        /// <summary>
+        /// NAME: Kaleb Bachert
+        /// DATE: 4/15/2020
+        /// APPROVER: Lane Sandburg
+        /// 
+        /// This method is used to find retrieve all users with the specified role
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="roleID"></param>
+        public List<PetUniverseUser> SelectActiveUsersByRole(string roleID)
+        {
+            List<PetUniverseUser> users = new List<PetUniverseUser>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_users_by_role", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ERoleID", roleID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        PetUniverseUser user = new PetUniverseUser();
+
+                        user.PUUserID = reader.GetInt32(0);
+                        user.Email = reader.GetString(1);
+
+
+                        users.Add(user);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return users;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/24/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to update a user password
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="oldPasswordHash"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
+        public bool UpdatePasswordHash(int userID, string oldPasswordHash, string newPasswordHash)
+        {
+            bool succesfulUpdate = false;
+            var dexConn = DBConnection.GetConnection();
+            var dexCmd = new SqlCommand("sp_update_user_password");
+            dexCmd.Connection = dexConn;
+            dexCmd.CommandType = CommandType.StoredProcedure;
+            dexCmd.Parameters.Add("@UserID", SqlDbType.Int);
+            dexCmd.Parameters.Add("@OldPasswordHash", SqlDbType.NVarChar, 100);
+            dexCmd.Parameters.Add("@NewPasswordHash", SqlDbType.NVarChar, 100);
+
+            dexCmd.Parameters["@UserID"].Value = userID;
+            dexCmd.Parameters["@OldPasswordHash"].Value = oldPasswordHash;
+            dexCmd.Parameters["@NewPasswordHash"].Value = newPasswordHash;
+            try
+            {
+                dexConn.Open();
+                int rows = dexCmd.ExecuteNonQuery();
+                succesfulUpdate = (rows == 1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                dexConn.Close();
+            }
+            return succesfulUpdate;
         }
 
     }

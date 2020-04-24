@@ -1,11 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using DataTransferObjects;
+﻿using DataAccessFakes;
 using DataAccessInterfaces;
-using DataAccessFakes;
-using System.Collections.Generic;
-using LogicLayerInterfaces;
+using DataTransferObjects;
 using LogicLayer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -191,6 +190,6 @@ namespace LogicLayerTests
             Assert.AreEqual(expect, result);
         }
 
-       
+
     }
 }

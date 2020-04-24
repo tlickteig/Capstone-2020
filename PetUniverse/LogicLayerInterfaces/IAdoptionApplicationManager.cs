@@ -1,9 +1,5 @@
-﻿using System;
+﻿using DataTransferObjects;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 namespace LogicLayerInterfaces
 {
@@ -14,7 +10,7 @@ namespace LogicLayerInterfaces
     /// 
     /// Interface adoption application methods
     /// </summary>
-    
+
     public interface IAdoptionApplicationManager
     {
         /// <summary>
@@ -50,5 +46,22 @@ namespace LogicLayerInterfaces
         /// <param name="adoptionApplicationID"></param>
         /// <returns></returns>
         ApplicationVM RetrieveAdoptionApplicationByID(int adoptionApplicationID);
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/22/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Deactivates an adoption application by id
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <returns></returns>
+        bool DeactivateAdoptionApplication(int adoptionApplicationID);
     }
 }

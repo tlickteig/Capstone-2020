@@ -3,8 +3,6 @@ using DataTransferObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -211,7 +209,7 @@ namespace DataAccessFakes
         /// <param name="eRole"></param>
         /// <returns></returns>
         public int InsertERole(ERole eRole)
-        {           
+        {
             //Check if new eRoleID is null
             if (eRole.ERoleID == null || eRole.ERoleID == "")
             {

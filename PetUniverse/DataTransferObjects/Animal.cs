@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataTransferObjects
 {
@@ -27,15 +23,17 @@ namespace DataTransferObjects
     /// </summary>
     public class Animal
     {
+
+
         public int AnimalID { get; set; }
         public string AnimalName { get; set; }
         public DateTime Dob { get; set; }
+        public string AnimalSpeciesID { get; set; }
         public string AnimalBreed { get; set; }
         public DateTime ArrivalDate { get; set; }
         public bool CurrentlyHoused { get; set; }
         public bool Adoptable { get; set; }
         public bool Active { get; set; }
-        public string AnimalSpeciesID { get; set; }
         /// <summary>
         /// Creator: Michael Thompson
         /// Created: 2/7/2020

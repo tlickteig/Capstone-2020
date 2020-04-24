@@ -1,11 +1,9 @@
-﻿using System;
+﻿using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 namespace DataAccessLayer
 {
@@ -125,72 +123,6 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/18/2020
-        /// Approver: Carl Davis, 2/7/2020
-        /// Approver: Chuck Baxter, 2/7/2020
-        /// 
-        /// Gets the animal feeding records
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        public List<AnimalActivity> GetAnimalFeedingRecords()
-        {
-            var conn = DBConnection.GetConnection();
-
-            var cmd1 = new SqlCommand("sp_SELECT_Animal_Feeding_Records");
-
-            cmd1.Connection = conn;
-
-            cmd1.CommandType = CommandType.StoredProcedure;
-
-            List<AnimalActivity> N = new List<AnimalActivity>();
-
-            try
-            {
-                conn.Open();
-                var reader = cmd1.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        N.Add(new AnimalActivity()
-                        {
-
-
-                            AnimalID = reader.GetInt32(0),
-                            UserID = reader.GetInt32(1),
-
-
-                            AnimalActivityTypeID = reader.GetString(3),
-                            ActivityDateTime = reader.GetDateTime(4)
-
-
-
-
-
-                        });
-                    }
-                    reader.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-            return N.ToList();
-        }
-
-        /// <summary>
         /// Creator: Ethan Murphy
         /// Created: 4/2/2020
         /// Approver: Carl Davis 4/3/2020
@@ -230,7 +162,6 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
-
             return rows;
         }
 
@@ -283,9 +214,130 @@ namespace DataAccessLayer
             {
                 conn.Close();
             }
+            return rows;
+        }
 
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Creates a new animal activity type record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        public int InsertAnimalActivityType(AnimalActivityType animalActivityType)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_AnimalActivityType", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalActivityTypeID", animalActivityType.ActivityTypeId);
+            cmd.Parameters.AddWithValue("@ActivityNotes", animalActivityType.Description);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Updates an existing animal activity type record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalActivityType"></param>
+        /// <param name="newAnimalActivityType"></param>
+        /// <returns></returns>
+        public int UpdateAnimalActivityType(AnimalActivityType oldAnimalActivityType, AnimalActivityType newAnimalActivityType)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_animal_activity_type", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@OldAnimalActivityTypeID", oldAnimalActivityType.ActivityTypeId);
+
+            cmd.Parameters.AddWithValue("@NewAnimalActivityTypeID", newAnimalActivityType.ActivityTypeId);
+            cmd.Parameters.AddWithValue("@NewActivityNotes", newAnimalActivityType.Description);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// Deletes an existing animal activity type record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        public int DeleteAnimalActivityType(AnimalActivityType animalActivityType)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_delete_animal_activity_type", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalActivityTypeID", animalActivityType.ActivityTypeId);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
             return rows;
         }
     }
-
 }

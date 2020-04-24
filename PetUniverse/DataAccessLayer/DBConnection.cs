@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
 
 namespace DataTransferObjects
 {
@@ -19,10 +14,12 @@ namespace DataTransferObjects
         private static string connectionString =
 
 
+
         // Connection String for home
         @"Data Source=localhost\sqlexpress;Initial Catalog=PetUniverseDB; Integrated Security = True";
+
         //@"Data Source=dbpetuniverse.database.windows.net;Initial Catalog=PetUniverseDB;User ID=csdadmin;Password=********;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        
+
         //Connection string for school
         //@"Data Source=localhost;Initial Catalog=PetUniverseDB;Integrated Security=True"; // Connection string for school
 

@@ -1,9 +1,5 @@
-﻿using System;
+﻿using DataTransferObjects;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 namespace LogicLayerInterfaces
 {
@@ -44,6 +40,6 @@ namespace LogicLayerInterfaces
         /// Update: NA
         /// 
         /// </remarks>
-        bool DeactivateAnimal(int animalID); 
+        bool DeactivateAnimal(int animalID);
     }
 }

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessFakes;
+﻿using DataAccessFakes;
 using DataTransferObjects;
 using LogicLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace LogicLayerTests
 {
@@ -24,6 +22,9 @@ namespace LogicLayerTests
     {
         private PetUniverseUser _user;
         private FakeUserAccessor _fakeUserAccessor;
+        private FakeActiveTimeOffAccessor _fakeActiveTimeOffAccessor;
+        private FakeAvailabilityAccessor _fakeAvailabilityAccessor;
+        private FakeShiftAccessor _fakeShiftAccessor;
         private UserManager _userManager;
 
         /// <summary>
@@ -42,7 +43,10 @@ namespace LogicLayerTests
         public void TestSetup()
         {
             _fakeUserAccessor = new FakeUserAccessor();
-            _userManager = new UserManager(_fakeUserAccessor);
+            _fakeShiftAccessor = new FakeShiftAccessor();
+            _fakeActiveTimeOffAccessor = new FakeActiveTimeOffAccessor();
+            _fakeAvailabilityAccessor = new FakeAvailabilityAccessor();
+            _userManager = new UserManager(_fakeUserAccessor, _fakeShiftAccessor, _fakeActiveTimeOffAccessor, _fakeAvailabilityAccessor);
         }
 
         /// <summary>
@@ -551,6 +555,184 @@ namespace LogicLayerTests
             _user = _userManager.getUserByUserID(userID);
             //Assert 
             Assert.IsNotNull(_user);
+        }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Test to verify updateUser is working properly
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        [TestMethod]
+        public void TestUpdateUser()
+        {
+            // Arrange
+            PetUniverseUser originalUser = new PetUniverseUser()
+            {
+                FirstName = "John",
+                LastName = "Doe",
+                Email = "jdoe@PetUniverse.com",
+                City = "Cedar Rapids",
+                PhoneNumber = "2255448796",
+                State = "IA",
+                ZipCode = "52404",
+                Active = true
+            };
+
+            // Arrange
+            PetUniverseUser updatedUser = new PetUniverseUser()
+            {
+                FirstName = "Jon",
+                LastName = "Donut",
+                Email = "jdonut@PetUniverse.com",
+                City = "Grand Rapids",
+                PhoneNumber = "7775448796",
+                State = "MI",
+                ZipCode = "52403",
+                Active = true
+            };
+
+            // Call the method
+            bool success = _userManager.UpdateUser(originalUser, updatedUser);
+
+            // Assert
+            Assert.AreEqual(true, success);
+        }
+
+        /// <summary>
+        /// NAME: Kaleb Bachert
+        /// DATE: 4/16/2020
+        /// APPROVER: Lane Sandburg
+        /// 
+        /// This Test Method is the expected outcome of the TestRetrieveUsersWhoCanWork() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// </summary>
+        [TestMethod]
+        public void TestRetrieveUsersAbleToWork()
+        {
+            //Arrange
+            DateTime date = new DateTime(2020, 4, 21);
+            string weekDay = date.DayOfWeek.ToString();
+            DateTime startTime = new DateTime(2020, 4, 21, 4, 0, 0);
+            DateTime endTime = new DateTime(2020, 4, 21, 8, 0, 0);
+            string roleID = "Customer";
+            List<PetUniverseUser> users;
+
+            //Act
+            users = _userManager.RetrieveUsersAbleToWork(date, weekDay, startTime, endTime, roleID);
+
+            //Assert    
+            Assert.AreEqual(1, users.Count);
+        }
+
+        /// <summary>
+        /// NAME: Kaleb Bachert
+        /// DATE: 4/16/2020
+        /// APPROVER: Lane Sandburg
+        /// 
+        /// This Test Method is the outcome of the TestRetrieveUsersWhoCanWork() method when no User's fit the criteria
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// </summary>
+        [TestMethod]
+        public void TestRetrieveUsersAbleToWorkNoResults()
+        {
+            //Arrange
+            DateTime date = new DateTime(2020, 4, 21);
+            string weekDay = date.DayOfWeek.ToString();
+            DateTime startTime = new DateTime(2020, 4, 21, 9, 0, 0);
+            DateTime endTime = new DateTime(2020, 4, 21, 16, 0, 0);
+            string roleID = "Customer";
+            List<PetUniverseUser> users;
+
+            //Act
+            users = _userManager.RetrieveUsersAbleToWork(date, weekDay, startTime, endTime, roleID);
+
+            //Assert    
+            Assert.AreEqual(0, users.Count);
+        }
+
+        /// <summary>
+        /// NAME: Kaleb Bachert
+        /// DATE: 4/16/2020
+        /// APPROVER: Lane Sandburg
+        /// 
+        /// This Test Method is the outcome of the TestRetrieveUsersWhoCanWork() method when multiple Users fit the criteria
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// </summary>
+        [TestMethod]
+        public void TestRetrieveUsersAbleToWorkMultipleResults()
+        {
+            //Arrange
+            DateTime date = new DateTime(2020, 4, 23);
+            string weekDay = date.DayOfWeek.ToString();
+            DateTime startTime = new DateTime(2020, 4, 23, 8, 0, 0);
+            DateTime endTime = new DateTime(2020, 4, 23, 18, 0, 0);
+            string roleID = "Customer";
+            List<PetUniverseUser> users;
+
+            //Act
+            users = _userManager.RetrieveUsersAbleToWork(date, weekDay, startTime, endTime, roleID);
+
+            //Assert    
+            Assert.AreEqual(2, users.Count);
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/20/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This is the test method that is used to update a user password
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="oldPasswordHash"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
+        [TestMethod]
+        public void TestChangeUserPassword()
+        {
+            //Arrange
+            int userID = 100000;
+            string currentPassword = "newuser";
+            string newPassword = "PetsRule!";
+
+            //act
+            bool result = _userManager.UpdatePassword(userID, currentPassword, newPassword);
+
+            //Assert
+            Assert.IsTrue(result);
         }
 
         /// <summary>

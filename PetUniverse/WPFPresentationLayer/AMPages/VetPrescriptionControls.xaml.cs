@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataTransferObjects;
+using LogicLayer;
+using LogicLayerInterfaces;
+using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using DataTransferObjects;
-using LogicLayerInterfaces;
-using LogicLayer;
 
 namespace WPFPresentationLayer.AMPages
 {
@@ -122,6 +112,16 @@ namespace WPFPresentationLayer.AMPages
                 if (txtAdministrationMethod.Text == "")
                 {
                     MessageBox.Show("Administration method can't be blank");
+                    return;
+                }
+                if (dateStartDate.SelectedDate == null)
+                {
+                    MessageBox.Show("Please select a start date");
+                    return;
+                }
+                if (dateEndDate.SelectedDate == null)
+                {
+                    MessageBox.Show("Please select an end date");
                     return;
                 }
 

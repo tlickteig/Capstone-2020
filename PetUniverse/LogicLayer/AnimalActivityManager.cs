@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessLayer;
-using DataAccessFakes;
+﻿using DataAccessLayer;
 using DataTransferObjects;
 using LogicLayerInterfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace LogicLayer
@@ -186,33 +183,82 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 2/18/2020
-        /// Approver: Carl Davis, 2/7/2020
-        /// Approver: Chuck Baxter, 2/7/2020
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
         /// 
-        /// Retrieves the animal feeding records
+        /// Adds an animal activity type record to the DB
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
         /// </remarks>
-        public List<AnimalActivity> RetrieveAnimalFeedingRecords()
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        public bool AddAnimalActivityType(AnimalActivityType animalActivityType)
         {
-            List<AnimalActivity> records = null;
-
             try
             {
-                records = _activityAccessor.GetAnimalFeedingRecords();
+                return _activityAccessor.InsertAnimalActivityType(animalActivityType) == 1;
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("records not found", ex);
+                throw new ApplicationException("Failed to add record", ex);
             }
+        }
 
-            return records;
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// updates an animal activity type record in the DB
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="oldAnimalActivityType"></param>
+        /// <param name="newAnimalActivityType"></param>
+        /// <returns></returns>
+        public bool EditAnimalActivityType(AnimalActivityType oldAnimalActivityType, AnimalActivityType newAnimalActivityType)
+        {
+            try
+            {
+                return _activityAccessor.UpdateAnimalActivityType(oldAnimalActivityType, newAnimalActivityType) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to update record", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 4/16/2020
+        /// Approver: Ethan Murphy, 4/16/2020
+        /// 
+        /// deletes an animal activity type record in the DB
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalActivityType"></param>
+        /// <returns></returns>
+        public bool DeleteAnimalActivityType(AnimalActivityType animalActivityType)
+        {
+            try
+            {
+                return _activityAccessor.DeleteAnimalActivityType(animalActivityType) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to delete record", ex);
+            }
         }
     }
-
 }

@@ -1,24 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using DataTransferObjects;
+﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
-using PresentationUtilityCode;
-using WPFPresentationLayer.PoSPages;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using WPFPresentationLayer.AMPages;
-using WPFPresentationLayer.RecruitingPages;
 using WPFPresentationLayer.FMPages;
+using WPFPresentationLayer.PoSPages;
+using WPFPresentationLayer.RecruitingPages;
 using WPFPresentationLayer.SystemAdminPages;
 
 namespace WPFPresentationLayer
@@ -610,8 +599,9 @@ namespace WPFPresentationLayer
             switchScreen(desiredScreen);
             frameViewFacilityInspection.Content = new FacilityInspectionControls(_user);
             frameViewFacilityMaintenance.Content = new FacilityMaintenanceControls(_user);
-            frameViewKennelCleaningRecords.Content = new AnimalKennelCleaningControls(_user);
+            frameViewKennelCleaningRecords.Content = new pgAnimalKennelCleaningControls(_user);
             frameViewFacilityInspectionItem.Content = new FacilityInspectionItemControls(_user);
+            frameViewFacilityTask.Content = new FacilityTaskControls(_user);
         }
 
 
@@ -675,7 +665,7 @@ namespace WPFPresentationLayer
         /// Updater: 
         /// Updated: 
         /// Update: 
-		
+
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -685,9 +675,9 @@ namespace WPFPresentationLayer
             switchScreen(desiredScreen);
 
             FrameMessages.Content = new pgMessages(_user);
-		}
-		
-		/// Creator: Robert Holmes
+        }
+
+        /// Creator: Robert Holmes
         /// Created: 2020/03/17
         /// Approver: Jaeho Kim
         /// 
@@ -727,6 +717,81 @@ namespace WPFPresentationLayer
         private void tabOpenTransaction_Loaded(object sender, RoutedEventArgs e)
         {
             frmOpenTransaction.Content = new pgOpenTransaction(_user);
+        }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver:
+        /// 
+        /// When mouse up on lblStatusBar will bring up canAdduser to view logged in user Information
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lblStatusBar_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+
+            canInventory.Visibility = Visibility.Hidden;
+            canAM.Visibility = Visibility.Hidden;
+            canFM.Visibility = Visibility.Hidden;
+            canPoS.Visibility = Visibility.Hidden;
+            canVolHub.Visibility = Visibility.Hidden;
+            canRequests.Visibility = Visibility.Hidden;
+            canSysAd.Visibility = Visibility.Visible;
+            canAdoptions.Visibility = Visibility.Hidden;
+            canDonRec.Visibility = Visibility.Hidden;
+            canPersonnel.Visibility = Visibility.Hidden;
+            txtWelcome.Visibility = Visibility.Hidden;
+            canMessages.Visibility = Visibility.Hidden;
+            tabViewUsers.Focus();
+            UserControls userControls = new UserControls(_user);
+            userControls.canViewUserERoles.Visibility = Visibility.Hidden;
+            userControls.canUserView.Visibility = Visibility.Hidden;
+            userControls.canAddUser.Visibility = Visibility.Visible;
+            frmUserControls.Content = userControls;
+        }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver:
+        /// 
+        /// Changes Cursor when hovered over label
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lblStatusBar_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Mouse.OverrideCursor = Cursors.Hand;
+        }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver:
+        /// 
+        /// Changes Cursor when not hovering over label
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void lblStatusBar_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Mouse.OverrideCursor = null;
         }
     }
 }

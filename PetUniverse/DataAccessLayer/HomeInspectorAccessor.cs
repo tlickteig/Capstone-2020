@@ -1,12 +1,9 @@
-﻿using System;
+﻿using DataAccessInterfaces;
+using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
-using DataTransferObjects;
 
 namespace DataAccessLayer
 {
@@ -111,7 +108,7 @@ namespace DataAccessLayer
                         adoptionApplication.CustomerEmail = reader.GetString(2);
                         adoptionApplication.Status = reader.GetString(3);
                         adoptionApplication.RecievedDate = reader.GetDateTime(4);
-                        
+
                         adoptionApplications.Add(adoptionApplication);
                     }
                 }

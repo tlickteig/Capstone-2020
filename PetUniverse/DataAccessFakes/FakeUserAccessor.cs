@@ -1,11 +1,8 @@
 ﻿using DataAccessInterfaces;
 using DataTransferObjects;
 using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessFakes
 {
@@ -461,6 +458,97 @@ namespace DataAccessFakes
                 return user;
             }
             return null;
+        }
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/16/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Fake for update user
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        public bool UpdateUser(PetUniverseUser originalUser, PetUniverseUser updatedUser)
+        {
+            return true;
+        }
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/15
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///   Method that retrieves all the dummy Users with specified Role, for testing
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        public List<PetUniverseUser> SelectActiveUsersByRole(string roleID)
+        {
+            List<PetUniverseUser> users = new List<PetUniverseUser>();
+
+            users.Add(new PetUniverseUser()
+            {
+                PUUserID = 100000,
+                FirstName = "Test1",
+                LastName = "Test1",
+                City = "Cedar Rapids",
+                Email = "test1@PetUniverse.com",
+                PhoneNumber = "5632341221",
+                State = "IA",
+                ZipCode = "52406",
+                Active = true,
+                PURoles = new List<string>() { "Admin", "Customer" }
+            });
+            users.Add(new PetUniverseUser()
+            {
+                PUUserID = 100001,
+                FirstName = "Test2",
+                LastName = "Test2",
+                City = "New York",
+                Email = "test2@PetUniverse.com",
+                PhoneNumber = "5632348893",
+                State = "NY",
+                ZipCode = "10021",
+                Active = true,
+                PURoles = new List<string>() { "Customer" }
+            });
+
+            users = (from user in users
+                     where user.PURoles.Contains(roleID)
+                     select user).ToList();
+
+            return users;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/24/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called for the update password logic
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        /// <param name="userID"></param>
+        /// <param name="oldPasswordHash"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
+        public bool UpdatePasswordHash(int userID, string oldPasswordHash, string newPasswordHash)
+        {
+            return true;
         }
     }
 }

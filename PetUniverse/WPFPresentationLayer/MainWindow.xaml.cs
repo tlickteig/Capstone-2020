@@ -1,23 +1,11 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using PresentationUtilityCode;
-using System.Windows.Threading;
+using System;
 using System.Diagnostics;
-using System.Threading;
+using System.Windows;
+using System.Windows.Threading;
 
 namespace WPFPresentationLayer
 {
@@ -106,14 +94,50 @@ namespace WPFPresentationLayer
             unlockDate = getUnlockDate(userEmail);
 
             //Validating input
-            if (!userEmail.IsValidEmail() || !userPassword.IsValidPassword())
+            if (!userEmail.IsValidEmail())
             {
                 //Display a message, always say user name or password bad 
                 //so bad users aren't sure what is wrong
                 WPFErrorHandler.ErrorMessage("Invalid Username or Password.", "Login");
-                txtEmail.Text = "";
-                pwdPassword.Password = "";
                 txtEmail.Focus();
+                return;
+            }
+            else if (!userPassword.IsValidPassword())
+            {
+                WPFErrorHandler.ErrorMessage("Invalid Username or Password.", "Login");
+                txtEmail.Focus();
+                if (_userManager.CheckIfUserExists(userEmail) == true)
+                {
+                    if (DateTime.Now > unlockDate)
+                    {
+                        //won't log them in, but will count as an active attempt to login
+                        if (loginCount >= 3)
+                        {
+                            isLocked = true;
+                            UnlockByTime(userEmail);
+                            if (dt == null)
+                            {
+                                setTimer();
+                            }
+                            Lockout(userEmail);
+                            time = 901;
+                            dt.Start();
+                        }
+                    }
+                    else
+                    {
+                        LogHelper.log.Error("User " + txtEmail.Text + " is locked out");
+                        isLocked = true;
+                        UnlockByTime(userEmail);
+                        if (dt == null)
+                        {
+                            setTimer();
+                        }
+                        Lockout(userEmail);
+                        time = 901;
+                        dt.Start();
+                    }
+                }
                 return;
             }
 
@@ -138,13 +162,24 @@ namespace WPFPresentationLayer
                                 }
                             }
 
-                            _userID = _user.PUUserID;
+                            if (pwdPassword.Password == "newuser")
+                            {
+                                var updatePassword = new UpdatePassword(_user, _userManager);
+                                if (updatePassword.ShowDialog() == false)
+                                {
+                                    this.Visibility = Visibility.Hidden;
+                                    var petUniverseHome1 = new PetUniverseHome(_user, userRoles);
+                                }
+                            }
+                            else
+                            {
+                             
+                                this.Visibility = Visibility.Hidden;
 
-                            this.Visibility = Visibility.Hidden;
-
-                            //Log successful login
-                            LogHelper.log.Info("Email: " + txtEmail.Text + " Successfully logged in.");
-                            var petUniverseHome = new PetUniverseHome(_user, userRoles);
+                                //Log successful login
+                                LogHelper.log.Info("Email: " + txtEmail.Text + " Successfully logged in.");
+                                var petUniverseHome = new PetUniverseHome(_user, userRoles);
+                            }                            
                         }
                     }
                     catch (Exception ex)

@@ -1,9 +1,5 @@
-﻿using System;
+﻿using DataTransferObjects;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 /// <summary>
 ///  Creator: Kaleb Bachert
@@ -31,7 +27,7 @@ namespace DataAccessInterfaces
         /// Updated: NA
         /// Update: NA
         /// </remarks>
-        List<Request> SelectRequestsByStatus(bool open);
+        List<RequestVM> SelectRequestsByStatus(bool open);
 
         /// <summary>
         /// Creator: Kaleb Bachert
@@ -150,6 +146,22 @@ namespace DataAccessInterfaces
         int InsertAvailabilityRequest(AvailabilityRequestVM request, int requestingUserID);
 
         /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/7
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for creating a schedule change request.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA     
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="requestingUserID"></param>
+        int InsertScheduleChangeRequest(ScheduleChangeRequest request, int requestingUserID);
+
+        /// <summary>
         /// Creator: Kaleb Bachert
         /// Created: 3/7/2020
         /// Approver: Jordan Lindo
@@ -164,6 +176,22 @@ namespace DataAccessInterfaces
         /// <param name="requestID"></param>
         /// <param name="userID"></param>
         TimeOffRequestVM SelectTimeOffRequestByRequestID(int requestID);
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/9
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for getting the ScheduleChangeRequest associated with a Request
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="requestID"></param>
+        ScheduleChangeRequestVM SelectScheduleChangeRequestByRequestID(int requestID);
 
         /// <summary>
         /// Creator: Ryan Morganti
@@ -274,5 +302,41 @@ namespace DataAccessInterfaces
         /// <returns></returns>
         int UpdateDepartmentRequest(int userID, int requestID, string oldRequestedGroupID, string oldRequestTopic,
             string oldRequestBody, string newRequestedGroupID, string newRequestTopic, string newRequestBody);
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/2
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for inserting Active Time Off, called once a request is approved
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+
+        int InsertActiveTimeOff(ActiveTimeOff activeTimeOff);
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/07
+        /// Approver: Kaleb Bachert
+        /// 
+        /// interface method for Selecting Avaibility request by ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="requestID"></param>
+        /// <returns></returns>
+        AvailabilityRequestVM SelectAvailabilityRequestByID(int requestID);
     }
 }

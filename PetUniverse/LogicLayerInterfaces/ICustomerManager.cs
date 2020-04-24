@@ -1,10 +1,5 @@
 ﻿using DataTransferObjects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using LogicLayerInterfaces;
 
 namespace LogicLayerInterfaces
 {
@@ -16,7 +11,7 @@ namespace LogicLayerInterfaces
     /// This Interface that defines methods for Customer 
     /// </summary>
     public interface ICustomerManager
-   {
+    {
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created On: 2020/29/2020
@@ -33,7 +28,22 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <param name="customerEmail"></param>     
         /// <returns>Customer</returns>
-
         Customer RetrieveCustomerByCustomerEmail(string customerEmail);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/17/2020
+        /// Approver: Steven Cardona
+        ///
+        /// Retrieves a list of all active customers
+        /// </summary>
+        /// <remarks>        
+        /// Updater: NA
+        /// Update: NA
+        /// Approver: NA
+        /// </remarks>
+        ///
+        /// <returns>List of all active customers</returns>
+        List<Customer> RetrieveAllActiveCustomers();
     }
 }

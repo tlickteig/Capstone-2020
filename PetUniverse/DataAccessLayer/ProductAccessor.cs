@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
+using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace DataAccessLayer
 {
@@ -97,7 +94,7 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 var reader = cmd.ExecuteReader();
-                
+
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -137,7 +134,7 @@ namespace DataAccessLayer
             List<Product> products = new List<Product>();
 
             var conn = DBConnection.GetConnection();
-            SqlCommand cmd; 
+            SqlCommand cmd;
             if (type.Equals("All"))
             {
                 cmd = new SqlCommand("sp_select_all_products", conn);

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
-using DataAccessInterfaces;
+using System.Collections.Generic;
 
 namespace DataAccessFakes
 {
@@ -162,8 +158,11 @@ namespace DataAccessFakes
         /// Update: NA
         /// 
         /// </remarks>
+        /// <param name="oldDepartment"></param>
+        /// <param name="newDepartment"></param>
+        /// <returns>Number of rows affected</returns>
         public int UpdateDepartment(Department oldDepartment, Department newDepartment)
-        {            
+        {
             return 1;
         }
 

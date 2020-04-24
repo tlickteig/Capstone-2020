@@ -1,11 +1,8 @@
-﻿using System;
+﻿using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataTransferObjects;
 
 namespace DataAccessLayer
 {
@@ -45,26 +42,26 @@ namespace DataAccessLayer
             var conn = DBConnection.GetConnection();
 
             var cmd = new SqlCommand("sp_SELECT_NewAnimalCheckList_By_AnimalID");
-           
+
 
             List<NewAnimalChecklist> animals = new List<NewAnimalChecklist>();
 
 
             cmd.Connection = conn;
-          
+
 
             cmd.CommandType = CommandType.StoredProcedure;
-           
+
 
             cmd.Parameters.Add("@AnimalID", SqlDbType.Int);
             cmd.Parameters["@AnimalID"].Value = AnimalID;
 
-           
+
             try
             {
-               conn.Open();
-               var reader = cmd.ExecuteReader();
-             
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -92,7 +89,7 @@ namespace DataAccessLayer
                 }
 
                 reader.Close();
-               
+
             }
             catch (Exception ex)
             {
@@ -102,13 +99,13 @@ namespace DataAccessLayer
             finally
             {
                 conn.Close();
-                
+
 
             }
             return animals;
         }
 
-       
+
     }
 
 }

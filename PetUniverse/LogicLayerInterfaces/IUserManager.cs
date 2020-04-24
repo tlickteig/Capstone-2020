@@ -1,9 +1,6 @@
 ﻿using DataTransferObjects;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LogicLayerInterfaces
 {
@@ -201,5 +198,61 @@ namespace LogicLayerInterfaces
         /// <param name="UserID"></param>
         /// <returns></returns>
         PetUniverseUser getUserByUserID(int UserID);
+
+        /// <summary>
+        /// Creator: Steven Cardona
+        /// Created: 04/08/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// update a user profile
+        /// </summary>
+        /// <remarks>        
+        /// Updater: NA
+        /// Update: NA
+        /// Approver: NA
+        /// </remarks>
+        /// <param name="originalUser">The user before the update</param>
+        /// <param name="updatedUser">The updated user information</param>
+        /// <returns>Boolean value to tell if new user was created</returns>
+        bool UpdateUser(PetUniverseUser originalUser, PetUniverseUser updatedUser);
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/14
+        ///  APPROVER: Lane Sandburg
+        ///  
+        ///  Interface method for getting the Users who can work a specified shift
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="date"></param>
+        /// <param name="weekDay"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <param name="roleID"></param>
+        List<PetUniverseUser> RetrieveUsersAbleToWork(DateTime date, string weekDay, DateTime startTime, DateTime endTime, string roleID);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/20/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to update a user password
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="oldPasswordHash"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
+        bool UpdatePassword(int userID, string newPassword, string oldPassword);
+
     }
 }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessInterfaces;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
+using System;
+using System.Collections.Generic;
 
 namespace DataAccessFakes
 {
@@ -161,7 +158,7 @@ namespace DataAccessFakes
                 _vetAppointments.Remove(oldAnimalVetAppointment);
                 _vetAppointments.Add(newAnimalVetAppointment);
             }
-            if(_vetAppointments.Contains(newAnimalVetAppointment) &&
+            if (_vetAppointments.Contains(newAnimalVetAppointment) &&
                 !_vetAppointments.Contains(oldAnimalVetAppointment))
             {
                 result = true;

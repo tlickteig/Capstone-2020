@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataAccessFakes;
+﻿using DataAccessFakes;
 using DataAccessInterfaces;
 using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -24,7 +20,7 @@ namespace LogicLayerTests
     {
         private IDonationAccessor _donationAccessor;
         private IDonationManager _donationManager;
-        
+
         public DonationManagerTests()
         {
             _donationAccessor = new FakeDonationAccessor();

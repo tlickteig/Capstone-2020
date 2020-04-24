@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DataAccessInterfaces;
 using DataTransferObjects;
-using DataAccessInterfaces;
+using System;
+using System.Collections.Generic;
 
 namespace DataAccessFakes
 {
@@ -98,7 +95,7 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="categoryName"></param>
         public int getItemCategoryID(string categoryName)
-        {            
+        {
             return 0;
         }
     }
