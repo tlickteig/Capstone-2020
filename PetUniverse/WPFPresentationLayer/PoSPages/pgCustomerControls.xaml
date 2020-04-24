@@ -17,38 +17,33 @@
             <RowDefinition Height="10px" />
         </Grid.RowDefinitions>
         <!-- main content here -->
-        <Canvas x:Name="canCustomerControls" Background="white" Grid.Row="1">
-            <Button x:Name="btnReportError" Content="Report" Canvas.Left="671" Canvas.Top="329" Width="75" Click="btnReportError_Click"/>
-            <Label x:Name="lblReportError" Content="Report a Shipping Error" Canvas.Left="643" Canvas.Top="284"/>
-            <Label x:Name="lblAddCreditCard" Content="Add Credit Card" Canvas.Left="102" Canvas.Top="284" RenderTransformOrigin="0.5,0.5"/>
-            <Button x:Name="btnAddCreditCard" Content="Add" Canvas.Left="112" Canvas.Top="329" Width="75" Click="btnAddCreditCard_Click"/>
-            <Button x:Name="btnRemoveCreditCard" Content="Remove" Canvas.Left="254" Canvas.Top="329" Width="75" Click="btnRemoveCreditCard_Click"/>
-            <Label x:Name="lblRemoveCreditCard" Content="Remove Credit Card" Canvas.Left="234" Canvas.Top="284" RenderTransformOrigin="0.5,0.5"/>
+        <Canvas x:Name="canCustomerControls"  Grid.Row="1" Margin="190,126,-190,-36" Grid.RowSpan="4">
+            <Button x:Name="btnReportError" Content="Report" Canvas.Left="508" Canvas.Top="144" Width="100" Height="30" Click="btnReportError_Click"/>
+            <Label x:Name="lblReportError" Content="Report a Shipping Error" Canvas.Left="484" Canvas.Top="113"/>
+            <Label x:Name="lblAddCreditCard" Content="Add Credit Card" Canvas.Left="202" Canvas.Top="113" RenderTransformOrigin="0.5,0.5"/>
+            <Button x:Name="btnAddCreditCard" Content="Add" Canvas.Left="202" Canvas.Top="144" Width="100" Height="30" Click="btnAddCreditCard_Click"/>
+            <Button x:Name="btnRemoveCreditCard" Content="Remove" Canvas.Left="347" Canvas.Top="144" Width="100" Height="30" Click="btnRemoveCreditCard_Click"/>
+            <Label x:Name="lblRemoveCreditCard" Content="Remove Credit Card" Canvas.Left="334" Canvas.Top="113" RenderTransformOrigin="0.5,0.5"/>
 
         </Canvas>
-        <Canvas x:Name="canReportError" Background="White" Grid.Row="1" Visibility="Hidden">
+        <Canvas x:Name="canReportError"  Grid.Row="1" Visibility="Hidden" Margin="190,126,-190,-36" Grid.RowSpan="4">
             <Label x:Name="lblErrorDesc" Content="Description" Canvas.Left="95" Canvas.Top="166" Width="113"/>
             <Label x:Name="lblErrorTypeCombo" Content="Error Type" Canvas.Left="95" Canvas.Top="75" Width="96"/>
             <ComboBox x:Name="cbErrorType" Canvas.Left="239" Canvas.Top="79" Width="149"/>
             <TextBox x:Name="txtErrorDesc" Height="108" Canvas.Left="239" TextWrapping="Wrap" Text="Please describe..." Canvas.Top="166" Width="317"/>
-            <Button x:Name="btnErrorSubmit" Content="Submit" Canvas.Left="670" Canvas.Top="290" Width="75" Click="btnErrorSubmit_Click"/>
-            <Button x:Name="btnBack" Content="Back" Canvas.Left="577" Canvas.Top="290" Width="75" Click="btnBack_Click"/>
-
-
+            <Button x:Name="btnErrorSubmit" Content="Submit" Canvas.Left="729" Canvas.Top="367" Width="100" Height="30" Click="btnErrorSubmit_Click"/>
+            <Button x:Name="btnBack" Content="Back" Canvas.Left="624" Canvas.Top="367" Width="100" Height="30" Click="btnBack_Click"/>
         </Canvas>
-        <Canvas x:Name="canAddCard" Background="White" Grid.Row="1" Visibility="Hidden">
+        <Canvas x:Name="canAddCard" Grid.Row="1" Visibility="Hidden">
             <Label x:Name="lblCardNumber" Content="Card Number:" Canvas.Left="95" Canvas.Top="115" Width="122"/>
             <Label x:Name="lblCardType" Content="Card Type:" Canvas.Left="95" Canvas.Top="75" Width="96"/>
             <!--<TextBox x:Name="txtCardType" Canvas.Left="239" Canvas.Top="79" Width="149"/>-->
             <TextBox x:Name="txtCardNumber" Height="26" Canvas.Left="239" TextWrapping="Wrap" Text="" Canvas.Top="115" Width="250"/>
-
             <Button x:Name="btnErrorSave" Content="Save" Canvas.Left="670" Canvas.Top="290" Width="75" Click="btnErrorSave_Click" />
             <Button x:Name="btnBack2" Content="Back" Canvas.Left="577" Canvas.Top="290" Width="75" Click="btnBack2_Click" />
             <Label x:Name="lblSecurity" Content="CVV Code:" Canvas.Left="95" Canvas.Top="158" Width="86" RenderTransformOrigin="0.75,0.577"/>
             <TextBox x:Name="txtCVV" Height="23" Canvas.Left="239" TextWrapping="Wrap" Text="" Canvas.Top="162" Width="70"/>
             <ComboBox x:Name="cbCardType" Canvas.Left="239" Canvas.Top="79" Width="120"/>
-
-
         </Canvas>
 
         <Canvas x:Name="canRemoveCard" Background="White" Grid.Row="1" Visibility="Hidden" Loaded="canRemoveCard_Loaded">

@@ -18,7 +18,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ViewAllProducts">
 
-    <Canvas x:Name="canViewAllProduct" Height="845" Width="1289" Background="AntiqueWhite">
+    <Canvas x:Name="canViewAllProduct" Height="845" Width="1289" Margin="0,0,-489,-395" VerticalAlignment="Top">
         <Grid Name="ViewProducts" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
@@ -26,13 +26,10 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <DataGrid x:Name="dgProductList"  Grid.Row="0" Loaded="dgProductList_Loaded"
-                  Width="1280" Grid.ColumnSpan="1" SelectionMode="Single"
+            <DataGrid x:Name="dgProductList"  Grid.Row="0" Loaded="dgProductList_Loaded" Grid.ColumnSpan="1" SelectionMode="Single"
                   Padding="0" IsReadOnly="True" CanUserResizeRows="False" 
                   FontSize="12" FontWeight="Medium" CanUserResizeColumns="False" 
-                  CanUserReorderColumns="False" MouseDoubleClick="dgProductList_MouseDoubleClick" >
-
-            </DataGrid>
+                  CanUserReorderColumns="False" MouseDoubleClick="dgProductList_MouseDoubleClick" Margin="0,39,-796,-420" />
         </Grid>
         <!-- Creator: Rasha Mohammed
              Created: 3/3/2020

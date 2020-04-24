@@ -15,8 +15,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="845" d:DesignWidth="1289"
       Title="InventoryItems">
-    <Canvas x:Name="canViewInventoryItems" Height="845" Width="1289" Background="AntiqueWhite">
-        <Grid>
+    <Canvas x:Name="canViewInventoryItems" Height="845" Width="1289" >
+        <Grid Height="802">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition Height="40"></RowDefinition>
@@ -25,14 +25,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <DataGrid x:Name="dgInventoryItems" Grid.Row="0" Width="1280" Grid.ColumnSpan="1" SelectionMode="Single"
+            <DataGrid x:Name="dgInventoryItems" Grid.Row="0" Width="1207" Grid.ColumnSpan="1" SelectionMode="Single"
                    Padding="0"
                   IsReadOnly="True" CanUserResizeRows="False" FontSize="12" FontWeight="Medium"
-                  CanUserResizeColumns="False" CanUserReorderColumns="False" Loaded="Window_Loaded" />
+                  CanUserResizeColumns="False" CanUserReorderColumns="False" Loaded="Window_Loaded" Margin="40,100,-22,30" HorizontalAlignment="Left" />
 
-            <Button x:Name="btnAddProduct" Content="Add Product" HorizontalAlignment="Right" Margin="0, 0, 180, 0" Grid.Row="1" VerticalAlignment="Center" Width="75" Click="btnAddProduct_Click" />
-            <Button x:Name="btnEditPromotion" Content="Edit Product" HorizontalAlignment="Right" Margin="0, 0, 95, 0" Grid.Row="1" VerticalAlignment="Center" Width="75" />
-            <Button x:Name="btnDeactivatePromotion" Content="Deactivate" HorizontalAlignment="Right" Margin="0, 0, 10, 0" Grid.Row="1" VerticalAlignment="Center" Width="75" />
+            <Button x:Name="btnAddProduct" Content="Add Product" HorizontalAlignment="Right" Margin="0,735,189,27" VerticalAlignment="Center" Width="100" Height="30" Click="btnAddProduct_Click" Grid.RowSpan="2" />
+            <Button x:Name="btnEditPromotion" Content="Edit Product" HorizontalAlignment="Right" Margin="0,735,84,27" VerticalAlignment="Center" Width="100" Height="30" Grid.RowSpan="2" />
+            <Button x:Name="btnDeactivatePromotion" Content="Deactivate" HorizontalAlignment="Right" Margin="0,735,-21,27" VerticalAlignment="Center" Width="100" Height="30" Grid.RowSpan="2"/>
         </Grid>
     </Canvas>
 </Page>

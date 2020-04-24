@@ -75,6 +75,7 @@ namespace WPFPresentationLayer.PoSPages
         private void btnReportError_Click(object sender, RoutedEventArgs e)
         {
             canReportError.Visibility = Visibility.Visible;
+            canCustomerControls.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -94,6 +95,7 @@ namespace WPFPresentationLayer.PoSPages
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             canReportError.Visibility = Visibility.Hidden;
+            canCustomerControls.Visibility = Visibility.Visible;
         }
 
         /// <summary>
