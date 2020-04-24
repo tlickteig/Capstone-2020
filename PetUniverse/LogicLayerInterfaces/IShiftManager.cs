@@ -2,15 +2,15 @@
 using System;
 using System.Collections.Generic;
 
-/// <summary>
-///  CREATOR: Kaleb Bachert
-///  CREATED: 2020/3/31
-///  APPROVER: Lane Sandburg
-///  
-///  Interface for ShiftManager
-/// </summary>
 namespace LogicLayerInterfaces
 {
+    /// <summary>
+    ///  CREATOR: Kaleb Bachert
+    ///  CREATED: 2020/3/31
+    ///  APPROVER: Lane Sandburg
+    ///  
+    ///  Interface for ShiftManager
+    /// </summary>
     public interface IShiftManager
     {
         /// <summary>
