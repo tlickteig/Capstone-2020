@@ -171,6 +171,8 @@ namespace WPFPresentation.Controllers
             var customer = _adoptionCustomerManager.RetrieveAdoptionCustomerByEmail(customerEmail);
             var applications = _adoptionApplicationManager.RetrieveAdoptionApplicationsByEmailAndActive(customerEmail);
             ViewBag.Title = "Animals you have applied to adopt";
+            
+            
 
 
             return View(applications);
@@ -198,6 +200,64 @@ namespace WPFPresentation.Controllers
         }
 
 
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/22/2020
+        /// Approver: Michael Thompson
+        ///
+        /// Allows a customer to deactivate an adoption application essentially cancelling
+        /// the adoption process.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA        
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <returns></returns>
+        public ActionResult CustomerCancelAdoption(int adoptionApplicationID)
+        {
+            var application = _adoptionApplicationManager.RetrieveAdoptionApplicationByID(adoptionApplicationID);
+            ViewBag.Title = "Cancel Adoption";
+            ViewBag.Subtitle = "Are you sure you want to cancel this adoption?";
+            return View(application);
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/22/2020
+        /// Approver: Michael Thompson
+        ///
+        /// Allows a customer to deactivate an adoption application essentially cancelling
+        /// the adoption process.
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA        
+        /// </remarks>
+        /// <param name="formCollection"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult CustomerCancelAdoption(FormCollection formCollection)
+        {
+            string applicationIDSring = formCollection[1];
+            
+            try
+            {
+                int applicationID = Int32.Parse(applicationIDSring);
+                _adoptionApplicationManager.DeactivateAdoptionApplication(applicationID);
+                return RedirectToAction("CustomerApplicationList", new { customerEmail = formCollection[2] });
+            }
+            catch (Exception)
+            {
+
+                return View();
+            }
+            
+        }
     }
 
 }

@@ -53,7 +53,7 @@ namespace DataAccessInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method to add a Foster Applicant.
         /// 
@@ -71,7 +71,7 @@ namespace DataAccessInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method to view an Applicant with a provided ID#.
         /// 
@@ -89,7 +89,7 @@ namespace DataAccessInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-11
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method used to select an applicant for an interview.
         /// 
@@ -107,7 +107,7 @@ namespace DataAccessInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-16
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method used to update interview notes using an applicantID from the Database.
         /// 
@@ -127,7 +127,7 @@ namespace DataAccessInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-16
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method used to update application status using an applicantID from the Database.
         /// 
@@ -147,7 +147,7 @@ namespace DataAccessInterfaces
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-16
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Method used to update home check date using an applicantID from the Database.
         /// 

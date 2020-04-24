@@ -17,6 +17,49 @@ namespace DataAccessLayer
     /// </summary>
     public class AdoptionApplicationAccessor : IAdoptionApplicationAccessor
     {
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/22/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Deactivates an adoption apllication
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <returns></returns>
+        public int DeactivateAdoptionApplication(int adoptionApplicationID)
+        {
+            int rows = 0;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_deactivate_adoption_application", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@AdoptionApplicationID", adoptionApplicationID);
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+                
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 4/11/2020

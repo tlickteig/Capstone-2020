@@ -101,7 +101,7 @@ namespace LogicLayerTests
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Test Method for ApplicantManger method AddFosterApplication
         /// 
@@ -146,7 +146,7 @@ namespace LogicLayerTests
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-07
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Test Method for ApplicationManger method AddFosterApplication
         /// 
@@ -178,7 +178,7 @@ namespace LogicLayerTests
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-16
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Test Method for ApplicationManger method RetrieveApplicantForInterview
         /// 
@@ -210,7 +210,7 @@ namespace LogicLayerTests
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-16
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Test Method for ApplicationManger method EditInterviewNotes
         /// 
@@ -302,7 +302,7 @@ namespace LogicLayerTests
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-16
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Test Method for ApplicationManger method EditApplicationStatus
         /// 
@@ -394,7 +394,7 @@ namespace LogicLayerTests
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE CREATED: 2020-04-16
-        /// APPROVED BY:
+        /// APPROVED BY: Steve Coonrod
         /// 
         /// Test Method for ApplicationManger method EditApplicationStatus
         /// 

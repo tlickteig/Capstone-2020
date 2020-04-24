@@ -21,7 +21,7 @@ namespace WPFPresentationLayer.PersonnelPages
 	/// <summary>
 	/// CREATED BY: Matt Deaton
 	/// DATE: 2020-04-11
-	/// CHECKED BY:
+	/// CHECKED BY: Steve Coonrod
 	/// 
 	/// View for handling Applicants
 	/// Interaction logic for ViewApplicants.xaml
@@ -41,7 +41,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE: 2020-04-11
-		/// CHECKED BY:
+		/// CHECKED BY: Steve Coonrod
 		/// 
 		/// Constructor for initializng an application manager object.
 		/// 
@@ -60,7 +60,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE: 2020-04-11
-		/// CHECKED BY:
+		/// CHECKED BY: Steve Coonrod
 		/// 
 		/// Method that loads the list of Applicants into the Data Grid on page Load.
 		/// 
@@ -80,7 +80,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE: 2020-04-11
-		/// CHECKED BY:
+		/// CHECKED BY: Steve Coonrod
 		/// 
 		/// Method that populates the Data Grid using a method from the Applicant Manager.
 		/// 
@@ -98,7 +98,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE: 2020-04-11
-		/// CHECKED BY:
+		/// CHECKED BY: Steve Coonrod
 		/// 
 		/// Method that names the Columns of the Data Grid after page is loaded.
 		/// 
@@ -135,7 +135,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE: 2020-04-11
-		/// CHECKED BY:
+		/// CHECKED BY: Steve Coonrod
 		/// 
 		/// Method that to Retrieve applicant details using a Applicant Manager method.
 		/// 
@@ -154,7 +154,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE: 2020-04-11
-		/// CHECKED BY:
+		/// CHECKED BY: Steve Coonrod
 		/// 
 		/// Method that allosw the user to double click a Data Grid Row to open up Applicant Details.
 		/// 
@@ -175,7 +175,7 @@ namespace WPFPresentationLayer.PersonnelPages
 		/// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE: 2020-04-11
-		/// CHECKED BY:
+		/// CHECKED BY: Steve Coonrod
 		/// 
 		/// Method that allosw the user to click the Select Button on a Data Grid Row Selected Item to open up Applicant Details.
 		/// 

@@ -4268,8 +4268,8 @@ GO
 CREATE PROCEDURE [sp_select_all_applicants]
 AS
 BEGIN
-	SELECT [ApplicantID], [FirstName], [LastName], [MiddleName], [Email], [PhoneNumber]
-	FROM [dbo].[Applicant]
+	SELECT [Applicant].[ApplicantID], [FirstName], [LastName], [MiddleName], [Email], [PhoneNumber], [Application].[Status]
+	FROM [dbo].[Applicant] JOIN [Application] ON [Application].[ApplicantID] = [Applicant].[ApplicantID]
 	ORDER BY [ApplicantID]
 END
 GO
@@ -11060,6 +11060,26 @@ Return @@ROWCOUNT
 END
 GO
 
+/*
+Created by: Austin Gee
+Date: 4/21/2020
+Comment: This deactivates an adoption application
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_adoption_application]
+GO
+PRINT '' PRINT '** Create sp_deactivate_adoption_application'
+GO
+CREATE PROCEDURE [sp_deactivate_adoption_application]
+(
+	@AdoptionApplicationID [int]
+)
+AS
+BEGIN
+    UPDATE [dbo].[AdoptionApplication]
+    SET [Active] = 0
+    Where [AdoptionApplicationID] = @AdoptionApplicationID
+END
+GO
 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -12654,15 +12674,12 @@ GO
 INSERT INTO [dbo].[JobListing]
 	([Position], [Benefits], [Requirements], [StartingWage], [Responsibilities])
 	VALUES
-	('Volunteer', 'Free Healthcare, Horse-Dental, Jungle Gym Membership',
-	 'Good Enough Degree', 0000.01, 'Do things without expectation of pay'),
-	('Admin', 'Free Healthcare, Horse-Dental, Jungle Gym Membership',
-	 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
-	('Customer', 'No Benefits', 'No Requirements',
-	 0000.01, 'Give us money in exchange for merchandise'),
-	('Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in', 1),
-	('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves', 1),
-	('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own', 1)
+	('Volunteer', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'Good Enough Degree', 0000.01, 'Do things without expectation of pay'),
+	('Admin', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
+	('Customer', 'No Benefits', 'No Requirements', 0000.01, 'Give us money in exchange for merchandise'),
+	('Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in'),
+	('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves'),
+	('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own')
 GO
 
 /*
@@ -12777,25 +12794,6 @@ INSERT INTO [dbo].[ScheduleHours]
 	VALUES
 	(1000000, 100002, 1, 2),
 	(1000001, 100002, 40, 0)
-GO
-
-/*
-Created by: Matt Deaton
-Date: 2020-04-16
-Comment: Sample JobListing Data
-*/
-PRINT '' PRINT '*** Inserting Sample JobListing Data Records'
-GO
-INSERT INTO [dbo].[JobListing]
-		([Position], [Benefits], [Requirements], [StartingWage], [Responsibilities], [Active])
-	VALUES
-		('Dog Walker', 'No Benefits', 'Know how to walk', 7.50, 'Walk the dogs on a leash', 1),
-		('Kennel Cleaner', 'No Benefits', 'Know how to clean', 7.50, 'Clean the kennels out', 1),
-		('Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in', 1),
-		('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves', 1),
-		('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own', 1),
-		('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves', 1),
-		('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own', 1)
 GO
 
 /*
@@ -12922,9 +12920,9 @@ GO
 INSERT INTO [dbo].[HomeCheck]
 		([ApplicationID], [EmployeeID], [DatePerformed], [Notes])
 	VALUES
-	(100000, 100000, '20200207 01:55:01 PM', 'No Notes'),
+	(100000, 100000, NULL, NULL),
 	(100001, 100000, NULL, NULL),
-	(100002, 100000, NULL, NULL),
+	(100002, 100000, '20200207 01:55:01 PM', 'No Notes'),
 	(100003, 100000, NULL, NULL),
 	(100004, 100000, NULL, NULL),
 	(100005, 100000, NULL, NULL),

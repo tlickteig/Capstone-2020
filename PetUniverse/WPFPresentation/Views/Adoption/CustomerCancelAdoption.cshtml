@@ -1,12 +1,14 @@
 ﻿@model DataTransferObjects.ApplicationVM
 
+
 <br/>
 <h2>@ViewBag.Title</h2>
 
+<h3>@ViewBag.Subtitle</h3>
 <div>
+    
     <hr />
     <dl class="dl-horizontal">
-        
         <dt>
             @Html.DisplayNameFor(model => model.CustomerEmail)
         </dt>
@@ -15,7 +17,7 @@
             @Html.DisplayFor(model => model.CustomerEmail)
         </dd>
 
-        
+
         <dt>
             @Html.DisplayNameFor(model => model.Status)
         </dt>
@@ -57,8 +59,14 @@
         </dd>
 
     </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.AdoptionApplicationID)
+        @Html.HiddenFor(model => model.CustomerEmail)
+        <div class="form-actions no-color">
+            <input type="submit" value="Cancel Adoption" class="btn btn-primary" /> 
+            @Html.ActionLink("Back to App List", "CustomerApplicationList",null , new { @class = "btn btn-primary" })
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Back to List", "CustomerApplicationList", new { email = ViewBag.CustomerEmail }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Cancel Adoption", "CustomerCancelAdoption", new { adoptionApplicationID = Model.AdoptionApplicationID }, new { @class = "btn btn-primary" })
-</p>

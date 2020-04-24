@@ -12,7 +12,7 @@ namespace WPFPresentation.Controllers
     /// <summary>
     /// CREATED BY: Matt Deaton
     /// DATE CREATED: 2020-04-07
-    /// APPROVED BY:
+    /// APPROVED BY: Ryan Morganti
     /// 
     /// The controller class used for Foster Applicants.
     /// 
