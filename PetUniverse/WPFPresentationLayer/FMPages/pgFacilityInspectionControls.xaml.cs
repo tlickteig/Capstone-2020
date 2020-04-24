@@ -144,6 +144,7 @@ namespace WPFPresentationLayer.FMPages
                 {
                     MessageBox.Show("Inspection record successfully added.");
                     canAddFacilityInspection.Visibility = Visibility.Hidden;
+                    canView.Visibility = Visibility.Visible;
                     RefreshViewAllList();
                     txtUserID.Text = "";
                     txtInspectorName.Text = "";
@@ -390,8 +391,9 @@ namespace WPFPresentationLayer.FMPages
             if (selectedFacilityInspection != null)
             {
                 canAddFacilityInspection.Visibility = Visibility.Visible;
-                BtnSubmitInspectionRecord.Visibility = Visibility.Hidden;
+                canView.Visibility = Visibility.Hidden;
                 btnUpdateBuildingInspectionRecord.Visibility = Visibility.Visible;
+                BtnSubmitInspectionRecord.Visibility = Visibility.Hidden;
                 lblInspectionCompleted.Visibility = Visibility.Visible;
                 chkInspectionCompleted.Visibility = Visibility.Visible;
                 lblFacilityInspection.Content = "Update Facility Inspection Record";
@@ -454,6 +456,7 @@ namespace WPFPresentationLayer.FMPages
                 {
                     MessageBox.Show("Inspection record successfully updated.");
                     canAddFacilityInspection.Visibility = Visibility.Hidden;
+                    canView.Visibility = Visibility.Visible;
                     BtnSubmitInspectionRecord.Visibility = Visibility.Visible;
                     btnUpdateBuildingInspectionRecord.Visibility = Visibility.Hidden;
                     lblInspectionCompleted.Visibility = Visibility.Hidden;

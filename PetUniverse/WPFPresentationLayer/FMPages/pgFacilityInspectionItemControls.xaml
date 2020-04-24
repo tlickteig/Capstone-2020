@@ -59,7 +59,7 @@
             </Grid>
         </Canvas>
         <Canvas Height="845" Width="1280" x:Name="canAddFacilityInspectionItem" Visibility="Hidden">
-            <Grid>
+            <Grid Canvas.Left="38" Canvas.Top="144">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -97,8 +97,8 @@
                     <!--Inspection ID-->
                     <Label x:Name="lblFacilityInspectionID" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
                        HorizontalAlignment="Left">Facility Inspection ID:</Label>
-                    <ComboBox x:Name="cmbFacilityInspectionID" Grid.Row="2" Grid.Column="1" Height="30" Width="200" Background="LightGray"
-                      Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"  />
+                    <ComboBox x:Name="cmbFacilityInspectionID" Grid.Row="2" Grid.Column="1" Height="30" Background="LightGray"
+                      Margin="25,4,25,5" VerticalContentAlignment="Center" FontSize="16"  />
 
                     <!--ItemDescription-->
                     <Label x:Name="lblItemDescription" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left">Item Description:</Label>
@@ -106,19 +106,19 @@
                       Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
 
                     <!--Submit-->
-                    <Button x:Name="BtnSubmitInspectionItemRecord" Grid.Row="7" Grid.Column="1" 
+                    <Button x:Name="BtnSubmitInspectionItemRecord" Grid.Row="6" Grid.Column="1" 
                     Width="100" Height="30"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitInspectionItemRecord_Click" Margin="537,101,-37,-61">Submit</Button>
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitInspectionItemRecord_Click" Margin="500,155,0,65">Submit</Button>
 
                     <!--Update-->
-                    <Button x:Name="btnUpdateInspectionItemRecord" Grid.Row="7" Grid.Column="0" 
-                    Width="150" FontSize="36" Padding="10" Visibility="Hidden"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnUpdateInspectionItemRecord_Click">Update</Button>
+                    <Button x:Name="btnUpdateInspectionItemRecord" Grid.Row="6" Grid.Column="1" 
+                    Width="100" Visibility="Visible" Height="30"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnUpdateInspectionItemRecord_Click" Margin="500,155,0,65">Update</Button>
 
                     <!--Cancel-->
-                    <Button x:Name="btnCancelInspectionItemRecord" Grid.Row="7" Grid.Column="1" 
+                    <Button x:Name="btnCancelInspectionItemRecord" Grid.Row="6" Grid.Column="1" 
                      Width="100" Height="30"
-                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnCancelInspectionItemRecord_Click" Margin="432,101,68,-61">Cancel</Button>
+                     VerticalAlignment="Center" HorizontalAlignment="Right" Click="btnCancelInspectionItemRecord_Click" Margin="0,155,105,65">Cancel</Button>
 
 
                 </Grid>

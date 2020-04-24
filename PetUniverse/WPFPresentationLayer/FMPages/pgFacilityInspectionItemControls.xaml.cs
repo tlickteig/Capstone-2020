@@ -165,6 +165,7 @@ namespace WPFPresentationLayer.FMPages
                 {
                     MessageBox.Show("Inspection record successfully added.");
                     canAddFacilityInspectionItem.Visibility = Visibility.Hidden;
+                    canView.Visibility = Visibility.Visible;
                     RefreshViewAllList();
                     txtUserID.Text = "";
                     txtItemName.Text = "";
@@ -272,6 +273,7 @@ namespace WPFPresentationLayer.FMPages
             }
             canAddFacilityInspectionItem.Visibility = Visibility.Hidden;
             canView.Visibility = Visibility.Visible;
+            btnAddFacilityInspectionItem.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -433,7 +435,7 @@ namespace WPFPresentationLayer.FMPages
                 {
                     MessageBox.Show("Inspection record successfully added.");
                     canAddFacilityInspectionItem.Visibility = Visibility.Hidden;
-                    BtnSubmitInspectionItemRecord.Visibility = Visibility.Visible;
+                    canView.Visibility = Visibility.Visible;
                     btnUpdateInspectionItemRecord.Visibility = Visibility.Hidden;
                     RefreshViewAllList();
                     txtUserID.Text = "";
@@ -491,6 +493,8 @@ namespace WPFPresentationLayer.FMPages
             if (selectedFacilityInspectionItem != null)
             {
                 canAddFacilityInspectionItem.Visibility = Visibility.Visible;
+                canView.Visibility = Visibility.Hidden;                
+                btnAddFacilityInspectionItem.Visibility = Visibility.Hidden;
                 BtnSubmitInspectionItemRecord.Visibility = Visibility.Hidden;
                 btnUpdateInspectionItemRecord.Visibility = Visibility.Visible;
                 lblFacilityInspectionItem.Content = "Update Facility Inspection Item Record";

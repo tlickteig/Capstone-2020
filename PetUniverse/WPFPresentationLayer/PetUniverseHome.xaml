@@ -252,8 +252,8 @@
                 <TabItem x:Name="tabViewFacilityInspectionItem" Header="View Inspection Item" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frameViewFacilityInspectionItem" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
-                <TabItem x:Name="tabViewFacilityTaskItem" Header="View Facility Task" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frameViewFacilityTask"></Frame>
+                <TabItem x:Name="tabViewFacilityTaskItem" Header="View Facility Task" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewFacilityTask" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
             </TabControl>
         </Canvas>

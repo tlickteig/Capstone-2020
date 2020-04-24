@@ -99,6 +99,7 @@ namespace WPFPresentationLayer.FMPages
         private void btnAddFacilityTask_Click(object sender, RoutedEventArgs e)
         {
             canAddFacilityTask.Visibility = Visibility.Visible;
+            canViewFacilityTask.Visibility = Visibility.Hidden;
             txtUserID.Text = _user.PUUserID.ToString();
         }
 
@@ -229,6 +230,7 @@ namespace WPFPresentationLayer.FMPages
                 chkTaskCompleted.Visibility = Visibility.Hidden;
             }
             canAddFacilityTask.Visibility = Visibility.Hidden;
+            canViewFacilityTask.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -401,8 +403,10 @@ namespace WPFPresentationLayer.FMPages
             selectedFacilityTask = (FacilityTask)dgFacilityTask.SelectedItem;
             if (selectedFacilityTask != null)
             {
-                canAddFacilityTask.Visibility = Visibility.Visible;
+                
                 BtnSubmitTaskRecord.Visibility = Visibility.Hidden;
+                canViewFacilityTask.Visibility = Visibility.Hidden;
+                canAddFacilityTask.Visibility = Visibility.Visible;
                 btnUpdateFacilityTaskRecord.Visibility = Visibility.Visible;
                 lblTaskFinished.Visibility = Visibility.Visible;
                 chkTaskFinished.Visibility = Visibility.Visible;
@@ -473,6 +477,7 @@ namespace WPFPresentationLayer.FMPages
                 {
                     MessageBox.Show("Facility Task record successfully updated.");
                     canAddFacilityTask.Visibility = Visibility.Hidden;
+                    canViewFacilityTask.Visibility = Visibility.Visible;
                     BtnSubmitTaskRecord.Visibility = Visibility.Visible;
                     btnUpdateFacilityTaskRecord.Visibility = Visibility.Hidden;
                     lblTaskFinished.Visibility = Visibility.Hidden;

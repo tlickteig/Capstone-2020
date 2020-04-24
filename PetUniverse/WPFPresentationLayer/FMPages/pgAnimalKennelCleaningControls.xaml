@@ -35,7 +35,7 @@
 
 
                 </Grid>
-                <DataGrid x:Name="dgKennelCleaning" Grid.Row="1" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgKennelCleaning_MouseDoubleClick" Loaded="dgKennelCleaning_Loaded" Margin="39,98,-242,-3" Grid.RowSpan="2" />
+                <DataGrid x:Name="dgKennelCleaning" Grid.Row="1" Grid.ColumnSpan="2" SelectionMode="Single" IsReadOnly="True" MouseDoubleClick="dgKennelCleaning_MouseDoubleClick" Loaded="dgKennelCleaning_Loaded" Margin="39,95,-242,0" Grid.RowSpan="2" />
 
                 <Grid Grid.Row="2" Grid.Column="1">
                     <Grid.ColumnDefinitions>
@@ -59,7 +59,7 @@
 
             </Grid>
         </Canvas>
-        <Canvas Height="845" Width="1280" x:Name="canAddKennelCleaningRecord" Visibility="Hidden">
+        <Canvas Height="845" Width="1280" x:Name="canAddKennelCleaningRecord" Visibility="Hidden" Canvas.Left="56" Canvas.Top="228">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
@@ -104,13 +104,13 @@
                     <TextBox  x:Name="txtNotes" Grid.Row="3" Grid.Column="1" Background="LightGray" Height="30" Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" IsEnabled="False"></TextBox>
 
                     <!--Submit-->
-                    <Button x:Name="BtnSubmitCleaningRecord" Grid.Row="7" Grid.Column="1" Width="100" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitCleaningRecord_Click" Margin="543,65,-42,-25" Grid.RowSpan="2">Submit</Button>
+                    <Button x:Name="BtnSubmitCleaningRecord" Grid.Row="6" Grid.Column="1" Width="100" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitCleaningRecord_Click" Margin="487,137,14,133">Submit</Button>
 
                     <!--Edit-->
-                    <Button x:Name="BtnEditCleaning" Grid.Row="7" Grid.Column="0" Width="150" FontSize="36" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnEditCleaningRecord_Click" Visibility="Hidden">Edit</Button>
+                    <Button x:Name="BtnEditCleaning" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" Width="100" Click="BtnEditCleaningRecord_Click" Visibility="Visible" Margin="487,136,14,133">Edit</Button>
 
                     <!--Delete-->
-                    <Button x:Name="BtnDeleteCleaning" Grid.Row="7" Width="150" FontSize="36" Padding="10" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Hidden" IsEnabled="False" Margin="25,0,425,0" Grid.Column="1" Click="BtnDeleteCleaning_Click">Delete</Button>
+                    <Button x:Name="BtnDeleteCleaning" Grid.Row="7" Width="100" Height="30" Visibility="Hidden" IsEnabled="False" Margin="333,65,168,-25" Grid.Column="1" Click="BtnDeleteCleaning_Click" Grid.RowSpan="2">Delete</Button>
 
                     <!--Update-->
                     <Button x:Name="btnUpdate" Grid.Row="7" Grid.Column="0" 
@@ -118,9 +118,9 @@
                     VerticalAlignment="Center" HorizontalAlignment="Center">Update</Button>
 
                     <!--Cancel-->
-                    <Button x:Name="btnCancel" Grid.Row="7" Grid.Column="1" 
+                    <Button x:Name="btnCancel" Grid.Row="6" Grid.Column="1" 
                      Width="100" Height="30" 
-                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnCancel_Click" Margin="438,65,63,-25" Grid.RowSpan="2">Cancel</Button>
+                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnCancel_Click" Margin="382,137,119,133">Cancel</Button>
 
 
                 </Grid>

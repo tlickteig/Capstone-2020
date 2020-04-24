@@ -16,7 +16,7 @@ namespace WPFPresentationLayer.FMPages
     /// Approver: Steven Cardona
     /// 
     /// Interaction logic for FacilityMaintenanceControls.xaml
-    /// </summary>
+    /// </summary>BtnSubmitMaintenanceRecord_Click
     public partial class FacilityMaintenanceControls : Page
     {
 
@@ -309,6 +309,7 @@ namespace WPFPresentationLayer.FMPages
                 {
                     MessageBox.Show("Maintenance record successfully added.");
                     canAddFacilityMaintenance.Visibility = Visibility.Hidden;
+                    canView.Visibility = Visibility.Visible;
                     RefreshViewAllList();
                     txtUserID.Text = "";
                     txtMaintenanceName.Text = "";

@@ -286,7 +286,7 @@ namespace WPFPresentationLayer.FMPages
                 cndCleaningDate.SelectedDate = _oldCleaningRecord.Date;
 
                 canAddKennelCleaningRecord.Visibility = Visibility.Visible;
-
+                canView.Visibility = Visibility.Hidden;
                 BtnSubmitCleaningRecord.Visibility = Visibility.Hidden;
                 BtnEditCleaning.Visibility = Visibility.Visible;
             }
