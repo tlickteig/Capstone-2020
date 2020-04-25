@@ -48,7 +48,7 @@ steps:
   inputs:
     scriptSource: 'filePath'
     scriptPath: '$(system.defaultworkingdirectory)/db_transformer.py'
-    arguments: 'PetUniverse/DB_Script/PetUniverseDB.sql'
+    arguments: '$(system.defaultworkingdirectory)/PetUniverse/DB_Script/PetUniverseDB.sql'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
@@ -78,7 +78,7 @@ steps:
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: sqlscript.sql
+    Contents: prod_sqlscript.sql
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
 
