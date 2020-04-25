@@ -7,8 +7,8 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Awaab Elamin
-    /// Created: 02/05/2020
-    /// Approver: Mohamed Elamin , 2/21/2020
+    /// Created: 2020/2/5
+    /// Approver: Mohamed Elamin
     /// 
     /// create a fake accessor for reviewer for testing
     /// </summary>
@@ -20,19 +20,25 @@ namespace DataAccessFakes
         private List<AdoptionCustomer> customers = null;
         private List<CustomerQuestionnar> customerQuestionnars = null;
         private List<GeneralQuestion> generalQuestions = null;
+        private List<AnimalMedical> animals = null;
+        private AnimalMedical animal = null;
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// Created: 02/05/2020
-        /// Approver: Mohamed Elamin, 2/21/2020
-        /// 
+        /// Created: 2020/2/5
+        /// Approver: Mohamed Elamin 
         /// default constructor intialays the private lists to work as fake data base
         /// </summary>
         /// <remarks>
         /// Updater Awaab Elamin
         /// Updated: 2020/02/15 
         /// Update: (Add General questions list values)
-        /// </remarks>    
+        /// </remarks>   
+        /// /// <remarks>
+        /// Updater Awaab Elamin
+        /// Updated: 2020/04/15 
+        /// Update: (Add Animal Medicals list values)
+        /// </remarks>   
         public FakeReviewerAccessor()
         {
             adoptionApplications = new List<AdoptionApplication>()
@@ -300,13 +306,63 @@ namespace DataAccessFakes
                     Description = "Question10"
                 }
             };
+
+            animals = new List<AnimalMedical>();
+            animal = new AnimalMedical();
+            animal.AnimalID = 1;
+            animal.UserID = 1;
+            animal.SpayedNeutered = true;
+            animal.Vaccinations = "V1";
+            animal.MostRecentVaccinationDate = DateTime.Now;
+            animal.AdditionalNotes = "Note1";
+            animals.Add(animal);
+
+           
+            animal = new AnimalMedical();
+            animal.AnimalID = 2;
+            animal.UserID = 2;
+            animal.SpayedNeutered = true;
+            animal.Vaccinations = "V2";
+            animal.MostRecentVaccinationDate = DateTime.Now;
+            animal.AdditionalNotes = "Note2";
+            animals.Add(animal);
+
+          
+            animal = new AnimalMedical();
+            animal.AnimalID = 3;
+            animal.UserID = 3;
+            animal.SpayedNeutered = true;
+            animal.Vaccinations = "V3";
+            animal.MostRecentVaccinationDate = DateTime.Now;
+            animal.AdditionalNotes = "Note3";
+            animals.Add(animal);
+
+            
+            animal = new AnimalMedical();
+            animal.AnimalID = 4;
+            animal.UserID = 4;
+            animal.SpayedNeutered = true;
+            animal.Vaccinations = "V4";
+            animal.MostRecentVaccinationDate = DateTime.Now;
+            animal.AdditionalNotes = "Note4";
+            animals.Add(animal);
+
+           
+            animal = new AnimalMedical();
+            animal.AnimalID = 5;
+            animal.UserID = 5;
+            animal.SpayedNeutered = true;
+            animal.Vaccinations = "V5";
+            animal.MostRecentVaccinationDate = DateTime.Now;
+            animal.AdditionalNotes = "Note5";
+            animals.Add(animal);
+
         }
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// Created: 02/15/2020
-        /// Approver: Mohamed Elamin, 2/21/2020
-        /// 
+        /// Created: 2020/02/15
+        /// Approver: Mohamed Elamin 
         /// change the status of the Adoption Apllication status to "Interviewer"
         /// if the reviewer decision is approved. 
         /// if he reviewer decision was "deny" the status of the Adoption apllication will change
@@ -319,6 +375,7 @@ namespace DataAccessFakes
         /// </remarks>   
         /// <param name="adoptionApplicationID"></param>
         /// <param name="decision"></param>
+        /// <returns type="int">rowsEffects</returns>
         public int changeAdoptionApplicationStatus(int adoptionApplicationID, string decision)
         {
             int rowsEffects = 0;
@@ -345,18 +402,18 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/15
-        /// Approver: Mohamed Elamin , 2/21/2020
-        /// 
+        /// Approver: Mohamed Elamin 
         /// retrieve the Adoption Apllication of specific customer
         /// according to his ID
         /// </summary>
         /// <remarks>
         /// Updated by: Awaab Elamin
-        /// Date: 3/15/2020
+        /// Date: 2020/03/15
         /// Updated to get Adoption Application by Customer Email neither than Customer ID
         /// According to DB update
         /// </remarks>
         /// <param name="customerEmail"></param>
+        /// <return type="AdoptionApplication"> adoptionApplication</return>
         public AdoptionApplication getAdoptionApplicationByCustomerEmail(String customerEmail)
         {
             AdoptionApplication adoptionApplication = new AdoptionApplication();
@@ -384,8 +441,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/15
-        /// Approver: Mohamed Elamin, 2/21/2020
-        /// 
+        /// Approver: Mohamed Elamin 
         /// retrieve All Adoption Apllications
         /// </summary>
         /// <remarks>
@@ -393,6 +449,7 @@ namespace DataAccessFakes
         /// Updated: 
         /// Update:
         /// </remarks> 
+        /// <returns>adoptionApplications</returns>
         public List<AdoptionApplication> getAllAdoptionApplication()
         {
             return adoptionApplications;
@@ -400,9 +457,25 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Awaab Elamin
+        /// Created: 2020/02/15
+        /// Approver: Mohamed Elamin 
+        /// retrieve All Animals records
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <returns>animals</returns>
+        public List<AnimalMedical> getAllAnimals()
+        {
+            return animals;
+        }
+
+        /// <summary>
+        /// Creator: Awaab Elamin
         /// Created: 2020/03/10
-        /// Approver: Mohamed Elamin, 2/21/2020
-        /// 
+        /// Approver: Mohamed Elamin
         /// retrieve All Questions Description from Gneral Questions table
         /// </summary>
         /// <remarks>
@@ -410,6 +483,7 @@ namespace DataAccessFakes
         /// Updated: 
         /// Update:
         /// </remarks> 
+        /// <returns>questions</returns>
         public List<string> getAllQuestions()
         {
             List<string> questions = new List<string>();
@@ -422,9 +496,8 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// Created: 02/15/2020
-        /// Approver: Mohamed Elamin, 2/21/2020
-        /// 
+        /// Created: 2020/15/02
+        /// Approver: Mohamed Elamin
         /// select the customer record from the customer list
         /// </summary>
         /// <remarks>
@@ -433,6 +506,7 @@ namespace DataAccessFakes
         /// Update:
         /// </remarks>
         /// <param name="customerLastName"></param>
+        /// <returns>ReturnCustomer</returns>
         public AdoptionCustomer getCustomerByCustomerName(string customerLastName)
         {
             AdoptionCustomer ReturnCustomer = new AdoptionCustomer();
@@ -449,9 +523,8 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// Created: 02/05/2020
-        /// Approver: Mohamed Elamin , 2/21/2020
-        /// 
+        /// Created: 2020/05/02
+        /// Approver: Mohamed Elamin
         /// retrieve the customer last name from the customer table
         /// </summary>
         /// <remarks>
@@ -460,6 +533,7 @@ namespace DataAccessFakes
         /// Update: Removed Commented out code
         /// </remarks>
         /// <param name="customerID">int</param>
+        /// <returns>customerLastName</returns>
         public string getCustomerLastName(int customerID)
         {
             string customerLastName = "";
@@ -469,12 +543,16 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/05
-        /// Approver: Mohamed Elamin , 2/21/2020
-        /// 
-        /// retrieve all Adoption Apllications 
+        /// Approver: Mohamed Elamin
+        /// retrieve customer questionnair by his customerEmail 
         /// </summary>
         /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update:
         /// </remarks>
+        /// <param name="customerEmail"></param>
+        /// <returns>customerQuestionnairs</returns>
         public List<CustomerQuestionnar> getCustomerQuestionnair(string customerEmail)
         {
             return customerQuestionnars;
@@ -484,8 +562,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/05
-        /// Approver: Mohamed Elamin , 2/21/2020
-        /// 
+        /// Approver: Mohamed Elamin  
         /// retrieve the qustion syntax from the General question table according qusetion Id
         /// </summary>
         /// <remarks>
@@ -524,7 +601,7 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="questionnair"></param>
         /// <returns></returns>
-        public bool inserQuestionnair(MVCQuestionnair questionnair)
+        public bool inserQuestionnair(Questionnair questionnair)
         {
             bool result = false;
             int count = customerQuestionnars.Count;
@@ -584,8 +661,7 @@ namespace DataAccessFakes
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/03/6
-        /// Approver: Mohamed Elamin , 2020/03/10
-        /// 
+        /// Approver: Mohamed Elamin 
         /// Insert Adoption Apllication in AdoptionApplication table
         /// </summary>
         /// <remarks>
@@ -593,9 +669,9 @@ namespace DataAccessFakes
         /// Updated: 
         /// Update:
         /// </remarks>
-        /// <param name="adoptionApplication">
-        /// </param>
-        public bool insertAdoptionApplication(MVCAdoptionApplication adoptionApplication)
+        /// <param name="adoptionApplication"></param>
+        /// <returns>result</returns>
+        public bool insertAdoptionApplication(AdoptionApplication adoptionApplication)
         {
             bool result = false;
             int count = adoptionApplications.Count;

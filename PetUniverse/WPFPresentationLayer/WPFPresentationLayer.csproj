@@ -114,6 +114,9 @@
     <Compile Include="AdoptionPages\AdoptionApplications.xaml.cs">
       <DependentUpon>AdoptionApplications.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AdoptionPages\AnimalsRecords.xaml.cs">
+      <DependentUpon>AnimalsRecords.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AdoptionPages\CustomerDetail.xaml.cs">
       <DependentUpon>CustomerDetail.xaml</DependentUpon>
     </Compile>
@@ -400,6 +403,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="AdoptionPages\AnimalsRecords.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="AdoptionPages\CustomerDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -553,7 +560,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
-	  <SubType>Designer</SubType>
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\FilterItem.xaml">

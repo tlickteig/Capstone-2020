@@ -10,24 +10,34 @@ namespace WPFPresentation.Controllers
 {
     /// <summary>
     /// Creator: Awaab Elamin
-    /// Created: 3/7/2020
-    /// Approver: Mohamed Elamin, 3/10/2020
-    /// 
+    /// Created: 2020/3/7
+    /// Approver: Mohamed Elamin 
     /// controlling Adoption Application and questionnair
     /// </summary>
     public class AdoptionController : Controller
     {
-        private MVCAdoptionApplication adoptionApplication;
+        private AdoptionApplication adoptionApplication;
         private IAdoptionManager adoptionApplicationManager;
-        private MVCQuestionnair questionnair;
+        private Questionnair questionnair;
         private IAdoptionCustomerManager _adoptionCustomerManager;
         private IAdoptionApplicationManager _adoptionApplicationManager;
 
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/3/7
+        /// Approver: Mohamed Elamin 
+        /// default constructor assgined intial values
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// CHANGE: NA 
+        /// </remarks>
         public AdoptionController()
         {
-            adoptionApplication = new MVCAdoptionApplication();
+            adoptionApplication = new AdoptionApplication();
             adoptionApplicationManager = new ReviewerManager();
-            questionnair = new MVCQuestionnair();
+            questionnair = new Questionnair();
             _adoptionCustomerManager = new AdoptionCustomerManager();
             _adoptionApplicationManager = new AdoptionApplicationManager();
         }
@@ -35,11 +45,16 @@ namespace WPFPresentation.Controllers
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// Created: 3/7/2020
-        /// Approver: Mohamed Elamin, 3/10/2020
-        /// 
+        /// Created: 2020/3/7
+        /// Approver: Mohamed Elamin 
         /// main page of the adoption section
         /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// CHANGE: NA 
+        /// </remarks>
+        /// <returns ActionResult></returns>
         // GET: Adoption
         [HttpGet]
         public ActionResult Index()
@@ -49,13 +64,20 @@ namespace WPFPresentation.Controllers
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// Created: 3/7/2020
-        /// Approver: Mohamed Elamin, 3/10/2020
-        /// 
+        /// Created: 2020/3/7
+        /// Approver: Mohamed Elamin
         /// controlling Adoption Application and questionnair
         /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// CHANGE: NA 
+        /// </remarks>
+        /// <param name="model"></param>
+        /// <returns ActionResult></returns> 
         //GET:AdoptionApplication
         [HttpGet]
+        //[Authorize]
         public ActionResult AdoptionApplication(LoginViewModel model)
         {
             //var user = new ApplicationUser
@@ -77,16 +99,22 @@ namespace WPFPresentation.Controllers
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// Created: 3/7/2020
-        /// Approver: Mohamed Elamin, 3/10/2020
-        /// 
+        /// Created: 2020/3/7
+        /// Approver: Mohamed Elamin, 2020/10/3
         /// controlling Adoption Application and questionnair
         /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// CHANGE: NA 
+        /// </remarks>
+        /// <param name="adoptionApplication"></param>
+        /// <returns ActionResult></returns>
         //Post:AdoptionApplication
         [HttpPost]
         //[AllowAnonymous]
         //[ValidateAntiForgeryToken]
-        public ActionResult AdoptionApplication(MVCAdoptionApplication adoptionApplication)
+        public ActionResult AdoptionApplication(AdoptionApplication adoptionApplication)
         {
             if (adoptionApplicationManager.addAdoptionApplication(adoptionApplication))
             {
@@ -107,10 +135,17 @@ namespace WPFPresentation.Controllers
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// Created: 3/7/2020
-        /// 
+        /// Created: 2020/3/7
+        /// Approver: Mohamed Elamin, 20202/10/3
         /// controlling Adoption Application and questionnair
         /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// CHANGE: NA 
+        /// </remarks>
+        /// <param name="model"></param>
+        /// <returns ActionResult></returns>
         //GET:Questionnair
         [HttpGet]
         public ActionResult Questionnair(LoginViewModel model)
@@ -119,7 +154,7 @@ namespace WPFPresentation.Controllers
             questions = adoptionApplicationManager.retrieveAllQuestions();
             if (model.Email == "")
             {
-                questionnair = new MVCQuestionnair();
+                questionnair = new Questionnair();
 
             }
             questionnair.Question1 = questions[0];
@@ -135,10 +170,22 @@ namespace WPFPresentation.Controllers
             return View(questionnair);
         }
 
-
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/3/7
+        /// Approver: Mohamed Elamin, 20202/10/3
+        /// controlling Adoption Application and questionnair
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// CHANGE: NA 
+        /// </remarks>
+        /// <param name="questionnair"></param>
+        /// <returns ActionResult></returns>
         //POST:Questionnair
         [HttpPost]
-        public ActionResult Questionnair(MVCQuestionnair questionnair)
+        public ActionResult Questionnair(Questionnair questionnair)
         {
             if (adoptionApplicationManager.addQuestionnair(questionnair))
             {
@@ -155,11 +202,9 @@ namespace WPFPresentation.Controllers
         /// Creator: Austin Gee
         /// Created: 4/11/2020
         /// Approver: Michael Thompson
-        ///
         /// returns a list view of applications for a particular customer
         /// </summary>
         /// <remarks>
-        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA        
@@ -171,8 +216,6 @@ namespace WPFPresentation.Controllers
             var customer = _adoptionCustomerManager.RetrieveAdoptionCustomerByEmail(customerEmail);
             var applications = _adoptionApplicationManager.RetrieveAdoptionApplicationsByEmailAndActive(customerEmail);
             ViewBag.Title = "Animals you have applied to adopt";
-            
-            
 
 
             return View(applications);
@@ -200,64 +243,6 @@ namespace WPFPresentation.Controllers
         }
 
 
-        /// <summary>
-        /// Creator: Austin Gee
-        /// Created: 4/22/2020
-        /// Approver: Michael Thompson
-        ///
-        /// Allows a customer to deactivate an adoption application essentially cancelling
-        /// the adoption process.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA        
-        /// </remarks>
-        /// <param name="adoptionApplicationID"></param>
-        /// <returns></returns>
-        public ActionResult CustomerCancelAdoption(int adoptionApplicationID)
-        {
-            var application = _adoptionApplicationManager.RetrieveAdoptionApplicationByID(adoptionApplicationID);
-            ViewBag.Title = "Cancel Adoption";
-            ViewBag.Subtitle = "Are you sure you want to cancel this adoption?";
-            return View(application);
-        }
-
-        /// <summary>
-        /// Creator: Austin Gee
-        /// Created: 4/22/2020
-        /// Approver: Michael Thompson
-        ///
-        /// Allows a customer to deactivate an adoption application essentially cancelling
-        /// the adoption process.
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA        
-        /// </remarks>
-        /// <param name="formCollection"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public ActionResult CustomerCancelAdoption(FormCollection formCollection)
-        {
-            string applicationIDSring = formCollection[1];
-            
-            try
-            {
-                int applicationID = Int32.Parse(applicationIDSring);
-                _adoptionApplicationManager.DeactivateAdoptionApplication(applicationID);
-                return RedirectToAction("CustomerApplicationList", new { customerEmail = formCollection[2] });
-            }
-            catch (Exception)
-            {
-
-                return View();
-            }
-            
-        }
     }
 
 }

@@ -5033,7 +5033,29 @@ BEGIN
 	WHERE	[CustomerEmail] = @customerEmail
 END
 GO
-
+GO
+/*Created by: Awaab Elamin
+Date: 2020/23/4
+Comment: Get All Animals Medical Records
+*/
+print '' print '*** Creating sp_get__all_animals_medical_Record'
+GO
+DROP PROCEDURE IF EXISTS [sp_get__all_animals_medical_Record]
+GO
+CREATE PROCEDURE [sp_get__all_animals_medical_Record]
+AS
+BEGIN
+	SELECT [AnimalMedicalInfoID]
+      ,[AnimalID]
+      ,[UserID]
+      ,[SpayedNeutered]
+      ,[Vaccinations]
+      ,[MostRecentVaccinationDate]
+      ,[AdditionalNotes]
+  FROM [dbo].[AnimalMedicalInfo]
+		
+END
+GO	
 /*
 Created by: Alex Diers
 Date: 2/28/2020

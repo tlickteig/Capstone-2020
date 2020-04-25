@@ -11,9 +11,8 @@ namespace WPFPresentationLayer.AdoptionPages
     /// <summary>
     /// Creator: Awaab Elamin
     /// Created: 2020/02/04
-    /// Approver : Mohamed Elamin , 2/21/2020
-    ///
-    /// This class represent the tracking methode for the Adoption Application Xaml
+    /// Approver : Mohamed Elamin
+    /// This class represent the tracking methode for the AdoptionApplication Xaml
     /// </summary>
     public partial class AdoptionApplications : Page
     {
@@ -27,10 +26,15 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/04
-        /// Approver : Mohamed Elamin , 2/21/2020
+        /// Approver : Mohamed Elamin 
         ///
-        /// default construct create an object for reviewer manager(Logic Layer)
+        /// default construct intial attributes (adoptionManager, customers)
         /// </summary>
+        ///<remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
         public AdoptionApplications()
         {
             InitializeComponent();
@@ -41,10 +45,8 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/04
-        /// Approver : Mohamed Elamin , 2/21/2020
-        ///
-        /// when load the page, data grid view must show all the adoption applications for customers that
-        /// filled the questionnair
+        /// Approver : Mohamed Elamin
+        /// when load the page, data grid view must show all the adoption applications 
         /// </summary>
         /// <param name="e"></param>
         /// <param name="sender"></param>
@@ -59,8 +61,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/04
-        /// Approver : Mohamed Elamin , 2/21/2020
-        ///
+        /// Approver : Mohamed Elamin
         /// after reviewer select a customer record, btnOpenRecord retrireve that customer data and filled 
         /// the customer details and hidden the adoption appliaction then show the customer data
         /// </summary>
@@ -110,8 +111,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/04
-        /// Approver : Mohamed Elamin , 2/21/2020
-        ///
+        /// Approver : Mohamed Elamin 
         /// open (Hidden/visible) the reviewer decssion page
         /// </summary>
         /// <param name="e"></param>
@@ -156,8 +156,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/04
-        /// Approver : Mohamed Elamin , 2/21/2020
-        ///
+        /// Approver : Mohamed Elamin 
         ///submit the reviewer decission (Approve/Deny)
         /// </summary>
         /// <param name="e"></param>
@@ -213,11 +212,27 @@ namespace WPFPresentationLayer.AdoptionPages
             }
         }
 
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/04
+        /// Approver : Mohamed Elamin 
+        ///on loading the page, retrieive adoption application and assgin them to the grid view
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void DGViewData_Loaded(object sender, RoutedEventArgs e)
         {
             DGViewData.ItemsSource = adoptionManager.retrieveCustomersFilledQuestionnair();
         }
 
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/04
+        /// Approver : Mohamed Elamin 
+        ///the back button show the adoption applications page and hid others.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void btnBackToQuestionnair_Click(object sender, RoutedEventArgs e)
         {
             ReviewerDecission.Visibility = Visibility.Hidden;
@@ -225,6 +240,14 @@ namespace WPFPresentationLayer.AdoptionPages
             CustomerQustionnair.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/04
+        /// Approver : Mohamed Elamin 
+        ///the back button show the adoption applications page and hid others.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void btnBackFromDecisiion_Click(object sender, RoutedEventArgs e)
         {
             ReviewerDecission.Visibility = Visibility.Hidden;
@@ -235,13 +258,11 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created On: 2020/03/29
-        /// Approved By: Awaab Elamin 2020/03/30
-        /// 
+        /// Approved By: Awaab Elamin 
         /// This is an event when Back To Inspector Screen button is clicked , And will open
         /// Customer Detail window.And sends the Customer Email to the Customer Detail's
         /// Constructor as an argument.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
