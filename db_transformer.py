@@ -7,7 +7,6 @@ eof = False
 file = ""
 while count <= 18:
     line = fh.readline().strip('\n')
-    print(line)
     count += 1
 
 
@@ -15,6 +14,8 @@ while eof == False:
     line = fh.readline().strip('\n')
     if line == '-- End of file':
         eof = True
+    elif 'DROP' in line:
+        pass
     else:
         print(line)
         file += line + "\n"
