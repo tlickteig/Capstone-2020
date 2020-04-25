@@ -3707,49 +3707,6 @@ BEGIN
     RETURN @@ROWCOUNT
 END 
 GO
-  
-/*
-Created by: Ben Hanna
-Date: 3/4/2020
-Comment: Update a handing notes record
-*/ 
-DROP PROCEDURE IF EXISTS [sp_update_handling_notes_record]
-GO     
-PRINT '' PRINT '*** Creating sp_update_handling_notes_record'
-GO
-CREATE PROCEDURE [sp_update_handling_notes_record]
-(
-    @AnimalHandlingNotesID			   [int],
-    
-    @NewAnimalID                       [int],
-    @NewUserID                         [int], 
-    @NewAnimalHandlingNotes	           [nvarchar](4000),
-    @NewTemperamentWarning             [nvarchar](1000),
-    @NewUpdateDate                     [date],
-    
-	@OldAnimalID                       [int],
-    @OldUserID                         [int], 
-    @OldAnimalHandlingNotes	           [nvarchar](4000),
-    @OldTemperamentWarning             [nvarchar](1000),
-    @OldUpdateDate                     [date]
-)
-AS
-BEGIN
-	UPDATE [dbo].[AnimalHandlingNotes]
-    SET [AnimalID]                  = @NewAnimalID, 
-        [UserID]                    = @NewUserID,  
-        [AnimalHandlingNotes]       = @NewAnimalHandlingNotes,
-        [TemperamentWarning]        = @NewTemperamentWarning,
-        [UpdateDate]                = @NewUpdateDate        
-    WHERE   [AnimalHandlingNotesID] = @AnimalHandlingNotesID
-    AND     [AnimalID]              = @OldAnimalID 
-    AND     [UserID]                = @OldUserID  
-    AND     [AnimalHandlingNotes]   = @OldAnimalHandlingNotes
-    AND     [TemperamentWarning]    = @OldTemperamentWarning
-    AND     [UpdateDate]            = @OldUpdateDate
-    RETURN @@ROWCOUNT
-END 
-GO 
 
 /*
   Created by: Jordan Lindo
@@ -4501,27 +4458,6 @@ BEGIN
 	WHERE [UserID] = @UserID
 	AND [ERoleID] = @ERoleID
 END
-GO
-
-/*
-Created by: Ethan Holmes
-Date: 02/16/2020
-Comment: Create volunteer task table
-*/
-DROP TABLE IF EXISTS [dbo].[VolunteerTask]
-GO
-print '' print '*** Creating VolunteerTask Table'
-GO
-CREATE TABLE [dbo].[VolunteerTask](
-	[VolunteerTaskID] 		[int] IDENTITY(1000000,1) 	NOT NULL,
-	[TaskName]				[NVARCHAR](100)				NOT NULL,
-	[TaskType]				[NVARCHAR](100)				NOT NULL,
-	[AssignmentGroup]		[NVARCHAR](100)				NOT NULL,
-	[TaskDescription] 		[NVARCHAR](1080) 			    NULL,
-	[DueDate] 				[DATE]						NOT NULL,
-	
-	CONSTRAINT [pk_VolunteerTaskID] PRIMARY KEY([VolunteerTaskID] ASC),
-)
 GO
 
 /*
