@@ -3707,49 +3707,6 @@ BEGIN
     RETURN @@ROWCOUNT
 END 
 GO
-  
-/*
-Created by: Ben Hanna
-Date: 3/4/2020
-Comment: Update a handing notes record
-*/ 
-DROP PROCEDURE IF EXISTS [sp_update_handling_notes_record]
-GO     
-PRINT '' PRINT '*** Creating sp_update_handling_notes_record'
-GO
-CREATE PROCEDURE [sp_update_handling_notes_record]
-(
-    @AnimalHandlingNotesID			   [int],
-    
-    @NewAnimalID                       [int],
-    @NewUserID                         [int], 
-    @NewAnimalHandlingNotes	           [nvarchar](4000),
-    @NewTemperamentWarning             [nvarchar](1000),
-    @NewUpdateDate                     [date],
-    
-	@OldAnimalID                       [int],
-    @OldUserID                         [int], 
-    @OldAnimalHandlingNotes	           [nvarchar](4000),
-    @OldTemperamentWarning             [nvarchar](1000),
-    @OldUpdateDate                     [date]
-)
-AS
-BEGIN
-	UPDATE [dbo].[AnimalHandlingNotes]
-    SET [AnimalID]                  = @NewAnimalID, 
-        [UserID]                    = @NewUserID,  
-        [AnimalHandlingNotes]       = @NewAnimalHandlingNotes,
-        [TemperamentWarning]        = @NewTemperamentWarning,
-        [UpdateDate]                = @NewUpdateDate        
-    WHERE   [AnimalHandlingNotesID] = @AnimalHandlingNotesID
-    AND     [AnimalID]              = @OldAnimalID 
-    AND     [UserID]                = @OldUserID  
-    AND     [AnimalHandlingNotes]   = @OldAnimalHandlingNotes
-    AND     [TemperamentWarning]    = @OldTemperamentWarning
-    AND     [UpdateDate]            = @OldUpdateDate
-    RETURN @@ROWCOUNT
-END 
-GO 
 
 /*
   Created by: Jordan Lindo
