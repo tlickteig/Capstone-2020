@@ -711,5 +711,109 @@ namespace LogicLayer
 
             return result;
         }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/23
+        /// Approver: Robert Holmes
+        ///  
+        /// This method calls the Select transaction types method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionType</returns>
+        public List<TransactionType> RetrieveAllTransactionTypes()
+        {
+            try
+            {
+                return _transactionAccessor.SelectAllTransactionTypes();
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Transaction Types Not Found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        ///  
+        /// This method calls the Select all transaction status method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionStatus list</returns>
+        public List<TransactionStatus> RetrieveAllTransactionStatus()
+        {
+            try
+            {
+                return _transactionAccessor.SelectAllTransactionStatus();
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Transaction Statuses Not Found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/23
+        /// Approver: Robert Holmes
+        ///  
+        /// This method calls the Select default transaction type method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionType</returns>
+        public TransactionType RetrieveDefaultTransactionType()
+        {
+            try
+            {
+                return _transactionAccessor.SelectDefaultTransactionType();
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Transaction type Not Found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        ///  
+        /// This method calls the Select default transaction status method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionStatus</returns>
+        public TransactionStatus RetrieveDefaultTransactionStatus()
+        {
+            try
+            {
+                return _transactionAccessor.SelectDefaultTransactionStatus();
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Transaction status Not Found", ex);
+            }
+        }
     }
 }

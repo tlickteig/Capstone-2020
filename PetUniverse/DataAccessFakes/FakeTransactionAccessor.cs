@@ -24,6 +24,12 @@ namespace DataAccessFakes
         // initializing list of transactions for testing
         private List<Transaction> _transactions;
 
+        // initializing list of transaction types for testing
+        private List<TransactionType> transactionTypes;
+
+        // initializing list of transaction statuses for testing
+        private List<TransactionStatus> transactionStatuses;
+
         // initializing lists of products related to transaction for testing
         private List<ProductVM> _productVMs1;
         private List<ProductVM> _productVMs2;
@@ -209,6 +215,58 @@ namespace DataAccessFakes
                     ZipCode = "2222",
                     TaxRate = 0.0045M,
                     TaxDate = salesTaxDate2
+                }
+            };
+
+            // sample transaction types
+            transactionTypes = new List<TransactionType>()
+            {
+                new TransactionType()
+                {
+                    TransactionTypeID = "SALES",
+                    Description= "FAKETRANSTYPEDESC",
+                    DefaultInStore = true
+                },
+                new TransactionType()
+                {
+                    TransactionTypeID = "REFUND",
+                    Description= "FAKETRANSTYPEDESC2",
+                    DefaultInStore = false
+                },
+                new TransactionType()
+                {
+                    TransactionTypeID = "VOID",
+                    Description= "FAKETRANSTYPEDESC3",
+                    DefaultInStore = false
+                }
+            };
+
+            // sample transaction statuses
+            transactionStatuses = new List<TransactionStatus>()
+            {
+                new TransactionStatus()
+                {
+                    TransactionStatusID = "COMPLETE",
+                    Description= "FAKETRANSSTATUSDESC",
+                    DefaultInStore = true
+                },
+                new TransactionStatus()
+                {
+                    TransactionStatusID = "PENDING",
+                    Description= "FAKETRANSSTATUSDESC2",
+                    DefaultInStore = false
+                },
+                new TransactionStatus()
+                {
+                    TransactionStatusID = "CANCELLED",
+                    Description= "FAKETRANSSTATUSDESC3",
+                    DefaultInStore = false
+                },
+                new TransactionStatus()
+                {
+                    TransactionStatusID = "FAKESTATUS4",
+                    Description= "FAKETRANSSTATUSDESC4",
+                    DefaultInStore = false
                 }
             };
         }
@@ -548,6 +606,98 @@ namespace DataAccessFakes
                 }
             }
             return rows;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/13
+        /// Approver: Rob Holmes
+        /// 
+        /// Fake Transaction Accessor Method, uses dummy data for testing.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// </remarks>
+        /// <returns>TransactionType list</returns>
+        public List<TransactionType> SelectAllTransactionTypes()
+        {
+            return (from v in transactionTypes
+                    select v).ToList();
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// Fake Transaction Accessor Method, uses dummy data for testing.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// </remarks>
+        /// <returns>TransactionStatus list</returns>
+        public List<TransactionStatus> SelectAllTransactionStatus()
+        {
+            return (from v in transactionStatuses
+                    select v).ToList();
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// Fake Transaction Accessor Method, uses dummy data for testing.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// </remarks>
+        /// <returns>Transactiontype</returns>
+        public TransactionType SelectDefaultTransactionType()
+        {
+            var _transactionType = new TransactionType();
+
+            _transactionType = null;
+
+            foreach (var transactionType in transactionTypes)
+            {
+                if (transactionType.DefaultInStore == true)
+                {
+                    _transactionType = transactionType;
+                }
+            }
+            return _transactionType;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// Fake Transaction Accessor Method, uses dummy data for testing.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// </remarks>
+        /// <returns>TransactionStatus</returns>
+        public TransactionStatus SelectDefaultTransactionStatus()
+        {
+            var _transactionStatus = new TransactionStatus();
+
+            _transactionStatus = null;
+
+            foreach (var transactionStatus in transactionStatuses)
+            {
+                if (transactionStatus.DefaultInStore == true)
+                {
+                    _transactionStatus = transactionStatus;
+                }
+            }
+            return _transactionStatus;
         }
     }
 }

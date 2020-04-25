@@ -190,5 +190,65 @@ namespace DataAccessInterfaces
         /// Update: NA
         /// </remarks>
         int UpdateProduct(ProductVM oldProduct, ProductVM newProduct);
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/23
+        /// APPROVER: Robert Holmes
+        ///
+        /// Interface method signature for selecting all transaction types.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionTypes</returns>
+        List<TransactionType> SelectAllTransactionTypes();
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// APPROVER: Robert Holmes
+        ///
+        /// Interface method signature for selecting all transaction status.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>Transactionstatus list</returns>
+        List<TransactionStatus> SelectAllTransactionStatus();
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/23
+        /// APPROVER: Robert Holmes
+        ///
+        /// Interface method signature for selecting default transaction type
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionType</returns>
+        TransactionType SelectDefaultTransactionType();
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// APPROVER: Robert Holmes
+        ///
+        /// Interface method signature for selecting default transaction status
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionStatus</returns>
+        TransactionStatus SelectDefaultTransactionStatus();
     }
 }

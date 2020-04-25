@@ -272,6 +272,8 @@ namespace WPFPresentationLayer.PoSPages
         /// <param name="sender"></param>
         private void btnCompleteTransaction_Click(object sender, RoutedEventArgs e)
         {
+            var transactionType = new TransactionType();
+            var transactionStatus = new TransactionStatus();
 
             // This transactionDate operation 
             // involves ignoring Milliseconds.
@@ -284,17 +286,38 @@ namespace WPFPresentationLayer.PoSPages
             );
             // end transactionDate ignore milliseconds operation.
 
-            Transaction transaction = new Transaction()
+            var transaction = new Transaction();
+            try
             {
-                TransactionDateTime = transactionDate,
-                TaxRate = taxRate,
-                SubTotalTaxable = subTotalTaxable,
-                SubTotal = subTotal,
-                Total = total,
-                TransactionTypeID = "tranTYPE100",
-                EmployeeID = employeeID,
-                TransactionStatusID = "tranStatus100"
-            };
+                // This is for practical purposes. A cashier should not have to 
+                // constantly put in the transaction type for each transaction.
+                // A default transaction type is retrieved from the database 
+                // everytime the transaction type text is empty.
+                if (cbTransactionType.Text == "")
+                {
+                    transactionType = _transactionManager.RetrieveDefaultTransactionType();
+                    cbTransactionType.Text = transactionType.TransactionTypeID;
+                }
+
+                if (cbTransactionStatus.Text == "")
+                {
+                    transactionStatus = _transactionManager.RetrieveDefaultTransactionStatus();
+                    cbTransactionStatus.Text = transactionStatus.TransactionStatusID;
+                }
+
+                transaction.TransactionDateTime = transactionDate;
+                transaction.TaxRate = taxRate;
+                transaction.SubTotalTaxable = subTotalTaxable;
+                transaction.SubTotal = subTotal;
+                transaction.Total = total;
+                transaction.TransactionTypeID = cbTransactionType.Text.ToString();
+                transaction.EmployeeID = employeeID;
+                transaction.TransactionStatusID = cbTransactionStatus.Text.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n\n" + "Please set the default transaction type or status!");
+            }
 
             var transactionLineProducts = new TransactionLineProducts();
             List<ProductVM> ProductsSoldList = new List<ProductVM>();
@@ -321,6 +344,9 @@ namespace WPFPresentationLayer.PoSPages
                         txtPrice.Text = "";
                         txtQuantity.Text = "";
                         txtItemDescription.Text = "";
+
+                        cbTransactionType.Text = "";
+                        cbTransactionStatus.Text = "";
 
                         txtTotal.Text = "";
                         txtSubTotal.Text = "";
@@ -407,6 +433,9 @@ namespace WPFPresentationLayer.PoSPages
             txtPrice.Text = "";
             txtQuantity.Text = "";
             txtItemDescription.Text = "";
+
+            cbTransactionType.Text = "";
+            cbTransactionStatus.Text = "";
 
             txtTotal.Text = "";
             txtSubTotal.Text = "";
@@ -504,7 +533,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/20/2020
-        /// Approver: Jaeho Kimd
+        /// Approver: Jaeho Kim
         /// 
         /// Handles payment recieved from customer.
         /// </summary>
@@ -547,6 +576,58 @@ namespace WPFPresentationLayer.PoSPages
             return result;
         }
 
-        
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// retrieves all transaction types
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbTransactionType_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<TransactionType> transactionTypes = _transactionManager.RetrieveAllTransactionTypes();
+
+
+            foreach (var item in transactionTypes)
+            {
+                cbTransactionType.Items.Add(item.TransactionTypeID.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// retrieves all transaction statuses
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbTransactionStatus_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<TransactionStatus> transactionStatuses = _transactionManager.RetrieveAllTransactionStatus();
+
+
+            foreach (var item in transactionStatuses)
+            {
+                cbTransactionStatus.Items.Add(item.TransactionStatusID.ToString());
+            }
+        }
     }
 }

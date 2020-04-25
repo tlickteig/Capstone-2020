@@ -383,5 +383,115 @@ namespace LogicLayerTests
             Assert.AreEqual(expected, result);
 
         }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/24/2020
+        /// Approver: Robert Holmes
+        /// 
+        /// This is a unit test for retrieve all transaction types
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAllTransactionTypes()
+        {
+
+            // arrrange
+            List<TransactionType> transactionTypes = new List<TransactionType>();
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // act
+            transactionTypes = transactionManager.RetrieveAllTransactionTypes();
+
+            // assert
+            Assert.AreEqual(3, transactionTypes.Count);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/24/2020
+        /// Approver: Robert Holmes
+        /// 
+        /// This is a unit test for retrieve all transaction statuses
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAllTransactionStatus()
+        {
+
+            // arrrange
+            List<TransactionStatus> transactionStatuses = new List<TransactionStatus>();
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // act
+            transactionStatuses = transactionManager.RetrieveAllTransactionStatus();
+
+            // assert
+            Assert.AreEqual(4, transactionStatuses.Count);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// Test method for retreiving the deafult transaction type.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveDefaultTransactionType()
+        {
+            //arrange
+            var transactionType = new TransactionType();
+
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // Act
+            transactionType = transactionManager.RetrieveDefaultTransactionType();
+
+            // assert
+            Assert.AreEqual(true, transactionType.DefaultInStore);
+
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// Test method for retreiving the deafult transaction status.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveDefaultTransactionStatus()
+        {
+            //arrange
+            var transactionStatus = new TransactionStatus();
+
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // Act
+            transactionStatus = transactionManager.RetrieveDefaultTransactionStatus();
+
+            // assert
+            Assert.AreEqual(true, transactionStatus.DefaultInStore);
+
+        }
     }
 }

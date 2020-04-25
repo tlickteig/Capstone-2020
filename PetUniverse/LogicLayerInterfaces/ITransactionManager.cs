@@ -385,5 +385,67 @@ namespace LogicLayerInterfaces
         /// <param name="transactionID"></param>
         /// <returns>returns Transactions</returns>
         List<TransactionVM> RetrieveTransactionByTransactionID(int transactionID);
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 04/23/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for getting a list
+        /// of transaction types
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>List of all transaction types</returns>
+        List<TransactionType> RetrieveAllTransactionTypes();
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 04/24/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for getting a list
+        /// of transaction status
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>List of all transaction status</returns>
+        List<TransactionStatus> RetrieveAllTransactionStatus();
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 04/23/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for Selecting default transaction type.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>returns a Transaction type</returns>
+        TransactionType RetrieveDefaultTransactionType();
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 04/24/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for Selecting default transaction status.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>returns a Transaction status</returns>
+        TransactionStatus RetrieveDefaultTransactionStatus();
     }
 }

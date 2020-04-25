@@ -709,7 +709,7 @@ CREATE TABLE [dbo].[Item](
 	[ItemID] [int] NOT NULL IDENTITY(100000, 1) PRIMARY KEY,
 	[ItemName] [nvarchar](50) NOT NULL,
 	[ItemCategoryID] [nvarchar](50) NOT NULL,
-	[ItemDescription] [nvarchar](250) ,
+	[ItemDescription] [nvarchar](250) NOT NULL,
 	[ItemQuantity] [int] NOT NULL,
 	[Active]       [bit] DEFAULT 1 NOT NULL,
 	[ShelterItem] [bit] DEFAULT 0,
@@ -6519,6 +6519,88 @@ END
 GO
 
 /*
+Created by: Jaeho Kim
+Date: 04/23/2020
+Comment: Selects all transaction types.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_transaction_types]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_transaction_types'
+GO
+CREATE PROCEDURE [sp_select_all_transaction_types]
+AS
+BEGIN
+    SELECT
+         [TransactionTypeID]
+		,[Description]
+		,[DefaultInStore]
+    FROM 	[dbo].[TransactionType]
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 04/23/2020
+Comment: Selects the default transaction type for in store.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_default_transaction_type]
+GO
+PRINT '' PRINT '*** Creating sp_select_default_transaction_type'
+GO
+CREATE PROCEDURE [sp_select_default_transaction_type]
+AS
+BEGIN
+    SELECT
+         [TransactionTypeID]
+		,[Description]
+		,[DefaultInStore]
+    FROM 	[dbo].[TransactionType]
+	WHERE [DefaultInStore] = 1
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 04/24/2020
+Comment: Selects all transaction status.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_transaction_status]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_transaction_status'
+GO
+CREATE PROCEDURE [sp_select_all_transaction_status]
+AS
+BEGIN
+    SELECT
+         [TransactionStatusID]
+		,[Description]
+		,[DefaultInStore]
+    FROM 	[dbo].[TransactionStatus]
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 04/24/2020
+Comment: Selects the default transaction status for in store.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_default_transaction_status]
+GO
+PRINT '' PRINT '*** Creating sp_select_default_transaction_status'
+GO
+CREATE PROCEDURE [sp_select_default_transaction_status]
+AS
+BEGIN
+    SELECT
+         [TransactionStatusID]
+		,[Description]
+		,[DefaultInStore]
+    FROM 	[dbo].[TransactionStatus]
+	WHERE [DefaultInStore] = 1
+END
+GO
+
+/*
 Created by: Brandyn T. Coverdill
 Date: 3/4/2020
 Comment: Stored Procedure that updates the item name, item count, and item description.
@@ -10488,10 +10570,10 @@ GO
 
 
 INSERT INTO [dbo].[Item]
-	([ItemCategoryID],[ItemName],[ItemQuantity])
+	([ItemCategoryID],[ItemName],[ItemQuantity], [ItemDescription])
 	VALUES
-	('Medication','Medication1', 4),
-	('Medication','Medication2', 0)
+	('Medication','Medication1', 4, 'FakeDesc'),
+	('Medication','Medication2', 0, 'FakeDesc2')
 	
 GO
 

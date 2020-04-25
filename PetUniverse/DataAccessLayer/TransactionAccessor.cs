@@ -665,5 +665,197 @@ namespace DataAccessLayer
             return rows;
 
         }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/23/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Implementation for selecting transaction types.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>ProductVM</returns>
+        public List<TransactionType> SelectAllTransactionTypes()
+        {
+            List<TransactionType> transactionTypes = new List<TransactionType>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_all_transaction_types", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    TransactionType transactionType = new TransactionType();
+
+                    transactionType.TransactionTypeID = reader.GetString(0);
+                    transactionType.Description = reader.GetString(1);
+                    transactionType.DefaultInStore = reader.GetBoolean(2);
+
+                    transactionTypes.Add(transactionType);
+                }
+                reader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return transactionTypes;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/24/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Implementation for selecting transaction status.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionStatus list</returns>
+        public List<TransactionStatus> SelectAllTransactionStatus()
+        {
+            List<TransactionStatus> transactionStatuses = new List<TransactionStatus>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_all_transaction_status", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    TransactionStatus transactionStatus = new TransactionStatus();
+
+                    transactionStatus.TransactionStatusID = reader.GetString(0);
+                    transactionStatus.Description = reader.GetString(1);
+                    transactionStatus.DefaultInStore = reader.GetBoolean(2);
+
+                    transactionStatuses.Add(transactionStatus);
+                }
+                reader.Close();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return transactionStatuses;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/23/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Implementation for selecting default transaction type.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionType</returns>
+        public TransactionType SelectDefaultTransactionType()
+        {
+            var transactionType = new TransactionType();
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_select_default_transaction_type", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    transactionType.TransactionTypeID = reader.GetString(0);
+                    transactionType.Description = reader.GetString(1);
+                    transactionType.DefaultInStore = reader.GetBoolean(2);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return transactionType;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/24/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Implementation for selecting default transaction status.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionStatus</returns>
+        public TransactionStatus SelectDefaultTransactionStatus()
+        {
+            var transactionStatus = new TransactionStatus();
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_select_default_transaction_status", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    transactionStatus.TransactionStatusID = reader.GetString(0);
+                    transactionStatus.Description = reader.GetString(1);
+                    transactionStatus.DefaultInStore = reader.GetBoolean(2);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return transactionStatus;
+        }
     }
 }
