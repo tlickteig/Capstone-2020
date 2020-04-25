@@ -1,10 +1,7 @@
 import sys
-import logging
 
-print('starting program')
-filename = sys.argv[0]
+filename = sys.argv[1]
 fh = open(filename, 'r')
-print('opened file' + filename)
 count = 0
 eof = False
 file = ""
@@ -25,4 +22,3 @@ while eof == False:
 
 fileWriter = open('prod_sqlscript.sql', 'w')
 fileWriter.write(file)
-print('finished')
