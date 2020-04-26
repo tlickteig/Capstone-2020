@@ -40,6 +40,9 @@ namespace DataAccessFakes
 
         private List<Product> products;
 
+        // this is the list of items for inventory
+        private List<Item> itemList;
+
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 2/27/2020
@@ -267,6 +270,26 @@ namespace DataAccessFakes
                     TransactionStatusID = "FAKESTATUS4",
                     Description= "FAKETRANSSTATUSDESC4",
                     DefaultInStore = false
+                }
+            };
+
+            // sample items
+            itemList = new List<Item>()
+            {
+                new Item()
+                {
+                    ItemID = 100,
+                    ItemQuantity = 10
+                },
+                new Item()
+                {
+                    ItemID = 200,
+                    ItemQuantity = 20
+                },
+                new Item()
+                {
+                    ItemID = 300,
+                    ItemQuantity = 30
                 }
             };
         }
@@ -698,6 +721,39 @@ namespace DataAccessFakes
                 }
             }
             return _transactionStatus;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/25
+        /// Approver: Robert Holmes
+        /// 
+        /// Fake Transaction Accessor Method, uses dummy data for testing.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// </remarks>
+        /// <returns>int</returns>
+        public int UpdateItemQuantity(TransactionLineProducts transactionLineProducts)
+        {
+
+            int rows = 0;
+            foreach (Item item in itemList)
+            {
+                foreach(ProductVM productVM in transactionLineProducts.ProductsSold)
+                {
+                    if (productVM.ItemID == item.ItemID)
+                    {
+
+                        int newQuantity = item.ItemQuantity - productVM.ItemQuantity;
+                        item.ItemQuantity = newQuantity;
+                        rows++;
+                    }
+                }
+            }
+            return rows;
+            
         }
     }
 }
