@@ -12,8 +12,7 @@ namespace WPFPresentationLayer.AdoptionPages
     /// <summary>
     /// Creator: Awaab Elamin
     /// Created: 2020/01/03
-    /// Approver :
-    ///
+    /// Approver : Mohamed Elamin
     /// This class represent the tracking methode for the Interviewer Xaml
     /// </summary>
     public partial class InterviewerPage : Page
@@ -25,9 +24,14 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Awaab Elamin
         /// 2020/01/03
-        /// Approver :
+        /// Approver : Mohamed Elamin
         /// default construct create an object for reviewer manager(Logic Layer)
         /// </summary>
+        ///<remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
         public InterviewerPage()
         {
             InitializeComponent();
@@ -41,18 +45,35 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Awaab Elamin
         /// 2020/01/03
-        /// Approver :
-        ///
+        /// Approver : Mohamed Elamin
         /// when load the page, data grid view must show all the adoption applications that Approved by Interviewer
         /// </summary>
         /// <param name="e"></param>
         /// <param name="sender"></param>
+        ///<remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             updateAdoptionList();
 
         }
 
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// 2020/01/03
+        /// Approver : Mohamed Elamin
+        /// when load the page, data grid view must show all the adoption applications that Approved by Interviewer
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
+        ///<remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
         private void updateAdoptionList()
         {
             try
@@ -88,6 +109,19 @@ namespace WPFPresentationLayer.AdoptionPages
             }
         }
 
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// 2020/01/03
+        /// Approver : Mohamed Elamin
+        /// after selecting one of the adoption application list. Intervivewer Decission Tab shown up.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
+        ///<remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
         private void DGInterviewerData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -109,6 +143,19 @@ namespace WPFPresentationLayer.AdoptionPages
 
         }
 
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// 2020/01/03
+        /// Approver : Mohamed Elamin
+        /// After decission button clicked. interviewer decission submitted to logic layer. (Deny, In Home Inspection)
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
+        ///<remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
         private void btnInterviewerDecission_Click(object sender, RoutedEventArgs e)
         {
             if (InHomeInspection.IsSelected)
@@ -148,6 +195,19 @@ namespace WPFPresentationLayer.AdoptionPages
 
         }
 
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// 2020/01/03
+        /// Approver : Mohamed Elamin
+        /// When Interviewer get focus, retrieve the customer questionnair
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
+        ///<remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
         private void InterviewerControl_GotFocus(object sender, RoutedEventArgs e)
         {
             try

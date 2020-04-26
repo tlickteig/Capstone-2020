@@ -46,5 +46,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns>Returns a list of active customers</returns>
         List<Customer> SelectAllActiveCustomers();
+
+        Customer AuthenticateCustomer(string username, string passwordHash);
     }
 }

@@ -136,5 +136,67 @@ namespace DataAccessLayer
             }
             return customers;
         }
+
+        /// <summary>
+        /// NAME: Zach Behrensmeyer
+        /// DATE: 2/4/2020
+        /// CHECKED BY: Steven Cardona
+        /// 
+        /// This method is used to authenticate the user and make sure they exist for login
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="username"></param>
+        /// <param name="passwordHash"></param>
+        /// <returns></returns>
+        public Customer AuthenticateCustomer(string username, string passwordHash)
+        {
+            Customer result = null;
+
+            //Get a connection
+            var conn = DBConnection.GetConnection();
+
+            //Call the sproc
+            var cmd = new SqlCommand("sp_authenticate_customer");
+            cmd.Connection = conn;
+
+            //Set the command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            //Create the parameters
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+            cmd.Parameters.Add("@PasswordHash", SqlDbType.NVarChar, 100);
+
+            //Set the parameters
+            cmd.Parameters["@Email"].Value = username;
+            cmd.Parameters["@PasswordHash"].Value = passwordHash;
+
+            try
+            {
+                conn.Open();
+
+                if (1 == Convert.ToInt32(cmd.ExecuteScalar()))
+                {
+                    //Check the db for the given email
+                    result = RetrieveCustomerByCustomerEmail(username);
+                }
+                else
+                {
+                    throw new ApplicationException("Customer not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
+        }
     }
 }

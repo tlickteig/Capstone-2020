@@ -8,12 +8,11 @@ using System.Data.SqlClient;
 namespace DataAccessLayer
 {
     /// <summary>
-    /// Creator: Awaab Elamin
-    /// Created: 2020/02/04
-    /// Approver
-    ///
-    /// Class contains all reviewer Accessor
-    /// </summary>
+	/// Creator: Awaab Elamin
+	/// Created: 2020/02/04
+	/// Approver: Mohamed Elamin
+	/// Class contains all reviewer Accessor
+	/// </summary>
     public class ReviewerAccessor : IAdoptionAccessor
     {
         public ReviewerAccessor()
@@ -21,23 +20,22 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Creator: Awaab Elamin
-        /// Created: 2020/02/15
-        /// Approver: Mohamed Elamin , 2/21/2020
-        /// 
-        /// Update stauts of addoption application
-        /// to "Interviewer" or Deny
-        /// According to Reviewer Decision 
-        /// </summary>
-        /// Updater Awaab Elamin
-        /// Updated:  3/3/2020
-        /// Approver: Mohamed Elamin , 3/4/2020
-        /// Update: update the status of the adoption application to any status that include in the 
-        /// AdoptionApplicationTable
-        /// 
-        /// <remarks>
-        /// </remarks>
-        /// <param name="decision"></param>
+		/// Creator: Awaab Elamin
+		/// Created: 2020/02/04
+		/// Approver: Mohamed Elamin
+		/// Update stauts of addoption application
+		/// to "Interviewer" or Deny
+		/// According to Reviewer Decision 
+		/// </summary>
+		/// <remarks>
+		/// Updater: Awaab Elamin 
+		/// Updated: 2020/03/03 
+		/// Update: Update the status of the adoption application to any status that include in the 
+		/// AdoptionApplicationTable.
+		/// </remarks>   
+		/// <param name="adoptionApplicationID"></param>
+		/// <param name="decision"></param>
+		/// <returns>row count</returns>
         public int changeAdoptionApplicationStatus(int adoptionApplicationID, string decision)
         {
             int count = 0;
@@ -73,18 +71,19 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Creator: Awaab Elamin
-        /// Created: 2020/02/15
-        /// Approver: Mohamed Elamin , 2/21/2020
-        /// 
-        /// retrieve Adoption Application 
-        /// for a customer 
-        /// from Customer Questionnar table
-        /// by his ID
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <param name="customerEmail"></param>
+		/// Creator: Awaab Elamin
+		/// Created: 2020/02/15
+		/// Approver: Mohamed Elamin
+		/// Retrieve Adoption Application for a customer from Customer Questionnar table
+		/// by his ID.
+		/// </summary>
+		/// <remarks>
+		/// Updater: Mohamed Elamin 
+		/// Updated: 2020/04/21 
+		/// Update: Fixed comments format.
+		/// </remarks>
+		/// <param name="customerEmail"></param>
+		/// <returns>adoptionApplication</returns>
         public AdoptionApplication getAdoptionApplicationByCustomerEmail(string customerEmail)
         {
             AdoptionApplication adoptionApplication = new AdoptionApplication();
@@ -128,16 +127,17 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// method to get all Adoption Applications
-        /// </summary>
-        /// <remarks>
-        /// Created by Awaab Elamin 4/2/2020
-        /// 
-        /// </remarks>
-        /// <reviewed>
-        /// Mohamed Elamin , 2/21/2020
-        /// </reviewed>
-        /// <returns></returns>
+		/// Creator: Awaab Elamin
+		/// Created: 2020/02/15
+		/// Approver: Mohamed Elamin
+		/// Method to get all Adoption Applications.
+		/// </summary>
+		/// <remarks>
+		/// Updater: Mohamed Elamin 
+		/// Updated: 2020/04/21 
+		/// Update: Fixed comments format.
+		/// </remarks>
+		/// <returns>adoptionApplications</returns>
         public List<AdoptionApplication> getAllAdoptionApplication()
         {
             List<AdoptionApplication> adoptionApplications = new List<AdoptionApplication>();
@@ -178,15 +178,16 @@ namespace DataAccessLayer
 
         }
         /// <summary>
-        /// retrieve the animal name from the animal table
+        /// Creator: Awaab Elamin
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
+        /// retrieve the animal name from the animal table.
         /// </summary>
-        /// <param name="animalID"> it is the animal id</param>
-        /// <returns> the animal name</returns>
-        /// <remarks>
-        /// by Awaab Elamin 2/5/2020
-        /// Mohamed Elamin , 2/21/2020
-        /// 
-        /// </remarks>
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed comments format.
+        /// <param name="animalID"></param>
+        /// <returns>animalName</returns>
         private string getAnimalName(int animalID)
         {
             string animalName = "";
@@ -229,15 +230,18 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Creator: Awaab Elamin
-        /// Created: 2020/02/15
-        /// Approver: Mohamed Elamin , 2/21/2020
-        /// 
-        /// retrieve Customer record from customer table by his last name
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <param name="customerLastName"></param>
+		/// Creator: Awaab Elamin
+		/// Created: 2020/02/04
+		/// Approver: Mohamed Elamin
+		/// Retrieve Customer record from customer table by his last name.
+		/// </summary>
+		/// <remarks>
+		/// Updater: Mohamed Elamin 
+		/// Updated: 2020/04/21 
+		/// Update: Fixed comments format.
+		/// </remarks>
+		/// <param name="customerLastName"></param>
+		/// <returns>ourCustomer</returns>
         public AdoptionCustomer getCustomerByCustomerName(string customerLastName)
         {
             AdoptionCustomer ourCustomer = new AdoptionCustomer();
@@ -290,15 +294,16 @@ namespace DataAccessLayer
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/25
-        /// 
-        /// retrieve Customer id from customer table by his userID
+        /// Approver: Mohamed Elamin
+        /// Retrieve Customer id from customer table by his userID
         /// </summary>
         /// <remarks>
         /// Updated by : Awaab Elamin
-        /// Date: 3/16/2020
+        /// Updated: 2020/03/16
         /// After Customer Table updated in DB, we don not need to below method
         /// </remarks>
-        /// <param name="customerLastName"></param>
+        /// <param name="userID"></param>
+        /// <returns>customerID</returns> 
         //private int getCustomerID(int userID)
         //{
         //	int customerID = 0;
@@ -336,14 +341,23 @@ namespace DataAccessLayer
         //}
 
         /// <summary>
-        /// retrieve the customer full name "first and last
-        /// </summary>
-        /// <param name="customerID"></param>
-        /// <returns> FirstName + Last name</returns>
-        /// /// <remarks>
-        /// by Awaab Elamin 2/5/2020
-        /// Mohamed Elamin , 2/21/2020
-        /// </remarks>
+		/// Creator: Awaab Elamin
+		/// Created: 2020/02/04
+		/// Approver: Mohamed Elamin
+		/// Retrieve the customer full name "first and last
+		/// </summary>
+		/// <remarks>
+		/// Updater: Mohamed Elamin 
+		/// Updated: 2020/04/21 
+		/// Update: Fixed comments format.
+		/// </remarks>
+		///  /// <remarks>
+		/// Updated by : Awaab Elamin
+		/// Date: 3/16/2020
+		/// After Customer Table updated in DB, we don not need to below method
+		/// </remarks>
+		/// <param name="customerID"></param>
+		/// <returns> FirstName + Last name</returns>
         public string getCustomerLastName(int customerID)
         {
             String customerName = null;
@@ -378,15 +392,18 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Creator: Awaab Elamin
-        /// Created: 2020/02/15
-        /// Approver: Mohamed Elamin , 2/21/2020
-        /// 
-        /// retrieve Qyestionnar syntax  from General Questionnair by its ID
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        /// <param name="questionID"></param>
+		/// Creator: Awaab Elamin
+		/// Created: 2020/02/15
+		/// Approver: Mohamed Elamin 
+		/// Retrieve Qyestionnar syntax  from General Questionnair by its ID.
+		/// </summary>
+		/// <remarks>
+		/// Updater: Mohamed Elamin 
+		/// Updated: 2020/04/21 
+		/// Update: Fixed comments format.
+		/// </remarks>
+		/// <param name="questionID"></param>
+		/// <returns>questionDescription</returns>
         public string getQestionDescription(int questionID)
         {
             String questionDescription = null;
@@ -421,13 +438,16 @@ namespace DataAccessLayer
         /// <summary>
         /// Creator: Awaab Elamin
         /// Created: 2020/02/15
-        /// Approver: Mohamed Elamin , 2/21/2020
-        /// 
-        /// retrieve Customer Questionnair record from customers Questionnairs table by his ID
+        /// Approver: Mohamed Elamin 
+        /// retrieve Customer Questionnair record from customers Questionnairs table by his ID.
         /// </summary>
         /// <remarks>
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed comments format. 
         /// </remarks>
         /// <param name="customerID"></param>
+        /// <returns>customerQuestionnars</returns>
         public List<CustomerQuestionnar> getCustomerQuestionnair(string customerEmail)
         {
             List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
@@ -467,12 +487,16 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// Created: 2020/2/17
-        /// Approver: Mohamed Elamin , 2/21/2020
-        /// 
-        /// retrieve Questionnaes general questions table
+        /// Created: 2020/02/15
+        /// Approver: Mohamed Elamin 
+        /// Retrieve Questionnaes general questions table
         /// </summary>
+        /// <remarks>
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed comments format. 
         /// </remarks>
+        /// <returns>questions</returns>
         public List<string> getAllQuestions()
         {
             List<string> questions = new List<string>();
@@ -507,13 +531,20 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// Creator: Awaab Elamin
-        /// Created: 2020/03/06
-        /// Approver: Mohamed Elamin , 2020/03/10
-        /// 
-        /// retrieve Questionnaes general questions table
-        /// </summary>
-        public bool insertAdoptionApplication(MVCAdoptionApplication adoptionApplication)
+		/// Creator: Awaab Elamin
+		/// Created: 2020/03/06
+		/// Approver: Mohamed Elamin 
+		/// Retrieve Questionnaes general questions table
+		/// </summary>
+		/// <remarks>
+		/// Updater: Mohamed Elamin 
+		/// Updated: 2020/04/21 
+		/// Update: Fixed comments format. 
+		/// </remarks>
+		/// <param name="adoptionApplication"></param>
+		/// <returns>questions</returns>
+		/// <returns>True or false depending if the record was inserted</returns>
+        public bool insertAdoptionApplication(AdoptionApplication adoptionApplication)
         {
             bool result = false;
             var conn = DBConnection.GetConnection();
@@ -531,7 +562,7 @@ namespace DataAccessLayer
                     result = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 throw;
@@ -545,11 +576,18 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// Created: 2020/03/10
-        /// 
-        /// insert Questionnair in customer questionnair table
+        /// Created: 2020/03/06
+        /// Approver: Mohamed Elamin 
+        /// Insert Questionnair in customer questionnair table
         /// </summary>
-        public bool inserQuestionnair(MVCQuestionnair questionnair)
+        /// <remarks>
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed comments format. 
+        /// </remarks>
+        /// <returns>questionnair</returns>
+        /// <returns>True or false depending if the record was inserted</returns>
+        public bool inserQuestionnair(Questionnair questionnair)
         {
             bool result = false;
             //1\Connect to data base
@@ -597,7 +635,7 @@ namespace DataAccessLayer
                     result = true;
                 }
             }
-            catch (Exception ex)
+            catch (Exception )
             {
 
                 result = false;
@@ -608,6 +646,60 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return result;
+        }
+
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created:  2020/04/15
+        /// Approver: Mohamed Elamin
+        /// 
+        /// Get all Animals
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <return>Animals Medicals Records</return>
+        public List<AnimalMedical> getAllAnimals()
+        {
+            List<AnimalMedical> animals = new List<AnimalMedical>();
+            var conn = DBConnection.GetConnection();
+            string cmdText = @"sp_get__all_animals_medical_Record";
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            try
+            {
+                conn.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    AnimalMedical animal = new AnimalMedical();
+                        animal.AnimalMedicalInfoID = reader.GetInt32(0);
+                    animal.AnimalID = reader.GetInt32(1);
+                    animal.UserID = reader.GetInt32(2);
+                    animal.SpayedNeutered = reader.GetBoolean(3);
+                    animal.Vaccinations = reader.GetString(4);
+                    animal.MostRecentVaccinationDate = reader.GetDateTime(5);
+                    animal.AdditionalNotes = reader.GetString(6);
+
+                    animals.Add(animal);
+                }
+
+            }
+            reader.Close();
+        }
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
+			finally
+			{
+				conn.Close();
+			}
+			return animals;
         }
     }
 }

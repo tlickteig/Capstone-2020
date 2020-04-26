@@ -70,6 +70,7 @@
     <Compile Include="AnimalHandlingNotes.cs" />
     <Compile Include="AnimalKennel.cs" />
     <Compile Include="AnimalKennelCleaningRecord.cs" />
+    <Compile Include="AnimalMedical.cs" />
     <Compile Include="AnimalNames.cs" />
     <Compile Include="AnimalPrescriptions.cs" />
     <Compile Include="AnimalPrescriptionVM.cs" />

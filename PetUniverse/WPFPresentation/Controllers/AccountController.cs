@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DataTransferObjects;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -148,24 +150,114 @@ namespace WPFPresentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                LogicLayer.UserManager userMgr = new LogicLayer.UserManager();
+                try
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    if (userMgr.FindUser(model.Email))
+                    {
+                        var oldUser = userMgr.AuthenticateUser(model.Email, model.Password);
+                        var newuser = new ApplicationUser
+                        {
+                            GivenName = oldUser.FirstName,
+                            FamilyName = oldUser.LastName,
+                            EmployeeID = oldUser.PUUserID,
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                            UserName = model.Email,
+                            Email = model.Email
 
-                    return RedirectToAction("Index", "Home");
+                        };
+                        var newresult = await UserManager.CreateAsync(newuser, model.Password);
+                        if (newresult.Succeeded)
+                        {
+                            foreach (var role in oldUser.PURoles)
+                            {
+                                UserManager.AddToRole(newuser.Id, role);
+                            }
+                            await SignInManager.SignInAsync(newuser, isPersistent: false, rememberBrowser: false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        AddErrors(newresult);
+                    }
+                    else
+                    {
+                        var newUser = new ApplicationUser
+                        {
+                            UserName = model.Email,
+                            Email = model.Email
+                        };
+                        var newResult = await UserManager.CreateAsync(newUser, model.Password);
+                        if (newResult.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        AddErrors(newResult);
+                    }
                 }
-                AddErrors(result);
-            }
+                catch (Exception)
+                {
+                    LogicLayer.CustomerManager custMgr = new LogicLayer.CustomerManager();
+                    try
+                    {
+                        if (custMgr.FindCustomer(model.Email))
+                        {
+                            var oldUser = custMgr.AuthenticateCustomer(model.Email, model.Password);
+                            var newuser = new ApplicationUser
+                            {
+                                GivenName = oldUser.FirstName,
+                                FamilyName = oldUser.LastName,
+                                CustEmail = oldUser.Email,
 
-            // If we got this far, something failed, redisplay form
+                                UserName = model.Email,
+                                Email = model.Email
+
+                            };
+                            var newresult = await UserManager.CreateAsync(newuser, model.Password);
+                            if (newresult.Succeeded)
+                            {
+                                await SignInManager.SignInAsync(newuser, isPersistent: false, rememberBrowser: false);
+                                return RedirectToAction("Index", "Home");
+                            }
+                            AddErrors(newresult);
+                        }
+                        else
+                        {
+                            var newUser = new ApplicationUser
+                            {
+                                UserName = model.Email,
+                                Email = model.Email
+                            };
+                            var newResult = await UserManager.CreateAsync(newUser, model.Password);
+                            if (newResult.Succeeded)
+                            {
+                                await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                                return RedirectToAction("Index", "Home");
+                            }
+                            AddErrors(newResult);
+                        }
+                    }
+                    catch
+                    {
+                        return View(model);
+                    }
+
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
+                }
+            }
             return View(model);
         }
 
