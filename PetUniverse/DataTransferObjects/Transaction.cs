@@ -18,6 +18,10 @@ namespace DataTransferObjects
     /// Updater: Robert Holmes
     /// Updated on: 04/21/2020
     /// Update: Added CustomerEmail and SwipeChargeID
+    /// 
+    /// Updater: Jaeho Kim
+    /// Updated on: 04/26/2020
+    /// Update: Added tax exempt property
     /// </remarks>
     public class Transaction
     {
@@ -36,6 +40,7 @@ namespace DataTransferObjects
         public string TransactionStatusID { get; set; }
         public string CustomerEmail { get; set; }
         public string StripeChargeID { get; set; }
+        public string TaxExemptNumber { get; set; }
 
         /// <summary>
         /// Creator: Robert Holmes

@@ -1079,7 +1079,8 @@ CREATE TABLE [dbo].[Transaction](
 	[EmployeeID] 			[int] 				NOT NULL,
 	[TransactionStatusID] 	[nvarchar](20) 		NOT NULL,
 	[CustomerEmail]			[nvarchar](250),
-	[StripeChargeID]		[nvarchar](30)
+	[StripeChargeID]		[nvarchar](30),
+	[TaxExemptNumber]		[nvarchar](250),
 
 	CONSTRAINT [pk_Transaction_TransactionID] PRIMARY KEY ([TransactionID] ASC),
 	CONSTRAINT [fk_Transaction_EmployeeID] FOREIGN KEY ([EmployeeID])
@@ -9264,6 +9265,7 @@ CREATE PROCEDURE [sp_insert_transaction]
 	@TransactionStatusID	[nvarchar](20),
 	@CustomerEmail			[nvarchar](250),
 	@StripeChargeID			[nvarchar](30),
+	@TaxExemptNumber		[nvarchar](250),
 	@ReturnTransactionId 	[int] out  
 )
 AS
@@ -9271,11 +9273,13 @@ BEGIN
 INSERT INTO [Transaction]
 	([TransactionDateTime], [TaxRate], [SubTotalTaxable],
 	[SubTotal], [Total], [TransactionTypeID],
-	[EmployeeID], [TransactionStatusID], [CustomerEmail], [StripeChargeID])
+	[EmployeeID], [TransactionStatusID], [CustomerEmail], [StripeChargeID],
+	[TaxExemptNumber])
 VALUES
 	(@TransactionDateTime, @TaxRate, @SubTotalTaxable,
 	@SubTotal, @Total, @TransactionTypeID,
-	@EmployeeID, @TransactionStatusID, @CustomerEmail, @StripeChargeID)
+	@EmployeeID, @TransactionStatusID, @CustomerEmail, @StripeChargeID,
+	@TaxExemptNumber)
 	SELECT SCOPE_IDENTITY()
 END
 GO

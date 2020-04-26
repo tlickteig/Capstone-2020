@@ -179,14 +179,6 @@ namespace WPFPresentationLayer.PoSPages
             taxRate = salesTax.TaxRate;
 
 
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
 
 
             bool isValid = false;
@@ -248,6 +240,14 @@ namespace WPFPresentationLayer.PoSPages
             // is going to be passed to calculate the tax.
             subTotalTaxable = _transactionManager.CalculateSubTotalTaxable(_transactionManager.GetTaxableProducts());
             txtSubTotalTaxable.Text = subTotalTaxable.ToString();
+
+            // tax exempt simply means the tax rate is zero. Zero (tax rate)
+            // multiply with sub total taxable is zero. Zero add sub total 
+            // is simply the total without tax.
+            if (!String.IsNullOrWhiteSpace(txtTaxExemptNumber.Text))
+            {
+                salesTax.TaxRate = 0;
+            }
 
             // Calculates the total.
             //txtTotal.Text = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax).ToString();
@@ -314,6 +314,7 @@ namespace WPFPresentationLayer.PoSPages
                 transaction.TransactionTypeID = cbTransactionType.Text.ToString();
                 transaction.EmployeeID = employeeID;
                 transaction.TransactionStatusID = cbTransactionStatus.Text.ToString();
+                transaction.TaxExemptNumber = txtTaxExemptNumber.Text.ToString();
 
                 transaction.CustomerEmail = txtEmail.Text.ToString();
             }
@@ -348,9 +349,13 @@ namespace WPFPresentationLayer.PoSPages
                         txtPrice.Text = "";
                         txtQuantity.Text = "";
                         txtItemDescription.Text = "";
+                        
 
                         cbTransactionType.Text = "";
                         cbTransactionStatus.Text = "";
+
+                        txtTaxExemptNumber.Text = "";
+                        txtEmail.Clear();
 
                         txtTotal.Text = "";
                         txtSubTotal.Text = "";
@@ -363,7 +368,7 @@ namespace WPFPresentationLayer.PoSPages
                         _transactionManager.ClearShoppingCart();
 
                         btnAddProduct.Visibility = Visibility.Hidden;
-                        txtEmail.Clear();
+                        
 
 
                         MessageBox.Show("Transaction Complete", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -442,6 +447,9 @@ namespace WPFPresentationLayer.PoSPages
 
             cbTransactionType.Text = "";
             cbTransactionStatus.Text = "";
+
+            txtTaxExemptNumber.Text = "";
+            txtEmail.Text = "";
 
             txtTotal.Text = "";
             txtSubTotal.Text = "";
