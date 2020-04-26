@@ -11609,6 +11609,47 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
+Comment: Insert Sample Data into Item Table
+*/
+print '' print '*** Insert Into Item Table ***'
+GO
+INSERT INTO [dbo].[Item](
+	[ItemName],
+	[ItemCategoryID],
+	[ItemDescription],
+	[ItemQuantity]
+)
+VALUES
+    ('LoCatMein','Food','Name Brand Cat Food', 42),
+    ('Scratch Be Gone','Medical','Animal Scratch Wound Healant', 35)
+GO
+
+INSERT INTO [dbo].[Item]
+([ItemQuantity], [ItemName], [ItemCategoryID], [ItemDescription])
+	VALUES
+	(4,' Medication1', 'Medical', ''),
+	(4,' Medication2', 'Medical', '')	
+GO
+
+/*
+Created by: Tener Karar
+Date: 02/27/2020
+Comment: inserting Item sample data
+*/
+print '' print '*** inserting Item sample data'
+GO
+INSERT INTO [dbo].[Item]
+	([ItemName], [ItemQuantity], [ItemCategoryID], [ItemDescription] )
+VALUES
+	('loon', 1, 'cat',' Litter-Robot 3 is the highest-rated automatic,
+    self-cleaning litter box for cats.
+    Never scoop cat litter again while giving your kitty a clean
+    bed of litter for each use. Litter-Robot ' )
+go
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
 Comment: Insert Sample Data into Product Table, Updated 2020/03/17 to be compatible with new Product table structure by Robert Holmes.
 */
 print '' print '*** Insert into Product table'
