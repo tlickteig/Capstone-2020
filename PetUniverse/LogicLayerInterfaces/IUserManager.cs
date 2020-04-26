@@ -254,5 +254,22 @@ namespace LogicLayerInterfaces
         /// <returns></returns>
         bool UpdatePassword(int userID, string newPassword, string oldPassword);
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/20/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method for the Identity System
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>        
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        bool FindUser(string email);
+
     }
 }

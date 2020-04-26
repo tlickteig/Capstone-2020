@@ -45,5 +45,24 @@ namespace LogicLayerInterfaces
         ///
         /// <returns>List of all active customers</returns>
         List<Customer> RetrieveAllActiveCustomers();
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/20/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method for the Identity System
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>        
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        bool FindCustomer(string email);
+
+        Customer AuthenticateCustomer(string email, string password);
     }
 }

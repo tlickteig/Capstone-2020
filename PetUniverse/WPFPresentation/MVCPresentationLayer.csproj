@@ -187,6 +187,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdoptionController.cs" />
     <Compile Include="Controllers\AdoptionScheduleController.cs" />
     <Compile Include="Controllers\CareersController.cs" />
@@ -211,6 +212,10 @@
     <Compile Include="Migrations\202004220431460_Added First and Last Name Fields to User.cs" />
     <Compile Include="Migrations\202004220431460_Added First and Last Name Fields to User.Designer.cs">
       <DependentUpon>202004220431460_Added First and Last Name Fields to User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004251915081_EmployeeId and CustEmail.cs" />
+    <Compile Include="Migrations\202004251915081_EmployeeId and CustEmail.Designer.cs">
+      <DependentUpon>202004251915081_EmployeeId and CustEmail.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -553,6 +558,8 @@
     <Content Include="Views\FosterApplicant\Create.cshtml" />
     <Content Include="Views\FosterApplicant\SuccessDetails.cshtml" />
     <Content Include="Views\Adoption\CustomerCancelAdoption.cshtml" />
+    <Content Include="Views\Admin\Details.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -590,6 +597,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004220431460_Added First and Last Name Fields to User.resx">
       <DependentUpon>202004220431460_Added First and Last Name Fields to User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004251915081_EmployeeId and CustEmail.resx">
+      <DependentUpon>202004251915081_EmployeeId and CustEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

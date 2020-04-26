@@ -363,6 +363,18 @@ namespace LogicLayer
             return user;
         }
 
+        public bool FindUser(string email)
+        {
+            try
+            {
+                return _userAccessor.getUserByEmail(email) != null;
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
         /// <summary>
         /// Creator: Zach Behrensmeyer
         /// Created: 03/16/2020
