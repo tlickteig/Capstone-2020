@@ -314,6 +314,8 @@ namespace WPFPresentationLayer.PoSPages
                 transaction.TransactionTypeID = cbTransactionType.Text.ToString();
                 transaction.EmployeeID = employeeID;
                 transaction.TransactionStatusID = cbTransactionStatus.Text.ToString();
+
+                transaction.CustomerEmail = txtEmail.Text.ToString();
             }
             catch (Exception ex)
             {
@@ -361,6 +363,8 @@ namespace WPFPresentationLayer.PoSPages
                         _transactionManager.ClearShoppingCart();
 
                         btnAddProduct.Visibility = Visibility.Hidden;
+                        txtEmail.Clear();
+
 
                         MessageBox.Show("Transaction Complete", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -655,5 +659,7 @@ namespace WPFPresentationLayer.PoSPages
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        
     }
 }

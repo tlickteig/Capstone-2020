@@ -1087,9 +1087,8 @@ CREATE TABLE [dbo].[Transaction](
 	CONSTRAINT [fk_Transaction_TransactionStatusID] FOREIGN KEY ([TransactionStatusID])
 		REFERENCES [TransactionStatus]([TransactionStatusID]) ON UPDATE CASCADE,
 	CONSTRAINT [fk_Transaction_TransactionTypeID] FOREIGN KEY ([TransactionTypeID])
-		REFERENCES [TransactionType]([TransactionTypeID])  ON UPDATE CASCADE,
-	CONSTRAINT [fk_Transaction_CustomerEmail] FOREIGN KEY ([CustomerEmail])
-		REFERENCES [Customer]([Email])  ON UPDATE CASCADE
+		REFERENCES [TransactionType]([TransactionTypeID])  ON UPDATE CASCADE
+	
 )
 GO
 
