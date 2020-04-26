@@ -38,6 +38,7 @@
                             <Button Width="100" Height="30" x:Name="btnViewItem" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="15 3" HorizontalContentAlignment="Center" Click="btnViewItem_Click" Margin="0,20,222,20">View Item</Button>
                             <Button Width="100" Height="30" x:Name="btnAddItems" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="15 3"  Click="btnAddItems_Click" Margin="0,20,117,20">Add Items</Button>
                             <Button Width="100" Height="30" x:Name="btnDeactivateItem" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="15 3" Click="btnDeactivateItem_Click" Margin="883,20,12,20">Deactivate</Button>
+                            <Button Width="100" Height=" 30" x:Name="btnAddItemReport" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="0 3" Margin="350 0" Click="btnAddItemReport_Click">Add Item Report</Button>
                         </Grid>
                     </Grid>
                 </Grid>

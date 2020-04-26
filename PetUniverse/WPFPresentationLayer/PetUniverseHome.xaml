@@ -141,6 +141,9 @@
                 <TabItem x:Name="tabViewItemReports" Header="View Item Reports" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./InventoryPages/ViewItemReports.xaml" NavigationUIVisibility="Hidden" />
                 </TabItem>
+                <TabItem x:Name="tavViewVendors" Header="View Vendors" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./InventoryPages/ViewVendors.xaml" NavigationUIVisibility="Hidden" />
+                </TabItem>
             </TabControl>
         </Canvas>
 

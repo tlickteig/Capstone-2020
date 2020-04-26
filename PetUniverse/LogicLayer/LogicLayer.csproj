@@ -111,6 +111,7 @@
     <Compile Include="TransactionAdminManager.cs" />
     <Compile Include="TransactionManager.cs" />
     <Compile Include="UserManager.cs" />
+    <Compile Include="VendorManager.cs" />
     <Compile Include="VetAppointmentManager.cs" />
     <Compile Include="VolunteerEventManager.cs" />
     <Compile Include="VolunteerManager.cs" />
