@@ -459,7 +459,7 @@ namespace LogicLayer
 
                     // verify that it doesn't exceed the quantity in stock.
                     // also verifies the QUANTITY ENTERED is not zero or less.
-                    if (totalQuantity <= productVM.ItemQuantity && productVM.Quantity > 0)
+                    if (totalQuantity <= productVM.ItemQuantity)
                     {
                         isValid = true;
                     }
@@ -468,7 +468,7 @@ namespace LogicLayer
                 // This else statement runs whenever a DIFFERENT product is added.
                 else
                 {
-                    if (productVM.Quantity <= productVM.ItemQuantity && productVM.Quantity > 0)
+                    if (productVM.Quantity <= productVM.ItemQuantity)
                     {
                         isValid = true;
                     }
@@ -482,7 +482,7 @@ namespace LogicLayer
             // THIS BLOCK OF CODE SHOULD RUN ONLY ONCE!!!
             else
             {
-                if (productVM.Quantity <= productVM.ItemQuantity && productVM.Quantity > 0)
+                if (productVM.Quantity <= productVM.ItemQuantity)
                 {
                     isValid = true;
                 }
@@ -814,6 +814,34 @@ namespace LogicLayer
             {
                 throw new ApplicationException("Transaction status Not Found", ex);
             }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        ///  
+        /// This method calls the update item quantity method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionStatus</returns>
+        public bool EditItemQuantity(TransactionLineProducts transactionLineProducts)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (_transactionAccessor.UpdateItemQuantity(transactionLineProducts) > 0);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Could Not Add Transaction.", ex);
+            }
+            return result;
         }
     }
 }

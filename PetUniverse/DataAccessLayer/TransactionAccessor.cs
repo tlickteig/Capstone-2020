@@ -857,5 +857,58 @@ namespace DataAccessLayer
             }
             return transactionStatus;
         }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/25/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Implementation for adjusting item quantity
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>int</returns>
+        public int UpdateItemQuantity(TransactionLineProducts transactionLineProducts)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_update_item_quantity", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+
+            try
+            {
+                conn.Open();
+
+                foreach (var item in transactionLineProducts.ProductsSold)
+                {
+                    cmd.Parameters.Clear();
+                    cmd.Parameters.Add(new SqlParameter("@TransactionID", SqlDbType.Int));
+                    cmd.Parameters.Add(new SqlParameter("@ProductID", SqlDbType.NVarChar));
+
+
+                    cmd.Parameters[0].Value = TransactionID;
+                    cmd.Parameters[1].Value = item.ProductID;
+
+                    rows = cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
     }
 }

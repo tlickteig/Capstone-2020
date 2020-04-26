@@ -110,6 +110,22 @@ namespace LogicLayerInterfaces
 
         /// <summary>
         /// Creator: Jaeho Kim
+        /// Created: 2020/04/25
+        /// Approver: NA
+        ///
+        /// Interface method signature for adjusting the item quantity
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="transactionLineProducts"></param>
+        /// <returns>returns a Transaction</returns>
+        bool EditItemQuantity(TransactionLineProducts transactionLineProducts);
+
+        /// <summary>
+        /// Creator: Jaeho Kim
         /// Created: 03/19/2020
         /// Approver: Rasha Mohammed
         ///
