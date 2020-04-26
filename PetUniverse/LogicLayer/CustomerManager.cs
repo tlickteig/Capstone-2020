@@ -4,6 +4,8 @@ using DataTransferObjects;
 using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace LogicLayer
 {
@@ -95,6 +97,91 @@ namespace LogicLayer
             return customer;
         }
 
+        public bool FindCustomer(string email)
+        {
+            try
+            {
+                return _customerAccessor.RetrieveCustomerByCustomerEmail(email) != null;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
+
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 2/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method hashes the given password
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="source"></param>
+        /// <returns>Hashed Password</returns>
+        private string hashPassword(string source)
+        {
+            string result = null;
+
+            // we need a byte array because cryptography is bits and bytes
+            byte[] data;
+
+            using (SHA256 sha256hash = SHA256.Create())
+            {
+                // This part hashes the input
+                data = sha256hash.ComputeHash(Encoding.UTF8.GetBytes(source));
+            }
+            // builds a new string from the result
+            var s = new StringBuilder();
+
+            // loops through bytes to build the string
+            for (int i = 0; i < data.Length; i++)
+            {
+                s.Append(data[i].ToString("x2"));
+            }
+            result = s.ToString().ToUpper();
+            return result;
+        }
+
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 2/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This calls the User Authentication Data Accessor Method
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns>Returns Valid User Info</returns>
+        public Customer AuthenticateCustomer(string email, string password)
+        {
+            Customer result = null;
+            var passwordHash = hashPassword(password);
+            password = null;
+
+            try
+            {
+                result = _customerAccessor.AuthenticateCustomer (email, passwordHash);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Login failed!", ex);
+            }
+            return result;
+        }
         /// <summary>
         /// Creator: Zach Behrensmeyer
         /// Created: 4/17/2020

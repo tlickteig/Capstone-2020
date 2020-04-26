@@ -4178,18 +4178,6 @@ BEGIN
 END
 GO
 
-
-
-
-
-
-
-
-
-
-
-
-
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
@@ -11109,6 +11097,30 @@ END
 GO
 
 /*
+Created by: Zach Behrensmeyer
+Date: 4/25/2020
+Comment: Sproc to authenticate customer
+*/
+DROP PROCEDURE IF EXISTS [sp_authenticate_customer]
+GO
+PRINT '' PRINT '*** Creating sp_authenticate_user'
+GO
+CREATE PROCEDURE [sp_authenticate_customer]
+(
+@Email 			[nvarchar](250),
+@PasswordHash	[nvarchar](100)
+)
+AS
+BEGIN
+    SELECT COUNT([Email])
+    FROM 	[dbo].[Customer]
+    WHERE 	[Email] = @Email
+    AND 	[PasswordHash] = @PasswordHash
+    AND 	[Active] = 1
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -11164,8 +11176,8 @@ VALUES
 	('Barb','Brinoll','1234567890','Barb@email.com','Cedar Rapids','IA','52404','J street NE',null),
 	('Awaab','Elamin','3192104964','Awaab@Awaaab.com','Cedar Rapids','IA','52404','J street NE','APT3'),
 	('Ryan', 'Morganti', '5554443333', 'ryanm@PetUniverse.com', 'Cedar Rapids', 'IA', '52402','J street NE','APT3'),
-	('Derek', 'Taylor', '9992234343', 'derekt@PetUniverse.com', 'Manchester', 'IA', '524404','J street NE','APT3'),
-	('Steven', 'Coonrod', '9992555343', 'stevec@PetUniverse.com', 'Hiawatha', 'IA', '524409','J street NE','APT3')
+	('Derek', 'Taylor', '9992234343', 'derekt@PetUniverse.com', 'Manchester', 'IA', '524404','J street NE','APT3')
+	
 GO
 
 /*
@@ -11215,7 +11227,7 @@ INSERT INTO [dbo].[ERole]
 	[ERoleID], [DepartmentID]
 )
 VALUES
-	('Admin', 'Management'),
+	('Administrator', 'Management'),
 	('Customer', 'Sales'),
 	('Volunteer', 'Fake1')
 GO
@@ -11232,10 +11244,10 @@ INSERT INTO [dbo].[UserERole]
 [ERoleID]
 )
 VALUES
-(100000, 'Admin'),
+(100000, 'Administrator'),
 (100001, 'Customer'), 
 (100002, 'Volunteer'),
-(100002, 'Admin')
+(100002, 'Administrator')
 GO
 
 /*
@@ -11994,7 +12006,7 @@ go
 insert into [dbo].[Volunteer]
 	([FirstName], [LastName], [Email], [PhoneNumber], [OtherNotes])
 	values
-	('System', 'Admin', 'admin@petuniverse.com', '00000000000', 'Admin Volunteer'),
+	('System', 'Administrator', 'admin@petuniverse.com', '00000000000', 'Admin Volunteer'),
 	('Ned', 'Flanders', 'diddlydoo@gmail.com', '13192522443', 'Volunteer Notes')
 go
 
@@ -12702,7 +12714,7 @@ INSERT INTO [dbo].[JobListing]
 	([Position], [Benefits], [Requirements], [StartingWage], [Responsibilities])
 	VALUES
 	('Volunteer', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'Good Enough Degree', 0000.01, 'Do things without expectation of pay'),
-	('Admin', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
+	('Administrator', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
 	('Customer', 'No Benefits', 'No Requirements', 0000.01, 'Give us money in exchange for merchandise'),
 	('Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in'),
 	('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves'),
@@ -12733,20 +12745,20 @@ GO
 INSERT INTO [dbo].[shift]
 	([ShiftTimeID], [ScheduleID], [Date], [UserID], [ERoleID])
 	VALUES
-	(1000000, 1000000, '2020-4-11', 100001, 'Admin'),
+	(1000000, 1000000, '2020-4-11', 100001, 'Administrator'),
 	(1000001, 1000000, '2020-4-11', 100001, 'Customer'),
 	(1000002, 1000000, '2020-4-14', 100001, 'Volunteer'),
-	(1000003, 1000000, '2020-4-17', 100001, 'Admin'),
+	(1000003, 1000000, '2020-4-17', 100001, 'Administrator'),
 	(1000000, 1000000, '2020-4-13', 100002, 'Volunteer'),
 	(1000000, 1000000, '2020-4-14', 100002, 'Volunteer'),
 	(1000000, 1000000, '2020-4-15', 100002, 'Volunteer'),
 	(1000000, 1000000, '2020-4-16', 100002, 'Volunteer'),
 	(1000000, 1000000, '2020-4-18', 100002, 'Volunteer'),
-	(1000003, 1000000, '2020-4-17', 100000, 'Admin'),
-	(1000003, 1000000, '2020-4-25', 100001, 'Admin'),
-	(1000002, 1000000, '2020-4-25', 100001, 'Admin'),
-	(1000000, 1000000, '2020-5-20', 100001, 'Admin'),
-	(1000001, 1000000, '2020-5-20', 100001, 'Admin')
+	(1000003, 1000000, '2020-4-17', 100000, 'Administrator'),
+	(1000003, 1000000, '2020-4-25', 100001, 'Administrator'),
+	(1000002, 1000000, '2020-4-25', 100001, 'Administrator'),
+	(1000000, 1000000, '2020-5-20', 100001, 'Administrator'),
+	(1000001, 1000000, '2020-5-20', 100001, 'Administrator')
 
 GO
 
