@@ -83,6 +83,21 @@ namespace DataAccessFakes
             };
         }
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/25/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to get a fake customer
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="username"></param>
+        /// <param name="passwordHash"></param>
+        /// <returns></returns>
         public Customer AuthenticateCustomer(string username, string passwordHash)
         {
             bool userName = username.Equals("j.doe@RandoGuy.com");

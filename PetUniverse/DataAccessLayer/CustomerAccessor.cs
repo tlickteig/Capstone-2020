@@ -139,10 +139,10 @@ namespace DataAccessLayer
 
         /// <summary>
         /// NAME: Zach Behrensmeyer
-        /// DATE: 2/4/2020
+        /// DATE: 4/25/2020
         /// CHECKED BY: Steven Cardona
         /// 
-        /// This method is used to authenticate the user and make sure they exist for login
+        /// This method is used to authenticate the customer and make sure they exist for login
         /// </summary>
         /// <remarks>
         /// UPDATED BY: NA

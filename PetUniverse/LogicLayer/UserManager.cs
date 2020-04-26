@@ -363,6 +363,20 @@ namespace LogicLayer
             return user;
         }
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/25/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager Method to retrieve users by email that returns a boolean
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool FindUser(string email)
         {
             try

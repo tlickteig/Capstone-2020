@@ -63,6 +63,23 @@ namespace LogicLayerInterfaces
         /// <returns></returns>
         bool FindCustomer(string email);
 
+
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 4/25/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This calls the User Authentication Data Accessor Method for customers
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns>Returns Valid User Info</returns>
         Customer AuthenticateCustomer(string email, string password);
     }
 }

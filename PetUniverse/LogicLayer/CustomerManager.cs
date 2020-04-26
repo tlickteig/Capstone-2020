@@ -97,6 +97,20 @@ namespace LogicLayer
             return customer;
         }
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/25/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Manager Method to retrieve Customers by email that returns a boolean
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool FindCustomer(string email)
         {
             try
@@ -152,10 +166,10 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator : Zach Behrensmeyer
-        /// Created: 2/3/2020
+        /// Created: 4/25/2020
         /// Approver: Steven Cardona
         /// 
-        /// This calls the User Authentication Data Accessor Method
+        /// This calls the User Authentication Data Accessor Method for customers
         /// </summary>
         /// <remarks>
         /// Updater: NA

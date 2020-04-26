@@ -143,6 +143,13 @@ namespace WPFPresentation.Controllers
 
         //
         // POST: /Account/Register
+        /// <summary>
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/25/2020
+        /// Update: Edited register user code to register users from db 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -194,6 +201,7 @@ namespace WPFPresentation.Controllers
                         AddErrors(newResult);
                     }
                 }
+                // Did this next part in the exception because if it can't find a user in the db its a customer. If a customer already exists in our db we don't want to add them again
                 catch (Exception)
                 {
                     LogicLayer.CustomerManager custMgr = new LogicLayer.CustomerManager();

@@ -124,10 +124,16 @@
                         <strong>
                             @r  @Html.ActionLink("Remove Role", "RemoveRole", new { Id = Model.Id, role = r })
                         </strong>
+                        @if (r == "Administrator")
+                        {
+                            <span style="color: red; font-weight: bold;"> @ViewBag.AdminError</span>
+                        }
                     </li>
                 }
             </ul>
         </dd>
+
+        <dt>Unassigned Roles:</dt>
 
         <dd>
             <ul>
@@ -136,12 +142,8 @@
                     <li>
                         <strong>
                             @r  @Html.ActionLink("Add Role", "AddRole",
-                           new { Id = Model.Id, Role = r })
+                   new { Id = Model.Id, Role = r })
                         </strong>
-                        @if (r == "Administrator")
-                        {
-                            <span style="color: red; font-weight: bold;"> @ViewBag.Error</span>
-                        }
                     </li>
                 }
             </ul>

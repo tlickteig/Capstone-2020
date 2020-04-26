@@ -58,29 +58,27 @@ namespace WPFPresentation.Controllers
 
         public ActionResult RemoveRole(string id, string role)
         {
-            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var user = userManager.Users.First(u => u.Id == id);
+            var roleManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = roleManager.Users.First(u => u.Id == id);
 
             if (role == "Administrator")
             {
-                var adminUsers = userManager.Users.ToList()
-                    .Where(u => userManager.IsInRole(u.Id, "Administrator"))
+                var adminUsers = roleManager.Users.ToList()
+                    .Where(u => roleManager.IsInRole(u.Id, "Administrator"))
                     .ToList().Count();
                 if (adminUsers < 2)
                 {
-                    ViewBag.Error = "Cannot remove last adminstrator.";
+                    ViewBag.AdminError = "Cannot remove last adminstrator.";
                 }
                 else
                 {
-                    userManager.RemoveFromRole(id, role);
+                    roleManager.RemoveFromRole(id, role);
                 }
             }
             else
             {
-                userManager.RemoveFromRole(id, role);
-            }
-
-            userManager.RemoveFromRole(id, role);
+                roleManager.RemoveFromRole(id, role);
+            }            
 
             var roleMgr = new LogicLayer.ERoleManager();
             var allRoles = roleMgr.RetrieveAllERoles();
@@ -90,7 +88,7 @@ namespace WPFPresentation.Controllers
                 allRoleIds.Add(role1.ERoleID);
             }
 
-            var roles = userManager.GetRoles(id);
+            var roles = roleManager.GetRoles(id);
             var noRoles = allRoleIds.Except(roles);
 
             ViewBag.Roles = roles;
