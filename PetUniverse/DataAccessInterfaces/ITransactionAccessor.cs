@@ -250,5 +250,20 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns>TransactionStatus</returns>
         TransactionStatus SelectDefaultTransactionStatus();
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/25
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for updating the item quantity (quantity in stock)
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>int</returns>
+        int UpdateItemQuantity(TransactionLineProducts transactionLineProducts);
     }
 }

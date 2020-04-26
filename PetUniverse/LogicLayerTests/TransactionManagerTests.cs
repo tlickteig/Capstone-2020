@@ -493,5 +493,53 @@ namespace LogicLayerTests
             Assert.AreEqual(true, transactionStatus.DefaultInStore);
 
         }
+
+        /// <summary>
+        ///  Creator: Jaeho Kim
+        ///  Created: 4/25/2020
+        ///  Approver: Robert Holmes
+        ///  
+        /// Test method for edit item quantity.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestEditItemQuantity()
+        {
+            // arrange, the attribute that need
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            bool result = false;
+            bool expected = true;
+
+            TransactionLineProducts transactionLineProducts = new TransactionLineProducts();
+            List<ProductVM> _productsSold = new List<ProductVM>();
+
+            var productVM1 = new ProductVM();
+            productVM1.ItemID = 100;
+            productVM1.ItemQuantity = 5;
+
+            var productVM2 = new ProductVM();
+            productVM2.ItemID = 200;
+            productVM2.ItemQuantity = 10;
+
+            _productsSold.Add(productVM1);
+            _productsSold.Add(productVM2);
+
+            transactionLineProducts.ProductsSold = _productsSold;
+
+
+            //act
+            result = _transactionManager.EditItemQuantity(transactionLineProducts);
+
+
+            // Assert
+            Assert.AreEqual(expected, result);
+
+        }
     }
 }

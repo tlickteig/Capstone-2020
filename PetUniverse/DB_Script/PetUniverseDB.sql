@@ -6537,6 +6537,72 @@ END
 GO
 
 /*
+Created by: Jaeho Kim
+Date: 04/24/2020
+Comment: stored procedure for adjusting the item quantity in stock after 
+a transaction is processed.
+*/
+DROP PROCEDURE IF EXISTS [sp_update_item_quantity]
+GO
+print '' print '*** Creating sp_update_item_quantity'
+GO
+CREATE PROCEDURE sp_update_item_quantity
+(
+	-- the last transaction id entered
+	@TransactionID		[int],
+	
+	-- the product id that is used to identify
+	-- the item id.
+	@ProductID			[nvarchar](13)
+)
+AS
+	BEGIN
+		
+		-- this is the quantity that's entered
+		DECLARE @Quantity [int];
+		
+		-- this is the quantity in stock from the item table
+		DECLARE @QuantityInStock [int];
+		
+		-- The value that replaces the quantity in stock.
+		-- This is done by subtracting the quantity 
+		-- from the quantity in stock.
+		DECLARE @NewQuantityInStock [int];
+		
+		-- Retrieving the Quantity entered 
+		-- from the transaction...
+		SET @Quantity = (SELECT [Quantity]
+		FROM [dbo].[TransactionLineProducts]
+		WHERE [TransactionID] = @TransactionID
+		AND [ProductID] = @ProductID)
+		
+		-- Retrieving the quantity in stock of the item id
+		-- that's related to the product.
+		SET @QuantityInStock = (SELECT [ItemQuantity]
+		FROM [dbo].[Item]
+		INNER JOIN 
+			[dbo].[Product]
+		ON
+			[Item].[ItemID] = [Product].[ItemID]
+		WHERE [Product].[ProductID] = @ProductID)
+		
+		-- basic subtraction...
+		SET @NewQuantityInStock = @QuantityInStock - @Quantity
+		
+	-- update the quantity
+	UPDATE [dbo].[Item]
+		SET   
+		[ItemQuantity] = @NewQuantityInStock
+	WHERE
+		ItemID = (SELECT [ItemID] FROM [Product] 
+		WHERE [ProductID] = @ProductID)
+	RETURN @@ROWCOUNT
+	END
+	
+GO
+
+
+/*
 Created by: Brandyn T. Coverdill
 Date: 3/4/2020
 Comment: Stored Procedure that updates the item name, item count, and item description.
@@ -10504,15 +10570,6 @@ END;
 
 GO
 
-
-INSERT INTO [dbo].[Item]
-	([ItemCategoryID],[ItemName],[ItemQuantity], [ItemDescription])
-	VALUES
-	('Medication','Medication1', 4, 'FakeDesc'),
-	('Medication','Medication2', 0, 'FakeDesc2')
-	
-GO
-
 /*
 Created by: Daulton Schilling
 Date: 4/14/2020
@@ -11465,24 +11522,6 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Insert Sample Data into Item Table
-*/
-print '' print '*** Insert Into Item Table ***'
-GO
-INSERT INTO [dbo].[Item](
-	[ItemName],
-	[ItemCategoryID],
-	[ItemDescription],
-	[ItemQuantity]
-)
-VALUES
-    ('LoCatMein','Food','Name Brand Cat Food', 42),
-    ('Scratch Be Gone','Medical','Animal Scratch Wound Healant', 35)
-GO
-
-/*
-Created by: Cash Carlson
-Date: 2/21/2020
 Comment: Insert Sample Data into ProductCategory Table
 */
 print '' print '*** Insert Into ProductCategory Table ***'
@@ -11513,6 +11552,27 @@ VALUES
 GO
 
 /*
+Created by: Matt Deaton
+Date: 2020-03-06
+Comment: Inserting sample data into the Item table that are intended for shelter use.
+*/
+PRINT '' PRINT '*** Insert Sample Data For Shelter Items in Item Table'
+INSERT INTO [dbo].[Item](
+	[ItemName]
+	,[ItemCategoryID]
+	,[ItemDescription]
+	,[ItemQuantity]
+	,[ShelterItem]
+	,[ShelterThershold]
+)
+VALUES
+('Dog Food', 'Food', 'Food for Shelter. In pounds.', 75, 1, 100),
+('Cat Litter', 'Litter', 'Cat Litter for the Shelter. In pounds', 150, 1, 100),
+('Blankets', 'Bedding', 'Blankets for the Shelter animals to use as bedding', 5, 1, 10),
+('Chinchilla Food', 'Food', 'Pellet food for a Chinchilla', 3, 1, 5)
+GO
+
+/*
 Created by: Cash Carlson
 Date: 2/21/2020
 Comment: Insert Sample Data into Product Table, Updated 2020/03/17 to be compatible with new Product table structure by Robert Holmes.
@@ -11532,6 +11592,8 @@ VALUES
 	('7084781116',100000,'Cat',1,50.0,'Name brand cat food','OnlyForCats'),
 	('2500006153',100001,'General',1,100.0,'Medical Supplies to Heal Scratch Wounds','AlsoForHumans')
 GO
+
+
 
 /*
 Created by: Derek Taylor
@@ -11730,22 +11792,6 @@ VALUES
     Never scoop cat litter again while giving your kitty a clean
     bed of litter for each use. Litter-Robot ')
 Go
-
-/*
-Created by: Tener Karar
-Date: 02/27/2020
-Comment: inserting Item sample data
-*/
-print '' print '*** inserting Item sample data'
-GO
-INSERT INTO [dbo].[Item]
-	([ItemName], [ItemQuantity], [ItemCategoryID], [ItemDescription] )
-VALUES
-	('loon', 1, 'cat',' Litter-Robot 3 is the highest-rated automatic,
-    self-cleaning litter box for cats.
-    Never scoop cat litter again while giving your kitty a clean
-    bed of litter for each use. Litter-Robot ' )
-go
 
 /*
 Created by: Tener Karar
@@ -11964,25 +12010,6 @@ VALUES
 	('Cat Toys', 'This is the description for the cat toys.')
 GO
 
-/*
-Created by: Brandyn T. Coverdill
-Date: 2/22/2020
-Comment: Adding data to Item
-*/
-print '' print '*** Adding data to items'
-GO
-INSERT INTO Item(
-	ItemName,
-	ItemCategoryID,
-	ItemDescription,
-	ItemQuantity
-)
-VALUES
-	('Dog Food', 'Dog Food', 'Dog Food Description', 10),
-	('Cat Food', 'Dog Food', 'Cat Food Description', 20),
-	('Lazer Pointer', 'Cat Toys', 'Lazer Pointer Description', 40)
-GO
-
 print '' print '*** Creating Sample Volunteer Records'
 /*
 Created by: Josh Jackson
@@ -12127,13 +12154,6 @@ INSERT INTO [dbo].[AnimalActivity]
 	
 GO	
 
-INSERT INTO [dbo].[Item]
-([ItemQuantity], [ItemName], [ItemCategoryID], [ItemDescription])
-	VALUES
-	(4,' Medication1', 'Medical', ''),
-	(4,' Medication2', 'Medical', '')	
-GO
-
 INSERT INTO [dbo].[AnimalMedicalInfo]
 ([AnimalID], [UserID],[SpayedNeutered], [Vaccinations], [MostRecentVaccinationDate], [AdditionalNotes])
 VALUES
@@ -12245,27 +12265,6 @@ INSERT INTO [dbo].[ItemCategory](
 VALUES
 ('Litter','Cat Litter'),
 ('Bedding','Any kind of bedding material')
-GO
-
-/*
-Created by: Matt Deaton
-Date: 2020-03-06
-Comment: Inserting sample data into the Item table that are intended for shelter use.
-*/
-PRINT '' PRINT '*** Insert Sample Data For Shelter Items in Item Table'
-INSERT INTO [dbo].[Item](
-	[ItemName]
-	,[ItemCategoryID]
-	,[ItemDescription]
-	,[ItemQuantity]
-	,[ShelterItem]
-	,[ShelterThershold]
-)
-VALUES
-('Dog Food', 'Food', 'Food for Shelter. In pounds.', 75, 1, 100),
-('Cat Litter', 'Litter', 'Cat Litter for the Shelter. In pounds', 150, 1, 100),
-('Blankets', 'Bedding', 'Blankets for the Shelter animals to use as bedding', 5, 1, 10),
-('Chinchilla Food', 'Food', 'Pellet food for a Chinchilla', 3, 1, 5)
 GO
 
 /*

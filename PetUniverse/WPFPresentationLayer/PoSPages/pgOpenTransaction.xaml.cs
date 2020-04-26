@@ -9,6 +9,7 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
+using System.Text.RegularExpressions;
 
 namespace WPFPresentationLayer.PoSPages
 {
@@ -331,12 +332,13 @@ namespace WPFPresentationLayer.PoSPages
             try
             {
                 // Creating the transaction in the database
-                if (transaction.SubTotal > 0.00M)
+                if (transaction.SubTotal != 0)
                 {
                     if (collectPayment(transaction))
                     {
                         _transactionManager.AddTransaction(transaction);
                         _transactionManager.AddTransactionLineProducts(transactionLineProducts);
+                        _transactionManager.EditItemQuantity(transactionLineProducts);
 
                         txtSearchProduct.Text = "";
                         txtItemName.Text = "";
@@ -628,6 +630,30 @@ namespace WPFPresentationLayer.PoSPages
             {
                 cbTransactionStatus.Items.Add(item.TransactionStatusID.ToString());
             }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// validates only positive values.
+        /// However, the item quantity validation accepts negative values only if 
+        /// the transaction type is a "return" or "void".
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtQuantity_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }
