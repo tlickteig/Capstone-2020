@@ -5890,6 +5890,43 @@ END
 GO
 
 /*
+Created by: Brandyn T. Coverdill
+Date: 4/10/2020
+Comment: Stored Procedure that adds shelter items to inventory.
+*/
+DROP PROCEDURE IF EXISTS [sp_add_shelter_items]
+GO
+PRINT '' PRINT '*** Creating sp_add_items'
+GO
+CREATE PROCEDURE [sp_add_shelter_items]
+(
+	@ItemName nvarchar(50),
+	@ItemQuantity int,
+	@ItemCategoryID nvarchar(50),
+	@ItemDescription nvarchar(250)
+)
+AS
+BEGIN
+	INSERT INTO Item
+    (
+		[ItemName],
+		[ItemCategoryID],
+		[ItemQuantity],
+		[ItemDescription],
+		[ShelterItem]
+	)
+	VALUES
+    (
+		@ItemName,
+		@ItemCategoryID,
+		@ItemQuantity,
+		@ItemDescription,
+		1
+	)
+END
+GO
+
+/*
 Created By: Brandyn T. Coverdill
 Date: 2/22/2020
 Comment: Stored Procedure that adds a new item cateGOry
@@ -5937,6 +5974,9 @@ Comment: Stored Procedure that gets a list of items from inventory.
 Updated By: Matt Deaton
 Date: 2020-03-07
 Comment: Added the ShelterItem to the Select to allow Shelter Item to show up once ran.
+Updated By: Brandyn T. Coverdill
+Date: 2020-04-10
+Comment: Added the Active field to the select to allow active items and deactive items.
 */
 DROP PROCEDURE IF EXISTS [sp_retrieve_items]
 GO
@@ -5951,6 +5991,7 @@ BEGIN
         [i].[ItemQuantity], 
         [ic].[ItemCategoryID], 
         [i].[ItemDescription],
+		[i].[Active],
 		[i].[ShelterItem]
 	FROM [dbo].[Item] i
 	INNER JOIN [dbo].[ItemCategory] ic
@@ -9453,6 +9494,36 @@ BEGIN
 	ON I.[ItemID] = P.[ItemID]
 	WHERE P.[ProductID] = @ProductID
 	
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 04/10/2020
+Comment: Updates the item to have an Active of 1
+*/
+DROP PROCEDURE IF EXISTS [sp_reactivate_item]
+GO
+PRINT '' PRINT '*** Creating sp_deactivate_item ***'
+GO
+CREATE PROCEDURE [sp_reactivate_item]
+(
+		@ItemID          [int],
+		@ItemName        [nvarchar] (50),
+		@ItemCategoryID  [nvarchar] (50),
+		@ItemDescription [nvarchar] (50),
+		@ItemQuantity    [int]
+)
+AS
+BEGIN
+	UPDATE [Item]
+	SET    [Active] = 1
+	WHERE  [ItemID] = @ItemID
+	AND    [ItemName] = @ItemName
+	AND	   [ItemCategoryID] = @ItemCategoryID
+	AND    [ItemDescription] = @ItemDescription
+	AND    [ItemQuantity] = @ItemQuantity
+	SELECT @@ROWCOUNT
 END
 GO
 

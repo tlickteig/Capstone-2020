@@ -108,7 +108,8 @@ namespace DataAccessLayer
                         ItemQuantity = reader.GetInt32(2),
                         ItemCategoryID = reader.GetString(3),
                         Description = reader.GetString(4),
-                        ShelterItem = reader.GetBoolean(5)
+                        Active = reader.GetBoolean(5),
+                        ShelterItem = reader.GetBoolean(6)
                     });
                 }
 
@@ -432,7 +433,7 @@ namespace DataAccessLayer
                             Description = reader.GetString(3),
                             ShelterItem = reader.GetBoolean(4),
                             ItemID = reader.GetInt32(5),
-                            ShelterThreshold = reader.GetInt32(6)
+                            ShelterThreshold = reader.IsDBNull(6) ? 0 : reader.GetInt32(6)
                         });
 
                     }
@@ -507,6 +508,101 @@ namespace DataAccessLayer
 
             return rows;
         }// End UpdateShelterItem()
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/10
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Method to create a new shelter item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public bool addNewShelterItem(Item item)
+        {
+            bool result = false;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_add_shelter_items", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            cmd.Parameters.AddWithValue("@ItemName", item.ItemName);
+            cmd.Parameters.AddWithValue("@ItemQuantity", item.ItemQuantity);
+            cmd.Parameters.AddWithValue("@ItemCategoryID", item.ItemCategoryID);
+            cmd.Parameters.AddWithValue("@ItemDescription", item.Description);
+
+            try
+            {
+                conn.Open();
+                result = 1 == cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/10
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Method to set active to 1 for one item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public int reactivateItem(Item item)
+        {
+            int rowsAffected = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_reactivate_item", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ItemID", item.ItemID);
+            cmd.Parameters.AddWithValue("@ItemName", item.ItemName);
+            cmd.Parameters.AddWithValue("@ItemCategoryID", item.ItemCategoryID);
+            cmd.Parameters.AddWithValue("@ItemDescription", item.Description);
+            cmd.Parameters.AddWithValue("@ItemQuantity", item.ItemQuantity);
+
+            try
+            {
+                conn.Open();
+
+                rowsAffected = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            finally
+            {
+                conn.Close();
+            }
+
+            return rowsAffected;
+        }
 
     }
 }

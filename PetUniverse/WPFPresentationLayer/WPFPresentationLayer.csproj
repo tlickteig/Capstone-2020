@@ -189,11 +189,17 @@
     <Compile Include="InventoryPages\AddItemReport.xaml.cs">
       <DependentUpon>AddItemReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\AddShelterItem.xaml.cs">
+      <DependentUpon>AddShelterItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\AddVendor.xaml.cs">
       <DependentUpon>AddVendor.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\EditItemReports.xaml.cs">
       <DependentUpon>EditItemReports.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\EditShelterItem.xaml.cs">
+      <DependentUpon>EditShelterItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\EditVendor.xaml.cs">
       <DependentUpon>EditVendor.xaml</DependentUpon>
@@ -215,6 +221,9 @@
     </Compile>
     <Compile Include="InventoryPages\ViewOrders.xaml.cs">
       <DependentUpon>ViewOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\ViewShelterItems.xaml.cs">
+      <DependentUpon>ViewShelterItems.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\ViewSpecialOrders.xaml.cs">
       <DependentUpon>ViewSpecialOrders.xaml</DependentUpon>
@@ -512,11 +521,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\AddShelterItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\AddVendor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InventoryPages\EditItemReports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\EditShelterItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -545,6 +562,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InventoryPages\ViewOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\ViewShelterItems.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
