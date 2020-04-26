@@ -111,6 +111,7 @@
     <Compile Include="ITransactionAccessor.cs" />
     <Compile Include="ITransactionAdminAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
+    <Compile Include="IVendorAccessor.cs" />
     <Compile Include="IVetAppointmentAccessor.cs" />
     <Compile Include="IVolunteerAccessor.cs" />
     <Compile Include="IVolunteerEventAccessor.cs" />

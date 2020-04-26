@@ -1799,6 +1799,27 @@ CREATE TABLE [dbo].[JobListing] (
 GO
 
 /*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Vendor Table to store Vendors.
+*/
+DROP TABLE IF EXISTS [dbo].[Vendor]
+GO
+print '' print '*** Creating Vendor table'
+GO
+CREATE TABLE [dbo].[Vendor](
+	[VendorID]			[int]		IDENTITY(100000, 1) PRIMARY KEY NOT NULL,
+	[VendorName]		[nvarchar](50)								NOT NULL,
+	[VendorAddress]		[nvarchar](100)								NOT NULL,
+	[VendorPhone]		[nvarchar](11)								NOT NULL,
+	[VendorEmail]		[nvarchar](250)								NOT NULL,
+	[VendorState]		[nvarchar](2)								NOT NULL,
+	[VendorCity]		[nvarchar](50)								NOT NULL,
+	[VendorZip]			[nvarchar](20)								NOT NULL
+)
+GO
+
+/*
 Created by: Kaleb Bachert
 Date: 2/13/2020
 Comment: Table holding the schedule Start and End dates
@@ -9549,6 +9570,153 @@ BEGIN
 	WHERE [ItemID] = @ItemID
 	AND [Report] = @Report
 	AND [ItemQuantity] = @ItemQuantity
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that adds a new vendor.
+*/
+DROP PROCEDURE IF EXISTS [sp_add_new_vendor]
+GO
+print '' print '*** Creating sp_add_new_vendor'
+GO
+CREATE PROCEDURE [sp_add_new_vendor](
+	@VendorName		[nvarchar](50),
+	@VendorAddress	[nvarchar](100),
+	@VendorPhone	[nvarchar](11),
+	@VendorEmail	[nvarchar](250),
+	@VendorState	[nvarchar](2),
+	@VendorCity		[nvarchar](50),
+	@VendorZip		[nvarchar](20)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Vendor]
+	([VendorName], [VendorAddress], [VendorPhone], [VendorEmail], [VendorState], [VendorCity], [VendorZip])
+	VALUES
+	(@VendorName, @VendorAddress, @VendorPhone, @VendorEmail, @VendorState, @VendorCity, @VendorZip)
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that selects a vendor by VendorID.
+*/
+DROP PROCEDURE IF EXISTS [sp_get_vendor_by_id]
+GO
+print '' print '*** Creating sp_get_vendor_by_id'
+GO
+CREATE PROCEDURE [sp_get_vendor_by_id](
+	@VendorID [int]
+)
+AS
+BEGIN
+	SELECT [VendorName],
+		   [VendorAddress],
+		   [VendorPhone],
+		   [VendorEmail],
+		   [VendorState],
+		   [VendorCity],
+		   [VendorZip]
+	FROM [dbo].[Vendor]
+	WHERE [VendorID] = @VendorID
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that removes a vendor.
+*/
+DROP PROCEDURE IF EXISTS [sp_remove_vendor]
+GO
+print '' print '*** Creating sp_remove_vendor'
+GO
+CREATE PROCEDURE [sp_remove_vendor](
+	@VendorID [int]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[Vendor]
+	WHERE [VendorID] = @VendorID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that gets a list of every vendor.
+*/
+DROP PROCEDURE IF EXISTS [sp_get_vendors]
+GO
+print '' print '*** Creating sp_get_vendors'
+GO
+CREATE PROCEDURE [sp_get_vendors]
+AS
+BEGIN
+	SELECT [VendorID],
+		   [VendorName],
+		   [VendorAddress],
+		   [VendorPhone],
+		   [VendorEmail],
+		   [VendorState],
+		   [VendorCity],
+		   [VendorZip]
+	FROM [dbo].[Vendor]
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that updates a vendor
+*/
+DROP PROCEDURE IF EXISTS [sp_update_vendor]
+GO
+print '' print '*** Creating sp_update_vendor'
+GO
+CREATE PROCEDURE [sp_update_vendor](
+	@VendorID [int],
+	
+	@OldVendorName		[nvarchar](50),
+	@OldVendorAddress	[nvarchar](100),
+	@OldVendorPhone		[nvarchar](11),
+	@OldVendorEmail		[nvarchar](250),
+	@OldVendorState		[nvarchar](2),
+	@OldVendorCity		[nvarchar](50),
+	@OldVendorZip		[nvarchar](20),
+	
+	@NewVendorName		[nvarchar](50),
+	@NewVendorAddress	[nvarchar](100),
+	@NewVendorPhone		[nvarchar](11),
+	@NewVendorEmail		[nvarchar](250),
+	@NewVendorState		[nvarchar](2),
+	@NewVendorCity		[nvarchar](50),
+	@NewVendorZip		[nvarchar](20)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Vendor]
+	SET   [VendorName] 			= @NewVendorName,
+		  [VendorAddress]       = @NewVendorAddress,
+		  [VendorPhone]			= @NewVendorPhone,
+		  [VendorEmail]			= @NewVendorEmail,
+		  [VendorState]			= @NewVendorState,
+		  [VendorCity]			= @NewVendorCity,
+		  [VendorZip]			= @NewVendorZip
+	WHERE [VendorID]       		= @VendorID
+	AND   [VendorName] 			= @OldVendorName
+	AND	  [VendorAddress]		= @OldVendorAddress
+	AND	  [VendorPhone]			= @OldVendorPhone
+	AND   [VendorEmail]			= @OldVendorEmail
+	AND   [VendorState]			= @OldVendorState
+	AND   [VendorCity]			= @OldVendorCity
+	AND	  [VendorZip]			= @OldVendorZip
 	RETURN @@ROWCOUNT
 END
 GO

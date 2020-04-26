@@ -277,5 +277,35 @@ namespace WPFPresentationLayer.InventoryPages
                 "Please pick an item to view.".ErrorMessage();
             }
         }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/16
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// This Button shows the Add Item Report Screen.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void btnAddItemReport_Click(object sender, RoutedEventArgs e)
+        {
+            Item item = (Item)DGViewDatat.SelectedItem;
+            if (DGViewDatat.SelectedItem != null)
+            {
+                this.NavigationService?.Navigate(new AddItemReport(item));
+            }
+            else
+            {
+                "Please pick an item to add a new report.".ErrorMessage();
+            }
+        }
     }
 }

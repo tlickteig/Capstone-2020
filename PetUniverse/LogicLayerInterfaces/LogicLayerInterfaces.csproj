@@ -109,6 +109,7 @@
     <Compile Include="ITransactionAdminManager.cs" />
     <Compile Include="ITransactionManager.cs" />
     <Compile Include="IUserManager.cs" />
+    <Compile Include="IVendorManager.cs" />
     <Compile Include="IVetAppointmentManager.cs" />
     <Compile Include="IVolunteerEventManager.cs" />
     <Compile Include="IVolunteerManager.cs" />

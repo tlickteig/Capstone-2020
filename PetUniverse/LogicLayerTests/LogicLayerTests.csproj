@@ -118,6 +118,7 @@
     <Compile Include="PictureManagerTests.cs" />
     <Compile Include="FacilityTaskManagerTests.cs" />
     <Compile Include="UserManagerTests.cs" />
+    <Compile Include="VendorManagerTests.cs" />
     <Compile Include="VetAppointmentManagerTests.cs" />
     <Compile Include="VolunteerEventTests.cs" />
     <Compile Include="VolunteerManagerTests.cs" />
