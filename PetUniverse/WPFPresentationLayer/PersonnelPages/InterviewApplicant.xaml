@@ -10,13 +10,12 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPFPresentationLayer.PersonnelPages"
-      mc:Ignorable="d" 
-      d:DesignHeight="550" d:DesignWidth="900"
-      Title="InterviewApplicant" Height="550" Width="900" Margin="10"
-      Background="#2e3137" Foreground="#fff8e3" Loaded="Page_Loaded">
+      mc:Ignorable="d"
+      Title="InterviewApplicant" Height="690" Width="1043" Margin="10"
+      Foreground="#fff8e3" Loaded="Page_Loaded">
 
 
-    <Grid>
+    <Grid Margin="-74,0,50,0">
         <Grid.RowDefinitions>
             <!--Header-->
             <RowDefinition Height="60"></RowDefinition>
@@ -35,9 +34,9 @@
                 <ColumnDefinition Width="50"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label x:Name="lblHeader" Grid.Column="1" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-			       FontSize="30" Foreground="#fff8e3" FontWeight="DemiBold" Content="Applicant Interview"></Label>
+			       FontSize="30"  FontWeight="DemiBold" Content="Applicant Interview"></Label>
             <Label x:Name="lblApplicationNumber" Grid.Column="2" VerticalContentAlignment="Top" HorizontalContentAlignment="Right"
-                   FontSize="12" Foreground="#fff8e3" FontWeight="DemiBold">Application Number:</Label>
+                   FontSize="12" FontWeight="DemiBold">Application Number:</Label>
             <Label x:Name="lblApplicationID" Grid.Column="3" VerticalContentAlignment="Top" HorizontalContentAlignment="Right"
                    FontSize="12" Foreground="#fff8e3" FontWeight="DemiBold"></Label>
         </Grid>
@@ -64,7 +63,7 @@
                         <ColumnDefinition Width="78"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="lblDate" Grid.Column="0" Foreground="#fff8e3" FontSize="12" FontWeight="Bold"
+                    <Label x:Name="lblDate" Grid.Column="0" FontSize="12" FontWeight="Bold"
                            VerticalContentAlignment="Center" HorizontalContentAlignment="Left">Date:</Label>
                     <Label x:Name="lblInterviewDate" Grid.Column="1" Foreground="#fff8e3" FontSize="12" FontWeight="DemiBold"
                            VerticalContentAlignment="Center" HorizontalContentAlignment="Left"></Label>
@@ -74,9 +73,9 @@
                         <ColumnDefinition Width="78"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="lblPosition" Grid.Column="0" Foreground="#fff8e3" FontSize="12" FontWeight="Bold"
+                    <Label x:Name="lblPosition" Grid.Column="0"  FontSize="12" FontWeight="Bold"
                            VerticalContentAlignment="Center" HorizontalContentAlignment="Left">Position:</Label>
-                    <Label x:Name="lblPositionName" Grid.Column="1" Foreground="#fff8e3" FontSize="12" FontWeight="DemiBold"
+                    <Label x:Name="lblPositionName" Grid.Column="1" FontSize="12" FontWeight="DemiBold"
                            VerticalContentAlignment="Center" HorizontalContentAlignment="Left"></Label>
                 </Grid>
                 <Grid Grid.Row="2">
@@ -84,7 +83,7 @@
                         <ColumnDefinition Width="31*"/>
                         <ColumnDefinition Width="19*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="txtInterviewNotes" Margin="5" Background="#FF909090" Foreground="#fff8e3" 
+                    <TextBox x:Name="txtInterviewNotes" Margin="5" 
 						 FontSize="12" TextWrapping="Wrap" Text="Interview Notes" Grid.ColumnSpan="2" SpellCheck.IsEnabled="True"></TextBox>
                 </Grid>
                 <Grid Grid.Row="3">
@@ -92,9 +91,9 @@
                         <ColumnDefinition Width="90"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="lblHomeCheckDate" Foreground="#fff8e3" FontSize="12" FontWeight="Bold"
+                    <Label x:Name="lblHomeCheckDate" FontSize="12" FontWeight="Bold"
                            VerticalContentAlignment="Center" HorizontalContentAlignment="Left">Home Check:</Label>
-                    <TextBox x:Name="txtHomeCheckDate" Grid.Column="1" Background="#fff8e3" Foreground="#2e3137" Margin="2" 
+                    <TextBox x:Name="txtHomeCheckDate" Grid.Column="1"  Margin="2" 
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                 </Grid>
                 <Grid Grid.Row="4">
@@ -140,7 +139,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">First:</Label>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="txtFirstName" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtFirstName"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True">
                         </TextBox>
                     </Grid>
@@ -149,7 +148,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Last:</Label>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="txtLastName" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtLastName"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True">
                         </TextBox>
                     </Grid>
@@ -158,7 +157,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Middle:</Label>
                     </Grid>
                     <Grid Grid.Column="5">
-                        <TextBox x:Name="txtMiddleName" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtMiddleName"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True">
                         </TextBox>
                     </Grid>
@@ -177,7 +176,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Address:</Label>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="txtAddress" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtAddress"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True">
                         </TextBox>
                     </Grid>
@@ -186,7 +185,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">City:</Label>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="txtCity" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtCity"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True">
                         </TextBox>
                     </Grid>
@@ -195,7 +194,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">State:</Label>
                     </Grid>
                     <Grid Grid.Column="5">
-                        <TextBox x:Name="txtState" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtState"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True">
                         </TextBox>
                     </Grid>
@@ -214,7 +213,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Email:</Label>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="txtEmail" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtEmail"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -222,7 +221,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Phone:</Label>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="txtPhone" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtPhone"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                     <Grid Grid.Column="4">
@@ -230,7 +229,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Zip:</Label>
                     </Grid>
                     <Grid Grid.Column="5">
-                        <TextBox x:Name="txtZip" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtZip"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True">
                         </TextBox>
                     </Grid>
@@ -251,7 +250,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">School Name:</Label>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="txtSchoolOneName" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtSchoolOneName"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -259,7 +258,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Level:</Label>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="txtSchoolOneLevel" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtSchoolOneLevel"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                 </Grid>
@@ -275,7 +274,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">School City:</Label>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="txtSchoolOneCity" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtSchoolOneCity"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -283,7 +282,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">State:</Label>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="txtSchoolOneState" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtSchoolOneState"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                 </Grid>
@@ -303,7 +302,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Name:</Label>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="txtReferenceOneName" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtReferenceOneName"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -311,7 +310,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Relationship:</Label>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="txtReferenceOneRelationship" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtReferenceOneRelationship"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                 </Grid>
@@ -327,7 +326,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Email:</Label>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="txtReferenceOneEmail" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtReferenceOneEmail"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -335,7 +334,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Phone:</Label>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="txtReferenceOnePhone" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtReferenceOnePhone"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                 </Grid>
@@ -355,7 +354,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Previous Work:</Label>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="txtPreviousWorkName" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtPreviousWorkName"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -363,7 +362,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">Type:</Label>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="txtPreviousWorkType" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtPreviousWorkType"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                 </Grid>
@@ -379,7 +378,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">City:</Label>
                     </Grid>
                     <Grid Grid.Column="1">
-                        <TextBox x:Name="txtPreviousWorkCity" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtPreviousWorkCity"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                     <Grid Grid.Column="2">
@@ -387,7 +386,7 @@
                            VerticalAlignment="Center" HorizontalAlignment="Left">State:</Label>
                     </Grid>
                     <Grid Grid.Column="3">
-                        <TextBox x:Name="txtPreviousWorkState" Background="#2e3137" Foreground="#fff8e3" Margin="2"
+                        <TextBox x:Name="txtPreviousWorkState"  Margin="2"
 								 FontSize="14" FontWeight="DemiBold" HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
                     </Grid>
                 </Grid>
@@ -410,7 +409,7 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <TextBox x:Name="txtSkills" Background="#2e3137" Foreground="#fff8e3" Margin="5 2 5 5" TextWrapping="Wrap"
+                        <TextBox x:Name="txtSkills"  Margin="5 2 5 5" TextWrapping="Wrap"
 								 FontSize="12" FontWeight="DemiBold" HorizontalContentAlignment="Left" IsReadOnly="True"></TextBox>
                     </Grid>
                 </Grid>
@@ -433,15 +432,14 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition Width="150"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="btnSave" Grid.Column="0" Width="120" Height="40" Background="#FF707080" 
-                    FontSize="16" Foreground="#fff8e3" Click="btnSave_Click" >Save</Button>
-            <Button x:Name="btnViewResume" Grid.Column="1" Margin="10" Width="120" Height="30" Background="#FF707080" 
-                    FontSize="16" Foreground="#fff8e3" HorizontalAlignment="Left" VerticalContentAlignment="Center"
+            <Button x:Name="btnSave" Grid.Column="0" Width="100" Height="30" 
+                    Click="btnSave_Click" >Save</Button>
+            <Button x:Name="btnViewResume" Grid.Column="1" Margin="10" Width="120" Height="30"                     HorizontalAlignment="Left" VerticalContentAlignment="Center"
                     Click="btnViewResume_Click">View Resume</Button>
             <TextBox x:Name="txtResumeFileName" Grid.Column="2" Margin="10" Width="430"
-                     Background="#FF909090" Foreground="#fff8e3" HorizontalAlignment="Right"></TextBox>
-            <Button x:Name="btnCancel" Grid.Column="3" Width="120" Height="40" Background="#FF707080" 
-                    FontSize="16" Foreground="#fff8e3" Click="btnCancel_Click" >Cancel</Button>
+                      HorizontalAlignment="Right"></TextBox>
+            <Button x:Name="btnCancel" Grid.Column="3" Width="120" Height="40"
+                     Click="btnCancel_Click" >Cancel</Button>
         </Grid>
         <!--End Footer-->
     </Grid>
