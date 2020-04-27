@@ -53,7 +53,7 @@ steps:
 - task: CopyEntityFrameworkMigrate@1
   inputs:
     PackagesConfig: '$(system.defaultworkingdirectory)\PetUniverse\WPFPresentation\Migrations'
-    PackagesFolder: '$(Build.SourcesDirectory)\packages'
+    PackagesFolder: '$(system.defaultworkingdirectory)\PetUniverse\packages'
     EFPackageName: 'EntityFramework'
     OutputDirectory: '$(Build.ArtifactStagingDirectory)\Migrate'
 
