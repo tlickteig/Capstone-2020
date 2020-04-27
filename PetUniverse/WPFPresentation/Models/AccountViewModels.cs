@@ -65,6 +65,16 @@ namespace WPFPresentation.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "First Name")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 2)]
+        public string GivenName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 2)]
+        public string FamilyName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -79,6 +89,56 @@ namespace WPFPresentation.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class RegisterEmployeeViewModel
+    {
+        [Required]
+        [Display(Name = "First Name")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 2)]
+        public string GivenName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 2)]
+        public string FamilyName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(11, ErrorMessage = "Enter a valid phone number.", MinimumLength = 7)]
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [StringLength(250, ErrorMessage = "Enter a valid address.", MinimumLength = 6)]        
+        [Display(Name = "Address")]
+        public string AddressLine1 { get; set; }
+
+        
+        [StringLength(250, ErrorMessage = "Enter a valid address.", MinimumLength = 6)]
+        [Display(Name = "Address 2 (Ex: Apt #)")]
+        public string AddressLine2 { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "Enter a valid city.", MinimumLength = 2)]
+        [Display(Name = "City")]
+        public string City { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "Enter a valid State.", MinimumLength = 2)]
+        [Display(Name = "State")]
+        public string State { get; set; }
+
+        [Required]
+        [StringLength(12, ErrorMessage = "Enter a valid ZipCode.", MinimumLength = 5)]
+        [Display(Name = "Zip Code")]
+        public string ZipCode { get; set; }
+
     }
 
     public class ResetPasswordViewModel

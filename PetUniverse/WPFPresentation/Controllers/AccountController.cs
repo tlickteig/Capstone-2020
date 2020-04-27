@@ -187,26 +187,7 @@ namespace WPFPresentation.Controllers
                     }
                     else
                     {
-                        var newUser = new ApplicationUser
-                        {
-                            UserName = model.Email,
-                            Email = model.Email
-                        };
-                        var newResult = await UserManager.CreateAsync(newUser, model.Password);
-                        if (newResult.Succeeded)
-                        {
-                            await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
-                            return RedirectToAction("Index", "Home");
-                        }
-                        AddErrors(newResult);
-                    }
-                }
-                // Did this next part in the exception because if it can't find a user in the db its a customer. If a customer already exists in our db we don't want to add them again
-                catch (Exception)
-                {
-                    LogicLayer.CustomerManager custMgr = new LogicLayer.CustomerManager();
-                    try
-                    {
+                        LogicLayer.CustomerManager custMgr = new LogicLayer.CustomerManager();
                         if (custMgr.FindCustomer(model.Email))
                         {
                             var oldUser = custMgr.AuthenticateCustomer(model.Email, model.Password);
@@ -244,11 +225,10 @@ namespace WPFPresentation.Controllers
                             AddErrors(newResult);
                         }
                     }
-                    catch
-                    {
-                        return View(model);
-                    }
-
+                }
+                // Did this next part in the exception because if it can't find a user in the db its a customer. If a customer already exists in our db we don't want to add them again
+                catch
+                {                    
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
@@ -268,6 +248,71 @@ namespace WPFPresentation.Controllers
             }
             return View(model);
         }
+
+        [AllowAnonymous]
+        public ActionResult RegisterEmployeeUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterEmployeeUser(RegisterEmployeeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                LogicLayer.UserManager usrMgr = new LogicLayer.UserManager();
+                try
+                {
+                    if (usrMgr.FindUser(model.Email))
+                    {
+                        return RedirectToAction("Register", "Account");
+                    }
+                    else
+                    {
+                        var employee = new DataTransferObjects.PetUniverseUser
+                        {
+                            FirstName = model.GivenName,
+                            LastName = model.FamilyName,
+                            Email = model.Email,
+                            PhoneNumber = model.PhoneNumber,
+                            Address1 = model.AddressLine1,
+                            Address2 = model.AddressLine2,
+                            City = model.City,
+                            State = model.State,
+                            ZipCode = model.ZipCode
+                            
+                        };
+                        if (usrMgr.CreateNewUser(employee))
+                        {
+                            var employeeID = usrMgr.getUserByEmail(model.Email).PUUserID;
+                            var user = new ApplicationUser
+                            {
+                                EmployeeID = employeeID,
+                                GivenName = model.GivenName,
+                                FamilyName = model.FamilyName,
+                                UserName = model.Email,                                                         
+                                Email = model.Email
+                                
+                            };
+                            var result = await UserManager.CreateAsync(user, "newuser");
+                            if (result.Succeeded)
+                            {
+                                return RedirectToAction("Index", "Admin");
+                            }
+                            AddErrors(result);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+
 
         //
         // GET: /Account/ConfirmEmail
