@@ -8,96 +8,100 @@
       d:DesignHeight="845" d:DesignWidth="1280"
       Title="EventMgmt" Height="845" Width="1280" Loaded="Page_Loaded">
 
-	<Canvas x:Name="canViewDonRec" Height="780" Width="1280">
-		<Grid x:Name="grdEventMgmt" Width="1280">
-			<Grid.RowDefinitions>
-				<RowDefinition Height="50"></RowDefinition>
-				<RowDefinition Height="35"></RowDefinition>
-				<RowDefinition Height="650"></RowDefinition>
-				<RowDefinition Height="30"></RowDefinition>
-			</Grid.RowDefinitions>
-			<Label Grid.Row="0" x:Name="lblEventMgmtHeader"
-				   Background="#FF404045" Foreground="#FFBBBBCC"
+    <Canvas x:Name="canViewDonRec" Height="780" Width="1280">
+        <Grid x:Name="grdEventMgmt" Width="1280">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="35"></RowDefinition>
+                <RowDefinition Height="650"></RowDefinition>
+                <RowDefinition Height="30"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" x:Name="lblEventMgmtHeader"
+				   
 				   HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
 				   FontSize="28" FontWeight="Bold"
 				   Content="Events">
-			</Label>
+            </Label>
 
-			<Grid Grid.Row="1">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-				<Button x:Name="btnCreateEvent"
-					Grid.Column="0"
-					FontSize="16" FontWeight="DemiBold"
-					Click="btnCreateEvent_Click"
-					Content="Add New Event" 
-				></Button>
-				<Button x:Name="btnEditEvent"
-					Grid.Column="1"
-					FontSize="16" FontWeight="DemiBold"
-					Click="btnEditEvent_Click"
-					Content="Edit Event" 
-				></Button>
-				<Button x:Name="btnDeleteEvent"
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btnCreateEvent"
 					Grid.Column="2"
 					FontSize="16" FontWeight="DemiBold"
-					Click="btnDeleteEvent_Click"
-					Content="Delete Event" 
+					Click="btnCreateEvent_Click"
+					Content="Add New Event" Margin="140,657,3,-658" Grid.ColumnSpan="2" 
+				/>
+                <Button x:Name="btnEditEvent"
+					Grid.Column="3"
+					FontSize="16" FontWeight="DemiBold"
+					Click="btnEditEvent_Click"
+					Content="Edit Event" Margin="139,657,1,-658" Grid.ColumnSpan="2" 
 				></Button>
-				<Button x:Name="btnViewEventDetails"
+                <Button x:Name="btnDeleteEvent"
 					Grid.Column="4"
 					FontSize="16" FontWeight="DemiBold"
-					Click="btnViewEventDetails_Click"
-					Content="View Details" 
+					Click="btnDeleteEvent_Click"
+					Content="Delete Event" Margin="141,657,1,-658" Grid.ColumnSpan="2" 
 				></Button>
-				<Button x:Name="btnReviewEvent"
-					Grid.Column="5"
+                <Button x:Name="btnViewEventDetails"
+					Grid.Column="6"
+					FontSize="16" FontWeight="DemiBold"
+					Click="btnViewEventDetails_Click"
+					Content="View Details" Margin="141,657,1,-658" Grid.ColumnSpan="2" 
+				/>
+                <Button x:Name="btnReviewEvent"
+					Grid.Column="7"
 					FontSize="16" FontWeight="DemiBold"
 					Click="btnReviewEvent_Click"
-					Content="Review Event" 
-				></Button>
-			</Grid>
+					Content="Review Event" Margin="141,657,1,-658" Grid.ColumnSpan="2" 
+				/>
+            </Grid>
 
-			<Grid Grid.Row="2">
-				<TabControl TabStripPlacement="Bottom">
-					<TabItem x:Name="tabAllEvents" Header="All Events" Height="30" Width="100" FontSize="14" FontWeight="DemiBold">
-						<Frame x:Name="frAllEvents" Source="./ListAllEvents.xaml" NavigationUIVisibility="Hidden"></Frame>
-					</TabItem>
-					<TabItem x:Name="tabPendingEvents" Header="Pending Approval" Height="30" Width="100" FontSize="14" FontWeight="DemiBold" >
-						<Frame x:Name="frPendingEvents" Source="./ListPendingEvents.xaml" NavigationUIVisibility="Hidden"></Frame>
-					</TabItem>
-					<TabItem x:Name="tabApprovedEvents" Header="Active Events" Height="30" Width="100" FontSize="14" FontWeight="DemiBold">
-						<Frame x:Name="frApprovedEvents" Source="./ListApprovedEvents.xaml" NavigationUIVisibility="Hidden"></Frame>
-					</TabItem>
-					<TabItem x:Name="tabEventApprovalForm" Height="30" Width="30" Visibility="Hidden">
-						<Frame x:Name="frEventApprovalForm" Source="./EventApprovalForm.xaml" NavigationUIVisibility="Hidden"></Frame>
-					</TabItem>
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="37*"/>
+                    <ColumnDefinition Width="603*"/>
+                </Grid.ColumnDefinitions>
+                <TabControl Grid.ColumnSpan="2" Margin="0,-46,0,36">
+                    <TabItem x:Name="tabApprovedEvents" Header="Active Events" Height="30" Width="100" FontSize="14" FontWeight="DemiBold">
+                        <Frame x:Name="frApprovedEvents" Source="./ListApprovedEvents.xaml" NavigationUIVisibility="Hidden"></Frame>
+                    </TabItem>
+                    <TabItem x:Name="tabAllEvents" Header="All Events" Height="30" Width="100" FontSize="14" FontWeight="DemiBold">
+                        <Frame x:Name="frAllEvents" Source="./ListAllEvents.xaml" NavigationUIVisibility="Hidden"></Frame>
+                    </TabItem>
+                    <TabItem x:Name="tabPendingEvents" Header="Pending Approval" Height="30" Width="100" FontSize="14" FontWeight="DemiBold" >
+                        <Frame x:Name="frPendingEvents" Source="./ListPendingEvents.xaml" NavigationUIVisibility="Hidden"></Frame>
+                    </TabItem>
+                    <TabItem x:Name="tabEventApprovalForm" Height="30" Width="30" Visibility="Hidden">
+                        <Frame x:Name="frEventApprovalForm" Source="./EventApprovalForm.xaml" NavigationUIVisibility="Hidden"></Frame>
+                    </TabItem>
 
-				</TabControl>
-			</Grid>
+                </TabControl>
+            </Grid>
 
-			<Grid Grid.Row="2" x:Name="grdCreateEditEvent" Visibility="Hidden">
-				<Frame x:Name="frCreateEditEvent" Source="./CreateEventForm.xaml" NavigationUIVisibility="Hidden"></Frame>
-			</Grid>
+            <Grid Grid.Row="2" x:Name="grdCreateEditEvent" Visibility="Hidden">
+                <Frame x:Name="frCreateEditEvent" Source="./CreateEventForm.xaml" NavigationUIVisibility="Hidden"></Frame>
+            </Grid>
 
-			<!-- The Bottom Grid Row -->
-			<Grid Grid.Row="3">
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-					<ColumnDefinition></ColumnDefinition>
-				</Grid.ColumnDefinitions>
-			</Grid>
-		</Grid>
-		<!-- End Grd EventMgmt -->
-	</Canvas>
+            <!-- The Bottom Grid Row -->
+            <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </Grid>
+        <!-- End Grd EventMgmt -->
+    </Canvas>
 </Page>
