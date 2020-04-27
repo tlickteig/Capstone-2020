@@ -1079,7 +1079,8 @@ CREATE TABLE [dbo].[Transaction](
 	[EmployeeID] 			[int] 				NOT NULL,
 	[TransactionStatusID] 	[nvarchar](20) 		NOT NULL,
 	[CustomerEmail]			[nvarchar](250),
-	[StripeChargeID]		[nvarchar](30)
+	[StripeChargeID]		[nvarchar](30),
+	[TaxExemptNumber]		[nvarchar](250),
 
 	CONSTRAINT [pk_Transaction_TransactionID] PRIMARY KEY ([TransactionID] ASC),
 	CONSTRAINT [fk_Transaction_EmployeeID] FOREIGN KEY ([EmployeeID])
@@ -1795,6 +1796,27 @@ CREATE TABLE [dbo].[JobListing] (
 	[Responsibilities]		[nvarchar](750)				NOT NULL,
 	[Active]				[bit]						NOT NULL DEFAULT 1,
 	CONSTRAINT [pk_JobListing_JobListingID] PRIMARY KEY([JobListingID] ASC)
+)
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Vendor Table to store Vendors.
+*/
+DROP TABLE IF EXISTS [dbo].[Vendor]
+GO
+print '' print '*** Creating Vendor table'
+GO
+CREATE TABLE [dbo].[Vendor](
+	[VendorID]			[int]		IDENTITY(100000, 1) PRIMARY KEY NOT NULL,
+	[VendorName]		[nvarchar](50)								NOT NULL,
+	[VendorAddress]		[nvarchar](100)								NOT NULL,
+	[VendorPhone]		[nvarchar](11)								NOT NULL,
+	[VendorEmail]		[nvarchar](250)								NOT NULL,
+	[VendorState]		[nvarchar](2)								NOT NULL,
+	[VendorCity]		[nvarchar](50)								NOT NULL,
+	[VendorZip]			[nvarchar](20)								NOT NULL
 )
 GO
 
@@ -5868,6 +5890,43 @@ END
 GO
 
 /*
+Created by: Brandyn T. Coverdill
+Date: 4/10/2020
+Comment: Stored Procedure that adds shelter items to inventory.
+*/
+DROP PROCEDURE IF EXISTS [sp_add_shelter_items]
+GO
+PRINT '' PRINT '*** Creating sp_add_items'
+GO
+CREATE PROCEDURE [sp_add_shelter_items]
+(
+	@ItemName nvarchar(50),
+	@ItemQuantity int,
+	@ItemCategoryID nvarchar(50),
+	@ItemDescription nvarchar(250)
+)
+AS
+BEGIN
+	INSERT INTO Item
+    (
+		[ItemName],
+		[ItemCategoryID],
+		[ItemQuantity],
+		[ItemDescription],
+		[ShelterItem]
+	)
+	VALUES
+    (
+		@ItemName,
+		@ItemCategoryID,
+		@ItemQuantity,
+		@ItemDescription,
+		1
+	)
+END
+GO
+
+/*
 Created By: Brandyn T. Coverdill
 Date: 2/22/2020
 Comment: Stored Procedure that adds a new item cateGOry
@@ -5915,6 +5974,9 @@ Comment: Stored Procedure that gets a list of items from inventory.
 Updated By: Matt Deaton
 Date: 2020-03-07
 Comment: Added the ShelterItem to the Select to allow Shelter Item to show up once ran.
+Updated By: Brandyn T. Coverdill
+Date: 2020-04-10
+Comment: Added the Active field to the select to allow active items and deactive items.
 */
 DROP PROCEDURE IF EXISTS [sp_retrieve_items]
 GO
@@ -5929,6 +5991,7 @@ BEGIN
         [i].[ItemQuantity], 
         [ic].[ItemCategoryID], 
         [i].[ItemDescription],
+		[i].[Active],
 		[i].[ShelterItem]
 	FROM [dbo].[Item] i
 	INNER JOIN [dbo].[ItemCategory] ic
@@ -9264,6 +9327,7 @@ CREATE PROCEDURE [sp_insert_transaction]
 	@TransactionStatusID	[nvarchar](20),
 	@CustomerEmail			[nvarchar](250),
 	@StripeChargeID			[nvarchar](30),
+	@TaxExemptNumber		[nvarchar](250),
 	@ReturnTransactionId 	[int] out  
 )
 AS
@@ -9271,11 +9335,13 @@ BEGIN
 INSERT INTO [Transaction]
 	([TransactionDateTime], [TaxRate], [SubTotalTaxable],
 	[SubTotal], [Total], [TransactionTypeID],
-	[EmployeeID], [TransactionStatusID], [CustomerEmail], [StripeChargeID])
+	[EmployeeID], [TransactionStatusID], [CustomerEmail], [StripeChargeID],
+	[TaxExemptNumber])
 VALUES
 	(@TransactionDateTime, @TaxRate, @SubTotalTaxable,
 	@SubTotal, @Total, @TransactionTypeID,
-	@EmployeeID, @TransactionStatusID, @CustomerEmail, @StripeChargeID)
+	@EmployeeID, @TransactionStatusID, @CustomerEmail, @StripeChargeID,
+	@TaxExemptNumber)
 	SELECT SCOPE_IDENTITY()
 END
 GO
@@ -9433,6 +9499,36 @@ GO
 
 /*
 Created by: Brandyn T. Coverdill
+Date: 04/10/2020
+Comment: Updates the item to have an Active of 1
+*/
+DROP PROCEDURE IF EXISTS [sp_reactivate_item]
+GO
+PRINT '' PRINT '*** Creating sp_deactivate_item ***'
+GO
+CREATE PROCEDURE [sp_reactivate_item]
+(
+		@ItemID          [int],
+		@ItemName        [nvarchar] (50),
+		@ItemCategoryID  [nvarchar] (50),
+		@ItemDescription [nvarchar] (50),
+		@ItemQuantity    [int]
+)
+AS
+BEGIN
+	UPDATE [Item]
+	SET    [Active] = 1
+	WHERE  [ItemID] = @ItemID
+	AND    [ItemName] = @ItemName
+	AND	   [ItemCategoryID] = @ItemCategoryID
+	AND    [ItemDescription] = @ItemDescription
+	AND    [ItemQuantity] = @ItemQuantity
+	SELECT @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
 Date: 2020-04-07
 Comment: Stored Procedure that adds a new Report to Missing / Damaged Items from the Shelf.
 */
@@ -9549,6 +9645,153 @@ BEGIN
 	WHERE [ItemID] = @ItemID
 	AND [Report] = @Report
 	AND [ItemQuantity] = @ItemQuantity
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that adds a new vendor.
+*/
+DROP PROCEDURE IF EXISTS [sp_add_new_vendor]
+GO
+print '' print '*** Creating sp_add_new_vendor'
+GO
+CREATE PROCEDURE [sp_add_new_vendor](
+	@VendorName		[nvarchar](50),
+	@VendorAddress	[nvarchar](100),
+	@VendorPhone	[nvarchar](11),
+	@VendorEmail	[nvarchar](250),
+	@VendorState	[nvarchar](2),
+	@VendorCity		[nvarchar](50),
+	@VendorZip		[nvarchar](20)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Vendor]
+	([VendorName], [VendorAddress], [VendorPhone], [VendorEmail], [VendorState], [VendorCity], [VendorZip])
+	VALUES
+	(@VendorName, @VendorAddress, @VendorPhone, @VendorEmail, @VendorState, @VendorCity, @VendorZip)
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that selects a vendor by VendorID.
+*/
+DROP PROCEDURE IF EXISTS [sp_get_vendor_by_id]
+GO
+print '' print '*** Creating sp_get_vendor_by_id'
+GO
+CREATE PROCEDURE [sp_get_vendor_by_id](
+	@VendorID [int]
+)
+AS
+BEGIN
+	SELECT [VendorName],
+		   [VendorAddress],
+		   [VendorPhone],
+		   [VendorEmail],
+		   [VendorState],
+		   [VendorCity],
+		   [VendorZip]
+	FROM [dbo].[Vendor]
+	WHERE [VendorID] = @VendorID
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that removes a vendor.
+*/
+DROP PROCEDURE IF EXISTS [sp_remove_vendor]
+GO
+print '' print '*** Creating sp_remove_vendor'
+GO
+CREATE PROCEDURE [sp_remove_vendor](
+	@VendorID [int]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[Vendor]
+	WHERE [VendorID] = @VendorID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that gets a list of every vendor.
+*/
+DROP PROCEDURE IF EXISTS [sp_get_vendors]
+GO
+print '' print '*** Creating sp_get_vendors'
+GO
+CREATE PROCEDURE [sp_get_vendors]
+AS
+BEGIN
+	SELECT [VendorID],
+		   [VendorName],
+		   [VendorAddress],
+		   [VendorPhone],
+		   [VendorEmail],
+		   [VendorState],
+		   [VendorCity],
+		   [VendorZip]
+	FROM [dbo].[Vendor]
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that updates a vendor
+*/
+DROP PROCEDURE IF EXISTS [sp_update_vendor]
+GO
+print '' print '*** Creating sp_update_vendor'
+GO
+CREATE PROCEDURE [sp_update_vendor](
+	@VendorID [int],
+	
+	@OldVendorName		[nvarchar](50),
+	@OldVendorAddress	[nvarchar](100),
+	@OldVendorPhone		[nvarchar](11),
+	@OldVendorEmail		[nvarchar](250),
+	@OldVendorState		[nvarchar](2),
+	@OldVendorCity		[nvarchar](50),
+	@OldVendorZip		[nvarchar](20),
+	
+	@NewVendorName		[nvarchar](50),
+	@NewVendorAddress	[nvarchar](100),
+	@NewVendorPhone		[nvarchar](11),
+	@NewVendorEmail		[nvarchar](250),
+	@NewVendorState		[nvarchar](2),
+	@NewVendorCity		[nvarchar](50),
+	@NewVendorZip		[nvarchar](20)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Vendor]
+	SET   [VendorName] 			= @NewVendorName,
+		  [VendorAddress]       = @NewVendorAddress,
+		  [VendorPhone]			= @NewVendorPhone,
+		  [VendorEmail]			= @NewVendorEmail,
+		  [VendorState]			= @NewVendorState,
+		  [VendorCity]			= @NewVendorCity,
+		  [VendorZip]			= @NewVendorZip
+	WHERE [VendorID]       		= @VendorID
+	AND   [VendorName] 			= @OldVendorName
+	AND	  [VendorAddress]		= @OldVendorAddress
+	AND	  [VendorPhone]			= @OldVendorPhone
+	AND   [VendorEmail]			= @OldVendorEmail
+	AND   [VendorState]			= @OldVendorState
+	AND   [VendorCity]			= @OldVendorCity
+	AND	  [VendorZip]			= @OldVendorZip
 	RETURN @@ROWCOUNT
 END
 GO

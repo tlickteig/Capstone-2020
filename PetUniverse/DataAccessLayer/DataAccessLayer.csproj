@@ -113,6 +113,7 @@
     <Compile Include="TransactionAccessor.cs" />
     <Compile Include="TransactionAdminAccessor.cs" />
     <Compile Include="UserAccessor.cs" />
+    <Compile Include="VendorAccessor.cs" />
     <Compile Include="VetAppointmentAccessor.cs" />
     <Compile Include="VolunteerAccessor.cs" />
     <Compile Include="VolunteerEventAccessor.cs" />

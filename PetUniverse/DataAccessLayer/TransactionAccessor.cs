@@ -158,6 +158,18 @@ namespace DataAccessLayer
             {
                 cmd.Parameters.AddWithValue("@StripeChargeID", DBNull.Value);
             }
+
+            // Tax Exemption
+
+            if (!String.IsNullOrWhiteSpace(transaction.TaxExemptNumber))
+            {
+                cmd.Parameters.AddWithValue("@TaxExemptNumber", transaction.TaxExemptNumber);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@TaxExemptNumber", DBNull.Value);
+            }
+
             cmd.Parameters.AddWithValue("@ReturnTransactionId", 0);
 
 

@@ -187,6 +187,76 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/10
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Test Method for reactivateing items.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestReactivateItem()
+        {
+            // Arrange
+            bool result = false;
+            Item item = new Item();
+            item.ItemID = 100000;
+            item.ItemName = "Dog Food";
+            item.ItemCategoryID = "Dog Food";
+            item.Description = "Dog Food Description";
+            item.ItemQuantity = 10;
+            item.Active = false;
+
+
+            // Act
+            result = _itemManager.reactivateItems(item);
+
+            // Assert
+            Assert.AreEqual(true, result);
+        }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/10
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Test method to test creating a new shelter item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestCreateNewShelterItem()
+        {
+            // arrange
+            Item item = new Item()
+            {
+                ItemCategoryID = "Cat Toys",
+                ItemID = 1,
+                ItemName = "Item",
+                ItemQuantity = 100
+            };
+            bool created = false;
+            bool expectedResult = true;
+
+            // act
+            created = _itemManager.createNewShelterItem(item);
+
+            // assert
+            Assert.AreEqual(expectedResult, created);
+        }
+
+        /// <summary>
         /// Creator: Dalton Reierson
         /// Created: 2020/03/13
         /// Approver: Brandyn T. Coverdill
