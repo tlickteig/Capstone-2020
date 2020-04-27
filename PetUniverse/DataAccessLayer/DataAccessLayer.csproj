@@ -95,12 +95,14 @@
     <Compile Include="MessagesAcessor.cs" />
     <Compile Include="NewAnimalChecklistAccessor.cs" />
     <Compile Include="OrderAccessor.cs" />
+    <Compile Include="OrderLineAccessor.cs" />
     <Compile Include="PetUniverseERolesAccessor.cs" />
     <Compile Include="PictureAccessor.cs" />
     <Compile Include="PoSCustomerPortalAccessor.cs" />
     <Compile Include="ProductAccessor.cs" />
     <Compile Include="PromotionAccessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceivingRecordAccessor.cs" />
     <Compile Include="RequestAccessor.cs" />
     <Compile Include="ReviewerAccessor.cs" />
     <Compile Include="SalesDataAccessor.cs" />

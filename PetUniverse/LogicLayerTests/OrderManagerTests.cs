@@ -148,5 +148,40 @@ namespace LogicLayerTests
 
             Assert.AreEqual(result, true);
         }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/23
+        /// Approver: Jesse Tomash
+        /// Approver: 
+        ///
+        /// Update orderStatus test
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void UpdateOrderStatus()
+        {
+            // Arrange
+            int result = 0;
+            int expectedResult = 1;
+            FakeOrderAccessor orderAccessor = new FakeOrderAccessor();
+            Order order = new Order();
+            order.OrderID = 10000;
+            order.UserID= 100000;
+            order.Active = true;
+            order.OrderStatus = "original";
+            string newOrderStatus = "new";
+
+            // Act 
+            result = orderAccessor.UpdateOrderStatus(order, newOrderStatus);
+
+            // Assert
+            Assert.AreEqual(result, expectedResult);
+        }
     }
 }

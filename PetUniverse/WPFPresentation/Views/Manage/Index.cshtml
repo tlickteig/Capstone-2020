@@ -23,6 +23,12 @@
             }
             ]
         </dd>
+        <dt>
+            Adoption Applications:
+        </dt>
+        <dd>
+            [@Html.ActionLink("View Adoption Applications", "CustomerApplicationList", "Adoption", new { customerEmail = User.Identity.Name }, null)]
+        </dd>
         <dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [

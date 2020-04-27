@@ -17,6 +17,7 @@ namespace WPFPresentation.Controllers
         private ApplicationUserManager userManager;
 
         // GET: Admin
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -24,6 +25,7 @@ namespace WPFPresentation.Controllers
         }
 
         // GET: Admin/Details/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -56,47 +58,41 @@ namespace WPFPresentation.Controllers
             return View(appUser);
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult RemoveRole(string id, string role)
         {
-            var roleManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            var user = roleManager.Users.First(u => u.Id == id);
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = userManager.Users.First(u => u.Id == id);
 
             if (role == "Administrator")
             {
-                var adminUsers = roleManager.Users.ToList()
-                    .Where(u => roleManager.IsInRole(u.Id, "Administrator"))
+                var adminUsers = userManager.Users.ToList()
+                    .Where(u => userManager.IsInRole(u.Id, "Administrator"))
                     .ToList().Count();
                 if (adminUsers < 2)
                 {
-                    ViewBag.AdminError = "Cannot remove last adminstrator.";
+                    ViewBag.Error = "Cannot remove last adminstrator.";
+                    return RedirectToAction("Details", "Admin", new { id = user.Id });
                 }
-                else
-                {
-                    roleManager.RemoveFromRole(id, role);
-                }
+
+
+                userManager.RemoveFromRole(id, role);
+
+                if (user.EmployeeID != null)
+                    try
+                    {
+                        var roleMgr = new LogicLayer.PetUniverseUserERolesManager();
+                        roleMgr.DeletePetUniverseUserERole(Convert.ToInt32(user.EmployeeID), role);
+                    }
+                    catch (Exception)
+                    {
+                        //Do nothing
+                    }
             }
-            else
-            {
-                roleManager.RemoveFromRole(id, role);
-            }            
-
-            var roleMgr = new LogicLayer.ERoleManager();
-            var allRoles = roleMgr.RetrieveAllERoles();
-            var allRoleIds = new List<string>();
-            foreach (var role1 in allRoles)
-            {
-                allRoleIds.Add(role1.ERoleID);
-            }
-
-            var roles = roleManager.GetRoles(id);
-            var noRoles = allRoleIds.Except(roles);
-
-            ViewBag.Roles = roles;
-            ViewBag.NoRoles = noRoles;
-
-            return View("Details", user);
+            return RedirectToAction("Details", "Admin", new { id = user.Id });
         }
 
+        [Authorize(Roles = "Administrator")]
         public ActionResult AddRole(string id, string role)
         {
             var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
@@ -104,20 +100,19 @@ namespace WPFPresentation.Controllers
 
             userManager.AddToRole(id, role);
 
-            var roleMgr = new LogicLayer.ERoleManager();
-            var allRoles = roleMgr.RetrieveAllERoles();
-            var allRoleIds = new List<string>();
-            foreach (var role1 in allRoles)
+            if (user.EmployeeID != null)
             {
-                allRoleIds.Add(role1.ERoleID);
+                try
+                {
+                    var usrMgr = new LogicLayer.PetUniverseUserERolesManager();
+                    usrMgr.AddPetUniverseUserERole(Convert.ToInt32(user.EmployeeID), role);
+                }
+                catch (Exception)
+                {
+                    //Do nothing
+                }
             }
-            var roles = userManager.GetRoles(id);
-            var noRoles = allRoleIds.Except(roles);
-
-            ViewBag.Roles = roles;
-            ViewBag.NoRoles = noRoles;
-
-            return View("Details", user);
+            return RedirectToAction("Details", "Admin", new { id = user.Id });
         }
     }
 }

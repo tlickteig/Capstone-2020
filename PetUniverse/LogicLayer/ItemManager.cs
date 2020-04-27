@@ -335,5 +335,63 @@ namespace LogicLayer
             }
             return result;
         }// End EditShelterItem()
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/10
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Method to reactivate an item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public bool reactivateItems(Item item)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (1 == _itemAccessor.reactivateItem(item));
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Reactivate Item Failed.", ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/02/22
+        /// Approver: Dalton Reierson
+        /// Approver:  Jesse Tomash
+        ///
+        /// The method that adds a new shelter item to the database.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public bool createNewShelterItem(Item item)
+        {
+            try
+            {
+                return _itemAccessor.addNewShelterItem(item);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable to add a new Item", ex);
+            }
+        }
     }
 }

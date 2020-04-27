@@ -144,6 +144,9 @@
                 <TabItem x:Name="tavViewVendors" Header="View Vendors" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./InventoryPages/ViewVendors.xaml" NavigationUIVisibility="Hidden" />
                 </TabItem>
+                <TabItem x:Name="tabViewShelterInventory" Header="View Shelter Inventory" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./InventoryPages/ViewShelterItems.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
             </TabControl>
         </Canvas>
 
@@ -156,20 +159,6 @@
              UPDATE BY: NA
              UPDATED NA
              CHANGE: NA -->
-
-        <!--<Canvas x:Name="canRequests" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
-            <TabControl x:Name="tabsetRequests" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabViewNewRequests" Header="New" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frNewRequestList" NavigationUIVisibility="Hidden"/>
-                </TabItem>
-                <TabItem x:Name="tabViewActiveRequests" Header="Active" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frActiveRequestList" NavigationUIVisibility="Hidden"/>
-                </TabItem>
-                <TabItem x:Name="tabViewCompletedRequests" Header="Done" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frCompleteRequestList" NavigationUIVisibility="Hidden"/>
-                </TabItem>
-            </TabControl>
-        </Canvas>-->
 
         <Canvas x:Name="canRequests" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1" >
             <Frame x:Name="frListRequests" NavigationUIVisibility="Hidden" Canvas.Top="10"/>
@@ -561,7 +550,7 @@
              UPDATE BY: NA
              UPDATE DATE: NA
              CHANGE: NA -->
-                <TabItem x:Name="tabApplicantInterview" Header="Applicants" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabApplicantInterview" Header="Applicants" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PersonnelPages/ViewApplicants.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
 
