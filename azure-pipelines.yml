@@ -50,6 +50,13 @@ steps:
     scriptPath: '$(system.defaultworkingdirectory)/db_transformer.py'
     arguments: '$(system.defaultworkingdirectory)/PetUniverse/DB_Script/PetUniverseDB.sql'
 
+- task: CopyEntityFrameworkMigrate@1
+  inputs:
+    PackagesConfig: '$(system.defaultworkingdirectory)\PetUniverse\WPFPresentation\Migrations'
+    PackagesFolder: '$(Build.SourcesDirectory)\packages'
+    EFPackageName: 'EntityFramework'
+    OutputDirectory: '$(Build.ArtifactStagingDirectory)\Migrate'
+
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
