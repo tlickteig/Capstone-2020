@@ -26,5 +26,9 @@ namespace LogicLayerInterfaces
         bool DeleteVolunteerSkill(int volunteerID, string skill);
         List<Volunteer> GetVolunteerByFirstName(string wholeName);
         bool ChangeVolunteerActiveStatus(bool isChecked, int volunteerID);
+        List<Volunteer> GetVolunteersBySkill(string skill);
+        bool CreateFoster(Volunteer volunteer, Foster newFoster);
+        Foster GetFosterDetailsByVolunteerID(int volunteerID);
+        bool UpdateFoster(Foster foster, Foster newFoster);
     }
 }

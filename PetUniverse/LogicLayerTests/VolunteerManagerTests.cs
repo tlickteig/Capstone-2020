@@ -256,5 +256,112 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(actualResult, expectedResults);
         }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 4/16/2020
+        /// CHECKED BY: 
+        /// 
+        /// This test method is used for testing sort volunteers by skill
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestSortVolunteersBySkill()
+        {
+            // arrange 
+            List<Volunteer> volunteers;
+            IVolunteerManager volunteerManager = new VolunteerManager(_volunteerAccessor);
+            // Act
+            volunteers = volunteerManager.GetVolunteersBySkill("Dogwalker");
+            // assert
+            Assert.AreEqual(3, volunteers.Count);
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 4/26/2020
+        /// CHECKED BY: 
+        /// 
+        /// This test method is used for testing create foster
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestCreateFoster()
+        {
+            // arrange
+            IVolunteerManager volunteerManager = new VolunteerManager(_volunteerAccessor);
+            Volunteer volunteer = new Volunteer { VolunteerID = 1 };
+            // act
+            bool row = volunteerManager.CreateFoster(volunteer, new Foster()
+            {
+                AddressLineOne = "111 Poppy St",
+                AddressLineTwo = "",
+                City = "Los Angeles",
+                State = "CA",
+                Zip = "44452",
+            });
+            // assert
+            Assert.IsTrue(row);
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 4/26/2020
+        /// CHECKED BY: 
+        /// 
+        /// This test method is used for testing get foster details by volunteer id
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestGetFosterDetailsByVolunteerID()
+        {
+            // arrange 
+            Foster foster;
+            IVolunteerManager volunteerManager = new VolunteerManager(_volunteerAccessor);
+            // Act
+            foster = volunteerManager.GetFosterDetailsByVolunteerID(3);
+            // assert
+            Assert.AreEqual(3, foster.VolunteerID);
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 4/26/2020
+        /// CHECKED BY:
+        /// 
+        /// This test method is used for testing when a foster record is updated. 
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestUpdateFoster()
+        {
+            // arrange
+            Foster oldFoster = new Foster()
+            {
+                FosterID = 1,
+                VolunteerID = 3,
+                AddressLineOne = "22 Hell St",
+                AddressLineTwo = "#666",
+                City = "Cedar Rapids",
+                State = "IA",
+                Zip = "52403"
+            };
+            Foster newFoster = new Foster()
+            {
+                FosterID = 1,
+                VolunteerID = 3,
+                AddressLineOne = "221 Hell St",
+                AddressLineTwo = "#666",
+                City = "Cedar Rapids",
+                State = "IA",
+                Zip = "52403"
+            };
+            IVolunteerManager _volunteerManager = new VolunteerManager(_volunteerAccessor);
+            //Act
+            bool expectedResults = true;
+            bool actualResult = _volunteerManager.UpdateFoster(oldFoster, newFoster);
+            //Assert
+            Assert.AreEqual(actualResult, expectedResults);
+        }
     }
 }

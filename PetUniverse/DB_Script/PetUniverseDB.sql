@@ -1385,6 +1385,29 @@ CREATE TABLE [dbo].[Volunteer](
 )
 GO
 
+/*
+Created by: Josh Jackson
+Date: 4/26/2020
+Comment: Table that houses Foster Information
+*/
+DROP TABLE IF EXISTS [dbo].[Foster]
+GO
+PRINT '' PRINT '*** Creating Foster Table'
+GO
+CREATE TABLE [dbo].[Foster](
+	[FosterID] 	[int] identity(1000000,1) 	not null,
+	[VolunteerID]  	[int]           	not null,
+	[AddressLine1]  [nvarchar](500)         	not null,
+	[AddressLine2]  [nvarchar](100)			    null,
+	[City] 	     [nvarchar](200) 				not null,
+	[State]  	[nvarchar](2)			not null,
+	[Zipcode]	[nvarchar](5)				not null,
+	constraint [FosterID] primary key([FosterID] asc),
+	constraint [fk_Foster_VolunteerID] foreign key([VolunteerID])
+		references [Volunteer]([VolunteerID])on delete cascade
+)
+GO
+
 
 /*
 Created by: Josh Jackson
@@ -6123,6 +6146,47 @@ return @@ROWCOUNT
 end
 go
 
+print '' print '*** Creating sp_update_foster'
+/*
+Created by: Josh Jackson
+Date: 4/26/2020
+Comment: updates an existing foster record
+*/
+go
+create procedure [sp_update_foster]
+(
+	@FosterID	    [int],
+	@NewAdd1  [nvarchar](500),
+	@NewAdd2  [nvarchar](100),
+	@NewCity    	    [nvarchar](200),
+	@NewState  	[nvarchar](2),
+	@NewZip 	[nvarchar](5),
+	@OldAdd1  [nvarchar](500),
+	@OldAdd2  [nvarchar](100),
+	@OldCity    	    [nvarchar](200),
+	@OldState  	[nvarchar](2),
+	@OldZip 	[nvarchar](5)
+)
+as
+begin
+update [dbo].[Foster]
+set
+	[AddressLine1] = 	@NewAdd1,
+	[AddressLine2] = 	@NewAdd2,
+	[City] = @NewCity,
+	[State] = 		@NewState,
+	[Zipcode]   = @NewZip
+where [FosterID] = @FosterID
+	  AND	[AddressLine1] = 	@OldAdd1
+	  AND	[AddressLine2] = 	@OldAdd2
+	  AND	[City] = @OldCity
+	  AND	[State] = 		@OldState
+	  AND   [Zipcode] =  @OldZip
+return @@ROWCOUNT
+end
+go
+
+
 /*
 Created by: Josh Jackson
 Date: 2/8/2020
@@ -6227,6 +6291,46 @@ BEGIN
 END
 GO
 
+print '' print '*** Creating sp_get_volunteer_by_skill'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Gets Volunteers with specified skill
+*/
+go
+create procedure [sp_get_volunteer_by_skill]
+(
+	@SkillID [nvarchar](500)
+)
+as
+begin
+select
+	Volunteer.VolunteerID, FirstName, LastName, Email, PhoneNumber, OtherNotes, Active
+from VolunteerSkill inner join Volunteer on VolunteerSkill.VolunteerID = Volunteer.VolunteerID
+where SkillID = @SkillID
+end
+go
+
+print '' print '*** Creating sp_get_foster_details_by_volunteer_id'
+/*
+Created by: Josh Jackson
+Date: 04/26/2020
+Comment: Gets Fosters by volunteer id
+*/
+go
+create procedure [sp_get_foster_details_by_volunteer_id]
+(
+	@VolunteerID [int]
+)
+as
+begin
+select
+	FosterID, Foster.VolunteerID, AddressLine1, AddressLine2, City, State, Zipcode
+from Foster inner join Volunteer on Foster.VolunteerID = Volunteer.VolunteerID
+where Volunteer.VolunteerID = @VolunteerID
+end
+go
+
 /*
 Created by: Josh Jackson
 Date: 2/8/2020
@@ -6291,6 +6395,57 @@ from [VolunteerSkill]
 where [VolunteerID] = @VolunteerID
 end
 go
+
+/*
+Created by: Josh Jackson
+Date: 4/16/2020
+Comment: add Basic Volunteer Skill to a new volunteer record
+*/
+DROP PROCEDURE IF EXISTS [sp_give_basic_volunteer]
+GO
+PRINT '' PRINT '*** Creating sp_give_basic_volunteer'
+GO
+CREATE PROCEDURE [sp_give_basic_volunteer]
+(
+	@VolunteerID 			[int],
+	@SkillID	 			[nvarchar](50)
+)
+AS
+BEGIN
+INSERT INTO [dbo].[VolunteerSkill]
+	([VolunteerID], [SkillID])
+	VALUES
+	(@VolunteerID, @SkillID)
+END
+GO
+
+/*
+Created by: Josh Jackson
+Date: 4/26/2020
+Comment: creates a foster record
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_foster]
+GO
+PRINT '' PRINT '*** Creating sp_insert_foster'
+GO
+CREATE PROCEDURE [sp_insert_foster]
+(
+	@VolunteerID	[int],
+	@AddressLine1  [nvarchar](500),
+	@AddressLine2  [nvarchar](100),
+	@City    	    [nvarchar](200),
+	@State  	[nvarchar](2),
+	@Zipcode	[nvarchar](5)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Foster]
+		([VolunteerID], [AddressLine1], [AddressLine2], [City], [State], [Zipcode])
+	VALUES
+		(@VolunteerID, @AddressLine1, @AddressLine2, @City, @State, @Zipcode)
+	SELECT SCOPE_IDENTITY()
+END
+GO
 
 /*
 Created by: Gabi Legrand
@@ -12503,6 +12658,7 @@ insert into [dbo].[VolunteerSkills]
 	([SkillID], [SkillDescription])
 	values
 	('Basic Volunteer', 'Standard Volunteer - no particular proficiency'),
+	('Foster', 'Cares for animals in an home environment until a forever home can be found'),
 	('Dogwalker', 'Suited to walk dogs'),
 	('Groomer', 'Suited to groom animals'),
 	('Trainer', 'Suited to train animals'),
@@ -12525,7 +12681,8 @@ insert into [dbo].[VolunteerSkill]
 	([VolunteerID], [SkillID])
 	values
 	(1000001, 'Greeter'),
-	(1000001, 'Campaigner')
+	(1000001, 'Campaigner'),
+	(1000001, 'Basic Volunteer')
 go
 
 /*
