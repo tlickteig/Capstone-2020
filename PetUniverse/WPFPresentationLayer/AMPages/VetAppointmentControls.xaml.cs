@@ -87,13 +87,29 @@ namespace WPFPresentationLayer.AMPages
         /// the animal vet appointment list
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Ethan Murphy
+        /// Updated: 4/25/2020
+        /// Update: Added logic to add time data to filter
+        /// combo boxes
+        /// Approver: Chuck Baxter 4/27/2020
         /// </remarks>
         private void BtnFilter_Click(object sender, RoutedEventArgs e)
         {
+            List<string> times = new List<string>();
+            for (int i = 1; i < 25; i++)
+            {
+                string daytime = "AM";
+                int subtrahend = 0;
+                if (i > 12)
+                {
+                    daytime = "PM";
+                    subtrahend = 12;
+                }
+                times.Add(i - subtrahend + ":00 " + daytime);
+            }
             canViewVetAppointmentFilter.Visibility = Visibility.Visible;
+            cboDateTime.ItemsSource = times;
+            cboFollowUpTime.ItemsSource = times;
         }
 
         /// <summary>
@@ -498,9 +514,11 @@ namespace WPFPresentationLayer.AMPages
         /// then closes the filter page
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Ethan Murphy
+        /// Updated: 4/24/2020
+        /// Update: Moved filtering responsibilities to helper method
+        /// and updated this method accordingly.
+        /// Approver: Chuck Baxter 4/27/2020
         /// </remarks>
         private void BtnApplyFilter_Click(object sender, RoutedEventArgs e)
         {
@@ -509,80 +527,17 @@ namespace WPFPresentationLayer.AMPages
                 MessageBox.Show("Vet appointments list is invalid");
                 return;
             }
-            List<AnimalVetAppointment> currentList = _vetAppointments;
-            if ((bool)chkAnimalName.IsChecked)
+
+            List<AnimalVetAppointment> appointments = FilterVetAppointments();
+
+            if (appointments.Count == 0)
             {
-                try
-                {
-                    currentList =
-                        _vetAppointmentManager.RetrieveAppointmentsByAnimalName(txtFilterName.Text);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to filter by animal name: " + ex);
-                    return;
-                }
+                MessageBox.Show("No records match your search criteria");
+                return;
             }
-            if ((bool)chkApptDate.IsChecked)
-            {
-                try
-                {
-                    currentList =
-                        _vetAppointmentManager.RetrieveAppointmentsByDateTime(DateTime.Parse(
-                            txtFilterDate.Text));
-                }
-                catch (Exception ex)
-                {
-                    string message = ex == null ? "Invalid date entered" :
-                        "Data not found: " + ex;
-                    MessageBox.Show(message);
-                    return;
-                }
-            }
-            if ((bool)chkFollowUp.IsChecked)
-            {
-                try
-                {
-                    currentList =
-                        _vetAppointmentManager.RetrieveAppointmentsByFollowUpDate(DateTime.Parse(
-                            txtFilterFollowUp.Text));
-                }
-                catch (Exception ex)
-                {
-                    string message = ex == null ? "Invalid date entered" :
-                        "Data not found: " + ex;
-                    MessageBox.Show(message);
-                    return;
-                }
-            }
-            if ((bool)chkClinicAddress.IsChecked)
-            {
-                try
-                {
-                    currentList =
-                        _vetAppointmentManager.RetrieveAppointmentsByClinicAddress(txtFilterAddress.Text);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to filter clinic address: " + ex);
-                    return;
-                }
-            }
-            if ((bool)chkVetname.IsChecked)
-            {
-                try
-                {
-                    currentList =
-                        _vetAppointmentManager.RetrieveAppointmentsByVetName(txtFilterVetName.Text);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Failed to filter vet name: " + ex);
-                    return;
-                }
-            }
+
             dgAppointments.ItemsSource = null;
-            dgAppointments.ItemsSource = currentList;
+            dgAppointments.ItemsSource = appointments;
             canViewVetAppointmentFilter.Visibility = Visibility.Hidden;
         }
 
@@ -668,6 +623,271 @@ namespace WPFPresentationLayer.AMPages
         {
             dateFollowUp.SelectedDate = null;
             txtFollowUpTime.Text = "";
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/24/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Applies a filter(s) to the appointment list
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private List<AnimalVetAppointment> FilterVetAppointments()
+        {
+            List<AnimalVetAppointment> filteredList = _vetAppointments;
+
+            if ((bool)chkAnimalName.IsChecked)
+            {
+                try
+                {
+                    filteredList =
+                        _vetAppointmentManager.RetrieveAppointmentsByAnimalName(txtFilterName.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to filter by animal name: " + ex);
+                    return _vetAppointments;
+                }
+            }
+            if ((bool)chkApptDate.IsChecked)
+            {
+                try
+                {
+                    filteredList =
+                        _vetAppointmentManager.RetrieveAppointmentsByDateTime(DateTime.Parse(
+                            dateFilterDate.SelectedDate.Value.ToShortDateString() +
+                            " " + cboDateTime.SelectedValue));
+                }
+                catch (Exception ex)
+                {
+                    string message = ex == null ? "Invalid date entered" :
+                        "Data not found: " + ex;
+                    MessageBox.Show(message);
+                    return _vetAppointments;
+                }
+            }
+            if ((bool)chkFollowUp.IsChecked)
+            {
+                try
+                {
+                    filteredList =
+                        _vetAppointmentManager.RetrieveAppointmentsByFollowUpDate(DateTime.Parse(
+                            dateFollowUpDateFilter.SelectedDate.Value.ToShortDateString() +
+                            " " + cboFollowUpTime.SelectedValue));
+                }
+                catch (Exception ex)
+                {
+                    string message = ex == null ? "Invalid date entered" :
+                        "Data not found: " + ex;
+                    MessageBox.Show(message);
+                    return _vetAppointments;
+                }
+            }
+            if ((bool)chkClinicAddress.IsChecked)
+            {
+                try
+                {
+                    filteredList =
+                        _vetAppointmentManager.RetrieveAppointmentsByClinicAddress(txtFilterAddress.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to filter clinic address: " + ex);
+                    return _vetAppointments;
+                }
+            }
+            if ((bool)chkVetname.IsChecked)
+            {
+                try
+                {
+                    filteredList =
+                        _vetAppointmentManager.RetrieveAppointmentsByVetName(txtFilterVetName.Text);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to filter vet name: " + ex);
+                    return _vetAppointments;
+                }
+            }
+
+            return filteredList;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/24/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Gets number of records using the selected filters
+        /// If result is 0 the user can't apply a filter
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void GetFilteredResultsCount(object sender, RoutedEventArgs e)
+        {
+            lblFilterResultCount.Content = "Search Result Count: " + FilterVetAppointments().Count;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Enables the filter corresponding to the control
+        /// that was accessed
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void EnableFilter(object sender, object e)
+        {
+            switch (((Control)sender).Name)
+            {
+                case "txtFilterName":
+                    if (txtFilterName.Text == "")
+                    {
+                        return;
+                    }
+                    chkAnimalName.IsChecked = true;
+                    chkAnimalName.IsEnabled = true;
+                    break;
+                case "dateFilterDate":
+                    if (dateFilterDate.SelectedDate == null ||
+                            cboDateTime.SelectedItem == null)
+                    {
+                        return;
+                    }
+                    chkApptDate.IsChecked = true;
+                    chkApptDate.IsEnabled = true;
+                    GetFilteredResultsCount(null, null);
+                    break;
+                case "cboDateTime":
+                    if (dateFilterDate.SelectedDate == null ||
+                            cboDateTime.SelectedItem == null)
+                    {
+                        return;
+                    }
+                    chkApptDate.IsChecked = true;
+                    chkApptDate.IsEnabled = true;
+                    GetFilteredResultsCount(null, null);
+                    break;
+                case "dateFollowUpDateFilter":
+                    if (dateFollowUpDateFilter.SelectedDate == null ||
+                            cboFollowUpTime.SelectedItem == null)
+                    {
+                        return;
+                    }
+                    chkFollowUp.IsChecked = true;
+                    chkFollowUp.IsEnabled = true;
+                    GetFilteredResultsCount(null, null);
+                    break;
+                case "cboFollowUpTime":
+                    if (dateFollowUpDateFilter.SelectedDate == null ||
+                            cboFollowUpTime.SelectedItem == null)
+                    {
+                        return;
+                    }
+                    chkFollowUp.IsChecked = true;
+                    chkFollowUp.IsEnabled = true;
+                    GetFilteredResultsCount(null, null);
+                    break;
+                case "txtFilterAddress":
+                    if (txtFilterAddress.Text == "")
+                    {
+                        return;
+                    }
+                    chkClinicAddress.IsEnabled = true;
+                    chkClinicAddress.IsChecked = true;
+                    break;
+                case "txtFilterVetName":
+                    if (txtFilterVetName.Text == "")
+                    {
+                        return;
+                    }
+                    chkVetname.IsChecked = true;
+                    chkVetname.IsEnabled = true;
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Event that disables a filter when the
+        /// corresponding checkbox is unchecked
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void DisableFilter(object sender, RoutedEventArgs e)
+        {
+            switch (((CheckBox)sender).Name)
+            {
+                case "chkAnimalName":
+                    chkAnimalName.IsEnabled = false;
+                    chkAnimalName.IsChecked = false;
+                    txtFilterName.Text = "";
+                    break;
+                case "chkApptDate":
+                    chkApptDate.IsChecked = false;
+                    chkApptDate.IsEnabled = false;
+                    dateFilterDate.SelectedDate = null;
+                    cboDateTime.SelectedItem = null;
+                    break;
+                case "chkFollowUp":
+                    chkFollowUp.IsChecked = false;
+                    chkFollowUp.IsEnabled = false;
+                    dateFollowUpDateFilter.SelectedDate = null;
+                    cboFollowUpTime.SelectedItem = null;
+                    break;
+                case "chkClinicAddress":
+                    chkClinicAddress.IsChecked = false;
+                    chkClinicAddress.IsEnabled = false;
+                    txtFilterAddress.Text = "";
+                    break;
+                case "chkVetname":
+                    chkVetname.IsChecked = false;
+                    chkVetname.IsEnabled = false;
+                    txtFilterVetName.Text = "";
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Button click event to reset all filter controls
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void btnResetFilters_Click(object sender, RoutedEventArgs e)
+        {
+            string[] checkboxes = { "chkAnimalName", "chkApptDate", "chkFollowUp", "chkClinicAddress", "chkVetname" };
+            foreach (string id in checkboxes)
+            {
+                CheckBox chk = new CheckBox();
+                chk.Name = id;
+                DisableFilter(chk, null);
+            }
         }
     }
 }

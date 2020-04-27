@@ -61,5 +61,54 @@ namespace DataAccessInterfaces
         /// <returns>Update successful</returns>
         bool UpdateAnimalPrescriptionRecord(AnimalPrescriptionVM oldAnimalPrescription,
             AnimalPrescriptionVM newAnimalPrescription);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deletes an existing animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be deleted</param>
+        /// <returns>Rows updated</returns>
+        int DeleteAnimalPrescriptionRecord(AnimalPrescriptionVM animalPrescription);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Changes the active status of an animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be updated</param>
+        /// <param name="active">Active status</param>
+        /// <returns>Update successful</returns>
+        int ChangeAnimalPrescriptionRecordActive(AnimalPrescription animalPrescription, bool active);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/26/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Selects animal prescriptions by active/inactive status
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="active">Active status</param>
+        /// <returns>List of animal prescriptions</returns>
+        List<AnimalPrescriptionVM> SelectAnimalPrescriptionsByActive(bool active);
     }
 }

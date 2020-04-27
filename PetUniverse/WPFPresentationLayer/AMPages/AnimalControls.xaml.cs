@@ -641,8 +641,7 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         public void SearchBar1_TextChanged(object sender, TextChangedEventArgs e)
         {
-           
-            SearchBarTextInputManager();
+            //SearchBarTextInputManager();
         }
         int NumberOfResults = 0;
         List<AnimalNames> List_ = new List<AnimalNames>();

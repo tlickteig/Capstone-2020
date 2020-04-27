@@ -122,6 +122,7 @@
                           IsReadOnly="True" CanUserResizeColumns="False">
                 </DataGrid>
 
+                <Button x:Name="btnDelete" Grid.Column="1" Grid.Row="8" Content="Delete" Visibility="Hidden" Margin="25, 12, 145, 138" Click="btnDelete_Click"></Button>
                 <Button x:Name="btnClose" Grid.Row="8" Content="Close" Margin="25,138,145,12" Click="btnClose_Click" Grid.Column="4"/>
                 <Button x:Name="btnSaveEdit" Grid.Column="4" Grid.Row="8" Content="Edit" Margin="130,137,40,13" Click="btnSaveEdit_Click"/>
             </Grid>

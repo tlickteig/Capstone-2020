@@ -339,5 +339,50 @@ namespace DataAccessLayer
             }
             return rows;
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deletes an existing animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalActivity">Record to be deleted</param>
+        /// <returns>Number of records deleted</returns>
+        public int DeleteAnimalActivityRecord(AnimalActivity animalActivity)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_delete_animal_activity_record", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalActivityID", animalActivity.AnimalActivityId);
+            cmd.Parameters.AddWithValue("@AnimalID", animalActivity.AnimalID);
+            cmd.Parameters.AddWithValue("@UserID", animalActivity.UserID);
+            cmd.Parameters.AddWithValue("@AnimalActivityTypeID", animalActivity.AnimalActivityTypeID);
+            cmd.Parameters.AddWithValue("@ActivityDateTime", animalActivity.ActivityDateTime);
+            cmd.Parameters.AddWithValue("@Description", animalActivity.Description);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
     }
 }

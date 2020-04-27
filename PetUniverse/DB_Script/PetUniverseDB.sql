@@ -326,7 +326,9 @@ CREATE TABLE [dbo].[AnimalPrescriptions] (
 	[AdministrationMethod]		[nvarchar](100)				NOT NULL,
 	[StartDate]					[Date]						NOT NULL,
 	[EndDate]					[Date]						NOT NULL,
-	[Description]				[nvarchar](500)
+	[Description]				[nvarchar](500)				NOT NULL,
+	[Active]					[bit]						NOT NULL
+		DEFAULT 1,
 
 	CONSTRAINT [pk_AnimalPrescriptionsID] PRIMARY KEY([AnimalPrescriptionsID] ASC),
 
@@ -11732,6 +11734,142 @@ BEGIN
 END
 GO
 
+/*
+Created by: Ethan Murphy
+Date: 4/25/2020
+Comment: Used to delete animal activity record
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_animal_activity_record]
+GO
+print '' print '*** creating sp_delete_animal_activity_record'
+GO
+CREATE PROCEDURE [sp_delete_animal_activity_record]
+(
+	@AnimalActivityID		[int],
+	@AnimalID				[int],
+	@UserID					[int],
+	@AnimalActivityTypeID	[nvarchar](100),
+	@ActivityDateTime		[datetime],
+	@Description			[nvarchar](4000)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[AnimalActivity]
+	WHERE 	[AnimalActivityID] = @AnimalActivityID
+	AND	  	[AnimalID] = @AnimalID
+	AND		[UserID] = @UserID
+	AND		[AnimalActivityTypeID] = @AnimalActivityTypeID
+	AND		[ActivityDateTime] = @ActivityDateTime
+	AND		[Description] = @Description
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 4/25/2020
+Comment: Used to delete animal prescription record
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_animal_prescription_record]
+GO
+print '' print '*** creating sp_delete_animal_prescription_record'
+GO
+CREATE PROCEDURE [sp_delete_animal_prescription_record]
+(
+	@AnimalPrescriptionsID			[int],
+	@AnimalID						[int],
+	@AnimalVetAppointmentID			[int],
+	@PrescriptionName				[nvarchar](50),
+	@Dosage							[decimal],
+	@Interval						[nvarchar](250),
+	@AdministrationMethod			[nvarchar](100),
+	@StartDate						[date],
+	@EndDate						[date],
+	@Description					[nvarchar](500),
+	@Active							[bit]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[AnimalPrescriptions]
+	WHERE	[AnimalPrescriptionsID] = @AnimalPrescriptionsID
+	AND		[AnimalID] = @AnimalID
+	AND		[AnimalVetAppointmentID] = @AnimalVetAppointmentID
+	AND		[PrescriptionName] = @PrescriptionName
+	AND		[Dosage] = @Dosage
+	AND		[Interval] = @Interval
+	AND		[AdministrationMethod] = @AdministrationMethod
+	AND		[StartDate] = @StartDate
+	AND		[EndDate] = @EndDate
+	AND		[Description] = @Description
+	AND		[Active] = @Active
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 4/25/2020
+Comment: Used to deactivate animal prescription record
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_prescription_record]
+GO
+print '' print '*** create sp_deactivate_prescription_record'
+GO
+CREATE PROCEDURE [sp_deactivate_prescription_record]
+(
+	@AnimalPrescriptionsID		[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalPrescriptions]
+	SET [Active] = 0
+	WHERE [AnimalPrescriptionsID] = @AnimalPrescriptionsID
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 4/25/2020
+Comment: Used to activate animal prescription record
+*/
+DROP PROCEDURE IF EXISTS [sp_activate_prescription_record]
+GO
+print '' print '*** create sp_activate_prescription_record'
+GO
+CREATE PROCEDURE [sp_activate_prescription_record]
+(
+	@AnimalPrescriptionsID		[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalPrescriptions]
+	SET [Active] = 1
+	WHERE [AnimalPrescriptionsID] = @AnimalPrescriptionsID
+END
+GO
+
+/*
+Create by: Ethan Murphy
+Date: 3/9/2020
+Comment: Procedure to select all animal prescription records
+*/
+DROP PROCEDURE IF EXISTS [sp_select_animal_prescriptions_by_active]
+GO
+PRINT '' PRINT '*** creating sp_select_animal_prescriptions_by_active'
+GO
+CREATE PROCEDURE [sp_select_animal_prescriptions_by_active]
+(
+	@Active			[bit]
+)
+AS
+BEGIN
+	SELECT [AnimalPrescriptionsID], [Animal].[AnimalID], [AnimalVetAppointmentID],
+			[PrescriptionName], [Dosage], [Interval], [AdministrationMethod],
+			[StartDate], [EndDate], [Description], [AnimalName], [AnimalPrescriptions].[Active]
+	FROM [AnimalPrescriptions] INNER JOIN [Animal]
+    ON [AnimalPrescriptions].[AnimalID] = [Animal].[AnimalID]
+	WHERE [AnimalPrescriptions].[Active] = @Active
+	ORDER BY [AnimalName]
+END
+GO
 
 /*
  ******************************* Inserting Sample Data *****************************

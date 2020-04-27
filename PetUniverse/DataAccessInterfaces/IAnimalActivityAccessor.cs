@@ -116,5 +116,21 @@ namespace DataAccessLayer
         /// <param name="animalActivityType"></param>
         /// <returns></returns>
         int DeleteAnimalActivityType(AnimalActivityType animalActivityType);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deletes an existing animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalActivity">Record to be deleted</param>
+        /// <returns>Number of records deleted</returns>
+        int DeleteAnimalActivityRecord(AnimalActivity animalActivity);
     }
 }

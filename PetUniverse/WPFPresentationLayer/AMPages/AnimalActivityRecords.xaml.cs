@@ -175,6 +175,7 @@ namespace WPFPresentationLayer.AMPages
             dateActivityDate.DisplayDateStart = DateTime.Now;
             lblAnimal.Visibility = Visibility.Visible;
             dgAnimalList.Visibility = Visibility.Visible;
+            btnDelete.Visibility = Visibility.Visible;
             selectedAnimal = new Animal()
             {
                 AnimalID = ((AnimalActivity)dgActivities.SelectedItem).AnimalID
@@ -216,6 +217,7 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void DisableEditMode()
         {
+            btnDelete.Visibility = Visibility.Hidden;
             DisableAddMode();
         }
 
@@ -669,6 +671,51 @@ namespace WPFPresentationLayer.AMPages
             dgAnimalList.Columns.Remove(dgAnimalList.Columns[4]);
             dgAnimalList.Columns.Remove(dgAnimalList.Columns[4]);
             dgAnimalList.Columns.Remove(dgAnimalList.Columns[4]);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deletes the selected activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            AnimalActivity activity = (AnimalActivity)dgActivities.SelectedItem;
+            if (activity == null)
+            {
+                return;
+            }
+            string message = "Are you sure you want to delete the " + activity.AnimalActivityTypeID +
+                " record for " + activity.AnimalName + "? This can't be undone!";
+            if (MessageBox.Show(message, "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    if (_activityManager.DeleteAnimalActivityRecord(activity))
+                    {
+                        MessageBox.Show("Record deleted");
+                        DisableEditMode();
+                        canViewActivityRecord.Visibility = Visibility.Hidden;
+                        canView.Visibility = Visibility.Visible;
+                        RefreshActivitiesList();
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Record not found");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
         }
     }
 }
