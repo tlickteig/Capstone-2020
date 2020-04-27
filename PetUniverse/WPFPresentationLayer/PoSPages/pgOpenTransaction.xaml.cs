@@ -250,7 +250,6 @@ namespace WPFPresentationLayer.PoSPages
             }
 
             // Calculates the total.
-            //txtTotal.Text = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax).ToString();
             total = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax);
             txtTotal.Text = total.ToString();
 
@@ -306,6 +305,22 @@ namespace WPFPresentationLayer.PoSPages
                     cbTransactionStatus.Text = transactionStatus.TransactionStatusID;
                 }
 
+                // if the transaction type was return or void, the values for item quantity
+                // and total calculations must be negative.
+                if (cbTransactionType.Text == "return")
+                {
+                    subTotalTaxable *= -1;
+                    subTotal *= -1;
+                    total *= -1;
+                }
+
+                if (cbTransactionType.Text == "void")
+                {
+                    subTotalTaxable *= -1;
+                    subTotal *= -1;
+                    total *= -1;
+                }
+
                 transaction.TransactionDateTime = transactionDate;
                 transaction.TaxRate = taxRate;
                 transaction.SubTotalTaxable = subTotalTaxable;
@@ -328,8 +343,20 @@ namespace WPFPresentationLayer.PoSPages
 
             foreach (var item in _transactionManager.GetAllProducts())
             {
+                // return transaction type!
+                if (cbTransactionType.Text == "return")
+                {
+                    item.Quantity *= -1;
+                }
+
+                // return transaction type!
+                if (cbTransactionType.Text == "void")
+                {
+                    item.Quantity *= -1;
+                }
                 ProductsSoldList.Add(item);
             }
+
             transactionLineProducts.ProductsSold = ProductsSoldList;
 
             try
@@ -564,7 +591,7 @@ namespace WPFPresentationLayer.PoSPages
             bool result = false;
             PaymentType paymentType = PaymentType.Cancel;
             var due = new AmountDue(transaction.Total);
-            while (due.Amount > 0m)
+            while (due.Amount != 0)
             {
                 var frmPayment = new frmPayment(paymentType, due);
                 frmPayment.ShowDialog();
