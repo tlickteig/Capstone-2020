@@ -10,7 +10,7 @@
 
     <Grid>
         <DataGrid x:Name="dgActiveRequestList"                  
-                  Margin="5.5,10,20,0"
+                  Margin="67,45,53,38"
                   SelectionMode="Single"
                   FontSize="12"
                   FontWeight="Medium"
