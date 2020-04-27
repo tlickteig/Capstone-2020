@@ -15,8 +15,8 @@ namespace LogicLayer
     /// </summary>
     /// <remarks>
     /// UPDATED BY: Josh Jackson
-    /// UPDATE DATE: 02/14/2020
-    /// WHAT WAS CHANGED: Added GetVolunteerByName() method
+    /// UPDATE DATE: 04/16/2020
+    /// WHAT WAS CHANGED: Added GetVolunteersBySkill() method
     /// </remarks>
     public class VolunteerManager : IVolunteerManager
     {
@@ -175,6 +175,33 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Josh Jackson
+        /// DATE: 04/26/2020
+        /// Checked By: 
+        /// this method creates a foster record for a volunteer
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED: 
+        /// <param name="volunteer"></param>
+        /// <param name="newFoster"></param>
+        /// </remarks>
+        public bool CreateFoster(Volunteer volunteer, Foster newFoster)
+        {
+            bool rows = true;
+            try
+            {
+                rows = _volunteerAccessor.CreateFoster(volunteer, newFoster) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
         /// DATE: 02/07/2020
         /// Checked By: Ethan H
         /// this method passes the skill data to the presentation layer from the data access layer
@@ -198,6 +225,30 @@ namespace LogicLayer
             }
 
             return roles;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 04/26/2020
+        /// Checked By:
+        /// this method gets foster data by volunteer ID
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED: 
+        /// <param name="volunteerID"></param>
+        /// </remarks>
+        public Foster GetFosterDetailsByVolunteerID(int volunteerID)
+        {
+            try
+            {
+                return _volunteerAccessor.GetFosterDetailsByVolunteerID(volunteerID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found", ex);
+            }
         }
 
         /// <summary>
@@ -246,6 +297,57 @@ namespace LogicLayer
             {
                 throw new ApplicationException("Data not found", ex);
             }
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 04/16/2020
+        /// Checked By: 
+        /// this method retrieves the list of volunteers who have a specified skill
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED: 
+        /// <param name="skill"></param>
+        /// </remarks>
+        public List<Volunteer> GetVolunteersBySkill(string skill)
+        {
+            try
+            {
+                return _volunteerAccessor.GetVolunteersBySkill(skill);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 04/26/2020
+        /// Checked By:
+        /// this method passes the foster record data to be updated in the db from the presentation layer
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED: 
+        /// <param name="foster"></param>
+        /// <param name="newFoster"></param>
+        /// </remarks>
+        public bool UpdateFoster(Foster foster, Foster newFoster)
+        {
+            bool rows = true;
+            try
+            {
+                rows = _volunteerAccessor.UpdateFoster(foster, newFoster) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return rows;
         }
 
         /// <summary>

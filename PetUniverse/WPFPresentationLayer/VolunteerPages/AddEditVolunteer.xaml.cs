@@ -19,6 +19,7 @@ namespace WPFPresentationLayer.VolunteerPages
         private Volunteer _volunteer = null;
         private IVolunteerManager _volunteerManager = null;
         private bool _addMode = false;
+        private Foster _foster = null;
 
         /// <summary>
         /// NAME: Josh Jackson
@@ -82,6 +83,14 @@ namespace WPFPresentationLayer.VolunteerPages
                     txtNotes.Text = _volunteer.OtherNotes;
                     chkActive.IsChecked = _volunteer.Active;
                     populateSkills();
+                    if (gridFoster.Visibility == Visibility.Visible)
+                    {
+                        txtAdd1.Text = _foster.AddressLineOne;
+                        txtAdd2.Text = _foster.AddressLineTwo;
+                        txtCity.Text = _foster.City;
+                        txtState.Text = _foster.State;
+                        txtZip.Text = _foster.Zip;
+                    }
                 }
                 else
                 {
@@ -122,7 +131,6 @@ namespace WPFPresentationLayer.VolunteerPages
             lstAssignedSkills.IsEnabled = true;
             btnSave.Visibility = Visibility.Visible;
             txtFirstName.Focus();
-            //populateSkills();
         }
 
         /// <summary>
@@ -149,6 +157,21 @@ namespace WPFPresentationLayer.VolunteerPages
                     skills.Remove(r);
                 }
                 lstUnassignedSkills.ItemsSource = skills;
+
+                if (lstAssignedSkills.Items.Contains("Foster"))
+                {
+                    rowSkills.Height = new GridLength(115);
+                    rowFoster.Height = new GridLength(260);
+                    gridFoster.Visibility = Visibility.Visible;
+                    int volunteerID = _volunteer.VolunteerID;
+                    _foster = _volunteerManager.GetFosterDetailsByVolunteerID(volunteerID);
+                }
+                else
+                {
+                    rowSkills.Height = new GridLength(375);
+                    rowFoster.Height = new GridLength(0);
+                    gridFoster.Visibility = Visibility.Hidden;
+                }
             }
             catch (Exception ex)
             {
@@ -188,8 +211,13 @@ namespace WPFPresentationLayer.VolunteerPages
                 txtPhoneNumber.Focus();
                 return;
             }
-            if (!(txtEmailAddress.Text.ToString().Length > 6
-                  && txtEmailAddress.Text.ToString().Contains("@")
+            if (txtEmailAddress.Text.ToString().Length < 7)
+            {
+                MessageBox.Show("You must enter a valid email address.");
+                txtEmailAddress.Focus();
+                return;
+            }
+            if (!(txtEmailAddress.Text.ToString().Contains("@")
                   && txtEmailAddress.Text.ToString().Contains(".")))
             {
                 MessageBox.Show("You must enter a valid email address.");
@@ -203,6 +231,54 @@ namespace WPFPresentationLayer.VolunteerPages
                 return;
             }
 
+            if (gridFoster.Visibility == Visibility.Visible)
+            {
+                if (txtAdd1.Text.Length > 500)
+                {
+                    MessageBox.Show("Character limit reached for field: Address Line One - Try again");
+                    txtAdd1.Focus();
+                    return;
+                }
+                if (txtAdd1.Text.Length < 5)
+                {
+                    MessageBox.Show("Insufficient number of characters for field: Address Line One - Try again");
+                    txtAdd1.Focus();
+                    return;
+                }
+                if (txtAdd2.Text.Length > 100)
+                {
+                    MessageBox.Show("Character limit reached for field: Address Line Two - Try again");
+                    txtAdd2.Focus();
+                    return;
+                }
+                if (txtCity.Text.Length > 200)
+                {
+                    MessageBox.Show("Character limit reached for field: City - Try again");
+                    txtCity.Focus();
+                    return;
+                }
+                if (txtCity.Text.Length < 3)
+                {
+                    MessageBox.Show("Insufficient number of characters for field: City - Try again");
+                    txtCity.Focus();
+                    return;
+                }
+                if (txtState.Text.Length != 2)
+                {
+                    MessageBox.Show("Incorrect format for field: State - Hint: Try abbreviating (Al, IA, etc.)");
+                    txtState.Focus();
+                    return;
+                }
+                if (txtZip.Text.Length != 5)
+                {
+                    MessageBox.Show("Incorrect format for field: Zipcode - Try again");
+                    txtZip.Focus();
+                    return;
+                }
+            }
+
+            Foster newFoster = null;
+
             Volunteer newVolunteer = new Volunteer()
             {
                 FirstName = txtFirstName.Text.ToString(),
@@ -212,6 +288,19 @@ namespace WPFPresentationLayer.VolunteerPages
                 OtherNotes = txtNotes.Text.ToString(),
                 Active = (bool)chkActive.IsChecked
             };
+
+            if(gridFoster.Visibility == Visibility.Visible) {
+                newFoster = new Foster()
+                {
+                    VolunteerID = _volunteer.VolunteerID,
+                    AddressLineOne = txtAdd1.Text.ToString(),
+                    AddressLineTwo = txtAdd2.Text.ToString(),
+                    City = txtCity.Text.ToString(),
+                    State = txtState.Text.ToString(),
+                    Zip = txtZip.Text.ToString(),
+                };
+            }
+            
 
             if (_addMode)
             {
@@ -233,7 +322,17 @@ namespace WPFPresentationLayer.VolunteerPages
                 try
                 {
                     _volunteerManager.UpdateVolunteer(_volunteer, newVolunteer);
-
+                    if (gridFoster.Visibility == Visibility.Visible)
+                    {
+                        if (_foster == null)
+                        {
+                            _volunteerManager.CreateFoster(_volunteer, newFoster);
+                        }
+                        else
+                        {
+                            _volunteerManager.UpdateFoster(_foster, newFoster);
+                        }
+                    }
                     this.NavigationService?.Navigate(new ViewVolunteers());
 
                 }
@@ -265,11 +364,6 @@ namespace WPFPresentationLayer.VolunteerPages
                     MessageBoxButton.YesNo, MessageBoxImage.Warning)
                     == MessageBoxResult.No)
                 {
-                    txtFirstName.Text = "";
-                    txtLastName.Text = "";
-                    txtEmailAddress.Text = "";
-                    txtPhoneNumber.Text = "";
-                    txtNotes.Text = "";
                     return;
                 }
                 this.NavigationService?.Navigate(new ViewVolunteers());

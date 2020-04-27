@@ -22,6 +22,7 @@ namespace WPFPresentationLayer.VolunteerPages
             _volunteerManager = new VolunteerManager();
             populateVolunteers();
             _volunteer = new Volunteer();
+            cbSort.ItemsSource = _volunteerManager.GetAllSkills();
         }
 
         private Volunteer _volunteer = null;
@@ -229,6 +230,30 @@ namespace WPFPresentationLayer.VolunteerPages
             if (txtSearch.Text.Length == 0)
             {
                 refreshVolunteerList();
+            }
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 04/16/2020
+        /// Checked By: 
+        /// This refreshes the datagrid when sorted by skill
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATE DATE: 
+        /// WHAT WAS CHANGED: 
+        /// </remarks>
+        private void cbSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string skill = (string)cbSort.SelectedItem;
+            try
+            {
+                dgVolunteerList.ItemsSource = _volunteerManager.GetVolunteersBySkill(skill);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("No volunteers found");
             }
         }
     }
