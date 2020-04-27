@@ -213,5 +213,52 @@ namespace DataAccessLayer
             }
             return rows;
         }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/24
+        /// Approver: Jesse Tomash
+        /// Approver: 
+        ///
+        /// Methods to update orderStatus
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public int UpdateOrderStatus(Order order, string orderStatus)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmdText = @"sp_update_order_status_by_orderID";
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@NewOrderStatus", orderStatus);
+            cmd.Parameters.AddWithValue("@OldOrderID", order.OrderID);
+            cmd.Parameters.AddWithValue("@OldEmployeeID", order.UserID);
+            cmd.Parameters.AddWithValue("@OldActive", order.Active);
+            cmd.Parameters.AddWithValue("@OldOrderStatus", order.OrderStatus);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
     }
 }

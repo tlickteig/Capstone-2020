@@ -2,7 +2,7 @@
 Creator: Jesse Tomash
 Created: 2020/03/30
 Approver: Brandyn T. Coverdill
-Approver:  
+Approver: Dalton Reierson
     
 This page is used to View all Orders.   
 -->
@@ -56,6 +56,7 @@ This page is used to View all Orders.
                     <Button Width="100" Height="30" Visibility="Visible" Grid.Column="0" x:Name="btnAddOrder" Content="Add Order" HorizontalAlignment="Center" Margin="975,20,115,-10"  Click="BtnAddOrder_Click" Grid.ColumnSpan="2" />
                     <Button Width="100" Height="30" x:Name="btnDeleteOrder" Grid.Column="1" Content="Delete Order" HorizontalAlignment="Center" Margin="104,20,10,-10"></Button>
                     <Button Width="100" Height="30" x:Name="btnViewOrder" Content="View Order" HorizontalAlignment="Center" Margin="866,20,10,-10" Click="btnViewOrder_Click" />
+                    <Button Width="100" Height="30" x:Name="btnOrderDetails" Content="Details" HorizontalAlignment="Center" Margin="761,20,115,-10" Click="btnOrderDetails_Click" />
                 </Grid>
             </Grid>
         </Canvas>

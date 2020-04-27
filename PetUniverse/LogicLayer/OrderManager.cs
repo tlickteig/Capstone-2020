@@ -205,5 +205,35 @@ namespace LogicLayer
 
             return result;
         }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/24
+        /// Approver: Jesse Tomash
+        /// Approver: 
+        ///
+        /// edits order status
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public bool EditOrderStatus(Order order, string orderStatus)
+        {
+            bool result = true;
+            try
+            {
+                result = (1 == _orderAccessor.UpdateOrderStatus(order, orderStatus));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
+        }
     }
 }

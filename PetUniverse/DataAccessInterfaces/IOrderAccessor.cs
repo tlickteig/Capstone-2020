@@ -76,5 +76,21 @@ namespace DataAccessInterfaces
         /// <param name="orderID"></param>
         /// <returns></returns>
         int DeleteOrder(int orderID);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/23
+        /// Approver: Jesse Tomash
+        /// Approver: 
+        ///
+        /// Interface method to update the orderStatus of an order
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        int UpdateOrderStatus(Order order, string orderStatus);
     }
 }

@@ -95,11 +95,13 @@
     <Compile Include="FakeMessageAccessor.cs" />
     <Compile Include="FakeNewAnimalChecklistAccessor.cs" />
     <Compile Include="FakeOrderAccessor.cs" />
+    <Compile Include="FakeOrderLineAccessor.cs" />
     <Compile Include="FakePetUniverseUserERolesAccessor.cs" />
     <Compile Include="FakePictureAccessor.cs" />
     <Compile Include="FakePoSCustomerPortalAccessor.cs" />
     <Compile Include="FakeProductAccessor.cs" />
     <Compile Include="FakePromotionAccessor.cs" />
+    <Compile Include="FakeReceivingRecordAccessor.cs" />
     <Compile Include="FakeRequestAccessor.cs" />
     <Compile Include="FakeReviewerAccessor.cs" />
     <Compile Include="FakeSalesTaxAccessor.cs" />

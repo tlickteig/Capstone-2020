@@ -220,5 +220,32 @@ namespace WPFPresentationLayer.InventoryPages
         {
             SetUpViewOrder();
         }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/24
+        /// Approver: Jesse Tomash
+        /// Approver: 
+        ///
+        /// button that takes you to a detailed view of an order
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        private void btnOrderDetails_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _order = (Order)dgOrders.SelectedItem;
+                this.NavigationService?.Navigate(new ViewOrderDetails(_order));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 }

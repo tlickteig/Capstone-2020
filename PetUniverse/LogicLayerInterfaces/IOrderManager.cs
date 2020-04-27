@@ -87,5 +87,21 @@ namespace LogicLayerInterfaces
         /// WHAT WAS CHANGED:
         /// </remarks>
         bool DeleteOrder(int orderInvoiceID);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/23
+        /// Approver: Jesse Tomash
+        /// Approver: 
+        ///
+        /// Interface method to edit an orders status
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        bool EditOrderStatus(Order order, string orderStatus);
     }
 }
