@@ -601,7 +601,7 @@ CREATE TABLE [dbo].[AdoptionApplication](
 	[CustomerEmail]				[nvarchar](250)					NOT NULL,
 	[AnimalID]					[int]									,
 	[Status]					[nvarchar]	(1000)						,
-	[RecievedDate]				[datetime]						NOT NULL,
+	[RecievedDate]				[datetime]						NOT NULL DEFAULT GETDATE(), 
 	[Active]					[bit]	DEFAULT 1        		NOT NULL,
 	CONSTRAINT [pk_AdoptionApplicationID] PRIMARY KEY ([AdoptionApplicationID]),
 	CONSTRAINT [fk_AdoptionApplication_Customer_CustomerEmail] FOREIGN KEY ([CustomerEmail])

@@ -21,6 +21,7 @@ namespace WPFPresentation.Controllers
         private Questionnair questionnair;
         private IAdoptionCustomerManager _adoptionCustomerManager;
         private IAdoptionApplicationManager _adoptionApplicationManager;
+        private AdoptionAnimalManager _adoptionAnimalManager;
 
         /// <summary>
         /// Creator: Awaab Elamin
@@ -40,6 +41,7 @@ namespace WPFPresentation.Controllers
             questionnair = new Questionnair();
             _adoptionCustomerManager = new AdoptionCustomerManager();
             _adoptionApplicationManager = new AdoptionApplicationManager();
+            _adoptionAnimalManager = new AdoptionAnimalManager();
         }
 
 
@@ -50,16 +52,38 @@ namespace WPFPresentation.Controllers
         /// main page of the adoption section
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA 
+        /// UPDATED BY: Michael Thompson
+        /// UPDATE DATE: 04/7/20
+        /// Approver Thomas Dupuy
+        /// CHANGE: Adding the correct ActionResult to show all animals
         /// </remarks>
         /// <returns ActionResult></returns>
         // GET: Adoption
         [HttpGet]
         public ActionResult Index()
         {
-            return View();
+            bool active = true;
+            var animalProfiles = _adoptionAnimalManager.RetrieveAdoptionAnimalsByActive(active);
+            return View(animalProfiles);
+        }
+
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 04/7/20
+        /// Approver Thomas Dupuy
+        ///
+        /// Action result to for the profiles page. 
+        /// Takes a user to a new appliction with the selected animal ID and their profile
+        /// </summary>
+        /// <param name="model"></param>
+        /// <param name="animalID"></param>
+        /// <returns>New adoption application page</returns>
+        public ActionResult Start(LoginViewModel model, int animalID)
+        {
+            this.adoptionApplication.AnimalID = animalID;
+            this.adoptionApplication.CustomerEmail = model.Email;
+
+            return View(this.adoptionApplication);
         }
 
         /// <summary>
