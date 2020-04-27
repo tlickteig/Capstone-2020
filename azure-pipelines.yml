@@ -62,7 +62,7 @@ steps:
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**\bin\$(BuildConfiguration)\**'
+    Contents: '$(system.defaultworkingdirectory)'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
   condition: succeededOrFailed()
 
