@@ -84,5 +84,35 @@ namespace LogicLayerInterfaces
         /// Update: NA
         /// </remarks>
         int DeleteCreditCard(string cardNumber);
+
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// submits Survey record.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        int InsertCustomerSurvey(string customerName, string serviceRating, string notes);
+
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// submits Conflict record.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        int InsertEmpCustProblem(string problemType, string name, string description);
     }
 }

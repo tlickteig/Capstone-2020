@@ -2255,6 +2255,44 @@ CREATE TABLE [dbo].[FosterAppointment] (
 GO
 
 /*
+Created by: Ethan Holmes
+Date: 04/28/2020
+Comment: Create Customer Survey Table
+*/
+DROP TABLE IF EXISTS [dbo].[CustomerSurvey]
+GO
+PRINT '' PRINT '*** Creating CustomerSurvey Table'
+GO
+CREATE TABLE [dbo].[CustomerSurvey](
+	[SurveyID] 				[int] IDENTITY(1000000,1) 	NOT NULL,
+	[CustomerName]			[NVARCHAR](100)				NOT NULL,
+	[ServiceRating]			[NVARCHAR](100)				NOT NULL,
+	[Notes]					[NVARCHAR](100)				NOT NULL,
+
+	CONSTRAINT [pk_SurveyID] PRIMARY KEY([SurveyID] ASC),
+)
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/28/2020
+Comment: Create Report EmpCustProblem Table
+*/
+DROP TABLE IF EXISTS [dbo].[EmpCustProblem]
+GO
+PRINT '' PRINT '*** Creating EmpCustProblem Table'
+GO
+CREATE TABLE [dbo].[EmpCustProblem](
+	[ProblemID] 			[int] IDENTITY(1000000,1) 	NOT NULL,
+	[ProblemType]			[NVARCHAR](100)				NOT NULL,
+	[Name]					[NVARCHAR](100)				NOT NULL,
+	[Description]			[NVARCHAR](100)				NOT NULL,
+
+	CONSTRAINT [pk_ProblemID] PRIMARY KEY([ProblemID] ASC),
+)
+GO
+
+/*
  ******************************* Create Procedures *****************************
 */
 PRINT '' PRINT '******************* Create Procedures *********************'
@@ -4684,6 +4722,8 @@ BEGIN
 	SELECT SCOPE_IDENTITY()
 END
 GO
+
+
 
 /*
 Created By: Ethan Holmes
@@ -12041,6 +12081,56 @@ AS
 BEGIN
 	DELETE FROM [dbo].[FosterAppointment]
 	WHERE @FosterAppointmentID = [FosterAppointmentID]
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 4/28/2020
+Comment: sp_insert_customer_survey inserts customer survey data into
+		CustomerSurvey table.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_customer_survey]
+GO
+PRINT '' PRINT '*** Creating sp_insert_customer_survey'
+GO
+CREATE PROCEDURE [sp_insert_customer_survey]
+(
+@CustomerName 			[nvarchar](100),
+@ServiceRating			[nvarchar](100),
+@Notes					[nvarchar](100)
+)
+AS
+BEGIN
+    INSERT INTO [dbo].[CustomerSurvey] 
+	([CustomerName], [ServiceRating], [Notes])
+	VALUES 
+	(@CustomerName, @ServiceRating, @Notes)
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 4/28/2020
+Comment: sp_insert_emp_cust_problem inserts customer/employee problem data into
+		EmpCustProblem table.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_emp_cust_problem]
+GO
+PRINT '' PRINT '*** Creating sp_insert_emp_cust_problem'
+GO
+CREATE PROCEDURE [sp_insert_emp_cust_problem]
+(
+@ProblemType			[nvarchar](100),
+@Name					[nvarchar](100),
+@Description			[nvarchar](100)
+)
+AS
+BEGIN
+    INSERT INTO [dbo].[EmpCustProblem] 
+	([ProblemType], [Name], [Description])
+	VALUES 
+	(@ProblemType, @Name, @Description)
 END
 GO
 

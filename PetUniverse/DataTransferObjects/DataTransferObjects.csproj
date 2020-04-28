@@ -95,11 +95,13 @@
     <Compile Include="CustomerErrorVM.cs" />
     <Compile Include="CustomerQuestionnar.cs" />
     <Compile Include="CustomerQuestionnarVM.cs" />
+    <Compile Include="CustomerSurveyVM.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="DepartmentRequest.cs" />
     <Compile Include="DepartmentRequestVM.cs" />
     <Compile Include="Donation.cs" />
     <Compile Include="Donor.cs" />
+    <Compile Include="EmpCustProblemVM.cs" />
     <Compile Include="EmployeeAvailability.cs" />
     <Compile Include="ERole.cs" />
     <Compile Include="EventApprovalVM.cs" />
