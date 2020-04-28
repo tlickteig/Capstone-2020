@@ -110,6 +110,8 @@
     <Compile Include="FacilityMaintenance.cs" />
     <Compile Include="FacilityTask.cs" />
     <Compile Include="Foster.cs" />
+    <Compile Include="FosterAppointment.cs" />
+    <Compile Include="FosterAppointmentVM.cs" />
     <Compile Include="GeneralQuestion.cs" />
     <Compile Include="HomeInspectorAdoptionAppointmentDecision.cs" />
     <Compile Include="InventoryItems.cs" />

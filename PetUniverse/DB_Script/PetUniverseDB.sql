@@ -2232,6 +2232,28 @@ CREATE TABLE [dbo].[OrderLine](
 GO
 
 /*
+	AUTHOR: Timothy Lickteig
+	DATE: 2020/04/27
+	DESCRIPTION: Create the foster appointment table
+*/
+DROP TABLE IF EXISTS [dbo].[FosterAppointment]
+GO
+
+print '' print '*** Creating FosterAppointment Table'
+GO
+CREATE TABLE [dbo].[FosterAppointment] (
+	[FosterAppointmentID] 		[int] 	IDENTITY(1000000, 1) 	NOT NULL,
+	[VolunteerID] 				[int] 							NOT NULL,
+	[StartTime] 				[time] 							NOT NULL,
+	[EndTime] 					[time]							NOT NULL,
+	[Description] 				[nvarchar](4000)				NOT NULL,
+	CONSTRAINT [pk_FosterAppointment_FosterAppointmentID] PRIMARY KEY([FosterAppointmentID] ASC),
+	CONSTRAINT [fk_FosterAppointment_VolunteerID] FOREIGN KEY([VolunteerID])
+			REFERENCES [Volunteer]([VolunteerID])
+)
+GO
+
+/*
  ******************************* Create Procedures *****************************
 */
 PRINT '' PRINT '******************* Create Procedures *********************'
@@ -11917,6 +11939,109 @@ BEGIN
 END
 GO
 
+/*
+	AUTHOR: Timothy Lickteig
+	DATE: 2020/04/27
+	DESCRIPTION: Create stored procedure for inserting foster appointments
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_foster_appointment]
+GO
+print '' print '*** Creating sp_insert_foster_appointment ***'
+GO
+CREATE PROCEDURE [sp_insert_foster_appointment]
+(
+	@VolunteerID [int],
+	@StartTime [time],
+	@EndTime [time],
+	@Description [nvarchar](4000)
+)
+AS
+BEGIN
+	
+	INSERT INTO [dbo].[FosterAppointment]
+	([VolunteerID], [StartTime], 
+	[EndTime], [Description])
+	VALUES
+	(@VolunteerID, @StartTime, @EndTime, @Description)
+END
+GO
+
+/*
+	AUTHOR: Timothy Lickteig
+	DATE: 2020/04/27
+	DESCRIPTION: Create stored procedure for viewing foster appointments
+*/
+DROP PROCEDURE IF EXISTS [sp_select_foster_appointments]
+GO
+print '' print '*** Creating sp_select_foster_appointments ***'
+GO
+CREATE PROCEDURE [sp_select_foster_appointments]
+AS
+BEGIN
+	SELECT
+		[FosterAppointment].[VolunteerID], [FosterAppointmentID],[StartTime], [EndTime], 
+		[Description], [Volunteer].[FirstName], [Volunteer].[LastName]
+	FROM [dbo].[FosterAppointment]
+	INNER JOIN [Volunteer] ON [Volunteer].[VolunteerID] = [FosterAppointment].[VolunteerID]
+END
+GO
+
+/*
+	AUTHOR: Timothy Lickteig
+	DATE: 2020/04/27
+	DESCRIPTION: Create stored procedure for updating foster appointments
+*/
+DROP PROCEDURE IF EXISTS [sp_update_foster_appointment]
+GO
+print '' print '*** Creating sp_update_foster_appointment ***'
+GO
+CREATE PROCEDURE [sp_update_foster_appointment] (
+	@FosterAppointmentID [int],
+	@OldVolunteerID [int],
+	@OldStartTime [time],
+	@OldEndTime [time],
+	@OldDescription [nvarchar](4000),
+	@NewVolunteerID [int],
+	@NewStartTime [time],
+	@NewEndTime [time],
+	@NewDescription [nvarchar](4000)
+)
+AS
+BEGIN
+	UPDATE [dbo].[FosterAppointment]
+	SET
+		[VolunteerID] = @NewVolunteerID,
+		[StartTime] = @NewStartTime,
+		[EndTime] = @NewEndTime,
+		[Description] = @NewDescription
+	WHERE [FosterAppointmentID] = @FosterAppointmentID
+	/*
+		AND [StartTime] = @OldStartTime
+		AND [EndTime] = @OldEndTime
+		AND [VolunteerID] = @OldVolunteerID
+		AND [Description] = @OldDescription
+		*/
+END
+GO
+
+/*
+	AUTHOR: Timothy Lickteig
+	DATE: 2020/04/27
+	DESCRIPTION: Create stored procedure for deleting foster appointments
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_foster_appointment]
+GO
+print '' print '*** Creating sp_delete_foster_appointment ***'
+GO
+CREATE PROCEDURE [sp_delete_foster_appointment] (
+	@FosterAppointmentID [int]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[FosterAppointment]
+	WHERE @FosterAppointmentID = [FosterAppointmentID]
+END
+GO
 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -13842,5 +13967,18 @@ INSERT INTO [dbo].[OrderLine]
 	(100001, 100002, 100002, 11, 11)
 GO
 
+/*
+Created by: Timothy Lickteig
+Date: 2020/04/27
+Comment: Inserting sample Foster Appointments
+*/
+print'' print'*** Inserting sample Foster Appointments ***'
+GO
 
+INSERT INTO [dbo].[FosterAppointment]
+	([VolunteerID], [StartTime], [EndTime], [Description])
+	VALUES
+	(1000000, '15:00:00', '17:00:00', "This is a description"),
+	(1000001, '12:00:00', '13:00:00', "This is another description")
+GO
 -- End of file

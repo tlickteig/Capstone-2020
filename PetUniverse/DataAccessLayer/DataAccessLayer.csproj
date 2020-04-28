@@ -82,6 +82,7 @@
     <Compile Include="FacilityInspectionItemAccessor.cs" />
     <Compile Include="FacilityMaintenanceAccessor.cs" />
     <Compile Include="FacilityTaskAccessor.cs" />
+    <Compile Include="FosterAppointmentAccessor.cs" />
     <Compile Include="HomeInspectorAccessor.cs" />
     <Compile Include="InHomeInspectionAppointmentDecisionAccessor.cs" />
     <Compile Include="InventoryItemsAccessor.cs" />

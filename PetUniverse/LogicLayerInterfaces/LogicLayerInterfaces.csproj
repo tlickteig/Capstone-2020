@@ -79,6 +79,7 @@
     <Compile Include="IFacilityInspectionManager.cs" />
     <Compile Include="IFacilityMaintenanceManager.cs" />
     <Compile Include="IFacilityTaskManager.cs" />
+    <Compile Include="IFosterAppointmentManager.cs" />
     <Compile Include="IHomeInspectorManager.cs" />
     <Compile Include="IInHomeInspectionAppointmentDecisionManager.cs" />
     <Compile Include="IInventoryItemsManager.cs" />

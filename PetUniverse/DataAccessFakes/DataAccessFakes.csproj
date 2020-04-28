@@ -81,6 +81,7 @@
     <Compile Include="FakeFacilityInspectionItemAccessor.cs" />
     <Compile Include="FakeFacilityMaintenanceAccessor.cs" />
     <Compile Include="FakeFacilityTaskAccessor.cs" />
+    <Compile Include="FakeFosterAppointmentAccessor.cs" />
     <Compile Include="FakeHomeInspectorAccessor.cs" />
     <Compile Include="FakeInHomeInspectionAppointmentDecisionAccessor.cs" />
     <Compile Include="FakeInventoryItemsAccessor.cs" />

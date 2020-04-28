@@ -374,6 +374,13 @@
                     <Frame x:Name="frmViewAllVolunteerSchedules"
                            Source="./VolunteerPages/ViewAllVolunteerSchedules.xaml" />
                 </TabItem>
+                <TabItem x:Name="FosterAppointments"
+                         Header="Foster Appointments"
+                         FontWeight="Bold"
+                         Background="#fff8e3">
+                    <Frame x:Name="frmFosterAppointments"
+                           Source="./VolunteerPages/FosterAppointments.xaml" />
+                </TabItem>
             </TabControl>
         </Canvas>
 

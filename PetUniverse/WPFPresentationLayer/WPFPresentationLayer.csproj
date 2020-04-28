@@ -393,11 +393,17 @@
     <Compile Include="VolunteerPages\CreateEditShift.xaml.cs">
       <DependentUpon>CreateEditShift.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VolunteerPages\FosterAppointments.xaml.cs">
+      <DependentUpon>FosterAppointments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\frmAddMedicine.xaml.cs">
       <DependentUpon>frmAddMedicine.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\frmCreateEditVolunteerEvent.xaml.cs">
       <DependentUpon>frmCreateEditVolunteerEvent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\frmScheduleFosterAppointment.xaml.cs">
+      <DependentUpon>frmScheduleFosterAppointment.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\frmSignUpForShift.xaml.cs">
       <DependentUpon>frmSignUpForShift.xaml</DependentUpon>
@@ -800,11 +806,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VolunteerPages\FosterAppointments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VolunteerPages\frmAddMedicine.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="VolunteerPages\frmCreateEditVolunteerEvent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\frmScheduleFosterAppointment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
