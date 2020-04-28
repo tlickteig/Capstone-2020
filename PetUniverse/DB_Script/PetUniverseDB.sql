@@ -1367,7 +1367,8 @@ GO
 Created by: Josh Jackson
 Date: 2/8/2020
 Comment: Table that houses Volunteer Information
-*/DROP TABLE IF EXISTS [dbo].[Volunteer]
+*/
+DROP TABLE IF EXISTS [dbo].[Volunteer]
 GO
 PRINT '' PRINT '*** Creating Volunteer Table'
 GO
