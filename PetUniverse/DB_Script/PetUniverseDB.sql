@@ -13979,7 +13979,7 @@ GO
 INSERT INTO [dbo].[FosterAppointment]
 	([VolunteerID], [StartTime], [EndTime], [Description])
 	VALUES
-	(1000000, '15:00:00', '17:00:00', "This is a description"),
-	(1000001, '12:00:00', '13:00:00', "This is another description")
+	(1000000, '15:00:00', '17:00:00', 'This is a description'),
+	(1000001, '12:00:00', '13:00:00', 'This is another description')
 GO
 -- End of file
