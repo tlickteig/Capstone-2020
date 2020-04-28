@@ -429,6 +429,74 @@ namespace DataAccessFakes
                 throw ex;
             }
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/28/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to get a fake Volunteer
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Volunteer getVolunteerByEmail(string email)
+        {
+            Volunteer _volunteer = new Volunteer();
+            foreach (var volunteer in volunteers)
+            {
+                if (volunteer.Email == email)
+                {
+                    _volunteer = volunteer;
+                    break;
+                }
+            }
+            return _volunteer;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/28/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to Authenticate a fake Volunteer 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="username"></param>
+        /// <param name="passwordHash"></param>
+        /// <returns></returns>
+        public Volunteer AuthenticateVolunteer(string username, string passwordHash)
+        {
+            bool userName = username.Equals("j.doe@RandoGuy.com");
+            bool hash = passwordHash.Equals("A7574A42198B7D7EEE2C037703A0B95558F195457908D6975E681E2055FD5EB9");
+
+            if (userName && hash)
+            {
+                Volunteer volunteer = new Volunteer()
+                {
+                    Email = "j.doe@RandoGuy.com",
+                    FirstName = "John",
+                    LastName = "Doe",
+                    PhoneNumber = "5632102101",
+                    Active = true
+                };
+                return volunteer;
+            }
+            else
+            {
+                throw new ApplicationException("Invalid User");
+            }
+        }
     }
 }
 

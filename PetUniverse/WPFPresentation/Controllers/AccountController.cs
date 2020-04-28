@@ -158,6 +158,7 @@ namespace WPFPresentation.Controllers
             if (ModelState.IsValid)
             {
                 LogicLayer.UserManager userMgr = new LogicLayer.UserManager();
+                LogicLayer.VolunteerManager volMgr = new LogicLayer.VolunteerManager();
                 try
                 {
                     if (userMgr.FindUser(model.Email))
@@ -181,6 +182,31 @@ namespace WPFPresentation.Controllers
                                 UserManager.AddToRole(newuser.Id, role);
                             }
                             await SignInManager.SignInAsync(newuser, isPersistent: false, rememberBrowser: false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        AddErrors(newresult);
+                    }
+                    else if (volMgr.FindVolunteer(model.Email))
+                    {
+                        var oldVolunteer = volMgr.AuthenticateVolunteer(model.Email, model.Password);
+                        var newVolunteer = new ApplicationUser
+                        {
+                            GivenName = oldVolunteer.FirstName,
+                            FamilyName = oldVolunteer.LastName,
+                            VolEmail = oldVolunteer.Email,
+
+                            UserName = model.Email,
+                            Email = model.Email
+
+                        };
+                        var newresult = await UserManager.CreateAsync(newVolunteer, model.Password);
+                        if (newresult.Succeeded)
+                        {
+                            foreach (var role in oldVolunteer.Skills)
+                            {
+                                UserManager.AddToRole(newVolunteer.Id, role);
+                            }
+                            await SignInManager.SignInAsync(newVolunteer, isPersistent: false, rememberBrowser: false);
                             return RedirectToAction("Index", "Home");
                         }
                         AddErrors(newresult);
@@ -313,6 +339,64 @@ namespace WPFPresentation.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        public ActionResult RegisterVolunteerUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterVolunteerUser(RegisterVolunteerViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                LogicLayer.VolunteerManager volMgr = new LogicLayer.VolunteerManager();
+                try
+                {
+                    if (volMgr.FindVolunteer(model.Email))
+                    {
+                        return RedirectToAction("Register", "Account");
+                    }
+                    else
+                    {
+                        var volunteer = new DataTransferObjects.Volunteer
+                        {
+                            FirstName = model.GivenName,
+                            LastName = model.FamilyName,
+                            Email = model.Email,
+                            PhoneNumber = model.PhoneNumber
+
+                        };
+                        if (volMgr.AddVolunteer(volunteer))
+                        {
+                            var VolunteerID = volMgr.RetrieveVolunteerIDFromEmail(model.Email);
+                            var user = new ApplicationUser
+                            {
+                                VolEmail = model.Email,
+                                GivenName = model.GivenName,
+                                FamilyName = model.FamilyName,
+                                UserName = model.Email,
+                                Email = model.Email
+
+                            };
+                            var result = await UserManager.CreateAsync(user, "newuser");
+                            if (result.Succeeded)
+                            {
+                                return RedirectToAction("Index", "Admin");
+                            }
+                            AddErrors(result);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
 
         //
         // GET: /Account/ConfirmEmail

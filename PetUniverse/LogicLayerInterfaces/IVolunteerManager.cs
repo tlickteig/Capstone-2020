@@ -30,5 +30,8 @@ namespace LogicLayerInterfaces
         bool CreateFoster(Volunteer volunteer, Foster newFoster);
         Foster GetFosterDetailsByVolunteerID(int volunteerID);
         bool UpdateFoster(Foster foster, Foster newFoster);
+
+        bool FindVolunteer(string email);
+        int RetrieveVolunteerIDFromEmail(string email);
     }
 }

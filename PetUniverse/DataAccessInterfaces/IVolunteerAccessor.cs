@@ -247,5 +247,39 @@ namespace DataAccessInterfaces
         /// <param name="newFoster"></param>
         /// </remarks>
         int UpdateFoster(Foster foster, Foster newFoster);
+
+        /// <summary>
+        /// Creator: Zach Bherensmeyer
+        /// Created: 4/28/2020
+        /// Approver: Steven Cardona
+        ///
+        /// Interface method signature for selecting a volunteer by email
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        Volunteer getVolunteerByEmail(string email);
+
+        /// <summary>
+        /// Creator: Zach Bherensmeyer
+        /// Created: 4/28/2020
+        /// Approver: Steven Cardona
+        ///
+        /// Interface method signature for selecting a volunteer by email
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="username"></param>
+        /// <param name="passwordHash"></param>
+        /// <returns></returns>
+        Volunteer AuthenticateVolunteer(string username, string passwordHash);
+
     }
 }

@@ -217,6 +217,10 @@
     <Compile Include="Migrations\202004251915081_EmployeeId and CustEmail.Designer.cs">
       <DependentUpon>202004251915081_EmployeeId and CustEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004280520284_VolEmail.cs" />
+    <Compile Include="Migrations\202004280520284_VolEmail.Designer.cs">
+      <DependentUpon>202004280520284_VolEmail.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicantListViewModel.cs" />
@@ -561,6 +565,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Account\RegisterEmployeeUser.cshtml" />
     <Content Include="Views\Adoption\Index.cshtml" />
+    <Content Include="Views\Account\RegisterVolunteerUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -601,6 +606,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004251915081_EmployeeId and CustEmail.resx">
       <DependentUpon>202004251915081_EmployeeId and CustEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004280520284_VolEmail.resx">
+      <DependentUpon>202004280520284_VolEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

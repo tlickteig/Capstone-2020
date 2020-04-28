@@ -1367,8 +1367,7 @@ GO
 Created by: Josh Jackson
 Date: 2/8/2020
 Comment: Table that houses Volunteer Information
-*/
-DROP TABLE IF EXISTS [dbo].[Volunteer]
+*/DROP TABLE IF EXISTS [dbo].[Volunteer]
 GO
 PRINT '' PRINT '*** Creating Volunteer Table'
 GO
@@ -11870,6 +11869,54 @@ BEGIN
 	ORDER BY [AnimalName]
 END
 GO
+
+/*
+	Created by: Zach Behrensmeyer
+	Date: 04/27/2020
+	Comment: Store Procedure to find Volunteer by  Email
+*/
+DROP PROCEDURE IF EXISTS [sp_select_volunteer_by_email]
+GO
+PRINT '' PRINT '*** Creating sp_select_volunteer_by_email'
+GO
+CREATE PROCEDURE [sp_select_volunteer_by_email]
+(
+	@volunteerEmail 		[nvarchar](250)
+)
+AS
+BEGIN
+
+	SELECT  [Email],[FirstName],[LastName],[PhoneNumber],[Active]
+
+	FROM 	[dbo].[Volunteer]
+	WHERE	[Email] = @volunteerEmail
+END
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 4/27/2020
+Comment: Sproc to sp_authenticate_volunteer customer
+*/
+DROP PROCEDURE IF EXISTS [sp_authenticate_volunteer]
+GO
+PRINT '' PRINT '*** Creating sp_authenticate_volunteer'
+GO
+CREATE PROCEDURE [sp_authenticate_volunteer]
+(
+@Email 			[nvarchar](250),
+@PasswordHash	[nvarchar](100)
+)
+AS
+BEGIN
+    SELECT COUNT([Email])
+    FROM 	[dbo].[Volunteer]
+    WHERE 	[Email] = @Email
+    AND 	[PasswordHash] = @PasswordHash
+    AND 	[Active] = 1
+END
+GO
+
 
 /*
  ******************************* Inserting Sample Data *****************************

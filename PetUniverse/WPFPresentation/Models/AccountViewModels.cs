@@ -141,6 +141,33 @@ namespace WPFPresentation.Models
 
     }
 
+    public class RegisterVolunteerViewModel
+    {
+        [Required]
+        [Display(Name = "First Name")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 2)]
+        public string GivenName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long", MinimumLength = 2)]
+        public string FamilyName { get; set; }
+
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(11, ErrorMessage = "Enter a valid phone number.", MinimumLength = 7)]
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+    }
+
+
+
     public class ResetPasswordViewModel
     {
         [Required]

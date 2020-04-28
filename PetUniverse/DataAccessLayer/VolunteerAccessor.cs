@@ -744,5 +744,125 @@ namespace DataAccessLayer
 
             return rows;
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/28/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to authenticate the volunteer and make sure they exist for login
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Volunteer getVolunteerByEmail(string email)
+        {
+            Volunteer volunteer = null;
+            // connection
+            var conn = DBConnection.GetConnection();
+            // commands
+            var cmd = new SqlCommand("sp_select_volunteer_by_email", conn);
+            // command type
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.Add("@volunteerEmail", SqlDbType.NVarChar, 250);
+            cmd.Parameters["@volunteerEmail"].Value = email;
+            try
+            {
+                // open the connection
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+
+                    while (reader.Read())
+                    {
+                        volunteer = new Volunteer();
+
+                        volunteer.Email = reader.GetString(0);
+                        volunteer.FirstName = reader.GetString(1);
+                        volunteer.LastName = reader.GetString(2);
+                        volunteer.PhoneNumber = reader.GetString(3);
+                        volunteer.Active = reader.GetBoolean(4);
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception)
+            {
+                throw new ApplicationException("Volunteer not found.");
+            }
+            finally
+            {
+                // Close the connection 
+                conn.Close();
+            }
+            return volunteer;
+        }
+        /// <summary>
+        /// NAME: Zach Behrensmeyer
+        /// DATE: 4/28/2020
+        /// CHECKED BY: Steven Cardona
+        /// 
+        /// This method is used to authenticate the customer and make sure they exist for login
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="username"></param>
+        /// <param name="passwordHash"></param>
+        /// <returns></returns>
+        public Volunteer AuthenticateVolunteer(string username, string passwordHash)
+        {
+            Volunteer result = null;
+
+            //Get a connection
+            var conn = DBConnection.GetConnection();
+
+            //Call the sproc
+            var cmd = new SqlCommand("sp_authenticate_volunteer");
+            cmd.Connection = conn;
+
+            //Set the command type
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            //Create the parameters
+            cmd.Parameters.Add("@Email", SqlDbType.NVarChar, 250);
+            cmd.Parameters.Add("@PasswordHash", SqlDbType.NVarChar, 100);
+
+            //Set the parameters
+            cmd.Parameters["@Email"].Value = username;
+            cmd.Parameters["@PasswordHash"].Value = passwordHash;
+
+            try
+            {
+                conn.Open();
+
+                if (1 == Convert.ToInt32(cmd.ExecuteScalar()))
+                {
+                    //Check the db for the given email
+                    result = getVolunteerByEmail(username);
+                }
+                else
+                {
+                    throw new ApplicationException("Volunteer not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
+        }
+
     }
 }

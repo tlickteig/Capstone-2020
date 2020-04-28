@@ -4,7 +4,10 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace LogicLayerTests
 {
@@ -363,5 +366,96 @@ namespace LogicLayerTests
             //Assert
             Assert.AreEqual(actualResult, expectedResults);
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/3/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method hashes the given password for tests
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>
+        /// <param name="source"></param>
+        /// <returns>Hashed Password</returns>
+        private string hashPassword(string source)
+        {
+            string result = null;
+
+            byte[] data;
+
+            using (SHA256 sha256hash = SHA256.Create())
+            {
+                data = sha256hash.ComputeHash(Encoding.UTF8.GetBytes(source));
+            }
+            var s = new StringBuilder();
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                s.Append(data[i].ToString("x2"));
+            }
+
+            result = s.ToString().ToUpper();
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 2/5/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This Method is a failing test for the UserAuthentication() method
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// 
+        /// </remarks>
+        /// </summary>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestCustomerManagerAuthenticationUserNameException()
+        {
+            //Arrange            
+            string email = "j.blue@RandoGuy.com";
+            Volunteer volunteer = new Volunteer();
+            //Value you want PasswordHash() to return
+            //Hashing Password
+            string goodPasswordHash = hashPassword("passwordtest");
+            //Act
+            volunteer = _volunteerAccessor.AuthenticateVolunteer(email, goodPasswordHash);
+            //Assert not needed   
+        }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/02/19
+        /// Approver: Thomas Dupuy , 2020/02/21
+        /// 
+        /// This method for clean up after the test is finshed.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name=""></param>
+        /// <param name=""></param>
+        /// <returns></returns>
+        [TestCleanup]
+        public void TestTearDown()
+        {
+            _volunteerAccessor = null;
+        }
     }
 }
+
