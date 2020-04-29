@@ -133,6 +133,7 @@
     <Compile Include="MVCQuestionnair.cs" />
     <Compile Include="NewAnimalChecklist.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OrderItemLine.cs" />
     <Compile Include="OrderLine.cs" />
     <Compile Include="OutgoingOrders.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />

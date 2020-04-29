@@ -1,5 +1,6 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
+using PresentationUtilityCode;
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -18,7 +19,8 @@ namespace WPFPresentationLayer.InventoryPages
     /// </summary>
     public partial class ViewOrders : Page
     {
-        private OrderManager _orderManager = new OrderManager();
+        private OrderItemLineManager _orderItemLineManager;
+        private OrderManager _orderManager;
         private Order _order;
         private List<Order> _orders;
         private List<Order> _currentOrders;
@@ -41,12 +43,12 @@ namespace WPFPresentationLayer.InventoryPages
         public ViewOrders()
         {
             InitializeComponent();
-            btnRefresh.Visibility = Visibility.Visible;
+            _orderManager = new OrderManager();
+            _orderItemLineManager = new OrderItemLineManager();
             dgOrders.Visibility = Visibility.Visible;
             btnAddOrder.Visibility = Visibility.Visible;
             btnDeleteOrder.Visibility = Visibility.Visible;
         }
-
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/30/2020
@@ -66,7 +68,6 @@ namespace WPFPresentationLayer.InventoryPages
         {
             this.NavigationService?.Navigate(new ViewAddOrder());
         }
-
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/30/2020
@@ -92,40 +93,6 @@ namespace WPFPresentationLayer.InventoryPages
                 column.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
             }
         }
-
-        /// <summary>
-        /// NAME: Jesse Tomash
-        /// DATE: 4/3/2020
-        ///
-        /// Approver: Brandyn T. Coverdill
-        /// Approver: 
-        /// 
-        /// refresh the dg
-        /// </summary>
-        /// /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        /// </remarks>
-        /// <returns></returns>
-        private void btnRefresh_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                _orders = (List<Order>)_orderManager.RetrieveOrders();
-
-                if (_currentOrders == null)
-                {
-                    _currentOrders = _orders;
-                }
-                dgOrders.ItemsSource = _currentOrders;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/30/2020
@@ -152,7 +119,6 @@ namespace WPFPresentationLayer.InventoryPages
                 MessageBox.Show(ex.Message);
             }
         }
-
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/30/2020
@@ -180,7 +146,6 @@ namespace WPFPresentationLayer.InventoryPages
                 MessageBox.Show(ex.Message);
             }
         }
-
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 4/15/2020
@@ -191,16 +156,22 @@ namespace WPFPresentationLayer.InventoryPages
         /// Action to view order when an item on the datagrid is double clicked
         /// </summary>
         /// /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
+        /// UPDATED BY: Brandyn T. Coverdill
+        /// UPDATE DATE: 4/28/2020
+        /// WHAT WAS CHANGED: Made it so that an error message displayed if no item was selected.
         /// </remarks>
         /// <returns></returns>
         private void btnViewOrder_Click(object sender, RoutedEventArgs e)
         {
-            SetUpViewOrder();
+            if (dgOrders.SelectedItem == null)
+            {
+                "Please Select an Order.".ErrorMessage();
+            }
+            else
+            {
+                SetUpViewOrder();
+            }
         }
-
         /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/30/2020
@@ -220,7 +191,46 @@ namespace WPFPresentationLayer.InventoryPages
         {
             SetUpViewOrder();
         }
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 3/30/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        /// 
+        /// Action to delete order when an delete order is clicked
+        /// </summary>
+        /// /// <remarks>
+        /// UPDATED BY: Brandyn T. Coverdill
+        /// UPDATE DATE: 4/28/2020
+        /// WHAT WAS CHANGED: Changed the error message if no order was selected.
+        /// </remarks>
+        /// <returns></returns>
+        private void btnDeleteOrder_Click(object sender, RoutedEventArgs e)
+        {
 
+            if (dgOrders.SelectedItem != null)
+            {
+                try
+                {
+                    _order = (Order)dgOrders.SelectedItem;
+                    _orderManager.DeleteOrder(_order.OrderID);
+                    foreach (OrderItemLine line in _orderItemLineManager.SelectOrderItemLinesByOrderID(_order.OrderID))
+                    {
+                        _orderItemLineManager.DeleteOrderItemLineByItemID(line.ItemID);
+                    }
+                    dgOrders.ItemsSource = _orderManager.RetrieveOrders();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                "Please select an Order.".ErrorMessage();
+            }
+        }
         /// <summary>
         /// Creator: Dalton Reierson
         /// Created: 2020/04/24

@@ -92,6 +92,7 @@
     <Compile Include="MedicineManager.cs" />
     <Compile Include="MessagesManager.cs" />
     <Compile Include="NewAnimalChecklistManager.cs" />
+    <Compile Include="OrderItemLineManager.cs" />
     <Compile Include="OrderLineManager.cs" />
     <Compile Include="OrderManager.cs" />
     <Compile Include="PetUniverseUserERolesManager.cs" />

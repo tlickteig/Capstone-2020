@@ -2293,6 +2293,28 @@ CREATE TABLE [dbo].[EmpCustProblem](
 GO
 
 /*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: orderitemline table
+*/
+DROP TABLE IF EXISTS [dbo].[orderitemline]
+GO
+print '' print '*** Creating orderitemline table'
+GO
+CREATE TABLE [dbo].[orderitemline] (
+	[OrderID]					[int] 			NOT NULL,
+	[ItemID]					[int]			NOT NULL,
+	[Quantity]					[int]			NOT NULL,
+	
+	CONSTRAINT [pk_LineOrderID] PRIMARY KEY([OrderID] ASC, [ItemID] ASC),
+	CONSTRAINT [fk_LineOrderID] FOREIGN KEY([OrderID])
+		REFERENCES [Orders]([OrderID]) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT [fk_LineItemID] FOREIGN KEY ([ItemID])
+		REFERENCES [Item]([ItemID]) ON UPDATE CASCADE ON DELETE CASCADE
+)
+GO
+
+/*
  ******************************* Create Procedures *****************************
 */
 PRINT '' PRINT '******************* Create Procedures *********************'
@@ -12336,6 +12358,107 @@ BEGIN
 END
 GO
 
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: insert order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_order_item_line]
+GO
+print '' print '*** Creating sp_insert_order_item_line'
+GO
+CREATE PROCEDURE sp_insert_order_item_line
+	(
+        @OrderID						[int],
+		@ItemID							[int],
+		@Quantity						[int]
+	)
+AS
+	BEGIN
+		INSERT INTO [orderitemline]
+			([OrderID], [ItemID], [Quantity])
+		VALUES
+			(@OrderID, @ItemID, @Quantity)
+		
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: insert order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_select_order_item_lines_by_order_id]
+GO
+print '' print '*** Creating sp_select_order_item_lines_by_order_id'
+GO
+CREATE PROCEDURE sp_select_order_item_lines_by_order_id
+	(
+        @OrderID						[int]
+	)
+AS
+	BEGIN
+		SELECT [OrderID], [ItemID], [Quantity]
+		FROM [dbo].[orderitemline]
+		WHERE [OrderID] = @orderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: select item by item id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_item_by_item_id]
+GO
+print '' print '*** Creating sp_select_item_by_item_id'
+GO
+CREATE PROCEDURE sp_select_item_by_item_id
+	(
+        @ItemID						[int]
+	)
+AS
+	BEGIN
+		SELECT  [Item].[ItemName],
+				[Item].[ItemCategoryID],
+				[OrderItemLine].[Quantity],
+				[Item].[ItemDescription],
+				[Item].[ShelterItem],
+				[Item].[ItemID],
+				[Item].[ShelterThershold]
+		FROM [dbo].[item]
+		INNER JOIN [OrderItemLine] ON Item.ItemID = OrderItemLine.ItemID
+		WHERE [Item].[ItemID] = @ItemID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/28/2020
+Comment: delete order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_order_item_line_by_item_id]
+GO
+print '' print '*** Creating sp_delete_order_item_line_by_item_id'
+GO
+CREATE PROCEDURE sp_delete_order_item_line_by_item_id
+	(
+        @ItemID						[int]
+	)
+AS
+	BEGIN
+		DELETE
+		FROM [dbo].[orderitemline]
+		WHERE [ItemID] = @ItemID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
 /*
  ******************************* Inserting Sample Data *****************************
 */

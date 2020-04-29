@@ -101,9 +101,9 @@ namespace LogicLayer
                 {
                     orderInvoices = _orderAccessor.SelectOrders();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    throw;
+                    throw ex;
                 }
 
                 return orderInvoices;
@@ -135,9 +135,9 @@ namespace LogicLayer
             {
                 result = (1 == _orderAccessor.UpdateOrder(oldOrder, newOrder));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             return result;
         }
@@ -152,9 +152,9 @@ namespace LogicLayer
         /// This is the method that handles logic between InsertOrder() and the presentation
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
+        /// UPDATED BY: Brandyn T. Coverdill
+        /// UPDATE DATE: 4/28/2020
+        /// WHAT WAS CHANGED: Made sure that it gave a better error message instead of throwing ex.
         /// </remarks>
         /// <param name="newOrder"></param>
         /// <returns></returns>
@@ -166,41 +166,9 @@ namespace LogicLayer
             {
                 result = (1 == _orderAccessor.InsertOrder(newOrder));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
-            }
-
-            return result;
-        }
-
-        /// <summary>
-        /// NAME: Jesse Tomash
-        /// DATE: 2/7/2020
-        ///
-        /// Approver: Brandyn T. Coverdill
-        /// Approver: Dalton Reierson
-        /// 
-        /// This is the method that handles logic between DeleteOrder() and the presentation
-        /// </summary>
-        /// <remarks>
-        /// UPDATED BY:
-        /// UPDATE DATE:
-        /// WHAT WAS CHANGED:
-        /// </remarks>
-        /// <param name="orderID"></param>
-        /// <returns></returns>
-        public bool DeleteOrder(int orderID)
-        {
-            bool result = true;
-            try
-            {
-                result = (1 == _orderAccessor.DeleteOrder(orderID));
-            }
-            catch (Exception)
-            {
-
-                throw;
+                throw new ApplicationException("Insert Order Failed.");
             }
 
             return result;
@@ -231,6 +199,39 @@ namespace LogicLayer
             {
 
                 throw;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// NAME: Jesse Tomash
+        /// DATE: 2/7/2020
+        ///
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: Dalton Reierson
+        /// 
+        /// This is the method that handles logic between DeleteOrder() and the presentation
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: Brandyn T. Coverdill
+        /// UPDATE DATE: 4/28/2020
+        /// WHAT WAS CHANGED: Made sure that it gave a better error message instead of throwing ex.
+        /// </remarks>
+        /// <param name="orderID"></param>
+        /// <returns></returns>
+        public bool DeleteOrder(int orderID)
+        {
+            bool result = true;
+            try
+            {
+                result = _orderAccessor.DeleteOrder(orderID);
+            }
+            catch (Exception ex)
+            {
+
+                // throw new ApplicationException("Delete Order Failed.");
+                throw ex;
             }
 
             return result;

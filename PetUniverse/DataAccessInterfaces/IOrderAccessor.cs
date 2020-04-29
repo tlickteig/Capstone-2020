@@ -75,8 +75,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="orderID"></param>
         /// <returns></returns>
-        int DeleteOrder(int orderID);
-
+        bool DeleteOrder(int orderID);
         /// <summary>
         /// Creator: Dalton Reierson
         /// Created: 2020/04/23

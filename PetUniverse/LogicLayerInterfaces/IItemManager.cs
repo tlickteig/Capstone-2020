@@ -201,5 +201,21 @@ namespace LogicLayerInterfaces
         /// </remarks>
         /// <param name="item"></param> 
         bool createNewShelterItem(Item item);
+
+        /// <summary>
+        /// Creator: Jesse Tomash
+        /// Created: 4/27/2020
+        /// Approver: 
+        ///
+        /// The interface method for selecting itemid 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param> 
+        Item SelectItemByItemID(int itemID);
     }
 }

@@ -71,6 +71,21 @@ namespace LogicLayerInterfaces
         /// </remarks>
         bool AddOrder(Order newOrderInvoice);
         /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/23
+        /// Approver: Jesse Tomash
+        /// Approver: 
+        ///
+        /// Interface method to edit an orders status
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        bool EditOrderStatus(Order order, string orderStatus);
+        /// <summary>
         /// NAME: Jesse Tomash
         /// DATE: 3/12/2020
         ///
@@ -87,21 +102,5 @@ namespace LogicLayerInterfaces
         /// WHAT WAS CHANGED:
         /// </remarks>
         bool DeleteOrder(int orderInvoiceID);
-
-        /// <summary>
-        /// Creator: Dalton Reierson
-        /// Created: 2020/04/23
-        /// Approver: Jesse Tomash
-        /// Approver: 
-        ///
-        /// Interface method to edit an orders status
-        /// </summary>
-        ///
-        /// <remarks>
-        /// Updated By: 
-        /// Updated: 
-        /// Update:
-        /// </remarks>
-        bool EditOrderStatus(Order order, string orderStatus);
     }
 }
