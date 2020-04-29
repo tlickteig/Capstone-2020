@@ -16,12 +16,17 @@ namespace DataTransferObjects
 
 
         // Connection String for home
-        //@"Data Source=localhost\sqlexpress;Initial Catalog=PetUniverseDB; Integrated Security = True";
+        @"Data Source=localhost\sqlexpress;Initial Catalog=PetUniverseDB; Integrated Security = True";
 
         @"Server = tcp:dbpetuniverse.database.windows.net,1433;Initial Catalog = PetUniverseDB; Persist Security Info=False;User ID = csdadmin; Password=Kirkwood01; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30;";
 
+<<<<<<< HEAD
     //Connection string for school
     //@"Data Source=localhost;Initial Catalog=PetUniverseDB;Integrated Security=True"; // Connection string for school
+=======
+        //Connection string for school
+        //@"Data Source=localhost;Initial Catalog=PetUniverseDB;Integrated Security=True"; // Connection string for school
+>>>>>>> 8b8ce52839d20b743adf3af79fbbbb7d67bb015f
 
 
     //@"Data Source=LAPTOP-T3PUJGNB\SQLEXPRESS;Initial Catalog=PetUniverseDB;Integrated Security=True";

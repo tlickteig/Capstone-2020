@@ -162,12 +162,6 @@
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AMPages\AnimalManagementInventory.xaml.cs">
-      <DependentUpon>AnimalManagementInventory.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AMPages\NewAnimals.xaml.cs">
-      <DependentUpon>NewAnimals.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FMPages\pgAnimalKennelCleaningControls.xaml.cs">
       <DependentUpon>pgAnimalKennelCleaningControls.xaml</DependentUpon>
     </Compile>
@@ -491,14 +485,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AMPages\AnimalControls.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="AMPages\AnimalManagementInventory.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="AMPages\NewAnimals.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

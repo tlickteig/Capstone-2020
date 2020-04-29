@@ -101,6 +101,8 @@ namespace WPFPresentationLayer.FMPages
             canAddFacilityTask.Visibility = Visibility.Visible;
             canViewFacilityTask.Visibility = Visibility.Hidden;
             txtUserID.Text = _user.PUUserID.ToString();
+            cndStartDate.DisplayDateStart = DateTime.Now;
+            cndCompletionDate.DisplayDateStart = DateTime.Now;
         }
 
         /// <summary>
@@ -159,6 +161,7 @@ namespace WPFPresentationLayer.FMPages
                 {
                     MessageBox.Show("Facility Task record successfully added.");
                     canAddFacilityTask.Visibility = Visibility.Hidden;
+                    canViewFacilityTask.Visibility = Visibility.Visible;
                     RefreshViewAllList();
                     txtUserID.Text = "";
                     txtTaskName.Text = "";
@@ -226,11 +229,12 @@ namespace WPFPresentationLayer.FMPages
             {
                 btnUpdateFacilityTaskRecord.Visibility = Visibility.Hidden;
                 BtnSubmitTaskRecord.Visibility = Visibility.Visible;
-                lblTaskCompleted.Visibility = Visibility.Hidden;
-                chkTaskCompleted.Visibility = Visibility.Hidden;
+                lblTaskFinished.Visibility = Visibility.Hidden;
+                chkTaskFinished.Visibility = Visibility.Hidden;
             }
             canAddFacilityTask.Visibility = Visibility.Hidden;
             canViewFacilityTask.Visibility = Visibility.Visible;
+            lblFacilityTask.Content = "Enter Facility Task Record";
         }
 
         /// <summary>
@@ -401,16 +405,18 @@ namespace WPFPresentationLayer.FMPages
         {
             txtUserID.Text = _user.PUUserID.ToString();
             selectedFacilityTask = (FacilityTask)dgFacilityTask.SelectedItem;
+            cndStartDate.DisplayDateStart = DateTime.Now;
+            cndCompletionDate.DisplayDateStart = DateTime.Now;
             if (selectedFacilityTask != null)
             {
-                
+
                 BtnSubmitTaskRecord.Visibility = Visibility.Hidden;
                 canViewFacilityTask.Visibility = Visibility.Hidden;
                 canAddFacilityTask.Visibility = Visibility.Visible;
                 btnUpdateFacilityTaskRecord.Visibility = Visibility.Visible;
                 lblTaskFinished.Visibility = Visibility.Visible;
                 chkTaskFinished.Visibility = Visibility.Visible;
-                lblFacilityTask.Content = "Update Facility Inspection Record";
+                lblFacilityTask.Content = "Update Facility Task Record";
                 txtUserID.Text = selectedFacilityTask.UserID.ToString();
                 txtTaskName.Text = selectedFacilityTask.FacilityTaskName;
                 txtTaskNotes.Text = selectedFacilityTask.FacilityTaskNotes;
@@ -482,6 +488,7 @@ namespace WPFPresentationLayer.FMPages
                     btnUpdateFacilityTaskRecord.Visibility = Visibility.Hidden;
                     lblTaskFinished.Visibility = Visibility.Hidden;
                     chkTaskFinished.Visibility = Visibility.Hidden;
+                    lblFacilityTask.Content = "Enter Facility Task Record";
                     RefreshViewAllList();
                     txtUserID.Text = "";
                     txtTaskName.Text = "";
