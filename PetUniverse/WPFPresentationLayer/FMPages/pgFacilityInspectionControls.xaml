@@ -67,7 +67,7 @@
             </Grid>
         </Canvas>
         <Canvas Height="845" Width="1280" x:Name="canAddFacilityInspection" Visibility="Hidden">
-            <Grid>
+            <Grid Canvas.Left="15" Canvas.Top="144">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -105,8 +105,8 @@
                     <!--InspectionDate-->
                     <Label x:Name="lblInspectionDate" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
                        HorizontalAlignment="Left">Inspection Date:</Label>
-                    <Calendar x:Name="cndInspectionDate" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" 
-                          VerticalAlignment="Center" Margin="25 0 25 0"/>
+                    <DatePicker x:Name="cndInspectionDate" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Left" 
+                          VerticalAlignment="Center" Margin="25 0 25 0" Width="300"/>
 
                     <!--InspectionDescription-->
                     <Label x:Name="lblInspectionDescription" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left">Inspection Description:</Label>
@@ -114,7 +114,7 @@
                       Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16"></TextBox>
 
                     <Label x:Name="lblInspectionCompleted" Grid.Row="4" Grid.Column="0" FontSize="22" VerticalAlignment="Center" HorizontalAlignment="Left" Visibility="Hidden">Inspection Completed:</Label>
-                    <CheckBox x:Name="chkInspectionCompleted" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="False" Visibility="Hidden"></CheckBox>
+                    <CheckBox x:Name="chkInspectionCompleted" Grid.Row="4" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" IsChecked="False" Visibility="Hidden" Margin="25 0 0 0"></CheckBox>
 
                     <Button x:Name="btnUpdateBuildingInspectionRecord" Margin="523,184,-23,36" Grid.Row="6" Grid.Column="1" Width="100" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Height="30" Click="btnUpdateBuildingInspectionRecord_Click" Content="Update"/>
 

@@ -120,9 +120,9 @@
                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitMaintenanceRecord_Click" Margin="538,126,-38,-86">Submit</Button>
 
                     <!--Update-->
-                    <Button x:Name="btnUpdateBuildingMaintenanceRecord" Grid.Row="7" Grid.Column="0" 
-                    Width="150" FontSize="36" Padding="10" Visibility="Hidden"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnUpdateBuildingMaintenanceRecord_Click" Height="70" Margin="175,0">Update</Button>
+                    <Button x:Name="btnUpdateBuildingMaintenanceRecord" Grid.Row="7" Grid.Column="1" 
+                    Width="100" Visibility="Hidden" Height="30"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Margin="538,126,-38,-86" Click="btnUpdateBuildingMaintenanceRecord_Click">Update</Button>
 
                     <!--Cancel-->
                     <Button x:Name="btnCancelMaintenanceRecord" Grid.Row="7" Grid.Column="1" 

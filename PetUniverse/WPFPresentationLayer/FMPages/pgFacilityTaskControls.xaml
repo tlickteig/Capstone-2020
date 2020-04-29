@@ -70,7 +70,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="lblFacilityTask" FontSize="36" VerticalAlignment="Center" Grid.Row="0">Enter Facility Task Record</Label>
+                <Label x:Name="lblFacilityTask" FontSize="36" VerticalAlignment="Center" Grid.Row="0" Margin="329 0 0 0">Enter Facility Task Record</Label>
                 <Grid Grid.Row="1" Margin="0,14,0,-14">
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
@@ -126,7 +126,7 @@
 
                     <!--Update-->
                     <Button x:Name="btnUpdateFacilityTaskRecord" Grid.Row="7" Grid.Column="1" 
-                    Width="100" Visibility="Visible" Height="30"
+                    Width="100" Visibility="Hidden" Height="30"
                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnUpdateFacilityTaskRecord_Click" Margin="527,169,-27,-129">Update</Button>
 
                     <!--Cancel-->

@@ -204,12 +204,6 @@
                 <TabItem x:Name="tabViewAnimalActivity" Header="View Activity Records" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frameViewAnimalActivities" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabViewAMInventory" Header="View Inventory" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./AMPages/AnimalManagementInventory.xaml" NavigationUIVisibility="Hidden"/>
-                </TabItem>
-                <TabItem x:Name="tabNewAnimals" Header="View New Animals" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./AMPages/NewAnimals.xaml" NavigationUIVisibility="Hidden"></Frame>
-                </TabItem>
             </TabControl>
         </Canvas>
 

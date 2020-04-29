@@ -112,7 +112,7 @@
 
                     <!--Update-->
                     <Button x:Name="btnUpdateInspectionItemRecord" Grid.Row="6" Grid.Column="1" 
-                    Width="100" Visibility="Visible" Height="30"
+                    Width="100" Visibility="Hidden" Height="30"
                     VerticalAlignment="Center" HorizontalAlignment="Center" Click="btnUpdateInspectionItemRecord_Click" Margin="500,155,0,65">Update</Button>
 
                     <!--Cancel-->
