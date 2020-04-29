@@ -2315,6 +2315,44 @@ CREATE TABLE [dbo].[orderitemline] (
 GO
 
 /*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Creating a table for VetLicense.
+*/
+print '' print '*** Creating VetLicense Table'
+GO
+CREATE TABLE [dbo].[VetLicense](
+	[LicenseID] 				[int] IDENTITY(1000000,1)	NOT NULL,
+	[Institute]   				[nvarchar](300)			    NOT NULL,
+	[DateIssued]   				[datetime]         			NOT NULL,
+	[Active]   					[bit]         				NOT NULL,
+	CONSTRAINT [pk_LicenseID] PRIMARY KEY([LicenseID] ASC)
+)
+GO
+
+
+/*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Creates a table for treatment record.
+*/
+print '' print '*** Creating TreatmentRecord Table'
+GO
+CREATE TABLE [dbo].[TreatmentRecord](
+	[TreatmentRecordID] 		[int] IDENTITY(1000000,1)	NOT NULL,
+	[VetID]   					[nvarchar](200) 		    NOT NULL,
+	[AnimalID]   				[int]         				NOT NULL,
+	[FormName]      			[nvarchar](50)           	NOT NULL 	DEFAULT 1,
+	[TreatmentDate]   			[datetime]			        NOT NULL,
+	[TreatmentDescription]   	[nvarchar](4000)           	NULL,
+	[Notes]   					[nvarchar](2000)           	NULL,
+	[Reason]   					[nvarchar](2000)           	NOT NULL,
+	[Urgency]   				[int]			          	NOT NULL,
+	CONSTRAINT [pk_TreatmentRecordID] PRIMARY KEY([TreatmentRecordID] ASC)	
+)
+GO
+
+/*
  ******************************* Create Procedures *****************************
 */
 PRINT '' PRINT '******************* Create Procedures *********************'
@@ -12493,6 +12531,108 @@ BEGIN
 	AND [Adoptable] = @Adoptable
 	ORDER BY [AnimalName] DESC
 END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/10/2020
+Comment: Insert a treatment record.
+*/
+print '' print '*** Creating sp_insert_treatment_record'
+GO
+CREATE PROCEDURE [sp_insert_treatment_record]
+(
+	@VetID	 				[nvarchar](200),
+	@AnimalID				[int],
+	@FormName				[nvarchar](50),
+	@TreatmentDate			[date],
+	@TreatmentDescription 	[nvarchar](4000),
+	@Notes					[nvarchar](2000),
+	@Reason					[nvarchar](2000),
+	@Urgency      			[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[TreatmentRecord]
+		([VetID], [AnimalID], [FormName], [TreatmentDate], [TreatmentDescription], [Notes], [Reason], [Urgency])
+	VALUES
+		(@VetID, @AnimalID, @FormName, @TreatmentDate, @TreatmentDescription, @Notes, @Reason, @Urgency)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/10/2020
+Comment: Select treatment record.
+*/
+print '' print '*** Creating sp_select_treatment_records'
+GO
+CREATE PROCEDURE [sp_select_treatment_records]
+AS
+BEGIN
+	SELECT [TreatmentRecordID],[VetID],[AnimalID],[FormName],[TreatmentDate],
+	[TreatmentDescription],[Notes],[Reason],[Urgency]
+	FROM [dbo].[TreatmentRecord]
+	ORDER BY [TreatmentRecordID]
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/04/2020
+Comment: Delete a treatment record
+*/
+print '' print '*** Creating sp_delete_treatment_record '
+GO
+CREATE PROCEDURE [sp_delete_treatment_record] 
+	(
+		@TreatmentRecordID				[nvarchar](50)
+	)
+AS
+	BEGIN
+		DELETE  
+		FROM 	[TreatmentRecord]
+		WHERE 	[TreatmentRecordID] = @TreatmentRecordID
+		
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/04/2020
+Comment: Update a treatment record
+*/
+print '' print '*** Creating sp_update_treatment_record '
+GO
+CREATE PROCEDURE [sp_update_treatment_record] 
+	(
+		@TreatmentRecordID		[nvarchar](50),
+		@VetID	 				[nvarchar](200),
+		@AnimalID				[int],
+		@FormName				[nvarchar](50),
+		@TreatmentDate			[date],
+		@TreatmentDescription 	[nvarchar](4000),
+		@Notes					[nvarchar](2000),
+		@Reason					[nvarchar](2000),
+		@Urgency      			[int]
+	)
+AS
+	BEGIN
+		UPDATE [dbo].[TreatmentRecord]
+			SET [VetID] = @VetID,
+				[AnimalID] = @AnimalID,
+				[FormName] = @FormName,
+				[TreatmentDate] = @TreatmentDate,
+				[TreatmentDescription] = @TreatmentDescription,
+				[Notes] = @Notes,
+				[Reason] = @Reason,
+				[Urgency] = @Urgency
+		WHERE 	[TreatmentRecordID] = @TreatmentRecordID
+		RETURN @@ROWCOUNT
+	END
 GO
 
 /*

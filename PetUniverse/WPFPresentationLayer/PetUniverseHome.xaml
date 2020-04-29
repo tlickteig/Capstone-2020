@@ -375,6 +375,12 @@
                     <Frame x:Name="frmFosterAppointments"
                            Source="./VolunteerPages/FosterAppointments.xaml" />
                 </TabItem>
+                <TabItem x:Name="TreatmentRecordControls"
+                         Header="Treatment Records" 
+                         FontWeight="Bold" 
+                         Background="#fff8e3">
+                    <Frame Source="./VolunteerPages/TreatmentRecordControls.xaml"></Frame>
+                </TabItem>
             </TabControl>
         </Canvas>
 

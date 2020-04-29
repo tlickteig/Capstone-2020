@@ -121,6 +121,7 @@
     <Compile Include="SalesDataManagerTests.cs" />
     <Compile Include="PictureManagerTests.cs" />
     <Compile Include="FacilityTaskManagerTests.cs" />
+    <Compile Include="TreatmentRecordTests.cs" />
     <Compile Include="UserManagerTests.cs" />
     <Compile Include="VendorManagerTests.cs" />
     <Compile Include="VetAppointmentManagerTests.cs" />

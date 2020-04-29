@@ -113,6 +113,7 @@
     <Compile Include="FakeTrainingVideoAccessor.cs" />
     <Compile Include="FakeTransactionAccessor.cs" />
     <Compile Include="FakeTransactionAdminAccessor.cs" />
+    <Compile Include="FakeTreatmentRecordAccessor.cs" />
     <Compile Include="FakeUserAccessor.cs" />
     <Compile Include="FakeVendorAccessor.cs" />
     <Compile Include="FakeVetAppointmentAccessor.cs" />
