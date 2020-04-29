@@ -5203,14 +5203,17 @@ GO
 CREATE PROCEDURE [sp_get__all_animals_medical_Record]
 AS
 BEGIN
-	SELECT [AnimalMedicalInfoID]
-      ,[AnimalID]
-      ,[UserID]
-      ,[SpayedNeutered]
-      ,[Vaccinations]
-      ,[MostRecentVaccinationDate]
-      ,[AdditionalNotes]
-  FROM [dbo].[AnimalMedicalInfo]
+	SELECT [dbo].[AnimalMedicalInfo].[AnimalMedicalInfoID]
+	  ,[dbo].[Animal].[AnimalName]
+      ,[dbo].[AnimalMedicalInfo].[SpayedNeutered]
+      ,[dbo].[AnimalMedicalInfo].[Vaccinations]
+      ,[dbo].[AnimalMedicalInfo].[MostRecentVaccinationDate]
+      ,[dbo].[AnimalMedicalInfo].[AdditionalNotes]
+	  ,[dbo].[User].[FirstName] AS 'User Fist Name'
+	  ,[dbo].[User].[LastName] As 'User Last Name'
+  FROM [dbo].[AnimalMedicalInfo],[dbo].[Animal],[dbo].[User]
+  WHERE [dbo].[AnimalMedicalInfo].[AnimalID] = [dbo].[Animal].[AnimalID]
+  AND [dbo].[AnimalMedicalInfo].[UserID] = [dbo].[User].[UserID]
 
 END
 GO

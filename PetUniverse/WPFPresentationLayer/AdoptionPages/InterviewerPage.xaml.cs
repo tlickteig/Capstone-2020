@@ -48,13 +48,14 @@ namespace WPFPresentationLayer.AdoptionPages
         /// Approver : Mohamed Elamin
         /// when load the page, data grid view must show all the adoption applications that Approved by Interviewer
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="sender"></param>
         ///<remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
+
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             updateAdoptionList();
@@ -114,14 +115,14 @@ namespace WPFPresentationLayer.AdoptionPages
         /// 2020/01/03
         /// Approver : Mohamed Elamin
         /// after selecting one of the adoption application list. Intervivewer Decission Tab shown up.
-        /// </summary>
-        /// <param name="e"></param>
-        /// <param name="sender"></param>
+        /// </summary>       
         ///<remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void DGInterviewerData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -149,13 +150,13 @@ namespace WPFPresentationLayer.AdoptionPages
         /// Approver : Mohamed Elamin
         /// After decission button clicked. interviewer decission submitted to logic layer. (Deny, In Home Inspection)
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="sender"></param>
         ///<remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void btnInterviewerDecission_Click(object sender, RoutedEventArgs e)
         {
             if (InHomeInspection.IsSelected)
@@ -201,13 +202,13 @@ namespace WPFPresentationLayer.AdoptionPages
         /// Approver : Mohamed Elamin
         /// When Interviewer get focus, retrieve the customer questionnair
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="sender"></param>
         ///<remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
+        /// <param name="e"></param>
+        /// <param name="sender"></param>
         private void InterviewerControl_GotFocus(object sender, RoutedEventArgs e)
         {
             try

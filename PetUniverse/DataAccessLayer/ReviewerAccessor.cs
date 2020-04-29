@@ -676,13 +676,14 @@ namespace DataAccessLayer
                 while (reader.Read())
                 {
                     AnimalMedical animal = new AnimalMedical();
-                        animal.AnimalMedicalInfoID = reader.GetInt32(0);
-                    animal.AnimalID = reader.GetInt32(1);
-                    animal.UserID = reader.GetInt32(2);
-                    animal.SpayedNeutered = reader.GetBoolean(3);
-                    animal.Vaccinations = reader.GetString(4);
-                    animal.MostRecentVaccinationDate = reader.GetDateTime(5);
-                    animal.AdditionalNotes = reader.GetString(6);
+                    animal.AnimalMedicalInfoID = reader.GetInt32(0);
+                    animal.AnimalName = reader.GetString(1);
+                    animal.SpayedNeutered = reader.GetBoolean(2);
+                    animal.Vaccinations = reader.GetString(3);
+                    animal.MostRecentVaccinationDate = reader.GetDateTime(4);
+                    animal.AdditionalNotes = reader.GetString(5);
+                    animal.UserFirstName = reader.GetString(6);
+                    animal.UseLastrName = reader.GetString(7);
 
                     animals.Add(animal);
                 }

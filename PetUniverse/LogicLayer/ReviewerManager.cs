@@ -169,6 +169,7 @@ namespace LogicLayer
         /// Update: Fixed Comments format.Added try catch block.
         /// </remarks>
         /// <param name="customerEmail"></param>
+        /// <returns >adoptionApplication</returns>
         public AdoptionApplication retrieveCustomerAdoptionApplicaionByCustomerEmail(string customerEmail)
         {
             adoptionApplication = adoptionAccessor.getAdoptionApplicationByCustomerEmail(customerEmail);
@@ -205,7 +206,7 @@ namespace LogicLayer
         /// Creator: Awaab Elamin 
         /// Created: 2020/02/04
         /// Approver: Mohamed Elamin 
-        /// Update the status of the adoption application according the reviewer decision.
+        /// add the adoption application of the customer
         /// </summary>
         /// <remarks> 
         /// Updater: Mohamed Elamin 
@@ -236,9 +237,7 @@ namespace LogicLayer
         /// Creator: Awaab Elamin 
         /// Created: 2020/02/04
         /// Approver: Mohamed Elamin
-        /// 
         /// Retrieve all questions.
-        /// 
         /// </summary>
         /// <remarks> 
         /// Updater: Mohamed Elamin 
@@ -252,11 +251,9 @@ namespace LogicLayer
             try
             {
                 questions = adoptionAccessor.getAllQuestions();
-
             }
             catch (Exception)
             {
-
 
                 throw;
             }
@@ -267,9 +264,7 @@ namespace LogicLayer
         /// Creator: Awaab Elamin 
         /// Created: 2020/02/04
         /// Approver: Mohamed Elamin
-        /// 
         /// Addd custome questionnair to questionnair table 
-        /// 
         /// </summary>
         /// <remarks> 
         /// Updater: Mohamed Elamin 
@@ -293,12 +288,14 @@ namespace LogicLayer
         /// Creator: Awaab Elamin 
         /// Created: 2020/04/15
         /// Approver: Mohamed Elamin
-        /// 
-        /// Addd custome questionnair to questionnair table 
-        /// 
+        /// retrieve all animal medical records 
         /// </summary>
-        /// <param name="questionnair"></param>
-        /// <returns>True or false depending if the record was inserted </returns>
+        /// <remarks> 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Added Comments. Added try catch block.
+        /// </remarks>
+        /// <returns>animals Medical records</returns>
         public List<AnimalMedical> retrieveAllAnimals()
         {
             List<AnimalMedical> animals = new List<AnimalMedical>();
