@@ -12135,6 +12135,172 @@ END
 GO
 
 /*
+Created by: Austin Gee
+Date: 4/27/2020
+Comment: Stored Procedure that selects adoption appointments by active and customer email.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_appointments_by_customer_email_and_active]
+GO
+PRINT '' PRINT '*** Creating sp_select_adoption_appointments_by_customer_email_and_active'
+GO
+CREATE PROCEDURE [sp_select_adoption_appointments_by_customer_email_and_active]
+(
+	@Active				[int] 			,
+	@CustomerEmail		[nvarchar] (250)
+)
+AS
+BEGIN
+	SELECT
+	[AppointmentID]
+	,[AdoptionApplication].[AdoptionApplicationID]
+	,[Appointment].[AppointmentTypeID]
+	,[Appointment].[DateTime]
+	,[Appointment].[Notes]
+	,[Appointment].[Decision]
+	,[Location].[LocationID]
+	,[Appointment].[Active]
+	,[Customer].[Email]
+	,[Animal].[AnimalID]
+	,[AdoptionApplication].[Status]
+	,[AdoptionApplication].[RecievedDate]
+	,[Location].[Name]
+	,[Location].[Address1]
+	,[Location].[Address2]
+	,[Location].[City]
+	,[Location].[State]
+	,[Location].[Zip]
+	,[Customer].[FirstName]
+	,[Customer].[LastName]
+	,[Customer].[PhoneNumber]
+	,[Customer].[Active]
+	,[Customer].[City]
+	,[Customer].[State]
+	,[Customer].[Zipcode]
+	,[Animal].[AnimalName]
+	,[Animal].[Dob]
+	,[Animal].[AnimalSpeciesID]
+	,[Animal].[AnimalBreed]
+	,[Animal].[ArrivalDate]
+	,[Animal].[CurrentlyHoused]
+	,[Animal].[Adoptable]
+	,[Animal].[Active]
+	FROM [Appointment] JOIN [AdoptionApplication] ON [AdoptionApplication].[AdoptionApplicationID] = [Appointment].[AdoptionApplicationID]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	JOIN [Customer] ON [AdoptionApplication].[CustomerEmail] = [Customer].[Email]
+	JOIN [Animal] ON [AdoptionApplication].[AnimalID] = [Animal].[AnimalID]
+	WHERE [Appointment].[Active] = @Active
+	AND	[Customer].[Email] = @CustomerEmail
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 4/27/2020
+Comment: Stored Procedure that updates an appointments datetime
+*/
+DROP PROCEDURE IF EXISTS [sp_update_appointment_date_time]
+GO
+PRINT '' PRINT '*** Creating sp_update_appointment_date_time'
+GO
+CREATE PROCEDURE [sp_update_appointment_date_time]
+(
+	@AppointmentID				[int] 			,
+	@AppointmentDateTime		[nvarchar] (250)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET [DateTime] = @AppointmentDateTime
+	WHERE [AppointmentID] = @AppointmentID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 4/27/2020
+Comment: Stored Procedure that inserts a customer
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_customer]
+GO
+PRINT '' PRINT '*** Creating sp_insert_customer'
+GO
+CREATE PROCEDURE [sp_insert_customer]
+(
+	@Email 			[nvarchar](250),
+    @FirstName 		[nvarchar](50),
+    @LastName 		[nvarchar](50),
+    @PhoneNumber 	[nvarchar](11),
+    @addressLineOne [nvarchar](250),
+    @addressLineTwo [nvarchar](250),
+    @City 			[nvarchar](20),
+    @State 			[nvarchar](2),
+    @Zipcode 		[nvarchar](15)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Customer]
+	([FirstName], [LastName], [PhoneNumber], [Email], [City], [State], [Zipcode], [addressLineOne], [addressLineTwo])
+	VALUES
+	(@FirstName, @LastName, @PhoneNumber, @Email, @City, @State, @Zipcode, @addressLineOne, @addressLineTwo)
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 4/27/2020
+Comment: Stored Procedure that inserts a customer
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_adoption_application]
+GO
+PRINT '' PRINT '*** Creating sp_insert_adoption_application'
+GO
+CREATE PROCEDURE [sp_insert_adoption_application]
+(
+	@CustomerEmail			[nvarchar](250),
+	@AnimalID				[int],
+	@Status					[nvarchar](1000),
+	@RecievedDate			[datetime] 
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[AdoptionApplication]
+	([CustomerEmail], [AnimalID], [Status], [RecievedDate])
+	VALUES
+	(@CustomerEmail, @AnimalID, @Status, @RecievedDate)
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 4/28/2020
+Comment: Stored Procedure that inserts a customer
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_adoption_application]
+GO
+PRINT '' PRINT '*** Creating sp_insert_adoption_application'
+GO
+CREATE PROCEDURE [sp_insert_adoption_application]
+(
+	@CustomerEmail			[nvarchar](250),
+	@AnimalID				[int],
+	@Status					[nvarchar](1000),
+	@RecievedDate			[datetime] 
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[AdoptionApplication]
+	([CustomerEmail], [AnimalID], [Status], [RecievedDate])
+	VALUES
+	(@CustomerEmail, @AnimalID, @Status, @RecievedDate)
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'

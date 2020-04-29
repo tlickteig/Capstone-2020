@@ -146,6 +146,95 @@ namespace DataAccessLayer
         }
 
         /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/27/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// Data Access Inteface that is used to Select Adoption Appointment VMs by Customer email and active
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public List<AdoptionAppointmentVM> SelectAdoptionAppointmentByCustomerEmailAndActive(string email, bool active)
+        {
+            List<AdoptionAppointmentVM> adoptionAppointments = new List<AdoptionAppointmentVM>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_adoption_appointments_by_customer_email_and_active", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Active", active);
+            cmd.Parameters.AddWithValue("@CustomerEmail", email);
+
+            try
+            {
+                conn.Open();
+
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var adoptionAppointment = new AdoptionAppointmentVM();
+
+                        adoptionAppointment.AppointmentID = reader.GetInt32(0);
+                        adoptionAppointment.AdoptionApplicationID = reader.GetInt32(1);
+                        adoptionAppointment.AppointmentTypeID = reader.GetString(2);
+                        adoptionAppointment.AppointmentDateTime = reader.GetDateTime(3);
+                        if (!reader.IsDBNull(4)) adoptionAppointment.Notes = reader.GetString(4);
+                        if (!reader.IsDBNull(5)) adoptionAppointment.Decision = reader.GetString(5);
+                        adoptionAppointment.LocationID = reader.GetInt32(6);
+                        adoptionAppointment.AppointmentActive = reader.GetBoolean(7);
+                        adoptionAppointment.CustomerEmail = reader.GetString(8);
+                        adoptionAppointment.AnimalID = reader.GetInt32(9);
+                        if (!reader.IsDBNull(10)) adoptionAppointment.AdoptionApplicationStatus = reader.GetString(10);
+                        adoptionAppointment.AdoptionApplicationRecievedDate = reader.GetDateTime(11);
+                        if (!reader.IsDBNull(12)) adoptionAppointment.LocationName = reader.GetString(12);
+                        adoptionAppointment.LocationAddress1 = reader.GetString(13);
+                        if (!reader.IsDBNull(14)) adoptionAppointment.LocationAddress2 = reader.GetString(14);
+                        adoptionAppointment.LocationCity = reader.GetString(15);
+                        adoptionAppointment.LocationState = reader.GetString(16);
+                        adoptionAppointment.LocationZip = reader.GetString(17);
+
+                        adoptionAppointment.CustomerFirstName = reader.GetString(18);
+                        adoptionAppointment.CustomerLastName = reader.GetString(19);
+                        adoptionAppointment.CustomerPhoneNumber = reader.GetString(20);
+                        adoptionAppointment.CustomerActive = reader.GetBoolean(21);
+                        adoptionAppointment.CustomerCity = reader.GetString(22);
+                        adoptionAppointment.CustomerState = reader.GetString(23);
+                        adoptionAppointment.CustomerZipCode = reader.GetString(24);
+                        adoptionAppointment.AnimalName = reader.GetString(25);
+                        if (!reader.IsDBNull(26)) adoptionAppointment.AnimalDob = reader.GetDateTime(26);
+                        adoptionAppointment.AnimalSpeciesID = reader.GetString(27);
+                        if (!reader.IsDBNull(28)) adoptionAppointment.AnimalBreed = reader.GetString(28);
+                        adoptionAppointment.AnimalArrivalDate = reader.GetDateTime(29);
+                        adoptionAppointment.AnimalCurrentlyHoused = reader.GetBoolean(30);
+                        adoptionAppointment.AnimalAdoptable = reader.GetBoolean(31);
+                        adoptionAppointment.AnimalActive = reader.GetBoolean(32);
+
+                        adoptionAppointments.Add(adoptionAppointment);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return adoptionAppointments;
+        }
+
+        /// <summary>
         /// NAME: Austin Gee
         /// DATE: 2/20/2020
         /// CHECKED BY: Mohamed Elamin, 02/07/2020
@@ -230,6 +319,52 @@ namespace DataAccessLayer
             }
 
             return adoptionAppointments;
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/27/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// updates an adoption appointment schedule
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="appointmentID"></param>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public int UpdateAdoptionAppointmentDateTime(int appointmentID, DateTime dateTime)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_appointment_date_time", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
+            cmd.Parameters.AddWithValue("@AppointmentDateTime", dateTime);
+
+            try
+            {
+                conn.Open();
+
+                rows = cmd.ExecuteNonQuery();
+                
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
         }
     }
 }

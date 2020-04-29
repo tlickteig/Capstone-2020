@@ -62,6 +62,46 @@ namespace DataAccessLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/28/2020
+        /// CHECKED BY: 
+        /// 
+        /// Deactivates an adoption apllication
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        public int InsertAdoptionApplication(Application application)
+        {
+            int rows = 0;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_adoption_application", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@CustomerEmail", application.CustomerEmail);
+            cmd.Parameters.AddWithValue("@AnimalID", application.AnimalID);
+            cmd.Parameters.AddWithValue("@Status", application.Status);
+            cmd.Parameters.AddWithValue("@RecievedDate", application.RecievedDate);
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 4/11/2020
         /// CHECKED BY: Michael Thompson
         /// 

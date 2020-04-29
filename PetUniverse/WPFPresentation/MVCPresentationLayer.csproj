@@ -566,6 +566,11 @@
     <Content Include="Views\Account\RegisterEmployeeUser.cshtml" />
     <Content Include="Views\Adoption\Index.cshtml" />
     <Content Include="Views\Account\RegisterVolunteerUser.cshtml" />
+    <Content Include="Views\Adoption\AdoptionCustomerRegister.cshtml" />
+    <Content Include="Views\Adoption\AppointmentDetails.cshtml" />
+    <Content Include="Views\Adoption\CustomerAppointmentSchedule.cshtml" />
+    <Content Include="Views\Adoption\CustomerConfirmAdoptionApplication.cshtml" />
+    <Content Include="Views\Adoption\RescheduleAppointment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

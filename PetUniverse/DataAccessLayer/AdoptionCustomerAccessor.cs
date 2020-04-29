@@ -25,6 +25,56 @@ namespace DataAccessLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/28/2020
+        /// CHECKED BY: 
+        /// 
+        /// This method inserts a customer
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public int InsertAdoptionCustomer(AdoptionCustomer customer)
+        {
+            int rows = 0;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_customer", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@Email", customer.CustomerEmail);
+            cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", customer.LastName);
+            cmd.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
+            cmd.Parameters.AddWithValue("@addressLineOne", customer.AddressLineOne);
+            cmd.Parameters.AddWithValue("@addressLineTwo", customer.AddressLineTwo);
+            cmd.Parameters.AddWithValue("@City", customer.City);
+            cmd.Parameters.AddWithValue("@State", customer.State);
+            cmd.Parameters.AddWithValue("@Zipcode", customer.Zipcode);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteNonQuery();
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 3/18/2020
         /// CHECKED BY: Mohamed Elamin, 02/07/2020
         /// 

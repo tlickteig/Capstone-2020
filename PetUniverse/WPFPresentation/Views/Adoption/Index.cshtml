@@ -53,10 +53,10 @@
             @Html.DisplayFor(modelItem => item.ProfileImage)
         </td>
         <td>
-            @Html.ActionLink("Start Application", "Start", new { id=item.AnimalID })
-            @Html.ActionLink("Edit", "Edit", new { id=item.AnimalID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.AnimalID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.AnimalID })
+            @Html.ActionLink("Start Application", "CustomerStartApplication", new { email = User.Identity.Name, animalID = item.AnimalID })
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.AnimalID }) |
+        @Html.ActionLink("Details", "Details", new { id=item.AnimalID }) |
+        @Html.ActionLink("Delete", "Delete", new { id=item.AnimalID })*@
         </td>
     </tr>
 }

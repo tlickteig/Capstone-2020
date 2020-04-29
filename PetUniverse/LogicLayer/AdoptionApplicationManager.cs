@@ -54,6 +54,19 @@ namespace LogicLayer
             _adoptionApplicationAccessor = adoptionApplicationAccessor;
         }
 
+        public bool AddAdoptionApplication(Application application)
+        {
+            try
+            {
+                return 1 == _adoptionApplicationAccessor.InsertAdoptionApplication(application);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 4/22/2020

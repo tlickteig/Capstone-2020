@@ -1,4 +1,5 @@
 ﻿using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 
 namespace LogicLayerInterfaces
@@ -38,6 +39,26 @@ namespace LogicLayerInterfaces
         /// <returns></returns>
         List<AdoptionAppointmentVM> RetrieveAdoptionAppointmentsByActiveAndType(bool active, string appointmentTypeID);
 
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/27/2020
+        /// CHECKED BY: Thomas Dupuy
+        /// 
+        /// Interface for retrieveing an adoption appointment vm by active and 
+        /// email from the data access layer
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        List<AdoptionAppointmentVM> RetrieveAdoptionAppointmentsByCustomerEmailAndActive(string email, bool active = true);
+
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/5/2020
@@ -74,6 +95,24 @@ namespace LogicLayerInterfaces
         /// <param name="adoptionAppointment"></param>
         /// <returns></returns>
         bool AddAdoptionAppointment(AdoptionAppointment adoptionAppointment);
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/27/2020
+        /// CHECKED BY: Thomas Dupuy
+        /// 
+        /// Interface for editing an appointments datetime
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="appointmentID"></param>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        bool EditAdoptionAppointmentDateTime(int appointmentID, DateTime dateTime);
     }
 }
 
