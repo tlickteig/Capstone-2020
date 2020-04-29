@@ -8,9 +8,8 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Mohamed Elamin
-    /// Created: 02/29/2020
-    /// Approver: Awaab Elamin 03/03/2020
-    ///
+    /// Created: 2020/02/29
+    /// Approver: Awaab Elamin 2020/03/03
     /// This Class is for creation of fake Adoption Applications which will be used 
     /// for testing Logic layer methods.
     /// </summary>
@@ -21,20 +20,15 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 02/19/2020
-        /// Approver:  Awaab Elamin, 03/03/2020
-        /// 
-        /// This method will get a fake Adoption Application when whenever it called. 
+        /// Created: 2020/02/29
+        /// Approver: Awaab Elamin 2020/03/03
+        /// This is a Constructor method which has fake Adoption Application list. 
         /// </summary>
-        ///
         /// <remarks>
-        /// Updater: Zach Behrensmeyer
-        /// Updated: 4/9/2020
-        /// Update: Fixed Comments and spelling errors
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <returns>Fake Adoption Applications</returns>
-
         public FakeAdoptionInterviewerAccessor()
         {
             adoptionAppointments = new List<AdoptionAppointment>()
@@ -76,19 +70,17 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 02/29/2020
+        /// Created: 2020/02/29
         /// Approver: Awaab Elamin, 03/03/2020
-        /// 
         /// This fake method is called to get a fake list of Adoption Applications. 
         /// </summary>
-        ///
         /// <remarks>
-        /// Updater: Zach Behrensmeyer
-        /// Updated: 4/9/2020
-        /// Update: Fixed Comments and spelling errors
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <returns>fake list of Adoption Applications</returns>
+        /// <returns>_adoptionAppointments</returns>
         public List<AdoptionAppointment> SelectAdoptionAappointmentsByAppointmentType()
         {
             List<AdoptionAppointment> _adoptionAppointments;
@@ -102,14 +94,12 @@ namespace DataAccessFakes
         /// Creator: Mohamed Elamin
         /// Created: 02/29/2020
         /// Approver:  Awaab Elamin, 03/03/2020
-        /// 
-        /// This fake method is called to get a fake list of Adoption Applications. 
+        /// This is a fake Update Appoinment method. 
         /// </summary>
-        ///
         /// <remarks>
-        /// Updater: Zach Behrensmeyer
-        /// Updated: 4/9/2020
-        /// Update: Fixed Comments, spelling errors, and formatting
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
         /// </remarks>
         /// <param name="AdoptionAppointment"></param>
         /// <param name="AdoptionAppointment"></param>

@@ -9,9 +9,8 @@ namespace DataAccessLayer
 {
     /// <summary>
     /// Creator: Mohamed Elamin
-    /// Created: 2020/02/19
+    /// Created: 2020/02/29
     /// Approver:  Awaab Elamin, 2020/03/03
-    ///
     /// This Class for accessing InHome Inspection Appointment Decision Accessor
     /// data in the database.
     /// </summary>
@@ -19,23 +18,19 @@ namespace DataAccessLayer
     {
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
+        /// Created: 2020/02/29
         /// Approver:  Awaab Elamin, 2020/03/03
-        /// 
-        /// This method used to get Adoption Applications by the adoption 
-        ///  type
-        /// 
+        /// This method used to get Adoption Applications by the adoption type.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
+        /// <returns>Adoption Applications list</returns>
         public List<AdoptionAppointment> SelectAdoptionAappointmentsByAppointmentType()
         {
-            string LocationName = "";
+           
             List<AdoptionAppointment> adoptionAppointments = new List<AdoptionAppointment>();
 
             var conn = DBConnection.GetConnection();
@@ -52,8 +47,6 @@ namespace DataAccessLayer
                     {
 
                         var adoptionAppointment = new AdoptionAppointment();
-
-
 
                         adoptionAppointment.AppointmentID = reader.GetInt32(0);
                         adoptionAppointment.AdoptionApplicationID = reader.GetInt32(1);
@@ -82,9 +75,6 @@ namespace DataAccessLayer
                         adoptionAppointment.LocationName =
                           RetrieveLocationNameByLocationID(reader.GetInt32(6));
 
-
-
-
                         adoptionAppointments.Add(adoptionAppointment);
                     }
                 }
@@ -103,21 +93,18 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/03/10
-        /// Approved By:  
-        /// 
+        /// Created: 2020/02/29
+        /// Approver:  Awaab Elamin, 2020/03/03
         /// This is private method gets the Location's name from the Location table in the database
         /// by Adoption ID.
-        /// 
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
         /// <param name="LocationID"></param>
+        /// <returns>name</returns>
         private string RetrieveLocationNameByLocationID(int LocationID)
         {
             string name = "";
@@ -157,19 +144,18 @@ namespace DataAccessLayer
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
+        /// Created: 2020/02/29
         /// Approver:  Awaab Elamin, 2020/03/03
-        /// 
         /// This method used to update an Adoptin Appliction notes.
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
+        /// <param name="oldAdoptionAppointment"></param>
+        /// <param name="newAdoptionAppointment"></param>
+        /// <returns>Zero or one depending if the record was updated </returns>
         public int UpdateAppoinment(AdoptionAppointment oldAdoptionAppointment, AdoptionAppointment newAdoptionAppointment)
         {
             int rows = 0;

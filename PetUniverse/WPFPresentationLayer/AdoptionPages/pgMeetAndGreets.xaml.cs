@@ -28,8 +28,9 @@ namespace WPFPresentationLayer.AdoptionPages
         IAdoptionAppointmentManager _adoptionAppointmentManager;
         IInHomeInspectionAppointmentDecisionManager _homeInspectorManager;
         IAppointmentTypeManager _appointmentTypeManager;
-
         AdoptionAppointmentVM _adoptionAppointment;
+        private IInHomeInspectionAppointmentDecisionManager
+        _inHomeInspectionAppointmentDecisionManager = null;
 
         /// <summary>
         /// NAME: Austin Gee
@@ -51,6 +52,7 @@ namespace WPFPresentationLayer.AdoptionPages
             _adoptionAppointmentManager = new AdoptionAppointmentManager();
             _homeInspectorManager = new InHomeInspectionAppointmentDecisionManager();
             _appointmentTypeManager = new AppointmentTypeManager();
+            _inHomeInspectionAppointmentDecisionManager = new InHomeInspectionAppointmentDecisionManager();
             populateAppointmentDataGrid();
             try
             {
@@ -698,6 +700,75 @@ namespace WPFPresentationLayer.AdoptionPages
         private void btnAppointmentType_Click(object sender, RoutedEventArgs e)
         {
             populateAppointmentDataGrid(cmbApptFilter.SelectedItem.ToString());
+        }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/04/08
+        /// Approver: Austin Gee, 2020/04/09
+        /// This is an Event on Cancel Adoption Application Button is clicked It  
+        /// changes the Adoption Appointment Decision to Cancel. Also the it changes the Adoption
+        /// Appliction's Status to Cancel.
+        /// </summary>
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name=" sender"></param>
+        /// <param name=" e"></param>
+        private void btnCancelApplaction_Click(object sender, RoutedEventArgs e)
+        {
+            HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision =
+ new HomeInspectorAdoptionAppointmentDecision();
+            AdoptionAppointmentVM selectedApplication = new AdoptionAppointmentVM();
+
+            selectedApplication =
+            (AdoptionAppointmentVM)dgAppointments.SelectedItem;
+            if (selectedApplication == null)
+            {
+                MessageBox.Show("Please select an application to Cancel");
+                return;
+            }
+            newHomeInspectorAdoptionAppointmentDecision.Decision = "Cancel";
+            newHomeInspectorAdoptionAppointmentDecision.AppointmentID = selectedApplication.AppointmentID;
+            newHomeInspectorAdoptionAppointmentDecision.Notes = selectedApplication.Notes;
+
+            HomeInspectorAdoptionAppointmentDecision _homeInspectionAppointmentDecision =
+            new HomeInspectorAdoptionAppointmentDecision();
+
+
+            _homeInspectionAppointmentDecision.AppointmentID = selectedApplication.AppointmentID;
+            _homeInspectionAppointmentDecision.AdoptionApplicationID = selectedApplication.AdoptionApplicationID;
+            _homeInspectionAppointmentDecision.LocationName = selectedApplication.LocationName;
+            _homeInspectionAppointmentDecision.AppointmentTypeID = selectedApplication.AppointmentTypeID;
+            _homeInspectionAppointmentDecision.DateTime = selectedApplication.AppointmentDateTime;
+            _homeInspectionAppointmentDecision.Notes = selectedApplication.Notes;
+            _homeInspectionAppointmentDecision.Decision = selectedApplication.Decision;
+            _homeInspectionAppointmentDecision.LocationID = selectedApplication.LocationID;
+            _homeInspectionAppointmentDecision.Active = selectedApplication.AppointmentActive;
+
+            try
+            {
+
+                _inHomeInspectionAppointmentDecisionManager.EditAppointment
+                (_homeInspectionAppointmentDecision, newHomeInspectorAdoptionAppointmentDecision);
+
+                if (_inHomeInspectionAppointmentDecisionManager.UpdateHomeInspectorDecision
+                    (_homeInspectionAppointmentDecision
+                        .AdoptionApplicationID, "Cancel"))
+                {
+                    MessageBox.Show("Adoption Application has been successfully cancelled ");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Appointment can't be Edited", ex.Message + "\n\n"
+                                              + ex.InnerException.Message);
+            }
+
         }
     }
 }

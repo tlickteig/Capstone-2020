@@ -9,9 +9,8 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Mohamed Elamin
-    /// Created: 02/19/2020
-    /// Approver:  Awaab Elamin, 02/21/2020
-    ///
+    /// Created: 2020/02/19
+    /// Approver:  Awaab Elamin, 2020/02/21
     /// This Class for creation a fake Adoption Applictions which will used 
     /// for testing Logic layer methodes.
     /// </summary>
@@ -23,19 +22,15 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 02/19/2020
-        /// Approver: Awaab Elamin, 02/21/2020
-        /// 
-        /// This method will get fake Adoption Appliction when whenever it called. 
+        /// Created: 2020/02/19
+        /// Approver:  Awaab Elamin, 2020/02/21 
+        /// This is a Constructor method which has fake Fake InHomeInspection Appointment Decision list. 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <returns>fake Adoption Applications</returns>
         public FakeInHomeInspectionAppointmentDecisionAccessor()
         {
             inHomeInspectionAppointmentDecisions = new List<HomeInspectorAdoptionAppointmentDecision>()
@@ -161,19 +156,16 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 02/19/2020
-        /// Approved By:  Awaab Elamin, 02/21/2020
-        /// 
+        /// Created: 2020/02/19
+        /// Approver:  Awaab Elamin, 2020/02/21
         /// This is Mock Access Method for getting Customer Email By Adoption Application ID.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
         /// <param name="adoptionApplicationId"></param>
-
         /// <returns>result</returns>
         public string GetCustomerEmailByAdoptionApplicationID(int adoptionApplicationId)
         {
@@ -192,18 +184,15 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 02/19/2020
-        /// Approved By:  Awaab Elamin, 02/21/2020
-        /// 
+        /// Created: 2020/02/19
+        /// Approver:  Awaab Elamin, 2020/02/21
         /// This fake method is called to get a fake list of Adoption Applications. 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
         /// <returns>fake list of Adoption Applications</returns>
         public List<HomeInspectorAdoptionAppointmentDecision> SelectAdoptionApplicationsAappointmentsByAppointmentType()
         {
@@ -214,21 +203,18 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created On: 02/19/2020
-        /// Approved By:  Awaab Elamin,02/21/2020
-        /// 
+        /// Created: 2020/02/19
+        /// Approver:  Awaab Elamin, 2020/02/21
         /// This is Mock Access Method for updating Update in-Home Inspector Decision.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <returns>rowsEffects</returns>
         /// <param name="adoptionApplicationID"></param>
         /// <param name="decision"></param>
+        /// <returns>rowsEffects</returns>
         public int UpdateHomeInspectorDecision(int adoptionApplicationID, string decision)
         {
             int rowsAffected = 0;
@@ -255,19 +241,18 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 02/19/2020
-        /// Approver:  Awaab Elamin, 02/21/2020
-        /// 
+        /// Created: 2020/02/19
+        /// Approver:  Awaab Elamin, 2020/02/21
         /// This fake method is called to get a fake list of Adoption Applictions. 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <returns>fake list of Adoption Applications</returns>
+        /// <param name="oldHomeInspectorAdoptionAppointmentDecision"></param>
+        /// <param name="newHomeInspectorAdoptionAppointmentDecision"></param>
+        /// <returns>result</returns>
         int IInHomeInspectionAppointmentDecisionAccessor.UpdateAppoinment(HomeInspectorAdoptionAppointmentDecision oldHomeInspectorAdoptionAppointmentDecision,
             HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision)
         {

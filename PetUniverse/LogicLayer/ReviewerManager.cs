@@ -105,35 +105,27 @@ namespace LogicLayer
         /// Update: After DB updated in Customer Table, We don't need to below method.
         /// Updater: Mohamed Elamin 
         /// Updated: 2020/04/21 
-        /// Update: Fixed Comments format. Added try catch block.
+        /// Update: Fixed Comments format. Added try catch block and deleted commented code.
         /// </remarks>
         /// <param name="customerEmail"></param>
         /// <returns>customerQuestionnars</returns>
         public List<CustomerQuestionnar> retrieveCustomerQuestionnar(string customerEmail)
         {
             List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-            if (customerEmail != null && customerEmail != "")
+            try
             {
-                customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerEmail);
+                if (customerEmail != null && customerEmail != "")
+                {
+                    customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerEmail);
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                //customerQuestionnars = adoptionAccessor.getAllQuestions();
+
+                throw ex;
             }
-
-            // List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-            //    foreach (CustomerQuestionnar customerQ in customerQuestionnars)
-            //    {
-            //        CustomerQuestionnarVM customerQuestionnarVM = new CustomerQuestionnarVM();
-            //        customerQuestionnarVM.AdoptionApplicationID = customerQ.AdoptionApplication;
-            //        customerQuestionnarVM.CustomerLastName =
-            //            adoptionAccessor.getCustomerLastName(customerQ.CustomerID);
-            //        customerQuestionnarVM.QuestionDescription =
-            //            adoptionAccessor.getQestionDescription(customerQ.QuestionID);
-            //        customerQuestionnarVM.CustomerAnswer = customerQ.Answer;
-            //        customerQuestionnarVMs.Add(customerQuestionnarVM);
-
-            //    }
+           
             return customerQuestionnars;
         }
 

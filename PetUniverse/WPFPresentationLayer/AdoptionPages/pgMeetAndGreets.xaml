@@ -70,6 +70,16 @@
                      /// </summary>
                        -->
                     <Button x:Name="btnWelcomeBasket" Grid.Column="1" Width="150" Height="30" Content="Welcome Basket Inventory" HorizontalAlignment="Left" Click="btnWelcomeBasket_Click"/>
+                    <!--/// <summary>
+                     /// Creator: Mohamed Elamin
+                     /// Created:2020/04/08
+                     /// Approver:  Austin Gee , 2020/04/09               
+                     /// This Event will cancel Adoption Application.
+                     /// 
+                     /// </summary>
+                       -->
+
+                    <Button x:Name="btnCancelApplaction" Grid.Column="2" Width="130" Height="30" Content="Cancel Applaction" HorizontalAlignment="Left" Click="btnCancelApplaction_Click"/>
 
                 </Grid>
         </Grid>

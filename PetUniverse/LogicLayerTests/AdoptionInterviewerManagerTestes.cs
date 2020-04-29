@@ -12,12 +12,10 @@ namespace LogicLayerTests
     /// Creator: Mohamed Elamin
     /// Created: 2020/02/29
     /// Approver: Awaab Elamin, 2020/03/03
-    /// 
-    ///
     /// This Class for testing all public methods in the Adoption Interviewer
     /// Manager class.
-    ///
     /// </summary>
+   
     [TestClass]
     public class AdoptionInterviewerManagerTestes
     {
@@ -29,18 +27,14 @@ namespace LogicLayerTests
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver:Awaab Elamin,2020/03/03
-        /// 
         /// This is the Setup for tests.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
+      
         [TestInitialize]
         public void TestSetup()
         {
@@ -52,19 +46,15 @@ namespace LogicLayerTests
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/03/03
-        /// 
         /// This is the test for Select Select Adoption Applications Aappointments
         /// By Appointment Type method.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
+        /// 
         [TestMethod]
         public void TestSelectAdoptionAappointmentsByAppointmentType()
         {
@@ -75,24 +65,20 @@ namespace LogicLayerTests
                 .SelectAdoptionAappointmentsByAppointmentType();
             // Assert
             Assert.AreEqual(1, SelectAdoptionAappointmentsByAppointmentType.Count);
-
         }
+
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/03/03
-        /// 
         /// This is the test for Edit Appointment of Adoption Applications 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
+      
         [TestMethod]
         public void TestEditAppointment()
         {

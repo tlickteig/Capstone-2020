@@ -11,7 +11,7 @@ namespace WPFPresentationLayer.AdoptionPages
 {
     /// <summary>
     /// Creator: Awaab Elamin
-    /// Created: 2020/01/03
+    /// Created: 2020/02/04
     /// Approver : Mohamed Elamin
     /// This class represent the tracking methode for the Interviewer Xaml
     /// </summary>
@@ -23,15 +23,15 @@ namespace WPFPresentationLayer.AdoptionPages
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// 2020/01/03
-        /// Approver : Mohamed Elamin
-        /// default construct create an object for reviewer manager(Logic Layer)
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
+        /// Default construct create an object for reviewer manager(Logic Layer)
         /// </summary>
-        ///<remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
-        /// </remarks>
+        /// <remarks>
+        /// Updater: Mohamed Elamin
+        /// Updated: 2020/04/22 
+        /// Update: Fixed Comments format.
+        /// </remarks>     
         public InterviewerPage()
         {
             InitializeComponent();
@@ -44,15 +44,16 @@ namespace WPFPresentationLayer.AdoptionPages
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// 2020/01/03
-        /// Approver : Mohamed Elamin
-        /// when load the page, data grid view must show all the adoption applications that Approved by Interviewer
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
+        /// When load the page, data grid view must show all the adoption applications
+        /// that Approved by Interviewer
         /// </summary>
-        ///<remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
-        /// </remarks>
+        /// <remarks>
+        /// Updater: Mohamed Elamin
+        /// Updated: 2020/04/22 
+        /// Update: Fixed Comments format.
+        /// </remarks>     
         /// <param name="e"></param>
         /// <param name="sender"></param>
 
@@ -64,17 +65,14 @@ namespace WPFPresentationLayer.AdoptionPages
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// 2020/01/03
-        /// Approver : Mohamed Elamin
-        /// when load the page, data grid view must show all the adoption applications that Approved by Interviewer
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin 
         /// </summary>
-        /// <param name="e"></param>
-        /// <param name="sender"></param>
-        ///<remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
-        /// </remarks>
+        /// <remarks>
+        /// Updater: Mohamed Elamin
+        /// Updated: 2020/04/22 
+        /// Update: Fixed Comments format.
+        /// </remarks>         
         private void updateAdoptionList()
         {
             try
@@ -112,14 +110,13 @@ namespace WPFPresentationLayer.AdoptionPages
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// 2020/01/03
-        /// Approver : Mohamed Elamin
-        /// after selecting one of the adoption application list. Intervivewer Decission Tab shown up.
-        /// </summary>       
-        ///<remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
+        /// </summary>
+        /// <remarks>
+        /// Updater: Mohamed Elamin
+        /// Updated: 2020/04/22 
+        /// Update: Fixed Comments format.
         /// </remarks>
         /// <param name="e"></param>
         /// <param name="sender"></param>
@@ -146,14 +143,13 @@ namespace WPFPresentationLayer.AdoptionPages
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// 2020/01/03
-        /// Approver : Mohamed Elamin
-        /// After decission button clicked. interviewer decission submitted to logic layer. (Deny, In Home Inspection)
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
         /// </summary>
-        ///<remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
+        /// <remarks>
+        /// Updater: Mohamed Elamin
+        /// Updated: 2020/04/22 
+        /// Update: Fixed Comments format.
         /// </remarks>
         /// <param name="e"></param>
         /// <param name="sender"></param>
@@ -198,14 +194,13 @@ namespace WPFPresentationLayer.AdoptionPages
 
         /// <summary>
         /// Creator: Awaab Elamin
-        /// 2020/01/03
-        /// Approver : Mohamed Elamin
-        /// When Interviewer get focus, retrieve the customer questionnair
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
         /// </summary>
-        ///<remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
+        /// <remarks>
+        /// Updater: Mohamed Elamin
+        /// Updated: 2020/04/22 
+        /// Update: Fixed Comments format.
         /// </remarks>
         /// <param name="e"></param>
         /// <param name="sender"></param>

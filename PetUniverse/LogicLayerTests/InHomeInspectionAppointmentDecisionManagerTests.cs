@@ -12,11 +12,8 @@ namespace LogicLayerTests
     /// Creator: Mohamed Elamin
     /// Created: 2020/02/19
     /// Approver: Awaab Elamin, 2020/02/21
-    /// 
-    ///
     /// This Class for testing all public methods in the In-home Inspection Appointment
     /// Decision Manager class.
-    ///
     /// </summary>
     [TestClass]
     public class InHomeInspectionAppointmentDecisionManagerTests
@@ -28,18 +25,13 @@ namespace LogicLayerTests
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver:Awaab Elamin, 2020/02/21
-        /// 
         /// This is the Setup for tests.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
         [TestInitialize]
         public void TestSetup()
         {
@@ -51,8 +43,7 @@ namespace LogicLayerTests
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/03/10
-        /// Approved By: Awaab Elamin, 2020/02/21
-        /// 
+        /// Approved By: Awaab Elamin, 2020/03/13
         /// This is the test for Get Customer Email method By Adoption Application Id.
         /// </summary>
         /// <remarks>
@@ -60,8 +51,6 @@ namespace LogicLayerTests
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <returns></returns>
         [TestMethod]
         public void TestGetCustomerEmailByAdoptionApplicationId()
         {
@@ -85,21 +74,14 @@ namespace LogicLayerTests
         /// Creator: Mohamed Elamin
         /// Created On: 2020/02/19
         /// Approved By: Awaab Elamin, 2020/02/21
-        /// 
-        /// This is the test for Update HomeInspector Decision's method. It will return true if
-        /// the status of the adoption Application's id = 10001 updated to Facilitator in the
+        /// This is the test for Update HomeInspector Decision's method.
         /// Fake data.
-        /// 
-        /// 
         /// </summary>
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
 
         [TestMethod]
         public void TestUpdateHomeInspectorDecision()
@@ -118,19 +100,13 @@ namespace LogicLayerTests
         /// Creator: Mohamed Elamin
         /// Created On: 2020/02/19
         /// Approved By: Awaab Elamin, 2020/02/21
-        /// 
-        /// This is the test for Update HomeInspector Decision's method. It will return true if
-        /// the status of the adoption Application's id = 1000 updated to Deny.
-        /// 
+        /// This is the test for Submit Deny Decision method.
         /// </summary>
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
         [TestMethod]
         public void TestSubmitDenyDecision()
         {
@@ -149,19 +125,14 @@ namespace LogicLayerTests
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is the test for Select Select Adoption Applications Aappointments
         /// By Appointment Type method.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
 
         [TestMethod]
         public void TestSelectAdoptionApplicationsAappointmentsByAppointmentType()
@@ -179,18 +150,13 @@ namespace LogicLayerTests
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
-        /// This is the test for Edit Appointment of Adoption Applications 
+        /// This is the test for Edit Appointment of Adoption Applications.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
         [TestMethod]
         public void TestEditAppointment()
         {
