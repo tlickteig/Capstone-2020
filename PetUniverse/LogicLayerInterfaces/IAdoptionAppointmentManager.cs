@@ -22,6 +22,23 @@ namespace LogicLayerInterfaces
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/29/2020
+        /// CHECKED BY: 
+        /// 
+        /// Interface for retrieveing an adoption vm by active
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        List<AdoptionAppointmentVM> RetrieveAdoptionAppointmentsByActive(bool active = true);
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 3/5/2020
         /// CHECKED BY: Thomas Dupuy
         /// 

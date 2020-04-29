@@ -153,6 +153,32 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/29/2020
+        /// CHECKED BY: 
+        /// 
+        /// Gets a list Adoption AppointmentVMs by active
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        public List<AdoptionAppointmentVM> RetrieveAdoptionAppointmentsByActive(bool active = true)
+        {
+            try
+            {
+                return _adoptionAppointmentAccessor.SelectAdoptionAppointmentsByActive(active);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 2/10/2020
         /// CHECKED BY: Thomas Dupuy
         /// 

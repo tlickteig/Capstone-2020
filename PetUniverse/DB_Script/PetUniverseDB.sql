@@ -12276,6 +12276,64 @@ END
 GO
 
 /*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Stored Procedure that selects adoption appointments by active and type.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_appointments_by_active]
+GO
+PRINT '' PRINT '*** Creating sp_select_adoption_appointments_by_active'
+GO
+CREATE PROCEDURE [sp_select_adoption_appointments_by_active]
+(
+	@Active				[int]
+)
+AS
+BEGIN
+	SELECT
+	[AppointmentID]
+	,[AdoptionApplication].[AdoptionApplicationID]
+	,[Appointment].[AppointmentTypeID]
+	,[Appointment].[DateTime]
+	,[Appointment].[Notes]
+	,[Appointment].[Decision]
+	,[Location].[LocationID]
+	,[Appointment].[Active]
+	,[Customer].[Email]
+	,[Animal].[AnimalID]
+	,[AdoptionApplication].[Status]
+	,[AdoptionApplication].[RecievedDate]
+	,[Location].[Name]
+	,[Location].[Address1]
+	,[Location].[Address2]
+	,[Location].[City]
+	,[Location].[State]
+	,[Location].[Zip]
+	,[Customer].[FirstName]
+	,[Customer].[LastName]
+	,[Customer].[PhoneNumber]
+	,[Customer].[Active]
+	,[Customer].[City]
+	,[Customer].[State]
+	,[Customer].[Zipcode]
+	,[Animal].[AnimalName]
+	,[Animal].[Dob]
+	,[Animal].[AnimalSpeciesID]
+	,[Animal].[AnimalBreed]
+	,[Animal].[ArrivalDate]
+	,[Animal].[CurrentlyHoused]
+	,[Animal].[Adoptable]
+	,[Animal].[Active]
+	FROM [Appointment] JOIN [AdoptionApplication] ON [AdoptionApplication].[AdoptionApplicationID] = [Appointment].[AdoptionApplicationID]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	JOIN [Customer] ON [AdoptionApplication].[CustomerEmail] = [Customer].[Email]
+	JOIN [Animal] ON [AdoptionApplication].[AnimalID] = [Animal].[AnimalID]
+	WHERE [Appointment].[Active] = @Active
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'

@@ -14,6 +14,23 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IAdoptionAppointmentAccessor
     {
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/28/2020
+        /// Approver: 
+        /// 
+        /// Data Access Inteface that is used to Select Adoption Appointment VMs by active
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        List<AdoptionAppointmentVM> SelectAdoptionAppointmentsByActive(bool active);
+
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 3/5/2020

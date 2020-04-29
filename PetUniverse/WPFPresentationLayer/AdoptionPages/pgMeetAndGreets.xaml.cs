@@ -27,6 +27,7 @@ namespace WPFPresentationLayer.AdoptionPages
     {
         IAdoptionAppointmentManager _adoptionAppointmentManager;
         IInHomeInspectionAppointmentDecisionManager _homeInspectorManager;
+        IAppointmentTypeManager _appointmentTypeManager;
 
         AdoptionAppointmentVM _adoptionAppointment;
 
@@ -49,9 +50,18 @@ namespace WPFPresentationLayer.AdoptionPages
             InitializeComponent();
             _adoptionAppointmentManager = new AdoptionAppointmentManager();
             _homeInspectorManager = new InHomeInspectionAppointmentDecisionManager();
+            _appointmentTypeManager = new AppointmentTypeManager();
             populateAppointmentDataGrid();
+            try
+            {
+                cmbApptFilter.ItemsSource = _appointmentTypeManager.RetrieveAllAppontmentTypes();
+            }
+            catch (Exception)
+            {
 
-
+                
+            }
+            
         }
 
         /// <summary>
@@ -67,13 +77,21 @@ namespace WPFPresentationLayer.AdoptionPages
         /// WHAT WAS CHANGED: Try catch was added to prevent program crash in case of inability to access datat store
         /// 
         /// </remarks>
-        private void populateAppointmentDataGrid()
+        private void populateAppointmentDataGrid(string appointmentType = "")
         {
             try
             {
-                dgAppointments.ItemsSource = _adoptionAppointmentManager.RetrieveAdoptionAppointmentsByActiveAndType(true, "Meet and Greet");
+                if(appointmentType == "")
+                {
+                    dgAppointments.ItemsSource = _adoptionAppointmentManager.RetrieveAdoptionAppointmentsByActive();
+                }
+                else
+                {
+                    dgAppointments.ItemsSource = _adoptionAppointmentManager.RetrieveAdoptionAppointmentsByActiveAndType(true, appointmentType);
+                }
+                
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 //MessageBox.Show("Appoinment information cannot be found.\n\n" + ex.InnerException.Message);
@@ -124,21 +142,31 @@ namespace WPFPresentationLayer.AdoptionPages
             dgAppointments.Columns.RemoveAt(5);
             //dgAppointments.Columns.RemoveAt(4);
             dgAppointments.Columns.RemoveAt(3);
-            dgAppointments.Columns.RemoveAt(2);
+            //dgAppointments.Columns.RemoveAt(2);
             dgAppointments.Columns.RemoveAt(1);
             dgAppointments.Columns.RemoveAt(0);
 
+            
 
 
 
-            dgAppointments.Columns[0].Header = "Location Name";
-            dgAppointments.Columns[1].Header = "Customer First Name";
-            dgAppointments.Columns[2].Header = "Customer Last Name";
-            dgAppointments.Columns[3].Header = "Customer Phone Number";
-            dgAppointments.Columns[4].Header = "Customer Email";
-            dgAppointments.Columns[5].Header = "Appointment Time";
+            
+            dgAppointments.Columns[0].Header = "Appointment Type";
 
-            dgAppointments.Columns[5].DisplayIndex = 0;
+            dgAppointments.Columns[1].Header = "Location Name";
+
+            dgAppointments.Columns[2].Header = "First Name";
+            dgAppointments.Columns[3].Header = "Last Name";
+            dgAppointments.Columns[4].Header = "Customer Phone";
+            dgAppointments.Columns[5].Header = "Customer Email";
+            
+            dgAppointments.Columns[6].Header = "Appointment Time";
+
+            dgAppointments.Columns[0].DisplayIndex = 5;
+            dgAppointments.Columns[5].DisplayIndex = 6;
+            dgAppointments.Columns[6].DisplayIndex = 0;
+
+
 
         }
 
@@ -652,6 +680,24 @@ namespace WPFPresentationLayer.AdoptionPages
         private void btnWelcomeBasket_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService?.Navigate(new pgWelcomeHomeBaskets());
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 2020/04/14
+        /// Approver: 
+        /// Filters out appointments by type
+        /// </summary>
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAppointmentType_Click(object sender, RoutedEventArgs e)
+        {
+            populateAppointmentDataGrid(cmbApptFilter.SelectedItem.ToString());
         }
     }
 }
