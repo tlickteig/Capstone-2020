@@ -393,5 +393,31 @@ namespace LogicLayer
                 throw new ApplicationException("Unable to add a new Item", ex);
             }
         }
+        /// <summary>
+        /// Creator: Jesse Tomash
+        /// Created: 4/26/2020
+        /// Approver: 
+        /// Approver: 
+        ///
+        /// selects item by item id
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public Item SelectItemByItemID(int itemID)
+        {
+            try
+            {
+                return _itemAccessor.SelectItemByItemID(itemID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable find item", ex);
+            }
+        }
     }
 }

@@ -603,7 +603,63 @@ namespace DataAccessLayer
 
             return rowsAffected;
         }
+        /// <summary>
+        /// Creator: Jesse Tomash
+        /// Created: 4/27/2020
+        /// Approver: 
+        ///
+        /// Method to select item by item id.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public Item SelectItemByItemID(int itemID)
+        {
+            Item item = null;
 
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_item_by_item_id", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ItemID", itemID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    {
+                        item = new Item()
+                        {
+                            ItemName = reader.GetString(0),
+                            ItemCategoryID = reader.GetString(1),
+                            ItemQuantity = reader.GetInt32(2),
+                            Description = reader.GetString(3),
+                            ShelterItem = reader.GetBoolean(4),
+                            ItemID = reader.GetInt32(5),
+                            ShelterThreshold = reader.IsDBNull(6) ? 0 : reader.GetInt32(6)
+                        };
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return item;
+        }
     }
 }
 

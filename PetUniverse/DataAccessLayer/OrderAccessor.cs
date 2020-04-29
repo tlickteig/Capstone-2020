@@ -64,9 +64,9 @@ namespace DataAccessLayer
 
                 reader.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {
@@ -111,6 +111,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@UserID", newOrder.UserID);
             cmd.Parameters.AddWithValue("@Active", newOrder.Active);
 
+            cmd.Parameters.AddWithValue("@OldOrderID", oldOrder.OrderID);
             cmd.Parameters.AddWithValue("@OldUserID", oldOrder.UserID);
             cmd.Parameters.AddWithValue("@OldActive", oldOrder.Active);
             try
@@ -118,9 +119,9 @@ namespace DataAccessLayer
                 conn.Open();
                 cmd.ExecuteScalar();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {
@@ -162,9 +163,9 @@ namespace DataAccessLayer
                 conn.Open();
                 cmd.ExecuteScalar();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {
@@ -187,9 +188,9 @@ namespace DataAccessLayer
         /// WHAT WAS CHANGED:
         /// <param name="orderInvoiceID">ID of order to be deleted</param>
         /// <returns>1 if successful, 0 if not</returns>
-        public int DeleteOrder(int orderID)
+        public bool DeleteOrder(int orderID)
         {
-            int rows = 0;
+            bool isDeleted = false;
 
             var conn = DBConnection.GetConnection();
 
@@ -201,19 +202,19 @@ namespace DataAccessLayer
 
             try
             {
-                cmd.ExecuteScalar();
+                conn.Open();
+                isDeleted = 1 == cmd.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {
                 conn.Close();
             }
-            return rows;
+            return isDeleted;
         }
-
         /// <summary>
         /// Creator: Dalton Reierson
         /// Created: 2020/04/24
