@@ -12248,31 +12248,6 @@ BEGIN
 END
 GO
 
-/*
-Created by: Austin Gee
-Date: 4/27/2020
-Comment: Stored Procedure that inserts a customer
-*/
-DROP PROCEDURE IF EXISTS [sp_insert_adoption_application]
-GO
-PRINT '' PRINT '*** Creating sp_insert_adoption_application'
-GO
-CREATE PROCEDURE [sp_insert_adoption_application]
-(
-	@CustomerEmail			[nvarchar](250),
-	@AnimalID				[int],
-	@Status					[nvarchar](1000),
-	@RecievedDate			[datetime] 
-)
-AS
-BEGIN
-	INSERT INTO [dbo].[AdoptionApplication]
-	([CustomerEmail], [AnimalID], [Status], [RecievedDate])
-	VALUES
-	(@CustomerEmail, @AnimalID, @Status, @RecievedDate)
-	RETURN @@ROWCOUNT
-END
-GO
 
 /*
 Created by: Austin Gee

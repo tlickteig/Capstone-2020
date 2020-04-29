@@ -18,15 +18,15 @@ namespace DataTransferObjects
         // Connection String for home
         //@"Data Source=localhost\sqlexpress;Initial Catalog=PetUniverseDB; Integrated Security = True";
 
-        //@"Data Source=dbpetuniverse.database.windows.net;Initial Catalog=PetUniverseDB;User ID=csdadmin;Password=********;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        @"Server = tcp:dbpetuniverse.database.windows.net,1433;Initial Catalog = PetUniverseDB; Persist Security Info=False;User ID = csdadmin; Password=Kirkwood01; MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30;";
 
-        //Connection string for school
-        @"Data Source=localhost;Initial Catalog=PetUniverseDB;Integrated Security=True"; // Connection string for school
+    //Connection string for school
+    //@"Data Source=localhost;Initial Catalog=PetUniverseDB;Integrated Security=True"; // Connection string for school
 
 
-        //@"Data Source=LAPTOP-T3PUJGNB\SQLEXPRESS;Initial Catalog=PetUniverseDB;Integrated Security=True";
+    //@"Data Source=LAPTOP-T3PUJGNB\SQLEXPRESS;Initial Catalog=PetUniverseDB;Integrated Security=True";
 
-        private static string createConnectionString()
+    private static string createConnectionString()
         {
             var sqlConnectionSB = new SqlConnectionStringBuilder();
 
