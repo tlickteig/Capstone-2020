@@ -12459,6 +12459,42 @@ AS
 		RETURN @@ROWCOUNT
 	END
 GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Stored Procedure that selects adoption animals by active and adoptable.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_animals_by_active_and_adoptable]
+GO
+PRINT '' PRINT '*** Creating sp_select_adoption_animals_by_active_and_adoptable'
+GO
+CREATE PROCEDURE [sp_select_adoption_animals_by_active_and_adoptable]
+(
+	@Active		[bit],
+	@Adoptable	[bit]
+)
+AS
+BEGIN
+	SELECT
+	[AnimalID]
+	,[AnimalName]
+	,[Dob]
+	,[AnimalBreed]
+	,[ArrivalDate]
+	,[CurrentlyHoused]
+	,[Adoptable]
+	,[Active]
+	,[AnimalSpeciesID]
+	,[ProfilePhoto]
+	,[ProfileDescription]
+	FROM [dbo].[Animal]
+	WHERE [Active] = @Active
+	AND [Adoptable] = @Adoptable
+	ORDER BY [AnimalName] DESC
+END
+GO
+
 /*
  ******************************* Inserting Sample Data *****************************
 */
