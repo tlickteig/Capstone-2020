@@ -12,7 +12,7 @@
       >
       
     <Grid>
-        <Canvas x:Name="canAnimalList" Visibility="Visible">
+        <Canvas x:Name="canAnimalList" Visibility="Hidden">
             <Grid Width="1280" Height="800">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
@@ -67,7 +67,7 @@
                 </Grid>
             </Grid>
         </Canvas>
-        <Canvas x:Name="canAnimalDetails" Visibility="Hidden">
+        <Canvas x:Name="canAnimalDetails" Visibility="visible">
             <Grid Width="1280" Height="800">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="40"/>
@@ -106,10 +106,10 @@
                     
                     
 
-                    <Label Grid.Row="0" Grid.Column="3" Content="Kennel Info:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <!--<Label Grid.Row="0" Grid.Column="3" Content="Kennel Info:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     <Label Grid.Row="1" Grid.Column="3" Content="Handling Notes:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     <Label Grid.Row="2" Grid.Column="3" Content="Temperment Warning:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
-                    <Label Grid.Row="3" Grid.Column="3" Content="Spayed/Nutered:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <Label Grid.Row="3" Grid.Column="3" Content="Spayed/Nutered:" HorizontalAlignment="Right" VerticalAlignment="Center"/>-->
                     <Label Grid.Row="4" Grid.Column="3" Content="Currently Housed:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
                     <Label Grid.Row="5" Grid.Column="3" Content="Adoptable:" HorizontalAlignment="Right" VerticalAlignment="Center"/>
 
@@ -125,10 +125,10 @@
                     
                     
                     
-                    <TextBox x:Name="txtKennelInfo" IsReadOnly="True"  Grid.Row="0" Grid.Column="4" Margin="5" VerticalContentAlignment="Center" Background="LightGoldenrodYellow" />
+                    <!--<TextBox x:Name="txtKennelInfo" IsReadOnly="True"  Grid.Row="0" Grid.Column="4" Margin="5" VerticalContentAlignment="Center" Background="LightGoldenrodYellow" />
                     <TextBox x:Name="txtHandlingNotes" IsReadOnly="True"  Grid.Row="1" Grid.Column="4" Margin="5" VerticalContentAlignment="Center" Background="LightGoldenrodYellow" />
                     <TextBox x:Name="txtTemepermentWarning" IsReadOnly="True"  Grid.Row="2" Grid.Column="4" Margin="5" VerticalContentAlignment="Center" Background="LightGoldenrodYellow" />
-                    <CheckBox x:Name="chkSpayedNuetered" IsEnabled="False" Grid.Row="3" Grid.Column="4" Margin="5" VerticalContentAlignment="Center" Background="LightGoldenrodYellow" />
+                    <CheckBox x:Name="chkSpayedNuetered" IsEnabled="False" Grid.Row="3" Grid.Column="4" Margin="5" VerticalContentAlignment="Center" Background="LightGoldenrodYellow" />-->
                     <CheckBox x:Name="chkCurrentlyHoused" IsEnabled="False" Grid.Row="4" Grid.Column="4" Margin="5" VerticalContentAlignment="Center" Background="LightGoldenrodYellow" />
                     <CheckBox x:Name="chkAdoptable" IsEnabled="False" Grid.Row="5" Grid.Column="4" Margin="5" VerticalContentAlignment="Center" Background="LightGoldenrodYellow" />
 

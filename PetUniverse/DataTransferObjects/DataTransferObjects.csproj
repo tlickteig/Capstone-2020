@@ -166,6 +166,8 @@
     <Compile Include="TransactionStatus.cs" />
     <Compile Include="TransactionType.cs" />
     <Compile Include="TransactionVM.cs" />
+    <Compile Include="TreatmentRecord.cs" />
+    <Compile Include="TreatmentRecordVM.cs" />
     <Compile Include="Vendor.cs" />
     <Compile Include="Volunteer.cs" />
     <Compile Include="VolunteerEvent.cs" />

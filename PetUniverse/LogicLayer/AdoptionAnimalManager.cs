@@ -108,5 +108,34 @@ namespace LogicLayer
                 throw new ApplicationException("Data not found.", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/29/2020
+        /// Approver: 
+        /// 
+        /// Retrieves a list of adoption animals from data access layer
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        public List<Animal> RetrieveAdoptionAnimalsByActiveAndAdoptable(bool active = true, bool adoptable = true)
+        {
+            try
+            {
+                return _adoptionAnimalAccessor.SelectAdoptionAnimalsByActiveAndAdoptable(active, adoptable);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
     }
 }

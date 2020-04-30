@@ -115,6 +115,7 @@
     <Compile Include="TrainingVideoManager.cs" />
     <Compile Include="TransactionAdminManager.cs" />
     <Compile Include="TransactionManager.cs" />
+    <Compile Include="TreatmentRecordManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="VendorManager.cs" />
     <Compile Include="VetAppointmentManager.cs" />

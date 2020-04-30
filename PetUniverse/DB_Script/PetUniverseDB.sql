@@ -2315,6 +2315,7 @@ CREATE TABLE [dbo].[orderitemline] (
 GO
 
 /*
+<<<<<<< HEAD
 Created by: Jesse Tomash
 Date: 4/26/2020
 Comment: specialorderitemline table
@@ -2333,6 +2334,42 @@ CREATE TABLE [dbo].[specialorderitemline] (
 		REFERENCES [SpecialOrders]([SpecialOrderID]) ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT [fk_SpLineItemID] FOREIGN KEY ([ItemID])
 		REFERENCES [Item]([ItemID]) ON UPDATE CASCADE ON DELETE CASCADE
+=======
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Creating a table for VetLicense.
+*/
+print '' print '*** Creating VetLicense Table'
+GO
+CREATE TABLE [dbo].[VetLicense](
+	[LicenseID] 				[int] IDENTITY(1000000,1)	NOT NULL,
+	[Institute]   				[nvarchar](300)			    NOT NULL,
+	[DateIssued]   				[datetime]         			NOT NULL,
+	[Active]   					[bit]         				NOT NULL,
+	CONSTRAINT [pk_LicenseID] PRIMARY KEY([LicenseID] ASC)
+)
+GO
+
+
+/*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Creates a table for treatment record.
+*/
+print '' print '*** Creating TreatmentRecord Table'
+GO
+CREATE TABLE [dbo].[TreatmentRecord](
+	[TreatmentRecordID] 		[int] IDENTITY(1000000,1)	NOT NULL,
+	[VetID]   					[nvarchar](200) 		    NOT NULL,
+	[AnimalID]   				[int]         				NOT NULL,
+	[FormName]      			[nvarchar](50)           	NOT NULL 	DEFAULT 1,
+	[TreatmentDate]   			[datetime]			        NOT NULL,
+	[TreatmentDescription]   	[nvarchar](4000)           	NULL,
+	[Notes]   					[nvarchar](2000)           	NULL,
+	[Reason]   					[nvarchar](2000)           	NOT NULL,
+	[Urgency]   				[int]			          	NOT NULL,
+	CONSTRAINT [pk_TreatmentRecordID] PRIMARY KEY([TreatmentRecordID] ASC)	
+>>>>>>> origin/master
 )
 GO
 
@@ -12562,6 +12599,7 @@ AS
 GO
 
 /*
+<<<<<<< HEAD
 Created by: Jesse Tomash
 Date: 4/28/2020
 Comment: delete order item line
@@ -12579,10 +12617,147 @@ AS
 		DELETE
 		FROM [dbo].[specialorderitemline]
 		WHERE [ItemID] = @ItemID
+=======
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Stored Procedure that selects adoption animals by active and adoptable.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_animals_by_active_and_adoptable]
+GO
+PRINT '' PRINT '*** Creating sp_select_adoption_animals_by_active_and_adoptable'
+GO
+CREATE PROCEDURE [sp_select_adoption_animals_by_active_and_adoptable]
+(
+	@Active		[bit],
+	@Adoptable	[bit]
+)
+AS
+BEGIN
+	SELECT
+	[AnimalID]
+	,[AnimalName]
+	,[Dob]
+	,[AnimalBreed]
+	,[ArrivalDate]
+	,[CurrentlyHoused]
+	,[Adoptable]
+	,[Active]
+	,[AnimalSpeciesID]
+	,[ProfilePhoto]
+	,[ProfileDescription]
+	FROM [dbo].[Animal]
+	WHERE [Active] = @Active
+	AND [Adoptable] = @Adoptable
+	ORDER BY [AnimalName] DESC
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/10/2020
+Comment: Insert a treatment record.
+*/
+print '' print '*** Creating sp_insert_treatment_record'
+GO
+CREATE PROCEDURE [sp_insert_treatment_record]
+(
+	@VetID	 				[nvarchar](200),
+	@AnimalID				[int],
+	@FormName				[nvarchar](50),
+	@TreatmentDate			[date],
+	@TreatmentDescription 	[nvarchar](4000),
+	@Notes					[nvarchar](2000),
+	@Reason					[nvarchar](2000),
+	@Urgency      			[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[TreatmentRecord]
+		([VetID], [AnimalID], [FormName], [TreatmentDate], [TreatmentDescription], [Notes], [Reason], [Urgency])
+	VALUES
+		(@VetID, @AnimalID, @FormName, @TreatmentDate, @TreatmentDescription, @Notes, @Reason, @Urgency)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/10/2020
+Comment: Select treatment record.
+*/
+print '' print '*** Creating sp_select_treatment_records'
+GO
+CREATE PROCEDURE [sp_select_treatment_records]
+AS
+BEGIN
+	SELECT [TreatmentRecordID],[VetID],[AnimalID],[FormName],[TreatmentDate],
+	[TreatmentDescription],[Notes],[Reason],[Urgency]
+	FROM [dbo].[TreatmentRecord]
+	ORDER BY [TreatmentRecordID]
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/04/2020
+Comment: Delete a treatment record
+*/
+print '' print '*** Creating sp_delete_treatment_record '
+GO
+CREATE PROCEDURE [sp_delete_treatment_record] 
+	(
+		@TreatmentRecordID				[nvarchar](50)
+	)
+AS
+	BEGIN
+		DELETE  
+		FROM 	[TreatmentRecord]
+		WHERE 	[TreatmentRecordID] = @TreatmentRecordID
+		
+>>>>>>> origin/master
 	  
 		RETURN @@ROWCOUNT
 	END
 GO
+<<<<<<< HEAD
+=======
+
+/*
+Created by: Zoey McDonald
+Date: 4/04/2020
+Comment: Update a treatment record
+*/
+print '' print '*** Creating sp_update_treatment_record '
+GO
+CREATE PROCEDURE [sp_update_treatment_record] 
+	(
+		@TreatmentRecordID		[nvarchar](50),
+		@VetID	 				[nvarchar](200),
+		@AnimalID				[int],
+		@FormName				[nvarchar](50),
+		@TreatmentDate			[date],
+		@TreatmentDescription 	[nvarchar](4000),
+		@Notes					[nvarchar](2000),
+		@Reason					[nvarchar](2000),
+		@Urgency      			[int]
+	)
+AS
+	BEGIN
+		UPDATE [dbo].[TreatmentRecord]
+			SET [VetID] = @VetID,
+				[AnimalID] = @AnimalID,
+				[FormName] = @FormName,
+				[TreatmentDate] = @TreatmentDate,
+				[TreatmentDescription] = @TreatmentDescription,
+				[Notes] = @Notes,
+				[Reason] = @Reason,
+				[Urgency] = @Urgency
+		WHERE 	[TreatmentRecordID] = @TreatmentRecordID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+>>>>>>> origin/master
 /*
  ******************************* Inserting Sample Data *****************************
 */

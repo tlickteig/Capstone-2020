@@ -115,6 +115,7 @@
     <Compile Include="ITrainingVideoAccessor.cs" />
     <Compile Include="ITransactionAccessor.cs" />
     <Compile Include="ITransactionAdminAccessor.cs" />
+    <Compile Include="ITreatmentRecordAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
     <Compile Include="IVendorAccessor.cs" />
     <Compile Include="IVetAppointmentAccessor.cs" />

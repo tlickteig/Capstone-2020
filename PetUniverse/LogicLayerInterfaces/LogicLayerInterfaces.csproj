@@ -113,6 +113,7 @@
     <Compile Include="ITrainingVideoManager.cs" />
     <Compile Include="ITransactionAdminManager.cs" />
     <Compile Include="ITransactionManager.cs" />
+    <Compile Include="ITreatmentRecordManager.cs" />
     <Compile Include="IUserManager.cs" />
     <Compile Include="IVendorManager.cs" />
     <Compile Include="IVetAppointmentManager.cs" />
