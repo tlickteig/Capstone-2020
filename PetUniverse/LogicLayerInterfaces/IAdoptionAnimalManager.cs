@@ -60,5 +60,23 @@ namespace LogicLayerInterfaces
         /// 
         /// </remarks>
         bool DeactivateAnimal(int animalID);
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/29/2020
+        /// Approver: 
+        /// 
+        /// updates an animal adoptable quality
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="animalID"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        bool EditAnimalAdoptable(int animalID, bool adoptable);
     }
 }

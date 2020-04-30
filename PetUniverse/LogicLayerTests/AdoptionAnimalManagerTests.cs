@@ -118,5 +118,32 @@ namespace LogicLayerTests
             // assert
             Assert.AreEqual(3, result.Count);
         }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/29/2020
+        /// CHECKED BY: 
+        /// 
+        /// Tests update animal adoptable quality
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionAnimalUpdateAnimalAdoptable()
+        {
+            // arrange
+
+            IAdoptionAnimalManager adoptionAnimalManager = new AdoptionAnimalManager(_fakeAdoptionAnimalAccessor);
+
+            // act
+            var result = adoptionAnimalManager.EditAnimalAdoptable(000, true);
+
+            // assert
+            Assert.IsTrue(result);
+        }
     }
 }

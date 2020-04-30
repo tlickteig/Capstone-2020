@@ -430,7 +430,9 @@ namespace WPFPresentation.Controllers
             try
             {
                 int applicationID = Int32.Parse(applicationIDSring);
+                var application = _adoptionApplicationManager.RetrieveAdoptionApplicationByID(applicationID);
                 _adoptionApplicationManager.DeactivateAdoptionApplication(applicationID);
+                _adoptionAnimalManager.EditAnimalAdoptable(application.AnimalID, true);
                 return RedirectToAction("CustomerApplicationList", new { customerEmail = formCollection[2] });
             }
             catch (Exception)
@@ -616,6 +618,23 @@ namespace WPFPresentation.Controllers
                     RecievedDate = DateTime.Now
                 };
                 _adoptionApplicationManager.AddAdoptionApplication(application);
+                //var oldAnimals = _animalManager.RetrieveAnimalByAnimalID(animalID);
+                //var oldAnimal = oldAnimals[0];
+                //var newAnimal = new Animal
+                //{
+                //    AnimalID = oldAnimal.AnimalID,
+                //    Adoptable = false,
+                //    AnimalBreed = oldAnimal.AnimalBreed,
+                //    Active = oldAnimal.Active,
+                //    AnimalName = oldAnimal.AnimalName,
+                //    AnimalSpeciesID = oldAnimal.AnimalSpeciesID,
+                //    ArrivalDate = oldAnimal.ArrivalDate,
+                //    CurrentlyHoused = oldAnimal.CurrentlyHoused,
+                //    Dob = oldAnimal.Dob,
+                //    ProfileDescription = oldAnimal.ProfileDescription,
+                //    ProfileImage = oldAnimal.ProfileImage,
+                //};
+                _adoptionAnimalManager.EditAnimalAdoptable(animalID, false);
             }
             catch (Exception)
             {

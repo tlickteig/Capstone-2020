@@ -203,5 +203,48 @@ namespace DataAccessLayer
 
             return adoptionAnimalVM;
         }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/29/2020
+        /// Approver: 
+        /// 
+        /// updates an animal as adoptable or unadoptable
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="animalID"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        public int UpdateAnimalAdoptable(int animalID, bool adoptable)
+        {
+            int rows = 0;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_animal_adoptable", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@AnimalID", animalID);
+            cmd.Parameters.AddWithValue("@Adoptable", adoptable);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
     }
 }

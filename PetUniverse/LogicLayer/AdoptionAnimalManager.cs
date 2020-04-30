@@ -84,6 +84,35 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Austin Gee
+        /// Created: 4/29/2020
+        /// Approver: 
+        /// 
+        /// updates an animals adoptable field
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="animalID"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        public bool EditAnimalAdoptable(int animalID, bool adoptable)
+        {
+            try
+            {
+                return 1 == _adoptionAnimalAccessor.UpdateAnimalAdoptable(animalID, adoptable);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
         /// Created: 3/5/2020
         /// Approver: Micheal Thompson, 4/9/2020
         /// 

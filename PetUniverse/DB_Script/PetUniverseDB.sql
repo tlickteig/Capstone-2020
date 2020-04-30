@@ -12891,6 +12891,28 @@ BEGIN
 END
 GO
 
+/*Created by: Austin Gee
+Date: 4/29/2020
+Comment: Stored Procedure to update animal adoptable
+*/
+DROP PROCEDURE IF EXISTS [sp_update_animal_adoptable]
+GO
+PRINT '' PRINT '*** Creating sp_update_animal_adoptable'
+GO
+CREATE PROCEDURE [sp_update_animal_adoptable]
+(
+	@AnimalID	[int],
+	@Adoptable	[bit]
+)
+AS
+BEGIN
+	UPDATE 	[dbo].[Animal]
+	SET		[Adoptable] = @Adoptable
+	WHERE	[AnimalID] = @AnimalID
+	RETURN	@@ROWCOUNT
+END
+GO
+
 /*
  ******************************* Inserting Sample Data *****************************
 */

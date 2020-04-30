@@ -65,5 +65,23 @@ namespace DataAccessInterfaces
         /// 
         /// </remarks>
         int DeactivateAdoptionAnimal(int animalID);
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// updates an animal as adoptable or unadoptable
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="animalID"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        int UpdateAnimalAdoptable(int animalID, bool adoptable);
     }
 }
