@@ -2315,7 +2315,6 @@ CREATE TABLE [dbo].[orderitemline] (
 GO
 
 /*
-<<<<<<< HEAD
 Created by: Jesse Tomash
 Date: 4/26/2020
 Comment: specialorderitemline table
@@ -2334,8 +2333,8 @@ CREATE TABLE [dbo].[specialorderitemline] (
 		REFERENCES [SpecialOrders]([SpecialOrderID]) ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT [fk_SpLineItemID] FOREIGN KEY ([ItemID])
 		REFERENCES [Item]([ItemID]) ON UPDATE CASCADE ON DELETE CASCADE
-=======
-Created by: Zoey McDonald
+		
+/*Created by: Zoey McDonald
 Date: 2/20/2020
 Comment: Creating a table for VetLicense.
 */
@@ -2369,7 +2368,6 @@ CREATE TABLE [dbo].[TreatmentRecord](
 	[Reason]   					[nvarchar](2000)           	NOT NULL,
 	[Urgency]   				[int]			          	NOT NULL,
 	CONSTRAINT [pk_TreatmentRecordID] PRIMARY KEY([TreatmentRecordID] ASC)	
->>>>>>> origin/master
 )
 GO
 
@@ -7147,8 +7145,8 @@ PRINT '' PRINT '*** Creating sp_set_department_active_by_id'
 GO
 CREATE PROCEDURE [sp_deactivate_department_by_id]
 (
-	 @DepartmentID		[nvarchar](50)
-	,@Active			[bit]
+	@DepartmentID		[nvarchar](50),
+	@Active				[bit]
 )
 AS
 BEGIN
@@ -12599,7 +12597,6 @@ AS
 GO
 
 /*
-<<<<<<< HEAD
 Created by: Jesse Tomash
 Date: 4/28/2020
 Comment: delete order item line
@@ -12713,14 +12710,10 @@ AS
 		DELETE  
 		FROM 	[TreatmentRecord]
 		WHERE 	[TreatmentRecordID] = @TreatmentRecordID
-		
->>>>>>> origin/master
 	  
 		RETURN @@ROWCOUNT
 	END
 GO
-<<<<<<< HEAD
-=======
 
 /*
 Created by: Zoey McDonald
@@ -12757,7 +12750,6 @@ AS
 	END
 GO
 
->>>>>>> origin/master
 /*
  ******************************* Inserting Sample Data *****************************
 */
