@@ -109,6 +109,7 @@
     <Compile Include="SalesTaxManager.cs" />
     <Compile Include="ShiftManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
+    <Compile Include="SpecialOrderItemLineManager.cs" />
     <Compile Include="SpecialOrderManager.cs" />
     <Compile Include="StatusManager.cs" />
     <Compile Include="TrainingVideoManager.cs" />

@@ -156,6 +156,7 @@
     <Compile Include="ScheduleWithHoursWorked.cs" />
     <Compile Include="ShiftVM.cs" />
     <Compile Include="SpecialOrder.cs" />
+    <Compile Include="SpecialOrderItemLine.cs" />
     <Compile Include="States.cs" />
     <Compile Include="TimeOffRequest.cs" />
     <Compile Include="TimeOffRequestVM.cs" />

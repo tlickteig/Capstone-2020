@@ -112,6 +112,7 @@
     <Compile Include="ShiftAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
     <Compile Include="SpecialOrderAccessor.cs" />
+    <Compile Include="SpecialOrderItemLIneAccessor.cs" />
     <Compile Include="StatusAccessor.cs" />
     <Compile Include="TrainingVideoAccessor.cs" />
     <Compile Include="TransactionAccessor.cs" />

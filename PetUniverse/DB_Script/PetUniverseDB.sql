@@ -2315,6 +2315,28 @@ CREATE TABLE [dbo].[orderitemline] (
 GO
 
 /*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: specialorderitemline table
+*/
+DROP TABLE IF EXISTS [dbo].[specialorderitemline]
+GO
+print '' print '*** Creating specialorderitemline table'
+GO
+CREATE TABLE [dbo].[specialorderitemline] (
+	[SpecialOrderID]			[int] 			NOT NULL,
+	[ItemID]					[int]			NOT NULL,
+	[Quantity]					[int]			NOT NULL,
+	
+	CONSTRAINT [pk_LineSpOrderID] PRIMARY KEY([SpecialOrderID] ASC, [ItemID] ASC),
+	CONSTRAINT [fk_LineSpOrderID] FOREIGN KEY([SpecialOrderID])
+		REFERENCES [SpecialOrders]([SpecialOrderID]) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT [fk_SpLineItemID] FOREIGN KEY ([ItemID])
+		REFERENCES [Item]([ItemID]) ON UPDATE CASCADE ON DELETE CASCADE
+)
+GO
+
+/*
  ******************************* Create Procedures *****************************
 */
 PRINT '' PRINT '******************* Create Procedures *********************'
@@ -12389,6 +12411,32 @@ Created by: Jesse Tomash
 Date: 4/26/2020
 Comment: insert order item line
 */
+DROP PROCEDURE IF EXISTS [sp_insert_special_order_item_line]
+GO
+print '' print '*** Creating sp_insert_special_order_item_line'
+GO
+CREATE PROCEDURE sp_insert_special_order_item_line
+	(
+        @SpecialOrderID					[int],
+		@ItemID							[int],
+		@Quantity						[int]
+	)
+AS
+	BEGIN
+		INSERT INTO [specialorderitemline]
+			([SpecialOrderID], [ItemID], [Quantity])
+		VALUES
+			(@SpecialOrderID, @ItemID, @Quantity)
+		
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: insert order item line
+*/
 DROP PROCEDURE IF EXISTS [sp_select_order_item_lines_by_order_id]
 GO
 print '' print '*** Creating sp_select_order_item_lines_by_order_id'
@@ -12402,6 +12450,29 @@ AS
 		SELECT [OrderID], [ItemID], [Quantity]
 		FROM [dbo].[orderitemline]
 		WHERE [OrderID] = @orderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: insert order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_select_special_order_item_lines_by_order_id]
+GO
+print '' print '*** Creating sp_select_special_order_item_lines_by_order_id'
+GO
+CREATE PROCEDURE sp_select_special_order_item_lines_by_order_id
+	(
+        @SpecialOrderID						[int]
+	)
+AS
+	BEGIN
+		SELECT [SpecialOrderID], [ItemID], [Quantity]
+		FROM [dbo].[specialorderitemline]
+		WHERE [SpecialOrderID] = @SpecialOrderID
 	  
 		RETURN @@ROWCOUNT
 	END
@@ -12439,6 +12510,36 @@ GO
 
 /*
 Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: select item by item id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_special_item_by_item_id]
+GO
+print '' print '*** Creating sp_select_special_item_by_item_id'
+GO
+CREATE PROCEDURE sp_select_special_item_by_item_id
+	(
+        @ItemID						[int]
+	)
+AS
+	BEGIN
+		SELECT  [Item].[ItemName],
+				[Item].[ItemCategoryID],
+				[SpecialOrderItemLine].[Quantity],
+				[Item].[ItemDescription],
+				[Item].[ShelterItem],
+				[Item].[ItemID],
+				[Item].[ShelterThershold]
+		FROM [dbo].[item]
+		INNER JOIN [SpecialOrderItemLine] ON Item.ItemID = SpecialOrderItemLine.ItemID
+		WHERE [Item].[ItemID] = @ItemID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
 Date: 4/28/2020
 Comment: delete order item line
 */
@@ -12454,6 +12555,29 @@ AS
 	BEGIN
 		DELETE
 		FROM [dbo].[orderitemline]
+		WHERE [ItemID] = @ItemID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/28/2020
+Comment: delete order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_special_order_item_line_by_item_id]
+GO
+print '' print '*** Creating sp_delete_special_order_item_line_by_item_id'
+GO
+CREATE PROCEDURE sp_delete_special_order_item_line_by_item_id
+	(
+        @ItemID						[int]
+	)
+AS
+	BEGIN
+		DELETE
+		FROM [dbo].[specialorderitemline]
 		WHERE [ItemID] = @ItemID
 	  
 		RETURN @@ROWCOUNT

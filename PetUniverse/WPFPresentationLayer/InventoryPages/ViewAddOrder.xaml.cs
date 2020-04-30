@@ -390,16 +390,23 @@ namespace WPFPresentationLayer.InventoryPages
         /// <returns></returns>
         private void btnDeleteOrderItem_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if(dgOrderItems.SelectedItem != null)
             {
-                _item = (Item)dgOrderItems.SelectedItem;
-                _orderItemLineManager.DeleteOrderItemLineByItemID(_item.ItemID);
-                _orderItems.Remove(_item);
-                dgOrderItems.Items.Refresh();
+                try
+                {
+                    _item = (Item)dgOrderItems.SelectedItem;
+                    _orderItemLineManager.DeleteOrderItemLineByItemID(_item.ItemID);
+                    _orderItems.Remove(_item);
+                    dgOrderItems.Items.Refresh();
+                }
+                catch
+                {
+                    "Unable to remove Item from order".ErrorMessage();
+                }
             }
-            catch
+            else
             {
-                "Unable to remove Item from order".ErrorMessage();
+                "You must select an Item to remove.".ErrorMessage();
             }
         }
 
