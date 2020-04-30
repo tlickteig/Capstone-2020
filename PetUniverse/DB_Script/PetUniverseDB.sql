@@ -2333,7 +2333,9 @@ CREATE TABLE [dbo].[specialorderitemline] (
 		REFERENCES [SpecialOrders]([SpecialOrderID]) ON UPDATE CASCADE ON DELETE CASCADE,
 	CONSTRAINT [fk_SpLineItemID] FOREIGN KEY ([ItemID])
 		REFERENCES [Item]([ItemID]) ON UPDATE CASCADE ON DELETE CASCADE
-		
+	)
+GO
+
 /*Created by: Zoey McDonald
 Date: 2/20/2020
 Comment: Creating a table for VetLicense.
@@ -12614,8 +12616,10 @@ AS
 		DELETE
 		FROM [dbo].[specialorderitemline]
 		WHERE [ItemID] = @ItemID
-=======
-Created by: Austin Gee
+	END 
+Go
+
+/* Created by: Austin Gee
 Date: 2/21/2020
 Comment: Stored Procedure that selects adoption animals by active and adoptable.
 */
