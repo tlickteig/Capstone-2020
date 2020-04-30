@@ -4463,8 +4463,9 @@ GO
 CREATE PROCEDURE [sp_select_all_applicants]
 AS
 BEGIN
-	SELECT [Applicant].[ApplicantID], [FirstName], [LastName], [MiddleName], [Email], [PhoneNumber], [Application].[Status]
+	SELECT [Applicant].[ApplicantID], [FirstName], [LastName], [MiddleName], [Email], [PhoneNumber], [Application].[Status], [JobListing].[Position]
 	FROM [dbo].[Applicant] JOIN [Application] ON [Application].[ApplicantID] = [Applicant].[ApplicantID]
+	JOIN [JobListing] ON [Application].[JobListingID] = [JobListing].[JobListingID]
 	ORDER BY [ApplicantID]
 END
 GO
