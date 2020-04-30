@@ -59,7 +59,8 @@ namespace DataAccessLayer
                             MiddleName = reader.GetString(3),
                             Email = reader.GetString(4),
                             PhoneNumber = reader.GetString(5),
-                            ApplicantStatus = reader.GetString(6)
+                            ApplicantStatus = reader.GetString(6),
+                            ApplicationPostion = reader.GetString(7)
 
                         });
                     }
