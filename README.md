@@ -1,6 +1,6 @@
 # Capstone-2020
 
-[![Build Status](https://dev.azure.com/k0497302/Capstone-2020/_apis/build/status/jimglasgow.Capstone-2020?branchName=master)](https://dev.azure.com/k0497302/Capstone-2020/_build/latest?definitionId=5&branchName=master)   ![Release Status](https://vsrm.dev.azure.com/k0497302/_apis/public/Release/badge/af855017-e734-4270-8416-ad02fb4d6ff1/1/2)
+[![Build Status](https://dev.azure.com/k0497302/Capstone-2020/_apis/build/status/jimglasgow.Capstone-2020?branchName=master)](https://dev.azure.com/k0497302/Capstone-2020/_build/latest?definitionId=5&branchName=master)  ![Release Status](https://vsrm.dev.azure.com/k0497302/_apis/public/Release/badge/af855017-e734-4270-8416-ad02fb4d6ff1/1/3)  ![Release Status](https://vsrm.dev.azure.com/k0497302/_apis/public/Release/badge/af855017-e734-4270-8416-ad02fb4d6ff1/1/2)
 
 The following are the members of the
 Kirkwood Computer Software Development
