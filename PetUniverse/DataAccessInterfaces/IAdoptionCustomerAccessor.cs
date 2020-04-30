@@ -17,6 +17,20 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Austin Gee
+        /// Created: 4/28/2020
+        /// Approver: 
+        /// 
+        /// Insert Customer into database
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        int InsertAdoptionCustomer(AdoptionCustomer customer);
+
+        /// <summary>
+        /// Creator: Austin Gee
         /// Created: 2/6/2020
         /// Approver: Mohamed Elamin, 02/07/2020
         /// 

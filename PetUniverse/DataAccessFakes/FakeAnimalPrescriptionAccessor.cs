@@ -2,6 +2,7 @@
 using DataTransferObjects;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DataAccessFakes
 {
@@ -47,7 +48,8 @@ namespace DataAccessFakes
                     StartDate = DateTime.Parse("3/20/2020"),
                     EndDate = DateTime.Parse("4/15/2020"),
                     Description = "test",
-                    AnimalName = "fawuief"
+                    AnimalName = "fawuief",
+                    Active = true
                 },
 
                 new AnimalPrescriptionVM()
@@ -62,7 +64,8 @@ namespace DataAccessFakes
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(2),
                     Description = "test2",
-                    AnimalName = "sgadgase"
+                    AnimalName = "sgadgase",
+                    Active = false
                 },
 
                 new AnimalPrescriptionVM()
@@ -77,7 +80,8 @@ namespace DataAccessFakes
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(2),
                     Description = "test3",
-                    AnimalName = "hrehara"
+                    AnimalName = "hrehara",
+                    Active = true
                 },
 
                 new AnimalPrescriptionVM()
@@ -92,7 +96,8 @@ namespace DataAccessFakes
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddDays(2),
                     Description = "test4",
-                    AnimalName = "weaagw"
+                    AnimalName = "weaagw",
+                    Active = true
                 }
             };
         }
@@ -183,6 +188,101 @@ namespace DataAccessFakes
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Changes the active status of an animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be updated</param>
+        /// <param name="active">Active status</param>
+        /// <returns>Update successful</returns>
+        public int ChangeAnimalPrescriptionRecordActive(AnimalPrescription animalPrescription, bool active)
+        {
+            int rows = 0;
+            var foundRecord = AnimalPrescriptionVMs.Where(
+                p => p.AnimalPrescriptionID == animalPrescription.AnimalPrescriptionID).FirstOrDefault();
+
+            if (foundRecord != null)
+            {
+                int foundIndex = AnimalPrescriptionVMs.IndexOf(foundRecord);
+                foundRecord.Active = animalPrescription.Active;
+                AnimalPrescriptionVMs[foundIndex] = foundRecord;
+                if (AnimalPrescriptionVMs[foundIndex].Active == animalPrescription.Active)
+                {
+                    rows = 1;
+                }
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deletes an existing animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be deleted</param>
+        /// <returns>Rows updated</returns>
+        public int DeleteAnimalPrescriptionRecord(AnimalPrescriptionVM animalPrescription)
+        {
+            int rows = 0;
+            int startingCount = AnimalPrescriptionVMs.Count;
+
+            var foundRecord = AnimalPrescriptionVMs.Where(
+                p => p.AnimalPrescriptionID == animalPrescription.AnimalPrescriptionID &&
+                p.AnimalID == animalPrescription.AnimalID &&
+                p.AnimalVetAppointmentID == animalPrescription.AnimalVetAppointmentID &&
+                p.PrescriptionName == animalPrescription.PrescriptionName &&
+                p.Dosage == animalPrescription.Dosage &&
+                p.Interval == animalPrescription.Interval &&
+                p.AdministrationMethod == animalPrescription.AdministrationMethod &&
+                p.StartDate == animalPrescription.StartDate &&
+                p.EndDate == animalPrescription.EndDate &&
+                p.Description == animalPrescription.Description &&
+                p.Active == animalPrescription.Active).FirstOrDefault();
+
+            if (foundRecord != null)
+            {
+                AnimalPrescriptionVMs.Remove(foundRecord);
+            }
+            rows = startingCount - AnimalPrescriptionVMs.Count;
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/26/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Selects animal prescriptions by active/inactive status
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="active">Active status</param>
+        /// <returns>List of animal prescriptions</returns>
+        public List<AnimalPrescriptionVM> SelectAnimalPrescriptionsByActive(bool active)
+        {
+            return AnimalPrescriptionVMs.Where(p => p.Active == active).ToList();
         }
     }
 }

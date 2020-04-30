@@ -27,13 +27,13 @@
         </Grid.RowDefinitions>
 
         <TextBox x:Name="txtVolunteerEventTitle" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">Event Title</TextBox>
-        <CheckBox x:Name="chkVolunteerEventActive" Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">Active</CheckBox>
+        <CheckBox x:Name="chkVolunteerEventActive" Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 10 0 0">Active</CheckBox>
         <TextBox x:Name="txtVolunteerEventDescription" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">Event Description</TextBox>
 
 
         <!--<Button x:Name="btnEditVolunteerEvent" Grid.Row="5" Grid.Column="1" Click="btnEditVolunteerEvent_Click" >Edit</Button>-->
         <!--<Button x:Name="btnCancelVolunteerEvent" Grid.Row="5" Grid.Column="1"  >Cancel</Button>-->
-        <Button x:Name="btnSubmitVolunteerEvent" Grid.Row="5" Grid.Column="4" Click="btnSubmitVolunteerEvent_Click" >Submit</Button>
+        <Button x:Name="btnSubmitVolunteerEvent" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Width="100" Height="30" Click="btnSubmitVolunteerEvent_Click" >Submit</Button>
 
     </Grid>
 </Page>

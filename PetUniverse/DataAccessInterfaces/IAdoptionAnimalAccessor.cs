@@ -35,6 +35,24 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/29/2020
+        /// CHECKED BY: Thomas Dupuy
+        /// 
+        /// selects a list of adoptable animals from the database
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        List<Animal> SelectAdoptionAnimalsByActiveAndAdoptable(bool active, bool adoptable);
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 4/4/2020
         /// CHECKED BY: Micheal Thompson, 4/9/2020
         /// 
@@ -47,5 +65,23 @@ namespace DataAccessInterfaces
         /// 
         /// </remarks>
         int DeactivateAdoptionAnimal(int animalID);
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/4/2020
+        /// CHECKED BY: 
+        /// 
+        /// updates an animal as adoptable or unadoptable
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="animalID"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        int UpdateAnimalAdoptable(int animalID, bool adoptable);
     }
 }

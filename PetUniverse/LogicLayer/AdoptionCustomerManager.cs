@@ -63,6 +63,34 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/28/2020
+        /// CHECKED BY: 
+        /// 
+        /// Adds a customer to the database
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public bool AddAdoptionCustomer(AdoptionCustomer customer)
+        {
+            try
+            {
+                return 1 == _adoptionCustomerAccessor.InsertAdoptionCustomer(customer);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 3/18/2020
         /// CHECKED BY: 
         /// 

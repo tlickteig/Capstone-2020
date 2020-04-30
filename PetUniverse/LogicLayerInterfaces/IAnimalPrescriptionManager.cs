@@ -78,5 +78,69 @@ namespace LogicLayerInterfaces
         /// <returns>Edit successful</returns>
         bool EditAnimalPrescriptionRecord(AnimalPrescriptionVM oldAnimalPrescription,
             AnimalPrescriptionVM newAnimalPrescription);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deactivates an active animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be deactivated</param>
+        /// <returns>Deactivate successful</returns>
+        bool DeactivateAnimalPrescriptionRecord(AnimalPrescription animalPrescription);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Activates an inactive animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be activated</param>
+        /// <returns>Activate successful</returns>
+        bool ActivateAnimalPrescriptionRecord(AnimalPrescription animalPrescription);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deletes an existing animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be deleted</param>
+        /// <returns>Delete successful</returns>
+        bool DeleteAnimalPrescriptionRecord(AnimalPrescriptionVM animalPrescription);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/26/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Retrieves animal prescriptions by active status
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="active">Active status</param>
+        /// <returns>List of animal prescriptions</returns>
+        List<AnimalPrescriptionVM> RetrieveAnimalPrescriptionsByActive(bool active = true);
     }
 }

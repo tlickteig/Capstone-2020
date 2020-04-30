@@ -179,14 +179,6 @@ namespace WPFPresentationLayer.PoSPages
             taxRate = salesTax.TaxRate;
 
 
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
 
 
             bool isValid = false;
@@ -249,8 +241,15 @@ namespace WPFPresentationLayer.PoSPages
             subTotalTaxable = _transactionManager.CalculateSubTotalTaxable(_transactionManager.GetTaxableProducts());
             txtSubTotalTaxable.Text = subTotalTaxable.ToString();
 
+            // tax exempt simply means the tax rate is zero. Zero (tax rate)
+            // multiply with sub total taxable is zero. Zero add sub total 
+            // is simply the total without tax.
+            if (!String.IsNullOrWhiteSpace(txtTaxExemptNumber.Text))
+            {
+                salesTax.TaxRate = 0;
+            }
+
             // Calculates the total.
-            //txtTotal.Text = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax).ToString();
             total = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax);
             txtTotal.Text = total.ToString();
 
@@ -306,6 +305,22 @@ namespace WPFPresentationLayer.PoSPages
                     cbTransactionStatus.Text = transactionStatus.TransactionStatusID;
                 }
 
+                // if the transaction type was return or void, the values for item quantity
+                // and total calculations must be negative.
+                if (cbTransactionType.Text == "return")
+                {
+                    subTotalTaxable *= -1;
+                    subTotal *= -1;
+                    total *= -1;
+                }
+
+                if (cbTransactionType.Text == "void")
+                {
+                    subTotalTaxable *= -1;
+                    subTotal *= -1;
+                    total *= -1;
+                }
+
                 transaction.TransactionDateTime = transactionDate;
                 transaction.TaxRate = taxRate;
                 transaction.SubTotalTaxable = subTotalTaxable;
@@ -314,6 +329,7 @@ namespace WPFPresentationLayer.PoSPages
                 transaction.TransactionTypeID = cbTransactionType.Text.ToString();
                 transaction.EmployeeID = employeeID;
                 transaction.TransactionStatusID = cbTransactionStatus.Text.ToString();
+                transaction.TaxExemptNumber = txtTaxExemptNumber.Text.ToString();
 
                 transaction.CustomerEmail = txtEmail.Text.ToString();
             }
@@ -327,8 +343,20 @@ namespace WPFPresentationLayer.PoSPages
 
             foreach (var item in _transactionManager.GetAllProducts())
             {
+                // return transaction type!
+                if (cbTransactionType.Text == "return")
+                {
+                    item.Quantity *= -1;
+                }
+
+                // return transaction type!
+                if (cbTransactionType.Text == "void")
+                {
+                    item.Quantity *= -1;
+                }
                 ProductsSoldList.Add(item);
             }
+
             transactionLineProducts.ProductsSold = ProductsSoldList;
 
             try
@@ -348,9 +376,13 @@ namespace WPFPresentationLayer.PoSPages
                         txtPrice.Text = "";
                         txtQuantity.Text = "";
                         txtItemDescription.Text = "";
+                        
 
                         cbTransactionType.Text = "";
                         cbTransactionStatus.Text = "";
+
+                        txtTaxExemptNumber.Text = "";
+                        txtEmail.Clear();
 
                         txtTotal.Text = "";
                         txtSubTotal.Text = "";
@@ -363,7 +395,7 @@ namespace WPFPresentationLayer.PoSPages
                         _transactionManager.ClearShoppingCart();
 
                         btnAddProduct.Visibility = Visibility.Hidden;
-                        txtEmail.Clear();
+                        
 
 
                         MessageBox.Show("Transaction Complete", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -442,6 +474,9 @@ namespace WPFPresentationLayer.PoSPages
 
             cbTransactionType.Text = "";
             cbTransactionStatus.Text = "";
+
+            txtTaxExemptNumber.Text = "";
+            txtEmail.Text = "";
 
             txtTotal.Text = "";
             txtSubTotal.Text = "";
@@ -556,7 +591,7 @@ namespace WPFPresentationLayer.PoSPages
             bool result = false;
             PaymentType paymentType = PaymentType.Cancel;
             var due = new AmountDue(transaction.Total);
-            while (due.Amount > 0m)
+            while (due.Amount != 0)
             {
                 var frmPayment = new frmPayment(paymentType, due);
                 frmPayment.ShowDialog();

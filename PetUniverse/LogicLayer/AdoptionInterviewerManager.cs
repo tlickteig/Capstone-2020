@@ -11,7 +11,6 @@ namespace LogicLayer
     /// Creator: Mohamed Elamin
     /// Created: 2020/02/29
     /// Approver: Awaab Elamin, 2020/03/03
-    ///
     /// This Class for main logic of Interviewer.
     /// </summary>
     public class AdoptionInterviewerManager : IAdoptionInterviewerManager
@@ -21,7 +20,7 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
+        /// Created: 2020/02/29
         /// Approver: Awaab Elamin, 2020/03/03
         /// This is the Constructor method for InHome Inspection 
         /// Appointment Decision Manager.
@@ -39,7 +38,7 @@ namespace LogicLayer
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created: 2020/02/19
+        /// Created: 2020/02/29
         /// Approver: Awaab Elamin, 2020/03/03
         /// This is no argument Constructor method.
         /// </summary>
@@ -95,7 +94,7 @@ namespace LogicLayer
         /// Updated: 2020/04/22 
         /// Update: Fixed Comments format.
         /// </remarks>
-        /// <returns>adoptionApplications</returns>
+        /// <returns>adoptionApplications List</returns>
         public List<AdoptionAppointment> SelectAdoptionAappointmentsByAppointmentType()
         {
             List<AdoptionAppointment> adoptionApplications = null;

@@ -147,7 +147,7 @@ namespace LogicLayer
         public List<AnimalVetAppointment> RetrieveAppointmentsByClinicAddress(string clinicAddress)
         {
             return (from b in _vetAppointments
-                    where b.ClinicAddress == clinicAddress
+                    where b.ClinicAddress.ToLower() == clinicAddress.ToLower()
                     select b).ToList();
         }
 
@@ -213,7 +213,7 @@ namespace LogicLayer
         public List<AnimalVetAppointment> RetrieveAppointmentsByVetName(string vetName)
         {
             return (from b in _vetAppointments
-                    where b.VetName == vetName
+                    where b.VetName.ToLower() == vetName.ToLower()
                     select b).ToList();
         }
 

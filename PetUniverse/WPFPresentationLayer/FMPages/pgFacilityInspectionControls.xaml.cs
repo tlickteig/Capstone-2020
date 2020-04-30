@@ -91,6 +91,7 @@ namespace WPFPresentationLayer.FMPages
             canAddFacilityInspection.Visibility = Visibility.Visible;
             txtUserID.Text = _user.PUUserID.ToString();
             canView.Visibility = Visibility.Hidden;
+            cndInspectionDate.DisplayDateStart = DateTime.Now;
         }
 
         /// <summary>
@@ -387,6 +388,7 @@ namespace WPFPresentationLayer.FMPages
         private void dgFacilityInspection_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             txtUserID.Text = _user.PUUserID.ToString();
+            cndInspectionDate.DisplayDateStart = DateTime.Now;
             selectedFacilityInspection = (FacilityInspection)dgFacilityInspection.SelectedItem;
             if (selectedFacilityInspection != null)
             {

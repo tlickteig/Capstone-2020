@@ -309,8 +309,9 @@ namespace DataAccessFakes
 
             animals = new List<AnimalMedical>();
             animal = new AnimalMedical();
-            animal.AnimalID = 1;
-            animal.UserID = 1;
+            animal.AnimalName = "Animal";
+            animal.UserFirstName = "UserFirstName";
+            animal.UseLastrName = "UserLastName";
             animal.SpayedNeutered = true;
             animal.Vaccinations = "V1";
             animal.MostRecentVaccinationDate = DateTime.Now;
@@ -319,8 +320,9 @@ namespace DataAccessFakes
 
            
             animal = new AnimalMedical();
-            animal.AnimalID = 2;
-            animal.UserID = 2;
+            animal.AnimalName = "Animal";
+            animal.UserFirstName = "UserFirstName";
+            animal.UseLastrName = "UserLastName";
             animal.SpayedNeutered = true;
             animal.Vaccinations = "V2";
             animal.MostRecentVaccinationDate = DateTime.Now;
@@ -329,8 +331,9 @@ namespace DataAccessFakes
 
           
             animal = new AnimalMedical();
-            animal.AnimalID = 3;
-            animal.UserID = 3;
+            animal.AnimalName = "Animal";
+            animal.UserFirstName = "UserFirstName";
+            animal.UseLastrName = "UserLastName";
             animal.SpayedNeutered = true;
             animal.Vaccinations = "V3";
             animal.MostRecentVaccinationDate = DateTime.Now;
@@ -339,8 +342,9 @@ namespace DataAccessFakes
 
             
             animal = new AnimalMedical();
-            animal.AnimalID = 4;
-            animal.UserID = 4;
+            animal.AnimalName = "Animal";
+            animal.UserFirstName = "UserFirstName";
+            animal.UseLastrName = "UserLastName";
             animal.SpayedNeutered = true;
             animal.Vaccinations = "V4";
             animal.MostRecentVaccinationDate = DateTime.Now;
@@ -349,8 +353,9 @@ namespace DataAccessFakes
 
            
             animal = new AnimalMedical();
-            animal.AnimalID = 5;
-            animal.UserID = 5;
+            animal.AnimalName = "Animal";
+            animal.UserFirstName = "UserFirstName";
+            animal.UseLastrName = "UserLastName";
             animal.SpayedNeutered = true;
             animal.Vaccinations = "V5";
             animal.MostRecentVaccinationDate = DateTime.Now;

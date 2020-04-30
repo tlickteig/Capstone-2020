@@ -198,5 +198,56 @@ namespace DataAccessLayer
             }
             return result;
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/129/2020
+        /// Approver: Steven Cardona
+        ///
+        /// This method connects to the database and inserts a customer
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="customer"></param>
+        /// <returns></returns>
+        public bool InsertNewCustomer(Customer customer)
+        {
+            bool isInserted = false;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_customer", conn)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+
+            cmd.Parameters.AddWithValue("@FirstName", customer.FirstName);
+            cmd.Parameters.AddWithValue("@LastName", customer.LastName);
+            cmd.Parameters.AddWithValue("@PhoneNumber", customer.PhoneNumber);
+            cmd.Parameters.AddWithValue("@Email", customer.Email);
+            cmd.Parameters.AddWithValue("@Address1", customer.AddressLineOne);
+            cmd.Parameters.AddWithValue("@Address2", customer.AddressLineTwo);
+            cmd.Parameters.AddWithValue("@City", customer.City);
+            cmd.Parameters.AddWithValue("@State", customer.State);
+            cmd.Parameters.AddWithValue("@Zipcode", customer.ZipCode);
+
+            try
+            {
+                conn.Open();
+                isInserted = 1 == cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return isInserted;
+        }
     }
 }

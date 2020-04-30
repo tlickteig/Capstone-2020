@@ -70,5 +70,22 @@
         /// UPDATE DATE:
         /// WHAT WAS CHANGED:
         /// </remarks>
+        /// 
+
+        /// <summary>
+        /// NAME: Dalton Reierson
+        /// DATE: 4/18/2020
+        ///
+        /// Approver: Jesse Tomash
+        /// Approver: 
+        /// 
+        /// Status of an order
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        public string OrderStatus { get; set; }
     }
 }

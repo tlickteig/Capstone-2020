@@ -167,5 +167,109 @@ namespace LogicLayer
                 throw new ApplicationException("Failed to update record", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deactivates an active animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be deactivated</param>
+        /// <returns>Deactivate successful</returns>
+        public bool DeactivateAnimalPrescriptionRecord(AnimalPrescription animalPrescription)
+        {
+            try
+            {
+                return _animalPrescriptionsAccessor.ChangeAnimalPrescriptionRecordActive(animalPrescription, false) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Record not deactivated", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Activates an inactive animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be activated</param>
+        /// <returns>Activate successful</returns>
+        public bool ActivateAnimalPrescriptionRecord(AnimalPrescription animalPrescription)
+        {
+            try
+            {
+                return _animalPrescriptionsAccessor.ChangeAnimalPrescriptionRecordActive(animalPrescription, true) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Record not activated", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deletes an existing animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be deleted</param>
+        /// <returns>Delete successful</returns>
+        public bool DeleteAnimalPrescriptionRecord(AnimalPrescriptionVM animalPrescription)
+        {
+            try
+            {
+                return _animalPrescriptionsAccessor.DeleteAnimalPrescriptionRecord(animalPrescription) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Record not deleted", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/26/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Retrieves animal prescriptions by active status
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="active">Active status</param>
+        /// <returns>List of animal prescriptions</returns>
+        public List<AnimalPrescriptionVM> RetrieveAnimalPrescriptionsByActive(bool active = true)
+        {
+            try
+            {
+                return _animalPrescriptionsAccessor.SelectAnimalPrescriptionsByActive(active);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to fetch records", ex);
+            }
+        }
     }
 }

@@ -247,5 +247,41 @@ namespace DataAccessFakes
             }
             return recordsUpdated;
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deletes an existing animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalActivity">Record to be deleted</param>
+        /// <returns>Number of records deleted</returns>
+        public int DeleteAnimalActivityRecord(AnimalActivity animalActivity)
+        {
+            int rows = 0;
+            int startingCount = _animalActivity.Count;
+
+            var foundRecord = _animalActivity.Where(a => a.AnimalActivityId == animalActivity.AnimalActivityId &&
+                                                         a.AnimalID == animalActivity.AnimalID &&
+                                                         a.UserID == animalActivity.UserID &&
+                                                         a.AnimalActivityTypeID == animalActivity.AnimalActivityTypeID &&
+                                                         a.ActivityDateTime == animalActivity.ActivityDateTime &&
+                                                         a.Description == animalActivity.Description).FirstOrDefault();
+
+            if (foundRecord != null)
+            {
+                _animalActivity.Remove(foundRecord);
+            }
+
+            rows = startingCount - _animalActivity.Count;
+
+            return rows;
+        }
     }
 }

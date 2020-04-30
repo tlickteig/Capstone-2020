@@ -8,9 +8,8 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Mohamed Elamin
-    /// Created: 2/5/2020
-    /// Approver: Austin Gee, 2/7/2020
-    ///
+    /// Created: 2020/02/05
+    /// Approver: Austin Gee, 2020/02/07
     /// This Class for creation a fake Adoption Applictions which will used 
     /// for testing Logic layer methodes.
     /// </summary>
@@ -23,17 +22,13 @@ namespace DataAccessFakes
         /// Creator: Mohamed Elamin
         /// Created: 2/5/2020
         /// Approver: Austin Gee, 2/7/2020
-        /// 
-        /// This method will get fake Adoption Appliction when whenever it called. 
+        /// This is a Constructor method which has fake Adoption Application list. 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <returns>fake Adoption Applications</returns>
         public FakeAdoptionApplicationAccessor()
         {
             adoptionApplications = new List<AdoptionApplication>()
@@ -72,16 +67,13 @@ namespace DataAccessFakes
         /// Creator: Mohamed Elamin
         /// Created: 2/5/2020
         /// Approver: Austin Gee, 2/7/2020
-        /// 
-        /// This fake method is called to get a fake list of Adoption Applictions. 
+        /// This is a  fake  Select Adoption Applications By Statusmethod. 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
         /// <returns>fake list of Adoption Applications</returns>
         List<AdoptionApplication> IHomeInspectorAccessor.SelectAdoptionApplicationsByStatus()
         {

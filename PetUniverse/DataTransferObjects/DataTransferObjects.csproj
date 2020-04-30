@@ -95,11 +95,13 @@
     <Compile Include="CustomerErrorVM.cs" />
     <Compile Include="CustomerQuestionnar.cs" />
     <Compile Include="CustomerQuestionnarVM.cs" />
+    <Compile Include="CustomerSurveyVM.cs" />
     <Compile Include="Department.cs" />
     <Compile Include="DepartmentRequest.cs" />
     <Compile Include="DepartmentRequestVM.cs" />
     <Compile Include="Donation.cs" />
     <Compile Include="Donor.cs" />
+    <Compile Include="EmpCustProblemVM.cs" />
     <Compile Include="EmployeeAvailability.cs" />
     <Compile Include="ERole.cs" />
     <Compile Include="EventApprovalVM.cs" />
@@ -109,6 +111,9 @@
     <Compile Include="FacilityInspectionItem.cs" />
     <Compile Include="FacilityMaintenance.cs" />
     <Compile Include="FacilityTask.cs" />
+    <Compile Include="Foster.cs" />
+    <Compile Include="FosterAppointment.cs" />
+    <Compile Include="FosterAppointmentVM.cs" />
     <Compile Include="GeneralQuestion.cs" />
     <Compile Include="HomeInspectorAdoptionAppointmentDecision.cs" />
     <Compile Include="InventoryItems.cs" />
@@ -128,6 +133,8 @@
     <Compile Include="MVCQuestionnair.cs" />
     <Compile Include="NewAnimalChecklist.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OrderItemLine.cs" />
+    <Compile Include="OrderLine.cs" />
     <Compile Include="OutgoingOrders.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />
@@ -138,6 +145,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PUEvent.cs" />
     <Compile Include="questionnair.cs" />
+    <Compile Include="ReceivingRecord.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="RequestResponse.cs" />
     <Compile Include="RequestVM.cs" />
@@ -148,6 +156,7 @@
     <Compile Include="ScheduleWithHoursWorked.cs" />
     <Compile Include="ShiftVM.cs" />
     <Compile Include="SpecialOrder.cs" />
+    <Compile Include="SpecialOrderItemLine.cs" />
     <Compile Include="States.cs" />
     <Compile Include="TimeOffRequest.cs" />
     <Compile Include="TimeOffRequestVM.cs" />
@@ -157,6 +166,9 @@
     <Compile Include="TransactionStatus.cs" />
     <Compile Include="TransactionType.cs" />
     <Compile Include="TransactionVM.cs" />
+    <Compile Include="TreatmentRecord.cs" />
+    <Compile Include="TreatmentRecordVM.cs" />
+    <Compile Include="Vendor.cs" />
     <Compile Include="Volunteer.cs" />
     <Compile Include="VolunteerEvent.cs" />
     <Compile Include="VolunteerEventVM.cs" />

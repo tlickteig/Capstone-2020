@@ -17,6 +17,22 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Austin Gee
+        /// Created: 4/28/2020
+        /// Approver: 
+        /// 
+        /// inserts an adoption application into the database
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="application"></param>
+        /// <returns></returns>
+        int InsertAdoptionApplication(Application application);
+
+        /// <summary>
+        /// Creator: Austin Gee
         /// Created: 3/18/2020
         /// Approver: Thomas Dupuy
         /// 

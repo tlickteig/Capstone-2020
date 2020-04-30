@@ -164,5 +164,66 @@ namespace LogicLayer
             }
             return rows;
         }
+
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// submits Survey record.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        public int InsertCustomerSurvey(string customerName, string serviceRating, string notes)
+        {
+            int rows = 0;
+
+            try
+            {
+
+                rows = _accessor.InsertCustomerSurvey(customerName, serviceRating, notes);
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Insert Failed.", ex);
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// submits Conflict record.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        public int InsertEmpCustProblem(string problemType, string name, string description)
+        {
+            int rows = 0;
+
+            try
+            {
+
+                rows = _accessor.InsertEmpCustProblem(problemType, name, description);
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Insert Failed.", ex);
+            }
+            return rows;
+        }
+
     }
 }

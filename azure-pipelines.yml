@@ -50,11 +50,16 @@ steps:
     scriptPath: '$(system.defaultworkingdirectory)/db_transformer.py'
     arguments: '$(system.defaultworkingdirectory)/PetUniverse/DB_Script/PetUniverseDB.sql'
 
+- task: FileTransform@2
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/PetUniverse/WPFPresentation'
+    xmlTransformationRules: '-transform web.Production.config -xml web.config'
+
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**\bin\$(BuildConfiguration)\**'
+    Contents: '$(buildConfiguration)'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
   condition: succeededOrFailed()
 
@@ -86,3 +91,5 @@ steps:
   displayName: 'Publish Artifact: final_script'
   inputs:
     ArtifactName: 'final_script'
+
+

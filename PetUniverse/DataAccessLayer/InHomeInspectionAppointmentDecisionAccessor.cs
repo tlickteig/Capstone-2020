@@ -11,7 +11,6 @@ namespace DataAccessLayer
     /// Creator: Mohamed Elamin
     /// Created: 2020/02/19
     /// Approver:  Awaab Elamin, 2020/02/21
-    ///
     /// This Class for accessing InHome Inspection Appointment Decision Accessor
     /// data in the database.
     /// </summary>
@@ -21,19 +20,17 @@ namespace DataAccessLayer
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/03/10
-        /// Approver:  
-        /// 
+        /// Approver:  Awaab Elamin, 2020/03/13
         /// This method gets the Customer"s email from the Customer table in the database by Adoption
         /// Application ID.
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
+        /// <param name="adoptionApplicationId"></param>
+        /// <returns>customerEmail</returns>
         public string GetCustomerEmailByAdoptionApplicationID(int adoptionApplicationId)
         {
             string customerEmail = null;
@@ -55,7 +52,6 @@ namespace DataAccessLayer
                         customerEmail = reader.GetString(0);
 
                     }
-
                 }
 
                 reader.Close();
@@ -75,18 +71,15 @@ namespace DataAccessLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver:  Awaab Elamin, 2020/02/21
-        /// 
         /// This method used to get Adoption Applications Aappointments ByAppointmen
         ///  tType
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
+        /// <returns>inHomeInspectionAppointmentDecisions List</returns>
         public List<HomeInspectorAdoptionAppointmentDecision> SelectAdoptionApplicationsAappointmentsByAppointmentType()
         {
             List<HomeInspectorAdoptionAppointmentDecision> inHomeInspectionAppointmentDecisions = new List<HomeInspectorAdoptionAppointmentDecision>();
@@ -155,19 +148,16 @@ namespace DataAccessLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/03/10
         /// Approved By:  
-        /// 
         /// This is private method gets the Location's name from the Location table in the database
         /// by Adoption ID.
-        /// 
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
         /// <param name="LocationID"></param>
+        /// <returns>name</returns>
         private string RetrieveLocationNameByLocationID(int LocationID)
         {
             string name = "";
@@ -204,22 +194,21 @@ namespace DataAccessLayer
             return name;
         }
 
-
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver:  Awaab Elamin, 2020/02/21
-        /// 
         /// This method used to update an Adoptin Appliction decision.
         /// ID.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
+        /// <param name="oldHomeInspectorAdoptionAppointmentDecision"></param>
+        /// <param name="oldHomeInspectorAdoptionAppointmentDecision"></param>
+        /// <returns>Zero or one depending if the record was updated </returns>
         public int UpdateAppoinment(HomeInspectorAdoptionAppointmentDecision
             oldHomeInspectorAdoptionAppointmentDecision, HomeInspectorAdoptionAppointmentDecision
             newHomeInspectorAdoptionAppointmentDecision)
@@ -264,19 +253,17 @@ namespace DataAccessLayer
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/03/10
-        /// Approver:  
-        /// 
+        /// Approver: Awaab Elamin, 2020/03/13
         /// This method updates the Home-Inspector Decision in the Adoption Aplication table. 
-        /// 
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
+        /// <param name="adoptionApplicationID"></param>
+        /// <param name="decision"></param>
+        /// <returns>Zero or one depending if the record was updated </returns>
         public int UpdateHomeInspectorDecision(int adoptionApplicationID, string decision)
         {
             int count = 0;

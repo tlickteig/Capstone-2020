@@ -64,9 +64,9 @@ namespace DataAccessLayer
 
                 reader.Close();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {
@@ -111,6 +111,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@UserID", newOrder.UserID);
             cmd.Parameters.AddWithValue("@Active", newOrder.Active);
 
+            cmd.Parameters.AddWithValue("@OldOrderID", oldOrder.OrderID);
             cmd.Parameters.AddWithValue("@OldUserID", oldOrder.UserID);
             cmd.Parameters.AddWithValue("@OldActive", oldOrder.Active);
             try
@@ -118,9 +119,9 @@ namespace DataAccessLayer
                 conn.Open();
                 cmd.ExecuteScalar();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {
@@ -162,9 +163,9 @@ namespace DataAccessLayer
                 conn.Open();
                 cmd.ExecuteScalar();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             finally
             {
@@ -187,9 +188,9 @@ namespace DataAccessLayer
         /// WHAT WAS CHANGED:
         /// <param name="orderInvoiceID">ID of order to be deleted</param>
         /// <returns>1 if successful, 0 if not</returns>
-        public int DeleteOrder(int orderID)
+        public bool DeleteOrder(int orderID)
         {
-            int rows = 0;
+            bool isDeleted = false;
 
             var conn = DBConnection.GetConnection();
 
@@ -201,7 +202,54 @@ namespace DataAccessLayer
 
             try
             {
-                cmd.ExecuteScalar();
+                conn.Open();
+                isDeleted = 1 == cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return isDeleted;
+        }
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/24
+        /// Approver: Jesse Tomash
+        /// Approver: 
+        ///
+        /// Methods to update orderStatus
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public int UpdateOrderStatus(Order order, string orderStatus)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmdText = @"sp_update_order_status_by_orderID";
+            var cmd = new SqlCommand(cmdText, conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@NewOrderStatus", orderStatus);
+            cmd.Parameters.AddWithValue("@OldOrderID", order.OrderID);
+            cmd.Parameters.AddWithValue("@OldEmployeeID", order.UserID);
+            cmd.Parameters.AddWithValue("@OldActive", order.Active);
+            cmd.Parameters.AddWithValue("@OldOrderStatus", order.OrderStatus);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
             }
             catch (Exception)
             {

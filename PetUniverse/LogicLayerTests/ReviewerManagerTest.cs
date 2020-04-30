@@ -66,10 +66,6 @@ namespace LogicLayerTests
         /// (The value that we assgined to the parameter must match the last name of one
         /// of the Fake customers)
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
-        /// </remarks>
         [TestMethod]
         public void TestGetCustomerByCustomerName()
         {
@@ -134,10 +130,6 @@ namespace LogicLayerTests
         /// to pass the test must retrieve "true"
         /// (That means the status changed to InHomeInspection)
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 3/3/2020
-        /// Mohamed Elamin , 3/4/2020
-        /// </remarks>
         [TestMethod]
         public void TestSubmitInterviewerDecision()
         {

@@ -11,23 +11,17 @@ namespace DataAccessLayer
     /// Creator: Mohamed Elamin
     /// Created: 2/5/2020
     /// Approver: Austin Gee, 2/7/2020
-    ///
     /// This Class for accessing Adoption Applications data.
     /// </summary>
     public class HomeInspectorAccessor : IHomeInspectorAccessor
     {
 
-
-
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2/5/2020
         /// Approver: Austin Gee, 2/7/2020
-        /// 
         /// This method used to get Animal name by Animal ID.
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -37,7 +31,6 @@ namespace DataAccessLayer
         /// <returns>animal Name</returns>
         private string SelectAnimalNameByAnimalID(int AnimalID)
         {
-
             string animalName = null;
             // connection?
             var conn = DBConnection.GetConnection();
@@ -74,17 +67,14 @@ namespace DataAccessLayer
         /// Creator: Mohamed Elamin
         /// Created: 2/5/2020
         /// Approver: Austin Gee, 2/7/2020
-        /// 
-        /// This method used to get Adoption Applications where thier status
+        /// This method used to get all Adoption Applications where thier status
         /// is In-home Inspection.
-        /// 
         /// </summary>      
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
         /// <returns>Adoption Applications list</returns>
         public List<AdoptionApplication> SelectAdoptionApplicationsByStatus()
         {

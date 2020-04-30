@@ -215,5 +215,41 @@ namespace LogicLayerInterfaces
         /// <param name="animalID"> The primary key identifying the animal </param>
         /// <returns> Boolean value representig if the method succeeded or not. True is success. </returns>
         bool SetAnimalHousedState(bool housed, int animalID);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/13/2020
+        /// Approver: Carl Davis, 3/18/2020  
+        /// 
+        /// Interface to add an animal species
+        /// </summary>
+        /// <param name="animalSpecies"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        bool AddNewAnimalSpecies(string animalSpecies, string description);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020  
+        /// 
+        /// Interface to delete an animal species
+        /// </summary>
+        /// <param name="animalSpeciesID"></param>
+        /// <returns></returns>
+        bool DeleteAnimalSpecies(string animalSpeciesID);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020  
+        /// 
+        /// Interface to update an animal species
+        /// </summary>
+        /// <param name="oldAnimalSpeciesID"></param>
+        /// <param name="newAnimalSpeciesID"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        bool EditAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description);
     }
 }

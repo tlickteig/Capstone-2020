@@ -1,7 +1,64 @@
-﻿
+﻿@model IEnumerable<DataTransferObjects.Animal>
+
 @{
     ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AnimalName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Dob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnimalBreed)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArrivalDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfileDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProfileImage)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnimalName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Dob)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnimalBreed)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ArrivalDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfileDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProfileImage)
+        </td>
+        <td>
+            @Html.ActionLink("Start Application", "CustomerStartApplication", new { email = User.Identity.Name, animalID = item.AnimalID })
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.AnimalID }) |
+        @Html.ActionLink("Details", "Details", new { id=item.AnimalID }) |
+        @Html.ActionLink("Delete", "Delete", new { id=item.AnimalID })*@
+        </td>
+    </tr>
+}
+
+</table>

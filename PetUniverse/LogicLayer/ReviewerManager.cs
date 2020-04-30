@@ -105,35 +105,27 @@ namespace LogicLayer
         /// Update: After DB updated in Customer Table, We don't need to below method.
         /// Updater: Mohamed Elamin 
         /// Updated: 2020/04/21 
-        /// Update: Fixed Comments format. Added try catch block.
+        /// Update: Fixed Comments format. Added try catch block and deleted commented code.
         /// </remarks>
         /// <param name="customerEmail"></param>
         /// <returns>customerQuestionnars</returns>
         public List<CustomerQuestionnar> retrieveCustomerQuestionnar(string customerEmail)
         {
             List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-            if (customerEmail != null && customerEmail != "")
+            try
             {
-                customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerEmail);
+                if (customerEmail != null && customerEmail != "")
+                {
+                    customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerEmail);
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                //customerQuestionnars = adoptionAccessor.getAllQuestions();
+
+                throw ex;
             }
-
-            // List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-            //    foreach (CustomerQuestionnar customerQ in customerQuestionnars)
-            //    {
-            //        CustomerQuestionnarVM customerQuestionnarVM = new CustomerQuestionnarVM();
-            //        customerQuestionnarVM.AdoptionApplicationID = customerQ.AdoptionApplication;
-            //        customerQuestionnarVM.CustomerLastName =
-            //            adoptionAccessor.getCustomerLastName(customerQ.CustomerID);
-            //        customerQuestionnarVM.QuestionDescription =
-            //            adoptionAccessor.getQestionDescription(customerQ.QuestionID);
-            //        customerQuestionnarVM.CustomerAnswer = customerQ.Answer;
-            //        customerQuestionnarVMs.Add(customerQuestionnarVM);
-
-            //    }
+           
             return customerQuestionnars;
         }
 
@@ -169,6 +161,7 @@ namespace LogicLayer
         /// Update: Fixed Comments format.Added try catch block.
         /// </remarks>
         /// <param name="customerEmail"></param>
+        /// <returns >adoptionApplication</returns>
         public AdoptionApplication retrieveCustomerAdoptionApplicaionByCustomerEmail(string customerEmail)
         {
             adoptionApplication = adoptionAccessor.getAdoptionApplicationByCustomerEmail(customerEmail);
@@ -205,7 +198,7 @@ namespace LogicLayer
         /// Creator: Awaab Elamin 
         /// Created: 2020/02/04
         /// Approver: Mohamed Elamin 
-        /// Update the status of the adoption application according the reviewer decision.
+        /// add the adoption application of the customer
         /// </summary>
         /// <remarks> 
         /// Updater: Mohamed Elamin 
@@ -236,9 +229,7 @@ namespace LogicLayer
         /// Creator: Awaab Elamin 
         /// Created: 2020/02/04
         /// Approver: Mohamed Elamin
-        /// 
         /// Retrieve all questions.
-        /// 
         /// </summary>
         /// <remarks> 
         /// Updater: Mohamed Elamin 
@@ -252,11 +243,9 @@ namespace LogicLayer
             try
             {
                 questions = adoptionAccessor.getAllQuestions();
-
             }
             catch (Exception)
             {
-
 
                 throw;
             }
@@ -267,9 +256,7 @@ namespace LogicLayer
         /// Creator: Awaab Elamin 
         /// Created: 2020/02/04
         /// Approver: Mohamed Elamin
-        /// 
         /// Addd custome questionnair to questionnair table 
-        /// 
         /// </summary>
         /// <remarks> 
         /// Updater: Mohamed Elamin 
@@ -293,12 +280,14 @@ namespace LogicLayer
         /// Creator: Awaab Elamin 
         /// Created: 2020/04/15
         /// Approver: Mohamed Elamin
-        /// 
-        /// Addd custome questionnair to questionnair table 
-        /// 
+        /// retrieve all animal medical records 
         /// </summary>
-        /// <param name="questionnair"></param>
-        /// <returns>True or false depending if the record was inserted </returns>
+        /// <remarks> 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Added Comments. Added try catch block.
+        /// </remarks>
+        /// <returns>animals Medical records</returns>
         public List<AnimalMedical> retrieveAllAnimals()
         {
             List<AnimalMedical> animals = new List<AnimalMedical>();

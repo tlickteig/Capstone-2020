@@ -11,10 +11,9 @@ namespace LogicLayerTests
     /// Creator: Mohamed Elamin
     /// Created: 2/5/2020
     /// Approver: Austin Gee, 2/7/2020
-    ///
     /// This Class for testing all public methods int the HomeInspectorManager.
-    ///
     /// </summary>
+    /// 
     [TestClass]
     public class HomeInspectorManagerTest
     {
@@ -25,18 +24,14 @@ namespace LogicLayerTests
         /// Creator: Mohamed Elamin
         /// Created: 2/5/2020
         /// Approver: Austin Gee, 2/7/2020
-        /// 
         /// This is the Setup for tests.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater: Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
+        
         [TestInitialize]
         public void TestSetup()
         {
@@ -48,18 +43,14 @@ namespace LogicLayerTests
         /// Creator: Mohamed Elamin
         /// Created: 2/5/2020
         /// Approver: Austin Gee, 2/7/2020
-        /// 
-        /// This is the test for SelectAdoptionApplicationByStatus method.
+        /// This is the test for Select Adoption Application By Status method.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater: Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
+        
         [TestMethod]
         public void TestSelectAdoptionApplicationByStatus()
         {

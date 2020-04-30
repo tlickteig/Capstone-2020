@@ -188,7 +188,7 @@ namespace LogicLayer
 
             try
             {
-                result = _customerAccessor.AuthenticateCustomer (email, passwordHash);
+                result = _customerAccessor.AuthenticateCustomer(email, passwordHash);
             }
             catch (Exception ex)
             {

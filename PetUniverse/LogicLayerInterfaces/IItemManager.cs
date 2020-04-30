@@ -167,5 +167,55 @@ namespace LogicLayerInterfaces
         /// <param name="newShelterItem"></param>
         /// <returns></returns>
         bool EditShelterItem(Item oldShelterItem, Item newShelterItem);
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/10
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Interface method that sets an items active field to 1.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        bool reactivateItems(Item item);
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/10
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// The interface method for adding a new shelter item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param> 
+        bool createNewShelterItem(Item item);
+
+        /// <summary>
+        /// Creator: Jesse Tomash
+        /// Created: 4/27/2020
+        /// Approver: 
+        ///
+        /// The interface method for selecting itemid 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param> 
+        Item SelectItemByItemID(int itemID);
     }
 }

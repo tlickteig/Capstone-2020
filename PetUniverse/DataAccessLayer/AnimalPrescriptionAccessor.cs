@@ -177,5 +177,156 @@ namespace DataAccessLayer
 
             return result;
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Changes the active status of an animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be updated</param>
+        /// <param name="active">Active status</param>
+        /// <returns>Update successful</returns>
+        public int ChangeAnimalPrescriptionRecordActive(AnimalPrescription animalPrescription, bool active)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_activate_prescription_record", conn);
+            if (!active)
+            {
+                cmd = new SqlCommand("sp_deactivate_prescription_record", conn);
+            }
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalPrescriptionsID", animalPrescription.AnimalPrescriptionID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/26/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Selects animal prescriptions by active/inactive status
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="active">Active status</param>
+        /// <returns>List of animal prescriptions</returns>
+        public List<AnimalPrescriptionVM> SelectAnimalPrescriptionsByActive(bool active)
+        {
+            List<AnimalPrescriptionVM> animalPrescriptions = new List<AnimalPrescriptionVM>();
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_animal_prescriptions_by_active", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Active", active);
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    AnimalPrescriptionVM animalPrescription = new AnimalPrescriptionVM()
+                    {
+                        AnimalPrescriptionID = reader.GetInt32(0),
+                        AnimalID = reader.GetInt32(1),
+                        AnimalVetAppointmentID = reader.GetInt32(2),
+                        PrescriptionName = reader.GetString(3),
+                        Dosage = reader.GetDecimal(4),
+                        Interval = reader.GetString(5),
+                        AdministrationMethod = reader.GetString(6),
+                        StartDate = reader.GetDateTime(7),
+                        EndDate = reader.GetDateTime(8),
+                        Description = reader.GetString(9),
+                        AnimalName = reader.GetString(10),
+                        Active = reader.GetBoolean(11)
+                    };
+                    animalPrescriptions.Add(animalPrescription);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return animalPrescriptions;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deletes an existing animal prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalPrescription">Record to be deleted</param>
+        /// <returns>Rows updated</returns>
+        public int DeleteAnimalPrescriptionRecord(AnimalPrescriptionVM animalPrescription)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_delete_animal_prescription_record", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalPrescriptionsID", animalPrescription.AnimalPrescriptionID);
+            cmd.Parameters.AddWithValue("@AnimalID", animalPrescription.AnimalID);
+            cmd.Parameters.AddWithValue("@AnimalVetAppointmentID", animalPrescription.AnimalVetAppointmentID);
+            cmd.Parameters.AddWithValue("@PrescriptionName", animalPrescription.PrescriptionName);
+            cmd.Parameters.AddWithValue("@Dosage", animalPrescription.Dosage);
+            cmd.Parameters.AddWithValue("@Interval", animalPrescription.Interval);
+            cmd.Parameters.AddWithValue("@Administrationmethod", animalPrescription.AdministrationMethod);
+            cmd.Parameters.AddWithValue("@StartDate", animalPrescription.StartDate);
+            cmd.Parameters.AddWithValue("@EndDate", animalPrescription.EndDate);
+            cmd.Parameters.AddWithValue("@Description", animalPrescription.Description);
+            cmd.Parameters.AddWithValue("@Active", animalPrescription.Active);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
     }
 }

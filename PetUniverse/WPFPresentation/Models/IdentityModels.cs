@@ -12,6 +12,7 @@ namespace WPFPresentation.Models
         public string FamilyName { get; set; }        
         public int? EmployeeID { get; set; }
         public string CustEmail { get; set; }
+        public string VolEmail { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

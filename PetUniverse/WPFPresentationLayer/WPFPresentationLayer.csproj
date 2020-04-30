@@ -162,12 +162,6 @@
     <Compile Include="AMPages\AnimalControls.xaml.cs">
       <DependentUpon>AnimalControls.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AMPages\AnimalManagementInventory.xaml.cs">
-      <DependentUpon>AnimalManagementInventory.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="AMPages\NewAnimals.xaml.cs">
-      <DependentUpon>NewAnimals.xaml</DependentUpon>
-    </Compile>
     <Compile Include="FMPages\pgAnimalKennelCleaningControls.xaml.cs">
       <DependentUpon>pgAnimalKennelCleaningControls.xaml</DependentUpon>
     </Compile>
@@ -189,8 +183,20 @@
     <Compile Include="InventoryPages\AddItemReport.xaml.cs">
       <DependentUpon>AddItemReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\AddShelterItem.xaml.cs">
+      <DependentUpon>AddShelterItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\AddVendor.xaml.cs">
+      <DependentUpon>AddVendor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\EditItemReports.xaml.cs">
       <DependentUpon>EditItemReports.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\EditShelterItem.xaml.cs">
+      <DependentUpon>EditShelterItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\EditVendor.xaml.cs">
+      <DependentUpon>EditVendor.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\ShelterInventory.xaml.cs">
       <DependentUpon>ShelterInventory.xaml</DependentUpon>
@@ -207,11 +213,20 @@
     <Compile Include="InventoryPages\ViewItemReports.xaml.cs">
       <DependentUpon>ViewItemReports.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\ViewOrderDetails.xaml.cs">
+      <DependentUpon>ViewOrderDetails.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\ViewOrders.xaml.cs">
       <DependentUpon>ViewOrders.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\ViewShelterItems.xaml.cs">
+      <DependentUpon>ViewShelterItems.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\ViewSpecialOrders.xaml.cs">
       <DependentUpon>ViewSpecialOrders.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\ViewVendors.xaml.cs">
+      <DependentUpon>ViewVendors.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersonnelPages\InterviewApplicant.xaml.cs">
       <DependentUpon>InterviewApplicant.xaml</DependentUpon>
@@ -372,11 +387,17 @@
     <Compile Include="VolunteerPages\CreateEditShift.xaml.cs">
       <DependentUpon>CreateEditShift.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VolunteerPages\FosterAppointments.xaml.cs">
+      <DependentUpon>FosterAppointments.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\frmAddMedicine.xaml.cs">
       <DependentUpon>frmAddMedicine.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\frmCreateEditVolunteerEvent.xaml.cs">
       <DependentUpon>frmCreateEditVolunteerEvent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\frmScheduleFosterAppointment.xaml.cs">
+      <DependentUpon>frmScheduleFosterAppointment.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\frmSignUpForShift.xaml.cs">
       <DependentUpon>frmSignUpForShift.xaml</DependentUpon>
@@ -386,6 +407,9 @@
     </Compile>
     <Compile Include="VolunteerPages\TaskControls.xaml.cs">
       <DependentUpon>TaskControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\TreatmentRecordControls.xaml.cs">
+      <DependentUpon>TreatmentRecordControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\ViewAllVolunteerSchedules.xaml.cs">
       <DependentUpon>ViewAllVolunteerSchedules.xaml</DependentUpon>
@@ -467,14 +491,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AMPages\AnimalManagementInventory.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="AMPages\NewAnimals.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="FMPages\pgAnimalKennelCleaningControls.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -503,7 +519,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\AddShelterItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\AddVendor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\EditItemReports.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\EditShelterItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\EditVendor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -527,11 +559,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\ViewOrderDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\ViewOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\ViewShelterItems.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\ViewSpecialOrders.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\ViewVendors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -751,11 +795,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="VolunteerPages\FosterAppointments.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="VolunteerPages\frmAddMedicine.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="VolunteerPages\frmCreateEditVolunteerEvent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\frmScheduleFosterAppointment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -770,6 +822,10 @@
     <Page Include="VolunteerPages\TaskControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\TreatmentRecordControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="VolunteerPages\ViewAllVolunteerSchedules.xaml">
       <Generator>MSBuild:Compile</Generator>

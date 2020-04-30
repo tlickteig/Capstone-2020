@@ -14,7 +14,6 @@ namespace WPFPresentationLayer
     /// Creator: Mohamed Elamin
     /// Created: 2020/02/19
     /// Approver: Awaab Elamin, 2020/02/21
-    ///
     ///  This class has interaction logic for the In=Home InspectorDecision
     ///  window.
     public partial class frmInHomeInspectorDecision : Page
@@ -27,18 +26,13 @@ namespace WPFPresentationLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
-        /// This This constructor method for In-Home InspectorDecision Window.
-        /// 
+        /// This This constructor method for In-Home Inspector Decision Window.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <returns></returns>
         public frmInHomeInspectorDecision()
         {
             InitializeComponent();
@@ -49,19 +43,13 @@ namespace WPFPresentationLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This method fills in data for In-Home Inspector Decision Data Gird.
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns></returns>
         private void populateAdoptionApplicationsAappointmentsList()
         {
             dgAdoptionApplicationsAappointmentsList.ItemsSource =
@@ -72,22 +60,20 @@ namespace WPFPresentationLayer
 
         }
 
+
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is an Event on the window first loads.
         /// </summary>
-        ///
-        /// <remarks>
+        ///<remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
         /// <param name=" sender"></param>
         /// <param name=" e"></param>
-        /// <returns></returns>   
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             populateAdoptionApplicationsAappointmentsList();
@@ -98,18 +84,15 @@ namespace WPFPresentationLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
-        /// This is an Event on btnOpen is clicked.
+        /// This is an Event on Open button is clicked.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
         /// <param name=" sender"></param>
-        /// <param name=" e"></param>
-        /// <returns></returns>   
+        /// <param name=" e"></param>    
         private void btnOpen_Click(object sender, RoutedEventArgs e)
         {
 
@@ -131,21 +114,19 @@ namespace WPFPresentationLayer
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created On: 03/10/2020
-        /// Approved By: Awaab Elamin , 03/13/2020 
-        /// 
+        /// Created On: 2020/03/10
+        /// Approved By: Awaab Elamin , 2020/03/13
         /// This click event when send email button is clicked. It will send an email
         /// to the adoption application customer's email.
         /// Application ID.
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSendEmail_Click(object sender, RoutedEventArgs e)
         {
             try

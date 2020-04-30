@@ -1,4 +1,5 @@
 ﻿using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -148,6 +149,36 @@ namespace DataAccessFakes
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/23
+        /// Approver: Jesse Tomash
+        /// Approver: 
+        ///
+        /// Method to update an orders orderStatus
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public int UpdateOrderStatus(Order order, string orderStatus)
+        {
+            int results = 0;
+
+            try
+            {
+                order.OrderStatus = orderStatus;
+                results = 1;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return results;
         }
     }
 }

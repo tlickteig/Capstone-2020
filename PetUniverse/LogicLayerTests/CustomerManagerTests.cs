@@ -107,6 +107,18 @@ namespace LogicLayerTests
             Assert.AreEqual(expectedCount, customers.Count);
         }
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/26/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Test method to authenticate a customer
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA  
+        /// </remarks>
         [TestMethod]
         public void TestCustomerManagerAuthentication()
         {

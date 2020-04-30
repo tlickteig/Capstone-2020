@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataTransferObjects
 {
@@ -22,6 +23,7 @@ namespace DataTransferObjects
         public int AnimalID { get; set; }
         public string AdoptionApplicationStatus { get; set; }
         public DateTime AdoptionApplicationRecievedDate { get; set; }
+        [Display(Name = "Location Name")]
         public string LocationName { get; set; }
         public string LocationAddress1 { get; set; }
         public string LocationAddress2 { get; set; }
@@ -37,8 +39,10 @@ namespace DataTransferObjects
         public string CustomerCity { get; set; }
         public string CustomerState { get; set; }
         public string CustomerZipCode { get; set; }
+        [Display(Name = "Animal Name")]
         public string AnimalName { get; set; }
         public DateTime AnimalDob { get; set; }
+        [Display(Name = "Species")]
         public string AnimalSpeciesID { get; set; }
         public string AnimalBreed { get; set; }
         public DateTime AnimalArrivalDate { get; set; }

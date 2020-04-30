@@ -13,6 +13,22 @@ namespace LogicLayerInterfaces
 
     public interface IAdoptionApplicationManager
     {
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/28/2020
+        /// CHECKED BY: 
+        /// 
+        /// Add an adoption application to the database
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        bool AddAdoptionApplication(Application application);
+
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/19/2020

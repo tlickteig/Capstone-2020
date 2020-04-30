@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DataTransferObjects
 {
@@ -21,6 +22,7 @@ namespace DataTransferObjects
         public int AppointmentID { get; set; }
         public string LocationName { get; set; }
         public int AdoptionApplicationID { get; set; }
+        [Display(Name = "Appointment Type")]
         public string AppointmentTypeID { get; set; }
         public DateTime AppointmentDateTime { get; set; }
         public string Notes { get; set; }

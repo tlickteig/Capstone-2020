@@ -156,8 +156,7 @@ namespace LogicLayerInterfaces
         /// Updated: 2020/04/21 
         /// Update: Added Comments
         /// </remarks>
-        /// <param name="questionnair"></param>
-        /// <returns>True or false depending if the record was inserted </returns>
+        /// <returns>List<AnimalMedical></returns>
         List<AnimalMedical> retrieveAllAnimals();
     }
 }

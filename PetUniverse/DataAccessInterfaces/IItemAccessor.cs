@@ -165,5 +165,55 @@ namespace DataAccessInterfaces
         /// <param name="newShelterItem"></param>
         /// <returns></returns>
         int UpdateShelterItem(Item oldShelterItem, Item newShelterItem);
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/02/22
+        /// Approver: Dalton Reierson
+        /// Approver:  Jesse Tomash
+        ///
+        /// Interface method that adds a new shelter item to inventory.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        bool addNewShelterItem(Item item);
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/10
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Interface method that sets the active field to 1
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        int reactivateItem(Item item);
+        /// <summary>
+        /// Creator: Jesse Tomash
+        /// Created: 4/27/2020
+        /// Approver: 
+        /// Approver: 
+        ///
+        /// Interface method to select item by id
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        Item SelectItemByItemID(int itemID);
     }
 }

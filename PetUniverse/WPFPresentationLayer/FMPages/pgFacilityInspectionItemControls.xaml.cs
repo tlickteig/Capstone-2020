@@ -433,7 +433,7 @@ namespace WPFPresentationLayer.FMPages
                 };
                 if (_facilityInspectionItemManager.EditFacilityInspectionItem(selectedFacilityInspectionItem, facilityInspectionItem))
                 {
-                    MessageBox.Show("Inspection record successfully added.");
+                    MessageBox.Show("Inspection record successfully updated.");
                     canAddFacilityInspectionItem.Visibility = Visibility.Hidden;
                     canView.Visibility = Visibility.Visible;
                     btnUpdateInspectionItemRecord.Visibility = Visibility.Hidden;
@@ -493,7 +493,7 @@ namespace WPFPresentationLayer.FMPages
             if (selectedFacilityInspectionItem != null)
             {
                 canAddFacilityInspectionItem.Visibility = Visibility.Visible;
-                canView.Visibility = Visibility.Hidden;                
+                canView.Visibility = Visibility.Hidden;
                 btnAddFacilityInspectionItem.Visibility = Visibility.Hidden;
                 BtnSubmitInspectionItemRecord.Visibility = Visibility.Hidden;
                 btnUpdateInspectionItemRecord.Visibility = Visibility.Visible;

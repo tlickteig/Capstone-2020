@@ -209,5 +209,59 @@ namespace DataAccessFakes
                     where a.Active == active
                     select a).ToList();
         }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/29/2020
+        /// Approver: 
+        /// 
+        /// Selects Animals by active and adoptable
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        public List<Animal> SelectAdoptionAnimalsByActiveAndAdoptable(bool active, bool adoptable)
+        {
+            return (from a in _animals
+                    where a.Active == active
+                    && a.Adoptable == adoptable
+                    select a).ToList();
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/29/2020
+        /// Approver: 
+        /// 
+        /// Updates animal to adoptable or unadoptable
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="animalID"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        public int UpdateAnimalAdoptable(int animalID, bool adoptable)
+        {
+            int rows = 0;
+            foreach(Animal a in _animals)
+            {
+                if(a.AnimalID == animalID)
+                {
+                    a.Adoptable = adoptable;
+                    rows += 1;
+                }
+            }
+            return rows;
+        }
     }
 }
