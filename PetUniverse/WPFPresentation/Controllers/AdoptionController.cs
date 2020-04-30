@@ -657,6 +657,7 @@ namespace WPFPresentation.Controllers
         /// Updated: NA
         /// Update: NA        
         /// </remarks>
+        [AllowAnonymous]
         public FileContentResult GetImage(int animalId)
         {
             Animal animal = _animalManager.RetrieveOneAnimalByAnimalID(animalId);
