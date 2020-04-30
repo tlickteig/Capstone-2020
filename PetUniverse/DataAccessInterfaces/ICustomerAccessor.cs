@@ -62,6 +62,6 @@ namespace DataAccessInterfaces
         /// <param name="username"></param>
         /// <param name="passwordHash"></param>
         /// <returns></returns>
-        Customer AuthenticateCustomer(string username, string passwordHash);
+        Customer AuthenticateCustomer(string username, string passwordHash);        
     }
 }

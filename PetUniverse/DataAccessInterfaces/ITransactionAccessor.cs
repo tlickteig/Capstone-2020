@@ -265,5 +265,22 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns>int</returns>
         int UpdateItemQuantity(TransactionLineProducts transactionLineProducts);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        ///
+        /// Interface method signature for getting transaction by customer email
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        List<Transaction> GetTransactionsByCustomerEmail(string email);
+
     }
 }

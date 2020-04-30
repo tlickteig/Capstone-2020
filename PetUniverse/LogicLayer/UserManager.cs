@@ -356,6 +356,17 @@ namespace LogicLayer
             {
                 user = _userAccessor.getUserByEmail(email);
             }
+            catch (ApplicationException ax)
+            {
+                if (ax.Message == "User not found.")
+                {
+                    return null;
+                }
+                else
+                {
+                    throw;
+                }
+            }
             catch (Exception ex)
             {
                 throw new ApplicationException("No user found", ex);

@@ -53,6 +53,9 @@ namespace WPFPresentation.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+            LogicLayer.UserManager userMgr = new LogicLayer.UserManager();
+            LogicLayer.VolunteerManager volMgr = new LogicLayer.VolunteerManager();
+            LogicLayer.CustomerManager custMgr = new LogicLayer.CustomerManager();
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
@@ -63,6 +66,37 @@ namespace WPFPresentation.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+
+            var userName = User.Identity.GetUserName();
+
+            var user = userMgr.getUserByEmail(userName);
+
+            var volunteer = volMgr.RetrieveVolunteerFromEmail(User.Identity.Name);
+
+            var customer = custMgr.RetrieveCustomerByCustomerEmail(User.Identity.Name);
+
+
+            if (user == null && customer == null && volunteer != null)
+            {
+                ViewBag.FullName = volunteer.FirstName + " " + volunteer.LastName;
+                ViewBag.Email = volunteer.Email;
+                ViewBag.PhoneNumber = volunteer.PhoneNumber;
+            }
+            else if (user == null && customer != null && volunteer == null)
+            {
+                ViewBag.FullName = customer.FirstName + " " + customer.LastName;
+                ViewBag.Email = customer.Email;
+                ViewBag.PhoneNumber = customer.PhoneNumber;
+                ViewBag.Address = customer.AddressLineOne + " " + customer.AddressLineTwo + ", " + customer.City + " " + customer.State;
+            }
+            else if (user != null && customer == null && volunteer == null)
+            {
+                ViewBag.FullName = user.FirstName + " " + user.LastName;
+                ViewBag.Email = user.Email;
+                ViewBag.PhoneNumber = user.PhoneNumber;
+                ViewBag.Address = user.Address1 + " " + user.Address2 + ", " + user.City + " " + user.State;
+            }
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),

@@ -844,6 +844,30 @@ namespace LogicLayer
             return result;
         }
 
-        
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020  
+        /// Approver: Steven Cardona
+        ///  
+        /// This method connects to the data access layer to get transactions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="Email"></param>
+        /// <returns></returns>
+        public List<Transaction> GetTransactionsByCustomerEmail(string Email)
+        {
+            try
+            {
+                return _transactionAccessor.GetTransactionsByCustomerEmail(Email);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Could not find transactions", ex);
+            }
+        }
     }
 }
