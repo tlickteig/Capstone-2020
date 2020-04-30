@@ -274,5 +274,59 @@ namespace DataAccessInterfaces
         /// <param name="AnimalID"> The primary key that identifies the animal. </param>
         /// <returns> A count of the rows effected by the stored procedure. 1 is considered to be a successful result. </returns>
         int DeactivateCurrentlyHoused(int AnimalID);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/13/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver:
+        /// 
+        /// a data access method for creating a new animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalSpecies"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        int InsertAnimalSpecies(string animalSpecies, string description);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver:
+        /// 
+        /// a data access method for deleting an animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalSpeciesID"></param>
+        /// <returns></returns>
+        int DeleteAnimalSpecies(string animalSpeciesID);
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020
+        /// Approver:
+        /// 
+        /// a data access method for updating an animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalSpeciesID"></param>
+        /// <param name="newAnimalSpeciesID"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        int UpdateAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description);
     }
 }

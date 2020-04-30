@@ -2315,6 +2315,65 @@ CREATE TABLE [dbo].[orderitemline] (
 GO
 
 /*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: specialorderitemline table
+*/
+DROP TABLE IF EXISTS [dbo].[specialorderitemline]
+GO
+print '' print '*** Creating specialorderitemline table'
+GO
+CREATE TABLE [dbo].[specialorderitemline] (
+	[SpecialOrderID]			[int] 			NOT NULL,
+	[ItemID]					[int]			NOT NULL,
+	[Quantity]					[int]			NOT NULL,
+	
+	CONSTRAINT [pk_LineSpOrderID] PRIMARY KEY([SpecialOrderID] ASC, [ItemID] ASC),
+	CONSTRAINT [fk_LineSpOrderID] FOREIGN KEY([SpecialOrderID])
+		REFERENCES [SpecialOrders]([SpecialOrderID]) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT [fk_SpLineItemID] FOREIGN KEY ([ItemID])
+		REFERENCES [Item]([ItemID]) ON UPDATE CASCADE ON DELETE CASCADE
+	)
+GO
+
+/*Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Creating a table for VetLicense.
+*/
+print '' print '*** Creating VetLicense Table'
+GO
+CREATE TABLE [dbo].[VetLicense](
+	[LicenseID] 				[int] IDENTITY(1000000,1)	NOT NULL,
+	[Institute]   				[nvarchar](300)			    NOT NULL,
+	[DateIssued]   				[datetime]         			NOT NULL,
+	[Active]   					[bit]         				NOT NULL,
+	CONSTRAINT [pk_LicenseID] PRIMARY KEY([LicenseID] ASC)
+)
+GO
+
+
+/*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Creates a table for treatment record.
+*/
+print '' print '*** Creating TreatmentRecord Table'
+GO
+CREATE TABLE [dbo].[TreatmentRecord](
+	[TreatmentRecordID] 		[int] IDENTITY(1000000,1)	NOT NULL,
+	[VetID]   					[nvarchar](200) 		    NOT NULL,
+	[AnimalID]   				[int]         				NOT NULL,
+	[FormName]      			[nvarchar](50)           	NOT NULL 	DEFAULT 1,
+	[TreatmentDate]   			[datetime]			        NOT NULL,
+	[TreatmentDescription]   	[nvarchar](4000)           	NULL,
+	[Notes]   					[nvarchar](2000)           	NULL,
+	[Reason]   					[nvarchar](2000)           	NOT NULL,
+	[Urgency]   				[int]			          	NOT NULL,
+	CONSTRAINT [pk_TreatmentRecordID] PRIMARY KEY([TreatmentRecordID] ASC)	
+)
+GO
+
+/*
  ******************************* Create Procedures *****************************
 */
 PRINT '' PRINT '******************* Create Procedures *********************'
@@ -7088,8 +7147,8 @@ PRINT '' PRINT '*** Creating sp_set_department_active_by_id'
 GO
 CREATE PROCEDURE [sp_deactivate_department_by_id]
 (
-	 @DepartmentID		[nvarchar](50)
-	,@Active			[bit]
+	@DepartmentID		[nvarchar](50),
+	@Active				[bit]
 )
 AS
 BEGIN
@@ -12389,6 +12448,32 @@ Created by: Jesse Tomash
 Date: 4/26/2020
 Comment: insert order item line
 */
+DROP PROCEDURE IF EXISTS [sp_insert_special_order_item_line]
+GO
+print '' print '*** Creating sp_insert_special_order_item_line'
+GO
+CREATE PROCEDURE sp_insert_special_order_item_line
+	(
+        @SpecialOrderID					[int],
+		@ItemID							[int],
+		@Quantity						[int]
+	)
+AS
+	BEGIN
+		INSERT INTO [specialorderitemline]
+			([SpecialOrderID], [ItemID], [Quantity])
+		VALUES
+			(@SpecialOrderID, @ItemID, @Quantity)
+		
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: insert order item line
+*/
 DROP PROCEDURE IF EXISTS [sp_select_order_item_lines_by_order_id]
 GO
 print '' print '*** Creating sp_select_order_item_lines_by_order_id'
@@ -12402,6 +12487,29 @@ AS
 		SELECT [OrderID], [ItemID], [Quantity]
 		FROM [dbo].[orderitemline]
 		WHERE [OrderID] = @orderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: insert order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_select_special_order_item_lines_by_order_id]
+GO
+print '' print '*** Creating sp_select_special_order_item_lines_by_order_id'
+GO
+CREATE PROCEDURE sp_select_special_order_item_lines_by_order_id
+	(
+        @SpecialOrderID						[int]
+	)
+AS
+	BEGIN
+		SELECT [SpecialOrderID], [ItemID], [Quantity]
+		FROM [dbo].[specialorderitemline]
+		WHERE [SpecialOrderID] = @SpecialOrderID
 	  
 		RETURN @@ROWCOUNT
 	END
@@ -12439,6 +12547,36 @@ GO
 
 /*
 Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: select item by item id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_special_item_by_item_id]
+GO
+print '' print '*** Creating sp_select_special_item_by_item_id'
+GO
+CREATE PROCEDURE sp_select_special_item_by_item_id
+	(
+        @ItemID						[int]
+	)
+AS
+	BEGIN
+		SELECT  [Item].[ItemName],
+				[Item].[ItemCategoryID],
+				[SpecialOrderItemLine].[Quantity],
+				[Item].[ItemDescription],
+				[Item].[ShelterItem],
+				[Item].[ItemID],
+				[Item].[ShelterThershold]
+		FROM [dbo].[item]
+		INNER JOIN [SpecialOrderItemLine] ON Item.ItemID = SpecialOrderItemLine.ItemID
+		WHERE [Item].[ItemID] = @ItemID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
 Date: 4/28/2020
 Comment: delete order item line
 */
@@ -12461,7 +12599,27 @@ AS
 GO
 
 /*
-Created by: Austin Gee
+Created by: Jesse Tomash
+Date: 4/28/2020
+Comment: delete order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_special_order_item_line_by_item_id]
+GO
+print '' print '*** Creating sp_delete_special_order_item_line_by_item_id'
+GO
+CREATE PROCEDURE sp_delete_special_order_item_line_by_item_id
+	(
+        @ItemID						[int]
+	)
+AS
+	BEGIN
+		DELETE
+		FROM [dbo].[specialorderitemline]
+		WHERE [ItemID] = @ItemID
+	END 
+Go
+
+/* Created by: Austin Gee
 Date: 2/21/2020
 Comment: Stored Procedure that selects adoption animals by active and adoptable.
 */
@@ -12492,6 +12650,203 @@ BEGIN
 	WHERE [Active] = @Active
 	AND [Adoptable] = @Adoptable
 	ORDER BY [AnimalName] DESC
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/10/2020
+Comment: Insert a treatment record.
+*/
+print '' print '*** Creating sp_insert_treatment_record'
+GO
+CREATE PROCEDURE [sp_insert_treatment_record]
+(
+	@VetID	 				[nvarchar](200),
+	@AnimalID				[int],
+	@FormName				[nvarchar](50),
+	@TreatmentDate			[date],
+	@TreatmentDescription 	[nvarchar](4000),
+	@Notes					[nvarchar](2000),
+	@Reason					[nvarchar](2000),
+	@Urgency      			[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[TreatmentRecord]
+		([VetID], [AnimalID], [FormName], [TreatmentDate], [TreatmentDescription], [Notes], [Reason], [Urgency])
+	VALUES
+		(@VetID, @AnimalID, @FormName, @TreatmentDate, @TreatmentDescription, @Notes, @Reason, @Urgency)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/10/2020
+Comment: Select treatment record.
+*/
+print '' print '*** Creating sp_select_treatment_records'
+GO
+CREATE PROCEDURE [sp_select_treatment_records]
+AS
+BEGIN
+	SELECT [TreatmentRecordID],[VetID],[AnimalID],[FormName],[TreatmentDate],
+	[TreatmentDescription],[Notes],[Reason],[Urgency]
+	FROM [dbo].[TreatmentRecord]
+	ORDER BY [TreatmentRecordID]
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/04/2020
+Comment: Delete a treatment record
+*/
+print '' print '*** Creating sp_delete_treatment_record '
+GO
+CREATE PROCEDURE [sp_delete_treatment_record] 
+	(
+		@TreatmentRecordID				[nvarchar](50)
+	)
+AS
+	BEGIN
+		DELETE  
+		FROM 	[TreatmentRecord]
+		WHERE 	[TreatmentRecordID] = @TreatmentRecordID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/04/2020
+Comment: Update a treatment record
+*/
+print '' print '*** Creating sp_update_treatment_record '
+GO
+CREATE PROCEDURE [sp_update_treatment_record] 
+	(
+		@TreatmentRecordID		[nvarchar](50),
+		@VetID	 				[nvarchar](200),
+		@AnimalID				[int],
+		@FormName				[nvarchar](50),
+		@TreatmentDate			[date],
+		@TreatmentDescription 	[nvarchar](4000),
+		@Notes					[nvarchar](2000),
+		@Reason					[nvarchar](2000),
+		@Urgency      			[int]
+	)
+AS
+	BEGIN
+		UPDATE [dbo].[TreatmentRecord]
+			SET [VetID] = @VetID,
+				[AnimalID] = @AnimalID,
+				[FormName] = @FormName,
+				[TreatmentDate] = @TreatmentDate,
+				[TreatmentDescription] = @TreatmentDescription,
+				[Notes] = @Notes,
+				[Reason] = @Reason,
+				[Urgency] = @Urgency
+		WHERE 	[TreatmentRecordID] = @TreatmentRecordID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*Created by: Zach Behrensmeyer
+Date: 4/28/2020
+Comment: Stored Procedure to get transactions by customer email
+*/
+DROP PROCEDURE IF EXISTS [sp_select_transactions_by_customer_email]
+GO
+PRINT '' PRINT '*** Creating sp_select_transactions_by_customer_email'
+GO
+CREATE PROCEDURE [sp_select_transactions_by_customer_email]
+(
+	@CustomerEmail			[nvarchar](250)
+)
+AS
+BEGIN
+	Select TransactionID, 
+	TransactionDateTime, 		
+	SubTotal, 
+	Total
+	FROM [dbo].[Transaction]
+	WHERE CustomerEmail = @CustomerEmail
+END
+GO
+
+/*
+Created by: Chuck Baxter
+Date: 3/13/2020
+Comment: Sproc to insert Animal species
+*/
+print '' print'*** Creating sp_insert_animal_species'
+GO
+
+DROP PROCEDURE IF EXISTS [sp_insert_animal_species]
+GO
+
+CREATE PROCEDURE [sp_insert_animal_species]
+(
+	@AnimalSpeciesID	[nvarchar](100),
+	@Description		[nvarchar](1000)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[AnimalSpecies]
+		([AnimalSpeciesID],[Description])
+	VALUES
+		(@AnimalSpeciesID, @Description)
+	RETURN SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Chuck Baxter
+Date: 3/18/2020
+Comment: Sproc to delete animal species
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_animal_species]
+GO
+PRINT '' PRINT '*** creating sp_delete_animal_species'
+GO
+CREATE PROCEDURE [sp_delete_animal_species](
+		@AnimalSpeciesID [nvarchar](100)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[AnimalSpecies]
+	WHERE [AnimalSpeciesID] = @AnimalSpeciesID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Chuck Baxter
+Date: 3/18/2020
+Comment: Sproc to update animal species
+*/
+print '' print'*** Creating sp_update_animal_species'
+GO
+
+DROP PROCEDURE IF EXISTS [sp_update_animal_species]
+GO
+
+CREATE PROCEDURE [sp_update_animal_species]
+(
+	@OldAnimalSpeciesID	[nvarchar](100),
+	@NewAnimalSpeciesID	[nvarchar](100),
+	@NewDescription		[nvarchar](1000)
+)
+AS
+BEGIN
+	UPDATE	[dbo].[AnimalSpecies]
+	SET 	[AnimalSpeciesID]	= 	@NewAnimalSpeciesID,
+			[Description]		=	@NewDescription
+	WHERE	[AnimalSpeciesID]	=	@OldAnimalSpeciesID
+	RETURN  @@ROWCOUNT
 END
 GO
 
