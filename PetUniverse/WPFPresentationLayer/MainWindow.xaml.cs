@@ -162,13 +162,13 @@ namespace WPFPresentationLayer
                                 }
                             }
 
-                            if (pwdPassword.Password == "")
+                            if (pwdPassword.Password == "newuser")
                             {
                                 var updatePassword = new UpdatePassword(_user, _userManager);
                                 if (updatePassword.ShowDialog() == false)
                                 {
-                                    this.Visibility = Visibility.Hidden;
-                                    var petUniverseHome1 = new PetUniverseHome(_user, userRoles);
+                                    MessageBox.Show("You must change your password to continue");
+                                    return;
                                 }
                             }
                             else
@@ -406,6 +406,12 @@ namespace WPFPresentationLayer
             {
                 lblLockoutMessage.Content = "";
             }
+        }
+
+        //Change Password
+        private void ResetPassword_Click(object sender, RoutedEventArgs e)
+        {            
+            var resetPassword = new ResetPassword();
         }
     }
 }
