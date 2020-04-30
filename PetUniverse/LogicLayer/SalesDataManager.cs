@@ -44,23 +44,44 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// Creator: Cash Carlson
-        /// Created: 03/19/2020
-        /// Approver: Rob Holmes
+        /// Name: Cash Carlson
+        /// Date: 2020/04/29
+        /// Approver: Rasha Mohammed
         /// 
-        /// Retrieve all Total Sales Data
+        /// A method to call to get all employee product sales data
         /// </summary>
-        /// <returns></returns>
-        public List<SalesDataVM> RetrieveAllTotalSalesData()
-        {
-            try
-            {
-                return _salesDataAccessor.RetrieveAllTotalSalesData();
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Data not found.", ex);
-            }
-        }
-    }
+        /// <param name="employeeID"></param>
+		public List<SalesDataVM> RetrieveAllEmployeeSalesData(int employeeID)
+		{
+			try
+			{
+				return _salesDataAccessor.RetrieveAllEmployeeSalesData(employeeID);
+			}
+			catch (Exception ex)
+			{
+
+				throw new ApplicationException("Data not found.", ex);
+			}
+		}
+
+		/// <summary>
+		/// Creator: Cash Carlson
+		/// Created: 03/19/2020
+		/// Approver: Rob Holmes
+		/// 
+		/// Retrieve all Total Sales Data
+		/// </summary>
+		/// <returns></returns>
+		public List<SalesDataVM> RetrieveAllTotalSalesData()
+		{
+			try
+			{
+				return _salesDataAccessor.RetrieveAllTotalSalesData();
+			}
+			catch (Exception ex)
+			{
+				throw new ApplicationException("Data not found.", ex);
+			}
+		}
+	}
 }

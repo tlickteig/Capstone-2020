@@ -12974,6 +12974,42 @@ END
 GO
 
 /*
+Created by: Cash Carlson
+Date: 2020/04/29
+Comment: Stored Procedure used to select all lifetime sales by employee id
+*/
+DROP PROCEDURE IF EXISTS [sp_all_sales_by_employee_id]
+GO
+print '' print '*** Creating sp_all_sales_by_employee_id'
+GO
+CREATE PROCEDURE [sp_all_sales_by_employee_id]
+(
+	@EmployeeID		[int]
+)
+AS
+BEGIN
+    SELECT
+        [TransactionLineProducts].[ProductID],
+        [Item].[ItemName],
+        [Product].[Brand],
+        [Item].[ItemCategoryID],
+        [Product].[ProductTypeID],
+        SUM ([TransactionLineProducts].[Quantity]) AS 'Total Sales'
+    FROM [dbo].[TransactionLineProducts]
+    LEFT JOIN [Transaction] ON [TransactionLineProducts].[TransactionID] = [Transaction].[TransactionID]
+    LEFT JOIN [Product] ON [TransactionLineProducts].[ProductID] = [Product].[ProductID]
+	LEFT JOIN [Item] ON [Product].[ItemID] = [Item].[ItemID]
+    WHERE [Transaction].[EmployeeID] = @EmployeeID
+    GROUP BY
+        [TransactionLineProducts].[ProductID],
+        [Item].[ItemName],
+        [Product].[Brand],
+        [Item].[ItemCategoryID],
+        [Product].[ProductTypeID]
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
