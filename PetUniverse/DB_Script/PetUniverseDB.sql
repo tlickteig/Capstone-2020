@@ -5639,11 +5639,36 @@ CREATE PROCEDURE [sp_select_all_volunteer_shifts]
 AS
 BEGIN
 	SELECT
-		[VolunteerShiftID], [ShiftDescription],
+		[VolunteerShift].[VolunteerShiftID], [ShiftDescription],
 		[ShiftTitle], [ShiftStartTime], [ShiftEndTime],
 		[Recurrance], [IsSpecialEvent], [ShiftNotes],
-		[ShiftDate], [ScheduleID]
+		[ShiftDate], [ScheduleID], [ShiftRecord].[VolunteerID]
 	FROM [dbo].[VolunteerShift]
+	LEFT JOIN [ShiftRecord] 
+	ON [ShiftRecord].[VolunteerShiftID] = [VolunteerShift].[VolunteerShiftID]
+END
+GO
+
+/*
+Created By: Timothy Lickteig
+Date: 04/30/2020
+Comment: Procedure for signing volunteer up for shift
+*/
+DROP PROCEDURE IF EXISTS [sp_sign_volunteer_up_for_shift]
+GO
+PRINT '' PRINT 'Creating procedure sp_sign_volunteer_up_for_shift'
+GO
+CREATE PROCEDURE [sp_sign_volunteer_up_for_shift]
+(
+	@VolunteerID [int],
+	@VolunteerShiftID [int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[ShiftRecord]
+	([VolunteerID], [VolunteerShiftID])
+	VALUES
+	(@VolunteerID, @VolunteerShiftID)
 END
 GO
 

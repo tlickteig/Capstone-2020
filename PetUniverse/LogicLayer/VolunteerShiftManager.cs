@@ -1,5 +1,6 @@
 ﻿using DataAccessFakes;
 using DataAccessInterfaces;
+using DataAccessLayer;
 using DataTransferObjects;
 using LogicLayerInterfaces;
 using System;
@@ -31,7 +32,7 @@ namespace LogicLayer
         /// <returns>VolunteerShiftManager object</returns>
         public VolunteerShiftManager()
         {
-            _accessor = new FakeVolunteerShiftAccessor();
+            _accessor = new VolunteerShiftAccessor();
         }
 
         /// <summary>

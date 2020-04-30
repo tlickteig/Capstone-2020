@@ -200,6 +200,8 @@ namespace DataAccessLayer
                     shift.ShiftNotes = Convert.ToString(reader.GetValue(7));
                     shift.VolunteerShiftDate = Convert.ToDateTime(reader.GetValue(8));
                     shift.ScheduleID = Convert.ToInt32(reader.GetValue(9));
+                    shift.VolunteerID = reader.IsDBNull(10)
+                        ? 0 : Convert.ToInt32(reader.GetValue(10));
                     shifts.Add(shift);
                 }
                 reader.Close();
