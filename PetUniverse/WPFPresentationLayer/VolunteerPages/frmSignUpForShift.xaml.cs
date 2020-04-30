@@ -62,6 +62,7 @@ namespace WPFPresentationLayer.VolunteerPages
             {
                 VolunteerShift shift = (VolunteerShift)dgShiftList.SelectedItem;
                 _shiftManager.SignVolunteerUpForShift(_volunteerID, shift.VolunteerShiftID);
+                this.Close();
             }
             catch (Exception ex)
             {
