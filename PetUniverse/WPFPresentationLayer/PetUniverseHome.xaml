@@ -558,7 +558,7 @@
              UPDATE BY: NA
              UPDATE DATE: NA
              CHANGE: NA -->
-                <TabItem x:Name="tabApplicantInterview" Header="Applicants" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabApplicantInterview" Header="Applicants" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PersonnelPages/ViewApplicants.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
 

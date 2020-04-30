@@ -12,7 +12,6 @@
       xmlns:local="clr-namespace:WPFPresentationLayer.InventoryPages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Background="#2e3137"
       Title="ShelterInventory">
 
     <Grid>
@@ -29,12 +28,11 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label x:Name="lblShelterInvetoryHeader" Grid.Column="0" Grid.ColumnSpan="2" Content="Shelter Inventory" VerticalAlignment="Center"
-                   HorizontalAlignment="Center" FontWeight="DemiBold" FontSize="40" FontStyle="Italic" Foreground="#fff8e3"/>
+                   HorizontalAlignment="Center" FontWeight="DemiBold" FontSize="40" FontStyle="Italic"/>
             <Label Grid.Row="0" Grid.Column="2" Content="Search Item Category" VerticalAlignment="Center"
-                   HorizontalAlignment="Right" FontWeight="DemiBold" FontSize="16" Foreground="#fff8e3"/>
+                   HorizontalAlignment="Right" FontWeight="DemiBold" FontSize="16"/>
             <TextBox x:Name="txtShelterItemSearch" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" FontSize="16"
-                     VerticalContentAlignment="Center" Margin="15 0" TextChanged="TxtShelterItemSearch_TextChanged"
-                     Background="#fff8e3" Foreground="#2e3137"></TextBox>
+                     VerticalContentAlignment="Center" Margin="15 0" TextChanged="TxtShelterItemSearch_TextChanged"></TextBox>
         </Grid>
         <Grid Grid.Row="1">
             <DataGrid x:Name="dgViewShelterInventory" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="1" 

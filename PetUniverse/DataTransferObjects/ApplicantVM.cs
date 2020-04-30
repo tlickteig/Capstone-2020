@@ -19,7 +19,6 @@ namespace DataTransferObjects
 	public class ApplicantVM : Applicant
 	{
 		public int ApplicationID { get; set; }
-		public string ApplicationPostion { get; set; }
 		public string InterviewNotes { get; set; }
 		public DateTime? HomeCheckDate { get; set; }
 		public string SchoolName { get; set; }
