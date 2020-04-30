@@ -79,21 +79,7 @@ namespace DataAccessFakes
         /// <returns></returns>
         public int DeleteTreatmentRecord(int treatmentRecordID)
         {
-            TreatmentRecord treatmentRecord = null;
-
-            // Check that treatment record is in list, if so assign it, else fail
-            if (treatmentRecord == null)
-            {
-                throw new Exception();
-            }
-
-            // Simulate the deletion
-            treatmentRecord = null;
-            if (treatmentRecord == null)
-            {
-                return 1;
-            }
-            return 0;
+            return 1;
         }
 
         /// <summary>

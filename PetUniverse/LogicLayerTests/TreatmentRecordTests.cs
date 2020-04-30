@@ -175,15 +175,15 @@ namespace LogicLayerTests
         /// Updater:
         /// Updated:
         /// Update: 
-        /// </remarks>
+        /// </remarks>        
         [TestMethod]
         public void TestDeleteTreatmentRecord()
         {
             // arrange
-            ITreatmentRecordManager treatmentRecordManager = new TreatmentRecordManager();
+            ITreatmentRecordManager treatmentRecordManager = new TreatmentRecordManager(_treatmentRecordAccessor);
 
             // act
-            int rows = treatmentRecordManager.DeleteTreatmentRecord(5);
+            int rows = treatmentRecordManager.DeleteTreatmentRecord(100000);
 
 
             // assert
@@ -207,10 +207,11 @@ namespace LogicLayerTests
         public void TestEditTreatmentRecord()
         {
             // Arrange
-            ITreatmentRecordManager treatmentRecordManager = new TreatmentRecordManager();
-
+            ITreatmentRecordManager treatmentRecordManager = new TreatmentRecordManager(_treatmentRecordAccessor);
+            int rows = 0;
             // Act
-            int rows = treatmentRecordManager.EditTreatmentRecord(
+
+            rows = treatmentRecordManager.EditTreatmentRecord(
                 new TreatmentRecord()
                 {
                     TreatmentRecordID = 1
@@ -226,8 +227,7 @@ namespace LogicLayerTests
                     Notes = "These are notes. Blah Blah.",
                     Reason = "Reason",
                     Urgency = 6
-                }
-                );
+                });
 
             // Assert
             Assert.AreEqual(1, rows);
