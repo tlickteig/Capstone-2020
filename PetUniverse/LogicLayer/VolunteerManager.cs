@@ -545,6 +545,57 @@ namespace LogicLayer
             return result;
         }
 
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 4/28/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Gets Volunteer From Email
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Volunteer RetrieveVolunteerFromEmail(string email)
+        {
+            try
+            {
+                return _volunteerAccessor.getVolunteerByEmail(email);
+            }
+            catch (ApplicationException ax)
+            {
+                if (ax.Message == "Volunteer not found.")
+                {
+                    return null;
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("DatabaseError", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator : Zach Behrensmeyer
+        /// Created: 4/28/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Gets Volunteer ID From Email
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public int RetrieveVolunteerIDFromEmail(string email)
         {
             try

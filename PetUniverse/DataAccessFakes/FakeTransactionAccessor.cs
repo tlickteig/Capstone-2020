@@ -127,7 +127,8 @@ namespace DataAccessFakes
                     Total = 44.11M,
                     TransactionTypeID = "FAKE_TYPE_1",
                     EmployeeID = 100001,
-                    TransactionStatusID = "FAKE_STATUS_1"
+                    TransactionStatusID = "FAKE_STATUS_1",
+                    CustomerEmail = "test@test.com"
                 }
             };
 
@@ -754,6 +755,21 @@ namespace DataAccessFakes
             }
             return rows;
             
+        }
+
+        public List<Transaction> GetTransactionsByCustomerEmail(string email)
+        {
+            List<Transaction> transactions = new List<Transaction>();
+
+            foreach(var item in _transactions)
+            {
+                if(item.CustomerEmail == email)
+                {
+                    transactions.Add(item);
+                }
+            }
+
+            return transactions;
         }
     }
 }

@@ -12301,6 +12301,31 @@ END
 GO
 
 /*
+Created by: Zach Behrensmeyer
+Date: 4/28/2020
+Comment: Stored Procedure to get transactions by customer email
+*/
+DROP PROCEDURE IF EXISTS [sp_select_transactions_by_customer_email]
+GO
+PRINT '' PRINT '*** Creating sp_select_transactions_by_customer_email'
+GO
+CREATE PROCEDURE [sp_select_transactions_by_customer_email]
+(
+	@CustomerEmail			[nvarchar](250)
+)
+AS
+BEGIN
+	Select TransactionID, 
+	TransactionDateTime, 		
+	SubTotal, 
+	Total
+	FROM [dbo].[Transaction]
+	WHERE CustomerEmail = @CustomerEmail
+END
+GO
+	
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'

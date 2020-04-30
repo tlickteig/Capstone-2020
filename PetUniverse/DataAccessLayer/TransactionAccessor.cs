@@ -922,5 +922,56 @@ namespace DataAccessLayer
 
             return rows;
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeye
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        ///
+        /// This code gets transactions by customer email to display them for the customer
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public List<Transaction> GetTransactionsByCustomerEmail(string email)
+        {
+            List<Transaction> transactions = new List<Transaction>();
+            
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_select_transactions_by_customer_email", conn);
+            cmd.Parameters.AddWithValue("@CustomerEmail", email);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    transactions.Add(new Transaction()
+                    {
+                        TransactionID = reader.GetInt32(0),
+                        TransactionDateTime = reader.GetDateTime(1),
+                        SubTotal = reader.GetDecimal(2),
+                        Total = reader.GetDecimal(3)
+                    });                    
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return transactions;
+        }
     }
 }

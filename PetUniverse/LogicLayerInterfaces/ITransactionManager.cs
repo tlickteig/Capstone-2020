@@ -464,6 +464,20 @@ namespace LogicLayerInterfaces
         /// <returns>returns a Transaction status</returns>
         TransactionStatus RetrieveDefaultTransactionStatus();
 
-        
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020  
+        /// Approver: Steven Cardona
+        ///  
+        /// This method connects to the data access layer to get transactions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="Email"></param>
+        /// <returns></returns>
+        List<Transaction> GetTransactionsByCustomerEmail(string Email);
     }
 }
