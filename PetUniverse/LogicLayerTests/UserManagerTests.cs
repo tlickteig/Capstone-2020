@@ -736,6 +736,55 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/30/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method to set security questions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA 
+        /// </remarks>
+        [TestMethod]
+        public void testSetQuestions()
+        {
+            int userID = 100000;
+            string Q1 = "First Car?";
+            string Q2 = "First pet?";
+            string A1 = "Chevy Malibu";
+            string A2 = "Dog";
+
+            bool result = _userManager.UpdateSecurityInfo(userID, Q1, Q2, A1, A2);
+
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/30/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method to change password after security questions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA 
+        /// </remarks>
+        [TestMethod]
+        public void testChangePasswordAfterSecurityQuestions()
+        {
+            int userID = 100000;
+            string newPass = "TestPass12!";
+
+            bool result = _userManager.UpdatePasswordHashBySecurity(userID, newPass);
+
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
         /// Creator: Steven Cardona
         /// Created: 02/07/2020
         /// Approver: Zach Behrensmeyer

@@ -98,8 +98,23 @@ namespace WPFPresentationLayer
                     pwdCurrentUserPassword.Password.ToString()))
                 {
                     MessageBox.Show("Password Updated");
-                    this.DialogResult = true;
-                    this.Close();
+                    btnSubmit.Visibility = Visibility.Hidden;
+                    lblCurrentPassword.Visibility = Visibility.Hidden;
+                    lblNewPassword.Visibility = Visibility.Hidden;
+                    lblRetypePassword.Visibility = Visibility.Hidden;
+                    pwdCurrentUserPassword.Visibility = Visibility.Hidden;
+                    pwdNewUserPassword.Visibility = Visibility.Hidden;
+                    pwdRetypeUserPassword.Visibility = Visibility.Hidden;
+                    btnSecuritySubmit.Visibility = Visibility.Visible;
+                    lblA1.Visibility = Visibility.Visible;
+                    lblA2.Visibility = Visibility.Visible;
+                    lblSecurityQuestion1.Visibility = Visibility.Visible;
+                    lblQ2.Visibility = Visibility.Visible;
+                    txtA2.Visibility = Visibility.Visible;
+                    txtAnswer1.Visibility = Visibility.Visible;
+                    txtQ1.Visibility = Visibility.Visible;
+                    txtQ2.Visibility = Visibility.Visible;
+                    lblSecurity.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)
@@ -107,6 +122,14 @@ namespace WPFPresentationLayer
                 MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
                 this.DialogResult = false;
             }
+        }
+
+        private void btnSecuritySubmit_Click(object sender, RoutedEventArgs e)
+        {
+            _userManager.UpdateSecurityInfo(_PUUser.PUUserID, txtQ1.Text, txtQ2.Text, txtAnswer1.Text, txtA2.Text);
+            MessageBox.Show("Security Questions Set!");
+            this.DialogResult = true;
+            this.Close();
         }
     }
 }

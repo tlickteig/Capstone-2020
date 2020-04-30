@@ -360,6 +360,9 @@
     <Compile Include="RecruitingPages\ListRequests.xaml.cs">
       <DependentUpon>ListRequests.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ResetPassword.xaml.cs">
+      <DependentUpon>ResetPassword.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SystemAdminPages\pgLogView.xaml.cs">
       <DependentUpon>pgLogView.xaml</DependentUpon>
     </Compile>
@@ -752,6 +755,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RecruitingPages\ListRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResetPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

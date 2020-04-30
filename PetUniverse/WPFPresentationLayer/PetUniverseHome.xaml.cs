@@ -778,7 +778,7 @@ namespace WPFPresentationLayer
         /// <summary>
         /// Creator: Steven Cardona
         /// Created: 04/16/2020
-        /// Approver:
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Changes Cursor when not hovering over label
         /// </summary>
@@ -792,6 +792,25 @@ namespace WPFPresentationLayer
         private void lblStatusBar_MouseLeave(object sender, MouseEventArgs e)
         {
             Mouse.OverrideCursor = null;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/29/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Closes program
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }

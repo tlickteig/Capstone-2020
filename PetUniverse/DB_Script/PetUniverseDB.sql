@@ -68,6 +68,10 @@ CREATE TABLE [dbo].[User](
 [UnlockDate] [DateTime] NULL,
 [DepartmentID] [nvarchar](50) NULL,
 [HasViewedPoliciesAndStandards] [bit] NOT NULL Default 0,
+[SecurityQuestion1] [NVARCHAR](100) NULL,
+[SecurityQuestion2] [NVARCHAR](100) NULL,
+[Answer1] [NVARCHAR] (100) NULL,
+[Answer2] [NVARCHAR] (100) NULL,
 CONSTRAINT [fk_User_DepartmentID] FOREIGN KEY([DepartmentID])
 		REFERENCES [Department]([DepartmentID])
 )
@@ -2450,7 +2454,7 @@ CREATE PROCEDURE [sp_select_user_by_email]
 )
 AS
 BEGIN
-	SELECT 	[UserID], [FirstName], [LastName], [PhoneNumber]
+	SELECT 	[UserID], [FirstName], [LastName], [PhoneNumber], [SecurityQuestion1], [SecurityQuestion2], [Answer1], [Answer2]
 	FROM 	[dbo].[User]
 	WHERE 	[Email] = @Email
 END
@@ -12792,7 +12796,7 @@ AS
 	END 
 Go
 
-/* Created by: Austin Gee
+/*Created by: Austin Gee
 Date: 2/21/2020
 Comment: Stored Procedure that selects adoption animals by active and adoptable.
 */
@@ -12970,6 +12974,33 @@ BEGIN
 	SET		[Adoptable] = @Adoptable
 	WHERE	[AnimalID] = @AnimalID
 	RETURN	@@ROWCOUNT
+END	
+GO
+	
+/*Created by: Zach Behrensmeyer
+Date: 4/28/2020
+Comment: Stored Procedure to set Security Questions and Answers
+*/
+DROP PROCEDURE IF EXISTS [sp_update_security_qna]
+GO
+PRINT '' PRINT '*** Creating sp_update_security_qna'
+GO
+CREATE PROCEDURE [sp_update_security_qna]
+(
+	@UserId 			int,
+	@Answer1			[nvarchar](100),
+	@Answer2			[nvarchar](100),
+	@Question1			[nvarchar](100),
+    @Question2			[nvarchar](100)
+)
+AS
+BEGIN
+	UPDATE [dbo].[User] 
+	SET Answer1 = @Answer1,
+	Answer2 = @Answer2,
+	SecurityQuestion1 = @Question1,
+	SecurityQuestion2 = @Question2
+	WHERE UserID = @UserID		
 END
 GO
 
@@ -13006,6 +13037,28 @@ BEGIN
         [Product].[Brand],
         [Item].[ItemCategoryID],
         [Product].[ProductTypeID]
+END
+GO
+
+/*
+CREATED BY: Zach Behrensmeyer
+DATE: 4/23/2020
+COMMENT: Stored Procedure to update Password after answering Security Questions
+*/
+DROP PROCEDURE IF EXISTS [sp_update_password_by_security]
+print '' print '*** Creating sp_update_password_by_security'
+GO
+CREATE Procedure sp_update_password_by_security
+(
+@UserID 	[int],
+@NewPasswordHash	[nvarchar](100)
+)
+AS
+BEGIN
+UPDATE [dbo].[User]
+SET [PasswordHash] = @NewPasswordHash
+Where [UserID] = @UserID
+Return @@ROWCOUNT
 END
 GO
 

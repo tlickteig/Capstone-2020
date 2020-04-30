@@ -37,5 +37,10 @@ namespace DataTransferObjects
         public string State { get; set; }
         public string ZipCode { get; set; }
         public bool HasViewedPolAndStan { get; set; }
+        public string SecurityQuestion1 { get; set; }
+        public string SecurityQuestion2 { get; set; }
+        public string SecurityAnswer1 { get; set; }
+        public string SecurityAnswer2 { get; set; }
+
     }
 }
