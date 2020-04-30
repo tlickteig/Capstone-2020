@@ -107,11 +107,13 @@
     <Compile Include="ISalesTaxManager.cs" />
     <Compile Include="IShiftManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
+    <Compile Include="ISpecialOrderItemLineManager.cs" />
     <Compile Include="ISpecialOrderManager.cs" />
     <Compile Include="IStatusManager.cs" />
     <Compile Include="ITrainingVideoManager.cs" />
     <Compile Include="ITransactionAdminManager.cs" />
     <Compile Include="ITransactionManager.cs" />
+    <Compile Include="ITreatmentRecordManager.cs" />
     <Compile Include="IUserManager.cs" />
     <Compile Include="IVendorManager.cs" />
     <Compile Include="IVetAppointmentManager.cs" />

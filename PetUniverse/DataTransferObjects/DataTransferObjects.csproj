@@ -156,6 +156,7 @@
     <Compile Include="ScheduleWithHoursWorked.cs" />
     <Compile Include="ShiftVM.cs" />
     <Compile Include="SpecialOrder.cs" />
+    <Compile Include="SpecialOrderItemLine.cs" />
     <Compile Include="States.cs" />
     <Compile Include="TimeOffRequest.cs" />
     <Compile Include="TimeOffRequestVM.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="TransactionStatus.cs" />
     <Compile Include="TransactionType.cs" />
     <Compile Include="TransactionVM.cs" />
+    <Compile Include="TreatmentRecord.cs" />
+    <Compile Include="TreatmentRecordVM.cs" />
     <Compile Include="Vendor.cs" />
     <Compile Include="Volunteer.cs" />
     <Compile Include="VolunteerEvent.cs" />

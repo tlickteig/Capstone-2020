@@ -110,10 +110,12 @@
     <Compile Include="IShiftAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="ISpecialOrderAccessor.cs" />
+    <Compile Include="ISpecialOrderItemLineAccessor.cs" />
     <Compile Include="IStatusAccessor.cs" />
     <Compile Include="ITrainingVideoAccessor.cs" />
     <Compile Include="ITransactionAccessor.cs" />
     <Compile Include="ITransactionAdminAccessor.cs" />
+    <Compile Include="ITreatmentRecordAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
     <Compile Include="IVendorAccessor.cs" />
     <Compile Include="IVetAppointmentAccessor.cs" />

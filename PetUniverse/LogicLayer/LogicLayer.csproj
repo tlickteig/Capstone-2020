@@ -109,11 +109,13 @@
     <Compile Include="SalesTaxManager.cs" />
     <Compile Include="ShiftManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
+    <Compile Include="SpecialOrderItemLineManager.cs" />
     <Compile Include="SpecialOrderManager.cs" />
     <Compile Include="StatusManager.cs" />
     <Compile Include="TrainingVideoManager.cs" />
     <Compile Include="TransactionAdminManager.cs" />
     <Compile Include="TransactionManager.cs" />
+    <Compile Include="TreatmentRecordManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="VendorManager.cs" />
     <Compile Include="VetAppointmentManager.cs" />

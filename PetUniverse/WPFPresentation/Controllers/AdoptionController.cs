@@ -555,10 +555,10 @@ namespace WPFPresentation.Controllers
                 _adoptionCustomerManager.AddAdoptionCustomer(customer);
                 return RedirectToAction("CustomerConfirmAdoptionApplication", new {animalID = animalID });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
             return View();

@@ -408,6 +408,9 @@
     <Compile Include="VolunteerPages\TaskControls.xaml.cs">
       <DependentUpon>TaskControls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VolunteerPages\TreatmentRecordControls.xaml.cs">
+      <DependentUpon>TreatmentRecordControls.xaml</DependentUpon>
+    </Compile>
     <Compile Include="VolunteerPages\ViewAllVolunteerSchedules.xaml.cs">
       <DependentUpon>ViewAllVolunteerSchedules.xaml</DependentUpon>
     </Compile>
@@ -819,6 +822,10 @@
     <Page Include="VolunteerPages\TaskControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\TreatmentRecordControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="VolunteerPages\ViewAllVolunteerSchedules.xaml">
       <Generator>MSBuild:Compile</Generator>
