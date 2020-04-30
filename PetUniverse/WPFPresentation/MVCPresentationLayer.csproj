@@ -575,6 +575,7 @@
     <Content Include="Views\Adoption\RescheduleAppointment.cshtml" />
     <Content Include="Views\Transaction\TransactionHistory.cshtml" />
     <Content Include="Views\Account\RegisterContinuation.cshtml" />
+    <Content Include="Views\Adoption\FAQ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

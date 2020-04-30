@@ -174,18 +174,23 @@ namespace LogicLayer
         /// Logic method to update a Animal Profile 
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Michael Thompson
+        /// Updated: 4/20/2020
+        /// Update: To book specifications
+        /// Approver: Austin Gee
         /// </remarks>
+        /// <param name="animalID"></param>
+        /// <param name="profileDescription"></param>
+        /// <param name="profileImageData"></param>
+        /// <param name="profileImageMimeType"></param>
         /// <returns>Bool of whether or not the value was successfully updated</returns>
-        public bool UpdatePetProfile(int animalID, string profileDescription, string profileImagePath)
+        public bool UpdatePetProfile(int animalID, string profileDescription, byte[] profileImageData, string profileImageMimeType)
         {
             bool result;
 
             try
             {
-                result = _animalAccessor.UpdateAnimalProfile(animalID, profileDescription, profileImagePath);
+                result = _animalAccessor.UpdateAnimalProfile(animalID, profileDescription, profileImageData, profileImageMimeType);
             }
             catch (Exception ex)
             {
@@ -197,14 +202,14 @@ namespace LogicLayer
         /// Creator: Michael Thompson
         /// Created: 2/19/2020
         /// Approver: Austin Gee
-        /// Approver: 
         /// 
         /// logic method that uses an AnimalAccessor method to get a list of all animal profiles
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Michael Thompson
+        /// Updated: 4/27/2020
+        /// Update: To book specifications for images
+        /// Approver: Austin Gee
         /// </remarks>
         /// <returns>a list of animal objects or an exception if the data was not found</returns>
         public List<Animal> RetrieveAllAnimalProfiles()
@@ -414,6 +419,31 @@ namespace LogicLayer
             try
             {
                 return _animalAccessor.GetAnimalByAnimalID(ID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/25/2020
+        /// Approver: Austin Gee
+        /// Gets one animal by its ID
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="ID"></param>
+        /// <returns>1 Animal with that ID</returns>
+        public Animal RetrieveOneAnimalByAnimalID(int ID)
+        {
+            try
+            {
+                return _animalAccessor.GetOneAnimalByAnimalID(ID);
             }
             catch (Exception ex)
             {

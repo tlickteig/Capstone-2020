@@ -145,10 +145,9 @@ namespace DataAccessLayer
         /// Selects a list of Adoption Animals from the database based on active and adoptable
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// 
+        /// Updater: Michael Thompson
+        /// Updated: 4/29/2020
+        /// Update: To book Specifications for images
         /// </remarks>
         /// <param name="active"></param>
         /// <param name="adoptable"></param>
@@ -184,8 +183,15 @@ namespace DataAccessLayer
                         adoptionAnimal.Adoptable = reader.IsDBNull(6) ? false : reader.GetBoolean(6);
                         adoptionAnimal.Active = reader.IsDBNull(7) ? false : reader.GetBoolean(7);
                         adoptionAnimal.AnimalSpeciesID = reader.IsDBNull(8) ? null : reader.GetString(8);
-                        adoptionAnimal.ProfileImage = reader.IsDBNull(9) ? null : reader.GetString(9);
-                        adoptionAnimal.ProfileDescription = reader.IsDBNull(10) ? null : reader.GetString(10);
+                        if (reader[9] != System.DBNull.Value)
+                        {
+                            adoptionAnimal.ProfileImageData = (byte[])reader[9];
+                        }
+                        if (reader.GetString(10) != null)
+                        {
+                            adoptionAnimal.ProfileImageMimeType = reader.GetString(10);
+                        }
+                        adoptionAnimal.ProfileDescription = reader.IsDBNull(11) ? null : reader.GetString(11);
 
                         adoptionAnimalVM.Add(adoptionAnimal);
                     }

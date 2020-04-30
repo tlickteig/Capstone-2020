@@ -175,8 +175,9 @@ CREATE TABLE [dbo].[Animal](
 	Date 2/7/2020
 	Comment: Adding ProfilePhoto and Description
 	*/
-	[ProfilePhoto]			[nvarchar](50)  DEFAULT 'No image found',
-	[ProfileDescription]	[nvarchar](500) DEFAULT 'NO description found',
+	[ProfileImageData]			[varbinary](MAX)  NULL,
+	[ProfileImageMimeType]		[nvarchar](10) NULL DEFAULT 'JPG',	
+	[ProfileDescription]		[nvarchar](500) DEFAULT 'No description found',
 	CONSTRAINT [pk_AnimalID] PRIMARY KEY([AnimalID] ASC),
 	CONSTRAINT [fk_Animal_AnimalSpeciesID] FOREIGN KEY([AnimalSpeciesID])
 		REFERENCES [AnimalSpecies]([AnimalSpeciesID]) ON UPDATE CASCADE
@@ -6766,7 +6767,6 @@ END
 GO
 
 
-
 /*
 Created By: Michael Thompson
 Date: 2/20/2020
@@ -6778,14 +6778,16 @@ PRINT '' PRINT '*** Creating sp_update_animal_profile'
 GO
 CREATE PROCEDURE [sp_update_animal_profile]
 (
-	@AnimalID			[int],
-	@ProfilePhoto		[nvarchar](50),
-	@ProfileDescription	[nvarchar](500)
+	@AnimalID				[int],
+	@ProfileImageData		[varbinary](MAX),
+	@ProfileImageMimeType	[nvarchar](10),	
+	@ProfileDescription		[nvarchar](500)
 )
 AS
 BEGIN
 	UPDATE [dbo].[Animal]
-		SET [ProfilePhoto] = @ProfilePhoto,
+		SET [ProfileImageData] = @ProfileImageData,
+			[ProfileImageMimeType] = @ProfileImageMimeType,
 			[ProfileDescription] = @ProfileDescription
 	WHERE	[AnimalID] = @AnimalID
 	RETURN @@ROWCOUNT
@@ -6795,7 +6797,7 @@ GO
 /*
 Created By: Michael Thompson
 Date 2/20/2020
-Comment: Stored Procedure to get the animal, profile photo path and description
+Comment: Stored Procedure to get the animal, profile photo data and description
 */
 DROP PROCEDURE IF EXISTS [sp_select_all_animal_profiles]
 GO
@@ -6804,9 +6806,40 @@ GO
 CREATE PROCEDURE [sp_select_all_animal_profiles]
 AS
 BEGIN
-	SELECT [AnimalID],[AnimalName],[ProfilePhoto],[ProfileDescription]
+	SELECT 
+		[AnimalID],
+		[AnimalName],
+		[ProfileImageData],
+		[ProfileImageMimeType],
+		[ProfileDescription]
 	FROM [dbo].[Animal]
 	ORDER BY [AnimalID]
+END
+GO
+
+/*
+Created By: Michael Thompson
+Date 2/20/2020
+Comment: Stored Procedure to get one animal profile photodata and description
+*/
+DROP PROCEDURE IF EXISTS [sp_select_animal_profile_by_animalid]
+GO
+PRINT '' PRINT '*** Creating sp_select_animal_profile_by_animalid'
+GO
+CREATE PROCEDURE [sp_select_animal_profile_by_animalid]
+(
+  @AnimalID [int]
+)
+AS
+BEGIN
+    SELECT 
+        [AnimalID],
+        [AnimalName],  	
+        [ProfileImageData],				
+        [ProfileImageMimeType],		
+        [ProfileDescription]			
+    FROM [Animal] 
+    WHERE[AnimalID] = @AnimalID
 END
 GO
 
@@ -12758,7 +12791,8 @@ BEGIN
 	,[Adoptable]
 	,[Active]
 	,[AnimalSpeciesID]
-	,[ProfilePhoto]
+	,[ProfileImageData]
+	,[ProfileImageMimeType]
 	,[ProfileDescription]
 	FROM [dbo].[Animal]
 	WHERE [Active] = @Active

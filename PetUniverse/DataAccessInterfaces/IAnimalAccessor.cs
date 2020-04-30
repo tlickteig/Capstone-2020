@@ -53,6 +53,23 @@ namespace DataAccessInterfaces
         List<AnimalNames> GetNames();
 
         /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/25/2020
+        /// Approver: Austin Gee
+        /// Approver: 
+        /// Gets an animal by its ID number
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="ID"></param>
+        /// <returns>Returns one animal with that ID</returns>
+        Animal GetOneAnimalByAnimalID(int ID);
+
+
+        /// <summary>
         /// Creator: Chuck Baxter
         /// Created: 2/6/2020
         /// Approver: Carl Davis, 2/7/2020
@@ -93,16 +110,18 @@ namespace DataAccessInterfaces
         /// Updates the animal with their forward facing description and image
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// CHANGE:
+        /// UPDATED BY: Michael Thompson 
+        /// UPDATED DATE: 4/27/2020
+        /// CHANGE: Updating to book specification for images
+        /// Approver: Austin Gee
         /// </remarks>
-        /// <param name="animal">The animal.</param>
+        /// <param name="animalID">The animalID.</param>
         /// <param name="profileDescription">The profile description.</param>
-        /// <param name="profileImagePath">The profile image path.</param>
+        /// <param name="profileImageData">The profile image Data as a byte array.</param>
+        /// <param name="profileImageMimeType">The file type of teh image data</param>
         /// <returns>Bool</returns>
+        bool UpdateAnimalProfile(int animalID, string profileDescription, byte[] profileImageData, string profileImageMimeType);
 
-        bool UpdateAnimalProfile(int animalID, string profileDescription, string profileImagePath);
         /// <summary>
         /// Creator: Michael Thompson
         /// Created: 2/19/2020
@@ -112,9 +131,10 @@ namespace DataAccessInterfaces
         /// a data access Interface for retrieving a list of all animal profiles
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Michael Thompson
+        /// Updated: 4/27/2020
+        /// Update: Adding images to book specification
+        /// Approver: Austin Gee
         /// </remarks>
         /// <returns>a list of animal objects</returns>
         List<Animal> SelectAllAnimnalProfiles();

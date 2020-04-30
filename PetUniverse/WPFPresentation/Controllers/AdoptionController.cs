@@ -29,6 +29,7 @@ namespace WPFPresentation.Controllers
         private IAdoptionAppointmentManager _adoptionAppointmentManager;
         private IUserManager _userManager;
         private IAnimalManager _animalManager;
+
         
 
         /// <summary>
@@ -74,8 +75,7 @@ namespace WPFPresentation.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            bool active = true;
-            var animalProfiles = _adoptionAnimalManager.RetrieveAdoptionAnimalsByActive(active);
+            var animalProfiles = _animalManager.RetrieveAllAnimalProfiles();
             return View(animalProfiles);
         }
 
@@ -642,6 +642,49 @@ namespace WPFPresentation.Controllers
                 
             }
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/28/2020
+        /// Approver: Austin Gee
+        ///
+        /// returns a detail view of a customer adoption application
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA        
+        /// </remarks>
+        public FileContentResult GetImage(int animalId)
+        {
+            Animal animal = _animalManager.RetrieveOneAnimalByAnimalID(animalId);
+            if (animal.ProfileImageData != null && animal.ProfileImageMimeType != null)
+            {
+                return File(animal.ProfileImageData, animal.ProfileImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/29/2020
+        /// Approver: Austin Gee
+        ///
+        /// Returns a view of Frequently asked questions for a customer coming in for an interview for an animal
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA        
+        /// </remarks>
+        public ActionResult FAQ()
+        {
+            return View();
         }
     }
 }

@@ -128,7 +128,8 @@ namespace DataAccessFakes
                     CurrentlyHoused = true,
                     Dob = DateTime.Now.AddDays(-100),
                     ProfileDescription = "Fake",
-                    ProfileImage = "Fake"
+                    ProfileImageData = new byte[1],
+                    ProfileImageMimeType = "jpg"
                 },
                 new Animal
                 {
@@ -141,8 +142,8 @@ namespace DataAccessFakes
                     ArrivalDate = DateTime.Now,
                     CurrentlyHoused = true,
                     Dob = DateTime.Now.AddDays(-100),
-                    ProfileDescription = "Fake",
-                    ProfileImage = "Fake"
+                    ProfileImageData = new byte[1],
+                    ProfileImageMimeType = "jpg"
                 },
                 new Animal
                 {
@@ -155,8 +156,8 @@ namespace DataAccessFakes
                     ArrivalDate = DateTime.Now,
                     CurrentlyHoused = true,
                     Dob = DateTime.Now.AddDays(-100),
-                    ProfileDescription = "Fake",
-                    ProfileImage = "Fake"
+                    ProfileImageData = new byte[1],
+                    ProfileImageMimeType = "jpg"
                 },
             };
         }

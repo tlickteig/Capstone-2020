@@ -173,14 +173,14 @@ namespace LogicLayerTests
         /// Creator: Michael Thompson
         /// Created: 2/14/2020
         /// Approver: Austin Gee
-        /// Approver: 
         /// 
         /// Test for getting a list of animal profiles
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Michael Thompsom
+        /// Updated: 4/28/2020
+        /// Update: To book specifications
+        /// Approver: Austin Gee
         /// </remarks>
         [TestMethod]
         public void TestAnimalManagerSelectAllAnimalProfiles()
@@ -197,16 +197,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// Creator: michael Thompson
+        /// Creator: Michael Thompson
         /// Created: 2/6/2020
         /// Approver: Austin Gee
-        /// 
         /// Test for updating the animal profile
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Michael Thompsom
+        /// Updated: 4/28/2020
+        /// Update: To book specifications
+        /// Approver: Austin Gee
         /// </remarks>
         [TestMethod]
         public void TestAnimalManagerUpdateAnimalProfile()
@@ -215,14 +215,43 @@ namespace LogicLayerTests
             bool result = false;
             int animalID = 100000;
             string profileDescription = "Test profile";
-            string profileImagePath = "/images";
+            string profileImageMimeType = "JPG";
+            byte[] profileImageData = new byte[10];
             IAnimalManager animalManager = new AnimalManager(_animalAccessor);
 
             // act
-            result = animalManager.UpdatePetProfile(animalID, profileDescription, profileImagePath);
+            result = animalManager.UpdatePetProfile(animalID, profileDescription, profileImageData, profileImageMimeType);
 
             // assert
             Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/25/2020
+        /// Approver: Austin Gee
+        /// Approver: 
+        /// 
+        /// Test for retrieving a single animal by animal ID
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveOneAnimalByAnimalID()
+        {
+
+            // arrange
+            Animal testAnimal;
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+
+            // act
+            testAnimal = animalManager.RetrieveOneAnimalByAnimalID(1);
+
+            // assert
+            Assert.IsNotNull(testAnimal);
         }
 
         /// <summary>
