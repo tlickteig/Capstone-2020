@@ -6975,6 +6975,120 @@ GO
 
 /*
 Created by: Jaeho Kim
+Date: 2020-04-29
+Comment: Stored Procedure for updating transaction type.
+*/
+DROP PROCEDURE IF EXISTS [sp_update_transaction_type]
+GO
+print '' print '*** Creating sp_update_transaction_type'
+GO
+CREATE PROCEDURE [sp_update_transaction_type]
+(
+	@NewTransactionTypeID	[nvarchar](20),
+	@NewDescription 		[nvarchar](500),
+	@NewDefaultInStore		[bit],
+	
+	@OldTransactionTypeID	[nvarchar](20),
+	@OldDescription 		[nvarchar](500),
+	@OldDefaultInStore		[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[TransactionType]
+	SET 
+		[TransactionTypeID]  =		@NewTransactionTypeID,
+		[Description]  		 =		@NewDescription,
+		[DefaultInStore]   	 =		@NewDefaultInStore		
+	WHERE   
+			[TransactionTypeID]	=	@OldTransactionTypeID
+		AND	[Description]  		=	@OldDescription
+		AND [DefaultInStore] 	= 	@OldDefaultInStore
+	
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-29
+Comment: Stored Procedure for deleting transaction type.
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_transaction_type]
+GO
+print '' print '*** Creating sp_delete_transaction_type'
+GO
+CREATE PROCEDURE [sp_delete_transaction_type]
+(
+	@TransactionTypeID	[nvarchar](20)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[TransactionType]
+	WHERE [TransactionTypeID] = @TransactionTypeID
+	
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-29
+Comment: Stored Procedure for updating transaction status.
+*/
+DROP PROCEDURE IF EXISTS [sp_update_transaction_status]
+GO
+print '' print '*** Creating sp_update_transaction_status'
+GO
+CREATE PROCEDURE [sp_update_transaction_status]
+(
+	@NewTransactionStatusID	[nvarchar](20),
+	@NewDescription 		[nvarchar](500),
+	@NewDefaultInStore		[bit],
+	
+	@OldTransactionStatusID	[nvarchar](20),
+	@OldDescription 		[nvarchar](500),
+	@OldDefaultInStore		[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[TransactionStatus]
+	SET 
+		[TransactionStatusID]  =		@NewTransactionStatusID,
+		[Description]  		   =		@NewDescription,
+		[DefaultInStore]   	   =		@NewDefaultInStore		
+	WHERE   
+			[TransactionStatusID]	=	@OldTransactionStatusID
+		AND	[Description]  			=	@OldDescription
+		AND [DefaultInStore] 		= 	@OldDefaultInStore
+	
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-29
+Comment: Stored Procedure for deleting transaction status.
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_transaction_status]
+GO
+print '' print '*** Creating sp_delete_transaction_status'
+GO
+CREATE PROCEDURE [sp_delete_transaction_status]
+(
+	@TransactionStatusID	[nvarchar](20)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[TransactionStatus]
+	WHERE [TransactionStatusID] = @TransactionStatusID
+	
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Jaeho Kim
 Date: 04/24/2020
 Comment: stored procedure for adjusting the item quantity in stock after
 a transaction is processed.

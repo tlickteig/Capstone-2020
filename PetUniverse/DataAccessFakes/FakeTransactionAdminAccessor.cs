@@ -54,6 +54,74 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Jaeho Kim
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Fake delete Transaction status.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="transactionStatusID"></param>
+        /// <returns>int</returns>
+        public int DeleteTransactionStatus(string transactionStatusID)
+        {
+            int rows = 0;
+            TransactionStatus tempTransactionStatus = new TransactionStatus();
+
+            foreach (TransactionStatus transactionStatus in _transactionStatuses)
+            {
+                if (transactionStatus.TransactionStatusID == transactionStatusID)
+                {
+                    tempTransactionStatus = transactionStatus;
+                    rows++;
+                }
+            }
+
+            _transactionStatuses.Remove(tempTransactionStatus);
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Fake delete Transaction type.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="transactionTypeID"></param>
+        /// <returns>int</returns>
+        public int DeleteTransactionType(string transactionTypeID)
+        {
+            int rows = 0;
+            TransactionType tempTransactionType = new TransactionType();
+
+            foreach (TransactionType transactionType in _transactionTypes)
+            {
+                if (transactionType.TransactionTypeID == transactionTypeID)
+                {
+                    tempTransactionType = transactionType;
+                    rows++;
+                }
+            }
+
+            _transactionTypes.Remove(tempTransactionType);
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
         /// Created: 2020/04/14
         /// Approver: Ethan Holmes
         /// 
@@ -106,6 +174,78 @@ namespace DataAccessFakes
                 result = 1;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Fake update Transaction STATUS.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="newTransactionStatus"></param>
+        /// <param name="oldTransactionStatus"></param>
+        /// <returns>int</returns>
+        public int UpdateTransactionStatus(TransactionStatus oldTransactionStatus, TransactionStatus newTransactionStatus)
+        {
+            int rows = 0;
+
+            foreach (TransactionStatus transactionStatus in _transactionStatuses)
+            {
+                if (transactionStatus.TransactionStatusID == oldTransactionStatus.TransactionStatusID &&
+                    transactionStatus.Description == oldTransactionStatus.Description &&
+                    transactionStatus.DefaultInStore == oldTransactionStatus.DefaultInStore)
+                {
+                    transactionStatus.TransactionStatusID = newTransactionStatus.TransactionStatusID;
+                    transactionStatus.Description = newTransactionStatus.Description;
+                    transactionStatus.DefaultInStore = newTransactionStatus.DefaultInStore;
+
+                    rows++;
+                }
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Fake Update Transaction type.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="oldTransactionType"></param>
+        /// <param name="newTransactionType"></param>
+        /// <returns>int</returns>
+        public int UpdateTransactionType(TransactionType oldTransactionType, TransactionType newTransactionType)
+        {
+            int rows = 0;
+
+            foreach (TransactionType transactionType in _transactionTypes)
+            {
+                if (transactionType.TransactionTypeID == oldTransactionType.TransactionTypeID &&
+                    transactionType.Description == oldTransactionType.Description &&
+                    transactionType.DefaultInStore == oldTransactionType.DefaultInStore)
+                {
+                    transactionType.TransactionTypeID = newTransactionType.TransactionTypeID;
+                    transactionType.Description = newTransactionType.Description;
+                    transactionType.DefaultInStore = newTransactionType.DefaultInStore;
+
+                    rows++;
+                }
+            }
+            return rows;
         }
     }
 }

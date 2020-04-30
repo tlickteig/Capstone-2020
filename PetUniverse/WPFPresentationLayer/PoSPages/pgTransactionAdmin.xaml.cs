@@ -19,6 +19,14 @@ namespace WPFPresentationLayer.PoSPages
 
         private ITransactionAdminManager _transactionAdminManager = null;
 
+        private ITransactionManager _transactionManager;
+
+        private bool _addMode = true;
+
+        private TransactionType oldTransactionType = new TransactionType();
+
+        private TransactionStatus oldTransactionStatus = new TransactionStatus();
+
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 2020-04-14
@@ -37,6 +45,10 @@ namespace WPFPresentationLayer.PoSPages
             InitializeComponent();
 
             _transactionAdminManager = new TransactionAdminManager();
+
+            _transactionManager = new TransactionManager();
+
+
         }
 
         /// <summary>
@@ -58,6 +70,22 @@ namespace WPFPresentationLayer.PoSPages
         {
             canTransactionAdmin.Visibility = Visibility.Hidden;
             canTransactionTypeDetails.Visibility = Visibility.Visible;
+
+
+
+
+            txtTransactionTypeID.IsReadOnly = false;
+            txtTransactionTypeID.Text = "";
+            txtTransactionTypeDescription.IsReadOnly = false;
+            txtTransactionTypeDescription.Text = "";
+            chkTransactionTypeDefaultInStore.IsEnabled = true;
+            chkTransactionTypeDefaultInStore.IsChecked = false;
+
+            btnSaveTransactionType.Visibility = Visibility.Visible;
+            btnEditTransactionType.Visibility = Visibility.Hidden;
+            btnDeleteTransactionType.Visibility = Visibility.Hidden;
+
+            _addMode = true;
         }
 
         /// <summary>
@@ -107,6 +135,10 @@ namespace WPFPresentationLayer.PoSPages
             chkTransactionTypeDefaultInStore.IsChecked = false;
         }
 
+
+
+
+
         /// <summary>
         /// Creator: Jaeho Kim
         /// Created: 2020/04/14
@@ -138,22 +170,40 @@ namespace WPFPresentationLayer.PoSPages
                 return;
             }
 
+            TransactionType transactionType = new TransactionType();
             try
             {
-                var transactionType = new TransactionType()
-                {
-                    TransactionTypeID = txtTransactionTypeID.Text,
-                    Description = txtTransactionTypeDescription.Text,
-                    DefaultInStore = (bool)chkTransactionTypeDefaultInStore.IsChecked
-                };
 
-                _transactionAdminManager.AddTransactionType(transactionType);
-                MessageBox.Show("Transaction Type Added");
-                clearTransactionType();
+                transactionType.TransactionTypeID = txtTransactionTypeID.Text;
+                transactionType.Description = txtTransactionTypeDescription.Text;
+                transactionType.DefaultInStore = (bool)chkTransactionTypeDefaultInStore.IsChecked;
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+
+            if (_addMode)
+            {
+                _transactionAdminManager.AddTransactionType(transactionType);
+                MessageBox.Show("Transaction Type Added");
+                clearTransactionType();
+            }
+            else
+            {
+                try
+                {
+                    if (_transactionAdminManager.EditTransactionType(oldTransactionType, transactionType))
+                    {
+                        MessageBox.Show("Success");
+                        clearTransactionType();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
 
         }
@@ -189,22 +239,40 @@ namespace WPFPresentationLayer.PoSPages
                 return;
             }
 
+            TransactionStatus transactionStatus = new TransactionStatus();
             try
             {
-                var transactionStatus = new TransactionStatus()
-                {
-                    TransactionStatusID = txtTransactionStatusID.Text,
-                    Description = txtTransactionStatusDescription.Text,
-                    DefaultInStore = (bool)chkTransactionStatusDefaultInStore.IsChecked
-                };
 
-                _transactionAdminManager.AddTransactionStatus(transactionStatus);
-                MessageBox.Show("Transaction Status Added");
-                clearTransactionStatus();
+                transactionStatus.TransactionStatusID = txtTransactionStatusID.Text;
+                transactionStatus.Description = txtTransactionStatusDescription.Text;
+                transactionStatus.DefaultInStore = (bool)chkTransactionStatusDefaultInStore.IsChecked;
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+
+            if (_addMode)
+            {
+                _transactionAdminManager.AddTransactionStatus(transactionStatus);
+                MessageBox.Show("Transaction Status Added");
+                clearTransactionStatus();
+            }
+            else
+            {
+                try
+                {
+                    if (_transactionAdminManager.EditTransactionStatus(oldTransactionStatus, transactionStatus))
+                    {
+                        MessageBox.Show("Success");
+                        clearTransactionStatus();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -248,6 +316,19 @@ namespace WPFPresentationLayer.PoSPages
         {
             canTransactionAdmin.Visibility = Visibility.Hidden;
             canTransactionStatusDetails.Visibility = Visibility.Visible;
+
+            txtTransactionStatusID.IsReadOnly = false;
+            txtTransactionStatusID.Text = "";
+            txtTransactionStatusDescription.IsReadOnly = false;
+            txtTransactionStatusDescription.Text = "";
+            chkTransactionStatusDefaultInStore.IsEnabled = true;
+            chkTransactionStatusDefaultInStore.IsChecked = false;
+
+            btnSaveTransactionStatus.Visibility = Visibility.Visible;
+            btnEditTransactionStatus.Visibility = Visibility.Hidden;
+            btnDeleteTransactionStatus.Visibility = Visibility.Hidden;
+
+            _addMode = true;
         }
 
         /// <summary>
@@ -274,6 +355,213 @@ namespace WPFPresentationLayer.PoSPages
             txtTransactionStatusID.Clear();
             txtTransactionStatusDescription.Clear();
             chkTransactionStatusDefaultInStore.IsChecked = false;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/28
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Displays all of the transaction types.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgTransactionType_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            canTransactionAdmin.Visibility = Visibility.Hidden;
+            canTransactionTypeDetails.Visibility = Visibility.Visible;
+            TransactionType _transactionType = (TransactionType)dgTransactionType.SelectedItem;
+            txtTransactionTypeID.Text = _transactionType.TransactionTypeID.ToString();
+            txtTransactionTypeDescription.Text = _transactionType.Description.ToString();
+            chkTransactionTypeDefaultInStore.IsChecked = _transactionType.DefaultInStore;
+
+            txtTransactionTypeID.IsReadOnly = true;
+            txtTransactionTypeDescription.IsReadOnly = true;
+            chkTransactionTypeDefaultInStore.IsEnabled = false;
+            btnSaveTransactionType.Visibility = Visibility.Hidden;
+            btnEditTransactionType.Visibility = Visibility.Visible;
+            btnDeleteTransactionType.Visibility = Visibility.Hidden;
+
+            oldTransactionType.TransactionTypeID = txtTransactionTypeID.Text.ToString();
+            oldTransactionType.Description = txtTransactionTypeDescription.Text.ToString();
+            oldTransactionType.DefaultInStore = (bool)chkTransactionTypeDefaultInStore.IsChecked;
+        }
+
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/28
+        /// Approver: Rasha Mohammed
+        /// 
+        /// canvas for trans admin.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void canTransactionAdmin_Loaded(object sender, RoutedEventArgs e)
+        {
+            dgTransactionType.ItemsSource = _transactionManager.RetrieveAllTransactionTypes();
+
+            dgTransactionStatus.ItemsSource = _transactionManager.RetrieveAllTransactionStatus();
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/28
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Edit for trans type.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnEditTransactionType_Click(object sender, RoutedEventArgs e)
+        {
+            btnDeleteTransactionType.Visibility = Visibility.Visible;
+            btnSaveTransactionType.Visibility = Visibility.Visible;
+            btnEditTransactionType.Visibility = Visibility.Hidden;
+
+            txtTransactionTypeID.IsReadOnly = false;
+            txtTransactionTypeDescription.IsReadOnly = false;
+            chkTransactionTypeDefaultInStore.IsEnabled = true;
+
+            _addMode = false;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Delete functionality for trans type.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeleteTransactionType_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _transactionAdminManager.DeleteTransactionType(txtTransactionTypeID.Text.ToString());
+                clearTransactionType();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Edit the status.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnEditTransactionStatus_Click(object sender, RoutedEventArgs e)
+        {
+            btnDeleteTransactionStatus.Visibility = Visibility.Visible;
+            btnSaveTransactionStatus.Visibility = Visibility.Visible;
+            btnEditTransactionStatus.Visibility = Visibility.Hidden;
+
+            txtTransactionStatusID.IsReadOnly = false;
+            txtTransactionStatusDescription.IsReadOnly = false;
+            chkTransactionStatusDefaultInStore.IsEnabled = true;
+
+            _addMode = false;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// delete status
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeleteTransactionStatus_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                _transactionAdminManager.DeleteTransactionStatus(txtTransactionStatusID.Text.ToString());
+                clearTransactionStatus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n\n" + ex.InnerException.Message);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// single status details.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void dgTransactionStatus_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            canTransactionAdmin.Visibility = Visibility.Hidden;
+            canTransactionStatusDetails.Visibility = Visibility.Visible;
+            TransactionStatus _transactionStatus = (TransactionStatus)dgTransactionStatus.SelectedItem;
+            txtTransactionStatusID.Text = _transactionStatus.TransactionStatusID.ToString();
+            txtTransactionStatusDescription.Text = _transactionStatus.Description.ToString();
+            chkTransactionStatusDefaultInStore.IsChecked = _transactionStatus.DefaultInStore;
+
+            txtTransactionStatusID.IsReadOnly = true;
+            txtTransactionStatusDescription.IsReadOnly = true;
+            chkTransactionStatusDefaultInStore.IsEnabled = false;
+            btnSaveTransactionStatus.Visibility = Visibility.Hidden;
+            btnEditTransactionStatus.Visibility = Visibility.Visible;
+            btnDeleteTransactionStatus.Visibility = Visibility.Hidden;
+
+            oldTransactionStatus.TransactionStatusID = txtTransactionStatusID.Text.ToString();
+            oldTransactionStatus.Description = txtTransactionStatusDescription.Text.ToString();
+            oldTransactionStatus.DefaultInStore = (bool)chkTransactionStatusDefaultInStore.IsChecked;
         }
     }
 }
