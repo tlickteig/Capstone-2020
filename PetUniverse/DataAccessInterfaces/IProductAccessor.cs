@@ -108,5 +108,26 @@ namespace DataAccessInterfaces
         /// <param name="productID"></param>
         /// <returns></returns>
         Product SelectProductByID(string productID);
+        
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Interface for a method to deactivate a product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        int DeactivateProduct(string productID);
+
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Interface for a method to activate a product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        int ActivateProduct(string productID);
     }
 }

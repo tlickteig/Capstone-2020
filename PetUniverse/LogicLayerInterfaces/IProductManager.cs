@@ -108,5 +108,26 @@ namespace LogicLayerInterfaces
         /// <param name="productID"></param>
         /// <returns></returns>
         Product RetrieveProductByID(string productID);
+        
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// An interface for a mehtod to deactivate a product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        bool DeactivateProduct(string productID);
+
+         /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// An interface for a mehtod to activate a product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        bool ActivateProduct(string productID);
     }
 }

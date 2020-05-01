@@ -16,6 +16,7 @@ namespace WPFPresentationLayer.PoSPages
     public partial class pgInventoryItems : Page
     {
         private IInventoryItemsManager _inventoryItemsManager;
+        private IProductManager _productManager;
         private Frame _frame;
 
         /// <summary>
@@ -33,6 +34,7 @@ namespace WPFPresentationLayer.PoSPages
         public pgInventoryItems()
         {
             _inventoryItemsManager = new InventoryItemsManager();
+            _productManager = new ProductManager();
             InitializeComponent();
         }
 
@@ -53,6 +55,7 @@ namespace WPFPresentationLayer.PoSPages
         public pgInventoryItems(Frame frame)
         {
             _inventoryItemsManager = new InventoryItemsManager();
+            _productManager = new ProductManager();
             _frame = frame;
             InitializeComponent();
         }
@@ -97,7 +100,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/17
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// </summary>
         /// <remarks>
@@ -131,7 +134,49 @@ namespace WPFPresentationLayer.PoSPages
             if (dgInventoryItems.SelectedItem != null)
             {
                 _frame.Navigate(new pgAddEditViewProduct(_frame, (InventoryItems)dgInventoryItems.SelectedItem));
+            }
+        }
 
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Method used for Deactivate Button on Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDeactivateProduct_Click(object sender, RoutedEventArgs e)
+        {
+            InventoryItems _inventoryItem = (InventoryItems)dgInventoryItems.SelectedItem;
+            if (_inventoryItem.Active) {
+                _productManager.DeactivateProduct(_inventoryItem.ProductID);
+                RefreshData();
+            }
+            else {
+                MessageBox.Show("This product is already deactivated!");
+            }
+        }
+
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Method used for Activate Button on Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnActivateProduct_Click(object sender, RoutedEventArgs e)
+        {
+            InventoryItems _inventoryItem = (InventoryItems)dgInventoryItems.SelectedItem;
+            if (!_inventoryItem.Active)
+            {
+                _productManager.ActivateProduct(_inventoryItem.ProductID);
+                RefreshData();
+            }
+            else
+            {
+                MessageBox.Show("This product is already active!");
             }
         }
     }

@@ -97,7 +97,7 @@ namespace LogicLayerTests
             // Arrange
             List<Product> products;
             IProductManager productManager = new ProductManager(_productAccessor);
-            int productsExpected = 2;
+            int productsExpected = 4;
 
             // Act
             products = productManager.RetrieveAllProductsByType();
@@ -313,8 +313,50 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Test method for deactivate product
+        /// </summary>
+        [TestMethod]
+        public void TestDeactivateProduct()
+        {
+            //Arrange
+            int expected = 1;
+            string testProductID = "1234567890121";
+
+            //Act
+            int actual = _productAccessor.DeactivateProduct(testProductID);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Test method for activate product
+        /// </summary>
+        [TestMethod]
+        public void TestActivateProduct()
+        {
+            //Arrange
+            int expected = 1;
+            string testProductID = "1234567890124";
+
+            //Act
+            int actual = _productAccessor.ActivateProduct(testProductID);
+
+            //Assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
         /// Creator: Robert Holmes
-        /// Created: 2/21/2020/02/21
+        /// Created: 2/21/2020
         /// Approver: Cash Carlson
         /// 
         /// Nullifies variables to set up for next run.
