@@ -110,8 +110,7 @@ namespace DataAccessLayer
                         if (!reader.IsDBNull(11)) adoptionAnimalVM.AnimalMedicalInfoID = reader.GetInt32(11);
                         if (!reader.IsDBNull(12)) adoptionAnimalVM.IsSpayedorNuetered = reader.GetBoolean(12);
                         if (!reader.IsDBNull(13)) adoptionAnimalVM.AdoptionApplicationID = reader.GetInt32(13);
-                        if (!reader.IsDBNull(14)) adoptionAnimalVM.CustomerEmail = reader.GetString(14);
-                        //if(!reader.IsDBNull(15))adoptionAnimalVM.UserID = reader.GetInt32(15);
+                        if (!reader.IsDBNull(14)) adoptionAnimalVM.CustomerEmail = reader.GetString(14);                        
                         if (!reader.IsDBNull(15)) adoptionAnimalVM.CustomerFirstName = reader.GetString(15);
                         if (!reader.IsDBNull(16)) adoptionAnimalVM.CustomerLastName = reader.GetString(16);
                         if (!reader.IsDBNull(17)) adoptionAnimalVM.AnimalHandlingNotesID = reader.GetInt32(17);

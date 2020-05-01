@@ -217,7 +217,7 @@ namespace DataAccessFakes
                     }
                     catch
                     {
-                        return rowsAffected;
+                        throw new ApplicationException();
                     }
                 }
             }
