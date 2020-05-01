@@ -13063,6 +13063,92 @@ END
 GO
 
 /*
+Created by: Chase Schulte
+Date: 3/31/2020
+Comment: pull up a list of shift by shiftID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shift_details_by_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_shift_details_by_id'
+GO
+CREATE PROCEDURE sp_select_shift_details_by_id
+(
+	@ShiftID[int]
+)
+AS
+BEGIN
+    SELECT 	[ShiftID],[Shift].[ShiftTimeID],[Shift].[ScheduleID],[Date],[Shift].[UserID],[ERoleID],
+	[ShiftTime].[DepartmentID],[ShiftTime].[StartTime],[ShiftTime].[EndTime],		
+	[StartDate], [EndDate],
+	[FirstName], [LastName]
+	
+    FROM 	[Shift]
+	join [Schedule] on 
+	[Shift].[ScheduleID] = [Schedule].[ScheduleID]
+	join [ShiftTime] on 
+	[Shift].[ShiftTimeID] = [ShiftTime].[ShiftTimeID]
+	join [User] on 
+	[Shift].[UserID] = [User].[UserID]
+	Where	@ShiftID = [ShiftID]
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 3/31/2020
+Comment: pull up a list of shift by shiftID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shift_details_by_user_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_shift_details_by_user_id'
+GO
+CREATE PROCEDURE sp_select_shift_details_by_user_id
+(
+	@UserID[int]
+)
+AS
+BEGIN
+    SELECT 	[ShiftID],[Shift].[ShiftTimeID],[Shift].[ScheduleID],[Date],[Shift].[UserID],[ERoleID],
+	[ShiftTime].[DepartmentID],[ShiftTime].[StartTime],[ShiftTime].[EndTime],		
+	[StartDate], [EndDate],
+	[FirstName], [LastName]
+	
+    FROM 	[Shift]
+	join [Schedule] on 
+	[Shift].[ScheduleID] = [Schedule].[ScheduleID]
+	join [ShiftTime] on 
+	[Shift].[ShiftTimeID] = [ShiftTime].[ShiftTimeID]
+	join [User] on 
+	[Shift].[UserID] = [User].[UserID]
+	Where	@UserID = [Shift].[UserID]
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 03/27/2020
+Comment: select all availabilities related to a particular user
+*/
+DROP PROCEDURE IF EXISTS [sp_select_availabilties_by_employee_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_availabilties_by_employee_id'
+GO
+GO
+CREATE PROCEDURE sp_select_availabilties_by_employee_id
+(
+	@UserID [int]
+)
+AS
+BEGIN
+	SELECT [AvailabilityID],[Availability].[UserID],[StartTime],[EndTime],[DayOfWeek],[FirstName],[LastName]
+	FROM [dbo].[Availability]
+	Join [User] On [Availability].[UserID] = [User].[UserID]
+	WHERE [Availability].[UserID] = @UserID
+	And [Availability].[Active] = 1
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -14687,8 +14773,10 @@ INSERT INTO [dbo].[shift]
 	(1000003, 1000000, '2020-4-17', 100000, 'Administrator'),
 	(1000003, 1000000, '2020-4-25', 100001, 'Administrator'),
 	(1000002, 1000000, '2020-4-25', 100001, 'Administrator'),
-	(1000000, 1000000, '2020-5-20', 100001, 'Administrator'),
-	(1000001, 1000000, '2020-5-20', 100001, 'Administrator')
+	(1000000, 1000000, '2020-5-21', 100001, 'Administrator'),
+	(1000001, 1000000, '2020-5-20', 100001, 'Administrator'),
+	(1000000, 1000000, '2020-5-20', 100000, 'Administrator'),
+	(1000001, 1000000, '2020-5-21', 100000, 'Administrator')
 
 GO
 

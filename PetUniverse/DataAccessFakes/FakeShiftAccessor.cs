@@ -15,6 +15,12 @@ namespace DataAccessFakes
 {
     public class FakeShiftAccessor : IShiftAccessor
     {
+        List<PetUniverseShiftTime> shiftTimes = null;
+        List<PetUniverseUser> petUniverseUsers = null;
+        List<ShiftDetailsVM> shiftDetailsVMs = null;
+        List<Schedule> schedules = null;
+        List<EmployeeAvailability> availability = null;
+        List<ERole> eRoles = null;
         private List<ShiftVM> shiftVMs;
         private List<ScheduleWithHoursWorked> scheduleHours;
 
@@ -33,6 +39,54 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeShiftAccessor()
         {
+            //Fake Data Shifttime
+            shiftTimes = new List<PetUniverseShiftTime>()
+            {
+                new PetUniverseShiftTime(){ShiftTimeID=1,StartTime="12:00",EndTime="00:00",DepartmentID="Test1" },
+                new PetUniverseShiftTime(){ShiftTimeID=2,StartTime="12:00",EndTime="00:00",DepartmentID="Test2" }
+            };
+
+            //Fake data for Availability
+            availability = new List<EmployeeAvailability>()
+            {
+                new EmployeeAvailability(){AvailabilityID = 1, DayOfWeek = "Monday", StartTime="10:00", EndTime = "18:00", EmployeeID =  1},
+                new EmployeeAvailability(){AvailabilityID = 2, DayOfWeek = "Tuesday", StartTime="10:00", EndTime = "18:00", EmployeeID =  1},
+                new EmployeeAvailability(){AvailabilityID = 1, DayOfWeek = "Friday", StartTime="10:00", EndTime = "18:00", EmployeeID =  1}
+
+            };
+
+            //Fake Data Users
+            petUniverseUsers = new List<PetUniverseUser>()
+            {
+                new PetUniverseUser(){PUUserID=1,FirstName="John",LastName="Doe"},
+                new PetUniverseUser(){PUUserID=2,FirstName="Doe",LastName="Jim"}
+
+            };
+
+            //Fake data for Availability
+            eRoles = new List<ERole>()
+            {
+                new ERole(){ERoleID = "Role1", Description = "Desc", DepartmentID="Test1"},
+                new ERole(){ERoleID = "Role2", Description = "Desc", DepartmentID="Test1"},
+                new ERole(){ERoleID = "Role3", Description = "Desc", DepartmentID="Test1"}
+
+
+            };
+
+            //Fake Data Schedules
+            schedules = new List<Schedule>()
+            {
+                new Schedule(){ScheduleID=1,StartDate=DateTime.Now,EndDate=DateTime.Now.AddDays(1)}
+            };
+
+            //Fake data for Shift
+            shiftDetailsVMs = new List<ShiftDetailsVM>()
+            {
+                new ShiftDetailsVM(){ShiftID = 1, ShiftDate=DateTime.Now,RoleID="Role1",ScheduleID=1,ShiftTimeID=1,EmployeeID=1},
+                new ShiftDetailsVM(){ShiftID = 2, ShiftDate=DateTime.Now,RoleID="Role1",ScheduleID=1,ShiftTimeID=1,EmployeeID=2}
+
+
+            };
             shiftVMs = new List<ShiftVM>()
             {
                 new ShiftVM()
@@ -234,6 +288,104 @@ namespace DataAccessFakes
             }
 
             return recordsUpdated;
+        }
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/09
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Get fake list details by user ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public List<ShiftDetailsVM> SelectAllShiftsDetailsByUserID(int userID)
+        {
+
+            var shifts = shiftDetailsVMs.FindAll(sd => sd.EmployeeID == userID);
+            if (shifts.Count > 0)
+            {
+                return shifts;
+            }
+
+            return null;
+
+        }
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/09
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Get fake list details by ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="shiftID"></param>
+        /// <returns></returns>
+        public ShiftDetailsVM SelectShiftDetailsByID(int shiftID)
+        {
+
+            ShiftDetailsVM shiftVM = new ShiftDetailsVM();
+            //Check if shift id exists
+            foreach (var item in shiftDetailsVMs)
+            {
+                if (item.ShiftID == shiftID)
+                {
+                    shiftVM = item;
+
+                }
+
+            }
+            //Check if emp ID is active
+            if (petUniverseUsers.Find(pu => pu.PUUserID == shiftVM.EmployeeID) != null)
+            {
+                shiftVM.ShiftPUUserFirstName = petUniverseUsers.Find(pu => pu.PUUserID == shiftVM.EmployeeID).FirstName;
+                shiftVM.ShiftPUUserLastName = petUniverseUsers.Find(pu => pu.PUUserID == shiftVM.EmployeeID).LastName;
+
+                if (schedules.Find(pu => pu.ScheduleID == shiftVM.ScheduleID) != null)
+                {
+                    shiftVM.ShiftScheduleStartDate = schedules.Find(pu => pu.ScheduleID == shiftVM.ScheduleID).StartDate;
+                    shiftVM.ShiftScheduleEndDate = schedules.Find(pu => pu.ScheduleID == shiftVM.ScheduleID).EndDate;
+                    //Check ShiftTimeID
+                    if (shiftTimes.Find(pu => pu.ShiftTimeID == shiftVM.ShiftTimeID) != null)
+                    {
+                        shiftVM.ShiftStartTime = shiftTimes.Find(pu => pu.ShiftTimeID == shiftVM.ShiftTimeID).StartTime;
+                        shiftVM.ShiftEndTime = shiftTimes.Find(pu => pu.ShiftTimeID == shiftVM.ShiftTimeID).EndTime;
+                        shiftVM.ShiftTimeDeptID = shiftTimes.Find(pu => pu.ShiftTimeID == shiftVM.ShiftTimeID).DepartmentID;
+                        //Check if there's availabilites
+                        if (availability.Find(pu => pu.EmployeeID == shiftVM.EmployeeID) != null)
+                        {
+                            shiftVM.ShiftAvailabilities = availability.FindAll(pu => pu.EmployeeID == shiftVM.EmployeeID);
+                            return shiftVM;
+                        }
+                        return shiftVM;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
+                }
+                else
+                {
+                    throw new Exception();
+                }
+            }
+            else
+            {
+                throw new Exception();
+            }
+
         }
     }
 }

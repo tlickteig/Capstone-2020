@@ -57,7 +57,7 @@ namespace WPFPresentation.Controllers
             ViewBag.StartDateError = startDateError;
             ViewBag.EndDateError = endDateError;
 
-            ViewBag.RequestingUserID = user.PUUserID;
+            Session["RequestingUserID"] = user.PUUserID;
 
             return View();
         }
@@ -77,7 +77,7 @@ namespace WPFPresentation.Controllers
         /// </remarks>
         // POST: TimeOffRequest/Create
         [HttpPost]
-        public ActionResult Create(string startDate, string endDate, int RequestingUserID)
+        public ActionResult Create(string startDate, string endDate)
         {
             if (ModelState.IsValid)
             {
@@ -87,27 +87,16 @@ namespace WPFPresentation.Controllers
                     EffectiveEnd = Convert.ToDateTime(endDate)
                 };
 
-                //If EffectiveStart is after today, and EffectiveEnd is EffectiveStart or later
-                if (request.EffectiveStart.CompareTo(DateTime.Now) > 0 &&
-                    request.EffectiveEnd >= request.EffectiveStart)
+                // Code to save the TimeOffRequest
+                try
                 {
-                    // Code to save the TimeOffRequest
-                    try
-                    {
-                        _requestManager.AddTimeOffRequest(request, RequestingUserID);
+                    _requestManager.AddTimeOffRequest(request, Convert.ToInt32(Session["RequestingUserID"]));
 
-                        return RedirectToAction("Index", "ChooseRequestType", new { outputMessage = "SUCCESS: Time Off Request Submitted!" });
-                    }
-                    catch
-                    {
-                        return RedirectToAction("Index", "ChooseRequestType", new { outputMessage = "ERROR: Could Not Submit Time Off Request" });
-                    }
+                    return Json(Url.Action("Index", "ChooseRequestType", new { outputMessage = "SUCCESS: Time Off Request Submitted!" }));
                 }
-                //One (or two) of the two fields were invalid, sends back error messages
-                else
+                catch
                 {
-                    return RedirectToAction("Create", "RequestTimeOff",
-                        new { startDateError = "Start Date must be AFTER today!", endDateError = "End Date must be ON or AFTER Start Date!" });
+                    return Json(Url.Action("Index", "ChooseRequestType", new { outputMessage = "ERROR: Could Not Submit Time Off Request" }));
                 }
             }
             else

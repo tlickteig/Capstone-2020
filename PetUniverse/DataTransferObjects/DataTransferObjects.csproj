@@ -151,9 +151,12 @@
     <Compile Include="RequestVM.cs" />
     <Compile Include="SalesDataVM.cs" />
     <Compile Include="SalesTax.cs" />
+    <Compile Include="Schedule.cs" />
     <Compile Include="ScheduleChangeRequest.cs" />
     <Compile Include="ScheduleChangeRequestVM.cs" />
     <Compile Include="ScheduleWithHoursWorked.cs" />
+    <Compile Include="Shift.cs" />
+    <Compile Include="ShiftDetailsVM.cs" />
     <Compile Include="ShiftVM.cs" />
     <Compile Include="SpecialOrder.cs" />
     <Compile Include="SpecialOrderItemLine.cs" />
