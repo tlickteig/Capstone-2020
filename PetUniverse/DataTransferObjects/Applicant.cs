@@ -80,5 +80,8 @@ namespace DataTransferObjects
 
         // Used for showing HR what the current status of an applicant.
         public string ApplicantStatus { get; set; }
+
+        // Used for showing HR what position was applied for.
+        public string ApplicationPostion { get; set; }
     }// End class Applicant 
 }

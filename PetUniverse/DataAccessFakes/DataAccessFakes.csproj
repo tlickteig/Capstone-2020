@@ -81,6 +81,7 @@
     <Compile Include="FakeFacilityInspectionItemAccessor.cs" />
     <Compile Include="FakeFacilityMaintenanceAccessor.cs" />
     <Compile Include="FakeFacilityTaskAccessor.cs" />
+    <Compile Include="FakeFosterAppointmentAccessor.cs" />
     <Compile Include="FakeHomeInspectorAccessor.cs" />
     <Compile Include="FakeInHomeInspectionAppointmentDecisionAccessor.cs" />
     <Compile Include="FakeInventoryItemsAccessor.cs" />
@@ -95,11 +96,13 @@
     <Compile Include="FakeMessageAccessor.cs" />
     <Compile Include="FakeNewAnimalChecklistAccessor.cs" />
     <Compile Include="FakeOrderAccessor.cs" />
+    <Compile Include="FakeOrderLineAccessor.cs" />
     <Compile Include="FakePetUniverseUserERolesAccessor.cs" />
     <Compile Include="FakePictureAccessor.cs" />
     <Compile Include="FakePoSCustomerPortalAccessor.cs" />
     <Compile Include="FakeProductAccessor.cs" />
     <Compile Include="FakePromotionAccessor.cs" />
+    <Compile Include="FakeReceivingRecordAccessor.cs" />
     <Compile Include="FakeRequestAccessor.cs" />
     <Compile Include="FakeReviewerAccessor.cs" />
     <Compile Include="FakeSalesTaxAccessor.cs" />
@@ -110,7 +113,9 @@
     <Compile Include="FakeTrainingVideoAccessor.cs" />
     <Compile Include="FakeTransactionAccessor.cs" />
     <Compile Include="FakeTransactionAdminAccessor.cs" />
+    <Compile Include="FakeTreatmentRecordAccessor.cs" />
     <Compile Include="FakeUserAccessor.cs" />
+    <Compile Include="FakeVendorAccessor.cs" />
     <Compile Include="FakeVetAppointmentAccessor.cs" />
     <Compile Include="FakeVolunteerAccessor.cs" />
     <Compile Include="FakeVolunteerEventAccessor.cs" />

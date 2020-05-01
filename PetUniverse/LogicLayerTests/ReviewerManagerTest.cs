@@ -10,9 +10,8 @@ namespace LogicLayerTests
 {
     /// <summary>
     /// Creator: Awaab Elamin
-    /// Created: 2020/02/04
-    /// Approver : Mohamed Elamin , 2/21/2020
-    ///
+    /// Created: 2020/02/29
+    /// Approver: Mohamed Elamin
     /// Test the reviewer manager
     /// </summary>
     [TestClass]
@@ -22,12 +21,12 @@ namespace LogicLayerTests
         private ReviewerManager reviewerManager;
 
         /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/04/02
+        /// Approver: Mohamed Elamin
         /// initialize the fakeReviewerAccessor and assgined the reviewer mananger object
         /// to the fake data access, So we can test the reviewer manager without effecting the real DB
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// </remarks>
         [TestInitialize]
         public void TestSetup()
         {
@@ -36,14 +35,13 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/04/02
+        /// Approver: Mohamed Elamin
         /// Test the RetrieveCustomersFilledQuestionnair method
         /// to pass the test must retrieve 1
         /// (The count of the fake rows on the fake DB)
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
-        /// </remarks>
         [TestMethod]
         public void TestRetrieveCustomersFilledQuestionnair()
         {
@@ -60,15 +58,14 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/04/02
+        /// Approver: Mohamed Elamin
         /// Test GetCustomerBuyCustomerName method
         /// to pass the test must retrieve "Elamin"
         /// (The value that we assgined to the parameter must match the last name of one
         /// of the Fake customers)
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
-        /// </remarks>
         [TestMethod]
         public void TestGetCustomerByCustomerName()
         {
@@ -84,38 +81,36 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/04/02
+        /// Approver: Mohamed Elamin
         /// Test  for RetrieveCustomerQuestionnair method
         /// to pass the test must retrieve "10"
         /// (The value that we assgined to the parameter (10000) must match with 10 rows on our fake DB)
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
-        /// </remarks>
         [TestMethod]
         public void TestRetrieveCustomerQuestionnair()
         {
             //arrange
-            //List<CustomerQuestionnarVM> customerQuestionnars = new List<CustomerQuestionnarVM>();
-            //int customerID = 10000;
+            List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
+            string customerEmail = "Awaab@live.com";
 
-            ////acct
-            //customerQuestionnars = reviewerManager.retrieveCustomerQuestionnar(customerID);
+            //acct
+            customerQuestionnars = reviewerManager.retrieveCustomerQuestionnar(customerEmail);
 
             ////Assert
-            //Assert.AreEqual(10, customerQuestionnars.Count);
+            Assert.AreEqual(10, customerQuestionnars.Count);
 
         }
 
         /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/04/02
+        /// Approver: Mohamed Elamin
         /// Test  for SubmitReviewerDecision
         /// to pass the test must retrieve "true"
         /// (That means the status changed to Interviewer)
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 2/4/2020
-        /// Mohamed Elamin , 2/21/2020
-        /// </remarks>
         [TestMethod]
         public void TestSubmitReviewerDecision()
         {
@@ -128,14 +123,13 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/04/02
+        /// Approver: Mohamed Elamin
         /// Test  for TestSubmitInterviewerDecision
         /// to pass the test must retrieve "true"
         /// (That means the status changed to InHomeInspection)
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 3/3/2020
-        /// Mohamed Elamin , 3/4/2020
-        /// </remarks>
         [TestMethod]
         public void TestSubmitInterviewerDecision()
         {
@@ -147,14 +141,13 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/04/02
+        /// Approver: Mohamed Elamin
         /// Test  for TestSubmitDenyDecision
         /// to pass the test must retrieve "true"
         /// (That means the status changed to deny)
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 3/3/2020
-        /// Mohamed Elamin , 3/4/2020
-        /// </remarks>
         [TestMethod]
         public void TestSubmitDenyDecision()
         {
@@ -166,20 +159,19 @@ namespace LogicLayerTests
             Assert.AreEqual(expect, result);
         }
 
-        //public bool addAdoptionApplication(MVCAdoptionApplication adoptionApplication)
+
         /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/04/02
+        /// Approver: Mohamed Elamin
         /// Test  for addAdoptionApplication
         /// to pass the test must retrieve "true"
         /// (That means the application added correctly)
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 3/3/2020
-        /// Mohamed Elamin , 3/4/2020
-        /// </remarks>
         [TestMethod]
         public void TestAdoptionApplication()
         {
-            MVCAdoptionApplication adoptionApplication = new MVCAdoptionApplication();
+            AdoptionApplication adoptionApplication = new AdoptionApplication();
             adoptionApplication.AdoptionApplicationID = 10003;
             adoptionApplication.CustomerEmail = "Awaab@PetUnviesal.com";
             adoptionApplication.AnimalID = 10004;
@@ -190,6 +182,23 @@ namespace LogicLayerTests
             Assert.AreEqual(expect, result);
         }
 
+        //public List<AnimalMedical> retrieveAllAnimals()
+        /// <summary>
+        /// Creator: Awaab Elamin
+        /// Created: 2020/04/15
+        /// Approver: Mohamed Elamin
+        /// Test  for addAdoptionApplication
+        /// to pass the test must retrieve "true"
+        /// (That means the application added correctly)
+        /// </summary>
+        [TestMethod]
+        public void TestretrieveAllAnimals()
+        {
+            List<AnimalMedical> result = new List<AnimalMedical>();
+            int expect = 5;
+            result = reviewerManager.retrieveAllAnimals();
+            Assert.AreEqual(expect, result.Count);
+        }
 
     }
 }

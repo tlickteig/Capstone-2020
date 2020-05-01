@@ -311,6 +311,79 @@ namespace LogicLayerTests
         }
 
         /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Tests deleting a valid animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeleteExistingAnimalActivityRecord()
+        {
+            // Arrange
+            IAnimalActivityManager manager =
+                new AnimalActivityManager(_fakeActivityAccessor);
+            bool result = false;
+            AnimalActivity animalActivity = new AnimalActivity()
+            {
+                AnimalActivityId = 1,
+                AnimalID = 1,
+                UserID = 10000,
+                AnimalActivityTypeID = "Feeding",
+                ActivityDateTime = DateTime.Now,
+                Description = "test"
+            };
+
+            // Act
+            manager.AddAnimalActivityRecord(animalActivity);
+            result = manager.DeleteAnimalActivityRecord(animalActivity);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Tests deleting an invalid animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeleteNonExistentAnimalActivityRecord()
+        {
+            // Arrange
+            IAnimalActivityManager manager =
+                new AnimalActivityManager(_fakeActivityAccessor);
+            bool result = false;
+            AnimalActivity animalActivity = new AnimalActivity()
+            {
+                AnimalActivityId = 1,
+                AnimalID = 1,
+                UserID = 10000,
+                AnimalActivityTypeID = "Feeding",
+                ActivityDateTime = DateTime.Now,
+                Description = "test"
+            };
+
+            // Act
+            result = manager.DeleteAnimalActivityRecord(animalActivity);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        /// <summary>
         /// Tear down the test
         /// </summary>
         /// <remarks>

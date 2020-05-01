@@ -384,5 +384,73 @@ namespace DataAccessFakes
             }
             return results;
         }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 04/10/2020
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Method that reactivates an item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public int reactivateItem(Item item)
+        {
+            int rowsAffected = 0;
+
+            item.Active = true;
+
+            if (item.Active == true)
+            {
+                item.Active = true;
+                rowsAffected = 1;
+            }
+
+            return rowsAffected;
+        }
+
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 04/10/2020
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// The method for adding a new shelter item.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public bool addNewShelterItem(Item item)
+        {
+            bool itemID = item.ItemID.Equals(1);
+            bool itemCategoryID = item.ItemCategoryID.Equals("Cat Toys");
+            bool itemQuantity = item.ItemQuantity.Equals(100);
+            bool itemName = item.ItemName.Equals("Item");
+
+            if (itemID && itemCategoryID && itemQuantity && itemName)
+            {
+                return true;
+            }
+            else
+            {
+                throw new ApplicationException("Cannot add new Item.");
+            }
+        }
+
+        public Item SelectItemByItemID(int itemID)
+        {
+            Item item = null;
+            return item;
+        }
     }
 }

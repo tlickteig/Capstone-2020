@@ -27,8 +27,10 @@ namespace WPFPresentationLayer.AdoptionPages
     {
         IAdoptionAppointmentManager _adoptionAppointmentManager;
         IInHomeInspectionAppointmentDecisionManager _homeInspectorManager;
-
+        IAppointmentTypeManager _appointmentTypeManager;
         AdoptionAppointmentVM _adoptionAppointment;
+        private IInHomeInspectionAppointmentDecisionManager
+        _inHomeInspectionAppointmentDecisionManager = null;
 
         /// <summary>
         /// NAME: Austin Gee
@@ -49,9 +51,19 @@ namespace WPFPresentationLayer.AdoptionPages
             InitializeComponent();
             _adoptionAppointmentManager = new AdoptionAppointmentManager();
             _homeInspectorManager = new InHomeInspectionAppointmentDecisionManager();
+            _appointmentTypeManager = new AppointmentTypeManager();
+            _inHomeInspectionAppointmentDecisionManager = new InHomeInspectionAppointmentDecisionManager();
             populateAppointmentDataGrid();
+            try
+            {
+                cmbApptFilter.ItemsSource = _appointmentTypeManager.RetrieveAllAppontmentTypes();
+            }
+            catch (Exception)
+            {
 
-
+                
+            }
+            
         }
 
         /// <summary>
@@ -67,13 +79,21 @@ namespace WPFPresentationLayer.AdoptionPages
         /// WHAT WAS CHANGED: Try catch was added to prevent program crash in case of inability to access datat store
         /// 
         /// </remarks>
-        private void populateAppointmentDataGrid()
+        private void populateAppointmentDataGrid(string appointmentType = "")
         {
             try
             {
-                dgAppointments.ItemsSource = _adoptionAppointmentManager.RetrieveAdoptionAppointmentsByActiveAndType(true, "Meet and Greet");
+                if(appointmentType == "")
+                {
+                    dgAppointments.ItemsSource = _adoptionAppointmentManager.RetrieveAdoptionAppointmentsByActive();
+                }
+                else
+                {
+                    dgAppointments.ItemsSource = _adoptionAppointmentManager.RetrieveAdoptionAppointmentsByActiveAndType(true, appointmentType);
+                }
+                
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
                 //MessageBox.Show("Appoinment information cannot be found.\n\n" + ex.InnerException.Message);
@@ -124,21 +144,31 @@ namespace WPFPresentationLayer.AdoptionPages
             dgAppointments.Columns.RemoveAt(5);
             //dgAppointments.Columns.RemoveAt(4);
             dgAppointments.Columns.RemoveAt(3);
-            dgAppointments.Columns.RemoveAt(2);
+            //dgAppointments.Columns.RemoveAt(2);
             dgAppointments.Columns.RemoveAt(1);
             dgAppointments.Columns.RemoveAt(0);
 
+            
 
 
 
-            dgAppointments.Columns[0].Header = "Location Name";
-            dgAppointments.Columns[1].Header = "Customer First Name";
-            dgAppointments.Columns[2].Header = "Customer Last Name";
-            dgAppointments.Columns[3].Header = "Customer Phone Number";
-            dgAppointments.Columns[4].Header = "Customer Email";
-            dgAppointments.Columns[5].Header = "Appointment Time";
+            
+            dgAppointments.Columns[0].Header = "Appointment Type";
 
-            dgAppointments.Columns[5].DisplayIndex = 0;
+            dgAppointments.Columns[1].Header = "Location Name";
+
+            dgAppointments.Columns[2].Header = "First Name";
+            dgAppointments.Columns[3].Header = "Last Name";
+            dgAppointments.Columns[4].Header = "Customer Phone";
+            dgAppointments.Columns[5].Header = "Customer Email";
+            
+            dgAppointments.Columns[6].Header = "Appointment Time";
+
+            dgAppointments.Columns[0].DisplayIndex = 5;
+            dgAppointments.Columns[5].DisplayIndex = 6;
+            dgAppointments.Columns[6].DisplayIndex = 0;
+
+
 
         }
 
@@ -652,6 +682,93 @@ namespace WPFPresentationLayer.AdoptionPages
         private void btnWelcomeBasket_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService?.Navigate(new pgWelcomeHomeBaskets());
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 2020/04/14
+        /// Approver: 
+        /// Filters out appointments by type
+        /// </summary>
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAppointmentType_Click(object sender, RoutedEventArgs e)
+        {
+            populateAppointmentDataGrid(cmbApptFilter.SelectedItem.ToString());
+        }
+
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/04/08
+        /// Approver: Austin Gee, 2020/04/09
+        /// This is an Event on Cancel Adoption Application Button is clicked It  
+        /// changes the Adoption Appointment Decision to Cancel. Also the it changes the Adoption
+        /// Appliction's Status to Cancel.
+        /// </summary>
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name=" sender"></param>
+        /// <param name=" e"></param>
+        private void btnCancelApplaction_Click(object sender, RoutedEventArgs e)
+        {
+            HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision =
+ new HomeInspectorAdoptionAppointmentDecision();
+            AdoptionAppointmentVM selectedApplication = new AdoptionAppointmentVM();
+
+            selectedApplication =
+            (AdoptionAppointmentVM)dgAppointments.SelectedItem;
+            if (selectedApplication == null)
+            {
+                MessageBox.Show("Please select an application to Cancel");
+                return;
+            }
+            newHomeInspectorAdoptionAppointmentDecision.Decision = "Cancel";
+            newHomeInspectorAdoptionAppointmentDecision.AppointmentID = selectedApplication.AppointmentID;
+            newHomeInspectorAdoptionAppointmentDecision.Notes = selectedApplication.Notes;
+
+            HomeInspectorAdoptionAppointmentDecision _homeInspectionAppointmentDecision =
+            new HomeInspectorAdoptionAppointmentDecision();
+
+
+            _homeInspectionAppointmentDecision.AppointmentID = selectedApplication.AppointmentID;
+            _homeInspectionAppointmentDecision.AdoptionApplicationID = selectedApplication.AdoptionApplicationID;
+            _homeInspectionAppointmentDecision.LocationName = selectedApplication.LocationName;
+            _homeInspectionAppointmentDecision.AppointmentTypeID = selectedApplication.AppointmentTypeID;
+            _homeInspectionAppointmentDecision.DateTime = selectedApplication.AppointmentDateTime;
+            _homeInspectionAppointmentDecision.Notes = selectedApplication.Notes;
+            _homeInspectionAppointmentDecision.Decision = selectedApplication.Decision;
+            _homeInspectionAppointmentDecision.LocationID = selectedApplication.LocationID;
+            _homeInspectionAppointmentDecision.Active = selectedApplication.AppointmentActive;
+
+            try
+            {
+
+                _inHomeInspectionAppointmentDecisionManager.EditAppointment
+                (_homeInspectionAppointmentDecision, newHomeInspectorAdoptionAppointmentDecision);
+
+                if (_inHomeInspectionAppointmentDecisionManager.UpdateHomeInspectorDecision
+                    (_homeInspectionAppointmentDecision
+                        .AdoptionApplicationID, "Cancel"))
+                {
+                    MessageBox.Show("Adoption Application has been successfully cancelled ");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Appointment can't be Edited", ex.Message + "\n\n"
+                                              + ex.InnerException.Message);
+            }
+
         }
     }
 }

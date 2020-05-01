@@ -110,6 +110,22 @@ namespace LogicLayerInterfaces
 
         /// <summary>
         /// Creator: Jaeho Kim
+        /// Created: 2020/04/25
+        /// Approver: NA
+        ///
+        /// Interface method signature for adjusting the item quantity
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="transactionLineProducts"></param>
+        /// <returns>returns a Transaction</returns>
+        bool EditItemQuantity(TransactionLineProducts transactionLineProducts);
+
+        /// <summary>
+        /// Creator: Jaeho Kim
         /// Created: 03/19/2020
         /// Approver: Rasha Mohammed
         ///
@@ -385,5 +401,83 @@ namespace LogicLayerInterfaces
         /// <param name="transactionID"></param>
         /// <returns>returns Transactions</returns>
         List<TransactionVM> RetrieveTransactionByTransactionID(int transactionID);
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 04/23/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for getting a list
+        /// of transaction types
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>List of all transaction types</returns>
+        List<TransactionType> RetrieveAllTransactionTypes();
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 04/24/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for getting a list
+        /// of transaction status
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>List of all transaction status</returns>
+        List<TransactionStatus> RetrieveAllTransactionStatus();
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 04/23/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for Selecting default transaction type.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>returns a Transaction type</returns>
+        TransactionType RetrieveDefaultTransactionType();
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 04/24/2020
+        /// Approver: Robert Holmes
+        ///
+        /// Interface method signature for Selecting default transaction status.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>returns a Transaction status</returns>
+        TransactionStatus RetrieveDefaultTransactionStatus();
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020  
+        /// Approver: Steven Cardona
+        ///  
+        /// This method connects to the data access layer to get transactions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="Email"></param>
+        /// <returns></returns>
+        List<Transaction> GetTransactionsByCustomerEmail(string Email);
     }
 }

@@ -4,6 +4,7 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace LogicLayerTests
@@ -112,6 +113,41 @@ namespace LogicLayerTests
 
             // act
             bool result = adoptionApplicationManager.DeactivateAdoptionApplication(000);
+
+            //assert
+            Assert.AreEqual(result, true);
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/28/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// Tests
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionApplicationManagerAddAdoptionApplication()
+        {
+            // arrange
+            IAdoptionApplicationManager adoptionApplicationManager = new AdoptionApplicationManager(_fakeAdoptionApplicationAccessor);
+            var application = new Application
+            {
+                AdoptionApplicationID = 002,
+                AnimalID = 000,
+                RecievedDate = DateTime.Parse("11/12/1984"),
+                CustomerEmail = "Fake2@fake.com",
+                Status = "Fake",
+                ApplicationActive = true
+            };
+
+            // act
+            bool result = adoptionApplicationManager.AddAdoptionApplication(application);
 
             //assert
             Assert.AreEqual(result, true);

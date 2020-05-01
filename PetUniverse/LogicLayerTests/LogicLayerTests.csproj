@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -79,11 +80,13 @@
     <Compile Include="EmployeeAvailabilityManagerTests.cs" />
     <Compile Include="FacilityInspectionItemManagerTests.cs" />
     <Compile Include="FacilityInspectionManagerTests.cs" />
+    <Compile Include="FosterAppointmentManagerTests.cs" />
     <Compile Include="ItemReportManagerTests.cs" />
     <Compile Include="LocationManagerTests.cs" />
     <Compile Include="MedicationManagerTests.cs" />
     <Compile Include="MedicineManagerTests.cs" />
     <Compile Include="MessagesTests.cs" />
+    <Compile Include="OrderLineManagerTests.cs" />
     <Compile Include="OrderManagerTests.cs" />
     <Compile Include="PetUniverseUserERolesManagerTests.cs" />
     <Compile Include="PoSCustomerPortalTests.cs" />
@@ -104,9 +107,11 @@
     <Compile Include="ItemManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="LogManagerTests.cs" />
+    <Compile Include="ReceivingRecordManagerTests.cs" />
     <Compile Include="RequestManagerTests.cs" />
     <Compile Include="ReviewerManagerTest.cs" />
     <Compile Include="SalesTaxManagerTests.cs" />
+    <Compile Include="ShiftManagerTests.cs" />
     <Compile Include="ShiftTimeManagerTests.cs" />
     <Compile Include="SpecialOrderManagerTests.cs" />
     <Compile Include="StatusManagerTests.cs" />
@@ -117,7 +122,9 @@
     <Compile Include="SalesDataManagerTests.cs" />
     <Compile Include="PictureManagerTests.cs" />
     <Compile Include="FacilityTaskManagerTests.cs" />
+    <Compile Include="TreatmentRecordTests.cs" />
     <Compile Include="UserManagerTests.cs" />
+    <Compile Include="VendorManagerTests.cs" />
     <Compile Include="VetAppointmentManagerTests.cs" />
     <Compile Include="VolunteerEventTests.cs" />
     <Compile Include="VolunteerManagerTests.cs" />

@@ -1,6 +1,10 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DataTransferObjects;
+using LogicLayer;
+using LogicLayerInterfaces;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -15,8 +19,13 @@ namespace WPFPresentation.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        //This already inserts into customer
+        private IAdoptionCustomerManager _customerManager;
+
+
         public AccountController()
         {
+            _customerManager = new AdoptionCustomerManager();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -133,6 +142,90 @@ namespace WPFPresentation.Controllers
 
         //
         // GET: /Account/Register
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method to get the rest of the Customer questions       
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public ActionResult RegisterContinuation(RegisterViewModel model)
+        {
+            ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();            
+            ViewBag.Email = model.Email;
+            ViewBag.FirstName = model.GivenName;
+            ViewBag.LastName = model.FamilyName;            
+
+
+            return View();
+        }
+
+
+        //
+        // GET: /Account/Register
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method to insert customer
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterAcceptance(FormCollection formCollection)
+        {            
+            string email = formCollection[1];
+            string firstName = formCollection[2];
+            string lastName = formCollection[3];
+            string phoneNumber = formCollection[4];
+            string address1 = formCollection[5];
+            string address2 = formCollection[6];
+            string city = formCollection[7];
+            string state = formCollection[8];
+            string zip = formCollection[9];
+            try
+            {
+                var customer = new AdoptionCustomer
+                {
+                    CustomerEmail = email,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    PhoneNumber = phoneNumber,
+                    AddressLineOne = address1,
+                    AddressLineTwo = address2,
+                    City = city,
+                    State = state,
+                    Zipcode = zip
+                };
+                _customerManager.AddAdoptionCustomer(customer);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return View();
+        }
+
+
+        //
+        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
@@ -141,6 +234,13 @@ namespace WPFPresentation.Controllers
 
         //
         // POST: /Account/Register
+        /// <summary>
+        /// Updater: Zach Behrensmeyer
+        /// Updated: 4/25/2020
+        /// Update: Edited register user code to register users from db 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -148,24 +248,244 @@ namespace WPFPresentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                LogicLayer.UserManager userMgr = new LogicLayer.UserManager();
+                LogicLayer.VolunteerManager volMgr = new LogicLayer.VolunteerManager();
+                try
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    if (userMgr.FindUser(model.Email))
+                    {
+                        var oldUser = userMgr.AuthenticateUser(model.Email, model.Password);
+                        var newuser = new ApplicationUser
+                        {
+                            GivenName = oldUser.FirstName,
+                            FamilyName = oldUser.LastName,
+                            EmployeeID = oldUser.PUUserID,
 
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                            UserName = model.Email,
+                            Email = model.Email
 
-                    return RedirectToAction("Index", "Home");
+                        };
+                        var newresult = await UserManager.CreateAsync(newuser, model.Password);
+                        if (newresult.Succeeded)
+                        {
+                            foreach (var role in oldUser.PURoles)
+                            {
+                                UserManager.AddToRole(newuser.Id, role);
+                            }
+                            await SignInManager.SignInAsync(newuser, isPersistent: false, rememberBrowser: false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        AddErrors(newresult);
+                    }
+                    else if (volMgr.FindVolunteer(model.Email))
+                    {
+                        var oldVolunteer = volMgr.AuthenticateVolunteer(model.Email, model.Password);
+                        var newVolunteer = new ApplicationUser
+                        {
+                            GivenName = oldVolunteer.FirstName,
+                            FamilyName = oldVolunteer.LastName,
+                            VolEmail = oldVolunteer.Email,
+
+                            UserName = model.Email,
+                            Email = model.Email
+
+                        };
+                        var newresult = await UserManager.CreateAsync(newVolunteer, model.Password);
+                        if (newresult.Succeeded)
+                        {
+                            foreach (var role in oldVolunteer.Skills)
+                            {
+                                UserManager.AddToRole(newVolunteer.Id, role);
+                            }
+                            await SignInManager.SignInAsync(newVolunteer, isPersistent: false, rememberBrowser: false);
+                            return RedirectToAction("Index", "Home");
+                        }
+                        AddErrors(newresult);
+                    }
+                    else
+                    {
+                        LogicLayer.CustomerManager custMgr = new LogicLayer.CustomerManager();
+                        if (custMgr.FindCustomer(model.Email))
+                        {
+                            var oldUser = custMgr.AuthenticateCustomer(model.Email, model.Password);
+                            var newuser = new ApplicationUser
+                            {
+                                GivenName = oldUser.FirstName,
+                                FamilyName = oldUser.LastName,
+                                CustEmail = oldUser.Email,
+
+                                UserName = model.Email,
+                                Email = model.Email
+
+                            };
+                            var newresult = await UserManager.CreateAsync(newuser, model.Password);
+                            if (newresult.Succeeded)
+                            {
+                                await SignInManager.SignInAsync(newuser, isPersistent: false, rememberBrowser: false);
+                                return RedirectToAction("Index", "Home");
+                            }
+                            AddErrors(newresult);
+                        }
+                        else
+                        {
+                            var newUser = new ApplicationUser
+                            {
+                                UserName = model.Email,
+                                Email = model.Email
+                            };
+                            var newResult = await UserManager.CreateAsync(newUser, model.Password);
+                            if (newResult.Succeeded)
+                            {
+                                await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                                return RedirectToAction("RegisterContinuation", "Account", model);
+                            }
+                            AddErrors(newResult);
+                        }
+                    }
                 }
-                AddErrors(result);
-            }
+                // Did this next part in the exception because if it can't find a user in the db its a customer. If a customer already exists in our db we don't want to add them again
+                catch
+                {
+                    var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-            // If we got this far, something failed, redisplay form
+                        // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
+                }
+            }
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult RegisterEmployeeUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterEmployeeUser(RegisterEmployeeViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                LogicLayer.UserManager usrMgr = new LogicLayer.UserManager();
+                try
+                {
+                    if (usrMgr.FindUser(model.Email))
+                    {
+                        return RedirectToAction("Register", "Account");
+                    }
+                    else
+                    {
+                        var employee = new DataTransferObjects.PetUniverseUser
+                        {
+                            FirstName = model.GivenName,
+                            LastName = model.FamilyName,
+                            Email = model.Email,
+                            PhoneNumber = model.PhoneNumber,
+                            Address1 = model.AddressLine1,
+                            Address2 = model.AddressLine2,
+                            City = model.City,
+                            State = model.State,
+                            ZipCode = model.ZipCode
+
+                        };
+                        if (usrMgr.CreateNewUser(employee))
+                        {
+                            var employeeID = usrMgr.getUserByEmail(model.Email).PUUserID;
+                            var user = new ApplicationUser
+                            {
+                                EmployeeID = employeeID,
+                                GivenName = model.GivenName,
+                                FamilyName = model.FamilyName,
+                                UserName = model.Email,
+                                Email = model.Email
+
+                            };
+                            var result = await UserManager.CreateAsync(user, "newuser");
+                            if (result.Succeeded)
+                            {
+                                return RedirectToAction("Index", "Admin");
+                            }
+                            AddErrors(result);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    return View(model);
+                }
+            }
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        public ActionResult RegisterVolunteerUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterVolunteerUser(RegisterVolunteerViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                LogicLayer.VolunteerManager volMgr = new LogicLayer.VolunteerManager();
+                try
+                {
+                    if (volMgr.FindVolunteer(model.Email))
+                    {
+                        return RedirectToAction("Register", "Account");
+                    }
+                    else
+                    {
+                        var volunteer = new DataTransferObjects.Volunteer
+                        {
+                            FirstName = model.GivenName,
+                            LastName = model.FamilyName,
+                            Email = model.Email,
+                            PhoneNumber = model.PhoneNumber
+
+                        };
+                        if (volMgr.AddVolunteer(volunteer))
+                        {
+                            var VolunteerID = volMgr.RetrieveVolunteerIDFromEmail(model.Email);
+                            var user = new ApplicationUser
+                            {
+                                VolEmail = model.Email,
+                                GivenName = model.GivenName,
+                                FamilyName = model.FamilyName,
+                                UserName = model.Email,
+                                Email = model.Email
+
+                            };
+                            var result = await UserManager.CreateAsync(user, "newuser");
+                            if (result.Succeeded)
+                            {
+                                return RedirectToAction("Index", "Admin");
+                            }
+                            AddErrors(result);
+                        }
+                    }
+                }
+                catch (Exception)
+                {
+                    return View(model);
+                }
+            }
             return View(model);
         }
 

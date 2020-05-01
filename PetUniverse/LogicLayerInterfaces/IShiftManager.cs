@@ -84,5 +84,39 @@ namespace LogicLayerInterfaces
         /// <param name="oldUserWorking"></param>
         /// <returns></returns>
         bool EditShiftUserWorking(int shiftID, int newUserWorking, int oldUserWorking);
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/03/29
+        /// Approver: Kaleb Bachert
+        /// 
+        /// interface method for getting a shift's details by ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="shiftID"></param>
+        /// <returns></returns>
+        ShiftDetailsVM RetrieveShfitDetailsByID(int shiftID);
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/03/29
+        /// Approver: Kaleb Bachert
+        /// 
+        /// interface method for getting a shift's details by ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="shiftID"></param>
+        /// <returns></returns>
+        List<ShiftDetailsVM> RetrieveShfitDetailsByUserID(int userID);
     }
 }

@@ -260,5 +260,31 @@ namespace LogicLayer
                 throw new ApplicationException("Failed to delete record", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Deletes an existing animal activity record
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalActivity">Record to be deleted</param>
+        /// <returns>Delete successful</returns>
+        public bool DeleteAnimalActivityRecord(AnimalActivity animalActivity)
+        {
+            try
+            {
+                return _activityAccessor.DeleteAnimalActivityRecord(animalActivity) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to delete record", ex);
+            }
+        }
     }
 }

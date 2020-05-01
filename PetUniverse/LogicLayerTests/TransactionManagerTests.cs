@@ -383,5 +383,175 @@ namespace LogicLayerTests
             Assert.AreEqual(expected, result);
 
         }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/24/2020
+        /// Approver: Robert Holmes
+        /// 
+        /// This is a unit test for retrieve all transaction types
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAllTransactionTypes()
+        {
+
+            // arrrange
+            List<TransactionType> transactionTypes = new List<TransactionType>();
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // act
+            transactionTypes = transactionManager.RetrieveAllTransactionTypes();
+
+            // assert
+            Assert.AreEqual(3, transactionTypes.Count);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 4/24/2020
+        /// Approver: Robert Holmes
+        /// 
+        /// This is a unit test for retrieve all transaction statuses
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveAllTransactionStatus()
+        {
+
+            // arrrange
+            List<TransactionStatus> transactionStatuses = new List<TransactionStatus>();
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // act
+            transactionStatuses = transactionManager.RetrieveAllTransactionStatus();
+
+            // assert
+            Assert.AreEqual(4, transactionStatuses.Count);
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// Test method for retreiving the deafult transaction type.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveDefaultTransactionType()
+        {
+            //arrange
+            var transactionType = new TransactionType();
+
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // Act
+            transactionType = transactionManager.RetrieveDefaultTransactionType();
+
+            // assert
+            Assert.AreEqual(true, transactionType.DefaultInStore);
+
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// Test method for retreiving the deafult transaction status.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveDefaultTransactionStatus()
+        {
+            //arrange
+            var transactionStatus = new TransactionStatus();
+
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            // Act
+            transactionStatus = transactionManager.RetrieveDefaultTransactionStatus();
+
+            // assert
+            Assert.AreEqual(true, transactionStatus.DefaultInStore);
+
+        }
+
+        /// <summary>
+        ///  Creator: Jaeho Kim
+        ///  Created: 4/25/2020
+        ///  Approver: Robert Holmes
+        ///  
+        /// Test method for edit item quantity.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestEditItemQuantity()
+        {
+            // arrange, the attribute that need
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+
+            bool result = false;
+            bool expected = true;
+
+            TransactionLineProducts transactionLineProducts = new TransactionLineProducts();
+            List<ProductVM> _productsSold = new List<ProductVM>();
+
+            var productVM1 = new ProductVM();
+            productVM1.ItemID = 100;
+            productVM1.ItemQuantity = 5;
+
+            var productVM2 = new ProductVM();
+            productVM2.ItemID = 200;
+            productVM2.ItemQuantity = 10;
+
+            _productsSold.Add(productVM1);
+            _productsSold.Add(productVM2);
+
+            transactionLineProducts.ProductsSold = _productsSold;
+
+
+            //act
+            result = _transactionManager.EditItemQuantity(transactionLineProducts);
+
+
+            // Assert
+            Assert.AreEqual(expected, result);
+
+        }
+
+        [TestMethod]
+        public void TestGetTransactionByEmail()
+        {
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+            int expected = 1;
+
+            var result = _transactionManager.GetTransactionsByCustomerEmail("test@test.com");
+
+            Assert.AreEqual(expected, result.Count);
+
+        }
     }
 }

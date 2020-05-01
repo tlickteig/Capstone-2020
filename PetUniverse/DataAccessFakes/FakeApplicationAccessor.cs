@@ -18,6 +18,7 @@ namespace DataAccessFakes
     public class FakeApplicationAccessor : IAdoptionApplicationAccessor
     {
         List<ApplicationVM> _applicationVMs;
+        List<Application> _applications;
 
         public FakeApplicationAccessor()
         {
@@ -63,6 +64,37 @@ namespace DataAccessFakes
                     Status = "Fake"
                 }
             };
+
+            _applications = new List<Application>
+            {
+                new Application
+                {
+                    AdoptionApplicationID = 000,
+                    AnimalID = 000,
+                    RecievedDate = DateTime.Parse("11/12/1984"),
+                    CustomerEmail = "Fake@fake.com",
+                    Status = "Fake",
+                    ApplicationActive = true
+                },
+                new Application
+                {
+                    AdoptionApplicationID = 001,
+                    AnimalID = 000,
+                    RecievedDate = DateTime.Parse("11/12/1984"),
+                    CustomerEmail = "Fake1@fake.com",
+                    Status = "Fake",
+                    ApplicationActive = true
+                },
+                new Application
+                {
+                    AdoptionApplicationID = 002,
+                    AnimalID = 000,
+                    RecievedDate = DateTime.Parse("11/12/1984"),
+                    CustomerEmail = "Fake2@fake.com",
+                    Status = "Fake",
+                    ApplicationActive = true
+                },
+            };
         }
 
         /// <summary>
@@ -90,6 +122,37 @@ namespace DataAccessFakes
                     a.ApplicationActive = false;
                     rows += 1;
                 }
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/22/2020
+        /// CHECKED BY: 
+        /// 
+        /// This inserts an allication into applications
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="application"></param>
+        /// <returns></returns>
+        public int InsertAdoptionApplication(Application application)
+        {
+            int rows = 0;
+            try
+            {
+                _applications.Add(application);
+                rows += 1;
+            }
+            catch (Exception)
+            {
+
+                throw;
             }
             return rows;
         }

@@ -15,7 +15,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeVolunteerShiftAccessor : IVolunteerShiftAccessor
     {
-        private List<VolunteerShift> _volunteerShifts = new List<VolunteerShift>();
+        private List<VolunteerShiftVM> _volunteerShifts = new List<VolunteerShiftVM>();
 
         /// <summary>
         /// Creator: Timothy Lickteig
@@ -31,7 +31,7 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeVolunteerShiftAccessor()
         {
-            _volunteerShifts.Add(new VolunteerShift()
+            _volunteerShifts.Add(new VolunteerShiftVM()
             {
                 VolunteerShiftID = 1,
                 VolunteerID = 1,
@@ -47,7 +47,7 @@ namespace DataAccessFakes
                 ShiftEndTime = TimeSpan.Zero + TimeSpan.Parse("6")
             });
 
-            _volunteerShifts.Add(new VolunteerShift()
+            _volunteerShifts.Add(new VolunteerShiftVM()
             {
                 VolunteerShiftID = 2,
                 VolunteerID = 1,
@@ -78,7 +78,7 @@ namespace DataAccessFakes
         /// </remarks> 
         /// <param name="shift">Volunteer shift to be added</param>
         /// <returns>The number of rows affected</returns>
-        public int AddShift(VolunteerShift shift)
+        public int AddShift(VolunteerShiftVM shift)
         {
             _volunteerShifts.Add(shift);
             return 1;
@@ -101,7 +101,7 @@ namespace DataAccessFakes
         /// <returns>The number of rows affected</returns>
         public int CancelVolunteerShift(int volunteerID, int volunteerShiftID)
         {
-            foreach (VolunteerShift shift in _volunteerShifts)
+            foreach (VolunteerShiftVM shift in _volunteerShifts)
             {
                 if (volunteerShiftID == shift.VolunteerShiftID)
                 {
@@ -128,9 +128,9 @@ namespace DataAccessFakes
         public int RemoveShift(int shiftID)
         {
             int rows = 0;
-            VolunteerShift shiftToRemove = new VolunteerShift();
+            VolunteerShiftVM shiftToRemove = new VolunteerShiftVM();
 
-            foreach (VolunteerShift shift in _volunteerShifts)
+            foreach (VolunteerShiftVM shift in _volunteerShifts)
             {
                 if (shiftID == shift.VolunteerShiftID)
                 {
@@ -155,7 +155,7 @@ namespace DataAccessFakes
         /// Update: N/A
         /// </remarks>
         /// <returns>A list of shifts from the list</returns>
-        public List<VolunteerShift> SelectAllShifts()
+        public List<VolunteerShiftVM> SelectAllShifts()
         {
             return _volunteerShifts;
         }
@@ -174,11 +174,11 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="volunteerID">The volunteerID to query</param>
         /// <returns>A list of shifts from the emulated database</returns>
-        public List<VolunteerShift> SelectAllShiftsForAVolunteer(int volunteerID)
+        public List<VolunteerShiftVM> SelectAllShiftsForAVolunteer(int volunteerID)
         {
-            List<VolunteerShift> tempList = new List<VolunteerShift>();
+            List<VolunteerShiftVM> tempList = new List<VolunteerShiftVM>();
 
-            foreach (VolunteerShift shift in _volunteerShifts)
+            foreach (VolunteerShiftVM shift in _volunteerShifts)
             {
                 if (shift.VolunteerID == volunteerID)
                 {
@@ -202,11 +202,11 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="shiftID">The shiftID to query</param>
         /// <returns>A shift from the emulated database</returns>
-        public VolunteerShift SelectShift(int shiftID)
+        public VolunteerShiftVM SelectShift(int shiftID)
         {
-            VolunteerShift shift = new VolunteerShift();
+            VolunteerShiftVM shift = new VolunteerShiftVM();
 
-            foreach (VolunteerShift shift2 in _volunteerShifts)
+            foreach (VolunteerShiftVM shift2 in _volunteerShifts)
             {
                 if (shift2.VolunteerShiftID == shiftID)
                 {
@@ -233,7 +233,7 @@ namespace DataAccessFakes
         /// <returns>The simluated number of rows affected</returns>
         public int SignVolunteerUpForShift(int volunteerID, int volunteerShiftID)
         {
-            foreach (VolunteerShift shift in _volunteerShifts)
+            foreach (VolunteerShiftVM shift in _volunteerShifts)
             {
                 if (volunteerShiftID == shift.VolunteerShiftID)
                 {
@@ -258,12 +258,12 @@ namespace DataAccessFakes
         /// <param name="oldShift">Old shift to be replaced</param>
         /// <param name="newShift">New shift as replacement</param>
         /// <returns>The number of rows affected</returns>
-        public int UpdateShift(VolunteerShift oldShift, VolunteerShift newShift)
+        public int UpdateShift(VolunteerShiftVM oldShift, VolunteerShiftVM newShift)
         {
             int rows = 0;
             int index = 0;
 
-            foreach (VolunteerShift tempShift in _volunteerShifts)
+            foreach (VolunteerShiftVM tempShift in _volunteerShifts)
             {
                 if (tempShift.VolunteerShiftID == oldShift.VolunteerShiftID)
                 {

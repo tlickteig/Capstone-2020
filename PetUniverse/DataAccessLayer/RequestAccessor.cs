@@ -1033,5 +1033,69 @@ namespace DataAccessLayer
 
             return request;
         }
+
+
+        /// <summary>
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/4/10
+        /// APPROVER: Matt Deaton
+        ///  
+        /// This method adds a new Social Media Request to the DB
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public int InsertSocialMediaRequest(SocialMediaRequest request)
+        {
+            int requestID = 0;
+            //Connection
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_insert_social_media_request", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            //Parameters
+            cmd.Parameters.Add("@DateCreated", SqlDbType.DateTime);
+            cmd.Parameters.Add("@RequestTypeID", SqlDbType.NVarChar, 50);
+            cmd.Parameters.Add("@RequestingUserID", SqlDbType.Int);
+            cmd.Parameters.Add("@Open", SqlDbType.Bit);
+            cmd.Parameters.Add("@Title", SqlDbType.NVarChar, 100);
+            cmd.Parameters.Add("@Description", SqlDbType.NVarChar, 500);
+            cmd.Parameters.Add("@RequestID", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            //Values
+            cmd.Parameters["@DateCreated"].Value = request.DateCreated;
+            cmd.Parameters["@RequestTypeID"].Value = request.RequestTypeID;
+            cmd.Parameters["@RequestingUserID"].Value = request.RequestingUserID;
+            cmd.Parameters["@Open"].Value = request.Open;
+            cmd.Parameters["@Title"].Value = request.Title;
+            cmd.Parameters["@Description"].Value = request.Description;
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteScalar();
+                requestID = (int)cmd.Parameters["@RequestID"].Value;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return requestID;
+        }
+
     }
 }

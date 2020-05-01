@@ -46,5 +46,22 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns>Returns a list of active customers</returns>
         List<Customer> SelectAllActiveCustomers();
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/25/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to authenticate the customer and make sure they exist for login
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="username"></param>
+        /// <param name="passwordHash"></param>
+        /// <returns></returns>
+        Customer AuthenticateCustomer(string username, string passwordHash);        
     }
 }

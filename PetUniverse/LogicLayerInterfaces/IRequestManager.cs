@@ -338,5 +338,26 @@ namespace LogicLayer
         /// <param name="requestID"></param>
         /// <returns></returns>
         AvailabilityRequestVM RetrieveAvailabilityRequestByID(int requestID);
+
+
+        /// <summary>
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/4/10
+        /// APPROVER: Matt Deaton
+        ///  
+        /// Interface method for adding a social media request
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        int AddSocialMediaRequest(SocialMediaRequest request);
     }
 }

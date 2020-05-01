@@ -244,5 +244,42 @@ namespace DataAccessInterfaces
         /// <param name="newPasswordHash"></param>
         /// <returns></returns>
         bool UpdatePasswordHash(int userID, string oldPasswordHash, string newPasswordHash);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to set security questions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="Q1"></param>
+        /// <param name="Q2"></param>
+        /// <param name="A1"></param>
+        /// <param name="A2"></param>
+        /// <returns></returns>
+        bool UpdateSecurityInfo(int userID, string Q1, string Q2, string A1, string A2);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This method is used to set a password after answering security questions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
+        bool UpdatePasswordHashBySecurity(int userID, string newPasswordHash);
     }
 }

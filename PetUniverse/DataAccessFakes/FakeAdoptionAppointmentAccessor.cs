@@ -133,6 +133,54 @@ namespace DataAccessFakes
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/27/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This method returns a fake list of Adoption customer VM's based upon email. This method will
+        /// be used exclusively for unit testing.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public List<AdoptionAppointmentVM> SelectAdoptionAppointmentByCustomerEmailAndActive(string email, bool active)
+        {
+            return (from a in adoptionAppointmentVMs
+                    where a.CustomerEmail == email
+                    && a.AppointmentActive == active
+                    select a).ToList();
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/29/2020
+        /// CHECKED BY: 
+        /// 
+        /// This method returns a fake list of Adoption customer VM's. This method will
+        /// be used exclusively for unit testing.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public List<AdoptionAppointmentVM> SelectAdoptionAppointmentsByActive(bool active)
+        {
+            return (from a in adoptionAppointmentVMs
+                    where a.AppointmentActive == active
+                    select a).ToList();
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 2/10/2020
         /// CHECKED BY: Thomas Dupuy
         /// 
@@ -154,6 +202,38 @@ namespace DataAccessFakes
                     where a.AppointmentActive == true
                     && a.AppointmentTypeID == appointmentTypeID
                     select a).ToList();
+        }
+
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/27/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This method updates an appointments datetime property.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="appointmentID"></param>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public int UpdateAdoptionAppointmentDateTime(int appointmentID, DateTime dateTime)
+        {
+            int rows = 0;
+            foreach(var a in adoptionAppointmentVMs)
+            {
+                if(a.AppointmentID == appointmentID)
+                {
+                    a.AppointmentDateTime = dateTime;
+                    rows += 1;
+                }
+            }
+            return rows;
+
         }
     }
 }

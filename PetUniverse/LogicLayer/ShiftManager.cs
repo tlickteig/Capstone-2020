@@ -169,5 +169,60 @@ namespace LogicLayer
                 throw new ApplicationException("Data not added.", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/05
+        /// Approver: Kaleb Bachert
+        /// 
+        /// check if shift details retireved by shift ID returns a list
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="shiftID"></param>
+        /// <returns></returns>
+        public ShiftDetailsVM RetrieveShfitDetailsByID(int shiftID)
+        {
+            try
+            {
+                return _shiftAccessor.SelectShiftDetailsByID(shiftID);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Shifts not found", ex);
+            }
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/05
+        /// Approver: Kaleb Bachert
+        /// 
+        /// check if shift details retireved by shift ID returns a list
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="UserID"></param>
+        /// <returns></returns>
+        public List<ShiftDetailsVM> RetrieveShfitDetailsByUserID(int UserID)
+        {
+            try
+            {
+                return _shiftAccessor.SelectAllShiftsDetailsByUserID(UserID);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Shifts not found", ex);
+            }
+        }
     }
 }

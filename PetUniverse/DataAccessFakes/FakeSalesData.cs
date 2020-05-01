@@ -45,21 +45,40 @@ namespace DataAccessFakes
         }
 
         /// <summary>
-        /// Creator: Cash Carlson
-        /// Created: 03/19/2020
-        /// Approver: Rob Holmes
-        /// 
-        /// Return all total sales data accessor.
-        /// </summary>
-        /// <remarks>
-        /// Updater: N/A
-        /// Updated: N/A
-        /// Updater: N/A
-        /// </remarks>
-        /// <returns></returns>
-        public List<SalesDataVM> RetrieveAllTotalSalesData()
-        {
-            return salesDataVMs;
-        }
-    }
+		/// Creator: Cash Carlson
+		/// Created: 2020/04/29
+		/// Approver: Rasha Mohammed
+		/// 
+		/// Return all total employee sales data accessor.
+		/// </summary>
+		/// <remarks>
+		/// Updater: N/A
+		/// Updated: N/A
+		/// Updater: N/A
+		/// </remarks>
+        /// <param name="employeeID"></param>
+		/// <returns></returns>
+		public List<SalesDataVM> RetrieveAllEmployeeSalesData(int employeeID)
+		{
+			return salesDataVMs;
+		}
+
+		/// <summary>
+		/// Creator: Cash Carlson
+		/// Created: 03/19/2020
+		/// Approver: Rob Holmes
+		/// 
+		/// Return all total sales data accessor.
+		/// </summary>
+		/// <remarks>
+		/// Updater: N/A
+		/// Updated: N/A
+		/// Updater: N/A
+		/// </remarks>
+		/// <returns></returns>
+		public List<SalesDataVM> RetrieveAllTotalSalesData()
+		{
+			return salesDataVMs;
+		}
+	}
 }

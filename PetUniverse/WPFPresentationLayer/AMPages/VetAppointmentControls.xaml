@@ -94,27 +94,35 @@
                     <ColumnDefinition Width="40"></ColumnDefinition>
                     <ColumnDefinition Width="120"></ColumnDefinition>
                     <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="80"></ColumnDefinition>
+                    <ColumnDefinition Width="110"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <CheckBox x:Name="chkAnimalName" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Center"></CheckBox>
+                <CheckBox x:Name="chkAnimalName" VerticalAlignment="Center" Grid.Column="1" HorizontalAlignment="Center" IsEnabled="False" Unchecked="DisableFilter"></CheckBox>
                 <Label Grid.Column="2" VerticalAlignment="Center">Animal Name:</Label>
-                <TextBox x:Name="txtFilterName" VerticalAlignment="Center" Grid.Column="3"></TextBox>
-                <CheckBox x:Name="chkApptDate" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                <TextBox x:Name="txtFilterName" VerticalAlignment="Center" Grid.Column="3" TextChanged="EnableFilter" LostFocus="GetFilteredResultsCount"></TextBox>
+                <CheckBox x:Name="chkApptDate" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False" Unchecked="DisableFilter"></CheckBox>
                 <Label Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">Appointment Date:</Label>
-                <TextBox x:Name="txtFilterDate" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1"></TextBox>
-                <CheckBox x:Name="chkFollowUp" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
-                <Label Grid.Column="2" Grid.Row="2" VerticalAlignment="Center">Follow up Date:</Label>
-                <TextBox x:Name="txtFilterFollowUp" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2"></TextBox>
-                <CheckBox x:Name="chkClinicAddress" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                <DatePicker x:Name="dateFilterDate" VerticalAlignment="Center" Grid.Column="3" Grid.Row="1" SelectedDateChanged="EnableFilter"></DatePicker>
+                <Label Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Right">Time</Label>
+                <ComboBox x:Name="cboDateTime" Grid.Column="5" Grid.Row="1" SelectionChanged="EnableFilter" VerticalAlignment="Center"></ComboBox>
+                <CheckBox x:Name="chkFollowUp" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False" Unchecked="DisableFilter"></CheckBox>
+                <Label Grid.Row="2" Grid.Column="2" VerticalAlignment="Center">Follow Up Date:</Label>
+                <DatePicker x:Name="dateFollowUpDateFilter" VerticalAlignment="Center" Grid.Column="3" Grid.Row="2" SelectedDateChanged="EnableFilter"></DatePicker>
+                <Label Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Right">Time</Label>
+                <ComboBox x:Name="cboFollowUpTime" Grid.Column="5" Grid.Row="2" VerticalAlignment="Center" SelectionChanged="EnableFilter"></ComboBox>
+                <CheckBox x:Name="chkClinicAddress" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False" Unchecked="DisableFilter"></CheckBox>
                 <Label Grid.Column="2" Grid.Row="3" VerticalAlignment="Center">Clinic Address:</Label>
-                <TextBox x:Name="txtFilterAddress" VerticalAlignment="Center" Grid.Column="3" Grid.Row="3"></TextBox>
-                <CheckBox x:Name="chkVetname" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                <TextBox x:Name="txtFilterAddress" VerticalAlignment="Center" Grid.Column="3" Grid.Row="3" TextChanged="EnableFilter" LostFocus="GetFilteredResultsCount"></TextBox>
+                <CheckBox x:Name="chkVetname" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False" Unchecked="DisableFilter"></CheckBox>
                 <Label Grid.Column="2" Grid.Row="4" VerticalAlignment="Center">Vet Name:</Label>
-                <TextBox x:Name="txtFilterVetName" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4"></TextBox>
-                <CheckBox Visibility="Hidden" x:Name="chkActive" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center"></CheckBox>
+                <TextBox x:Name="txtFilterVetName" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" TextChanged="EnableFilter" LostFocus="GetFilteredResultsCount"></TextBox>
+                <CheckBox Visibility="Hidden" x:Name="chkActive" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False" Unchecked="DisableFilter"></CheckBox>
                 <Label Visibility="Hidden" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center">Active Appointments:</Label>
                 <Button x:Name="btnApplyFilter" Grid.Column="3" Grid.Row="6" Margin="40" Content="Apply" Click="BtnApplyFilter_Click"></Button>
                 <Button x:Name="btnCloseFilters" Grid.Column="2" Grid.Row="6" Margin="20 40" Content="Close" Click="BtnCloseFilters_Click"></Button>
+                <Label x:Name="lblFilterResultCount" Grid.Column="4" Grid.Row="6" Grid.ColumnSpan="2" VerticalContentAlignment="Center">Search Result Count:</Label>
+                <Button x:Name="btnResetFilters" Grid.Column="6" Grid.Row="6" Content="Reset" Click="btnResetFilters_Click" Width="100" Height="40" HorizontalAlignment="Left"></Button>
             </Grid>
         </Canvas>
     </Canvas>

@@ -137,5 +137,84 @@ namespace LogicLayerTests
             // assert
             Assert.IsTrue(result);
         }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/27/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Tests the retrieves Adoption Appointment VMs by email method
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionAppointmentRetrievesAdoptionAppointmentsByCustomerEmailAndActive()
+        {
+            // arrange
+            List<AdoptionAppointmentVM> adoptionAppointmentVMs;
+            IAdoptionAppointmentManager adoptionAppointmentManager = new AdoptionAppointmentManager(_adoptionAppointmentAccessor);
+
+            // act
+            adoptionAppointmentVMs = adoptionAppointmentManager.RetrieveAdoptionAppointmentsByCustomerEmailAndActive("Fake@fake.fake");
+
+            // assert
+            Assert.AreEqual(1, adoptionAppointmentVMs.Count);
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/27/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Tests the updates an appointments datetime
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionAppointmentManagerUpdatesAdoptionAppointmentDateTime()
+        {
+            // arrange
+            IAdoptionAppointmentManager adoptionAppointmentManager = new AdoptionAppointmentManager(_adoptionAppointmentAccessor);
+
+            // act
+            bool result = adoptionAppointmentManager.EditAdoptionAppointmentDateTime(000, DateTime.Parse("7/12/1984"));
+
+            // assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/27/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Tests the updates an appointments datetime
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionAppointmentManagerRetrievesAdoptionAppointmentsByActive()
+        {
+            // arrange
+            IAdoptionAppointmentManager adoptionAppointmentManager = new AdoptionAppointmentManager(_adoptionAppointmentAccessor);
+
+            // act
+            var result = adoptionAppointmentManager.RetrieveAdoptionAppointmentsByActive();
+
+            // assert
+            Assert.AreEqual(1, result.Count);
+        }
     }
 }

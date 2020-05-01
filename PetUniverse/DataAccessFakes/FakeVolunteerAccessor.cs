@@ -16,6 +16,7 @@ namespace DataAccessFakes
     public class FakeVolunteerAccessor : IVolunteerAccessor
     {
         private List<Volunteer> volunteers = new List<Volunteer>();
+        private List<Foster> fosters = new List<Foster>();
 
         /// <summary>
         /// Creator: Josh Jackson
@@ -69,6 +70,20 @@ namespace DataAccessFakes
                      Skills = new List<string>() { "Dogwalker", "Groomer" }
                  }
             };
+
+            fosters = new List<Foster>()
+            {
+                new Foster()
+                {
+                    FosterID = 1,
+                    VolunteerID = 3,
+                    AddressLineOne = "22 Hell St",
+                    AddressLineTwo = "#666",
+                    City = "Cedar Rapids",
+                    State = "IA",
+                    Zip = "52403"
+                }
+            };
         }
 
         /// <summary>
@@ -119,6 +134,28 @@ namespace DataAccessFakes
                 return 1;
             }
             return 0;
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 04/26/2020
+        /// Checked By: 
+        /// 
+        /// This is a data access method used for testing inserting a foster
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="volunteer"></param>
+        /// <param name="newFoster"></param>
+        /// <returns></returns>
+        public int CreateFoster(Volunteer volunteer, Foster newFoster)
+        {
+            newFoster.VolunteerID = volunteer.VolunteerID;
+            fosters.Add(newFoster);
+            return 1;
         }
 
         /// <summary>
@@ -174,6 +211,26 @@ namespace DataAccessFakes
         /// Creator: Josh Jackson
         /// Created: 03/6/2020
         /// Approver: Zoey McDonald
+        /// This is a data access method used for testing searching for a foster record by volunteer id
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="volunteerID"></param>
+        /// <returns></returns>
+        public Foster GetFosterDetailsByVolunteerID(int volunteerID)
+        {
+            return (from f in fosters
+                    where f.VolunteerID == 3
+                    select f).FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Creator: Josh Jackson
+        /// Created: 03/6/2020
+        /// Approver: Zoey McDonald
         /// This is a data access method used for testing searching for a Volunteer by their first name
         /// </summary>
         /// <remarks>
@@ -210,6 +267,27 @@ namespace DataAccessFakes
             return (from v in volunteers
                     where v.FirstName == "Tony"
                     where v.LastName == "Stark"
+                    select v).ToList();
+        }
+
+        /// <summary>
+        /// Creator: Josh Jackson
+        /// Created: 04/16/2020
+        /// Approver: 
+        /// 
+        /// This is a data access method used for testing sorting a Volunteer by their skill
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="skill"></param>
+        /// <returns></returns>
+        public List<Volunteer> GetVolunteersBySkill(string skill)
+        {
+            return (from v in volunteers
+                    where v.Skills.Contains("Dogwalker")
                     select v).ToList();
         }
 
@@ -318,6 +396,105 @@ namespace DataAccessFakes
             {
                 return 0;
                 throw ex;
+            }
+        }
+
+        /// <summary>
+        /// NAME: Josh Jackson
+        /// DATE: 04/26/2020
+        /// Checked By: 
+        /// 
+        /// This is a fake method used for testing updating a volunteer
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="foster"></param>
+        /// <param name="newFoster"></param>
+        /// <returns></returns>
+        public int UpdateFoster(Foster foster, Foster newFoster)
+        {
+            Foster oldFoster = foster;
+
+            try
+            {
+                oldFoster = newFoster;
+                return 1;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/28/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to get a fake Volunteer
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public Volunteer getVolunteerByEmail(string email)
+        {
+            Volunteer _volunteer = new Volunteer();
+            foreach (var volunteer in volunteers)
+            {
+                if (volunteer.Email == email)
+                {
+                    _volunteer = volunteer;
+                    break;
+                }
+            }
+            return _volunteer;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/28/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to Authenticate a fake Volunteer 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="username"></param>
+        /// <param name="passwordHash"></param>
+        /// <returns></returns>
+        public Volunteer AuthenticateVolunteer(string username, string passwordHash)
+        {
+            bool userName = username.Equals("j.doe@RandoGuy.com");
+            bool hash = passwordHash.Equals("A7574A42198B7D7EEE2C037703A0B95558F195457908D6975E681E2055FD5EB9");
+
+            if (userName && hash)
+            {
+                Volunteer volunteer = new Volunteer()
+                {
+                    Email = "j.doe@RandoGuy.com",
+                    FirstName = "John",
+                    LastName = "Doe",
+                    PhoneNumber = "5632102101",
+                    Active = true
+                };
+                return volunteer;
+            }
+            else
+            {
+                throw new ApplicationException("Invalid User");
             }
         }
     }

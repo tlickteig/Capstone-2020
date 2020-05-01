@@ -351,6 +351,7 @@ namespace WPFPresentationLayer.FMPages
                 canAddFacilityMaintenance.Visibility = Visibility.Visible;
                 BtnSubmitMaintenanceRecord.Visibility = Visibility.Hidden;
                 btnUpdateBuildingMaintenanceRecord.Visibility = Visibility.Visible;
+                canView.Visibility = Visibility.Hidden;
                 lblFacilityMaintenance.Content = "Update Facility Maintenance Record";
                 txtUserID.Text = selectedFacilityMaintenance.UserID.ToString();
                 txtMaintenanceName.Text = selectedFacilityMaintenance.MaintenanceName;
@@ -407,10 +408,11 @@ namespace WPFPresentationLayer.FMPages
                 };
                 if (_facilityMaintenanceManager.EditFacilityMaintenance(selectedFacilityMaintenance, facilityMaintenance))
                 {
-                    MessageBox.Show("Maintenance record successfully added.");
+                    MessageBox.Show("Maintenance record successfully updated.");
                     BtnSubmitMaintenanceRecord.Visibility = Visibility.Visible;
                     btnUpdateBuildingMaintenanceRecord.Visibility = Visibility.Hidden;
                     canAddFacilityMaintenance.Visibility = Visibility.Hidden;
+                    canView.Visibility = Visibility.Visible;
                     RefreshViewAllList();
                     txtUserID.Text = "";
                     txtMaintenanceName.Text = "";

@@ -21,29 +21,45 @@
             <li class="nav-item">
                 <a class="nav-link" href="~/Product">Browse Products</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Careers</a>
-                <div class="dropdown-menu" style="">
-                    <a class="dropdown-item" href="#">Retail Positions</a>
-                    <a class="dropdown-item" href="#">Shelter Positions</a>
-                </div>
-            </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Foster</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Volunteer</a>
-                <div class="dropdown-menu" style="">
-                    <a class="dropdown-item" href="#">Dog Walker</a>
-                    <a class="dropdown-item" href="#">Cat Whisperer</a>
-                    <a class="dropdown-item" href="#">Veterinarian</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Learn More!</a>
-                </div>
+            <li>
+                <a class="nav-link" href="#">Volunteer</a>
+            </li>
+            <li>
+                <a class="nav-link" href="~/Adoption">Animals</a>
+            </li>
+            <li>
+                <a class="nav-link" href="~/ScheduleSupervisor/ShiftCalendarEmployee">Scheduling & Personnel</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Events</a>
+                <a class="nav-link" href="/Events">Events</a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shopping</a>
+                <div class="dropdown-menu" style="">
+                    <a class="dropdown-item" href="#">Toys</a>
+                    <a class="dropdown-item" href="#">Food</a>
+                    <a class="dropdown-item" href="#">Medicine</a>
+                    <a class="dropdown-item" href="#">Accessories</a>
+                    <a class="dropdown-item" href="#">More</a>
+                </div>
+            </li>
+            @if (User.IsInRole("Volunteer"))
+            {
+                <li>
+                    <a href="@Url.Action("Index", "VolunteerShift")" class="nav-link">
+                        Volunteer Schedule
+                    </a>
+                </li>
+            }
+            @if (User.IsInRole("Administrator"))
+            {
+                <li>
+                    <a class="nav-link" href="~/Admin">Admin</a>
+                </li>
+            }
         </ul>
         @using (Html.BeginForm("Search", "Product", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
         {

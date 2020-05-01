@@ -33,6 +33,7 @@ namespace LogicLayer
         {
             _homeInspectorAccessor = new HomeInspectorAccessor();
         }
+
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/05

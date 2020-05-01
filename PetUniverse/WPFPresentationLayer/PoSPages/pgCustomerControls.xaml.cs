@@ -55,6 +55,18 @@ namespace WPFPresentationLayer.PoSPages
             cbCardType.Items.Add("MasterCard");
             cbCardType.Items.Add("American Express");
 
+            cbServiceRating.Items.Add("5/5 - Great!");
+            cbServiceRating.Items.Add("4/5 - Good.");
+            cbServiceRating.Items.Add("3/5 - Okay.");
+            cbServiceRating.Items.Add("2/5 - Bad.");
+            cbServiceRating.Items.Add("1/5 - Horrible.");
+
+            cbConType.Items.Add("Service Problem");
+            cbConType.Items.Add("Product Issue");
+            cbConType.Items.Add("Charge Amount");
+            cbConType.Items.Add("Other");
+
+
 
         }
 
@@ -290,6 +302,146 @@ namespace WPFPresentationLayer.PoSPages
         private void btnBack3_Click(object sender, RoutedEventArgs e)
         {
             canRemoveCard.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// submits Conflict record.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        private void btnConSubmit_Click(object sender, RoutedEventArgs e)
+        {
+            string problemType;
+            string name;
+            string description;
+
+            if (cbConType.Text.ToString() == "" || cbConType is null)
+            {
+                System.Windows.MessageBox.Show("Conflict Type cannot be empty.");
+                return;
+            }
+            else
+            {
+                problemType = cbConType.Text.ToString();
+
+            }
+
+            if (txtName.Text.ToString() is null || txtName.Text.ToString() == "")
+            {
+                System.Windows.MessageBox.Show("Name cannot be null or empty");
+                return;
+            }
+            else
+            {
+                name = txtName.Text.ToString();
+            }
+
+            if (txtConDesc.Text.ToString() == "" || txtConDesc.Text.ToString() is null)
+            {
+                System.Windows.MessageBox.Show("Description Cannot be blank");
+                return;
+            }
+            else
+            {
+                description = txtConDesc.Text.ToString();
+            }
+
+            int add = _poSCustomerPortalManager.InsertEmpCustProblem(problemType, name, description);
+            txtName.Text = "";
+            txtConDesc.Text = "";
+            cbConType.Text = "";
+            canReportConflict.Visibility = Visibility.Hidden;
+            canCustomerControls.Visibility = Visibility.Visible;
+        }
+
+        private void btnBack4_Click(object sender, RoutedEventArgs e)
+        {
+            canReportConflict.Visibility = Visibility.Hidden;
+            canCustomerControls.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// submits Survey record.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        private void btnSurveySubmit_Click(object sender, RoutedEventArgs e)
+        {
+            string serviceRating;
+            string customerName;
+            string surveyNotes;
+
+            if (cbServiceRating.Text.ToString() == "" || cbServiceRating is null)
+            {
+                System.Windows.MessageBox.Show("Rating cannot be empty.");
+                return;
+            }
+            else
+            {
+                serviceRating = cbServiceRating.Text.ToString();
+
+            }
+
+            if (txtCustomerName.Text.ToString() is null || txtCustomerName.Text.ToString() == "")
+            {
+                System.Windows.MessageBox.Show("Name cannot be null or empty");
+                return;
+            }
+            else
+            {
+                customerName = txtCustomerName.Text.ToString();
+            }
+
+            if (txtSurveyDesc.Text.ToString() == "" || txtSurveyDesc.Text.ToString() is null)
+            {
+                System.Windows.MessageBox.Show("Description Cannot be blank.");
+                return;
+            }
+            else
+            {
+                surveyNotes = txtSurveyDesc.Text.ToString();
+            }
+
+            int add = _poSCustomerPortalManager.InsertCustomerSurvey(customerName, serviceRating, surveyNotes);
+            txtSurveyDesc.Text = "";
+            txtCustomerName.Text = "";
+            cbServiceRating.Text = "";
+            canCustomerSurvey.Visibility = Visibility.Hidden;
+            canCustomerControls.Visibility = Visibility.Visible;
+        }
+
+        private void btnBack5_Click(object sender, RoutedEventArgs e)
+        {
+            canCustomerSurvey.Visibility = Visibility.Hidden;
+            canCustomerControls.Visibility = Visibility.Visible;
+        }
+
+        private void btnSurvey_Click(object sender, RoutedEventArgs e)
+        {
+            canCustomerControls.Visibility = Visibility.Hidden;
+            canCustomerSurvey.Visibility = Visibility.Visible;
+        }
+
+        private void btnReportConflict_Click(object sender, RoutedEventArgs e)
+        {
+            canCustomerControls.Visibility = Visibility.Hidden;
+            canReportConflict.Visibility = Visibility.Visible;
         }
     }
 }

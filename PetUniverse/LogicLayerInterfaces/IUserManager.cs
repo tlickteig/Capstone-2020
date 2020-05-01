@@ -254,5 +254,43 @@ namespace LogicLayerInterfaces
         /// <returns></returns>
         bool UpdatePassword(int userID, string newPassword, string oldPassword);
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/20/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method for the Identity System
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>        
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        bool FindUser(string email);
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called for the Setting security info
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="Q1"></param>
+        /// <param name="Q2"></param>
+        /// <param name="A1"></param>
+        /// <param name="A2"></param>
+        /// <returns></returns>
+        bool UpdateSecurityInfo(int userID, string Q1, string Q2, string A1, string A2);
+
+        bool UpdatePasswordHashBySecurity(int userID, string newPasswordHash);
     }
 }

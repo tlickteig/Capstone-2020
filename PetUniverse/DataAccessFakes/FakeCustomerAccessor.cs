@@ -1,5 +1,6 @@
 ﻿using DataAccessInterfaces;
 using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -81,6 +82,53 @@ namespace DataAccessFakes
                 }
             };
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/25/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called to get a fake customer
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks> 
+        /// <param name="username"></param>
+        /// <param name="passwordHash"></param>
+        /// <returns></returns>
+        public Customer AuthenticateCustomer(string username, string passwordHash)
+        {
+            bool userName = username.Equals("j.doe@RandoGuy.com");
+            bool hash = passwordHash.Equals("A7574A42198B7D7EEE2C037703A0B95558F195457908D6975E681E2055FD5EB9");
+
+            if (userName && hash)
+            {
+                customer = new Customer()
+                {
+                    Email = "j.doe@RandoGuy.com",
+                    FirstName = "John",
+                    LastName = "Doe",
+                    PhoneNumber = "5632102101",
+                    Active = true,
+                    City = "Cedar Rapids",
+                    State = "IA",
+                    ZipCode = "52404"
+                };
+                return customer;
+            }
+            else
+            {
+                throw new ApplicationException("Invalid User");
+            }
+        }
+
+        public bool InsertNewCustomer(Customer customer)
+        {
+            return true;
+        }
+
 
         /// <summary>
         /// Creator: Mohamed Elamin

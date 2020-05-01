@@ -76,6 +76,46 @@ namespace LogicLayerTests
             Assert.AreEqual(1, result);
         }
 
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Test for Insert Customer Survey
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        [TestMethod]
+        public void TestInsertCustomerSurvey()
+        {
+            int result = _fakePoSCustomerPortalAccessor.InsertCustomerSurvey("Jim", "5/5 - Great", "Great service!");
+            Assert.AreEqual(1, result);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Test for Insert EmpCustProblem.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        [TestMethod]
+        public void TestInsertEmpCustProblem()
+        {
+            int result = _fakePoSCustomerPortalAccessor.InsertEmpCustProblem("Disagreement", "Jim", "This is a problem");
+            Assert.AreEqual(1, result);
+        }
+
 
         /// <summary>
         /// CREATOR: Ethan Holmes

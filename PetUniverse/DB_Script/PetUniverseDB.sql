@@ -36,7 +36,7 @@ CREATE TABLE [dbo].[department]
 (
 	 [DepartmentID]			[nvarchar](50)		NOT NULL PRIMARY KEY
 	,[Description]			[nvarchar](200)		NULL DEFAULT NULL
-	,[Active]				[bit] 				NOT NULL DEFAULT 1	
+	,[Active]				[bit] 				NOT NULL DEFAULT 1
 )
 GO
 
@@ -55,7 +55,7 @@ CREATE TABLE [dbo].[User](
 [LastName] [nvarchar](50) NOT NULL,
 [PhoneNumber] [nvarchar](11) NOT NULL,
 [Email] [nvarchar](250) NOT NULL,
-[PasswordHash] [nvarchar](100) NOT NULL DEFAULT 
+[PasswordHash] [nvarchar](100) NOT NULL DEFAULT
 '9C9064C59F1FFA2E174EE754D2979BE80DD30DB552EC03E7E327E9B1A4BD594E',
 [Active] [bit] NOT NULL Default 1,
 [addressLineOne] [nvarchar](250) NOT NULL,
@@ -68,6 +68,10 @@ CREATE TABLE [dbo].[User](
 [UnlockDate] [DateTime] NULL,
 [DepartmentID] [nvarchar](50) NULL,
 [HasViewedPoliciesAndStandards] [bit] NOT NULL Default 0,
+[SecurityQuestion1] [NVARCHAR](100) NULL,
+[SecurityQuestion2] [NVARCHAR](100) NULL,
+[Answer1] [NVARCHAR] (100) NULL,
+[Answer2] [NVARCHAR] (100) NULL,
 CONSTRAINT [fk_User_DepartmentID] FOREIGN KEY([DepartmentID])
 		REFERENCES [Department]([DepartmentID])
 )
@@ -175,8 +179,9 @@ CREATE TABLE [dbo].[Animal](
 	Date 2/7/2020
 	Comment: Adding ProfilePhoto and Description
 	*/
-	[ProfilePhoto]			[nvarchar](50)  DEFAULT 'No image found',
-	[ProfileDescription]	[nvarchar](500) DEFAULT 'NO description found',
+	[ProfileImageData]			[varbinary](MAX)  NULL,
+	[ProfileImageMimeType]		[nvarchar](10) NULL DEFAULT 'JPG',	
+	[ProfileDescription]		[nvarchar](500) DEFAULT 'No description found',
 	CONSTRAINT [pk_AnimalID] PRIMARY KEY([AnimalID] ASC),
 	CONSTRAINT [fk_Animal_AnimalSpeciesID] FOREIGN KEY([AnimalSpeciesID])
 		REFERENCES [AnimalSpecies]([AnimalSpeciesID]) ON UPDATE CASCADE
@@ -326,7 +331,9 @@ CREATE TABLE [dbo].[AnimalPrescriptions] (
 	[AdministrationMethod]		[nvarchar](100)				NOT NULL,
 	[StartDate]					[Date]						NOT NULL,
 	[EndDate]					[Date]						NOT NULL,
-	[Description]				[nvarchar](500)
+	[Description]				[nvarchar](500)				NOT NULL,
+	[Active]					[bit]						NOT NULL
+		DEFAULT 1,
 
 	CONSTRAINT [pk_AnimalPrescriptionsID] PRIMARY KEY([AnimalPrescriptionsID] ASC),
 
@@ -410,13 +417,13 @@ CREATE TABLE [dbo].[FacilityInspectionItem] (
 	[ItemName]						[nvarchar](100)					NOT NULL,
 	[UserID]						[int]							NOT NULL,
 	[FacilityInspectionID]			[int]							NOT NULL,
-	[ItemDescription]				[nvarchar](500)					
+	[ItemDescription]				[nvarchar](500)
 
 	CONSTRAINT [pk_FacilityInspectionItemID] PRIMARY KEY([FacilityInspectionItemID] ASC),
 
 	CONSTRAINT [fk_FacilityInspectionItem_UserID] FOREIGN KEY([UserID])
 		REFERENCES [User]([UserID]) ON UPDATE CASCADE,
-		
+
 	CONSTRAINT [fk_FacilityInspectionItem_FacilityInspectionID] FOREIGN KEY([FacilityInspectionID])
 		REFERENCES [FacilityInspection]([FacilityInspectionID]),
 
@@ -601,7 +608,7 @@ CREATE TABLE [dbo].[AdoptionApplication](
 	[CustomerEmail]				[nvarchar](250)					NOT NULL,
 	[AnimalID]					[int]									,
 	[Status]					[nvarchar]	(1000)						,
-	[RecievedDate]				[datetime]						NOT NULL,
+	[RecievedDate]				[datetime]						NOT NULL DEFAULT GETDATE(), 
 	[Active]					[bit]	DEFAULT 1        		NOT NULL,
 	CONSTRAINT [pk_AdoptionApplicationID] PRIMARY KEY ([AdoptionApplicationID]),
 	CONSTRAINT [fk_AdoptionApplication_Customer_CustomerEmail] FOREIGN KEY ([CustomerEmail])
@@ -709,12 +716,12 @@ CREATE TABLE [dbo].[Item](
 	[ItemID] [int] NOT NULL IDENTITY(100000, 1) PRIMARY KEY,
 	[ItemName] [nvarchar](50) NOT NULL,
 	[ItemCategoryID] [nvarchar](50) NOT NULL,
-	[ItemDescription] [nvarchar](250) ,
+	[ItemDescription] [nvarchar](250) NOT NULL,
 	[ItemQuantity] [int] NOT NULL,
 	[Active]       [bit] DEFAULT 1 NOT NULL,
 	[ShelterItem] [bit] DEFAULT 0,
 	[ShelterThershold]	[int]
-	
+
 )
 GO
 
@@ -945,7 +952,7 @@ CREATE TABLE [dbo].[OutgoingOrders] (
 	[ItemCategoryID]	[nvarchar](1000) 					NOT NULL,
 	[UserID] 			[int] 								NOT NULL,
 	[ItemQuantity]		[int] 								NOT NULL,
-	
+
 	CONSTRAINT [pk_OutgoingOrderID] PRIMARY KEY([OutgoingOrderID] ASC)
 	)
 
@@ -1015,7 +1022,7 @@ CREATE TABLE [dbo].[CustomerAnswers](
 	[AdoptionApplicationID] [int]  NOT NULL,
 	[Answer] [nvarchar](500) NOT NULL,
 
-	CONSTRAINT [pk_QuestionID_CustomerID_AdoptionApplicationID] PRIMARY KEY ([QuestionDescription] ASC,[CustomerEmail] ASC,[AdoptionApplicationID] ASC),	
+	CONSTRAINT [pk_QuestionID_CustomerID_AdoptionApplicationID] PRIMARY KEY ([QuestionDescription] ASC,[CustomerEmail] ASC,[AdoptionApplicationID] ASC),
 	CONSTRAINT [CustomerEmail]	FOREIGN KEY ([CustomerEmail])
 		REFERENCES [dbo].[Customer]([Email]),
 	CONSTRAINT [AdoptionApplicationID]	FOREIGN KEY ([AdoptionApplicationID])
@@ -1079,7 +1086,8 @@ CREATE TABLE [dbo].[Transaction](
 	[EmployeeID] 			[int] 				NOT NULL,
 	[TransactionStatusID] 	[nvarchar](20) 		NOT NULL,
 	[CustomerEmail]			[nvarchar](250),
-	[StripeChargeID]		[nvarchar](30)
+	[StripeChargeID]		[nvarchar](30),
+	[TaxExemptNumber]		[nvarchar](250),
 
 	CONSTRAINT [pk_Transaction_TransactionID] PRIMARY KEY ([TransactionID] ASC),
 	CONSTRAINT [fk_Transaction_EmployeeID] FOREIGN KEY ([EmployeeID])
@@ -1383,6 +1391,29 @@ CREATE TABLE [dbo].[Volunteer](
 )
 GO
 
+/*
+Created by: Josh Jackson
+Date: 4/26/2020
+Comment: Table that houses Foster Information
+*/
+DROP TABLE IF EXISTS [dbo].[Foster]
+GO
+PRINT '' PRINT '*** Creating Foster Table'
+GO
+CREATE TABLE [dbo].[Foster](
+	[FosterID] 	[int] identity(1000000,1) 	not null,
+	[VolunteerID]  	[int]           	not null,
+	[AddressLine1]  [nvarchar](500)         	not null,
+	[AddressLine2]  [nvarchar](100)			    null,
+	[City] 	     [nvarchar](200) 				not null,
+	[State]  	[nvarchar](2)			not null,
+	[Zipcode]	[nvarchar](5)				not null,
+	constraint [FosterID] primary key([FosterID] asc),
+	constraint [fk_Foster_VolunteerID] foreign key([VolunteerID])
+		references [Volunteer]([VolunteerID])on delete cascade
+)
+GO
+
 
 /*
 Created by: Josh Jackson
@@ -1524,10 +1555,10 @@ Comment: Table for storing instances of people signed up for shifts
 print '' print '*** Creating ShiftRecord Table'
 go
 create table [dbo].[ShiftRecord](
-	
+
 	VolunteerID [int] not null,
 	VolunteerShiftID [int] not null,
-	constraint [pk_ShiftRecord_VolunteerID_VolunteerShiftID] 
+	constraint [pk_ShiftRecord_VolunteerID_VolunteerShiftID]
 		primary key([VolunteerID], [VolunteerShiftID]),
 	constraint [fk_VolunteerShift_VolunteerShiftID] foreign key([VolunteerShiftID])
 		references [VolunteerShift]([VolunteerShiftID]),
@@ -1631,7 +1662,7 @@ GO
 /*
 Created by: Matt Deaton
 Date: 2020-02-28
-Comment: Table for Donor Information 
+Comment: Table for Donor Information
 */
 PRINT '' PRINT '*** Creating Donor Table'
 GO
@@ -1677,9 +1708,9 @@ CREATE TABLE [dbo].[DonationItem](
 	[DonationID]			[int]								NOT NULL,
 	[ItemID]				[int]								NOT NULL,
 	CONSTRAINT [pk_DonationID_ItemID] PRIMARY KEY([DonationID] ASC, [ItemID] ASC),
-	CONSTRAINT [fk_Donations_DonationID] FOREIGN KEY([DonationID]) 
+	CONSTRAINT [fk_Donations_DonationID] FOREIGN KEY([DonationID])
 		REFERENCES [Donations]([DonationID]),
-	CONSTRAINT [fk_Item_ItemID] FOREIGN KEY([ItemID]) 
+	CONSTRAINT [fk_Item_ItemID] FOREIGN KEY([ItemID])
 		REFERENCES [Item]([ItemID]) ON UPDATE CASCADE
 )
 GO
@@ -1697,7 +1728,8 @@ CREATE TABLE [dbo].[orders] (
 	[OrderID]					[int] IDENTITY(100000, 1) 	NOT NULL,
 	[UserID]				    [int]						NOT NULL,
 	[Active]					[BIT] 						NOT NULL DEFAULT 1,
-	
+	[OrderStatus]               [nvarchar](20)              NOT NULL DEFAULT 'In Progress',
+
 	CONSTRAINT [pk_OrderID] PRIMARY KEY([OrderID] ASC),
 	CONSTRAINT [fk_UserID] FOREIGN KEY([UserID])
 		REFERENCES [User]([UserID])
@@ -1717,7 +1749,7 @@ CREATE TABLE [dbo].[specialorders] (
 	[SpecialOrderID]			[int] IDENTITY(100000, 1) 	NOT NULL,
 	[UserID]					[int]						NOT NULL,
 	[Active]					[bit] 						NOT NULL DEFAULT 1,
-	
+
 	CONSTRAINT [pk_SpecialOrderID] PRIMARY KEY([SpecialOrderID] ASC),
 	CONSTRAINT [fk_SpecialOrderUserID] FOREIGN KEY([UserID])
 		REFERENCES [User]([UserID])
@@ -1755,7 +1787,7 @@ CREATE TABLE [dbo].[Picture]
    [ProductID] 		[NVARCHAR](13)		NOT NULL,
    [ImagePath] 		[NVARCHAR](MAX)		NOT NULL,
 	CONSTRAINT [fk_Picture_ProductID] FOREIGN KEY ([ProductID])
-		REFERENCES [dbo].[Product]([ProductID]) 
+		REFERENCES [dbo].[Product]([ProductID])
 )
 */
 CREATE TABLE [dbo].[Picture]
@@ -1805,6 +1837,27 @@ CREATE TABLE [dbo].[JobListing] (
 	[Responsibilities]		[nvarchar](750)				NOT NULL,
 	[Active]				[bit]						NOT NULL DEFAULT 1,
 	CONSTRAINT [pk_JobListing_JobListingID] PRIMARY KEY([JobListingID] ASC)
+)
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Vendor Table to store Vendors.
+*/
+DROP TABLE IF EXISTS [dbo].[Vendor]
+GO
+print '' print '*** Creating Vendor table'
+GO
+CREATE TABLE [dbo].[Vendor](
+	[VendorID]			[int]		IDENTITY(100000, 1) PRIMARY KEY NOT NULL,
+	[VendorName]		[nvarchar](50)								NOT NULL,
+	[VendorAddress]		[nvarchar](100)								NOT NULL,
+	[VendorPhone]		[nvarchar](11)								NOT NULL,
+	[VendorEmail]		[nvarchar](250)								NOT NULL,
+	[VendorState]		[nvarchar](2)								NOT NULL,
+	[VendorCity]		[nvarchar](50)								NOT NULL,
+	[VendorZip]			[nvarchar](20)								NOT NULL
 )
 GO
 
@@ -1904,7 +1957,7 @@ GO
 /*
 Created by: Kaleb Bachert
 Date: 4/2/2020
-Comment: Table that holds Active Time Off, so people aren't 
+Comment: Table that holds Active Time Off, so people aren't
 		 scheduled when they should have Time Off
 */
 DROP TABLE IF EXISTS [dbo].[activeTimeOff]
@@ -1950,7 +2003,7 @@ GO
 /*
  Application Tables used for creating the application
  Created By: Derek Talor
-*/ 
+*/
 DROP TABLE IF EXISTS [dbo].[Application]
 GO
 PRINT '' PRINT '*** Creating Application Table'
@@ -1962,7 +2015,7 @@ CREATE TABLE [dbo].[Application](
 	[SubmissionDate]		[datetime]					NOT NULL,
 	[Status]				[nvarchar](50)				NOT NULL,
 	CONSTRAINT [pk_Application_ApplicationID_ApplicantID] PRIMARY KEY([ApplicationID] ASC),
-	CONSTRAINT [fk_Application_ApplicantID] FOREIGN KEY([ApplicantID]) REFERENCES [Applicant]([ApplicantID]) ON UPDATE CASCADE, 
+	CONSTRAINT [fk_Application_ApplicantID] FOREIGN KEY([ApplicantID]) REFERENCES [Applicant]([ApplicantID]) ON UPDATE CASCADE,
 	CONSTRAINT [fk_Application_JobListingID] FOREIGN KEY([JobListingID]) REFERENCES [JobListing]([JobListingID])
 )
 GO
@@ -1970,7 +2023,7 @@ GO
 /*
  Application Tables used for creating the application
  Created By: Derek Talor
-*/ 
+*/
 DROP TABLE IF EXISTS [dbo].[ApplicationEducation]
 GO
 PRINT '' PRINT '*** Creating ApplicationEducation Table'
@@ -1989,7 +2042,7 @@ GO
 /*
  Application Tables used for creating the application
  Created By: Derek Talor
-*/ 
+*/
 DROP TABLE IF EXISTS [dbo].[ApplicationReference]
 GO
 PRINT '' PRINT '*** Creating ApplicationReference Table'
@@ -2008,7 +2061,7 @@ GO
 /*
  Application Tables used for creating the application
  Created By: Derek Talor
-*/ 
+*/
 DROP TABLE IF EXISTS [dbo].[ApplicationResume]
 GO
 PRINT '' PRINT '*** Creating ApplicationResume Table'
@@ -2025,7 +2078,7 @@ GO
 /*
  Application Tables used for creating the application
  Created By: Derek Talor
-*/ 
+*/
 DROP TABLE IF EXISTS [dbo].[ApplicationSkill]
 GO
 PRINT '' PRINT '*** Creating ApplicationSkill Table'
@@ -2042,7 +2095,7 @@ GO
 /*
  Application Tables used for creating the application
  Created By: Derek Talor
-*/ 
+*/
 DROP TABLE IF EXISTS [dbo].[PreviousExperience]
 GO
 PRINT '' PRINT '*** Creating PreviousExperience Table'
@@ -2061,7 +2114,7 @@ GO
 /*
  Application Tables used for creating the application
  Created By: Derek Talor
-*/ 
+*/
 DROP TABLE IF EXISTS [dbo].[ApplicationAvailability]
 GO
 PRINT '' PRINT '*** Creating ApplicationAvailability Table'
@@ -2079,7 +2132,7 @@ GO
 /*
  Application Tables used for creating the application
  Created By: Derek Talor
-*/ 
+*/
 DROP TABLE IF EXISTS [dbo].[BackgroundCheck]
 GO
 PRINT '' PRINT '*** Creating BackgroundCheck Table'
@@ -2098,7 +2151,7 @@ GO
 /*
  Application Tables used for creating the application
  Created By: Derek Talor
-*/ 
+*/
 DROP TABLE IF EXISTS [dbo].[HomeCheck]
 GO
 PRINT '' PRINT '*** Creating HomeCheck Table'
@@ -2117,7 +2170,7 @@ GO
 /*
  Application Tables used for creating the application
  Created By: Derek Talor
-*/ 
+*/
 DROP TABLE IF EXISTS [dbo].[Interview]
 GO
 PRINT '' PRINT '*** Creating Interview Table'
@@ -2132,6 +2185,232 @@ CREATE TABLE [dbo].[Interview](
 	CONSTRAINT [fk_Interview_EmployeeID] FOREIGN KEY([EmployeeID]) REFERENCES [User]([UserID])
 )
 GO
+
+
+/*
+Created by: Dalton Reierson
+Date: 2020/04/27
+Comment: Shipper Table
+*/
+print ''
+print '*** Creating Shipper Table ***'
+GO
+
+CREATE TABLE [dbo].[Shipper](
+		[ShipperID]   [nvarchar] (50)            NOT NULL,
+		[Complaint]   [nvarchar] (250) NOT NULL,
+		CONSTRAINT [pk_Shipper_ShipperID] PRIMARY KEY ([ShipperID] ASC)
+)
+
+/*
+Created by: Dalton Reierson
+Date: 2020/04/27
+Comment: ReceivingRecord Table
+*/
+print ''
+print '*** Creating ReceivingRecord Table ***'
+GO
+
+CREATE TABLE [dbo].[ReceivingRecord](
+	[ReceivingRecordID]  [int]           NOT NULL,
+	[OrderID]            [int]           NOT NULL,
+	[ShipperID]          [nvarchar] (50) NOT NULL,
+	[ReceivingOrderDate] [date]          NOT NULL,
+	CONSTRAINT [pk_ReceivingRecord_ReceivingRecordID] PRIMARY KEY([ReceivingRecordID] ASC),
+	CONSTRAINT [fk_ReceivingRecord_OrderID] FOREIGN KEY([OrderID])
+			REFERENCES [Orders]([OrderID]),
+	CONSTRAINT [fk_ReceivingRecord_ShipperID] FOREIGN KEY([ShipperID])
+			REFERENCES [Shipper]([ShipperID])
+)
+GO
+
+/*
+Created by: Dalton Reierson
+Date: 2020/04/27
+Comment: OrderLine Table
+*/
+print ''
+print '*** Creating OrderLine Table ***'
+GO
+
+CREATE TABLE [dbo].[OrderLine](
+	[OrderLineID]         [int] NOT NULL,
+	[ItemID]              [int] NOT NULL,
+	[ReceivingRecordID]   [int] NOT NULL,
+	[DamagedItemQuantity] [int] NOT NULL,
+	[MissingItemQuantity] [int] NOT NULL,
+	CONSTRAINT [pk_OrderLine_OrderLineID] PRIMARY KEY([OrderLineID] ASC),
+	CONSTRAINT [fk_OrderLine_ItemID] FOREIGN KEY([ItemID])
+			REFERENCES [Item]([ItemID]),
+	CONSTRAINT [fk_OrderLine_ReceivingRecordID] FOREIGN KEY([ReceivingRecordID])
+			REFERENCES [ReceivingRecord]([ReceivingRecordID])
+)
+GO
+
+/*
+	AUTHOR: Timothy Lickteig
+	DATE: 2020/04/27
+	DESCRIPTION: Create the foster appointment table
+*/
+DROP TABLE IF EXISTS [dbo].[FosterAppointment]
+GO
+
+print '' print '*** Creating FosterAppointment Table'
+GO
+CREATE TABLE [dbo].[FosterAppointment] (
+	[FosterAppointmentID] 		[int] 	IDENTITY(1000000, 1) 	NOT NULL,
+	[VolunteerID] 				[int] 							NOT NULL,
+	[StartTime] 				[time] 							NOT NULL,
+	[EndTime] 					[time]							NOT NULL,
+	[Description] 				[nvarchar](4000)				NOT NULL,
+	CONSTRAINT [pk_FosterAppointment_FosterAppointmentID] PRIMARY KEY([FosterAppointmentID] ASC),
+	CONSTRAINT [fk_FosterAppointment_VolunteerID] FOREIGN KEY([VolunteerID])
+			REFERENCES [Volunteer]([VolunteerID])
+)
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/28/2020
+Comment: Create Customer Survey Table
+*/
+DROP TABLE IF EXISTS [dbo].[CustomerSurvey]
+GO
+PRINT '' PRINT '*** Creating CustomerSurvey Table'
+GO
+CREATE TABLE [dbo].[CustomerSurvey](
+	[SurveyID] 				[int] IDENTITY(1000000,1) 	NOT NULL,
+	[CustomerName]			[NVARCHAR](100)				NOT NULL,
+	[ServiceRating]			[NVARCHAR](100)				NOT NULL,
+	[Notes]					[NVARCHAR](100)				NOT NULL,
+
+	CONSTRAINT [pk_SurveyID] PRIMARY KEY([SurveyID] ASC),
+)
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 04/28/2020
+Comment: Create Report EmpCustProblem Table
+*/
+DROP TABLE IF EXISTS [dbo].[EmpCustProblem]
+GO
+PRINT '' PRINT '*** Creating EmpCustProblem Table'
+GO
+CREATE TABLE [dbo].[EmpCustProblem](
+	[ProblemID] 			[int] IDENTITY(1000000,1) 	NOT NULL,
+	[ProblemType]			[NVARCHAR](100)				NOT NULL,
+	[Name]					[NVARCHAR](100)				NOT NULL,
+	[Description]			[NVARCHAR](100)				NOT NULL,
+
+	CONSTRAINT [pk_ProblemID] PRIMARY KEY([ProblemID] ASC),
+)
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: orderitemline table
+*/
+DROP TABLE IF EXISTS [dbo].[orderitemline]
+GO
+print '' print '*** Creating orderitemline table'
+GO
+CREATE TABLE [dbo].[orderitemline] (
+	[OrderID]					[int] 			NOT NULL,
+	[ItemID]					[int]			NOT NULL,
+	[Quantity]					[int]			NOT NULL,
+	
+	CONSTRAINT [pk_LineOrderID] PRIMARY KEY([OrderID] ASC, [ItemID] ASC),
+	CONSTRAINT [fk_LineOrderID] FOREIGN KEY([OrderID])
+		REFERENCES [Orders]([OrderID]) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT [fk_LineItemID] FOREIGN KEY ([ItemID])
+		REFERENCES [Item]([ItemID]) ON UPDATE CASCADE ON DELETE CASCADE
+)
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: specialorderitemline table
+*/
+DROP TABLE IF EXISTS [dbo].[specialorderitemline]
+GO
+print '' print '*** Creating specialorderitemline table'
+GO
+CREATE TABLE [dbo].[specialorderitemline] (
+	[SpecialOrderID]			[int] 			NOT NULL,
+	[ItemID]					[int]			NOT NULL,
+	[Quantity]					[int]			NOT NULL,
+	
+	CONSTRAINT [pk_LineSpOrderID] PRIMARY KEY([SpecialOrderID] ASC, [ItemID] ASC),
+	CONSTRAINT [fk_LineSpOrderID] FOREIGN KEY([SpecialOrderID])
+		REFERENCES [SpecialOrders]([SpecialOrderID]) ON UPDATE CASCADE ON DELETE CASCADE,
+	CONSTRAINT [fk_SpLineItemID] FOREIGN KEY ([ItemID])
+		REFERENCES [Item]([ItemID]) ON UPDATE CASCADE ON DELETE CASCADE
+	)
+GO
+
+/*Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Creating a table for VetLicense.
+*/
+print '' print '*** Creating VetLicense Table'
+GO
+CREATE TABLE [dbo].[VetLicense](
+	[LicenseID] 				[int] IDENTITY(1000000,1)	NOT NULL,
+	[Institute]   				[nvarchar](300)			    NOT NULL,
+	[DateIssued]   				[datetime]         			NOT NULL,
+	[Active]   					[bit]         				NOT NULL,
+	CONSTRAINT [pk_LicenseID] PRIMARY KEY([LicenseID] ASC)
+)
+GO
+
+
+/*
+Created by: Zoey McDonald
+Date: 2/20/2020
+Comment: Creates a table for treatment record.
+*/
+print '' print '*** Creating TreatmentRecord Table'
+GO
+CREATE TABLE [dbo].[TreatmentRecord](
+	[TreatmentRecordID] 		[int] IDENTITY(1000000,1)	NOT NULL,
+	[VetID]   					[nvarchar](200) 		    NOT NULL,
+	[AnimalID]   				[int]         				NOT NULL,
+	[FormName]      			[nvarchar](50)           	NOT NULL 	DEFAULT 1,
+	[TreatmentDate]   			[datetime]			        NOT NULL,
+	[TreatmentDescription]   	[nvarchar](4000)           	NULL,
+	[Notes]   					[nvarchar](2000)           	NULL,
+	[Reason]   					[nvarchar](2000)           	NOT NULL,
+	[Urgency]   				[int]			          	NOT NULL,
+	CONSTRAINT [pk_TreatmentRecordID] PRIMARY KEY([TreatmentRecordID] ASC)	
+)
+GO
+
+
+/*
+	Created by: Steve Coonrod
+	Date: 		2/9/2020
+	Comment: 	This is the Social Media Request table.
+				It is a table for joining a SocialMediaRequest to a Request
+*/
+DROP TABLE IF EXISTS [dbo].[SocialMediaRequest]
+GO
+PRINT '' PRINT '*** Creating SocialMediaRequest Table'
+GO
+CREATE TABLE[dbo].[SocialMediaRequest](
+	[RequestID]		[int]									NOT NULL,
+	[Title]			[nvarchar](100)							NOT NULL,
+	[Description]	[nvarchar](500)							NOT NULL
+
+	CONSTRAINT [pk_socialMediaRequest_RequestID] PRIMARY KEY([RequestID]),
+	CONSTRAINT [fk_socialMediaRequest_RequestID] FOREIGN KEY([RequestID])
+		REFERENCES [request]([RequestID]) ON UPDATE CASCADE ON DELETE CASCADE
+)
+GO
+
+
 
 /*
  ******************************* Create Procedures *****************************
@@ -2209,7 +2488,7 @@ CREATE PROCEDURE [sp_select_user_by_email]
 )
 AS
 BEGIN
-	SELECT 	[UserID], [FirstName], [LastName], [PhoneNumber]
+	SELECT 	[UserID], [FirstName], [LastName], [PhoneNumber], [SecurityQuestion1], [SecurityQuestion2], [Answer1], [Answer2]
 	FROM 	[dbo].[User]
 	WHERE 	[Email] = @Email
 END
@@ -2700,7 +2979,7 @@ BEGIN
 			[InspectionDate] = @NewInspectionDate,
 			[InspectionDescription] = @NewInspectionDescription,
 			[InspectionCompleted] = @NewInspectionComplete
-			
+
 	WHERE   [FacilityInspectionID] = @FacilityInspectionID
 		AND	[UserID] = @OldUserID
 		AND	[InspectorName] = @OldInspectorName
@@ -2875,7 +3154,7 @@ BEGIN
 			[UserID] = @NewUserID,
 			[FacilityInspectionID] = @NewFacilityInspectionID,
 			[ItemDescription] = @NewItemDescription
-			
+
 	WHERE   [FacilityInspectionItemID] = @FacilityInspectionItemID
 		AND	[ItemName] = @OldItemName
 		AND	[UserID] = @OldUserID
@@ -3041,7 +3320,7 @@ BEGIN
 			[CompletionDate] = @NewCompletionDate,
 			[FacilityTaskNotes] = @NewFacilityTaskNotes,
 			[TaskCompleted] = @NewTaskCompleted
-			
+
 	WHERE   [FacilityTaskID] = @FacilityTaskID
 		AND	[FacilityTaskName] = @OldFacilityTaskName
 		AND	[UserID] = @OldUserID
@@ -3069,7 +3348,7 @@ CREATE PROCEDURE [sp_delete_facility_task]
 )
 AS
 BEGIN
-    DELETE 
+    DELETE
 	FROM [dbo].[FacilityTask]
 	WHERE [FacilityTaskID] = @FacilityTaskID
 	RETURN @@ROWCOUNT
@@ -3254,7 +3533,7 @@ CREATE PROCEDURE [sp_update_animal_prescription]
 	@OldStartDate				[date],
 	@OldEndDate					[date],
 	@OldDescription				[nvarchar](500),
-	
+
 	@NewAnimalID				[int],
 	@NewAnimalVetAppointmentID	[int],
 	@NewPrescriptionName		[nvarchar](50),
@@ -3309,9 +3588,9 @@ BEGIN
 	UPDATE [dbo].[Animal]
     SET [Active] = 1
     WHERE [AnimalID] = @AnimalID
-    
+
     RETURN @@ROWCOUNT
-END 
+END
 GO
 
 /*
@@ -3332,9 +3611,9 @@ BEGIN
 	UPDATE [dbo].[Animal]
     SET [Active] = 0
     WHERE [AnimalID] = @AnimalID
-    
+
     RETURN @@ROWCOUNT
-END 
+END
 GO
 
 /*
@@ -3356,7 +3635,7 @@ BEGIN
     SET [CurrentlyHoused] = 0
     WHERE [AnimalID] = @AnimalID
     RETURN @@ROWCOUNT
-END 
+END
 GO
 
 /*
@@ -3378,7 +3657,7 @@ BEGIN
     SET [CurrentlyHoused] = 1
     WHERE [AnimalID] = @AnimalID
     RETURN @@ROWCOUNT
-END 
+END
 GO
 
 /*
@@ -3400,7 +3679,7 @@ BEGIN
     SET [Adoptable] = 0
     WHERE [AnimalID] = @AnimalID
     RETURN @@ROWCOUNT
-END 
+END
 GO
 
 /*
@@ -3421,16 +3700,16 @@ BEGIN
 	UPDATE [dbo].[Animal]
     SET [Adoptable] = 1
     WHERE [AnimalID] = @AnimalID
-    
+
     RETURN @@ROWCOUNT
-END 
+END
 GO
-                
+
 /*
 Created by: Ben Hanna
 Date: 2/18/2020
 Comment: Sets an animal's adoptable state to false
-*/ 
+*/
 DROP PROCEDURE IF EXISTS [sp_select_handling_notes_by_animal_id]
 GO
 PRINT '' PRINT '*** Creating sp_select_handling_notes_by_animal_id'
@@ -3441,40 +3720,40 @@ CREATE PROCEDURE [sp_select_handling_notes_by_animal_id]
 )
 AS
 BEGIN
-   SELECT [AnimalHandlingNotesID],[AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID] 
-                
+   SELECT [AnimalHandlingNotesID],[AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID]
+
    FROM [dbo].[AnimalHandlingNotes]
    WHERE [AnimalID] = @AnimalID
    ORDER BY [UpdateDate]
 END
 GO
-                
+
 /*
 Created by: Ben Hanna
 Date: 2/9/2020
 Comment: Insert a kennel record
 */
 DROP PROCEDURE IF EXISTS [sp_insert_kennel_record]
-GO                
+GO
 PRINT '' PRINT '*** Creating sp_insert_kennel_record'
 GO
 CREATE PROCEDURE [sp_insert_kennel_record]
 (
     @AnimalID           [int],
-    @AnimalKennelInfo   [nvarchar](4000), 
+    @AnimalKennelInfo   [nvarchar](4000),
     @AnimalKennelDateIn	[date],
     @UserID             [int]
-        
+
 )
 AS
 BEGIN
-   INSERT INTO [dbo].[AnimalKennel] 
-        ([AnimalID], 
-         [AnimalKennelInfo], 
+   INSERT INTO [dbo].[AnimalKennel]
+        ([AnimalID],
+         [AnimalKennelInfo],
          [AnimalKennelDateIn],
          [UserID]
         )
-   VALUES 
+   VALUES
         (@AnimalID,
          @AnimalKennelInfo,
          @AnimalKennelDateIn
@@ -3483,7 +3762,7 @@ BEGIN
    SELECT SCOPE_IDENTITY()
 END
 GO
-                
+
 /*
 Created by: Ben Hanna
 Date: 03/12/2020
@@ -3496,77 +3775,77 @@ GO
 CREATE PROCEDURE [sp_select_all_kennel_records]
 AS
 BEGIN
-	SELECT 
-    [AnimalKennelID],		
-	[AnimalID],				
-	[UserID],				
-	[AnimalKennelInfo],		
-	[AnimalKennelDateIn],	
+	SELECT
+    [AnimalKennelID],
+	[AnimalID],
+	[UserID],
+	[AnimalKennelInfo],
+	[AnimalKennelDateIn],
 	[AnimalKennelDateOut]
  	FROM [dbo].[AnimalKennel]
 END
-GO 
-   
+GO
+
 /*
 Created by: Ben Hanna
 Date: 3/17/2020
 Comment: Update a handing notes record
-*/ 
+*/
 DROP PROCEDURE IF EXISTS [sp_update_kennel_record_no_date_out]
-GO     
+GO
 PRINT '' PRINT '*** Creating sp_update_kennel_record_no_date_out'
 GO
 CREATE PROCEDURE [sp_update_kennel_record_no_date_out]
 (
     @AnimalKennelID			           [int],
-    
+
     @NewAnimalID                       [int],
-    @NewUserID                         [int], 
+    @NewUserID                         [int],
     @NewAnimalKennelInfo	           [nvarchar](4000),
     @NewAnimalKennelDateIn             [date],
-    
+
 	@OldAnimalID                       [int],
-    @OldUserID                         [int], 
+    @OldUserID                         [int],
     @OldAnimalKennelInfo               [nvarchar](4000),
     @OldAnimalKennelDateIn             [date]
 )
 AS
 BEGIN
 	UPDATE [dbo].[AnimalKennel]
-    SET [AnimalID]                  = @NewAnimalID, 
-        [UserID]                    = @NewUserID,  
+    SET [AnimalID]                  = @NewAnimalID,
+        [UserID]                    = @NewUserID,
         [AnimalKennelInfo]          = @NewAnimalKennelInfo,
-        [AnimalKennelDateIn]        = @NewAnimalKennelDateIn       
+        [AnimalKennelDateIn]        = @NewAnimalKennelDateIn
     WHERE   [AnimalKennelID]        = @AnimalKennelID
-    AND     [AnimalID]              = @OldAnimalID 
-    AND     [UserID]                = @OldUserID  
+    AND     [AnimalID]              = @OldAnimalID
+    AND     [UserID]                = @OldUserID
     AND     [AnimalKennelInfo]      = @OldAnimalKennelInfo
-    AND     [AnimalKennelDateIn]    = @OldAnimalKennelDateIn        
+    AND     [AnimalKennelDateIn]    = @OldAnimalKennelDateIn
     RETURN @@ROWCOUNT
-END 
-GO 
-                
+END
+GO
+
 /*
 Created by: Ben Hanna
 Date: 3/17/2020
 Comment: Update a handing notes record
-*/ 
+*/
 DROP PROCEDURE IF EXISTS [sp_update_kennel_record]
-GO     
+GO
 PRINT '' PRINT '*** Creating sp_update_kennel_record'
 GO
 CREATE PROCEDURE [sp_update_kennel_record]
 (
     @AnimalKennelID			           [int],
-    
+
     @NewAnimalID                       [int],
-    @NewUserID                         [int], 
+    @NewUserID                         [int],
     @NewAnimalKennelInfo	           [nvarchar](4000),
     @NewAnimalKennelDateIn             [date],
     @NewAnimalKennelDateOut            [date],
-    
+
 	@OldAnimalID                       [int],
-    @OldUserID                         [int], 
+    @OldUserID                         [int],
     @OldAnimalKennelInfo               [nvarchar](4000),
     @OldAnimalKennelDateIn             [date],
     @OldAnimalKennelDateOut            [date]
@@ -3574,21 +3853,21 @@ CREATE PROCEDURE [sp_update_kennel_record]
 AS
 BEGIN
 	UPDATE [dbo].[AnimalKennel]
-    SET [AnimalID]                  = @NewAnimalID, 
-        [UserID]                    = @NewUserID,  
+    SET [AnimalID]                  = @NewAnimalID,
+        [UserID]                    = @NewUserID,
         [AnimalKennelInfo]          = @NewAnimalKennelInfo,
         [AnimalKennelDateIn]        = @NewAnimalKennelDateIn,
-        [AnimalKennelDateOut]       = @NewAnimalKennelDateOut        
+        [AnimalKennelDateOut]       = @NewAnimalKennelDateOut
     WHERE   [AnimalKennelID]        = @AnimalKennelID
-    AND     [AnimalID]              = @OldAnimalID 
-    AND     [UserID]                = @OldUserID  
+    AND     [AnimalID]              = @OldAnimalID
+    AND     [UserID]                = @OldUserID
     AND     [AnimalKennelInfo]      = @OldAnimalKennelInfo
     AND     [AnimalKennelDateIn]    = @OldAnimalKennelDateIn
-    AND     [AnimalKennelDateOut]   = @OldAnimalKennelDateOut        
+    AND     [AnimalKennelDateOut]   = @OldAnimalKennelDateOut
     RETURN @@ROWCOUNT
-END 
-GO 
-                
+END
+GO
+
 /*
 Created by: Ben Hanna
 Date: 3/18/2020
@@ -3608,18 +3887,18 @@ BEGIN
 	UPDATE [dbo].[AnimalKennel]
     SET [AnimalKennelDateOut] = @AnimalKennelDateOut
     WHERE [AnimalKennelID] = @AnimalKennelID
-    
+
     RETURN @@ROWCOUNT
-END 
+END
 GO
 
 /*
 Created by: Ben Hanna
 Date: 2/18/2020
 Comment: Sets an animal's adoptable state to false
-*/          
+*/
 DROP PROCEDURE IF EXISTS [sp_select_handling_notes_by_id]
-GO      
+GO
 PRINT '' PRINT '*** Creating sp_select_handling_notes_by_id'
 GO
 CREATE PROCEDURE [sp_select_handling_notes_by_id]
@@ -3628,73 +3907,73 @@ CREATE PROCEDURE [sp_select_handling_notes_by_id]
 )
 AS
 BEGIN
-   SELECT [AnimalID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID] 
+   SELECT [AnimalID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID]
    FROM [dbo].[AnimalHandlingNotes]
    WHERE [AnimalHandlingNotesID] = @AnimalHandlingNotesID
 END
 GO
-                
+
 /*
 Created by: Ben Hanna
 Date: 2/29/2020
 Comment: Insert a handing notes record
 */
 DROP PROCEDURE IF EXISTS [sp_insert_handling_notes_record]
-GO                  
+GO
 PRINT '' PRINT '*** Creating sp_insert_handling_notes_record'
 GO
 CREATE PROCEDURE [sp_insert_handling_notes_record]
 (
-    
-	@AnimalID              [int],			
+
+	@AnimalID              [int],
 	@UserID			       [int],
 	@AnimalHandlingNotes   [nvarchar](4000),
 	@TemperamentWarning    [nvarchar](1000),
-	@UpdateDate		       [date]      
-        
+	@UpdateDate		       [date]
+
 )
 AS
 BEGIN
-   INSERT INTO [dbo].[AnimalHandlingNotes] 
-        ([AnimalID], 
-         [UserID], 
+   INSERT INTO [dbo].[AnimalHandlingNotes]
+        ([AnimalID],
+         [UserID],
          [AnimalHandlingNotes],
          [TemperamentWarning],
          [UpdateDate]
         )
-   VALUES 
+   VALUES
         (@AnimalID,
          @UserID,
          @AnimalHandlingNotes,
          @TemperamentWarning,
          @UpdateDate
-         
+
         )
    SELECT SCOPE_IDENTITY()
 END
-GO 
-  
+GO
+
 /*
 Created by: Ben Hanna
 Date: 3/4/2020
 Comment: Update a handing notes record
-*/ 
+*/
 DROP PROCEDURE IF EXISTS [sp_update_handling_notes_record]
-GO     
+GO
 PRINT '' PRINT '*** Creating sp_update_handling_notes_record'
 GO
 CREATE PROCEDURE [sp_update_handling_notes_record]
 (
     @AnimalHandlingNotesID			   [int],
-    
+
     @NewAnimalID                       [int],
-    @NewUserID                         [int], 
+    @NewUserID                         [int],
     @NewAnimalHandlingNotes	           [nvarchar](4000),
     @NewTemperamentWarning             [nvarchar](1000),
     @NewUpdateDate                     [date],
-    
+
 	@OldAnimalID                       [int],
-    @OldUserID                         [int], 
+    @OldUserID                         [int],
     @OldAnimalHandlingNotes	           [nvarchar](4000),
     @OldTemperamentWarning             [nvarchar](1000),
     @OldUpdateDate                     [date]
@@ -3702,63 +3981,20 @@ CREATE PROCEDURE [sp_update_handling_notes_record]
 AS
 BEGIN
 	UPDATE [dbo].[AnimalHandlingNotes]
-    SET [AnimalID]                  = @NewAnimalID, 
-        [UserID]                    = @NewUserID,  
+    SET [AnimalID]                  = @NewAnimalID,
+        [UserID]                    = @NewUserID,
         [AnimalHandlingNotes]       = @NewAnimalHandlingNotes,
         [TemperamentWarning]        = @NewTemperamentWarning,
-        [UpdateDate]                = @NewUpdateDate        
+        [UpdateDate]                = @NewUpdateDate
     WHERE   [AnimalHandlingNotesID] = @AnimalHandlingNotesID
-    AND     [AnimalID]              = @OldAnimalID 
-    AND     [UserID]                = @OldUserID  
+    AND     [AnimalID]              = @OldAnimalID
+    AND     [UserID]                = @OldUserID
     AND     [AnimalHandlingNotes]   = @OldAnimalHandlingNotes
     AND     [TemperamentWarning]    = @OldTemperamentWarning
     AND     [UpdateDate]            = @OldUpdateDate
     RETURN @@ROWCOUNT
-END 
+END
 GO
-  
-/*
-Created by: Ben Hanna
-Date: 3/4/2020
-Comment: Update a handing notes record
-*/ 
-DROP PROCEDURE IF EXISTS [sp_update_handling_notes_record]
-GO     
-PRINT '' PRINT '*** Creating sp_update_handling_notes_record'
-GO
-CREATE PROCEDURE [sp_update_handling_notes_record]
-(
-    @AnimalHandlingNotesID			   [int],
-    
-    @NewAnimalID                       [int],
-    @NewUserID                         [int], 
-    @NewAnimalHandlingNotes	           [nvarchar](4000),
-    @NewTemperamentWarning             [nvarchar](1000),
-    @NewUpdateDate                     [date],
-    
-	@OldAnimalID                       [int],
-    @OldUserID                         [int], 
-    @OldAnimalHandlingNotes	           [nvarchar](4000),
-    @OldTemperamentWarning             [nvarchar](1000),
-    @OldUpdateDate                     [date]
-)
-AS
-BEGIN
-	UPDATE [dbo].[AnimalHandlingNotes]
-    SET [AnimalID]                  = @NewAnimalID, 
-        [UserID]                    = @NewUserID,  
-        [AnimalHandlingNotes]       = @NewAnimalHandlingNotes,
-        [TemperamentWarning]        = @NewTemperamentWarning,
-        [UpdateDate]                = @NewUpdateDate        
-    WHERE   [AnimalHandlingNotesID] = @AnimalHandlingNotesID
-    AND     [AnimalID]              = @OldAnimalID 
-    AND     [UserID]                = @OldUserID  
-    AND     [AnimalHandlingNotes]   = @OldAnimalHandlingNotes
-    AND     [TemperamentWarning]    = @OldTemperamentWarning
-    AND     [UpdateDate]            = @OldUpdateDate
-    RETURN @@ROWCOUNT
-END 
-GO 
 
 /*
   Created by: Jordan Lindo
@@ -3767,7 +4003,7 @@ GO
   department table.
 */
 DROP PROCEDURE IF EXISTS [sp_insert_department]
-GO    
+GO
 PRINT '' PRINT '*** Create procedure sp_insert_department'
 GO
 CREATE PROCEDURE [sp_insert_department]
@@ -3790,7 +4026,7 @@ GO
   Comment: This is a stored procedure for selecting all department records.
 */
 DROP PROCEDURE IF EXISTS [sp_select_all_departments]
-GO   
+GO
 PRINT '' PRINT '*** Create procedure sp_select_all_departments'
 GO
 CREATE PROCEDURE [sp_select_all_active_departments]
@@ -3809,7 +4045,7 @@ GO
   matching the input.
 */
 DROP PROCEDURE IF EXISTS [sp_select_all_departments]
-GO   
+GO
 PRINT '' PRINT '*** Create procedure sp_select_department_by_id'
 GO
 CREATE PROCEDURE [sp_select_department_by_id]
@@ -3830,7 +4066,7 @@ GO
  Comment: This is a stored procedure for updating a department record.
 */
 DROP PROCEDURE IF EXISTS [sp_update_department]
-GO   
+GO
 PRINT '' PRINT '*** Create procedure sp_update_department'
 GO
 CREATE PROCEDURE [sp_update_department]
@@ -4038,19 +4274,19 @@ CREATE PROCEDURE [sp_update_Adoption_Appointment]
 
     @AppointmentID		   [int]            ,
 	@NewNotes		       [nvarchar](1000) ,
-	@NewDecision		   [nvarchar](50)   ,	
+	@NewDecision		   [nvarchar](50)   ,
 	@OldNotes    		   [nvarchar](1000) ,
-	@OldDecision		   [nvarchar](50)	
+	@OldDecision		   [nvarchar](50)
 )
 AS
 BEGIN
 	UPDATE [dbo].[Appointment]
 		SET [Notes] = 	  @NewNotes,
 			[Decision] = 	@NewDecision
-			
-	WHERE 	[AppointmentID] =	@AppointmentID  
+
+	WHERE 	[AppointmentID] =	@AppointmentID
 	  AND	[Notes] = 	@OldNotes
-	  AND	[Decision] = 	@OldDecision	 
+	  AND	[Decision] = 	@OldDecision
 	RETURN  @@ROWCOUNT
 END
 GO
@@ -4170,7 +4406,7 @@ GO
 CREATE PROCEDURE [sp_select_inHomeInspectionAppointments_by_AppointmentType]
 AS
 BEGIN
-	SELECT 	
+	SELECT
         [AppointmentID],
         [AdoptionApplicationID],
         [AppointmentTypeID],
@@ -4194,15 +4430,15 @@ print '' print '*** Creating sp_select_customer_email_by_adoption_ApplicationId'
 GO
 CREATE PROCEDURE [sp_select_customer_email_by_adoption_ApplicationId]
 (
-	@AdoptionApplicationID 		[int]	
+	@AdoptionApplicationID 		[int]
 )
 AS
 BEGIN
 	SELECT 	[Email]
-	FROM  [dbo].[Customer]	
+	FROM  [dbo].[Customer]
 
 	JOIN [AdoptionApplication] ON [AdoptionApplication].[CustomerEmail] = [Customer].[Email]
-	WHERE	[AdoptionApplication].[AdoptionApplicationID] = @AdoptionApplicationID 
+	WHERE	[AdoptionApplication].[AdoptionApplicationID] = @AdoptionApplicationID
 END
 GO
 
@@ -4226,21 +4462,9 @@ BEGIN
 
 	SELECT 	[Name]
 	FROM 	[dbo].[Location]
-	WHERE	[LocationID] = @LocationID 
+	WHERE	[LocationID] = @LocationID
 END
 GO
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 Created by: Cash Carlson
@@ -4278,8 +4502,9 @@ GO
 CREATE PROCEDURE [sp_select_all_applicants]
 AS
 BEGIN
-	SELECT [Applicant].[ApplicantID], [FirstName], [LastName], [MiddleName], [Email], [PhoneNumber], [Application].[Status]
+	SELECT [Applicant].[ApplicantID], [FirstName], [LastName], [MiddleName], [Email], [PhoneNumber], [Application].[Status], [JobListing].[Position]
 	FROM [dbo].[Applicant] JOIN [Application] ON [Application].[ApplicantID] = [Applicant].[ApplicantID]
+	JOIN [JobListing] ON [Application].[JobListingID] = [JobListing].[JobListingID]
 	ORDER BY [ApplicantID]
 END
 GO
@@ -4515,27 +4740,6 @@ GO
 /*
 Created by: Ethan Holmes
 Date: 02/16/2020
-Comment: Create volunteer task table
-*/
-DROP TABLE IF EXISTS [dbo].[VolunteerTask]
-GO
-print '' print '*** Creating VolunteerTask Table'
-GO
-CREATE TABLE [dbo].[VolunteerTask](
-	[VolunteerTaskID] 		[int] IDENTITY(1000000,1) 	NOT NULL,
-	[TaskName]				[NVARCHAR](100)				NOT NULL,
-	[TaskType]				[NVARCHAR](100)				NOT NULL,
-	[AssignmentGroup]		[NVARCHAR](100)				NOT NULL,
-	[TaskDescription] 		[NVARCHAR](1080) 			    NULL,
-	[DueDate] 				[DATE]						NOT NULL,
-	
-	CONSTRAINT [pk_VolunteerTaskID] PRIMARY KEY([VolunteerTaskID] ASC),
-)
-GO
-
-/*
-Created by: Ethan Holmes
-Date: 02/16/2020
 Comment: Insert a volunteer task record
 */
 DROP PROCEDURE IF EXISTS [sp_insert_volunteer_task]
@@ -4576,12 +4780,12 @@ CREATE PROCEDURE [sp_select_volunteer_task_by_name]
 )
 AS
 BEGIN
-	SELECT 
-        [VolunteerTaskID], 
-        [TaskName], 
-        [TaskType], 
-        [AssignmentGroup], 
-        [DueDate], 
+	SELECT
+        [VolunteerTaskID],
+        [TaskName],
+        [TaskType],
+        [AssignmentGroup],
+        [DueDate],
         [TaskDescription]
 	FROM [dbo].[VolunteerTask]
 	WHERE [TaskName] = @taskName
@@ -4600,11 +4804,11 @@ GO
 CREATE PROCEDURE [sp_select_all_volunteer_tasks]
 AS
 BEGIN
-	SELECT 
+	SELECT
         [TaskName],
         [TaskType],
-        [AssignmentGroup], 
-        [DueDate], 
+        [AssignmentGroup],
+        [DueDate],
         [TaskDescription]
 	FROM [dbo].[VolunteerTask]
 END
@@ -4640,6 +4844,8 @@ BEGIN
 END
 GO
 
+
+
 /*
 Created By: Ethan Holmes
 Date 3/6/2020
@@ -4655,7 +4861,7 @@ CREATE PROCEDURE [sp_delete_volunteer_task]
 )
 AS
 BEGIN
-	DELETE 
+	DELETE
 	FROM [dbo].[VolunteerTask]
 	WHERE [TaskName] = @TaskName
 	SELECT @@ROWCOUNT
@@ -4688,7 +4894,7 @@ BEGIN
 	,[City]
 	,[State]
 	,[Zipcode]
-	FROM [Customer] 
+	FROM [Customer]
 	WHERE [Customer].[Active] = @Active
 END
 GO
@@ -4804,9 +5010,9 @@ BEGIN
 	[TuesdayStartTime],[TuesdayEndTime],[WednesdayStartTime],[WednesdayEndTime],[ThursdayStartTime],
 	[ThursdayEndTime],[FridayStartTime],[FridayEndTime],[SaturdayStartTime],[SaturdayEndTime],
 	[AvailabilityRequest].[requestID],[RequestingUserID],[FirstName],[LastName]
-	
-	
-	
+
+
+
     FROM 	[AvailabilityRequest]
 	join [request] on [AvailabilityRequest].[requestID ]= [request].[requestID]
 	join [User] on [User].[userID] = [request].[RequestingUserID]
@@ -4847,12 +5053,12 @@ BEGIN
 	([RequestTypeID], [DateCreated], [RequestingUserID])
 	VALUES
 	('Availability Change', GETDATE(), @RequestingUserID)
-	
+
 	INSERT INTO [dbo].[availabilityRequest]
-	([SundayStartTime], [SundayEndTime], [MondayStartTime], [MondayEndTime], 
-		[TuesdayStartTime], [TuesdayEndTime], [WednesdayStartTime], [WednesdayEndTime], 
-		[ThursdayStartTime], [ThursdayEndTime], [FridayStartTime], [FridayEndTime], 
-		[SaturdayStartTime], [SaturdayEndTime], [RequestID]	
+	([SundayStartTime], [SundayEndTime], [MondayStartTime], [MondayEndTime],
+		[TuesdayStartTime], [TuesdayEndTime], [WednesdayStartTime], [WednesdayEndTime],
+		[ThursdayStartTime], [ThursdayEndTime], [FridayStartTime], [FridayEndTime],
+		[SaturdayStartTime], [SaturdayEndTime], [RequestID]
 	)
 	VALUES
 	(@SundayStart, @SundayEnd, @MondayStart, @MondayEnd,
@@ -4932,7 +5138,7 @@ BEGIN
 	SET [Open] = 0
 	WHERE [RequestID] = @RequestID
 	AND [Open] = 1
-	
+
 	SELECT @@ROWCOUNT
 END
 GO
@@ -5047,7 +5253,7 @@ BEGIN
 			[dbo].[AdoptionApplication].[Status],
 			[dbo].[AdoptionApplication].[RecievedDate]
 	From 	[dbo].[AdoptionApplication]
-	Inner Join [dbo].[Animal] 
+	Inner Join [dbo].[Animal]
 	on [dbo].[AdoptionApplication].[AnimalID] = [dbo].[Animal].[AnimalID]
 END
 GO
@@ -5106,7 +5312,32 @@ BEGIN
 	WHERE	[CustomerEmail] = @customerEmail
 END
 GO
+GO
+/*Created by: Awaab Elamin
+Date: 2020/23/4
+Comment: Get All Animals Medical Records
+*/
+print '' print '*** Creating sp_get__all_animals_medical_Record'
+GO
+DROP PROCEDURE IF EXISTS [sp_get__all_animals_medical_Record]
+GO
+CREATE PROCEDURE [sp_get__all_animals_medical_Record]
+AS
+BEGIN
+	SELECT [dbo].[AnimalMedicalInfo].[AnimalMedicalInfoID]
+	  ,[dbo].[Animal].[AnimalName]
+      ,[dbo].[AnimalMedicalInfo].[SpayedNeutered]
+      ,[dbo].[AnimalMedicalInfo].[Vaccinations]
+      ,[dbo].[AnimalMedicalInfo].[MostRecentVaccinationDate]
+      ,[dbo].[AnimalMedicalInfo].[AdditionalNotes]
+	  ,[dbo].[User].[FirstName] AS 'User Fist Name'
+	  ,[dbo].[User].[LastName] As 'User Last Name'
+  FROM [dbo].[AnimalMedicalInfo],[dbo].[Animal],[dbo].[User]
+  WHERE [dbo].[AnimalMedicalInfo].[AnimalID] = [dbo].[Animal].[AnimalID]
+  AND [dbo].[AnimalMedicalInfo].[UserID] = [dbo].[User].[UserID]
 
+END
+GO
 /*
 Created by: Alex Diers
 Date: 2/28/2020
@@ -5394,6 +5625,29 @@ END
 GO
 
 /*
+    AUTHOR: Timothy Lickteig
+    DATE: 2020/04/30
+    COMMENT: Procedure for selecting a volunteer shift
+*/
+DROP PROCEDURE IF EXISTS [sp_select_volunteer_shift]
+GO
+PRINT '' PRINT '** Creating sp_select_volunteer_shift'
+GO
+CREATE PROCEDURE [sp_select_volunteer_shift]
+(
+    @VolunteerShiftID [int]
+)
+AS
+BEGIN
+    SELECT [VolunteerShiftID], [ShiftDescription], [ShiftTitle],
+        [ShiftDate], [ShiftStartTime], [ShiftEndTime], [Recurrance],
+        [IsSpecialEvent], [ShiftNotes], [ScheduleID]
+    FROM [VolunteerShift]
+    WHERE @VolunteerShiftID = [VolunteerShiftID]
+END
+GO
+
+/*
 Created By: Timothy Lickteig
 Date: 2/10/2020
 Comment: Procedure for updating a volunteer shift
@@ -5446,11 +5700,36 @@ CREATE PROCEDURE [sp_select_all_volunteer_shifts]
 AS
 BEGIN
 	SELECT
-		[VolunteerShiftID], [ShiftDescription],
+		[VolunteerShift].[VolunteerShiftID], [ShiftDescription],
 		[ShiftTitle], [ShiftStartTime], [ShiftEndTime],
 		[Recurrance], [IsSpecialEvent], [ShiftNotes],
-		[ShiftDate], [ScheduleID]
+		[ShiftDate], [ScheduleID], [ShiftRecord].[VolunteerID]
 	FROM [dbo].[VolunteerShift]
+	LEFT JOIN [ShiftRecord] 
+	ON [ShiftRecord].[VolunteerShiftID] = [VolunteerShift].[VolunteerShiftID]
+END
+GO
+
+/*
+Created By: Timothy Lickteig
+Date: 04/30/2020
+Comment: Procedure for signing volunteer up for shift
+*/
+DROP PROCEDURE IF EXISTS [sp_sign_volunteer_up_for_shift]
+GO
+PRINT '' PRINT 'Creating procedure sp_sign_volunteer_up_for_shift'
+GO
+CREATE PROCEDURE [sp_sign_volunteer_up_for_shift]
+(
+	@VolunteerID [int],
+	@VolunteerShiftID [int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[ShiftRecord]
+	([VolunteerID], [VolunteerShiftID])
+	VALUES
+	(@VolunteerID, @VolunteerShiftID)
 END
 GO
 
@@ -5724,7 +6003,7 @@ GO
 	Created by: Steve Coonrod
 	Date: 2/9/2020
 	Comment: Stored Procedure for adding a new Request to the DB
-	
+
 	Updated On : 2020-03-15
 */
 DROP PROCEDURE IF EXISTS [sp_insert_request]
@@ -5932,6 +6211,43 @@ END
 GO
 
 /*
+Created by: Brandyn T. Coverdill
+Date: 4/10/2020
+Comment: Stored Procedure that adds shelter items to inventory.
+*/
+DROP PROCEDURE IF EXISTS [sp_add_shelter_items]
+GO
+PRINT '' PRINT '*** Creating sp_add_items'
+GO
+CREATE PROCEDURE [sp_add_shelter_items]
+(
+	@ItemName nvarchar(50),
+	@ItemQuantity int,
+	@ItemCategoryID nvarchar(50),
+	@ItemDescription nvarchar(250)
+)
+AS
+BEGIN
+	INSERT INTO Item
+    (
+		[ItemName],
+		[ItemCategoryID],
+		[ItemQuantity],
+		[ItemDescription],
+		[ShelterItem]
+	)
+	VALUES
+    (
+		@ItemName,
+		@ItemCategoryID,
+		@ItemQuantity,
+		@ItemDescription,
+		1
+	)
+END
+GO
+
+/*
 Created By: Brandyn T. Coverdill
 Date: 2/22/2020
 Comment: Stored Procedure that adds a new item cateGOry
@@ -5979,6 +6295,9 @@ Comment: Stored Procedure that gets a list of items from inventory.
 Updated By: Matt Deaton
 Date: 2020-03-07
 Comment: Added the ShelterItem to the Select to allow Shelter Item to show up once ran.
+Updated By: Brandyn T. Coverdill
+Date: 2020-04-10
+Comment: Added the Active field to the select to allow active items and deactive items.
 */
 DROP PROCEDURE IF EXISTS [sp_retrieve_items]
 GO
@@ -5987,12 +6306,13 @@ GO
 CREATE PROCEDURE [sp_retrieve_items]
 AS
 BEGIN
-	SELECT 
-        [i].[ItemID], 
-        [i].[ItemName], 
-        [i].[ItemQuantity], 
-        [ic].[ItemCategoryID], 
+	SELECT
+        [i].[ItemID],
+        [i].[ItemName],
+        [i].[ItemQuantity],
+        [ic].[ItemCategoryID],
         [i].[ItemDescription],
+		[i].[Active],
 		[i].[ShelterItem]
 	FROM [dbo].[Item] i
 	INNER JOIN [dbo].[ItemCategory] ic
@@ -6061,6 +6381,47 @@ where [VolunteerID] = @VolunteerID
 return @@ROWCOUNT
 end
 go
+
+print '' print '*** Creating sp_update_foster'
+/*
+Created by: Josh Jackson
+Date: 4/26/2020
+Comment: updates an existing foster record
+*/
+go
+create procedure [sp_update_foster]
+(
+	@FosterID	    [int],
+	@NewAdd1  [nvarchar](500),
+	@NewAdd2  [nvarchar](100),
+	@NewCity    	    [nvarchar](200),
+	@NewState  	[nvarchar](2),
+	@NewZip 	[nvarchar](5),
+	@OldAdd1  [nvarchar](500),
+	@OldAdd2  [nvarchar](100),
+	@OldCity    	    [nvarchar](200),
+	@OldState  	[nvarchar](2),
+	@OldZip 	[nvarchar](5)
+)
+as
+begin
+update [dbo].[Foster]
+set
+	[AddressLine1] = 	@NewAdd1,
+	[AddressLine2] = 	@NewAdd2,
+	[City] = @NewCity,
+	[State] = 		@NewState,
+	[Zipcode]   = @NewZip
+where [FosterID] = @FosterID
+	  AND	[AddressLine1] = 	@OldAdd1
+	  AND	[AddressLine2] = 	@OldAdd2
+	  AND	[City] = @OldCity
+	  AND	[State] = 		@OldState
+	  AND   [Zipcode] =  @OldZip
+return @@ROWCOUNT
+end
+go
+
 
 /*
 Created by: Josh Jackson
@@ -6166,6 +6527,46 @@ BEGIN
 END
 GO
 
+print '' print '*** Creating sp_get_volunteer_by_skill'
+/*
+Created by: Josh Jackson
+Date: 2/8/2020
+Comment: Gets Volunteers with specified skill
+*/
+go
+create procedure [sp_get_volunteer_by_skill]
+(
+	@SkillID [nvarchar](500)
+)
+as
+begin
+select
+	Volunteer.VolunteerID, FirstName, LastName, Email, PhoneNumber, OtherNotes, Active
+from VolunteerSkill inner join Volunteer on VolunteerSkill.VolunteerID = Volunteer.VolunteerID
+where SkillID = @SkillID
+end
+go
+
+print '' print '*** Creating sp_get_foster_details_by_volunteer_id'
+/*
+Created by: Josh Jackson
+Date: 04/26/2020
+Comment: Gets Fosters by volunteer id
+*/
+go
+create procedure [sp_get_foster_details_by_volunteer_id]
+(
+	@VolunteerID [int]
+)
+as
+begin
+select
+	FosterID, Foster.VolunteerID, AddressLine1, AddressLine2, City, State, Zipcode
+from Foster inner join Volunteer on Foster.VolunteerID = Volunteer.VolunteerID
+where Volunteer.VolunteerID = @VolunteerID
+end
+go
+
 /*
 Created by: Josh Jackson
 Date: 2/8/2020
@@ -6230,6 +6631,57 @@ from [VolunteerSkill]
 where [VolunteerID] = @VolunteerID
 end
 go
+
+/*
+Created by: Josh Jackson
+Date: 4/16/2020
+Comment: add Basic Volunteer Skill to a new volunteer record
+*/
+DROP PROCEDURE IF EXISTS [sp_give_basic_volunteer]
+GO
+PRINT '' PRINT '*** Creating sp_give_basic_volunteer'
+GO
+CREATE PROCEDURE [sp_give_basic_volunteer]
+(
+	@VolunteerID 			[int],
+	@SkillID	 			[nvarchar](50)
+)
+AS
+BEGIN
+INSERT INTO [dbo].[VolunteerSkill]
+	([VolunteerID], [SkillID])
+	VALUES
+	(@VolunteerID, @SkillID)
+END
+GO
+
+/*
+Created by: Josh Jackson
+Date: 4/26/2020
+Comment: creates a foster record
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_foster]
+GO
+PRINT '' PRINT '*** Creating sp_insert_foster'
+GO
+CREATE PROCEDURE [sp_insert_foster]
+(
+	@VolunteerID	[int],
+	@AddressLine1  [nvarchar](500),
+	@AddressLine2  [nvarchar](100),
+	@City    	    [nvarchar](200),
+	@State  	[nvarchar](2),
+	@Zipcode	[nvarchar](5)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Foster]
+		([VolunteerID], [AddressLine1], [AddressLine2], [City], [State], [Zipcode])
+	VALUES
+		(@VolunteerID, @AddressLine1, @AddressLine2, @City, @State, @Zipcode)
+	SELECT SCOPE_IDENTITY()
+END
+GO
 
 /*
 Created by: Gabi Legrand
@@ -6335,7 +6787,7 @@ GO
 PRINT '' PRINT '*** Creating procedure sp_select_all_volunteer_events'
 GO
 CREATE PROCEDURE [sp_select_all_volunteer_events]
-AS 
+AS
 BEGIN
 	SELECT
 		[VolunteerEventID],
@@ -6402,7 +6854,6 @@ END
 GO
 
 
-
 /*
 Created By: Michael Thompson
 Date: 2/20/2020
@@ -6414,14 +6865,16 @@ PRINT '' PRINT '*** Creating sp_update_animal_profile'
 GO
 CREATE PROCEDURE [sp_update_animal_profile]
 (
-	@AnimalID			[int],
-	@ProfilePhoto		[nvarchar](50),
-	@ProfileDescription	[nvarchar](500)
+	@AnimalID				[int],
+	@ProfileImageData		[varbinary](MAX),
+	@ProfileImageMimeType	[nvarchar](10),	
+	@ProfileDescription		[nvarchar](500)
 )
 AS
 BEGIN
 	UPDATE [dbo].[Animal]
-		SET [ProfilePhoto] = @ProfilePhoto,
+		SET [ProfileImageData] = @ProfileImageData,
+			[ProfileImageMimeType] = @ProfileImageMimeType,
 			[ProfileDescription] = @ProfileDescription
 	WHERE	[AnimalID] = @AnimalID
 	RETURN @@ROWCOUNT
@@ -6431,7 +6884,7 @@ GO
 /*
 Created By: Michael Thompson
 Date 2/20/2020
-Comment: Stored Procedure to get the animal, profile photo path and description
+Comment: Stored Procedure to get the animal, profile photo data and description
 */
 DROP PROCEDURE IF EXISTS [sp_select_all_animal_profiles]
 GO
@@ -6440,9 +6893,40 @@ GO
 CREATE PROCEDURE [sp_select_all_animal_profiles]
 AS
 BEGIN
-	SELECT [AnimalID],[AnimalName],[ProfilePhoto],[ProfileDescription]
+	SELECT 
+		[AnimalID],
+		[AnimalName],
+		[ProfileImageData],
+		[ProfileImageMimeType],
+		[ProfileDescription]
 	FROM [dbo].[Animal]
 	ORDER BY [AnimalID]
+END
+GO
+
+/*
+Created By: Michael Thompson
+Date 2/20/2020
+Comment: Stored Procedure to get one animal profile photodata and description
+*/
+DROP PROCEDURE IF EXISTS [sp_select_animal_profile_by_animalid]
+GO
+PRINT '' PRINT '*** Creating sp_select_animal_profile_by_animalid'
+GO
+CREATE PROCEDURE [sp_select_animal_profile_by_animalid]
+(
+  @AnimalID [int]
+)
+AS
+BEGIN
+    SELECT 
+        [AnimalID],
+        [AnimalName],  	
+        [ProfileImageData],				
+        [ProfileImageMimeType],		
+        [ProfileDescription]			
+    FROM [Animal] 
+    WHERE[AnimalID] = @AnimalID
 END
 GO
 
@@ -6501,7 +6985,7 @@ CREATE PROCEDURE sp_select_transactions_by_datetime
 )
 AS
 BEGIN
-	
+
     SELECT
         T.[TransactionID],
         T.[TransactionDateTime],
@@ -6519,13 +7003,275 @@ BEGIN
     FROM 	[Transaction] T
     INNER JOIN [User] U
         ON T.[EmployeeID] = U.[UserID]
-		
+
     --WHERE T.[TransactionDateTime] = @TransactionDateTime
-	
-	WHERE T.[TransactionDateTime] 
+
+	WHERE T.[TransactionDateTime]
 		BETWEEN @TransactionDateTime AND @SecondTransactionDateTime
 END
 GO
+
+/*
+Created by: Jaeho Kim
+Date: 04/23/2020
+Comment: Selects all transaction types.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_transaction_types]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_transaction_types'
+GO
+CREATE PROCEDURE [sp_select_all_transaction_types]
+AS
+BEGIN
+    SELECT
+         [TransactionTypeID]
+		,[Description]
+		,[DefaultInStore]
+    FROM 	[dbo].[TransactionType]
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 04/23/2020
+Comment: Selects the default transaction type for in store.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_default_transaction_type]
+GO
+PRINT '' PRINT '*** Creating sp_select_default_transaction_type'
+GO
+CREATE PROCEDURE [sp_select_default_transaction_type]
+AS
+BEGIN
+    SELECT
+         [TransactionTypeID]
+		,[Description]
+		,[DefaultInStore]
+    FROM 	[dbo].[TransactionType]
+	WHERE [DefaultInStore] = 1
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 04/24/2020
+Comment: Selects all transaction status.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_transaction_status]
+GO
+PRINT '' PRINT '*** Creating sp_select_all_transaction_status'
+GO
+CREATE PROCEDURE [sp_select_all_transaction_status]
+AS
+BEGIN
+    SELECT
+         [TransactionStatusID]
+		,[Description]
+		,[DefaultInStore]
+    FROM 	[dbo].[TransactionStatus]
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 04/24/2020
+Comment: Selects the default transaction status for in store.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_default_transaction_status]
+GO
+PRINT '' PRINT '*** Creating sp_select_default_transaction_status'
+GO
+CREATE PROCEDURE [sp_select_default_transaction_status]
+AS
+BEGIN
+    SELECT
+         [TransactionStatusID]
+		,[Description]
+		,[DefaultInStore]
+    FROM 	[dbo].[TransactionStatus]
+	WHERE [DefaultInStore] = 1
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-29
+Comment: Stored Procedure for updating transaction type.
+*/
+DROP PROCEDURE IF EXISTS [sp_update_transaction_type]
+GO
+print '' print '*** Creating sp_update_transaction_type'
+GO
+CREATE PROCEDURE [sp_update_transaction_type]
+(
+	@NewTransactionTypeID	[nvarchar](20),
+	@NewDescription 		[nvarchar](500),
+	@NewDefaultInStore		[bit],
+	
+	@OldTransactionTypeID	[nvarchar](20),
+	@OldDescription 		[nvarchar](500),
+	@OldDefaultInStore		[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[TransactionType]
+	SET 
+		[TransactionTypeID]  =		@NewTransactionTypeID,
+		[Description]  		 =		@NewDescription,
+		[DefaultInStore]   	 =		@NewDefaultInStore		
+	WHERE   
+			[TransactionTypeID]	=	@OldTransactionTypeID
+		AND	[Description]  		=	@OldDescription
+		AND [DefaultInStore] 	= 	@OldDefaultInStore
+	
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-29
+Comment: Stored Procedure for deleting transaction type.
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_transaction_type]
+GO
+print '' print '*** Creating sp_delete_transaction_type'
+GO
+CREATE PROCEDURE [sp_delete_transaction_type]
+(
+	@TransactionTypeID	[nvarchar](20)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[TransactionType]
+	WHERE [TransactionTypeID] = @TransactionTypeID
+	
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-29
+Comment: Stored Procedure for updating transaction status.
+*/
+DROP PROCEDURE IF EXISTS [sp_update_transaction_status]
+GO
+print '' print '*** Creating sp_update_transaction_status'
+GO
+CREATE PROCEDURE [sp_update_transaction_status]
+(
+	@NewTransactionStatusID	[nvarchar](20),
+	@NewDescription 		[nvarchar](500),
+	@NewDefaultInStore		[bit],
+	
+	@OldTransactionStatusID	[nvarchar](20),
+	@OldDescription 		[nvarchar](500),
+	@OldDefaultInStore		[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[TransactionStatus]
+	SET 
+		[TransactionStatusID]  =		@NewTransactionStatusID,
+		[Description]  		   =		@NewDescription,
+		[DefaultInStore]   	   =		@NewDefaultInStore		
+	WHERE   
+			[TransactionStatusID]	=	@OldTransactionStatusID
+		AND	[Description]  			=	@OldDescription
+		AND [DefaultInStore] 		= 	@OldDefaultInStore
+	
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 2020-04-29
+Comment: Stored Procedure for deleting transaction status.
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_transaction_status]
+GO
+print '' print '*** Creating sp_delete_transaction_status'
+GO
+CREATE PROCEDURE [sp_delete_transaction_status]
+(
+	@TransactionStatusID	[nvarchar](20)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[TransactionStatus]
+	WHERE [TransactionStatusID] = @TransactionStatusID
+	
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Jaeho Kim
+Date: 04/24/2020
+Comment: stored procedure for adjusting the item quantity in stock after
+a transaction is processed.
+*/
+DROP PROCEDURE IF EXISTS [sp_update_item_quantity]
+GO
+print '' print '*** Creating sp_update_item_quantity'
+GO
+CREATE PROCEDURE sp_update_item_quantity
+(
+	-- the last transaction id entered
+	@TransactionID		[int],
+
+	-- the product id that is used to identify
+	-- the item id.
+	@ProductID			[nvarchar](13)
+)
+AS
+	BEGIN
+
+		-- this is the quantity that's entered
+		DECLARE @Quantity [int];
+
+		-- this is the quantity in stock from the item table
+		DECLARE @QuantityInStock [int];
+
+		-- The value that replaces the quantity in stock.
+		-- This is done by subtracting the quantity
+		-- from the quantity in stock.
+		DECLARE @NewQuantityInStock [int];
+
+		-- Retrieving the Quantity entered
+		-- from the transaction...
+		SET @Quantity = (SELECT [Quantity]
+		FROM [dbo].[TransactionLineProducts]
+		WHERE [TransactionID] = @TransactionID
+		AND [ProductID] = @ProductID)
+
+		-- Retrieving the quantity in stock of the item id
+		-- that's related to the product.
+		SET @QuantityInStock = (SELECT [ItemQuantity]
+		FROM [dbo].[Item]
+		INNER JOIN
+			[dbo].[Product]
+		ON
+			[Item].[ItemID] = [Product].[ItemID]
+		WHERE [Product].[ProductID] = @ProductID)
+
+		-- basic subtraction...
+		SET @NewQuantityInStock = @QuantityInStock - @Quantity
+
+	-- update the quantity
+	UPDATE [dbo].[Item]
+		SET
+		[ItemQuantity] = @NewQuantityInStock
+	WHERE
+		ItemID = (SELECT [ItemID] FROM [Product]
+		WHERE [ProductID] = @ProductID)
+	RETURN @@ROWCOUNT
+	END
+
+GO
+
 
 /*
 Created by: Brandyn T. Coverdill
@@ -6635,8 +7381,8 @@ PRINT '' PRINT '*** Creating sp_set_department_active_by_id'
 GO
 CREATE PROCEDURE [sp_deactivate_department_by_id]
 (
-	 @DepartmentID		[nvarchar](50)
-	,@Active			[bit]
+	@DepartmentID		[nvarchar](50),
+	@Active				[bit]
 )
 AS
 BEGIN
@@ -6842,7 +7588,7 @@ CREATE PROCEDURE [sp_select_adoption_appointment_by_appointment_id]
 )
 AS
 BEGIN
-	SELECT 
+	SELECT
 	[AppointmentID]
 	,[AdoptionApplication].[AdoptionApplicationID]
 	,[Appointment].[AppointmentTypeID]
@@ -6906,7 +7652,7 @@ BEGIN
 		(@StatusID)
 	RETURN @@ROWCOUNT
 END
-GO	
+GO
 
 /*
 Created by: Austin Gee
@@ -6926,7 +7672,7 @@ BEGIN
 		[dbo].[Status]
 	ORDER BY [StatusID] ASC
 END
-GO	
+GO
 
 /*
 Created by: Austin Gee
@@ -6950,7 +7696,7 @@ BEGIN
 		(@AnimalID, @StatusID)
 	RETURN @@ROWCOUNT
 END
-GO	
+GO
 
 /*
 Created by: Austin Gee
@@ -6972,7 +7718,7 @@ BEGIN
 	WHERE [AnimalID] = @AnimalID
 	ORDER BY [StatusID] ASC
 END
-GO	
+GO
 
 /*
 Created by: Austin Gee
@@ -6995,7 +7741,7 @@ BEGIN
 	AND [StatusID] = @StatusID
 	RETURN @@ROWCOUNT
 END
-GO	
+GO
 
 /*
 Created by: Austin Gee
@@ -7021,7 +7767,7 @@ BEGIN
 		(@AdoptionApplicationID, @AppointmentTypeID, @DateTime, @LocationID)
 	RETURN @@ROWCOUNT
 END
-GO	
+GO
 
 /*
 Created by: Austin Gee
@@ -7049,7 +7795,7 @@ BEGIN
 		(@Name, @Address1, @Address2, @City, @State, @Zip)
 	RETURN @@ROWCOUNT
 END
-GO	
+GO
 
 /*
 Created by: Austin Gee
@@ -7074,7 +7820,7 @@ BEGIN
 	FROM [dbo].[Location]
 	ORDER BY [Name] ASC
 END
-GO	
+GO
 
 /*
 Created by: Austin Gee
@@ -7102,7 +7848,7 @@ BEGIN
 	FROM [dbo].[Location]
 	WHERE [LocationID] = @LocationID
 END
-GO	
+GO
 
 /*
 Created by: Austin Gee
@@ -7116,14 +7862,14 @@ GO
 CREATE PROCEDURE [sp_update_location]
 (
 	@LocationID			[int],
-	
+
 	@OldName			[nvarchar](100),
 	@OldAddress1		[nvarchar](100),
 	@OldAddress2		[nvarchar](100),
 	@OldCity			[nvarchar](100),
 	@OldState			[nvarchar](2),
 	@OldZip				[nvarchar](20),
-	
+
 	@NewName			[nvarchar](100),
 	@NewAddress1		[nvarchar](100),
 	@NewAddress2		[nvarchar](100),
@@ -7140,8 +7886,8 @@ BEGIN
 			[City]		 = @NewCity,
 			[State]		 = @NewState,
 			[Zip]		 = @NewZip
-			
-	WHERE	[LocationID] = @LocationID	
+
+	WHERE	[LocationID] = @LocationID
 	AND 	[Name]		 = @OldName
 	AND		[Address1]	 = @OldAddress1
 	AND		[Address2]	 = @OldAddress2
@@ -7150,7 +7896,7 @@ BEGIN
 	AND		[Zip]		 = @OldZip
 	RETURN @@ROWCOUNT
 END
-GO	
+GO
 
 /*
 Created by: Austin Gee
@@ -7164,7 +7910,7 @@ GO
 CREATE PROCEDURE [sp_delete_location]
 (
 	@LocationID			[int],
-	
+
 	@Name			[nvarchar](100),
 	@Address1		[nvarchar](100),
 	@Address2		[nvarchar](100),
@@ -7196,25 +7942,25 @@ CREATE PROCEDURE [sp_Select_NewAnimalCheckList_By_AnimalID]
 )
 AS
 BEGIN
-    SELECT 
+    SELECT
         Animal.AnimalID,
-        Animal.AnimalName,  	
-        Animal.Dob,				
-        Animal.AnimalSpeciesID,		
-        Animal.AnimalBreed,			
-        Animal.ArrivalDate,			
-        Animal.CurrentlyHoused,		
+        Animal.AnimalName,
+        Animal.Dob,
+        Animal.AnimalSpeciesID,
+        Animal.AnimalBreed,
+        Animal.ArrivalDate,
+        Animal.CurrentlyHoused,
         Animal.Adoptable,
-        AnimalHandlingNotes.AnimalHandlingNotes,	
+        AnimalHandlingNotes.AnimalHandlingNotes,
         AnimalHandlingNotes.TemperamentWarning,
-        AnimalMedicalInfo.SpayedNeutered,				
-        AnimalMedicalInfo.Vaccinations,				
-        AnimalMedicalInfo.MostRecentVaccinationDate,	
-        AnimalMedicalInfo.AdditionalNotes	
-    FROM [dbo].[Animal] 
+        AnimalMedicalInfo.SpayedNeutered,
+        AnimalMedicalInfo.Vaccinations,
+        AnimalMedicalInfo.MostRecentVaccinationDate,
+        AnimalMedicalInfo.AdditionalNotes
+    FROM [dbo].[Animal]
     INNER JOIN [dbo].[AnimalHandlingNotes]
     ON AnimalHandlingNotes.AnimalID = Animal.AnimalID
-    INNER JOIN 
+    INNER JOIN
     AnimalMedicalInfo
     ON
     AnimalMedicalInfo.AnimalID = Animal.AnimalID
@@ -7232,12 +7978,12 @@ GO
 CREATE PROCEDURE [SP_Select_Medication_By_Low_Qauntity]
 AS
 BEGIN
-    SELECT 
+    SELECT
         [ItemID],
-        [ItemQuantity],				
-        [ItemName]			
-			
-    FROM [dbo].[Item] 
+        [ItemQuantity],
+        [ItemName]
+
+    FROM [dbo].[Item]
     WHERE[ItemCategoryID] = 'Medication'
     AND [ItemQuantity] < 5
 END
@@ -7250,11 +7996,11 @@ GO
 CREATE PROCEDURE [SP_Select_Medication_By_Empty_Qauntity]
 AS
 BEGIN
-    SELECT 
+    SELECT
         [ItemID],
-        [ItemQuantity],				
-        [ItemName]			                
-    FROM [dbo].[Item] 
+        [ItemQuantity],
+        [ItemName]
+    FROM [dbo].[Item]
     WHERE [ItemCategoryID] = 'Medication'
     AND [ItemQuantity] = 0
 END
@@ -7267,7 +8013,7 @@ GO
 CREATE PROCEDURE [sp_Select_Animal_Feeding_Records]
 AS
 BEGIN
-    SELECT 
+    SELECT
         [AnimalActivityID],
         [AnimalID],
         [UserID],
@@ -7359,18 +8105,18 @@ CREATE PROCEDURE [sp_Select_Animal_By_AnimalID]
 )
 AS
 BEGIN
-    SELECT 
+    SELECT
         [AnimalID],
-        [AnimalName],  	
-        [Dob],				
-        [AnimalSpeciesID],		
-        [AnimalBreed],			
-        [ArrivalDate],			
-		[CurrentlyHoused],		
+        [AnimalName],
+        [Dob],
+        [AnimalSpeciesID],
+        [AnimalBreed],
+        [ArrivalDate],
+		[CurrentlyHoused],
         [Adoptable],
 		[Active]
 
-    FROM [Animal] 
+    FROM [Animal]
     WHERE[AnimalID] = @AnimalID
 END
 GO
@@ -7382,11 +8128,11 @@ GO
 CREATE PROCEDURE [SP_Select_Items_By_ItemCategoryID]
 AS
 BEGIN
-    SELECT 
+    SELECT
         [ItemID],
-        [ItemQuantity],				
-        [ItemName]						
-    FROM [dbo].[Item] 
+        [ItemQuantity],
+        [ItemName]
+    FROM [dbo].[Item]
     WHERE[ItemCategoryID] = 'Medication'
 END
 GO
@@ -7403,13 +8149,13 @@ GO
 CREATE PROCEDURE [sp_check_email_exists]
 (
 @Email [NVARCHAR](250)
-)  
-AS     
-BEGIN     
-SELECT COUNT(*) 
-FROM [dbo].[User] 
+)
+AS
+BEGIN
+SELECT COUNT(*)
+FROM [dbo].[User]
 WHERE Email = @Email
-END    
+END
 GO
 
 /*
@@ -7424,13 +8170,13 @@ GO
 CREATE PROCEDURE [sp_get_unlock_date]
 (
 @Email [NVARCHAR](250)
-)  
-AS     
-BEGIN     
+)
+AS
+BEGIN
 SELECT UnlockDate
-FROM [dbo].[User] 
+FROM [dbo].[User]
 WHERE Email = @Email
-END    
+END
 GO
 
 /*
@@ -7445,14 +8191,14 @@ GO
 CREATE PROCEDURE [sp_check_user_is_locked]
 (
 @Email [NVARCHAR](250)
-)  
-AS     
-BEGIN     
-SELECT COUNT(*) 
-FROM [dbo].[User] 
+)
+AS
+BEGIN
+SELECT COUNT(*)
+FROM [dbo].[User]
 WHERE Email = @Email
 AND Locked = 1
-END    
+END
 GO
 
 /*
@@ -7467,15 +8213,15 @@ GO
 CREATE PROCEDURE [sp_unlock_user_by_date]
 (
 @Email [NVARCHAR](250)
-)  
-AS     
-BEGIN     
+)
+AS
+BEGIN
 UPDATE [dbo].[User]
 SET Locked = 0, UnlockDate = null
-WHERE Email = @Email 
+WHERE Email = @Email
 AND UnlockDate < GETDATE()
 RETURN @@ROWCOUNT
-END    
+END
 GO
 
 /*
@@ -7492,14 +8238,14 @@ Create Procedure [sp_lockout_user]
 @Email [NVARCHAR](250),
 @UnlockDate [DateTime],
 @LockDate [DateTime]
-)  
-AS     
-BEGIN     
+)
+AS
+BEGIN
 UPDATE [dbo].[User]
 	SET Locked = 1, UnlockDate = @UnlockDate, LockDate = @LockDate
 	WHERE Email = @Email
 	RETURN @@ROWCOUNT
-END    
+END
 GO
 
 /*
@@ -7516,12 +8262,12 @@ CREATE PROCEDURE [sp_select_shifts_for_a_volunteer](
 )
 AS
 BEGIN
-	SELECT [VolunteerShift].[VolunteerShiftID], [ShiftDescription], 
+	SELECT [VolunteerShift].[VolunteerShiftID], [ShiftDescription],
 		[ShiftTitle], [ShiftDate], [ShiftStartTime],
 		[ShiftEndTime], [Recurrance], [IsSpecialEvent],
 		[ShiftNotes], [ScheduleID]
-	FROM [ShiftRecord] 
-	JOIN [VolunteerShift] ON 
+	FROM [ShiftRecord]
+	JOIN [VolunteerShift] ON
 		([VolunteerShift].[VolunteerShiftID] = [ShiftRecord].[VolunteerShiftID])
 	WHERE [ShiftRecord].[VolunteerID] = @VolunteerID
 END
@@ -7538,7 +8284,7 @@ CREATE PROCEDURE [sp_select_all_medicine]
 AS
 BEGIN
 	select
-		[MedicineID], [MedicineName], 
+		[MedicineID], [MedicineName],
 		[MedicineDosage], [MedicineDescription]
 	from [dbo].[Medicine]
 END
@@ -7744,7 +8490,7 @@ BEGIN
 		(@AdoptionApplicationID,@CustomerEmail,@Question8,@Answer8),
 		(@AdoptionApplicationID,@CustomerEmail,@Question9,@Answer9),
 		(@AdoptionApplicationID,@CustomerEmail,@Question10,@Answer10)
-		Return @@ROWCOUNT 
+		Return @@ROWCOUNT
 END
 GO
 
@@ -7795,15 +8541,15 @@ CREATE PROCEDURE [sp_select_messages_by_recipient]
 )
 AS
 BEGIN
-SELECT  [MessageID]			
-        ,[MessageContent] 	
-        ,[MessageTitle] 	
-        ,[MessageSenderID] 	
+SELECT  [MessageID]
+        ,[MessageContent]
+        ,[MessageTitle]
+        ,[MessageSenderID]
         ,[MessageReceiverID]
-        ,[MessageSeen] 		
+        ,[MessageSeen]
 FROM Message
 WHERE MessageReceiverID = @MessageReceiverID
-END 
+END
 GO
 
 /*
@@ -7819,13 +8565,13 @@ CREATE PROCEDURE [sp_get_departments_like_input]
 (
 @query NVARCHAR(50)
 )
-AS 
+AS
 BEGIN
 SELECT [DepartmentID]
-FROM Department 
+FROM Department
 WHERE DepartmentID LIKE '%' + @query + '%'
 END
-GO		
+GO
 
 /*
 Created by: Zach Behrensmeyer
@@ -7840,13 +8586,13 @@ CREATE PROCEDURE [sp_get_users_like_input]
 (
 @query NVARCHAR(50)
 )
-AS 
+AS
 BEGIN
 SELECT [Email]
 FROM [dbo].[User]
 WHERE Email LIKE '%' + @query + '%'
 END
-GO	
+GO
 
 /*
 Created by: Zach Behrensmeyer
@@ -7864,23 +8610,23 @@ CREATE PROCEDURE [sp_insert_message]
 		,@MessageSenderID 	[INT]
 		,@MessageReceiverID	[INT]
 )
-AS 
+AS
 BEGIN
 INSERT INTO [Message]
-	(MessageContent, 
+	(MessageContent,
 	MessageTitle,
 	MessageSenderID,
 	MessageReceiverID,
 	MessageSeen
-	
+
 	)
-	Values(@MessageContent 
-	       ,@MessageTitle 	
+	Values(@MessageContent
+	       ,@MessageTitle
 	       ,@MessageSenderID
 	       ,@MessageReceiverID
 		   ,0
 		   )
-END	
+END
 GO
 
 /*
@@ -7896,12 +8642,12 @@ CREATE PROCEDURE [sp_get_department_users]
 (
 	@DepartmentID [nvarchar](50)
 )
-AS 
+AS
 BEGIN
 SELECT UserID, FirstName, LastName, PhoneNumber, Email, addressLineOne, addressLineTwo, City, State, ZipCode
 FROM [dbo].[User]
-WHERE DepartmentID = @DepartmentID 
-END	
+WHERE DepartmentID = @DepartmentID
+END
 GO
 
 
@@ -7929,7 +8675,7 @@ BEGIN
 
 	BEGIN TRY
 		BEGIN TRANSACTION
-		
+
 		IF (SELECT COUNT(BaseScheduleID)
 			FROM [dbo].[BaseSchedule])>0
 			BEGIN
@@ -7937,16 +8683,16 @@ BEGIN
 				SET [Active] = 0
 				WHERE [Active] = 1
 			END
-			
-			
+
+
 		INSERT INTO [dbo].[BaseSchedule]
 		([CreatingUserID],[CreationDate],[Active])
 		VALUES
 		(@CreatingUserID,@CreationDate,1)
 		SELECT SCOPE_IDENTITY()
-		
+
 		COMMIT
-		
+
 		END TRY
 		BEGIN CATCH
 			ROLLBACK
@@ -8111,7 +8857,7 @@ BEGIN
     SELECT
         [UserID],
         [FirstName],
-        [LastName], 
+        [LastName],
         [PhoneNumber],
         [Email],
         [addressLineOne],
@@ -8151,7 +8897,7 @@ BEGIN
 	,[City]
 	,[State]
 	,[Zipcode]
-	FROM [Customer] 
+	FROM [Customer]
 	WHERE [Customer].[Email] = @Email
 END
 GO
@@ -8165,13 +8911,13 @@ DROP PROCEDURE IF EXISTS [sp_select_all_appointment_types]
 GO
 print '' print '*** Creating sp_select_all_appointment_types'
 GO
-CREATE PROCEDURE [sp_select_all_appointment_types] 
+CREATE PROCEDURE [sp_select_all_appointment_types]
 AS
 BEGIN
 	SELECT
 		[AppointmentTypeID]
 	FROM [AppointmentType]
-	
+
 END
 GO
 
@@ -8208,7 +8954,7 @@ BEGIN
 	AND [AdoptionApplication].[Active] = @Active
 END
 GO
- 
+
 /*
 Created by: Matt Deaton
 Date: 2020-03-06
@@ -8386,37 +9132,37 @@ BEGIN
 	UPDATE [dbo].[User]
     SET [HasViewedPoliciesAndStandards] = 1
     WHERE [UserID] = @UserID
-    
+
     RETURN @@ROWCOUNT
-END 
+END
 GO
-                
+
 /*
 Created by: Ben Hanna
 Date: 4/2/2020
 Comment: Insert a kennel cleaning record
 */
 DROP PROCEDURE IF EXISTS [sp_insert_kennel_cleaning_record]
-GO                
+GO
 PRINT '' PRINT '*** Creating sp_insert_kennel_cleaning_record'
 GO
 CREATE PROCEDURE [sp_insert_kennel_cleaning_record]
 (
     @UserID           [int],
-    @AnimalKennelID   [int], 
+    @AnimalKennelID   [int],
     @Date	          [date],
     @Notes            [nvarchar](250)
-        
+
 )
 AS
 BEGIN
-   INSERT INTO [dbo].[FacilityKennelCleaning] 
+   INSERT INTO [dbo].[FacilityKennelCleaning]
         ([UserID],
          [AnimalKennelID],
          [Date],
          [Notes]
         )
-   VALUES 
+   VALUES
         (@UserID,
          @AnimalKennelID,
          @Date,
@@ -8424,7 +9170,7 @@ BEGIN
         )
    SELECT SCOPE_IDENTITY()
 END
-GO               
+GO
 
 /*
 Created by: Robert Holmes
@@ -8644,7 +9390,7 @@ CREATE PROCEDURE [sp_update_animal_activity]
 	@AnimalActivityTypeID		[nvarchar](100),
 	@ActivityDateTime			[datetime],
 	@Description				[nvarchar](400),
-	
+
 	@NewAnimalID				[int],
 	@NewUserID					[int],
 	@NewAnimalActivityTypeID	[nvarchar](100),
@@ -8706,7 +9452,7 @@ AS
 BEGIN
 	SELECT 	[UserID],
 			[FirstName],
-			[LastName], 
+			[LastName],
 			[PhoneNumber],
 			[Email],
 			[addressLineOne],
@@ -8760,7 +9506,7 @@ AS
 			([UserID], [Active])
 		VALUES
 			(@UserID, @Active)
-	  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -8785,7 +9531,7 @@ AS
 			([UserID], [Active])
 		VALUES
 			(@UserID, @Active)
-	  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -8882,7 +9628,7 @@ CREATE PROCEDURE sp_update_order_by_id
 		@OrderID					[int],
         @UserID						[int],
 		@Active						[bit],
-		
+
 		@OldOrderID					[int],
         @OldUserID					[int],
 		@OldActive					[bit]
@@ -8893,7 +9639,7 @@ AS
 		SET 	[UserID] = @UserID,
 				[Active] = @Active
 		WHERE 	[OrderID] = @OldOrderID
-		  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -8912,7 +9658,7 @@ CREATE PROCEDURE sp_update_special_order_by_id
 		@SpecialOrderID				[int],
         @UserID						[int],
 		@Active						[bit],
-		
+
 		@OldSpecialOrderID			[int],
         @OldUserID					[int],
 		@OldActive					[bit]
@@ -8923,7 +9669,7 @@ AS
 		SET 	[UserID] = @UserID,
 				[Active] = @Active
 		WHERE 	[SpecialOrderID] = @SpecialOrderID
-		  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -8943,10 +9689,10 @@ CREATE PROCEDURE sp_delete_order_by_id
 	)
 AS
 	BEGIN
-		DELETE  
+		DELETE
 		FROM 	[orders]
 		WHERE 	[OrderID] = @OrderID
-	  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -8966,10 +9712,10 @@ CREATE PROCEDURE sp_delete_special_order_by_id
 	)
 AS
 	BEGIN
-		DELETE  
+		DELETE
 		FROM 	[specialorders]
 		WHERE 	[SpecialOrderID] = @SpecialOrderID
-	  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -8990,10 +9736,10 @@ CREATE PROCEDURE sp_deactivate_order_by_id
 	)
 AS
 	BEGIN
-		UPDATE  [orders]  
+		UPDATE  [orders]
 		SET 	[Active] = 0
 		WHERE 	[OrderID] = @OrderID
-	  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -9013,10 +9759,10 @@ CREATE PROCEDURE sp_deactivate_special_order_by_id
 	)
 AS
 	BEGIN
-		UPDATE  [specialorders]  
+		UPDATE  [specialorders]
 		SET 	[Active] = 0
 		WHERE 	[SpecialOrderID] = @SpecialOrderID
-	  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -9036,10 +9782,10 @@ CREATE PROCEDURE sp_activate_order_by_id
 	)
 AS
 	BEGIN
-		UPDATE  [orders]  
+		UPDATE  [orders]
 		SET 	[Active] = 1
 		WHERE 	[OrderID] = @OrderID
-	  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -9059,10 +9805,10 @@ CREATE PROCEDURE sp_activate_special_order_by_id
 	)
 AS
 	BEGIN
-		UPDATE  [specialorders]  
+		UPDATE  [specialorders]
 		SET 	[Active] = 1
 		WHERE 	[SpecialOrderID] = @SpecialOrderID
-	  
+
 		RETURN @@ROWCOUNT
 	END
 GO
@@ -9081,7 +9827,7 @@ CREATE PROCEDURE sp_select_transactions_by_employee_name
 )
 AS
 	BEGIN
-		SELECT 	
+		SELECT
 		T.[TransactionID],
 		T.[TransactionDateTime],
 		U.[UserID],
@@ -9152,7 +9898,7 @@ CREATE PROCEDURE [sp_insert_transaction_line_products]
 	@PriceSold		[decimal](10,2)
 )
 AS
-BEGIN	
+BEGIN
 	INSERT INTO [dbo].[TransactionLineProducts]
 	([TransactionID],[ProductID],[Quantity],[PriceSold])
 	VALUES
@@ -9180,18 +9926,21 @@ CREATE PROCEDURE [sp_insert_transaction]
 	@TransactionStatusID	[nvarchar](20),
 	@CustomerEmail			[nvarchar](250),
 	@StripeChargeID			[nvarchar](30),
-	@ReturnTransactionId 	[int] out  
+	@TaxExemptNumber		[nvarchar](250),
+	@ReturnTransactionId 	[int] out
 )
 AS
 BEGIN
 INSERT INTO [Transaction]
 	([TransactionDateTime], [TaxRate], [SubTotalTaxable],
 	[SubTotal], [Total], [TransactionTypeID],
-	[EmployeeID], [TransactionStatusID], [CustomerEmail], [StripeChargeID])
+	[EmployeeID], [TransactionStatusID], [CustomerEmail], [StripeChargeID],
+	[TaxExemptNumber])
 VALUES
 	(@TransactionDateTime, @TaxRate, @SubTotalTaxable,
 	@SubTotal, @Total, @TransactionTypeID,
-	@EmployeeID, @TransactionStatusID, @CustomerEmail, @StripeChargeID)
+	@EmployeeID, @TransactionStatusID, @CustomerEmail, @StripeChargeID,
+	@TaxExemptNumber)
 	SELECT SCOPE_IDENTITY()
 END
 GO
@@ -9218,7 +9967,7 @@ BEGIN
 	VALUES
 	(@ZipCode, @TaxRate, @SalesTaxDate)
 END
-GO 
+GO
 
 /*
 Created by: Jaeho Kim
@@ -9233,7 +9982,7 @@ CREATE PROCEDURE [sp_select_latest_salesTaxDate_by_zipCode]
 )
 AS
 BEGIN
-	
+
 	SELECT MAX(SalesTaxDate) AS 'Latest Sales Date'
 	FROM SalesTaxHistory
 	WHERE ZipCode = @ZipCode
@@ -9250,7 +9999,7 @@ CREATE PROCEDURE [sp_select_taxRate_by_salesTaxDate_and_zipCode]
 )
 AS
 BEGIN
-	
+
 	SELECT TaxRate
 	FROM SalesTaxHistory
 	WHERE SalesTaxDate = @SalesTaxDate
@@ -9280,7 +10029,7 @@ BEGIN
 	([TransactionTypeID], [Description], [DefaultInStore])
 	VALUES
 	(@TransactionTypeID, @Description, @DefaultInStore)
-	
+
 	IF @DefaultInStore >= 0
 		UPDATE [dbo].[TransactionType]
 		SET [DefaultInStore] = 0
@@ -9309,7 +10058,7 @@ BEGIN
 	([TransactionStatusID], [Description], [DefaultInStore])
 	VALUES
 	(@TransactionStatusID, @Description, @DefaultInStore)
-	
+
 	IF @DefaultInStore >= 0
 		UPDATE [dbo].[TransactionStatus]
 		SET [DefaultInStore] = 0
@@ -9320,7 +10069,7 @@ GO
 /*
 Created by: Rasha Mohammed
 Date: 3/16/2020
-Comment: Search for an item 
+Comment: Search for an item
 */
 PRINT '' PRINT '*** Creating sp_select_product_by_id'
 GO
@@ -9346,7 +10095,37 @@ BEGIN
 	INNER JOIN [dbo].[Product] P
 	ON I.[ItemID] = P.[ItemID]
 	WHERE P.[ProductID] = @ProductID
-	
+
+END
+GO
+
+/*
+Created by: Brandyn T. Coverdill
+Date: 04/10/2020
+Comment: Updates the item to have an Active of 1
+*/
+DROP PROCEDURE IF EXISTS [sp_reactivate_item]
+GO
+PRINT '' PRINT '*** Creating sp_deactivate_item ***'
+GO
+CREATE PROCEDURE [sp_reactivate_item]
+(
+		@ItemID          [int],
+		@ItemName        [nvarchar] (50),
+		@ItemCategoryID  [nvarchar] (50),
+		@ItemDescription [nvarchar] (50),
+		@ItemQuantity    [int]
+)
+AS
+BEGIN
+	UPDATE [Item]
+	SET    [Active] = 1
+	WHERE  [ItemID] = @ItemID
+	AND    [ItemName] = @ItemName
+	AND	   [ItemCategoryID] = @ItemCategoryID
+	AND    [ItemDescription] = @ItemDescription
+	AND    [ItemQuantity] = @ItemQuantity
+	SELECT @@ROWCOUNT
 END
 GO
 
@@ -9472,7 +10251,154 @@ BEGIN
 END
 GO
 
-                
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that adds a new vendor.
+*/
+DROP PROCEDURE IF EXISTS [sp_add_new_vendor]
+GO
+print '' print '*** Creating sp_add_new_vendor'
+GO
+CREATE PROCEDURE [sp_add_new_vendor](
+	@VendorName		[nvarchar](50),
+	@VendorAddress	[nvarchar](100),
+	@VendorPhone	[nvarchar](11),
+	@VendorEmail	[nvarchar](250),
+	@VendorState	[nvarchar](2),
+	@VendorCity		[nvarchar](50),
+	@VendorZip		[nvarchar](20)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Vendor]
+	([VendorName], [VendorAddress], [VendorPhone], [VendorEmail], [VendorState], [VendorCity], [VendorZip])
+	VALUES
+	(@VendorName, @VendorAddress, @VendorPhone, @VendorEmail, @VendorState, @VendorCity, @VendorZip)
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that selects a vendor by VendorID.
+*/
+DROP PROCEDURE IF EXISTS [sp_get_vendor_by_id]
+GO
+print '' print '*** Creating sp_get_vendor_by_id'
+GO
+CREATE PROCEDURE [sp_get_vendor_by_id](
+	@VendorID [int]
+)
+AS
+BEGIN
+	SELECT [VendorName],
+		   [VendorAddress],
+		   [VendorPhone],
+		   [VendorEmail],
+		   [VendorState],
+		   [VendorCity],
+		   [VendorZip]
+	FROM [dbo].[Vendor]
+	WHERE [VendorID] = @VendorID
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that removes a vendor.
+*/
+DROP PROCEDURE IF EXISTS [sp_remove_vendor]
+GO
+print '' print '*** Creating sp_remove_vendor'
+GO
+CREATE PROCEDURE [sp_remove_vendor](
+	@VendorID [int]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[Vendor]
+	WHERE [VendorID] = @VendorID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that gets a list of every vendor.
+*/
+DROP PROCEDURE IF EXISTS [sp_get_vendors]
+GO
+print '' print '*** Creating sp_get_vendors'
+GO
+CREATE PROCEDURE [sp_get_vendors]
+AS
+BEGIN
+	SELECT [VendorID],
+		   [VendorName],
+		   [VendorAddress],
+		   [VendorPhone],
+		   [VendorEmail],
+		   [VendorState],
+		   [VendorCity],
+		   [VendorZip]
+	FROM [dbo].[Vendor]
+END
+GO
+
+/*
+Created By: Brandyn T. Coverdill
+Date: 2020/04/16
+Comment: Stored Procedure that updates a vendor
+*/
+DROP PROCEDURE IF EXISTS [sp_update_vendor]
+GO
+print '' print '*** Creating sp_update_vendor'
+GO
+CREATE PROCEDURE [sp_update_vendor](
+	@VendorID [int],
+
+	@OldVendorName		[nvarchar](50),
+	@OldVendorAddress	[nvarchar](100),
+	@OldVendorPhone		[nvarchar](11),
+	@OldVendorEmail		[nvarchar](250),
+	@OldVendorState		[nvarchar](2),
+	@OldVendorCity		[nvarchar](50),
+	@OldVendorZip		[nvarchar](20),
+
+	@NewVendorName		[nvarchar](50),
+	@NewVendorAddress	[nvarchar](100),
+	@NewVendorPhone		[nvarchar](11),
+	@NewVendorEmail		[nvarchar](250),
+	@NewVendorState		[nvarchar](2),
+	@NewVendorCity		[nvarchar](50),
+	@NewVendorZip		[nvarchar](20)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Vendor]
+	SET   [VendorName] 			= @NewVendorName,
+		  [VendorAddress]       = @NewVendorAddress,
+		  [VendorPhone]			= @NewVendorPhone,
+		  [VendorEmail]			= @NewVendorEmail,
+		  [VendorState]			= @NewVendorState,
+		  [VendorCity]			= @NewVendorCity,
+		  [VendorZip]			= @NewVendorZip
+	WHERE [VendorID]       		= @VendorID
+	AND   [VendorName] 			= @OldVendorName
+	AND	  [VendorAddress]		= @OldVendorAddress
+	AND	  [VendorPhone]			= @OldVendorPhone
+	AND   [VendorEmail]			= @OldVendorEmail
+	AND   [VendorState]			= @OldVendorState
+	AND   [VendorCity]			= @OldVendorCity
+	AND	  [VendorZip]			= @OldVendorZip
+	RETURN @@ROWCOUNT
+END
+GO
+
+
 /*
 Created by: Ben Hanna
 Date: 04/7/2020
@@ -9485,56 +10411,56 @@ GO
 CREATE PROCEDURE [sp_select_all_kennel_cleaning_records]
 AS
 BEGIN
-	SELECT 
-    [FacilityKennelCleaningID],	
-	[UserID],					
-	[AnimalKennelID],			
-	[Date],						
-	[Notes]						
+	SELECT
+    [FacilityKennelCleaningID],
+	[UserID],
+	[AnimalKennelID],
+	[Date],
+	[Notes]
  	FROM [dbo].[FacilityKennelCleaning]
 END
 GO
-                
+
 /*
 Created by: Ben Hanna
 Date: 4/8/2020
 Comment: Update a kennel cleaning record
-*/ 
+*/
 DROP PROCEDURE IF EXISTS [sp_update_kennel_cleaning_record]
-GO     
+GO
 PRINT '' PRINT '*** Creating sp_update_kennel_cleaning_record'
 GO
 CREATE PROCEDURE [sp_update_kennel_cleaning_record]
 (
     @FacilityKennelCleaningID   [int],
-    
+
     @NewUserID                  [int],
-    @NewAnimalKennelID          [int], 
+    @NewAnimalKennelID          [int],
     @NewDate	                [date],
     @NewNotes                   [nvarchar](250),
-    
+
 	@OldUserID                  [int],
-    @OldAnimalKennelID          [int], 
+    @OldAnimalKennelID          [int],
     @OldDate	                [date],
     @OldNotes                   [nvarchar](250)
 )
 AS
 BEGIN
 	UPDATE [dbo].[FacilityKennelCleaning]
-    SET [UserID]                              = @NewUserID, 
-        [AnimalKennelID]                      = @NewAnimalKennelID,  
+    SET [UserID]                              = @NewUserID,
+        [AnimalKennelID]                      = @NewAnimalKennelID,
         [Date]                                = @NewDate,
-        [Notes]                               = @NewNotes        
+        [Notes]                               = @NewNotes
     WHERE   [FacilityKennelCleaningID]        = @FacilityKennelCleaningID
     AND     [UserID]                       = @OldUserID
-    AND     [AnimalKennelID]               = @OldAnimalKennelID  
+    AND     [AnimalKennelID]               = @OldAnimalKennelID
     AND     [Date]                         = @OldDate
-    AND     [Notes]                        = @OldNotes 
+    AND     [Notes]                        = @OldNotes
     RETURN @@ROWCOUNT
-END 
-GO 
+END
+GO
 
-                
+
 /*
 Created by: Ben Hanna
 Date: 4/9/2020
@@ -9547,9 +10473,9 @@ GO
 CREATE PROCEDURE [sp_delete_kennel_cleaning_record]
 (
 	@FacilityKennelCleaningID   [int],
-    
+
     @UserID                     [int],
-    @AnimalKennelID             [int], 
+    @AnimalKennelID             [int],
     @Date	                    [date],
     @Notes                      [nvarchar](250)
 )
@@ -9558,11 +10484,11 @@ AS
 		DELETE FROM [dbo].[FacilityKennelCleaning]
 		WHERE   [FacilityKennelCleaningID]     = @FacilityKennelCleaningID
         AND     [UserID]                       = @UserID
-        AND     [AnimalKennelID]               = @AnimalKennelID  
+        AND     [AnimalKennelID]               = @AnimalKennelID
         AND     [Date]                         = @Date
-        AND     [Notes]                        = @Notes 
+        AND     [Notes]                        = @Notes
 	END
-GO     
+GO
 
 /*
 Created by: Robert Holmes
@@ -9608,7 +10534,7 @@ BEGIN
 	AND		[Active] = 0
 	RETURN 	@@ROWCOUNT
 END
-GO           
+GO
 
 /*
 Author: Austin Gee
@@ -9619,7 +10545,7 @@ DROP PROCEDURE IF EXISTS [sp_select_adoption_application_by_id]
 GO
 print '' print '*** Creating sp_select_adoption_application_by_id'
 GO
-CREATE PROCEDURE [sp_select_adoption_application_by_id] 
+CREATE PROCEDURE [sp_select_adoption_application_by_id]
 (
 	@AdoptionApplicationID [int]
 )
@@ -9772,7 +10698,7 @@ CREATE PROCEDURE [sp_update_user](
 	@NewState [nvarchar] (2),
 	@NewZipcode [nvarchar] (15),
 	@NewHasViewedPoliciesAndStandards [bit]
-) 
+)
 AS
 BEGIN
 	UPDATE [dbo].[User]
@@ -9819,7 +10745,7 @@ BEGIN
 	FROM [JobListing]
 END
 GO
-                
+
 /*
 Created by: Chuck Baxter
 Date: 4/16/2020
@@ -9831,7 +10757,7 @@ print '' print '*** creating sp_update_animal_activity_type'
 GO
 CREATE PROCEDURE [sp_update_animal_activity_type]
 (
-	@OldAnimalActivityTypeID	[nvarchar](100),	
+	@OldAnimalActivityTypeID	[nvarchar](100),
 	@NewAnimalActivityTypeID	[nvarchar](100),
 	@NewActivityNotes			[nvarchar](MAX)
 )
@@ -9932,7 +10858,7 @@ BEGIN
 	SET [Open] = 0
 	WHERE [RequestID] = @RequestID
 	AND [Open] = 1
-	
+
 	SELECT @@ROWCOUNT
 END
 GO
@@ -10224,10 +11150,10 @@ CREATE PROCEDURE [sp_select_schedule_change_request_by_requestid]
 )
 AS
 BEGIN
-	SELECT [ScheduleChangeRequestID], [ScheduleChangeRequest].[ShiftID], [ApprovalDate], [ApprovingEmployeeID], 
-		   [RequestID], [shift].[UserID], [shift].[Date], [shiftTime].[DepartmentID], 
+	SELECT [ScheduleChangeRequestID], [ScheduleChangeRequest].[ShiftID], [ApprovalDate], [ApprovingEmployeeID],
+		   [RequestID], [shift].[UserID], [shift].[Date], [shiftTime].[DepartmentID],
 		   [shiftTime].[StartTime], [shiftTime].[EndTime], [shift].[ERoleID]
-	FROM [dbo].[scheduleChangeRequest] 
+	FROM [dbo].[scheduleChangeRequest]
 		INNER JOIN [dbo].[shift] ON [scheduleChangeRequest].[ShiftID] = [shift].[ShiftID]
 		INNER JOIN [dbo].[shiftTime] ON [shift].[ShiftTimeID] = [shiftTime].[ShiftTimeID]
 	WHERE [RequestID] = @RequestID
@@ -10277,8 +11203,8 @@ CREATE PROCEDURE [sp_select_shifts_by_user]
 )
 AS
 BEGIN
-	SELECT [ShiftID], [shift].[ShiftTimeID], [ScheduleID], 
-		   [Date], [UserID], [ERoleID], 
+	SELECT [ShiftID], [shift].[ShiftTimeID], [ScheduleID],
+		   [Date], [UserID], [ERoleID],
 		   [DepartmentID], [StartTime], [EndTime]
 	FROM   	[dbo].[shift] INNER JOIN [dbo].[shiftTime]
 	ON		[shift].[ShiftTimeID] = [shiftTime].[ShiftTimeID]
@@ -10309,7 +11235,7 @@ BEGIN
 	(@UserID, @StartDate, @EndDate)
 END
 GO
-  
+
 /*
 Created by: Kaleb Bachert
 Date: 4/16/2020
@@ -10336,10 +11262,10 @@ BEGIN
 	SET [Open] = 0
 	WHERE [RequestID] = @RequestID
 	AND [Open] = 1
-	
+
 	SELECT @@ROWCOUNT
 END
-GO  
+GO
 
 /*
 Created by: Thomas Dupuy
@@ -10419,7 +11345,7 @@ AS
 BEGIN
 	UPDATE [dbo].[Appointment]
 	SET 	[Active] = 0
-			
+
 	WHERE	[AppointmentID]	= @AppointmentID
 	RETURN @@ROWCOUNT
 END
@@ -10437,7 +11363,7 @@ GO
 CREATE PROCEDURE [sp_update_appointment]
 (
 	@AppointmentID			[int],
-	
+
 	@OldAdoptionApplicationID	[int],
 	@OldAppointmentTypeID		[nvarchar](100),
 	@OldDateTime				[datetime],
@@ -10445,7 +11371,7 @@ CREATE PROCEDURE [sp_update_appointment]
 	@OldDecision				[nvarchar](50),
 	@OldLocationID				[int],
 	@OldActive					[bit],
-	
+
 	@NewAdoptionApplicationID	[int],
 	@NewAppointmentTypeID		[nvarchar](100),
 	@NewDateTime				[datetime],
@@ -10463,7 +11389,7 @@ BEGIN
 			[Notes] = @NewNotes,
 			[LocationID] = @NewLocationID,
 			[Active] = @NewActive
-			
+
 	WHERE	[AppointmentID]	= @AppointmentID
 	AND		[AdoptionApplicationID] = @OldAdoptionApplicationID
 	AND		[AppointmentTypeID] = @OldAppointmentTypeID
@@ -10487,7 +11413,7 @@ CREATE PROCEDURE [sp_select_Names]
 
 AS
 BEGIN
-SELECT 
+SELECT
 
 [AnimalName] ,
 [AnimalID]
@@ -10496,15 +11422,6 @@ From [Animal]
 
 END;
 
-GO
-
-
-INSERT INTO [dbo].[Item]
-	([ItemCategoryID],[ItemName],[ItemQuantity])
-	VALUES
-	('Medication','Medication1', 4),
-	('Medication','Medication2', 0)
-	
 GO
 
 /*
@@ -10518,28 +11435,28 @@ CREATE PROCEDURE [sp_Select_AnimalMedicalHistory_By_AnimalID]
 )
 AS
 BEGIN
-    SELECT 
+    SELECT
         Animal.AnimalID,
-        Animal.AnimalName, 
-        Animal.AnimalSpeciesID,	 			
+        Animal.AnimalName,
+        Animal.AnimalSpeciesID,
         AnimalMedicalInfo.Vaccinations,
-        AnimalMedicalInfo.SpayedNeutered,	
-        AnimalMedicalInfo.MostRecentVaccinationDate,	
-        AnimalMedicalInfo.AdditionalNotes	
+        AnimalMedicalInfo.SpayedNeutered,
+        AnimalMedicalInfo.MostRecentVaccinationDate,
+        AnimalMedicalInfo.AdditionalNotes
     FROM
-    [Animal] 
-    INNER JOIN 
+    [Animal]
+    INNER JOIN
     AnimalHandlingNotes
     ON AnimalHandlingNotes.AnimalID = Animal.AnimalID
-    INNER JOIN 
+    INNER JOIN
     AnimalMedicalInfo
     ON
     AnimalMedicalInfo.AnimalID = Animal.AnimalID
 
     WHERE Animal.AnimalID = @AnimalID
-    AND 
+    AND
     AnimalHandlingNotes.AnimalID = @AnimalID
-    AND 
+    AND
     AnimalMedicalInfo.AnimalID = @AnimalID
 END;
 GO
@@ -10559,7 +11476,7 @@ CREATE PROCEDURE [SP_Create_OutgoingOrder]
 	@ItemQuantity					[int],
 	@ItemCategoryID					[nvarchar](4000),
 	@UserID							[int]
-	
+
 )
 AS
 BEGIN
@@ -10569,7 +11486,7 @@ BEGIN
     VALUES
          (@ItemID, @OrderDate, @ItemQuantity,
         @ItemCategoryID,@UserID)
-	
+
 END
 GO
 
@@ -10582,39 +11499,39 @@ GO
 CREATE PROCEDURE [SP_Update_Animal_Medical_History]
 (
 		@AnimalID [int],
-		
+
         @NewVaccinations [nvarchar](100),
-        @NewSpayedNeutered [bit],	
-        @NewMostRecentVaccinationDate [date],	
+        @NewSpayedNeutered [bit],
+        @NewMostRecentVaccinationDate [date],
         @NewAdditionalNotes [nvarchar](100),
-		
+
 		@OldVaccinations [nvarchar](100),
-        @OldSpayedNeutered [bit],	
-        @OldMostRecentVaccinationDate [date],	
+        @OldSpayedNeutered [bit],
+        @OldMostRecentVaccinationDate [date],
         @OldAdditionalNotes [nvarchar](100)
-		
+
 )
 AS
 BEGIN
-	
+
 	UPDATE [dbo].[AnimalMedicalInfo]
-	
-    SET   
+
+    SET
 		 Vaccinations              = @NewVaccinations,
          SpayedNeutered            = @NewSpayedNeutered,
          MostRecentVaccinationDate = @NewMostRecentVaccinationDate,
 		 AdditionalNotes           = @NewAdditionalNotes
-		 
- 
+
+
     FROM
-    [Animal] 
-    INNER JOIN 
+    [Animal]
+    INNER JOIN
     AnimalMedicalInfo
     ON
     AnimalMedicalInfo.AnimalID = Animal.AnimalID
 
-		
-    WHERE   
+
+    WHERE
 	Animal.AnimalID = @AnimalID
 
 END;
@@ -10666,13 +11583,13 @@ CREATE PROCEDURE [sp_insert_customer_error]
 	@ErrorType			[nvarchar](100),
 	@Description		[nvarchar](1000)
 )
-AS 
+AS
 BEGIN
 	INSERT INTO [dbo].[CustomerErrors]
 			([ErrorType], [Description])
 		VALUES
 			(@ErrorType, @Description)
-	  
+
 		RETURN @@ROWCOUNT
 END
 GO
@@ -10725,13 +11642,13 @@ CREATE PROCEDURE [sp_add_credit_card]
 	@CardNumber			[nvarchar](100),
 	@SecurityCode		[nvarchar](25)
 )
-AS 
+AS
 BEGIN
 	INSERT INTO [dbo].[PoSCreditCards]
 			([CardType],[CardNumber], [SecurityCode])
 		VALUES
 			(@CardType, @CardNumber, @SecurityCode)
-	  
+
 		RETURN @@ROWCOUNT
 END
 GO
@@ -10744,7 +11661,7 @@ Comment: Stored Procedure to return all cards
 print '' print '*** Creating sp_get_all_credit_cards'
 GO
 CREATE PROCEDURE [sp_get_all_credit_cards]
-AS 
+AS
 BEGIN
 	SELECT [CardType], [CardNumber]
 	FROM [dbo].[PoSCreditCards]
@@ -10762,7 +11679,7 @@ CREATE PROCEDURE [sp_delete_credit_card]
 (
 	@CardNumber [nvarchar](100)
 )
-AS 
+AS
 BEGIN
 	DELETE FROM [dbo].[PoSCreditCards]
 	WHERE @CardNumber = [CardNumber]
@@ -10784,8 +11701,8 @@ BEGIN
     SELECT
         [Email],
         [FirstName],
-        [LastName], 
-        [PhoneNumber],        
+        [LastName],
+        [PhoneNumber],
         [addressLineOne],
         [addressLineTwo],
         [City],
@@ -10805,7 +11722,7 @@ Comment: Creating procedure for inserting employee availability
 print '' print '*** Creating sp_insert_availability'
 GO
 CREATE PROCEDURE [sp_insert_availability] (
-	
+
 	@UserID 				[int],
 	@DayOfWeek					[Nvarchar](9),
 	@StartTime 					[nvarchar](300),
@@ -10851,12 +11768,12 @@ CREATE PROCEDURE [sp_select_all_user_availability_by_userID]
 )
 AS
 BEGIN
-	SELECT	[AvailabilityID],			
-			[UserID],				
-			[DayOfWeek],			    
-			[StartTime],				
-			[EndTime],				
-			[Active]			
+	SELECT	[AvailabilityID],
+			[UserID],
+			[DayOfWeek],
+			[StartTime],
+			[EndTime],
+			[Active]
 	FROM [Availability]
 	WHERE [UserID] = @UserID
 	ORDER BY[DayOfWeek]
@@ -10875,22 +11792,22 @@ GO
 CREATE PROCEDURE [sp_insert_foster_applicant]
 (
 	@FirstName				[nvarchar](50),
-	@LastName				[nvarchar](50),		
+	@LastName				[nvarchar](50),
 	@MiddleName				[nvarchar](50) = NULL,
-	@Email					[nvarchar](250),		
-	@PhoneNumber			[nvarchar](11),	
-	@AddressLine1			[nvarchar](100),		
-	@AddressLine2			[nvarchar](100) = NULL,		
-	@City					[nvarchar](100),		
-	@State					[char](2),			
+	@Email					[nvarchar](250),
+	@PhoneNumber			[nvarchar](11),
+	@AddressLine1			[nvarchar](100),
+	@AddressLine2			[nvarchar](100) = NULL,
+	@City					[nvarchar](100),
+	@State					[char](2),
 	@ZipCode				[nvarchar](12),
-	@Foster					[bit]			
-) 
+	@Foster					[bit]
+)
 AS
 BEGIN
 	INSERT INTO [dbo].[Applicant]
-		([FirstName], [LastName], [MiddleName],		
-			[Email], [PhoneNumber], [AddressLine1], [AddressLine2],			
+		([FirstName], [LastName], [MiddleName],
+			[Email], [PhoneNumber], [AddressLine1], [AddressLine2],
 			[City], [State], [ZipCode], [Foster])
 	VALUES
 		(@FirstName, @LastName, @MiddleName,
@@ -10912,7 +11829,7 @@ CREATE PROCEDURE [sp_select_applicant_by_id]
 (
 	@ApplicantID 		[int]
 )
-AS	
+AS
 BEGIN
 	SELECT 	[ApplicantID], [FirstName], [LastName], [MiddleName],
 			[Email], [PhoneNumber], [AddressLine1], [AddressLine2],
@@ -11069,7 +11986,7 @@ CREATE Procedure sp_update_user_password
 (
 @UserID 	[int],
 @OldPasswordHash	[nvarchar](100),
-@NewPasswordHash	[nvarchar](100)             
+@NewPasswordHash	[nvarchar](100)
 )
 AS
 BEGIN
@@ -11101,6 +12018,1282 @@ BEGIN
     Where [AdoptionApplicationID] = @AdoptionApplicationID
 END
 GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 4/25/2020
+Comment: Sproc to authenticate customer
+*/
+DROP PROCEDURE IF EXISTS [sp_authenticate_customer]
+GO
+PRINT '' PRINT '*** Creating sp_authenticate_user'
+GO
+CREATE PROCEDURE [sp_authenticate_customer]
+(
+@Email 			[nvarchar](250),
+@PasswordHash	[nvarchar](100)
+)
+AS
+BEGIN
+    SELECT COUNT([Email])
+    FROM 	[dbo].[Customer]
+    WHERE 	[Email] = @Email
+    AND 	[PasswordHash] = @PasswordHash
+    AND 	[Active] = 1
+END
+GO
+
+
+/*
+Created by: Dalton Reierson
+Date: 4/19/2020
+Comment: Stored procedure to select receiving record by orderID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_receiving_record_by_orderID]
+GO
+PRINT '' PRINT '*** Creating sp_select_receiving_record_by_orderID ***'
+GO
+CREATE PROCEDURE [sp_select_receiving_record_by_orderID]
+(
+	@OrderID		[int]
+)
+AS
+BEGIN
+	SELECT [ReceivingRecordID], [OrderID], [ShipperID], [ReceivingOrderDate]
+	FROM   [dbo].[ReceivingRecord]
+	WHERE  [OrderID] = @OrderID
+END
+GO
+
+
+/*
+Created by: Dalton Reierson
+Date: 4/19/2020
+Comment: sp to select orderlines by receivingRecordID
+*/
+print ''
+print '*** Creating sp_select_orderline_by_receivingrecordid ***'
+GO
+
+CREATE PROCEDURE sp_select_orderline_by_receivingrecordid
+(
+	@ReceivingRecordID 			[int]
+)
+AS
+BEGIN
+	SELECT 	[OrderLineID],[ItemID],[ReceivingRecordID],[DamagedItemQuantity],[MissingItemQuantity]
+	FROM 	[dbo].[OrderLine]
+	WHERE 	[ReceivingRecordID] = @ReceivingRecordID
+END
+GO
+
+
+/*
+Created by: Dalton Reierson
+Date: 4/19/2020
+Comment: sp to update orderStatus by an order ID
+*/
+DROP PROCEDURE IF EXISTS [sp_update_order_status_by_orderID]
+GO
+PRINT '' PRINT '*** Creating sp_update_order_status_by_orderID ***'
+GO
+CREATE PROCEDURE [sp_update_order_status_by_orderID]
+(
+	@NewOrderStatus [nvarchar](20),
+	@OldOrderID     [int],
+	@OldUserID  [int],
+	@OldActive      [bit],
+	@OldOrderStatus [nvarchar](20)
+)
+AS
+BEGIN
+	UPDATE 	[dbo].[Orders]
+	SET 	[OrderStatus] = @NewOrderStatus
+	WHERE   [OrderID] = @OldOrderID
+		AND	[UserID] = @OldUserID
+		AND	[Active] = @OldActive
+		AND	[OrderStatus] = @OldOrderStatus
+	 RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 4/25/2020
+Comment: Used to delete animal activity record
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_animal_activity_record]
+GO
+print '' print '*** creating sp_delete_animal_activity_record'
+GO
+CREATE PROCEDURE [sp_delete_animal_activity_record]
+(
+	@AnimalActivityID		[int],
+	@AnimalID				[int],
+	@UserID					[int],
+	@AnimalActivityTypeID	[nvarchar](100),
+	@ActivityDateTime		[datetime],
+	@Description			[nvarchar](4000)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[AnimalActivity]
+	WHERE 	[AnimalActivityID] = @AnimalActivityID
+	AND	  	[AnimalID] = @AnimalID
+	AND		[UserID] = @UserID
+	AND		[AnimalActivityTypeID] = @AnimalActivityTypeID
+	AND		[ActivityDateTime] = @ActivityDateTime
+	AND		[Description] = @Description
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 4/25/2020
+Comment: Used to delete animal prescription record
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_animal_prescription_record]
+GO
+print '' print '*** creating sp_delete_animal_prescription_record'
+GO
+CREATE PROCEDURE [sp_delete_animal_prescription_record]
+(
+	@AnimalPrescriptionsID			[int],
+	@AnimalID						[int],
+	@AnimalVetAppointmentID			[int],
+	@PrescriptionName				[nvarchar](50),
+	@Dosage							[decimal],
+	@Interval						[nvarchar](250),
+	@AdministrationMethod			[nvarchar](100),
+	@StartDate						[date],
+	@EndDate						[date],
+	@Description					[nvarchar](500),
+	@Active							[bit]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[AnimalPrescriptions]
+	WHERE	[AnimalPrescriptionsID] = @AnimalPrescriptionsID
+	AND		[AnimalID] = @AnimalID
+	AND		[AnimalVetAppointmentID] = @AnimalVetAppointmentID
+	AND		[PrescriptionName] = @PrescriptionName
+	AND		[Dosage] = @Dosage
+	AND		[Interval] = @Interval
+	AND		[AdministrationMethod] = @AdministrationMethod
+	AND		[StartDate] = @StartDate
+	AND		[EndDate] = @EndDate
+	AND		[Description] = @Description
+	AND		[Active] = @Active
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 4/25/2020
+Comment: Used to deactivate animal prescription record
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_prescription_record]
+GO
+print '' print '*** create sp_deactivate_prescription_record'
+GO
+CREATE PROCEDURE [sp_deactivate_prescription_record]
+(
+	@AnimalPrescriptionsID		[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalPrescriptions]
+	SET [Active] = 0
+	WHERE [AnimalPrescriptionsID] = @AnimalPrescriptionsID
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 4/25/2020
+Comment: Used to activate animal prescription record
+*/
+DROP PROCEDURE IF EXISTS [sp_activate_prescription_record]
+GO
+print '' print '*** create sp_activate_prescription_record'
+GO
+CREATE PROCEDURE [sp_activate_prescription_record]
+(
+	@AnimalPrescriptionsID		[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalPrescriptions]
+	SET [Active] = 1
+	WHERE [AnimalPrescriptionsID] = @AnimalPrescriptionsID
+END
+GO
+
+/*
+Create by: Ethan Murphy
+Date: 3/9/2020
+Comment: Procedure to select all animal prescription records
+*/
+DROP PROCEDURE IF EXISTS [sp_select_animal_prescriptions_by_active]
+GO
+PRINT '' PRINT '*** creating sp_select_animal_prescriptions_by_active'
+GO
+CREATE PROCEDURE [sp_select_animal_prescriptions_by_active]
+(
+	@Active			[bit]
+)
+AS
+BEGIN
+	SELECT [AnimalPrescriptionsID], [Animal].[AnimalID], [AnimalVetAppointmentID],
+			[PrescriptionName], [Dosage], [Interval], [AdministrationMethod],
+			[StartDate], [EndDate], [Description], [AnimalName], [AnimalPrescriptions].[Active]
+	FROM [AnimalPrescriptions] INNER JOIN [Animal]
+    ON [AnimalPrescriptions].[AnimalID] = [Animal].[AnimalID]
+	WHERE [AnimalPrescriptions].[Active] = @Active
+	ORDER BY [AnimalName]
+END
+GO
+
+/*
+	Created by: Zach Behrensmeyer
+	Date: 04/27/2020
+	Comment: Store Procedure to find Volunteer by  Email
+*/
+DROP PROCEDURE IF EXISTS [sp_select_volunteer_by_email]
+GO
+PRINT '' PRINT '*** Creating sp_select_volunteer_by_email'
+GO
+CREATE PROCEDURE [sp_select_volunteer_by_email]
+(
+	@volunteerEmail 		[nvarchar](250)
+)
+AS
+BEGIN
+
+	SELECT  [Email],[FirstName],[LastName],[PhoneNumber],[Active]
+
+	FROM 	[dbo].[Volunteer]
+	WHERE	[Email] = @volunteerEmail
+END
+GO
+
+/*
+Created by: Zach Behrensmeyer
+Date: 4/27/2020
+Comment: Sproc to sp_authenticate_volunteer customer
+*/
+DROP PROCEDURE IF EXISTS [sp_authenticate_volunteer]
+GO
+PRINT '' PRINT '*** Creating sp_authenticate_volunteer'
+GO
+CREATE PROCEDURE [sp_authenticate_volunteer]
+(
+@Email 			[nvarchar](250),
+@PasswordHash	[nvarchar](100)
+)
+AS
+BEGIN
+    SELECT COUNT([Email])
+    FROM 	[dbo].[Volunteer]
+    WHERE 	[Email] = @Email
+    AND 	[PasswordHash] = @PasswordHash
+    AND 	[Active] = 1
+END
+GO
+
+/*
+	AUTHOR: Timothy Lickteig
+	DATE: 2020/04/27
+	DESCRIPTION: Create stored procedure for inserting foster appointments
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_foster_appointment]
+GO
+print '' print '*** Creating sp_insert_foster_appointment ***'
+GO
+CREATE PROCEDURE [sp_insert_foster_appointment]
+(
+	@VolunteerID [int],
+	@StartTime [time],
+	@EndTime [time],
+	@Description [nvarchar](4000)
+)
+AS
+BEGIN
+	
+	INSERT INTO [dbo].[FosterAppointment]
+	([VolunteerID], [StartTime], 
+	[EndTime], [Description])
+	VALUES
+	(@VolunteerID, @StartTime, @EndTime, @Description)
+END
+GO
+
+/*
+	AUTHOR: Timothy Lickteig
+	DATE: 2020/04/27
+	DESCRIPTION: Create stored procedure for viewing foster appointments
+*/
+DROP PROCEDURE IF EXISTS [sp_select_foster_appointments]
+GO
+print '' print '*** Creating sp_select_foster_appointments ***'
+GO
+CREATE PROCEDURE [sp_select_foster_appointments]
+AS
+BEGIN
+	SELECT
+		[FosterAppointment].[VolunteerID], [FosterAppointmentID],[StartTime], [EndTime], 
+		[Description], [Volunteer].[FirstName], [Volunteer].[LastName]
+	FROM [dbo].[FosterAppointment]
+	INNER JOIN [Volunteer] ON [Volunteer].[VolunteerID] = [FosterAppointment].[VolunteerID]
+END
+GO
+
+/*
+	AUTHOR: Timothy Lickteig
+	DATE: 2020/04/27
+	DESCRIPTION: Create stored procedure for updating foster appointments
+*/
+DROP PROCEDURE IF EXISTS [sp_update_foster_appointment]
+GO
+print '' print '*** Creating sp_update_foster_appointment ***'
+GO
+CREATE PROCEDURE [sp_update_foster_appointment] (
+	@FosterAppointmentID [int],
+	@OldVolunteerID [int],
+	@OldStartTime [time],
+	@OldEndTime [time],
+	@OldDescription [nvarchar](4000),
+	@NewVolunteerID [int],
+	@NewStartTime [time],
+	@NewEndTime [time],
+	@NewDescription [nvarchar](4000)
+)
+AS
+BEGIN
+	UPDATE [dbo].[FosterAppointment]
+	SET
+		[VolunteerID] = @NewVolunteerID,
+		[StartTime] = @NewStartTime,
+		[EndTime] = @NewEndTime,
+		[Description] = @NewDescription
+	WHERE [FosterAppointmentID] = @FosterAppointmentID
+	/*
+		AND [StartTime] = @OldStartTime
+		AND [EndTime] = @OldEndTime
+		AND [VolunteerID] = @OldVolunteerID
+		AND [Description] = @OldDescription
+		*/
+END
+GO
+
+/*
+	AUTHOR: Timothy Lickteig
+	DATE: 2020/04/27
+	DESCRIPTION: Create stored procedure for deleting foster appointments
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_foster_appointment]
+GO
+print '' print '*** Creating sp_delete_foster_appointment ***'
+GO
+CREATE PROCEDURE [sp_delete_foster_appointment] (
+	@FosterAppointmentID [int]
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[FosterAppointment]
+	WHERE @FosterAppointmentID = [FosterAppointmentID]
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 4/28/2020
+Comment: sp_insert_customer_survey inserts customer survey data into
+		CustomerSurvey table.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_customer_survey]
+GO
+PRINT '' PRINT '*** Creating sp_insert_customer_survey'
+GO
+CREATE PROCEDURE [sp_insert_customer_survey]
+(
+@CustomerName 			[nvarchar](100),
+@ServiceRating			[nvarchar](100),
+@Notes					[nvarchar](100)
+)
+AS
+BEGIN
+    INSERT INTO [dbo].[CustomerSurvey] 
+	([CustomerName], [ServiceRating], [Notes])
+	VALUES 
+	(@CustomerName, @ServiceRating, @Notes)
+END
+GO
+
+/*
+Created by: Ethan Holmes
+Date: 4/28/2020
+Comment: sp_insert_emp_cust_problem inserts customer/employee problem data into
+		EmpCustProblem table.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_emp_cust_problem]
+GO
+PRINT '' PRINT '*** Creating sp_insert_emp_cust_problem'
+GO
+CREATE PROCEDURE [sp_insert_emp_cust_problem]
+(
+@ProblemType			[nvarchar](100),
+@Name					[nvarchar](100),
+@Description			[nvarchar](100)
+)
+AS
+BEGIN
+    INSERT INTO [dbo].[EmpCustProblem] 
+	([ProblemType], [Name], [Description])
+	VALUES 
+	(@ProblemType, @Name, @Description)
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 4/27/2020
+Comment: Stored Procedure that selects adoption appointments by active and customer email.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_appointments_by_customer_email_and_active]
+GO
+PRINT '' PRINT '*** Creating sp_select_adoption_appointments_by_customer_email_and_active'
+GO
+CREATE PROCEDURE [sp_select_adoption_appointments_by_customer_email_and_active]
+(
+	@Active				[int] 			,
+	@CustomerEmail		[nvarchar] (250)
+)
+AS
+BEGIN
+	SELECT
+	[AppointmentID]
+	,[AdoptionApplication].[AdoptionApplicationID]
+	,[Appointment].[AppointmentTypeID]
+	,[Appointment].[DateTime]
+	,[Appointment].[Notes]
+	,[Appointment].[Decision]
+	,[Location].[LocationID]
+	,[Appointment].[Active]
+	,[Customer].[Email]
+	,[Animal].[AnimalID]
+	,[AdoptionApplication].[Status]
+	,[AdoptionApplication].[RecievedDate]
+	,[Location].[Name]
+	,[Location].[Address1]
+	,[Location].[Address2]
+	,[Location].[City]
+	,[Location].[State]
+	,[Location].[Zip]
+	,[Customer].[FirstName]
+	,[Customer].[LastName]
+	,[Customer].[PhoneNumber]
+	,[Customer].[Active]
+	,[Customer].[City]
+	,[Customer].[State]
+	,[Customer].[Zipcode]
+	,[Animal].[AnimalName]
+	,[Animal].[Dob]
+	,[Animal].[AnimalSpeciesID]
+	,[Animal].[AnimalBreed]
+	,[Animal].[ArrivalDate]
+	,[Animal].[CurrentlyHoused]
+	,[Animal].[Adoptable]
+	,[Animal].[Active]
+	FROM [Appointment] JOIN [AdoptionApplication] ON [AdoptionApplication].[AdoptionApplicationID] = [Appointment].[AdoptionApplicationID]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	JOIN [Customer] ON [AdoptionApplication].[CustomerEmail] = [Customer].[Email]
+	JOIN [Animal] ON [AdoptionApplication].[AnimalID] = [Animal].[AnimalID]
+	WHERE [Appointment].[Active] = @Active
+	AND	[Customer].[Email] = @CustomerEmail
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 4/27/2020
+Comment: Stored Procedure that updates an appointments datetime
+*/
+DROP PROCEDURE IF EXISTS [sp_update_appointment_date_time]
+GO
+PRINT '' PRINT '*** Creating sp_update_appointment_date_time'
+GO
+CREATE PROCEDURE [sp_update_appointment_date_time]
+(
+	@AppointmentID				[int] 			,
+	@AppointmentDateTime		[nvarchar] (250)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET [DateTime] = @AppointmentDateTime
+	WHERE [AppointmentID] = @AppointmentID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 4/27/2020
+Comment: Stored Procedure that inserts a customer
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_customer]
+GO
+PRINT '' PRINT '*** Creating sp_insert_customer'
+GO
+CREATE PROCEDURE [sp_insert_customer]
+(
+	@Email 			[nvarchar](250),
+    @FirstName 		[nvarchar](50),
+    @LastName 		[nvarchar](50),
+    @PhoneNumber 	[nvarchar](11),
+    @addressLineOne [nvarchar](250),
+    @addressLineTwo [nvarchar](250),
+    @City 			[nvarchar](20),
+    @State 			[nvarchar](2),
+    @Zipcode 		[nvarchar](15)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Customer]
+	([FirstName], [LastName], [PhoneNumber], [Email], [City], [State], [Zipcode], [addressLineOne], [addressLineTwo])
+	VALUES
+	(@FirstName, @LastName, @PhoneNumber, @Email, @City, @State, @Zipcode, @addressLineOne, @addressLineTwo)
+	RETURN @@ROWCOUNT
+END
+GO
+
+
+/*
+Created by: Austin Gee
+Date: 4/28/2020
+Comment: Stored Procedure that inserts a customer
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_adoption_application]
+GO
+PRINT '' PRINT '*** Creating sp_insert_adoption_application'
+GO
+CREATE PROCEDURE [sp_insert_adoption_application]
+(
+	@CustomerEmail			[nvarchar](250),
+	@AnimalID				[int],
+	@Status					[nvarchar](1000),
+	@RecievedDate			[datetime] 
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[AdoptionApplication]
+	([CustomerEmail], [AnimalID], [Status], [RecievedDate])
+	VALUES
+	(@CustomerEmail, @AnimalID, @Status, @RecievedDate)
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 2/21/2020
+Comment: Stored Procedure that selects adoption appointments by active and type.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_appointments_by_active]
+GO
+PRINT '' PRINT '*** Creating sp_select_adoption_appointments_by_active'
+GO
+CREATE PROCEDURE [sp_select_adoption_appointments_by_active]
+(
+	@Active				[int]
+)
+AS
+BEGIN
+	SELECT
+	[AppointmentID]
+	,[AdoptionApplication].[AdoptionApplicationID]
+	,[Appointment].[AppointmentTypeID]
+	,[Appointment].[DateTime]
+	,[Appointment].[Notes]
+	,[Appointment].[Decision]
+	,[Location].[LocationID]
+	,[Appointment].[Active]
+	,[Customer].[Email]
+	,[Animal].[AnimalID]
+	,[AdoptionApplication].[Status]
+	,[AdoptionApplication].[RecievedDate]
+	,[Location].[Name]
+	,[Location].[Address1]
+	,[Location].[Address2]
+	,[Location].[City]
+	,[Location].[State]
+	,[Location].[Zip]
+	,[Customer].[FirstName]
+	,[Customer].[LastName]
+	,[Customer].[PhoneNumber]
+	,[Customer].[Active]
+	,[Customer].[City]
+	,[Customer].[State]
+	,[Customer].[Zipcode]
+	,[Animal].[AnimalName]
+	,[Animal].[Dob]
+	,[Animal].[AnimalSpeciesID]
+	,[Animal].[AnimalBreed]
+	,[Animal].[ArrivalDate]
+	,[Animal].[CurrentlyHoused]
+	,[Animal].[Adoptable]
+	,[Animal].[Active]
+	FROM [Appointment] JOIN [AdoptionApplication] ON [AdoptionApplication].[AdoptionApplicationID] = [Appointment].[AdoptionApplicationID]
+	JOIN [Location] ON [Appointment].[LocationID] = [Location].[LocationID]
+	JOIN [Customer] ON [AdoptionApplication].[CustomerEmail] = [Customer].[Email]
+	JOIN [Animal] ON [AdoptionApplication].[AnimalID] = [Animal].[AnimalID]
+	WHERE [Appointment].[Active] = @Active
+	ORDER BY [Appointment].[DateTime] DESC
+END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: insert order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_order_item_line]
+GO
+print '' print '*** Creating sp_insert_order_item_line'
+GO
+CREATE PROCEDURE sp_insert_order_item_line
+	(
+        @OrderID						[int],
+		@ItemID							[int],
+		@Quantity						[int]
+	)
+AS
+	BEGIN
+		INSERT INTO [orderitemline]
+			([OrderID], [ItemID], [Quantity])
+		VALUES
+			(@OrderID, @ItemID, @Quantity)
+		
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: insert order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_special_order_item_line]
+GO
+print '' print '*** Creating sp_insert_special_order_item_line'
+GO
+CREATE PROCEDURE sp_insert_special_order_item_line
+	(
+        @SpecialOrderID					[int],
+		@ItemID							[int],
+		@Quantity						[int]
+	)
+AS
+	BEGIN
+		INSERT INTO [specialorderitemline]
+			([SpecialOrderID], [ItemID], [Quantity])
+		VALUES
+			(@SpecialOrderID, @ItemID, @Quantity)
+		
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: insert order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_select_order_item_lines_by_order_id]
+GO
+print '' print '*** Creating sp_select_order_item_lines_by_order_id'
+GO
+CREATE PROCEDURE sp_select_order_item_lines_by_order_id
+	(
+        @OrderID						[int]
+	)
+AS
+	BEGIN
+		SELECT [OrderID], [ItemID], [Quantity]
+		FROM [dbo].[orderitemline]
+		WHERE [OrderID] = @orderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: insert order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_select_special_order_item_lines_by_order_id]
+GO
+print '' print '*** Creating sp_select_special_order_item_lines_by_order_id'
+GO
+CREATE PROCEDURE sp_select_special_order_item_lines_by_order_id
+	(
+        @SpecialOrderID						[int]
+	)
+AS
+	BEGIN
+		SELECT [SpecialOrderID], [ItemID], [Quantity]
+		FROM [dbo].[specialorderitemline]
+		WHERE [SpecialOrderID] = @SpecialOrderID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: select item by item id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_item_by_item_id]
+GO
+print '' print '*** Creating sp_select_item_by_item_id'
+GO
+CREATE PROCEDURE sp_select_item_by_item_id
+	(
+        @ItemID						[int]
+	)
+AS
+	BEGIN
+		SELECT  [Item].[ItemName],
+				[Item].[ItemCategoryID],
+				[OrderItemLine].[Quantity],
+				[Item].[ItemDescription],
+				[Item].[ShelterItem],
+				[Item].[ItemID],
+				[Item].[ShelterThershold]
+		FROM [dbo].[item]
+		INNER JOIN [OrderItemLine] ON Item.ItemID = OrderItemLine.ItemID
+		WHERE [Item].[ItemID] = @ItemID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/26/2020
+Comment: select item by item id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_special_item_by_item_id]
+GO
+print '' print '*** Creating sp_select_special_item_by_item_id'
+GO
+CREATE PROCEDURE sp_select_special_item_by_item_id
+	(
+        @ItemID						[int]
+	)
+AS
+	BEGIN
+		SELECT  [Item].[ItemName],
+				[Item].[ItemCategoryID],
+				[SpecialOrderItemLine].[Quantity],
+				[Item].[ItemDescription],
+				[Item].[ShelterItem],
+				[Item].[ItemID],
+				[Item].[ShelterThershold]
+		FROM [dbo].[item]
+		INNER JOIN [SpecialOrderItemLine] ON Item.ItemID = SpecialOrderItemLine.ItemID
+		WHERE [Item].[ItemID] = @ItemID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/28/2020
+Comment: delete order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_order_item_line_by_item_id]
+GO
+print '' print '*** Creating sp_delete_order_item_line_by_item_id'
+GO
+CREATE PROCEDURE sp_delete_order_item_line_by_item_id
+	(
+        @ItemID						[int]
+	)
+AS
+	BEGIN
+		DELETE
+		FROM [dbo].[orderitemline]
+		WHERE [ItemID] = @ItemID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Jesse Tomash
+Date: 4/28/2020
+Comment: delete order item line
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_special_order_item_line_by_item_id]
+GO
+print '' print '*** Creating sp_delete_special_order_item_line_by_item_id'
+GO
+CREATE PROCEDURE sp_delete_special_order_item_line_by_item_id
+	(
+        @ItemID						[int]
+	)
+AS
+	BEGIN
+		DELETE
+		FROM [dbo].[specialorderitemline]
+		WHERE [ItemID] = @ItemID
+	END 
+Go
+
+/*Created by: Austin Gee
+Date: 2/21/2020
+Comment: Stored Procedure that selects adoption animals by active and adoptable.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_animals_by_active_and_adoptable]
+GO
+PRINT '' PRINT '*** Creating sp_select_adoption_animals_by_active_and_adoptable'
+GO
+CREATE PROCEDURE [sp_select_adoption_animals_by_active_and_adoptable]
+(
+	@Active		[bit],
+	@Adoptable	[bit]
+)
+AS
+BEGIN
+	SELECT
+	[AnimalID]
+	,[AnimalName]
+	,[Dob]
+	,[AnimalBreed]
+	,[ArrivalDate]
+	,[CurrentlyHoused]
+	,[Adoptable]
+	,[Active]
+	,[AnimalSpeciesID]
+	,[ProfileImageData]
+	,[ProfileImageMimeType]
+	,[ProfileDescription]
+	FROM [dbo].[Animal]
+	WHERE [Active] = @Active
+	AND [Adoptable] = @Adoptable
+	ORDER BY [AnimalName] DESC
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/10/2020
+Comment: Insert a treatment record.
+*/
+print '' print '*** Creating sp_insert_treatment_record'
+GO
+CREATE PROCEDURE [sp_insert_treatment_record]
+(
+	@VetID	 				[nvarchar](200),
+	@AnimalID				[int],
+	@FormName				[nvarchar](50),
+	@TreatmentDate			[date],
+	@TreatmentDescription 	[nvarchar](4000),
+	@Notes					[nvarchar](2000),
+	@Reason					[nvarchar](2000),
+	@Urgency      			[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[TreatmentRecord]
+		([VetID], [AnimalID], [FormName], [TreatmentDate], [TreatmentDescription], [Notes], [Reason], [Urgency])
+	VALUES
+		(@VetID, @AnimalID, @FormName, @TreatmentDate, @TreatmentDescription, @Notes, @Reason, @Urgency)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/10/2020
+Comment: Select treatment record.
+*/
+print '' print '*** Creating sp_select_treatment_records'
+GO
+CREATE PROCEDURE [sp_select_treatment_records]
+AS
+BEGIN
+	SELECT [TreatmentRecordID],[VetID],[AnimalID],[FormName],[TreatmentDate],
+	[TreatmentDescription],[Notes],[Reason],[Urgency]
+	FROM [dbo].[TreatmentRecord]
+	ORDER BY [TreatmentRecordID]
+END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/04/2020
+Comment: Delete a treatment record
+*/
+print '' print '*** Creating sp_delete_treatment_record '
+GO
+CREATE PROCEDURE [sp_delete_treatment_record] 
+	(
+		@TreatmentRecordID				[nvarchar](50)
+	)
+AS
+	BEGIN
+		DELETE  
+		FROM 	[TreatmentRecord]
+		WHERE 	[TreatmentRecordID] = @TreatmentRecordID
+	  
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*
+Created by: Zoey McDonald
+Date: 4/04/2020
+Comment: Update a treatment record
+*/
+print '' print '*** Creating sp_update_treatment_record '
+GO
+CREATE PROCEDURE [sp_update_treatment_record] 
+	(
+		@TreatmentRecordID		[nvarchar](50),
+		@VetID	 				[nvarchar](200),
+		@AnimalID				[int],
+		@FormName				[nvarchar](50),
+		@TreatmentDate			[date],
+		@TreatmentDescription 	[nvarchar](4000),
+		@Notes					[nvarchar](2000),
+		@Reason					[nvarchar](2000),
+		@Urgency      			[int]
+	)
+AS
+	BEGIN
+		UPDATE [dbo].[TreatmentRecord]
+			SET [VetID] = @VetID,
+				[AnimalID] = @AnimalID,
+				[FormName] = @FormName,
+				[TreatmentDate] = @TreatmentDate,
+				[TreatmentDescription] = @TreatmentDescription,
+				[Notes] = @Notes,
+				[Reason] = @Reason,
+				[Urgency] = @Urgency
+		WHERE 	[TreatmentRecordID] = @TreatmentRecordID
+		RETURN @@ROWCOUNT
+	END
+GO
+
+/*Created by: Zach Behrensmeyer
+Date: 4/28/2020
+Comment: Stored Procedure to get transactions by customer email
+*/
+DROP PROCEDURE IF EXISTS [sp_select_transactions_by_customer_email]
+GO
+PRINT '' PRINT '*** Creating sp_select_transactions_by_customer_email'
+GO
+CREATE PROCEDURE [sp_select_transactions_by_customer_email]
+(
+	@CustomerEmail			[nvarchar](250)
+)
+AS
+BEGIN
+	Select TransactionID, 
+	TransactionDateTime, 		
+	SubTotal, 
+	Total
+	FROM [dbo].[Transaction]
+	WHERE CustomerEmail = @CustomerEmail
+END
+GO
+
+/*Created by: Austin Gee
+Date: 4/29/2020
+Comment: Stored Procedure to update animal adoptable
+*/
+DROP PROCEDURE IF EXISTS [sp_update_animal_adoptable]
+GO
+PRINT '' PRINT '*** Creating sp_update_animal_adoptable'
+GO
+CREATE PROCEDURE [sp_update_animal_adoptable]
+(
+	@AnimalID	[int],
+	@Adoptable	[bit]
+)
+AS
+BEGIN
+	UPDATE 	[dbo].[Animal]
+	SET		[Adoptable] = @Adoptable
+	WHERE	[AnimalID] = @AnimalID
+	RETURN	@@ROWCOUNT
+END	
+GO
+	
+/*Created by: Zach Behrensmeyer
+Date: 4/28/2020
+Comment: Stored Procedure to set Security Questions and Answers
+*/
+DROP PROCEDURE IF EXISTS [sp_update_security_qna]
+GO
+PRINT '' PRINT '*** Creating sp_update_security_qna'
+GO
+CREATE PROCEDURE [sp_update_security_qna]
+(
+	@UserId 			int,
+	@Answer1			[nvarchar](100),
+	@Answer2			[nvarchar](100),
+	@Question1			[nvarchar](100),
+    @Question2			[nvarchar](100)
+)
+AS
+BEGIN
+	UPDATE [dbo].[User] 
+	SET Answer1 = @Answer1,
+	Answer2 = @Answer2,
+	SecurityQuestion1 = @Question1,
+	SecurityQuestion2 = @Question2
+	WHERE UserID = @UserID		
+END
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2020/04/29
+Comment: Stored Procedure used to select all lifetime sales by employee id
+*/
+DROP PROCEDURE IF EXISTS [sp_all_sales_by_employee_id]
+GO
+print '' print '*** Creating sp_all_sales_by_employee_id'
+GO
+CREATE PROCEDURE [sp_all_sales_by_employee_id]
+(
+	@EmployeeID		[int]
+)
+AS
+BEGIN
+    SELECT
+        [TransactionLineProducts].[ProductID],
+        [Item].[ItemName],
+        [Product].[Brand],
+        [Item].[ItemCategoryID],
+        [Product].[ProductTypeID],
+        SUM ([TransactionLineProducts].[Quantity]) AS 'Total Sales'
+    FROM [dbo].[TransactionLineProducts]
+    LEFT JOIN [Transaction] ON [TransactionLineProducts].[TransactionID] = [Transaction].[TransactionID]
+    LEFT JOIN [Product] ON [TransactionLineProducts].[ProductID] = [Product].[ProductID]
+	LEFT JOIN [Item] ON [Product].[ItemID] = [Item].[ItemID]
+    WHERE [Transaction].[EmployeeID] = @EmployeeID
+    GROUP BY
+        [TransactionLineProducts].[ProductID],
+        [Item].[ItemName],
+        [Product].[Brand],
+        [Item].[ItemCategoryID],
+        [Product].[ProductTypeID]
+END
+GO
+
+/*
+CREATED BY: Zach Behrensmeyer
+DATE: 4/23/2020
+COMMENT: Stored Procedure to update Password after answering Security Questions
+*/
+DROP PROCEDURE IF EXISTS [sp_update_password_by_security]
+print '' print '*** Creating sp_update_password_by_security'
+GO
+CREATE Procedure sp_update_password_by_security
+(
+@UserID 	[int],
+@NewPasswordHash	[nvarchar](100)
+)
+AS
+BEGIN
+UPDATE [dbo].[User]
+SET [PasswordHash] = @NewPasswordHash
+Where [UserID] = @UserID
+Return @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 3/31/2020
+Comment: pull up a list of shift by shiftID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shift_details_by_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_shift_details_by_id'
+GO
+CREATE PROCEDURE sp_select_shift_details_by_id
+(
+	@ShiftID[int]
+)
+AS
+BEGIN
+    SELECT 	[ShiftID],[Shift].[ShiftTimeID],[Shift].[ScheduleID],[Date],[Shift].[UserID],[ERoleID],
+	[ShiftTime].[DepartmentID],[ShiftTime].[StartTime],[ShiftTime].[EndTime],		
+	[StartDate], [EndDate],
+	[FirstName], [LastName]
+	
+    FROM 	[Shift]
+	join [Schedule] on 
+	[Shift].[ScheduleID] = [Schedule].[ScheduleID]
+	join [ShiftTime] on 
+	[Shift].[ShiftTimeID] = [ShiftTime].[ShiftTimeID]
+	join [User] on 
+	[Shift].[UserID] = [User].[UserID]
+	Where	@ShiftID = [ShiftID]
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 3/31/2020
+Comment: pull up a list of shift by shiftID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shift_details_by_user_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_shift_details_by_user_id'
+GO
+CREATE PROCEDURE sp_select_shift_details_by_user_id
+(
+	@UserID[int]
+)
+AS
+BEGIN
+    SELECT 	[ShiftID],[Shift].[ShiftTimeID],[Shift].[ScheduleID],[Date],[Shift].[UserID],[ERoleID],
+	[ShiftTime].[DepartmentID],[ShiftTime].[StartTime],[ShiftTime].[EndTime],		
+	[StartDate], [EndDate],
+	[FirstName], [LastName]
+	
+    FROM 	[Shift]
+	join [Schedule] on 
+	[Shift].[ScheduleID] = [Schedule].[ScheduleID]
+	join [ShiftTime] on 
+	[Shift].[ShiftTimeID] = [ShiftTime].[ShiftTimeID]
+	join [User] on 
+	[Shift].[UserID] = [User].[UserID]
+	Where	@UserID = [Shift].[UserID]
+END
+GO
+
+
+
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for adding a new social media Request to the DB
+	
+	Updated On : 2020-03-15
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_social_media_request]
+GO
+PRINT '' PRINT '*** Creating sp_insert_social_media_request'
+GO
+CREATE PROCEDURE [sp_insert_social_media_request]
+(
+	@RequestID			[int] OUTPUT,
+	@DateCreated		[datetime],
+	@RequestTypeID		[nvarchar](50),
+	@RequestingUserID	[int],
+	@Open				[bit],
+	@Title				[nvarchar](100),
+	@Description		[nvarchar](500)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[request]
+		([DateCreated],[RequestTypeID],[RequestingUserID],[Open])
+	VALUES
+		(@DateCreated, @RequestTypeID, @RequestingUserID, @Open)
+		
+	SELECT @RequestID = SCOPE_IDENTITY()
+	
+	INSERT INTO [dbo].[SocialMediaRequest]
+		([RequestID],[Title],[Description])
+	VALUES
+		(@RequestID, @Title, @Description)
+	
+END
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 2020-04-19
+	Comment: For UC-649 (Auto-Inventory Request)
+			A trigger on updates to the item table
+			Checks IF the item being updated is a shelter item
+			and IF the quantity is below the Shelter Threshold for that item
+			it will create a Request, and then build a Department request
+	
+	Updated On :
+*/
+DROP TRIGGER IF EXISTS [trg_shelter_item_low_quantity]
+GO
+PRINT '' PRINT '*** Creating trg_shelter_item_low_quantity'
+GO
+CREATE TRIGGER [trg_shelter_item_low_quantity]
+ON [dbo].[Item]
+FOR UPDATE
+AS
+BEGIN
+	DECLARE @itemID int
+	DECLARE @itemName nvarchar(50)
+	DECLARE @itemQuantity int
+	DECLARE @shelterThreshold int
+	DECLARE @isShelterItem bit
+	
+	SELECT 	@itemID = itemID, 
+			@itemQuantity = itemQuantity, 
+			@shelterThreshold = ShelterThershold,
+			@itemName = ItemName,
+			@isShelterItem = ShelterItem
+	FROM INSERTED
+	
+	IF((@itemQuantity)<=(@shelterThreshold) AND 1 = (@isShelterItem))
+	BEGIN
+		DECLARE @DeptRequestID int
+		INSERT INTO [dbo].[request]
+		([RequestTypeID], [DateCreated], [RequestingUserID] )
+		VALUES
+		('Shelter Inventory', GETDATE(), 100000 )
+		
+		SELECT @DeptRequestID = SCOPE_IDENTITY()
+		
+		DECLARE @RequestSubject AS nvarchar(100)
+		DECLARE @RequestTopic AS nvarchar(250)
+		DECLARE @RequestBody AS nvarchar(4000)
+		SET @RequestSubject = CONVERT(nvarchar(25), @itemID) + ' is low on inventory.'
+		SET @RequestTopic = CONVERT(nvarchar(25), @itemID) + ', ' + @itemName + ' is low on inventory.'
+		SET @RequestBody = CONVERT(nvarchar(25), @itemID) + ', ' + @itemName + ' is low on inventory. Please restock the shelter inventory for this item.'
+		
+		INSERT INTO [dbo].[DepartmentRequest]
+			([DeptRequestID], [RequestingUserID], [RequestGroupID], [RequestedGroupID],
+				[DateAcknowledged], [AcknowledgingUserID], [DateCompleted], [CompletedUserID],
+				[RequestSubject], [RequestTopic], [RequestBody])
+		VALUES
+			(@DeptRequestID, 100000, 'ShelterManagement', 'Inventory',
+				NULL, NULL, NULL, NULL,
+				@RequestSubject, 
+				@RequestTopic, 
+				@RequestBody)
+		
+	END
+END
+GO
+
+
+
+
+
 
 /*
 Created By: Robert Holmes
@@ -11147,6 +13340,27 @@ BEGIN
 END
 GO
 
+/*Created by: Rasha Mohammed
+Date: 3/30/2020
+Comment: Select images from picture table
+
+Updater: Robert Holmes
+Updated: 4/30/2020
+Update: Made compatible with byte[]
+*/
+print '' print '*** Creating sp_select__all_image'
+GO
+DROP PROCEDURE IF EXISTS [sp_select__all_image]
+GO
+CREATE PROCEDURE [sp_select__all_image]
+AS
+BEGIN
+	SELECT 	[PictureID], [ProductID], [PictureData], [PictureMimeType]
+	FROM 	[Picture]
+END
+GO
+
+
 /*
  ******************************* Inserting Sample Data *****************************
 */
@@ -11166,7 +13380,7 @@ INSERT INTO [dbo].[department]
 ([DepartmentID],[Description])
 VALUES
      ('Fake1','A Description')
-    ,('Fake2','Another Description')    
+    ,('Fake2','Another Description')
     ,('Fake3','Yet Another Description')
     ,('Fake4',NULL)
 	,('Management','')
@@ -11203,8 +13417,8 @@ VALUES
 	('Barb','Brinoll','1234567890','Barb@email.com','Cedar Rapids','IA','52404','J street NE',null),
 	('Awaab','Elamin','3192104964','Awaab@Awaaab.com','Cedar Rapids','IA','52404','J street NE','APT3'),
 	('Ryan', 'Morganti', '5554443333', 'ryanm@PetUniverse.com', 'Cedar Rapids', 'IA', '52402','J street NE','APT3'),
-	('Derek', 'Taylor', '9992234343', 'derekt@PetUniverse.com', 'Manchester', 'IA', '524404','J street NE','APT3'),
-	('Steven', 'Coonrod', '9992555343', 'stevec@PetUniverse.com', 'Hiawatha', 'IA', '524409','J street NE','APT3')
+	('Derek', 'Taylor', '9992234343', 'derekt@PetUniverse.com', 'Manchester', 'IA', '524404','J street NE','APT3')
+
 GO
 
 /*
@@ -11254,7 +13468,7 @@ INSERT INTO [dbo].[ERole]
 	[ERoleID], [DepartmentID]
 )
 VALUES
-	('Admin', 'Management'),
+	('Administrator', 'Management'),
 	('Customer', 'Sales'),
 	('Volunteer', 'Fake1')
 GO
@@ -11267,14 +13481,14 @@ Comment: This is used to pair a user with their roles
 PRINT '' PRINT '*** Insert Into User Role Table ***'
 GO
 INSERT INTO [dbo].[UserERole]
-([UserID],  
+([UserID],
 [ERoleID]
 )
 VALUES
-(100000, 'Admin'),
-(100001, 'Customer'), 
+(100000, 'Administrator'),
+(100001, 'Customer'),
 (100002, 'Volunteer'),
-(100002, 'Admin')
+(100002, 'Administrator')
 GO
 
 /*
@@ -11376,15 +13590,15 @@ GO
 Created by: Ben Hanna
 Date: 2/18/2020
 Comment: Sample animal handling notes record
-*/                
+*/
 print '' print '*** Creating Sample Animal Handling Records'
 GO
 INSERT INTO [dbo].[AnimalHandlingNotes]
-	([AnimalID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID] 
+	([AnimalID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate], [UserID]
     )
 	VALUES
 	(1000000,
-     'test test test', 'hubba hubba', '2020-01-22', 
+     'test test test', 'hubba hubba', '2020-01-22',
      100000)
 GO
 
@@ -11392,14 +13606,14 @@ GO
 Created by: Ben Hanna
 Date: 3/12/2020
 Comment: Sample animal kennel records
-*/                
+*/
 print '' print '*** Creating Sample Animal Kennel Records'
 GO
 INSERT INTO [dbo].[AnimalKennel]
-	([AnimalID],				
-	[UserID],				
-	[AnimalKennelInfo],		
-	[AnimalKennelDateIn],	
+	([AnimalID],
+	[UserID],
+	[AnimalKennelInfo],
+	[AnimalKennelDateIn],
 	[AnimalKennelDateOut]
     )
 	VALUES
@@ -11455,19 +13669,19 @@ Updated by Awaab Elamin
 Date: 3/16/2020
 Comment: Close sample data that conflict with customer Email
 Note: update happend after customerId changed to CUstomerEmail
-Updated by: Mohamed Elamin , 2020/03/30 
-Comment: Add sample data. 
+Updated by: Mohamed Elamin , 2020/03/30
+Comment: Add sample data.
 */
 GO
 print '' print '*** Creating Sample AdoptionApplication Records'
 GO
 INSERT INTO [dbo].[AdoptionApplication]
 	([CustomerEmail],[AnimalID],[Status],[RecievedDate])
-	VALUES	
+	VALUES
 	('Awaab@Awaaab.com',(SELECT [AnimalID]FROM[dbo].[Animal]WHERE [Animal].[AnimalName] = 'Paul'),'Reviewer','2020-01-01'),
 	('moals@PetUniverse.com',1000001,'InHomeInspection','2019-10-9'),
 	('scardona@PetUniverse.com',1000002,'Interviewer','2019-10-9'),
-	('tdupuy@PetUniverse.com',1000003,'InHomeInspection','2019-10-9'),	
+	('tdupuy@PetUniverse.com',1000003,'InHomeInspection','2019-10-9'),
 	('Austin@email.com',1000004,'InHomeInspection ','2019-10-9')
 GO
 
@@ -11504,24 +13718,6 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Insert Sample Data into Item Table
-*/
-print '' print '*** Insert Into Item Table ***'
-GO
-INSERT INTO [dbo].[Item](
-	[ItemName],
-	[ItemCategoryID],
-	[ItemDescription],
-	[ItemQuantity]
-)
-VALUES
-    ('LoCatMein','Food','Name Brand Cat Food', 42),
-    ('Scratch Be Gone','Medical','Animal Scratch Wound Healant', 35)
-GO
-
-/*
-Created by: Cash Carlson
-Date: 2/21/2020
 Comment: Insert Sample Data into ProductCategory Table
 */
 print '' print '*** Insert Into ProductCategory Table ***'
@@ -11552,6 +13748,68 @@ VALUES
 GO
 
 /*
+Created by: Matt Deaton
+Date: 2020-03-06
+Comment: Inserting sample data into the Item table that are intended for shelter use.
+*/
+PRINT '' PRINT '*** Insert Sample Data For Shelter Items in Item Table'
+INSERT INTO [dbo].[Item](
+	[ItemName]
+	,[ItemCategoryID]
+	,[ItemDescription]
+	,[ItemQuantity]
+	,[ShelterItem]
+	,[ShelterThershold]
+)
+VALUES
+('Dog Food', 'Food', 'Food for Shelter. In pounds.', 75, 1, 100),
+('Cat Litter', 'Litter', 'Cat Litter for the Shelter. In pounds', 150, 1, 100),
+('Blankets', 'Bedding', 'Blankets for the Shelter animals to use as bedding', 5, 1, 10),
+('Chinchilla Food', 'Food', 'Pellet food for a Chinchilla', 3, 1, 5)
+GO
+
+/*
+Created by: Cash Carlson
+Date: 2/21/2020
+Comment: Insert Sample Data into Item Table
+*/
+print '' print '*** Insert Into Item Table ***'
+GO
+INSERT INTO [dbo].[Item](
+	[ItemName],
+	[ItemCategoryID],
+	[ItemDescription],
+	[ItemQuantity]
+)
+VALUES
+    ('LoCatMein','Food','Name Brand Cat Food', 42),
+    ('Scratch Be Gone','Medical','Animal Scratch Wound Healant', 35)
+GO
+
+INSERT INTO [dbo].[Item]
+([ItemQuantity], [ItemName], [ItemCategoryID], [ItemDescription])
+	VALUES
+	(4,' Medication1', 'Medical', ''),
+	(4,' Medication2', 'Medical', '')
+GO
+
+/*
+Created by: Tener Karar
+Date: 02/27/2020
+Comment: inserting Item sample data
+*/
+print '' print '*** inserting Item sample data'
+GO
+INSERT INTO [dbo].[Item]
+	([ItemName], [ItemQuantity], [ItemCategoryID], [ItemDescription] )
+VALUES
+	('loon', 1, 'cat',' Litter-Robot 3 is the highest-rated automatic,
+    self-cleaning litter box for cats.
+    Never scoop cat litter again while giving your kitty a clean
+    bed of litter for each use. Litter-Robot ' )
+go
+
+/*
 Created by: Cash Carlson
 Date: 2/21/2020
 Comment: Insert Sample Data into Product Table, Updated 2020/03/17 to be compatible with new Product table structure by Robert Holmes.
@@ -11571,6 +13829,8 @@ VALUES
 	('7084781116',100000,'Cat',1,50.0,'Name brand cat food','OnlyForCats'),
 	('2500006153',100001,'General',1,100.0,'Medical Supplies to Heal Scratch Wounds','AlsoForHumans')
 GO
+
+
 
 /*
 Created by: Derek Taylor
@@ -11664,16 +13924,16 @@ INSERT INTO [dbo].[Appointment]
 	VALUES
 	(100000,'Reviewer','2020-2-22 10am','','',1000000),
 	(100001,'Meet and Greet','2020-2-22 9am','','',1000000),
-	(100002,'Interviewer','2020-2-22 12pm','','',1000000),		
+	(100002,'Interviewer','2020-2-22 12pm','','',1000000),
 	(100003,'InHomeInspection','2020-2-22 12pm','','',1000003),
 	(100004,'InHomeInspection','2020-2-22 12pm','','',1000004)
-	
-	
+
+
 GO
 /*
 Created by: Awaab Elamin
 Date: 2/18/2020
-Comment: Insert samples data in general questiones table 
+Comment: Insert samples data in general questiones table
 */
 GO
 print '' print '*** Inserting GeneralQusetions records'
@@ -11775,22 +14035,6 @@ Go
 /*
 Created by: Tener Karar
 Date: 02/27/2020
-Comment: inserting Item sample data
-*/
-print '' print '*** inserting Item sample data'
-GO
-INSERT INTO [dbo].[Item]
-	([ItemName], [ItemQuantity], [ItemCategoryID], [ItemDescription] )
-VALUES
-	('loon', 1, 'cat',' Litter-Robot 3 is the highest-rated automatic,
-    self-cleaning litter box for cats.
-    Never scoop cat litter again while giving your kitty a clean
-    bed of litter for each use. Litter-Robot ' )
-go
-
-/*
-Created by: Tener Karar
-Date: 02/27/2020
 Comment: inserting Item Location sample data
 */
 print '' print '*** inserting ItemLocation sample data'
@@ -11887,7 +14131,9 @@ GO
 INSERT INTO [dbo].[RequestType]
 	([RequestTypeID],[Description])
 	VALUES
-	('Event','A request to host an event sponsored by Pet Universe.')
+	('Event','A request to host an event sponsored by Pet Universe.'),
+	('Social Media', 'A request to post information on our social media outlets'),
+	('Shelter Inventory', 'A request to replenish a shelter items inventory')
 GO
 
 /*
@@ -11901,7 +14147,8 @@ INSERT INTO [dbo].[Department]
 	([DepartmentID], [Description])
 	VALUES
 	('Inventory', 'Inventory Description'),
-	('CustomerService', 'CustomerService Description')
+	('CustomerService', 'CustomerService Description'),
+	('ShelterManagement', 'The shelter management department')
 GO
 
 /*
@@ -11934,7 +14181,7 @@ INSERT INTO [dbo].[request]
 	('20200207 12:55:01 PM', 'General',  100000),
 	('20200208 01:02:03 PM', 'General',  100000),
 	('20200206 03:02:03 PM', 'General',  100000)
-GO 
+GO
 
 /*
 Created by: Ryan Morganti
@@ -12005,25 +14252,6 @@ VALUES
 	('Cat Toys', 'This is the description for the cat toys.')
 GO
 
-/*
-Created by: Brandyn T. Coverdill
-Date: 2/22/2020
-Comment: Adding data to Item
-*/
-print '' print '*** Adding data to items'
-GO
-INSERT INTO Item(
-	ItemName,
-	ItemCategoryID,
-	ItemDescription,
-	ItemQuantity
-)
-VALUES
-	('Dog Food', 'Dog Food', 'Dog Food Description', 10),
-	('Cat Food', 'Dog Food', 'Cat Food Description', 20),
-	('Lazer Pointer', 'Cat Toys', 'Lazer Pointer Description', 40)
-GO
-
 print '' print '*** Creating Sample Volunteer Records'
 /*
 Created by: Josh Jackson
@@ -12035,7 +14263,7 @@ go
 insert into [dbo].[Volunteer]
 	([FirstName], [LastName], [Email], [PhoneNumber], [OtherNotes])
 	values
-	('System', 'Admin', 'admin@petuniverse.com', '00000000000', 'Admin Volunteer'),
+	('System', 'Administrator', 'admin@petuniverse.com', '00000000000', 'Admin Volunteer'),
 	('Ned', 'Flanders', 'diddlydoo@gmail.com', '13192522443', 'Volunteer Notes')
 go
 
@@ -12063,6 +14291,7 @@ insert into [dbo].[VolunteerSkills]
 	([SkillID], [SkillDescription])
 	values
 	('Basic Volunteer', 'Standard Volunteer - no particular proficiency'),
+	('Foster', 'Cares for animals in an home environment until a forever home can be found'),
 	('Dogwalker', 'Suited to walk dogs'),
 	('Groomer', 'Suited to groom animals'),
 	('Trainer', 'Suited to train animals'),
@@ -12085,7 +14314,8 @@ insert into [dbo].[VolunteerSkill]
 	([VolunteerID], [SkillID])
 	values
 	(1000001, 'Greeter'),
-	(1000001, 'Campaigner')
+	(1000001, 'Campaigner'),
+	(1000001, 'Basic Volunteer')
 go
 
 /*
@@ -12148,7 +14378,7 @@ GO
 /*
 Created by: Robert Holmes
 Date: 2020/03/10
-Comment: Inserting promotion types 
+Comment: Inserting promotion types
 */
 print '' print '*** Inserting promotion types'
 GO
@@ -12165,14 +14395,7 @@ INSERT INTO [dbo].[AnimalActivity]
 	([AnimalID], [UserID], [AnimalActivityTypeID], [ActivityDateTime], [Description])
 	VALUES
 	(1000000, 100000, 'Feeding', '09-08-2016', '')
-	
-GO	
 
-INSERT INTO [dbo].[Item]
-([ItemQuantity], [ItemName], [ItemCategoryID], [ItemDescription])
-	VALUES
-	(4,' Medication1', 'Medical', ''),
-	(4,' Medication2', 'Medical', '')	
 GO
 
 INSERT INTO [dbo].[AnimalMedicalInfo]
@@ -12187,19 +14410,19 @@ VALUES
 	(1000006,100000,1, 'Corona', '04-15-1998', 'None'),
 	(1000007,100000,1, 'Corona', '04-15-1998', 'None'),
 	(1000008,100000,1, 'Corona', '04-15-1998', 'None')
-	
-GO	
+
+GO
 
 /*
 Created by: Ben Hanna
 Date: 2/18/2020
 Comment: Sample animal handling notes record
-*/                
+*/
 print '' print '*** Creating Sample Animal Handling Records'
 GO
 INSERT INTO [dbo].[AnimalHandlingNotes]
 	([AnimalID], [UserID], [AnimalHandlingNotes], [TemperamentWarning], [UpdateDate])
-    
+
 	VALUES
 	(1000000,100000,'Notes', 'Warning', '2020-01-22'),
 	(1000001,100000,'Notes', 'Warning', '2020-01-22'),
@@ -12209,7 +14432,7 @@ INSERT INTO [dbo].[AnimalHandlingNotes]
 	(1000005,100000,'Notes', 'Warning', '2020-01-22'),
 	(1000006,100000,'Notes', 'Warning', '2020-01-22'),
 	(1000007,100000,'Notes', 'Warning', '2020-01-22'),
-	(1000008,100000,'Notes', 'Warning', '2020-01-22') 
+	(1000008,100000,'Notes', 'Warning', '2020-01-22')
 GO
 
 /*
@@ -12290,27 +14513,6 @@ GO
 
 /*
 Created by: Matt Deaton
-Date: 2020-03-06
-Comment: Inserting sample data into the Item table that are intended for shelter use.
-*/
-PRINT '' PRINT '*** Insert Sample Data For Shelter Items in Item Table'
-INSERT INTO [dbo].[Item](
-	[ItemName]
-	,[ItemCategoryID]
-	,[ItemDescription]
-	,[ItemQuantity]
-	,[ShelterItem]
-	,[ShelterThershold]
-)
-VALUES
-('Dog Food', 'Food', 'Food for Shelter. In pounds.', 75, 1, 100),
-('Cat Litter', 'Litter', 'Cat Litter for the Shelter. In pounds', 150, 1, 100),
-('Blankets', 'Bedding', 'Blankets for the Shelter animals to use as bedding', 5, 1, 10),
-('Chinchilla Food', 'Food', 'Pellet food for a Chinchilla', 3, 1, 5)
-GO
-
-/*
-Created by: Matt Deaton
 Date: 2020-03-17
 Comment: Inserting sample data into the Donor table.
 */
@@ -12341,7 +14543,9 @@ Insert INTO [dbo].[Transaction]
 	('2020-02-11 9:43',0.0225,41.39,41.39,43.22,'tranTYPE100'
 	, 100000, 'tranStatus100',null),
 	('2018-04-13 10:13',0.014,52.39,51.39,53.22,'tranTYPE100'
-	, 100001, 'tranStatus100',null)
+	, 100001, 'tranStatus100',null),
+	('2020-03-12 11:10',0.014,-50.22,-10.11,-54.33,'tranTYPE100'
+	, 100002, 'tranStatus100',null)
 Go
 
 /*
@@ -12356,7 +14560,8 @@ Insert INTO [dbo].[TransactionLineProducts]
 	Values
 	(1000, '7084781116', 1, 37.22),
 	(1000, '2500006153', 1, 11.11),
-	(1001, '7084781116', 2, 74.44)
+	(1001, '7084781116', 2, 74.44),
+	(1002, '7084781116', -5, -50.00)
 Go
 
 /*
@@ -12368,7 +14573,7 @@ PRINT ''  PRINT '*** Creating sample SalesTaxHistory data'
 GO
 INSERT INTO [dbo].[SalesTaxHistory]
 	([ZipCode], [SalesTaxDate], [TaxRate])
-    
+
 	VALUES
 	('1111', '2002-10-10', 2.33),
 	('1111', '2008-10-10', 3.33),
@@ -12395,14 +14600,14 @@ CREATE PROCEDURE [sp_update_product_price]
 	@NewDescription  		[NVARCHAR](500),
 	@NewPrice				[DECIMAL](10,2),
 	@NewBrand				[NVARCHAR](20),
-	@NewTaxable				[BIT],	
-	
+	@NewTaxable				[BIT],
+
 	@OldItemID				[INT],
 	@OldProductTypeID 		[NVARCHAR](20),
 	@OldDescription  		[NVARCHAR](500),
 	@OldPrice				[DECIMAL](10,2),
 	@OldBrand				[NVARCHAR](20),
-	@OldTaxable				[BIT]	
+	@OldTaxable				[BIT]
 )
 AS
 BEGIN
@@ -12413,15 +14618,15 @@ BEGIN
 			[Price]			  = @NewPrice,
 			[Brand]		      = @NewBrand,
 			[Taxable] 		  = @NewTaxable
-			
-	WHERE 	[ProductID] 	  =	@ProductID 
+
+	WHERE 	[ProductID] 	  =	@ProductID
 	  AND	[ItemID] 	  	  = @OldItemID
 	  AND	[ProductTypeID]     = @OldProductTypeID
 	  AND	[Description] 	  = @OldDescription
 	  AND	[Price]    	      = @OldPrice
 	  AND	[Brand]           = @OldBrand
 	  AND	[Taxable]         = @OldTaxable
-	 
+
 	RETURN @@ROWCOUNT
 END
 GO
@@ -12443,7 +14648,7 @@ INSERT INTO [dbo].[request]
 	('20200207 12:55:01 PM', 'Event', 100000, 1),
 	('20200208 01:02:03 PM', 'Event', 100000, 1),
 	('20200207 12:55:01 PM', 'Event', 100003, 0)
-GO 
+GO
 
 /*
 Created by: Steve Coonrod
@@ -12468,19 +14673,19 @@ Date: 4/8/2020
 Comment: Sample data for the cleaning records.
 */
 
-GO                
+GO
 PRINT '' PRINT '*** Inserting Sample Kennel Cleaning records'
 GO
-INSERT INTO [dbo].[FacilityKennelCleaning] 
+INSERT INTO [dbo].[FacilityKennelCleaning]
         ([UserID],
          [AnimalKennelID],
          [Date],
          [Notes]
         )
-VALUES 
+VALUES
         (100000, 1000000, '20200207 12:55:01 PM', 'sample 1 sample 1'),
         (100001, 1000001, '20200407 12:55:00 PM', 'sample 2 sample 2')
-GO          
+GO
 
 
 /*
@@ -12518,7 +14723,7 @@ CREATE PROCEDURE [sp_select_event_approval_request_by_eventID]
 	@EventID			[int],
 	@CreatedByID		[int]
 )
-AS 
+AS
 BEGIN
 
 	SELECT  [dbo].[User].[FirstName] + ' ' + [dbo].[User].[LastName] AS [RequestedByName],
@@ -12546,7 +14751,7 @@ CREATE PROCEDURE [sp_select_event_request_by_event_id]
 (
 	@EventID				[int]
 )
-AS 
+AS
 BEGIN
 	SELECT  [RequestID],[ReviewerID],[DisapprovalReason],[DesiredVolunteers],[Active]
 	FROM	[dbo].[EventRequest]
@@ -12573,7 +14778,7 @@ CREATE PROCEDURE [sp_update_event_request]
 	@OldDesiredVolunteers	[int],
 	@OldActive				[bit]
 )
-AS 
+AS
 BEGIN
 	UPDATE	[dbo].[EventRequest]
 	SET		[ReviewerID] = @ReviewerID,
@@ -12601,7 +14806,7 @@ CREATE PROCEDURE [sp_set_event_status]
 	@EventID		[int],
 	@Status			[nvarchar](50)
 )
-AS 
+AS
 BEGIN
 	UPDATE 	[dbo].[Event]
 	SET		[Status] = @Status
@@ -12674,26 +14879,6 @@ INSERT INTO [dbo].[Picture]
 GO
 */
 
-
-/*Created by: Rasha Mohammed
-Date: 3/30/2020
-Comment: Select images from picture table 
-*/
-print '' print '*** Creating sp_select__all_image'
-GO
-CREATE PROCEDURE [sp_select__all_image]
-AS
-BEGIN
-/*
-	SELECT  [Picture].[PictureID], [Product].[ProductID], [Picture].[ImagePath]	
-	FROM 	[Picture]
-    JOIN 	[Product] ON [Product].[ProductID] = [Picture].[ProductID]
-	*/
-	SELECT 	[PictureID], [ProductID], [PictureData], [PictureMimeType]
-	FROM 	[Picture]
-END
-GO	
-
 /*
 Created by: Robert Holmes
 Date: 4/13/2020
@@ -12748,7 +14933,7 @@ INSERT INTO [dbo].[JobListing]
 	([Position], [Benefits], [Requirements], [StartingWage], [Responsibilities])
 	VALUES
 	('Volunteer', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'Good Enough Degree', 0000.01, 'Do things without expectation of pay'),
-	('Admin', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
+	('Administrator', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
 	('Customer', 'No Benefits', 'No Requirements', 0000.01, 'Give us money in exchange for merchandise'),
 	('Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in'),
 	('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves'),
@@ -12779,20 +14964,22 @@ GO
 INSERT INTO [dbo].[shift]
 	([ShiftTimeID], [ScheduleID], [Date], [UserID], [ERoleID])
 	VALUES
-	(1000000, 1000000, '2020-4-11', 100001, 'Admin'),
+	(1000000, 1000000, '2020-4-11', 100001, 'Administrator'),
 	(1000001, 1000000, '2020-4-11', 100001, 'Customer'),
 	(1000002, 1000000, '2020-4-14', 100001, 'Volunteer'),
-	(1000003, 1000000, '2020-4-17', 100001, 'Admin'),
+	(1000003, 1000000, '2020-4-17', 100001, 'Administrator'),
 	(1000000, 1000000, '2020-4-13', 100002, 'Volunteer'),
 	(1000000, 1000000, '2020-4-14', 100002, 'Volunteer'),
 	(1000000, 1000000, '2020-4-15', 100002, 'Volunteer'),
 	(1000000, 1000000, '2020-4-16', 100002, 'Volunteer'),
 	(1000000, 1000000, '2020-4-18', 100002, 'Volunteer'),
-	(1000003, 1000000, '2020-4-17', 100000, 'Admin'),
-	(1000003, 1000000, '2020-4-25', 100001, 'Admin'),
-	(1000002, 1000000, '2020-4-25', 100001, 'Admin'),
-	(1000000, 1000000, '2020-5-20', 100001, 'Admin'),
-	(1000001, 1000000, '2020-5-20', 100001, 'Admin')
+	(1000003, 1000000, '2020-4-17', 100000, 'Administrator'),
+	(1000003, 1000000, '2020-4-25', 100001, 'Administrator'),
+	(1000002, 1000000, '2020-4-25', 100001, 'Administrator'),
+	(1000000, 1000000, '2020-5-21', 100001, 'Administrator'),
+	(1000001, 1000000, '2020-5-20', 100001, 'Administrator'),
+	(1000000, 1000000, '2020-5-20', 100000, 'Administrator'),
+	(1000001, 1000000, '2020-5-21', 100000, 'Administrator')
 
 GO
 
@@ -13011,7 +15198,7 @@ PRINT '' PRINT '*** Inserting Sample Interview Data Records'
 GO
 INSERT INTO [dbo].[Interview]
 		([ApplicationID], [EmployeeID], [DatePerformed], [Notes])
-	VALUES	
+	VALUES
 		(100000, 100000, '20200207 01:55:01 PM', 'Great feneced yard. One other dog.'),
 		(100001, 100000, '20200207 01:55:01 PM', ''),
 		(100002, 100000, '20200207 01:55:01 PM', ''),
@@ -13021,4 +15208,87 @@ INSERT INTO [dbo].[Interview]
 		(100006, 100000, '20200207 01:55:01 PM', 'Great Applicant, but need to check references.')
 GO
 
+
+/*
+Created by: Dalton Reierson
+Date: 4/19/2020
+Comment: sample orders
+*/
+print''
+print'*** Creating Sample Orders ***'
+GO
+
+INSERT INTO [dbo].[Orders]
+    ([UserID])
+    VALUES
+    (100000),
+	(100000),
+	(100000)
+GO
+
+/*
+Created by: Dalton Reierson
+Date: 4/19/2020
+Comment: sample shippers
+*/
+print''
+print'*** Creating Sample Shipper ***'
+GO
+
+INSERT INTO [dbo].[Shipper]
+    ([ShipperID],[Complaint])
+    VALUES
+    ('100000', 'Complaint'),
+	('100001', 'Complaint'),
+	('100002', 'Complaint')
+GO
+
+/*
+Created by: Dalton Reierson
+Date: 4/19/2020
+Comment: sample receiving records
+*/
+print''
+print'*** Creating Sample Receiving Record ***'
+GO
+
+INSERT INTO [dbo].[ReceivingRecord]
+    ([ReceivingRecordID],[OrderID],[ShipperID],[ReceivingOrderDate])
+    VALUES
+    (100000, 100000, '100000', '2020-02-19'),
+	(100001, 100001, '100001', '2020-02-19'),
+	(100002, 100002, '100002', '2020-02-19')
+GO
+
+/*
+Created by: Dalton Reierson
+Date: 4/19/2020
+Comment: sample orderLines
+*/
+print''
+print'*** Creating Sample OrderLine ***'
+GO
+
+INSERT INTO [dbo].[OrderLine]
+    ([OrderLineID],[ItemID],[ReceivingRecordID],[MissingItemQuantity],[DamagedItemQuantity])
+    VALUES
+    (100000, 100000, 100000, 10, 10),
+	(200000, 100001, 100001, 20, 20),
+	(100001, 100002, 100002, 11, 11)
+GO
+
+/*
+Created by: Timothy Lickteig
+Date: 2020/04/27
+Comment: Inserting sample Foster Appointments
+*/
+print'' print'*** Inserting sample Foster Appointments ***'
+GO
+
+INSERT INTO [dbo].[FosterAppointment]
+	([VolunteerID], [StartTime], [EndTime], [Description])
+	VALUES
+	(1000000, '15:00:00', '17:00:00', 'This is a description'),
+	(1000001, '12:00:00', '13:00:00', 'This is another description')
+GO
 -- End of file

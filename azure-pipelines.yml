@@ -38,17 +38,6 @@ steps:
   inputs:
     testResultsFormat: VSTest
 
-- task: CopyFiles@2
-  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
-  inputs:
-    SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: '**\bin\$(BuildConfiguration)\**'
-    TargetFolder: '$(Build.ArtifactStagingDirectory)'
-  condition: succeededOrFailed()
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '3.x'
@@ -59,7 +48,23 @@ steps:
   inputs:
     scriptSource: 'filePath'
     scriptPath: '$(system.defaultworkingdirectory)/db_transformer.py'
-    arguments: 'PetUniverse/DB_Script/PetUniverseDB.sql'
+    arguments: '$(system.defaultworkingdirectory)/PetUniverse/DB_Script/PetUniverseDB.sql'
+
+- task: FileTransform@2
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/PetUniverse/WPFPresentation'
+    xmlTransformationRules: '-transform web.Production.config -xml web.config'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '$(buildConfiguration)'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+  condition: succeededOrFailed()
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
@@ -78,7 +83,7 @@ steps:
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
   inputs:
     SourceFolder: '$(system.defaultworkingdirectory)'
-    Contents: sqlscript.sql
+    Contents: prod_sqlscript.sql
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     CleanTargetFolder: true
 
@@ -86,3 +91,5 @@ steps:
   displayName: 'Publish Artifact: final_script'
   inputs:
     ArtifactName: 'final_script'
+
+

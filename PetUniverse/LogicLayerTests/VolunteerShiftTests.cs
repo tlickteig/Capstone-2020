@@ -34,7 +34,7 @@ namespace LogicLayerTests
             IVolunteerShiftManager manager = new VolunteerShiftManager();
 
             //Act
-            int rows = manager.AddVolunteerShift(new VolunteerShift()
+            int rows = manager.AddVolunteerShift(new VolunteerShiftVM()
             {
                 VolunteerShiftID = 100,
                 VolunteerID = 1,
@@ -106,11 +106,11 @@ namespace LogicLayerTests
 
             //Act            
             int rows = manager.EditVolunteerShift(
-                new VolunteerShift()
+                new VolunteerShiftVM()
                 {
                     VolunteerShiftID = 1
                 },
-                new VolunteerShift()
+                new VolunteerShiftVM()
                 {
                     VolunteerShiftID = 1,
                     ShiftDescription = "Hello World!",
@@ -140,7 +140,7 @@ namespace LogicLayerTests
         {
             IVolunteerShiftManager manager = new VolunteerShiftManager();
 
-            manager.AddVolunteerShift(new VolunteerShift()
+            manager.AddVolunteerShift(new VolunteerShiftVM()
             {
                 VolunteerID = 0,
                 VolunteerShiftID = 0,
@@ -155,7 +155,7 @@ namespace LogicLayerTests
                 ShiftStartTime = TimeSpan.Zero,
                 ShiftEndTime = TimeSpan.Zero
             });
-            manager.AddVolunteerShift(new VolunteerShift()
+            manager.AddVolunteerShift(new VolunteerShiftVM()
             {
                 VolunteerID = 0,
                 VolunteerShiftID = 0,
@@ -205,7 +205,7 @@ namespace LogicLayerTests
         {
             IVolunteerShiftManager manager = new VolunteerShiftManager();
 
-            List<VolunteerShift> shifts =
+            List<VolunteerShiftVM> shifts =
                 manager.ReturnAllVolunteerShiftsForAVolunteer(1);
 
             Assert.AreEqual(true, shifts.Count > 0);

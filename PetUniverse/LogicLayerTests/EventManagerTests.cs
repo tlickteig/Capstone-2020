@@ -9,14 +9,21 @@ using System.Collections.Generic;
 namespace LogicLayerTests
 {
     /// <summary>
-    /// NAME: Derek Taylor
-    /// DATE: 2020-02-06
-    /// CHECKED BY: Ryan Morganti 
+    /// CREATOR: Derek Taylor
+    /// CREATED: 2020-02-06
+    /// APPROVER: Ryan Morganti
     ///
     /// The EventManagerTests class that allows testing of the 
     /// classes and methods used for event handling.
     /// 
     /// </summary>
+    /// <remarks>
+    /// 
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA   
+    /// 
+    /// </remarks>
     [TestClass]
     public class EventManagerTests
     {
@@ -33,18 +40,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for all GOOD values
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestAddEventGood()
         {
@@ -80,18 +91,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Name value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Name must be at least 8 characters.")]
@@ -122,18 +137,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Name value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Name is too long.")]
@@ -166,18 +185,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Date value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Date is too close. Must be 14 days or more.")]
@@ -208,18 +231,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Address value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Address is too short")]
@@ -250,18 +277,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Address value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Address is too long.")]
@@ -294,18 +325,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event City value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event City is too short.")]
@@ -336,18 +371,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event City value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event City is too long.")]
@@ -378,18 +417,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Zipcode value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event zipcode is too short.")]
@@ -420,18 +463,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Zipcode value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event zipcode is too long.")]
@@ -462,18 +509,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Picture File Name value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event picture file name is too short.")]
@@ -504,18 +555,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Picture File Name value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event picture file name is too long.")]
@@ -549,18 +604,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Picture File Name value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event picture file name is missing its extension.")]
@@ -591,18 +650,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Description value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event description is too short.")]
@@ -633,18 +696,22 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the AddEvent methods
         /// 
         /// This is the test for a BAD Event Description value
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event description is too long.")]
@@ -687,17 +754,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// All values are good values
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestEditEventGood()
         {
@@ -737,17 +808,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Name is too short.")]
@@ -785,17 +860,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Name is too long.")]
@@ -835,17 +914,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Date is too close. Must be more than 14 days away.")]
@@ -883,17 +966,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Address is too short.")]
@@ -931,17 +1018,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Address is too long.")]
@@ -981,17 +1072,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event city is too short.")]
@@ -1029,17 +1124,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event City is too long.")]
@@ -1077,17 +1176,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event Zipcode is invalid.")]
@@ -1125,17 +1228,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event banner path is too short.")]
@@ -1173,17 +1280,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event banner path is too long.")]
@@ -1224,17 +1335,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event banner path is missing its extension")]
@@ -1272,17 +1387,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event description is too short.")]
@@ -1320,17 +1439,21 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the EditEvent method
         /// Expects an exception to be thrown
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "The Event description is too short.")]
@@ -1370,16 +1493,20 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-01
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the DeleteEvent method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestDeleteEvent()
         {
@@ -1398,16 +1525,20 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the SelectAllEvents method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestSelectAllEvents()
         {
@@ -1422,16 +1553,20 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-28
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-28
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the SelectAllEventTypes method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestSelectAllEventTypes()
         {
@@ -1445,16 +1580,20 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-28
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-28
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the InsertRequest method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestInsertRequest()
         {
@@ -1473,16 +1612,20 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-28
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-28
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the InsertEventRequest method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestInsertEventRequest()
         {
@@ -1506,16 +1649,20 @@ namespace LogicLayerTests
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the GetEventByID method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestGetEventByID()
         {
@@ -1528,20 +1675,20 @@ namespace LogicLayerTests
             Assert.IsNotNull(selectedEvent);
         }
 
-
-        //======================================================================\\
-
         /// <summary>
         ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-15
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the SelectEventApprovalVM method
+        /// <remarks>
         /// 
-        /// Updated By:
-        /// Updated On:
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
         /// 
+        /// </remarks>
         /// </summary>
         [TestMethod]
         public void TestSelectEventApprovalVMGood()
@@ -1555,16 +1702,20 @@ namespace LogicLayerTests
 
         /// <summary>
         ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-15
+        /// APPROVER: Ryan Morganti
         /// 
-        /// A test method for testing the SelectEventApprovalVM method
-        /// 
-        /// Updated By:
-        /// Updated On:
+        /// A test method for testing the SelectEventApprovalVM methoddated On:
         /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "No Event has an ID matching the ID provided.")]
@@ -1578,16 +1729,20 @@ namespace LogicLayerTests
 
         /// <summary>
         ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-15
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the SelectEventRequestByEventID method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestSelectEventRequestByEventIDGood()
         {
@@ -1599,16 +1754,20 @@ namespace LogicLayerTests
 
         /// <summary>
         ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-15
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the SelectEventRequestByEventID method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestSelectEventRequestByEventIDBAD()
         {
@@ -1621,16 +1780,20 @@ namespace LogicLayerTests
 
         /// <summary>
         ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-15
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the UpdateEventRequest method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestUpdateEventRequestGood()
         {
@@ -1656,16 +1819,20 @@ namespace LogicLayerTests
 
         /// <summary>
         ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-15
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the UpdateEventRequest method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "No Disapproval Reason cannot be blank.")]
@@ -1691,16 +1858,20 @@ namespace LogicLayerTests
 
         /// <summary>
         ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-15
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the UpdateEventRequest method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         [ExpectedException(typeof(ApplicationException),
             "No Disapproval Reason is too long.")]
@@ -1726,16 +1897,20 @@ namespace LogicLayerTests
 
         /// <summary>
         ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-15
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the SelectEventsByStatus method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestSelectEventsByStatus()
         {
@@ -1749,16 +1924,20 @@ namespace LogicLayerTests
 
         /// <summary>
         ///  
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-15
-        /// CHECKED BY: 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-03-15
+        /// APPROVER: Ryan Morganti
         /// 
         /// A test method for testing the UpdateEventStatus method
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         [TestMethod]
         public void TestUpdateEventStatus()
         {

@@ -2,6 +2,7 @@
 using DataTransferObjects;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 namespace DataAccessFakes
 {
@@ -15,6 +16,7 @@ namespace DataAccessFakes
     public class FakeAdoptionCustomerAccessor : IAdoptionCustomerAccessor
     {
         private List<AdoptionCustomerVM> adoptionCustomerVMs;
+        private List<AdoptionCustomer> adoptionCustomers;
 
         /// <summary>
         /// NAME: Austin Gee
@@ -47,6 +49,65 @@ namespace DataAccessFakes
                     ZipCode = "12345"
                 }
             };
+
+            adoptionCustomers = new List<AdoptionCustomer>
+            {
+                new AdoptionCustomer
+                {
+                    CustomerEmail = "Fake1@fake.com",
+                    FirstName = "Fake",
+                    LastName = "Fake",
+                    PhoneNumber = "1110002222",
+                    AddressLineOne = "Fake",
+                    AddressLineTwo = "Fake",
+                    City = "Fake",
+                    State = "Fake",
+                    Zipcode = "Fake",
+                    Active = true
+                },
+                new AdoptionCustomer
+                {
+                    CustomerEmail = "Fake2@fake.com",
+                    FirstName = "Fake",
+                    LastName = "Fake",
+                    PhoneNumber = "1110002222",
+                    AddressLineOne = "Fake",
+                    AddressLineTwo = "Fake",
+                    City = "Fake",
+                    State = "Fake",
+                    Zipcode = "Fake",
+                    Active = true
+                },
+                new AdoptionCustomer
+                {
+                    CustomerEmail = "Fake3@fake.com",
+                    FirstName = "Fake",
+                    LastName = "Fake",
+                    PhoneNumber = "1110002222",
+                    AddressLineOne = "Fake",
+                    AddressLineTwo = "Fake",
+                    City = "Fake",
+                    State = "Fake",
+                    Zipcode = "Fake",
+                    Active = true
+                }
+            };
+        }
+
+        public int InsertAdoptionCustomer(AdoptionCustomer customer)
+        {
+            int rows = 0;
+            try
+            {
+                adoptionCustomers.Add(customer);
+                rows += 1;
+            }
+            catch (Exception)
+            {
+
+                throw ;
+            }
+            return rows;
         }
 
         /// <summary>

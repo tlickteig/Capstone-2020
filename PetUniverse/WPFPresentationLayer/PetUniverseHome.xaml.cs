@@ -513,7 +513,15 @@ namespace WPFPresentationLayer
         {
             //Added to allow the user object to be passed to the EventMgmt page
             fEventMgmt.Content = new EventMgmt(_user);
-
+            if (_user.PURoles.Contains("Administrator") || _user.PURoles.Contains("Manager"))
+            {
+                tabSocialMediaRequest.Visibility = Visibility.Visible;
+                frRequestSocialMedia.Content = new RecruitingPages.SocialMediaRequestForm(this, _user);
+            }
+            else
+            {
+                tabSocialMediaRequest.Visibility = Visibility.Hidden;
+            }
             desiredScreen = "Donations";
             switchScreen(desiredScreen);
         }
@@ -778,7 +786,7 @@ namespace WPFPresentationLayer
         /// <summary>
         /// Creator: Steven Cardona
         /// Created: 04/16/2020
-        /// Approver:
+        /// Approver: Zach Behrensmeyer
         /// 
         /// Changes Cursor when not hovering over label
         /// </summary>
@@ -792,6 +800,25 @@ namespace WPFPresentationLayer
         private void lblStatusBar_MouseLeave(object sender, MouseEventArgs e)
         {
             Mouse.OverrideCursor = null;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/29/2020
+        /// Approver: Zach Behrensmeyer
+        /// 
+        /// Closes program
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }

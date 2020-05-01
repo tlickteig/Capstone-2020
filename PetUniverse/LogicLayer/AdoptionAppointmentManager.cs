@@ -97,6 +97,35 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/27/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// updates an Appointments datetime
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="appointmentID"></param>
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        public bool EditAdoptionAppointmentDateTime(int appointmentID, DateTime dateTime)
+        {
+            try
+            {
+                return 1 == _adoptionAppointmentAccessor.UpdateAdoptionAppointmentDateTime(appointmentID, dateTime);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 3/4/2020
         /// CHECKED BY: Thomas Dupuy
         /// 
@@ -124,6 +153,32 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 4/29/2020
+        /// CHECKED BY: 
+        /// 
+        /// Gets a list Adoption AppointmentVMs by active
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        public List<AdoptionAppointmentVM> RetrieveAdoptionAppointmentsByActive(bool active = true)
+        {
+            try
+            {
+                return _adoptionAppointmentAccessor.SelectAdoptionAppointmentsByActive(active);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 2/10/2020
         /// CHECKED BY: Thomas Dupuy
         /// 
@@ -145,7 +200,37 @@ namespace LogicLayer
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/27/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This method will get a list of AdoptionAppointmentVM's from the data access layer and send
+        /// them up to the presentation layer.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="email"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public List<AdoptionAppointmentVM> RetrieveAdoptionAppointmentsByCustomerEmailAndActive(string email, bool active = true)
+        {
+            try
+            {
+                return _adoptionAppointmentAccessor.SelectAdoptionAppointmentByCustomerEmailAndActive(email, active);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database Error", ex);
             }
         }
     }

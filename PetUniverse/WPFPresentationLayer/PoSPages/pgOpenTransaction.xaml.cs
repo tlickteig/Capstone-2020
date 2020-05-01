@@ -9,6 +9,7 @@ using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
+using System.Text.RegularExpressions;
 
 namespace WPFPresentationLayer.PoSPages
 {
@@ -178,14 +179,6 @@ namespace WPFPresentationLayer.PoSPages
             taxRate = salesTax.TaxRate;
 
 
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
 
 
             bool isValid = false;
@@ -248,8 +241,15 @@ namespace WPFPresentationLayer.PoSPages
             subTotalTaxable = _transactionManager.CalculateSubTotalTaxable(_transactionManager.GetTaxableProducts());
             txtSubTotalTaxable.Text = subTotalTaxable.ToString();
 
+            // tax exempt simply means the tax rate is zero. Zero (tax rate)
+            // multiply with sub total taxable is zero. Zero add sub total 
+            // is simply the total without tax.
+            if (!String.IsNullOrWhiteSpace(txtTaxExemptNumber.Text))
+            {
+                salesTax.TaxRate = 0;
+            }
+
             // Calculates the total.
-            //txtTotal.Text = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax).ToString();
             total = _transactionManager.CalculateTotal(subTotal, subTotalTaxable, salesTax);
             txtTotal.Text = total.ToString();
 
@@ -272,6 +272,8 @@ namespace WPFPresentationLayer.PoSPages
         /// <param name="sender"></param>
         private void btnCompleteTransaction_Click(object sender, RoutedEventArgs e)
         {
+            var transactionType = new TransactionType();
+            var transactionStatus = new TransactionStatus();
 
             // This transactionDate operation 
             // involves ignoring Milliseconds.
@@ -284,36 +286,89 @@ namespace WPFPresentationLayer.PoSPages
             );
             // end transactionDate ignore milliseconds operation.
 
-            Transaction transaction = new Transaction()
+            var transaction = new Transaction();
+            try
             {
-                TransactionDateTime = transactionDate,
-                TaxRate = taxRate,
-                SubTotalTaxable = subTotalTaxable,
-                SubTotal = subTotal,
-                Total = total,
-                TransactionTypeID = "tranTYPE100",
-                EmployeeID = employeeID,
-                TransactionStatusID = "tranStatus100"
-            };
+                // This is for practical purposes. A cashier should not have to 
+                // constantly put in the transaction type for each transaction.
+                // A default transaction type is retrieved from the database 
+                // everytime the transaction type text is empty.
+                if (cbTransactionType.Text == "")
+                {
+                    transactionType = _transactionManager.RetrieveDefaultTransactionType();
+                    cbTransactionType.Text = transactionType.TransactionTypeID;
+                }
+
+                if (cbTransactionStatus.Text == "")
+                {
+                    transactionStatus = _transactionManager.RetrieveDefaultTransactionStatus();
+                    cbTransactionStatus.Text = transactionStatus.TransactionStatusID;
+                }
+
+                // if the transaction type was return or void, the values for item quantity
+                // and total calculations must be negative.
+                if (cbTransactionType.Text == "return")
+                {
+                    subTotalTaxable *= -1;
+                    subTotal *= -1;
+                    total *= -1;
+                }
+
+                if (cbTransactionType.Text == "void")
+                {
+                    subTotalTaxable *= -1;
+                    subTotal *= -1;
+                    total *= -1;
+                }
+
+                transaction.TransactionDateTime = transactionDate;
+                transaction.TaxRate = taxRate;
+                transaction.SubTotalTaxable = subTotalTaxable;
+                transaction.SubTotal = subTotal;
+                transaction.Total = total;
+                transaction.TransactionTypeID = cbTransactionType.Text.ToString();
+                transaction.EmployeeID = employeeID;
+                transaction.TransactionStatusID = cbTransactionStatus.Text.ToString();
+                transaction.TaxExemptNumber = txtTaxExemptNumber.Text.ToString();
+
+                transaction.CustomerEmail = txtEmail.Text.ToString();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "\n\n" + "Please set the default transaction type or status!");
+            }
 
             var transactionLineProducts = new TransactionLineProducts();
             List<ProductVM> ProductsSoldList = new List<ProductVM>();
 
             foreach (var item in _transactionManager.GetAllProducts())
             {
+                // return transaction type!
+                if (cbTransactionType.Text == "return")
+                {
+                    item.Quantity *= -1;
+                }
+
+                // return transaction type!
+                if (cbTransactionType.Text == "void")
+                {
+                    item.Quantity *= -1;
+                }
                 ProductsSoldList.Add(item);
             }
+
             transactionLineProducts.ProductsSold = ProductsSoldList;
 
             try
             {
                 // Creating the transaction in the database
-                if (transaction.SubTotal > 0.00M)
+                if (transaction.SubTotal != 0)
                 {
                     if (collectPayment(transaction))
                     {
                         _transactionManager.AddTransaction(transaction);
                         _transactionManager.AddTransactionLineProducts(transactionLineProducts);
+                        _transactionManager.EditItemQuantity(transactionLineProducts);
 
                         txtSearchProduct.Text = "";
                         txtItemName.Text = "";
@@ -321,6 +376,13 @@ namespace WPFPresentationLayer.PoSPages
                         txtPrice.Text = "";
                         txtQuantity.Text = "";
                         txtItemDescription.Text = "";
+                        
+
+                        cbTransactionType.Text = "";
+                        cbTransactionStatus.Text = "";
+
+                        txtTaxExemptNumber.Text = "";
+                        txtEmail.Clear();
 
                         txtTotal.Text = "";
                         txtSubTotal.Text = "";
@@ -333,6 +395,8 @@ namespace WPFPresentationLayer.PoSPages
                         _transactionManager.ClearShoppingCart();
 
                         btnAddProduct.Visibility = Visibility.Hidden;
+                        
+
 
                         MessageBox.Show("Transaction Complete", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -407,6 +471,12 @@ namespace WPFPresentationLayer.PoSPages
             txtPrice.Text = "";
             txtQuantity.Text = "";
             txtItemDescription.Text = "";
+
+            cbTransactionType.Text = "";
+            cbTransactionStatus.Text = "";
+
+            txtTaxExemptNumber.Text = "";
+            txtEmail.Text = "";
 
             txtTotal.Text = "";
             txtSubTotal.Text = "";
@@ -504,7 +574,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/20/2020
-        /// Approver: Jaeho Kimd
+        /// Approver: Jaeho Kim
         /// 
         /// Handles payment recieved from customer.
         /// </summary>
@@ -521,7 +591,7 @@ namespace WPFPresentationLayer.PoSPages
             bool result = false;
             PaymentType paymentType = PaymentType.Cancel;
             var due = new AmountDue(transaction.Total);
-            while (due.Amount > 0m)
+            while (due.Amount != 0)
             {
                 var frmPayment = new frmPayment(paymentType, due);
                 frmPayment.ShowDialog();
@@ -545,6 +615,84 @@ namespace WPFPresentationLayer.PoSPages
                 }
             }
             return result;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// retrieves all transaction types
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbTransactionType_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<TransactionType> transactionTypes = _transactionManager.RetrieveAllTransactionTypes();
+
+
+            foreach (var item in transactionTypes)
+            {
+                cbTransactionType.Items.Add(item.TransactionTypeID.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// retrieves all transaction statuses
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cbTransactionStatus_Loaded(object sender, RoutedEventArgs e)
+        {
+            List<TransactionStatus> transactionStatuses = _transactionManager.RetrieveAllTransactionStatus();
+
+
+            foreach (var item in transactionStatuses)
+            {
+                cbTransactionStatus.Items.Add(item.TransactionStatusID.ToString());
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        /// 
+        /// validates only positive values.
+        /// However, the item quantity validation accepts negative values only if 
+        /// the transaction type is a "return" or "void".
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtQuantity_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
 
         

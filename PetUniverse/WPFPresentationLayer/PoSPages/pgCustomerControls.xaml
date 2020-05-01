@@ -18,12 +18,16 @@
         </Grid.RowDefinitions>
         <!-- main content here -->
         <Canvas x:Name="canCustomerControls"  Grid.Row="1" Margin="190,126,-190,-36" Grid.RowSpan="4">
-            <Button x:Name="btnReportError" Content="Report" Canvas.Left="508" Canvas.Top="144" Width="100" Height="30" Click="btnReportError_Click"/>
-            <Label x:Name="lblReportError" Content="Report a Shipping Error" Canvas.Left="484" Canvas.Top="113"/>
-            <Label x:Name="lblAddCreditCard" Content="Add Credit Card" Canvas.Left="202" Canvas.Top="113" RenderTransformOrigin="0.5,0.5"/>
-            <Button x:Name="btnAddCreditCard" Content="Add" Canvas.Left="202" Canvas.Top="144" Width="100" Height="30" Click="btnAddCreditCard_Click"/>
-            <Button x:Name="btnRemoveCreditCard" Content="Remove" Canvas.Left="347" Canvas.Top="144" Width="100" Height="30" Click="btnRemoveCreditCard_Click"/>
-            <Label x:Name="lblRemoveCreditCard" Content="Remove Credit Card" Canvas.Left="334" Canvas.Top="113" RenderTransformOrigin="0.5,0.5"/>
+            <Button x:Name="btnReportError" Content="Report" Canvas.Left="642" Canvas.Top="265" Width="100" Height="30" Click="btnReportError_Click"/>
+            <Label x:Name="lblReportError" Content="Report a Shipping Error" Canvas.Left="619" Canvas.Top="234"/>
+            <Label x:Name="lblAddCreditCard" Content="Add Credit Card" Canvas.Left="360" Canvas.Top="234" RenderTransformOrigin="0.5,0.5"/>
+            <Button x:Name="btnAddCreditCard" Content="Add" Canvas.Left="360" Canvas.Top="265" Width="100" Height="30" Click="btnAddCreditCard_Click"/>
+            <Button x:Name="btnRemoveCreditCard" Content="Remove" Canvas.Left="505" Canvas.Top="265" Width="100" Height="30" Click="btnRemoveCreditCard_Click"/>
+            <Label x:Name="lblRemoveCreditCard" Content="Remove Credit Card" Canvas.Left="492" Canvas.Top="234" RenderTransformOrigin="0.5,0.5"/>
+            <Button x:Name="btnReportConflict" Content="Conflict" Canvas.Left="224" Canvas.Top="265" Width="102" Height="30" Click="btnReportConflict_Click"/>
+            <Label x:Name="lblConflict" Content="Report a Conflict" Canvas.Left="224" Canvas.Top="234"/>
+            <Button x:Name="btnSurvey" Content="Survey" Canvas.Left="84" Canvas.Top="265" Width="102" Height="30" Click="btnSurvey_Click"/>
+            <Label x:Name="lblSurvey" Content="Fill Out Survey" Canvas.Left="84" Canvas.Top="234"/>
 
         </Canvas>
         <Canvas x:Name="canReportError"  Grid.Row="1" Visibility="Hidden" Margin="190,126,-190,-36" Grid.RowSpan="4">
@@ -34,6 +38,29 @@
             <Button x:Name="btnErrorSubmit" Content="Submit" Canvas.Left="729" Canvas.Top="367" Width="100" Height="30" Click="btnErrorSubmit_Click"/>
             <Button x:Name="btnBack" Content="Back" Canvas.Left="624" Canvas.Top="367" Width="100" Height="30" Click="btnBack_Click"/>
         </Canvas>
+
+        <Canvas x:Name="canReportConflict"  Grid.Row="1" Visibility="Hidden" Margin="190,126,-190,-36" Grid.RowSpan="4">
+            <Label x:Name="lblConDesc" Content="Description" Canvas.Left="95" Canvas.Top="166" Width="113"/>
+            <Label x:Name="lblConTypeCombo" Content="Problem Type" Canvas.Left="95" Canvas.Top="71" Width="96"/>
+            <ComboBox x:Name="cbConType" Canvas.Left="239" Canvas.Top="71" Width="149"/>
+            <TextBox x:Name="txtConDesc" Height="108" Canvas.Left="239" TextWrapping="Wrap" Text="Please describe..." Canvas.Top="166" Width="317"/>
+            <Button x:Name="btnConSubmit" Content="Submit" Canvas.Left="729" Canvas.Top="367" Width="100" Height="30" Click="btnConSubmit_Click" />
+            <Button x:Name="btnBack4" Content="Back" Canvas.Left="624" Canvas.Top="367" Width="100" Height="30" Click="btnBack4_Click" />
+            <TextBox x:Name="txtName" Height="29" Canvas.Left="239" TextWrapping="Wrap" Text="" Canvas.Top="114" Width="149"/>
+            <Label x:Name="lblName" Content="Name" Canvas.Left="95" Canvas.Top="118" Width="77"/>
+        </Canvas>
+
+        <Canvas x:Name="canCustomerSurvey"  Grid.Row="1" Visibility="Hidden" Margin="190,126,-190,-36" Grid.RowSpan="4">
+            <Label x:Name="lblSurveyDesc" Content="Notes" Canvas.Left="95" Canvas.Top="166" Width="113"/>
+            <Label x:Name="lblServiceRatingCombo" Content="Service Rating" Canvas.Left="95" Canvas.Top="71" Width="96"/>
+            <ComboBox x:Name="cbServiceRating" Canvas.Left="239" Canvas.Top="71" Width="149"/>
+            <TextBox x:Name="txtSurveyDesc" Height="108" Canvas.Left="239" TextWrapping="Wrap" Text="Please describe..." Canvas.Top="166" Width="317"/>
+            <Button x:Name="btnSurveySubmit" Content="Submit" Canvas.Left="729" Canvas.Top="367" Width="100" Height="30" Click="btnSurveySubmit_Click"  />
+            <Button x:Name="btnBack5" Content="Back" Canvas.Left="624" Canvas.Top="367" Width="100" Height="30" Click="btnBack5_Click" />
+            <TextBox x:Name="txtCustomerName" Height="29" Canvas.Left="239" TextWrapping="Wrap" Text="" Canvas.Top="114" Width="149"/>
+            <Label x:Name="lblCustomerName" Content="Name" Canvas.Left="95" Canvas.Top="118" Width="77"/>
+        </Canvas>
+
         <Canvas x:Name="canAddCard" Grid.Row="1" Visibility="Hidden">
             <Label x:Name="lblCardNumber" Content="Card Number:" Canvas.Left="95" Canvas.Top="115" Width="122"/>
             <Label x:Name="lblCardType" Content="Card Type:" Canvas.Left="95" Canvas.Top="75" Width="96"/>

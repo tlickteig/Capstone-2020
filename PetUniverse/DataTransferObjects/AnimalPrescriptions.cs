@@ -13,5 +13,6 @@
         public int AnimalPrescriptionID { get; set; }
         public int AnimalID { get; set; }
         public int AnimalVetAppointmentID { get; set; }
+        public bool Active { get; set; }
     }
 }

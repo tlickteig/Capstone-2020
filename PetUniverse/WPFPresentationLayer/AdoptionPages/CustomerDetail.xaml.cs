@@ -11,8 +11,7 @@ namespace WPFPresentationLayer.AdoptionPages
     /// Creator: Mohamed Elamin
     /// Created: 2020/02/19
     /// Approver: Thomas Dupuy , 2020/02/21
-    ///
-    ///  This class has interaction logic for the frmAdoptionCustomerDetails
+    ///  This class has interaction logic for the Adoption Customer Details
     ///  page.
     /// </summary>
     public partial class CustomerDetail : Page
@@ -20,6 +19,18 @@ namespace WPFPresentationLayer.AdoptionPages
         private Customer _customer;
         private ICustomerManager _customerManager = null;
 
+        /// <summary>
+        /// Creator: Mohamed Elamin
+        /// Created: 2020/02/19
+        /// Approver: Thomas Dupuy 2020/02/21
+        /// This is Constructor method for Customer Email page.
+        /// </summary>
+        /// <remarks>
+        /// Updater Name
+        /// Updated: yyyy/mm/dd 
+        /// Update: ()
+        /// </remarks>
+        /// <param name="customerEmail"></param>
         public CustomerDetail(string customerEmail)
         {
             InitializeComponent();
@@ -32,18 +43,15 @@ namespace WPFPresentationLayer.AdoptionPages
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Thomas Dupuy 2020/02/21
-        /// 
         /// This is an load event for the Adoption Customer details page.
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             try
@@ -80,14 +88,11 @@ namespace WPFPresentationLayer.AdoptionPages
 
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created On: 2020/03/29
-        /// Approved By: Awaab Elamin 2020/03/30
-        /// 
+        /// Created: 2020/03/29
+        /// Approver: Awaab Elamin 2020/03/30
         /// This is an event when Back To Inspector Screen button is clicked , And will open
-        /// frmHomeInspectionForm window.
-        /// 
+        /// Home Inspection Form window.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -99,16 +104,14 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             this.NavigationService?.Navigate(new frmHomeInspectionForm());
         }
+
         /// <summary>
         /// Creator: Mohamed Elamin
-        /// Created On: 2020/02/19
-        /// Approved By: Thomas Dupuy 2020/02/21
-        /// 
+        /// Created: 2020/02/19
+        /// Approver: Thomas Dupuy 2020/02/21
         /// This is an event when Back To Reviewer Screen button is clicked , And will open
         /// Adoption Applications window.
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 

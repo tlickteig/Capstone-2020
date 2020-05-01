@@ -115,6 +115,11 @@ namespace WPFPresentation
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Events",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Events", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

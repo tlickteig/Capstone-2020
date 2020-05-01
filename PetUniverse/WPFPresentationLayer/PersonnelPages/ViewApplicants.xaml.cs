@@ -115,16 +115,17 @@ namespace WPFPresentationLayer.PersonnelPages
 			dgViewAllApplicants.Columns[0].Header = "Applicant ID";
 			dgViewAllApplicants.Columns[1].Header = "First Name";
 			dgViewAllApplicants.Columns[2].Header = "Last Name";
-			dgViewAllApplicants.Columns[3].Header = "Middle Name";
-			dgViewAllApplicants.Columns[4].Header = "Email";
-			dgViewAllApplicants.Columns[5].Header = "Phone Number";
-			dgViewAllApplicants.Columns.RemoveAt(6); // Remove AddressLineOne
-			dgViewAllApplicants.Columns.RemoveAt(6); // Remove AddressLineTwo
-			dgViewAllApplicants.Columns.RemoveAt(6); // Remove City
-			dgViewAllApplicants.Columns.RemoveAt(6); // Remove State
-			dgViewAllApplicants.Columns.RemoveAt(6); // Remove Zipcode
-			dgViewAllApplicants.Columns.RemoveAt(6); // Remove Foster
-			dgViewAllApplicants.Columns[6].Header = "Application Status";
+			dgViewAllApplicants.Columns.RemoveAt(3); // Remove MiddleName
+			dgViewAllApplicants.Columns[3].Header = "Email";
+			dgViewAllApplicants.Columns[4].Header = "Phone Number";
+			dgViewAllApplicants.Columns.RemoveAt(5); // Remove AddressLineOne
+			dgViewAllApplicants.Columns.RemoveAt(5); // Remove AddressLineTwo
+			dgViewAllApplicants.Columns.RemoveAt(5); // Remove City
+			dgViewAllApplicants.Columns.RemoveAt(5); // Remove State
+			dgViewAllApplicants.Columns.RemoveAt(5); // Remove Zipcode
+			dgViewAllApplicants.Columns.RemoveAt(5); // Remove Foster
+			dgViewAllApplicants.Columns[5].Header = "Application Status";
+			dgViewAllApplicants.Columns[6].Header = "Position Applied";
 
 			foreach (var column in this.dgViewAllApplicants.Columns)
 			{

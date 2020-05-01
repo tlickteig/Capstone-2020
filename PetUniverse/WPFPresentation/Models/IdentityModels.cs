@@ -9,7 +9,11 @@ namespace WPFPresentation.Models
     public class ApplicationUser : IdentityUser
     {
         public string GivenName { get; set; }
-        public string FamilyName { get; set; }
+        public string FamilyName { get; set; }        
+        public int? EmployeeID { get; set; }
+        public string CustEmail { get; set; }
+        public string VolEmail { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -32,5 +36,7 @@ namespace WPFPresentation.Models
         }
 
         public System.Data.Entity.DbSet<DataTransferObjects.Product> Products { get; set; }
+
+        //public System.Data.Entity.DbSet<WPFPresentation.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

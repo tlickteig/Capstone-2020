@@ -212,5 +212,97 @@ namespace DataAccessLayer
             return rows;
         }
 
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// submits Survey record.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        public int InsertCustomerSurvey(string customerName, string serviceRating, string notes)
+        {
+            int rows = 0;
+
+
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_customer_survey", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@CustomerName", customerName);
+            cmd.Parameters.AddWithValue("@ServiceRating", serviceRating);
+            cmd.Parameters.AddWithValue("@Notes", notes);
+
+
+
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// submits Conflict record.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        public int InsertEmpCustProblem(string problemType, string name, string description)
+        {
+            int rows = 0;
+
+
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_emp_cust_problem", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@Name", name);
+            cmd.Parameters.AddWithValue("@ProblemType", problemType);
+            cmd.Parameters.AddWithValue("@Description", description);
+
+
+
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
     }
 }

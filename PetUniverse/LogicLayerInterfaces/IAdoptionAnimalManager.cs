@@ -12,6 +12,25 @@ namespace LogicLayerInterfaces
     /// </summary>
     public interface IAdoptionAnimalManager
     {
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/29/2020
+        /// Approver: 
+        /// 
+        /// Interface to retrieve Adoption Animals by active and adoptable
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        List<Animal> RetrieveAdoptionAnimalsByActiveAndAdoptable(bool active = true, bool adoptable = true);
+
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 3/5/2020
@@ -41,5 +60,23 @@ namespace LogicLayerInterfaces
         /// 
         /// </remarks>
         bool DeactivateAnimal(int animalID);
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/29/2020
+        /// Approver: 
+        /// 
+        /// updates an animal adoptable quality
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="animalID"></param>
+        /// <param name="adoptable"></param>
+        /// <returns></returns>
+        bool EditAnimalAdoptable(int animalID, bool adoptable);
     }
 }

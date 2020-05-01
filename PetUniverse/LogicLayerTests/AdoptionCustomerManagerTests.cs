@@ -80,5 +80,45 @@ namespace LogicLayerTests
             // assert
             Assert.AreEqual("Fake@Fake.com", adoptionCustomerVM.Email);
         }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 4/28/2020
+        /// CHECKED BY: 
+        /// 
+        /// This test method tests the AddCustomer method that is a part of the AdoptionCustomerManager class.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionCustomerAddAdoptionCustomer()
+        {
+            // arrange
+            IAdoptionCustomerManager adoptionCustomerManager = new AdoptionCustomerManager(_adoptionCustomerAccessor);
+
+            var customer = new AdoptionCustomer
+            {
+                CustomerEmail = "Fake4@fake.com",
+                FirstName = "Fake",
+                LastName = "Fake",
+                PhoneNumber = "1110002222",
+                AddressLineOne = "Fake",
+                AddressLineTwo = "Fake",
+                City = "Fake",
+                State = "Fake",
+                Zipcode = "Fake",
+                Active = true
+            };
+
+            // act
+            int rows = _adoptionCustomerAccessor.InsertAdoptionCustomer(customer);
+
+            // assert
+            Assert.AreEqual(1, rows);
+        }
     }
 }

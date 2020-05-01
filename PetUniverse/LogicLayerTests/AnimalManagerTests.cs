@@ -173,14 +173,14 @@ namespace LogicLayerTests
         /// Creator: Michael Thompson
         /// Created: 2/14/2020
         /// Approver: Austin Gee
-        /// Approver: 
         /// 
         /// Test for getting a list of animal profiles
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Michael Thompsom
+        /// Updated: 4/28/2020
+        /// Update: To book specifications
+        /// Approver: Austin Gee
         /// </remarks>
         [TestMethod]
         public void TestAnimalManagerSelectAllAnimalProfiles()
@@ -197,16 +197,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// Creator: michael Thompson
+        /// Creator: Michael Thompson
         /// Created: 2/6/2020
         /// Approver: Austin Gee
-        /// 
         /// Test for updating the animal profile
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Michael Thompsom
+        /// Updated: 4/28/2020
+        /// Update: To book specifications
+        /// Approver: Austin Gee
         /// </remarks>
         [TestMethod]
         public void TestAnimalManagerUpdateAnimalProfile()
@@ -215,14 +215,43 @@ namespace LogicLayerTests
             bool result = false;
             int animalID = 100000;
             string profileDescription = "Test profile";
-            string profileImagePath = "/images";
+            string profileImageMimeType = "JPG";
+            byte[] profileImageData = new byte[10];
             IAnimalManager animalManager = new AnimalManager(_animalAccessor);
 
             // act
-            result = animalManager.UpdatePetProfile(animalID, profileDescription, profileImagePath);
+            result = animalManager.UpdatePetProfile(animalID, profileDescription, profileImageData, profileImageMimeType);
 
             // assert
             Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/25/2020
+        /// Approver: Austin Gee
+        /// Approver: 
+        /// 
+        /// Test for retrieving a single animal by animal ID
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveOneAnimalByAnimalID()
+        {
+
+            // arrange
+            Animal testAnimal;
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+
+            // act
+            testAnimal = animalManager.RetrieveOneAnimalByAnimalID(1);
+
+            // assert
+            Assert.IsNotNull(testAnimal);
         }
 
         /// <summary>
@@ -621,23 +650,91 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Chuck Baxter
-        /// Created: 2/6/2020
-        /// Approver: Carl Davis, 2/7/2020
-        /// Approver: Daulton Schilling, 2/7/2020 
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020
+        /// Approver:
         /// 
-        /// Test clean up
+        /// Test for adding a new animal species to the database
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestAnimalManagerAddNewAnimalSpecies()
+        {
+            // arrange
+            bool isValidAnimalSpecies = false;
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+
+            // act
+            string animalSpeciesID = "Fish";
+            string animalSpeciesDescription = "It swims";
+            isValidAnimalSpecies = animalManager.AddNewAnimalSpecies(animalSpeciesID, animalSpeciesDescription);
+
+            // assert
+            Assert.IsTrue(isValidAnimalSpecies);
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver:
+        /// 
+        /// Test for deleting an animal species from the database
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestAnimalManagerDeleteAnimalSpecies()
+        {
+            // arrange
+            bool isValidAnimalSpecies = false;
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
+
+            // act
+            string animalSpeciesID = "Dog";
+            isValidAnimalSpecies = animalManager.DeleteAnimalSpecies(animalSpeciesID);
+
+            // assert
+            Assert.IsTrue(isValidAnimalSpecies);
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// 
+        /// Test for updating an animal species
         /// </summary>
         /// <remarks>
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        [TestCleanup]
-        public void TestTearDown()
+        [TestMethod]
+        public void TestAnimalManagerEditAnimalSpecies()
         {
-            _animalAccessor = null;
-        }
+            // arrange
+            bool result = false;
+            IAnimalManager animalManager = new AnimalManager(_animalAccessor);
 
+            // act
+            string oldAnimalSpeciesID = "Dog";
+            string newAnimalSpeciesID = "Doggo";
+            string description = "It barks";
+            result = animalManager.EditAnimalSpecies(oldAnimalSpeciesID, newAnimalSpeciesID, description);
+
+            // assert
+            Assert.AreEqual(true, result);
+        }
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -666,7 +763,6 @@ namespace LogicLayerTests
             Assert.IsNotNull(testAnimals);
         }
 
-
         /// <summary>
         /// Creator: Daulton Schilling
         /// Created: 4/13/2020
@@ -683,7 +779,6 @@ namespace LogicLayerTests
         [TestMethod]
         public void TestRetrieveAnimalByAnimalID()
         {
-
             // arrange
             List<Animal> testAnimals;
             IAnimalManager animalManager = new AnimalManager(_animalAccessor);
@@ -695,7 +790,23 @@ namespace LogicLayerTests
             Assert.IsNotNull(testAnimals);
         }
 
-
-
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 2/6/2020
+        /// Approver: Carl Davis, 2/7/2020
+        /// Approver: Daulton Schilling, 2/7/2020 
+        /// 
+        /// Test clean up
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestCleanup]
+        public void TestTearDown()
+        {
+            _animalAccessor = null;
+        }
     }
 }

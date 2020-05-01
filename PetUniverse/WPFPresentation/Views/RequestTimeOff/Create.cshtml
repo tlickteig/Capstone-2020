@@ -15,7 +15,7 @@ View for creating a Time Off Request
 
 <h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm("Create", "RequestTimeOff", new { startDate = Request.Form["StartDate"], endDate = Request.Form["EndDate"], RequestingUserID = ViewBag.RequestingUserID }))
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -28,8 +28,7 @@ View for creating a Time Off Request
             @Html.LabelFor(model => model.EffectiveStart, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="text" name="StartDate" id="StartDate" data-provide="datepicker" class="form-control" value="@DateTime.Now.AddDays(1).ToShortDateString()" />
-                @Html.ValidationMessageFor(model => model.EffectiveStart, "", new { @class = "text-danger" })
-                <p class="alert-danger">@ViewBag.StartDateError</p>
+                <p id="StartDateError" class="alert-danger"></p>
             </div>
         </div>
 
@@ -37,18 +36,66 @@ View for creating a Time Off Request
             @Html.LabelFor(model => model.EffectiveEnd, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="text" name="EndDate" id="EndDate" data-provide="datepicker" class="form-control" value="@DateTime.Now.AddDays(1).ToShortDateString()" />
-                @Html.ValidationMessageFor(model => model.EffectiveEnd, "", new { @class = "text-danger" })
-                <p class="alert-danger">@ViewBag.EndDateError</p>
+                <p id="EndDateError" class="alert-danger"></p>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input id="submit" type="submit" value="Submit Time Off Request" class="btn btn-default" />
+                <!-- input id="submit" type="submit" value="Submit Time Off Request" class="btn btn-default" / -->
+                <input type="button" id="submit" onclick="submitTimeOffRequest()" value="Submit Time Off Request" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
+
+<script>
+    function submitTimeOffRequest() {
+        //now is todays date
+        var now = new Date();
+        now.setHours(0, 0, 0, 0);
+
+        //Selected Start and End dates
+        var startString = $("#StartDate").val();
+        var endString = $("#EndDate").val();
+        var startDate = new Date(startString);
+        var endDate = new Date(endString);
+
+        //If startDate is after today, and endDate is startDate or later
+        if (startDate > now && endDate >= startDate) {
+            $('#StartDateError').html("");
+            $('#EndDateError').html("");
+
+            var postData = JSON.stringify({ 'startDate': startString, 'endDate': endString });
+
+            $.ajax({
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                type: "POST",
+                url: "/RequestTimeOff/Create",
+                data: postData,
+                success: function (data) {
+                    window.location.href = data;
+                },
+                traditional: true
+            });
+        }
+        else {
+            if (startDate <= now) {
+                $('#StartDateError').html("Start Date can be no sooner than tomorrow.");
+            }
+            else {
+                $('#StartDateError').html("");
+            }
+            if (endDate < startDate) {
+                $('#EndDateError').html("End Date must be later than Start Date.");
+            }
+            else {
+                $('#EndDateError').html("");
+            }
+        }
+    }
+</script>
 
 <div>
     @Html.ActionLink("Back to Request Types", "Index", "ChooseRequestType")

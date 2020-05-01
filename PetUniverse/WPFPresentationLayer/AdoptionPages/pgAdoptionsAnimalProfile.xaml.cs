@@ -1,11 +1,15 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using Microsoft.Win32;
 using PresentationUtilityCode;
 using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Drawing;
 
 namespace WPFPresentationLayer.AdoptionsPages
 {
@@ -32,8 +36,6 @@ namespace WPFPresentationLayer.AdoptionsPages
         /// Creator: Michael Thompson
         /// Created: 2/19/2020
         /// Approver: Austin Gee
-        /// Approver: 
-        /// 
         /// Method to refresh the data grid
         /// </summary>
         /// <remarks>
@@ -56,8 +58,7 @@ namespace WPFPresentationLayer.AdoptionsPages
         /// <summary>
         /// Creator: Michael Thompson
         /// Created: 2/19/2020
-        /// Approver: 
-        /// Approver: 
+        /// Approver: Austin Gee
         /// Method to take a user to the canvas to update the profile
         /// </summary>
         /// <remarks>
@@ -70,14 +71,32 @@ namespace WPFPresentationLayer.AdoptionsPages
         {
             canUpdateAnimal.Visibility = Visibility.Visible;
             BtnSubmitAnimalUpdate.Visibility = Visibility.Visible;
+
+            var selectedItem = dgAnimalProfiles.SelectedItem;
+            string ID = (dgAnimalProfiles.SelectedCells[0].Column.GetCellContent(selectedItem) as TextBlock).Text;
+            try
+            {
+                int animalID = Int32.Parse(ID);
+                Animal selectedAnimal = getInitialData(animalID);
+                txtAnimalProfileDescription.Text = selectedAnimal.ProfileDescription;
+                if (selectedAnimal.ProfileImageData != null)
+                {
+                    currentPetProfile.Source = byteArrayToImage(selectedAnimal.ProfileImageData);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
         }
 
         /// <summary>
         /// Creator: Michael Thompson
         /// Created: 2/19/2020
-        /// Approver: 
-        /// Approver: 
-        /// 
+        /// Approver: Austin Gee
         /// Method for the user to cancel the update and take them back to the original data grid
         /// </summary>
         /// <remarks>
@@ -95,7 +114,6 @@ namespace WPFPresentationLayer.AdoptionsPages
         /// Creator: Michael Thompson
         /// Created: 2/19/2020
         /// Approver:  Austin Gee
-        /// Approver: 
         /// 
         /// Method to clear display and clear inputs
         /// </summary>
@@ -107,24 +125,24 @@ namespace WPFPresentationLayer.AdoptionsPages
         private void ClearDisplay()
         {
             txtAnimalProfileDescription.Text = "";
-            txtImageLocation.Text = "";
             canViewAnimalProfileList.Visibility = Visibility.Visible;
             canUpdateAnimal.Visibility = Visibility.Hidden;
             dgAnimalProfiles.Visibility = Visibility.Visible;
+            currentPetProfile.Visibility = Visibility.Hidden;
             refreshData();
         }
         /// <summary>
         /// Creator: Michael Thompson
         /// Created: 2/19/2020
         /// Approver: Austin Gee
-        /// Approver: 
         /// 
         /// Method to validate that there is a description and a photo path and sends that data to the database
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Michael Thompsom
+        /// Updated: 4/28/2020
+        /// Update: To book specifications
+        /// Approver: Austin Gee
         /// </remarks>
         private void BtnSubmitAnimalUpdate_Click(object sender, RoutedEventArgs e)
         {
@@ -133,19 +151,17 @@ namespace WPFPresentationLayer.AdoptionsPages
                 MessageBox.Show("Please enter the animal's profile description");
                 return;
             }
-            if (String.IsNullOrEmpty(txtImageLocation.Text))
-            {
-                MessageBox.Show("Please enter the location of an image");
-                return;
-            }
-            object selectedItem = dgAnimalProfiles.SelectedItem;
+
+            var selectedItem = dgAnimalProfiles.SelectedItem;
             string ID = (dgAnimalProfiles.SelectedCells[0].Column.GetCellContent(selectedItem) as TextBlock).Text;
             try
             {
                 int animalID = Int32.Parse(ID);
-                string imageLocation = txtImageLocation.Text;
+
                 string profileDescription = txtAnimalProfileDescription.Text;
-                _animalManager.UpdatePetProfile(animalID, profileDescription, imageLocation);
+                byte[] profileImage = imgToByteArray(currentPetProfile.Source as BitmapImage);
+                string profileImageMimeType = "jpg";
+                _animalManager.UpdatePetProfile(animalID, profileDescription, profileImage, profileImageMimeType);
                 WPFErrorHandler.SuccessMessage("Animal Successfully Updated");
                 ClearDisplay();
             }
@@ -154,6 +170,119 @@ namespace WPFPresentationLayer.AdoptionsPages
                 WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
                 ClearDisplay();
             }
+
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/26/2020
+        /// Approver: Austin Gee
+        /// Method to convert a BitMapImage to a byte array
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="imageIn"/>
+        /// </remarks>
+        private byte[] imgToByteArray(BitmapImage imageIn)
+        {
+            MemoryStream memStream = new MemoryStream();
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(imageIn));
+            encoder.Save(memStream);
+            return memStream.ToArray();
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/26/2020
+        /// Approver: Austin Gee
+        /// Method to open a file dialog and let the user pick an iamge to set as an animals profiles image
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="e"/>
+        /// <param name="sender"/>
+        /// </remarks>
+        private void BtnLoadProfileImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog opFile = new OpenFileDialog();
+            opFile.Title = "Select Picture";
+            opFile.Filter = "All supported graphics|*.jpg;*.jpeg;*.png|" +
+                "JPEG (*.jpg;*.jpeg)|*.jpg;*.jpeg|" +
+                "Portable Network Graphic (*.png)|*.png";
+            if (opFile.ShowDialog() == true)
+            {
+                currentPetProfile.Source = new BitmapImage(new Uri(opFile.FileName));
+            }
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/26/2020
+        /// Approver: Austin Gee
+        /// Gets information to initial show the data for an animal if it is presetn
+        /// </summary>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="id"></param>
+        /// <returns>An animal Object with the sepcified ID</returns>
+        private Animal getInitialData(int id)
+        {
+            Animal selectedAnimal = new Animal();
+            try
+            {
+                selectedAnimal = _animalManager.RetrieveOneAnimalByAnimalID(id);
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
+            }
+
+            return selectedAnimal;
+
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/26/2020
+        /// Approver: Austin Gee
+        /// Method to convert a myte array to a BitMap image so that it can be shown to the user
+        /// </summary>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// <param name="profileImageArray"></param>
+        /// <returns></returns>
+        public BitmapImage byteArrayToImage(byte[] profileImageArray)
+        {
+
+            MemoryStream stream = new MemoryStream(profileImageArray);
+            BitmapImage image = new BitmapImage();
+
+            image.BeginInit();
+            image.StreamSource = stream;
+            image.EndInit();
+
+            return image;
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/26/2020
+        /// Approver: Austin Gee
+        /// Method Clean up the animal profile datagrid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DgAnimalProfiles_AutoGeneratedColumns(object sender, EventArgs e)
+        {
+            dgAnimalProfiles.Columns.RemoveAt(3);
+            dgAnimalProfiles.Columns.RemoveAt(3);
+            dgAnimalProfiles.Columns.RemoveAt(3);
+            dgAnimalProfiles.Columns.RemoveAt(3);
+            dgAnimalProfiles.Columns.RemoveAt(3);
+            dgAnimalProfiles.Columns.RemoveAt(3);
+            dgAnimalProfiles.Columns.RemoveAt(3);
 
         }
     }

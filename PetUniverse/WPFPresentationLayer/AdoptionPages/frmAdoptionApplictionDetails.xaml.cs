@@ -11,7 +11,6 @@ namespace WPFPresentationLayer
     /// Creator: Mohamed Elamin
     /// Created: 2020/02/19
     /// Approver: Awaab Elamin, 2020/02/21
-    ///
     ///  This class has interaction logic for the HomeInspectorAdoptionApplication
     ///  window.
     /// </summary>
@@ -27,20 +26,15 @@ namespace WPFPresentationLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is the Constructor method for Adoption Appliction Details
         /// window.
-        /// 
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <returns>Customer Name</returns>
+        /// <param name="inHomeInspectionAppointmentDecisionManager"></param>
         public frmAdoptionApplictionDetails(IInHomeInspectionAppointmentDecisionManager
             inHomeInspectionAppointmentDecisionManager)
         {
@@ -54,13 +48,9 @@ namespace WPFPresentationLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is the Constructor method for Adoption Appliction Details
         /// window.
-        /// 
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -68,7 +58,6 @@ namespace WPFPresentationLayer
         /// </remarks>
         /// <param name="homeInspectorAdoptionAppointmentDecision"></param>
         /// <param name="inHomeInspectionAppointmentDecisionManager"></param>
-        /// <returns>Customer Name</returns>
 
         public frmAdoptionApplictionDetails(HomeInspectorAdoptionAppointmentDecision
             homeInspectorAdoptionAppointmentDecision, IInHomeInspectionAppointmentDecisionManager
@@ -83,10 +72,8 @@ namespace WPFPresentationLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is an event when btnCancel is clicked.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -94,8 +81,6 @@ namespace WPFPresentationLayer
         /// </remarks>
         /// <param name=" sender"></param>
         /// <param name=" e"></param>
-        /// <returns></returns>   
-
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService?.Navigate(new frmInHomeInspectorDecision());
@@ -106,10 +91,8 @@ namespace WPFPresentationLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is an event when Edit button is clicked.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -117,7 +100,6 @@ namespace WPFPresentationLayer
         /// </remarks>
         /// <param name=" sender"></param>
         /// <param name=" e"></param>
-        /// <returns></returns>   
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             SetEditMode();
@@ -127,10 +109,8 @@ namespace WPFPresentationLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is an event on the window first loads.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -138,7 +118,6 @@ namespace WPFPresentationLayer
         /// </remarks>
         /// <param name=" sender"></param>
         /// <param name=" e"></param>
-        /// <returns></returns>   
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             txtAppointmentID.IsReadOnly = true;
@@ -183,18 +162,13 @@ namespace WPFPresentationLayer
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is void method will be called to set the edit mode.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=" sender"></param>
-        /// <param name=" e"></param>
-        /// <returns></returns>   
         private void SetEditMode()
         {
             _addMode = true;
@@ -209,22 +183,20 @@ namespace WPFPresentationLayer
             btnEdit.Visibility = Visibility.Hidden;
             btnSave.Visibility = Visibility.Visible;
         }
+
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is an Event on Save Button is clicked.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
         /// <param name=" sender"></param>
-        /// <param name=" e"></param>
-        /// <returns></returns>   
+        /// <param name=" e"></param> 
         private void BtnSave_Click(object sender, RoutedEventArgs e)
         {
             HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision =

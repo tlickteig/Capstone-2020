@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -187,6 +187,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdoptionController.cs" />
     <Compile Include="Controllers\AdoptionScheduleController.cs" />
     <Compile Include="Controllers\CareersController.cs" />
@@ -196,6 +197,7 @@
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FilterController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\FosterApplicantController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -204,6 +206,8 @@
     <Compile Include="Controllers\RequestAvailabilityChangeController.cs" />
     <Compile Include="Controllers\RequestScheduleChangeController.cs" />
     <Compile Include="Controllers\RequestTimeOffController.cs" />
+    <Compile Include="Controllers\ScheduleSupervisorController.cs" />
+    <Compile Include="Controllers\TransactionController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -214,6 +218,14 @@
     <Compile Include="Migrations\202004220431460_Added First and Last Name Fields to User.cs" />
     <Compile Include="Migrations\202004220431460_Added First and Last Name Fields to User.Designer.cs">
       <DependentUpon>202004220431460_Added First and Last Name Fields to User.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004251915081_EmployeeId and CustEmail.cs" />
+    <Compile Include="Migrations\202004251915081_EmployeeId and CustEmail.Designer.cs">
+      <DependentUpon>202004251915081_EmployeeId and CustEmail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004280520284_VolEmail.cs" />
+    <Compile Include="Migrations\202004280520284_VolEmail.Designer.cs">
+      <DependentUpon>202004280520284_VolEmail.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -246,6 +258,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\FAQ.css" />
+    <Content Include="Content\fullcalendar.css" />
+    <Content Include="Content\fullcalendar.min.css" />
+    <Content Include="Content\fullcalendar.print.css" />
+    <Content Include="Content\fullcalendar.print.min.css" />
     <Content Include="Content\Images\Benefits.jpg" />
     <Content Include="Content\Images\BlueBuffaloBasicsLimitedIngredientDietGrainFreeNaturalIndoorAdultDryCatFood Resized.jpg" />
     <Content Include="Content\Images\BudgetPickZeroGrainGrainFreeCatsRachelRay resized.jpg" />
@@ -266,6 +282,7 @@
     <Content Include="Content\Images\NewmansOwnPremiumCannedFormulasForCats3oz - Copy.jpg" />
     <Content Include="Content\Images\NewmansOwnPremiumCannedFormulasForCats3oz resized.jpg" />
     <Content Include="Content\Images\NewmansOwnPremiumCannedFormulasForCats3oz.jpg" />
+    <Content Include="Content\Images\noImage2.jpg" />
     <Content Include="Content\Images\OrganixDogFood resized.jpg" />
     <Content Include="Content\Images\OrganixGrainFreeCaston&amp;Pollux - Copy.jpg" />
     <Content Include="Content\Images\OrganixGrainFreeCaston&amp;Pollux resized.jpg" />
@@ -299,6 +316,10 @@
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\fullcalendar.js" />
+    <Content Include="Scripts\fullcalendar.min.js" />
+    <Content Include="Scripts\gcal.js" />
+    <Content Include="Scripts\gcal.min.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
@@ -317,6 +338,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <None Include="Properties\PublishProfiles\petuniverse - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery.inputmask.min.js" />
     <Content Include="Scripts\order-info-scripts.js" />
@@ -332,6 +354,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\locale-all.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker-en-CA.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar-tn.min.js" />
     <Content Include="Scripts\locales\bootstrap-datepicker.ar.min.js" />
@@ -418,6 +441,10 @@
     <Content Include="Scripts\Manual-Bootstrap-Lightbox\ekko-lightbox.js" />
     <Content Include="Scripts\Manual-Bootstrap-Lightbox\ekko-lightbox.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
@@ -494,7 +521,7 @@
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Web.Prod.config">
+    <Content Include="Web.Production.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Views\Web.config" />
@@ -527,10 +554,6 @@
     <Content Include="Views\Careers\ApplicantList.cshtml" />
     <Content Include="Views\Shared\_CareersLayout.cshtml" />
     <Content Include="Views\Adoption\AdoptionApplication.cshtml" />
-    <Content Include="Views\Adoption\Index.cshtml" />
-    <Content Include="Views\RequestAvailabilityChange\Create.cshtml" />
-    <Content Include="Views\RequestTimeOff\Create.cshtml" />
-    <Content Include="Views\ChooseRequestType\Index.cshtml" />
     <Content Include="Views\Adoption\Questionnair.cshtml" />
     <Content Include="Views\PoliciesAndStandards\Index.cshtml" />
     <Content Include="Views\Donations\DonationFAQ.cshtml" />
@@ -562,7 +585,6 @@
     <Content Include="Views\Shared\_ThumbnailPartial.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Employees\Index.cshtml" />
-    <Content Include="Views\RequestScheduleChange\Create.cshtml" />
     <Content Include="Views\FosterApplicant\Create.cshtml" />
     <Content Include="Views\FosterApplicant\SuccessDetails.cshtml" />
     <Content Include="Views\Adoption\CustomerCancelAdoption.cshtml" />
@@ -577,6 +599,27 @@
     <Content Include="Views\Shared\_PopularProductPartial.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Filter\FilterDropDowns.cshtml" />
+    <Content Include="Views\Admin\Details.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Account\RegisterEmployeeUser.cshtml" />
+    <Content Include="Views\Adoption\Index.cshtml" />
+    <Content Include="Views\Account\RegisterVolunteerUser.cshtml" />
+    <Content Include="Views\Adoption\AdoptionCustomerRegister.cshtml" />
+    <Content Include="Views\Adoption\AppointmentDetails.cshtml" />
+    <Content Include="Views\Adoption\CustomerAppointmentSchedule.cshtml" />
+    <Content Include="Views\Adoption\CustomerConfirmAdoptionApplication.cshtml" />
+    <Content Include="Views\Adoption\RescheduleAppointment.cshtml" />
+    <Content Include="Views\Transaction\TransactionHistory.cshtml" />
+    <Content Include="Views\Account\RegisterContinuation.cshtml" />
+    <Content Include="Views\Adoption\FAQ.cshtml" />
+    <Content Include="Views\ChooseRequestType\Index.cshtml" />
+    <Content Include="Views\RequestAvailabilityChange\Create.cshtml" />
+    <Content Include="Views\RequestScheduleChange\Create.cshtml" />
+    <Content Include="Views\RequestTimeOff\Create.cshtml" />
+    <Content Include="Views\ScheduleSupervisor\EmployeeShiftDetails.cshtml" />
+    <Content Include="Views\ScheduleSupervisor\ShiftCalendarEmployee.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Events\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -614,6 +657,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004220431460_Added First and Last Name Fields to User.resx">
       <DependentUpon>202004220431460_Added First and Last Name Fields to User.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004251915081_EmployeeId and CustEmail.resx">
+      <DependentUpon>202004251915081_EmployeeId and CustEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004280520284_VolEmail.resx">
+      <DependentUpon>202004280520284_VolEmail.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

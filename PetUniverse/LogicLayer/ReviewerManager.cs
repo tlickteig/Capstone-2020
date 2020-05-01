@@ -9,9 +9,8 @@ namespace LogicLayer
 {
     /// <summary>
     /// Creator: Awaab Elamin
-    /// Created: 4/2/2020
-    /// Approver: Mohamed Elamin, 2/21/2020
-    /// 
+    /// Created: 2020/02/04
+    /// Approver: Mohamed Elamin
     /// Manager class for Reviewer precoesses
     /// </summary>
     public class ReviewerManager : IAdoptionManager
@@ -21,13 +20,17 @@ namespace LogicLayer
         private AdoptionCustomer customer;
 
         /// <summary>
-        /// default constructor intial adoptionAccessor to
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
+        /// Default Constructor intial adotionAccessor to
         /// reviewer manager accessor and customer object
-        /// </summary>
+        /// </summary
         /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
-        /// </remarks>
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed comments format
+        /// </remarks> 
         public ReviewerManager()
         {
             adoptionAccessor = new ReviewerAccessor();
@@ -36,29 +39,38 @@ namespace LogicLayer
 
 
         /// <summary>
-        /// construct assgined a fake data access to addoption application object
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
+        /// Construct assgined a fake data access to addoption application object
         /// </summary>
         /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed comments format.
         /// </remarks>
+        /// <param name="fakeReviewerAccessor"></param>
         public ReviewerManager(IAdoptionAccessor fakeReviewerAccessor)
         {
             adoptionAccessor = fakeReviewerAccessor;
         }
 
         /// <summary>
-        /// retrieve the data of the Questionnair
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
+        /// Retrieve the data of the Questionnair.
         /// </summary>
         /// <remarks>
-        /// created: Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
+        /// Updater: Awaab Elamin
+        /// Updated: 2020/03/15
+        /// Update: According to DB update, change customer id to be customer Email.
+        /// 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed comments format. Added try catch block.
         /// </remarks>
-        /// <remark>
-        /// Updated by Awaab Elamin
-        /// Date: 3/15/2020
-        /// According to DB update, change customer id to be customer Email
-        /// </remark>
+        /// <returns>List of Customers who Filled Questionnair</returns>
         public List<AdoptionApplication> retrieveCustomersFilledQuestionnair()
         {
             List<AdoptionApplication> adoptionApplications = new List<AdoptionApplication>();
@@ -82,51 +94,54 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// Retrieve A customer's Questionnar by a customerID
-        /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin 
+        /// Retrieve A customer's Questionnar by a Customer ID.
+        /// </summary>
+        /// <remarks> 
+        /// Updater: Awaab Elamin
+        /// Updated: 3/15/2020
+        /// Update: After DB updated in Customer Table, We don't need to below method.
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed Comments format. Added try catch block and deleted commented code.
         /// </remarks>
-        /// <remark>
-        /// Updated by: Awaab Elamin
-        /// Date: 3/15/2020
-        /// After DB updated in Customer Table, We don't need to below method
-        /// </remark>
+        /// <param name="customerEmail"></param>
+        /// <returns>customerQuestionnars</returns>
         public List<CustomerQuestionnar> retrieveCustomerQuestionnar(string customerEmail)
         {
             List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-            if (customerEmail != null && customerEmail != "")
+            try
             {
-                customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerEmail);
+                if (customerEmail != null && customerEmail != "")
+                {
+                    customerQuestionnars = adoptionAccessor.getCustomerQuestionnair(customerEmail);
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                //customerQuestionnars = adoptionAccessor.getAllQuestions();
+
+                throw ex;
             }
-
-            // List<CustomerQuestionnar> customerQuestionnars = new List<CustomerQuestionnar>();
-            //    foreach (CustomerQuestionnar customerQ in customerQuestionnars)
-            //    {
-            //        CustomerQuestionnarVM customerQuestionnarVM = new CustomerQuestionnarVM();
-            //        customerQuestionnarVM.AdoptionApplicationID = customerQ.AdoptionApplication;
-            //        customerQuestionnarVM.CustomerLastName =
-            //            adoptionAccessor.getCustomerLastName(customerQ.CustomerID);
-            //        customerQuestionnarVM.QuestionDescription =
-            //            adoptionAccessor.getQestionDescription(customerQ.QuestionID);
-            //        customerQuestionnarVM.CustomerAnswer = customerQ.Answer;
-            //        customerQuestionnarVMs.Add(customerQuestionnarVM);
-
-            //    }
+           
             return customerQuestionnars;
         }
 
         /// <summary>
-        ///retrieve a customer record by his last name
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin 
+        /// Retrieve a customer record by his last name
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
+        /// <remarks> 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed comments format.Added try catch block.
         /// </remarks>
+        /// <param name="customerLastName"></param>
+        /// <returns>customer</returns>
         public AdoptionCustomer retrieveCustomerByCustomerName(string customerLastName)
         {
             customer = adoptionAccessor.getCustomerByCustomerName(customerLastName);
@@ -135,12 +150,18 @@ namespace LogicLayer
         }
 
         /// <summary>
-        ///Retrieve A customer's AdoptionApplication by a customerID
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin 
+        /// Retrieve A customer's AdoptionApplication by a customerID
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 4/2/2020
-        /// Mohamed Elamin , 2/21/2020
+        /// <remarks> 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed Comments format.Added try catch block.
         /// </remarks>
+        /// <param name="customerEmail"></param>
+        /// <returns >adoptionApplication</returns>
         public AdoptionApplication retrieveCustomerAdoptionApplicaionByCustomerEmail(string customerEmail)
         {
             adoptionApplication = adoptionAccessor.getAdoptionApplicationByCustomerEmail(customerEmail);
@@ -148,13 +169,19 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// update the status of the adoption application according the reviewer decision
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin 
+        /// Update the status of the adoption application according the reviewer decision.
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 2/4/2020
-        /// reviewed by
-        /// Mohamed Elamin , 21/2/2020
+        /// <remarks> 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed Comments format. Added try catch block. 
         /// </remarks>
+        /// <param name="adoptionApplicationID"></param>
+        /// <param name="decision"></param>
+        /// <returns>True or false depending if the record was updated</returns>
         public bool SubmitReviewerDecision(int adoptionApplicationID, string decision)
         {
             Boolean result = false;
@@ -168,14 +195,19 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// update the status of the adoption application according the reviewer decision
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin 
+        /// add the adoption application of the customer
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 2020/3/6
-        /// reviewed by
-        /// Mohamed Elamin , 2020/3/10
+        /// <remarks> 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed Comments format.
         /// </remarks>
-        public bool addAdoptionApplication(MVCAdoptionApplication adoptionApplication)
+        /// <param name="adoptionApplication"></param>
+        /// <returns>True or false depending if the record was inserted</returns>
+        public bool addAdoptionApplication(AdoptionApplication adoptionApplication)
         {
             bool result = false;
             try
@@ -194,29 +226,46 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// update the status of the adoption application according the reviewer decision
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
+        /// Retrieve all questions.
         /// </summary>
-        /// <remarks>
-        /// by Awaab Elamin 2020/3/10
+        /// <remarks> 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Fixed Comments format.Added ex and the throw message.
         /// </remarks>
+        /// <returns>List of questions</returns>
         public List<string> retrieveAllQuestions()
         {
             List<string> questions = new List<string>();
             try
             {
                 questions = adoptionAccessor.getAllQuestions();
-
             }
             catch (Exception)
             {
-
 
                 throw;
             }
             return questions;
         }
 
-        public bool addQuestionnair(MVCQuestionnair questionnair)
+        /// <summary>
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/02/04
+        /// Approver: Mohamed Elamin
+        /// Addd custome questionnair to questionnair table 
+        /// </summary>
+        /// <remarks> 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Added Comments. Added try catch block.
+        /// </remarks>
+        /// <param name="questionnair"></param>
+        /// <returns>True or false depending if the record was inserted </returns>
+        public bool addQuestionnair(Questionnair questionnair)
         {
             bool result = false;
             // questionnair.CustomerEmail = model
@@ -225,6 +274,34 @@ namespace LogicLayer
                 result = true;
             }
             return result;
+        }
+
+        /// <summary>
+        /// Creator: Awaab Elamin 
+        /// Created: 2020/04/15
+        /// Approver: Mohamed Elamin
+        /// retrieve all animal medical records 
+        /// </summary>
+        /// <remarks> 
+        /// Updater: Mohamed Elamin 
+        /// Updated: 2020/04/21 
+        /// Update: Added Comments. Added try catch block.
+        /// </remarks>
+        /// <returns>animals Medical records</returns>
+        public List<AnimalMedical> retrieveAllAnimals()
+        {
+            List<AnimalMedical> animals = new List<AnimalMedical>();
+            try
+            {
+                animals = adoptionAccessor.getAllAnimals();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return animals;
+
         }
     }
 }

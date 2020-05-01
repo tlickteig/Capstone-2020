@@ -60,6 +60,7 @@ namespace WPFPresentation.Controllers
 
             ViewBag.Title = "Schedule Change Request";
 
+            //Force past dates to be tomorrow
             if (Convert.ToDateTime(selectedDate) <= DateTime.Now)
             {
                 selectedDate = DateTime.Now.AddDays(1).ToShortDateString();
@@ -71,6 +72,7 @@ namespace WPFPresentation.Controllers
 
             if (0 != userID)
             {
+                //Get all of current user's shifts, one time only
                 if (null == (List<ShiftVM>)Session["userShiftList"])
                 {
                     Session["userShiftList"] = _shiftManager.RetrieveShiftsByUser(userID);
@@ -78,6 +80,7 @@ namespace WPFPresentation.Controllers
 
                 List<ShiftVM> selectedShiftList = new List<ShiftVM>();
 
+                //Add all shifts on the selected date to a list
                 foreach (var shift in (List<ShiftVM>)Session["userShiftList"])
                 {
                     if (Convert.ToDateTime(shift.Date) == Convert.ToDateTime(selectedDate))
@@ -86,12 +89,26 @@ namespace WPFPresentation.Controllers
                     }
                 }
 
+                //Build a SelectListItem List
+                List<SelectListItem> shiftListSelectList = new List<SelectListItem>();
+                shiftListSelectList.Add(new SelectListItem()
+                {
+                    Text = "-- Select a Shift --",
+                    Value = ""
+                });
+                foreach (ShiftVM shift in selectedShiftList)
+                {
+                    shiftListSelectList.Add(new SelectListItem()
+                    {
+                        Text = "Department: " + shift.Department + " Date: " + shift.Date + " Time: " + shift.StartTime + " - " + shift.EndTime,
+                        Value = shift.ShiftID.ToString()
+                    });
+                }
+                ViewBag.ShiftList = shiftListSelectList;
 
-                model.UserShiftList = selectedShiftList;
                 model.UserID = userID;
             }
-
-            return View(model);
+            return View(model); //NOT UPDATING THE VIEW AFTER FIRST TIME
         }
 
 
@@ -109,23 +126,42 @@ namespace WPFPresentation.Controllers
         /// 
         /// </remarks>
         [HttpPost]
-        public ActionResult Create(FormCollection formCollection)
+        public ActionResult CreateRequest(int shiftID, string shiftDate)
         {
             try
             {
-                int shiftID = Convert.ToInt32(formCollection["shiftList"]);
-
                 ScheduleChangeRequest request = new ScheduleChangeRequest();
                 request.ShiftID = shiftID;
-
+        
                 _requestManager.AddScheduleChangeRequest(request, Convert.ToInt32(Session["currentUserID"]));
 
-                return RedirectToAction("Index", "ChooseRequestType", new { outputMessage = "SUCCESS: Schedule Change Request Submitted!" });
+                return Json(Url.Action("Index", "ChooseRequestType", new { outputMessage = "SUCCESS: Schedule Change Request Submitted!" }));
             }
             catch (Exception ex) //Null selection, return to selection page with same date
             {
-                return RedirectToAction("Create", "RequestScheduleChange", new { userID = Session["currentUserID"], selectedDate = formCollection["ShiftDate"] });
+                return Json(Url.Action("Create", "RequestScheduleChange", new { userID = Session["currentUserID"], selectedDate = shiftDate }));
             }
+        }
+
+
+        /// <summary>
+        ///  CREATOR: Kaleb Bachert
+        ///  CREATED: 2020/4/30
+        ///  APPROVER: NA
+        ///  
+        ///  This Action method is needed for JQuery Ajax redirects to work with the real Create GET action above
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        // GET: RequestScheduleChange
+        public ActionResult CreateAjax(int userID, string selectedDate)
+        {
+            //When coming from an Ajax redirect, return View() will never work. This is the simplest way to fix this problem.
+            return Json(Url.Action("Create", "RequestScheduleChange", new { userID = userID, selectedDate = selectedDate }));
         }
     }
 }

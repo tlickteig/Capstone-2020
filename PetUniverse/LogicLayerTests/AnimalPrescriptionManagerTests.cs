@@ -287,5 +287,152 @@ namespace LogicLayerTests
             // Assert
             Assert.IsFalse(result);
         }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Tests deactivating an active record, and
+        /// reactivating a deactive record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestChangeAnimalPrescriptionActiveStatus()
+        {
+            // Arrange
+            bool deactivateResult = false;
+            bool activateResult = false;
+            IAnimalPrescriptionManager manager =
+                new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
+            AnimalPrescription activeRecord = new AnimalPrescription() { AnimalPrescriptionID = 1 };
+            AnimalPrescription inActiveRecord = new AnimalPrescription() { AnimalPrescriptionID = 2 };
+
+            // Act
+            deactivateResult = manager.DeactivateAnimalPrescriptionRecord(activeRecord);
+            activateResult = manager.ActivateAnimalPrescriptionRecord(inActiveRecord);
+
+            // Assert
+            Assert.IsTrue(deactivateResult);
+            Assert.IsTrue(activateResult);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Tests deleting a valid prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeleteExistingAnimalPrescriptionRecord()
+        {
+            // Arrange
+            bool result = false;
+            IAnimalPrescriptionManager manager =
+                new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
+            AnimalPrescriptionVM animalPrescription = new AnimalPrescriptionVM()
+            {
+                AnimalID = 1,
+                AnimalPrescriptionID = 1,
+                AnimalVetAppointmentID = 1,
+                PrescriptionName = "test",
+                Dosage = 2.0M,
+                Interval = "2 times a day",
+                AdministrationMethod = "Oral",
+                StartDate = DateTime.Parse("3/20/2020"),
+                EndDate = DateTime.Parse("4/15/2020"),
+                Description = "test",
+                AnimalName = "fawuief",
+                Active = true
+            };
+
+            // Act
+            result = manager.DeleteAnimalPrescriptionRecord(animalPrescription);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Tests deleting an invalid prescription record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeleteNonExistentAnimalPrescriptionRecord()
+        {
+            // Arrange
+            bool result = false;
+            IAnimalPrescriptionManager manager =
+                new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
+            AnimalPrescriptionVM animalPrescription = new AnimalPrescriptionVM()
+            {
+                AnimalID = 5,
+                AnimalPrescriptionID = 100,
+                AnimalVetAppointmentID = 1,
+                PrescriptionName = "testfawefawef",
+                Dosage = 2.0M,
+                Interval = "2 times a dayawfeawef",
+                AdministrationMethod = "Oral",
+                StartDate = DateTime.Parse("3/20/2020"),
+                EndDate = DateTime.Parse("4/15/2020"),
+                Description = "test",
+                AnimalName = "fawuief",
+                Active = true
+            };
+
+            // Act
+            result = manager.DeleteAnimalPrescriptionRecord(animalPrescription);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Tests retrieving prescription records by active/inactive status
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrievingRecordsByActiveAndDeactiveStatus()
+        {
+            // Arrange
+            IAnimalPrescriptionManager manager =
+                new AnimalPrescriptionsManager(_animalPrescriptionsAccessor);
+            List<AnimalPrescriptionVM> activeRecords;
+            List<AnimalPrescriptionVM> inactiveRecords;
+
+            // Act
+            activeRecords = manager.RetrieveAnimalPrescriptionsByActive();
+            inactiveRecords = manager.RetrieveAnimalPrescriptionsByActive(false);
+
+            // Assert
+            Assert.AreEqual(3, activeRecords.Count);
+            Assert.AreEqual(1, inactiveRecords.Count);
+        }
     }
 }

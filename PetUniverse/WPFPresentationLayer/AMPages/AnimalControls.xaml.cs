@@ -45,16 +45,12 @@ namespace WPFPresentationLayer.AMPages
         public AnimalControls()
         {
             InitializeComponent();
-            _animalManager = new AnimalManager();
-            cmbAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
+            _animalManager = new AnimalManager();         
         }
 
         private IAnimalManager _animalManager;
         private Animal selectedAnimal;
-
         private AnimalNames an;
-
-
 
         /// <summary>
         /// Creator: Chuck Baxter
@@ -74,6 +70,7 @@ namespace WPFPresentationLayer.AMPages
         private void BtnAddAnimal_Click(object sender, RoutedEventArgs e)
         {
             canAddAnimal.Visibility = Visibility.Visible;
+            cmbAnimalSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
         }
 
         /// <summary>
@@ -113,20 +110,29 @@ namespace WPFPresentationLayer.AMPages
         private void refreshActiveData()
         {
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByActive();
-
-
+          
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[10]);
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
-
-
+            
             dgActiveAnimals.Columns[0].Header = "Name";
             dgActiveAnimals.Columns[1].Header = "Date of Birth";
-            dgActiveAnimals.Columns[2].Header = "Breed";
-            dgActiveAnimals.Columns[3].Header = "Arrival Date";
-            dgActiveAnimals.Columns[4].Header = "Currently Housed";
-            dgActiveAnimals.Columns[7].Header = "Species";
+            dgActiveAnimals.Columns[2].Header = "Species";
+            dgActiveAnimals.Columns[3].Header = "Breed";
+            dgActiveAnimals.Columns[4].Header = "Arrival Date";
+            dgActiveAnimals.Columns[5].Header = "Currently Housed";
+            dgActiveAnimals.Columns[6].Header = "Adoptable";
+            dgActiveAnimals.Columns[7].Header = "Active";
 
+            dgActiveAnimals.Columns[0].Width = 200;
+            dgActiveAnimals.Columns[1].Width = 200;
+            dgActiveAnimals.Columns[2].Width = 200;
+            dgActiveAnimals.Columns[3].Width = 200;
+            dgActiveAnimals.Columns[4].Width = 200;
+            dgActiveAnimals.Columns[5].Width = 90;
+            dgActiveAnimals.Columns[6].Width = 90;
+            dgActiveAnimals.Columns[7].Width = 90;
         }
 
         /// <summary>
@@ -148,16 +154,27 @@ namespace WPFPresentationLayer.AMPages
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByInactive();
 
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[10]);
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
 
-
             dgActiveAnimals.Columns[0].Header = "Name";
             dgActiveAnimals.Columns[1].Header = "Date of Birth";
-            dgActiveAnimals.Columns[2].Header = "Breed";
-            dgActiveAnimals.Columns[3].Header = "Arrival Date";
-            dgActiveAnimals.Columns[4].Header = "Currently Housed";
-            dgActiveAnimals.Columns[7].Header = "Species";
+            dgActiveAnimals.Columns[2].Header = "Species";
+            dgActiveAnimals.Columns[3].Header = "Breed";
+            dgActiveAnimals.Columns[4].Header = "Arrival Date";
+            dgActiveAnimals.Columns[5].Header = "Currently Housed";
+            dgActiveAnimals.Columns[6].Header = "Adoptable";
+            dgActiveAnimals.Columns[7].Header = "Active";
+
+            dgActiveAnimals.Columns[0].Width = 200;
+            dgActiveAnimals.Columns[1].Width = 200;
+            dgActiveAnimals.Columns[2].Width = 200;
+            dgActiveAnimals.Columns[3].Width = 200;
+            dgActiveAnimals.Columns[4].Width = 200;
+            dgActiveAnimals.Columns[5].Width = 90;
+            dgActiveAnimals.Columns[6].Width = 90;
+            dgActiveAnimals.Columns[7].Width = 90;
         }
 
         /// <summary>
@@ -339,7 +356,6 @@ namespace WPFPresentationLayer.AMPages
             
             DG.Visibility = Visibility.Visible;
 
-            Scroll.ScrollToTop();
             SearchBar_.Visibility = Visibility.Visible;
             DG.Visibility = Visibility.Visible;
             SearchSymbolButton.Visibility = Visibility.Visible;
@@ -625,6 +641,474 @@ namespace WPFPresentationLayer.AMPages
             }
         }
 
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method that shows the edit animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSpecies_Click(object sender, RoutedEventArgs e)
+        {
+            canEditAnimalSpecies.Visibility = Visibility.Visible;
+            cmbEditSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
+            cmbDeleteSpecies.ItemsSource = _animalManager.RetrieveAnimalSpecies();
+            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
+            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
+            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblEditSpecies.Visibility = Visibility.Hidden;
+            cmbEditSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
+            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblDeleteSpecies.Visibility = Visibility.Hidden;
+            cmbDeleteSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
+            chkAddSpecies.IsChecked = false;
+            chkEditSpecies.IsChecked = false;
+            chkDeleteSpecies.IsChecked = false;
+            txtNewAnimalSpecies.Text = "";
+            txtNewAnimalSpeciesDescription.Text = "";
+            cmbEditSpecies.Text = "";
+            cmbDeleteSpecies.Text = "";
+            txtEditAnimalSpecies.Text = "";
+            txtEditAnimalSpeciesDescription.Text = "";
+
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method that cancels the edit animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCancelAnimalEditSpecies_Click(object sender, RoutedEventArgs e)
+        {
+            canEditAnimalSpecies.Visibility = Visibility.Hidden;
+            txtNewAnimalSpecies.Text = "";
+            txtNewAnimalSpeciesDescription.Text = "";
+            cmbEditSpecies.Text = "";
+            cmbDeleteSpecies.Text = "";
+            txtEditAnimalSpecies.Text = "";
+            txtEditAnimalSpeciesDescription.Text = "";
+            chkAddSpecies.IsChecked = false;
+            chkEditSpecies.IsChecked = false;
+            chkDeleteSpecies.IsChecked = false;
+
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method that when the add species check box is checked, shows the add options and hides the edit and delete options
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkAddSpecies_Checked(object sender, RoutedEventArgs e)
+        {
+            chkEditSpecies.IsChecked = false;
+            chkDeleteSpecies.IsChecked = false;
+            lblNewAnimalSpecies.Visibility = Visibility.Visible;
+            txtNewAnimalSpecies.Visibility = Visibility.Visible;
+            lblNewAnimalSpeciesDescription.Visibility = Visibility.Visible;
+            txtNewAnimalSpeciesDescription.Visibility = Visibility.Visible;
+            lblEditSpecies.Visibility = Visibility.Hidden;
+            cmbEditSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
+            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblDeleteSpecies.Visibility = Visibility.Hidden;
+            cmbDeleteSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Visible;
+            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method that when the edit existing species check box is checked, shows the edit options and hides the add and delete options
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkEditSpecies_Checked(object sender, RoutedEventArgs e)
+        {
+            chkAddSpecies.IsChecked = false;
+            chkDeleteSpecies.IsChecked = false;
+            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
+            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
+            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblEditSpecies.Visibility = Visibility.Visible;
+            cmbEditSpecies.Visibility = Visibility.Visible;
+            lblEditAnimalSpeciesID.Visibility = Visibility.Visible;
+            txtEditAnimalSpecies.Visibility = Visibility.Visible;
+            lblEditAnimalSpeciesDescription.Visibility = Visibility.Visible;
+            txtEditAnimalSpeciesDescription.Visibility = Visibility.Visible;
+            lblDeleteSpecies.Visibility = Visibility.Hidden;
+            cmbDeleteSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Visible;
+            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method that when the delete existing species check box is checked, shows the delete options and hides the add and edit options
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkDeleteSpecies_Checked(object sender, RoutedEventArgs e)
+        {
+            chkAddSpecies.IsChecked = false;
+            chkEditSpecies.IsChecked = false;
+            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
+            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
+            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblEditSpecies.Visibility = Visibility.Hidden;
+            cmbEditSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
+            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblDeleteSpecies.Visibility = Visibility.Visible;
+            cmbDeleteSpecies.Visibility = Visibility.Visible;
+            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method that when the edit existing species check box is unchecked, everything is hidden
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkEditSpecies_Unchecked(object sender, RoutedEventArgs e)
+        {
+            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
+            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
+            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblEditSpecies.Visibility = Visibility.Hidden;
+            cmbEditSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
+            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblDeleteSpecies.Visibility = Visibility.Hidden;
+            cmbDeleteSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method that when the add species check box is unchecked, everything is hidden
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkAddSpecies_Unchecked(object sender, RoutedEventArgs e)
+        {
+            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
+            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
+            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblEditSpecies.Visibility = Visibility.Hidden;
+            cmbEditSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
+            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblDeleteSpecies.Visibility = Visibility.Hidden;
+            cmbDeleteSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method that when the delete species check box is unchecked, everything is hidden
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkDeleteSpecies_Unchecked(object sender, RoutedEventArgs e)
+        {
+            lblNewAnimalSpecies.Visibility = Visibility.Hidden;
+            txtNewAnimalSpecies.Visibility = Visibility.Hidden;
+            lblNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtNewAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblEditSpecies.Visibility = Visibility.Hidden;
+            cmbEditSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesID.Visibility = Visibility.Hidden;
+            txtEditAnimalSpecies.Visibility = Visibility.Hidden;
+            lblEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            txtEditAnimalSpeciesDescription.Visibility = Visibility.Hidden;
+            lblDeleteSpecies.Visibility = Visibility.Hidden;
+            cmbDeleteSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalAddSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalEditSpecies.Visibility = Visibility.Hidden;
+            BtnSubmitAnimalDeleteSpecies.Visibility = Visibility.Hidden;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method that populates the edit fields
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cmbEditSpecies_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                txtEditAnimalSpecies.Text = cmbEditSpecies.SelectedItem.ToString();
+            }
+            catch
+            {
+                txtEditAnimalSpecies.Text = "";
+            }
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method when the submit add new species button is clicked, calls the animal manager
+        /// to add it to the database
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnSubmitAnimalAddSpecies_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(txtNewAnimalSpecies.Text))
+            {
+                MessageBox.Show("Please enter the new animal species");
+                return;
+            }
+            if (String.IsNullOrEmpty(txtNewAnimalSpeciesDescription.Text))
+            {
+                MessageBox.Show("Please enter the animal species description");
+                return;
+            }
+
+            try
+            {
+                if (_animalManager.AddNewAnimalSpecies(txtNewAnimalSpecies.Text, txtNewAnimalSpeciesDescription.Text))
+                {
+                    WPFErrorHandler.SuccessMessage("Animal Species Successfully Added");
+
+                    canEditAnimalSpecies.Visibility = Visibility.Hidden;
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
+                canEditAnimalSpecies.Visibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method when the submit delete species button is clicked, calls the animal manager
+        /// to delete it from the database
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnSubmitAnimalDeleteSpecies_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(cmbDeleteSpecies.Text))
+            {
+                MessageBox.Show("Please enter the animal species that you wish to delete");
+                return;
+            }
+
+            try
+            {
+                if (_animalManager.DeleteAnimalSpecies(cmbDeleteSpecies.Text))
+                {
+                    WPFErrorHandler.SuccessMessage("Animal Species Successfully Deleted");
+
+                    canEditAnimalSpecies.Visibility = Visibility.Hidden;
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + "no animals can be this species before deletion" + "\n\n" + ex.InnerException.Message);
+                canEditAnimalSpecies.Visibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        /// 
+        /// The method when the submit update species button is clicked, calls the animal manager
+        /// to update it in the database
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BtnSubmitAnimalEditSpecies_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrEmpty(cmbEditSpecies.Text))
+            {
+                MessageBox.Show("Please enter the animal species that you wish to update");
+                return;
+            }
+            if (String.IsNullOrEmpty(txtEditAnimalSpecies.Text))
+            {
+                MessageBox.Show("Please enter the animal species that you wish to update");
+                return;
+            }
+            if (String.IsNullOrEmpty(txtEditAnimalSpeciesDescription.Text))
+            {
+                MessageBox.Show("Please enter the animal species' description that you wish to update");
+                return;
+            }
+
+            try
+            {
+                if (_animalManager.EditAnimalSpecies(cmbEditSpecies.Text, txtEditAnimalSpecies.Text, txtEditAnimalSpeciesDescription.Text))
+                {
+                    WPFErrorHandler.SuccessMessage("Animal Species Successfully Updated");
+                    canEditAnimalSpecies.Visibility = Visibility.Hidden;
+                }
+            }
+            catch (Exception ex)
+            {
+                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
+                canEditAnimalSpecies.Visibility = Visibility.Hidden;
+                txtEditAnimalSpecies.Text = "";
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         /// <summary>
@@ -641,8 +1125,7 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         public void SearchBar1_TextChanged(object sender, TextChangedEventArgs e)
         {
-           
-            SearchBarTextInputManager();
+            //SearchBarTextInputManager();
         }
         int NumberOfResults = 0;
         List<AnimalNames> List_ = new List<AnimalNames>();
@@ -662,8 +1145,6 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         public List<AnimalNames> SearchBarTextInputManager()
         {
-
-
             try
             {
                 NoResults.Visibility = Visibility.Hidden;
@@ -677,18 +1158,15 @@ namespace WPFPresentationLayer.AMPages
 
                 AnimalManager am = new AnimalManager();
 
-
                 if (SearchBar_.Text == "")
                 {
                     SearchSymbolButton.IsEnabled = false;
 
                     mainList = true;
-
                 }
                 else
                 {
                     SearchSymbolButton.IsEnabled = true;
-
                 }
                 int one = 0;
                 List_ = am.RetrieveNames();
@@ -702,18 +1180,12 @@ namespace WPFPresentationLayer.AMPages
                         DG.ItemsSource = (from c in List_
                                           where c.AnimalID == Int32.Parse(SearchBar_.Text) + 1000000
                                           select c).ToList();
-
                     }
-
                 }
                 catch
                 {
-
-
                     if (mainList == true)
                     {
-
-
                         DG.ItemsSource = (from c in List_
                                           where c.AnimalName == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
                                           ||
@@ -786,28 +1258,12 @@ namespace WPFPresentationLayer.AMPages
                         {
                             SearchBar_.IsReadOnly = false;
                         }
-
-
-
-
-
-
-
                     }
-
                 }
             }
             catch (Exception ex)
             {
-
-
-
             }
-
-
-
-
-
             return List_;
         }
 
@@ -833,9 +1289,6 @@ namespace WPFPresentationLayer.AMPages
                 SearchBar_.Text = "Search...";
                 SearchBar_.Foreground = Brushes.LightGray;
             }
-
-
-
         }
         private void SearchBar_Hover_ON(object sender, MouseEventArgs e)
         {
@@ -846,14 +1299,7 @@ namespace WPFPresentationLayer.AMPages
                 SearchBar_.Clear();
                 SearchBar_.Foreground = Brushes.Black;
             }
-        
-
-        
-
         }
-
-
-
 
         /// <summary>
         /// Creator: Daulton Schilling
@@ -928,8 +1374,6 @@ namespace WPFPresentationLayer.AMPages
             {
                 if (e.Key == Key.Space)
                 {
-
-
                     SearchBar_.Foreground = Brushes.Black;
 
                     SearchBar_.Text = SearchBar_.Text + " ";
@@ -944,10 +1388,8 @@ namespace WPFPresentationLayer.AMPages
 
                 if (e.Key == Key.Back)
                 {
-
                     if (SearchBar_.Foreground == Brushes.LightGray && SearchBar_.Text.Length > 2)
                     {
-
                         SearchBar_.Foreground = Brushes.Black;
                         SearchBar_.Clear();
 
@@ -955,8 +1397,7 @@ namespace WPFPresentationLayer.AMPages
                     }
                 }
             }
-            catch { }
-        
+            catch { }        
         }
 
         /// <summary>
@@ -998,7 +1439,6 @@ namespace WPFPresentationLayer.AMPages
                 lblIndividualAnimalDob.Content = NAC.Dob.ToString();
                 lblIndividualAnimalArrivalDate.Content = NAC.ArrivalDate.ToString();
 
-
                 chkIndvidualActive.IsChecked = NAC.Active;
                 chkIndvidualAdoptable.IsChecked = NAC.Adoptable;
                 chkIndvidualCurrentlyHoused.IsChecked = NAC.CurrentlyHoused;
@@ -1013,13 +1453,6 @@ namespace WPFPresentationLayer.AMPages
 
                 NoResults.Content = "No results found for " + " ' " + SearchBar_.Text + " ' ";
             }
-
-
-
-
-
-        }
-
-       
+        }    
     }
 }

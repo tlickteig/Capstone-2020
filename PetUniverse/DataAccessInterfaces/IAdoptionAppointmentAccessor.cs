@@ -1,4 +1,5 @@
 ﻿using DataTransferObjects;
+using System;
 using System.Collections.Generic;
 
 namespace DataAccessInterfaces
@@ -13,6 +14,23 @@ namespace DataAccessInterfaces
     /// </summary>
     public interface IAdoptionAppointmentAccessor
     {
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/28/2020
+        /// Approver: 
+        /// 
+        /// Data Access Inteface that is used to Select Adoption Appointment VMs by active
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        List<AdoptionAppointmentVM> SelectAdoptionAppointmentsByActive(bool active);
+
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 3/5/2020
@@ -48,6 +66,22 @@ namespace DataAccessInterfaces
 
         /// <summary>
         /// Creator: Austin Gee
+        /// Created: 4/27/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// Data Access Inteface that is used to Select Adoption Appointment VMs by Customer email and active
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// <param name="email"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        List<AdoptionAppointmentVM> SelectAdoptionAppointmentByCustomerEmailAndActive(string email, bool active);
+
+        /// <summary>
+        /// Creator: Austin Gee
         /// Created: 3/12/2020
         /// Approver: Michael Thompson
         /// 
@@ -61,5 +95,20 @@ namespace DataAccessInterfaces
         /// <param name="adoptionAppointment"></param>
         /// <returns></returns>
         int InsertAdoptionAppointment(AdoptionAppointment adoptionAppointment);
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/27/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// Data Access Inteface that is used to update an appointments datetime
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// <param name="dateTime"></param>
+        /// <returns></returns>
+        int UpdateAdoptionAppointmentDateTime(int appointmentID, DateTime dateTime);
     }
 }

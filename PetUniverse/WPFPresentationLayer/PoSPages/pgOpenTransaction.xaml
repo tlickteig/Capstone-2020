@@ -39,6 +39,9 @@ UI for Open Transaction.
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                    <RowDefinition></RowDefinition>
+
 
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
@@ -69,15 +72,32 @@ UI for Open Transaction.
 
                 <Label Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right">Quantity:</Label>
                 <TextBox x:Name="txtQuantity" Grid.Column="2" Grid.Row="6" Margin="5 5 5 5" VerticalContentAlignment="Center"
-                         HorizontalContentAlignment="Center"></TextBox>
+                         HorizontalContentAlignment="Center" PreviewTextInput="txtQuantity_PreviewTextInput"></TextBox>
 
                 <Label Grid.Column="1" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right">Item Description:</Label>
                 <TextBox x:Name="txtItemDescription" Grid.Column="2" Grid.Row="7" Margin="5 5 5 5" VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Center"></TextBox>
 
+                <Label Grid.Row="8" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">Transaction Type:</Label>
+                <ComboBox Grid.Row="8" Grid.Column="2" x:Name="cbTransactionType" Margin="5 5 5 5" 
+                              VerticalContentAlignment="Center"
+                              HorizontalContentAlignment="Center" Loaded="cbTransactionType_Loaded">
+                </ComboBox>
 
 
-                <Button x:Name="btnAddProduct" Grid.Column="2" Grid.Row="8" Margin="5 5 5 5" Click="btnAddProduct_Click">Add</Button>
+                <Label Grid.Row="9" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">Transaction Status:</Label>
+                <ComboBox Grid.Row="9" Grid.Column="2" Margin="5 5 5 5" x:Name="cbTransactionStatus"
+                              VerticalContentAlignment="Center"
+                              HorizontalContentAlignment="Center" Loaded="cbTransactionStatus_Loaded">
+                </ComboBox>
+
+                <Label Grid.Row="10" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right">Tax Exempt Number:</Label>
+                <TextBox x:Name="txtTaxExemptNumber" Grid.Row="10" Grid.Column="2" Margin="5 5 5 5" 
+                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                </TextBox>
+
+
+                <Button x:Name="btnAddProduct" Grid.Column="2" Grid.Row="11" Margin="5 5 5 5" Click="btnAddProduct_Click">Add</Button>
             </Grid>
 
             <Grid Grid.Row="1">
@@ -107,17 +127,16 @@ UI for Open Transaction.
                     </Grid.ColumnDefinitions>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="42*"></RowDefinition>
+                        <RowDefinition Height="42*"></RowDefinition>
+                        <RowDefinition Height="42*"></RowDefinition>
+                        <RowDefinition Height="41"></RowDefinition>
+                        <RowDefinition Height="42*"></RowDefinition>
+                        <RowDefinition Height="41*"></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <Button x:Name="btnClearShoppingCart" Grid.Column="0" Grid.Row="1" Margin="5 5 5 5" Click="btnClearShoppingCart_Click">Clear Cart</Button>
                     <Button x:Name="btnCompleteTransaction" Grid.Column="0" Grid.Row="2" Margin="5 5 5 5" Click="btnCompleteTransaction_Click">Complete Transaction</Button>
-
                     <!--
                     /// Creator: Rasha Mohammed
                     /// Created: 4/12/2020
@@ -125,7 +144,6 @@ UI for Open Transaction.
                     /// 
                     /// This button to edit the price an return it after updated -->
                     <Button x:Name="btnEditPrice" Grid.Column="0" Grid.Row="3" Margin="5 5 5 0" Height="32" VerticalAlignment="Top" Click="btnEditPrice_Click">Edit Price</Button>
-
                     <Label Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center"
                        VerticalAlignment="Center">Sub Total:</Label>
                     <Label Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center"
@@ -134,7 +152,8 @@ UI for Open Transaction.
                        VerticalAlignment="Center">Total</Label>
                     <Label Grid.Column="1" Grid.Row="4" HorizontalAlignment="Center"
                        VerticalAlignment="Center">Zip Code:</Label>
-
+                    <Label VerticalAlignment="Center" HorizontalAlignment="Right" Content="Add Email:" Margin="0 7 119 41" 
+                           Width="78" Height="36" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
                     <TextBox x:Name="txtSubTotal" Grid.Column="2" Grid.Row="1" Margin="5 5 5 5" VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Center"></TextBox>
                     <TextBox x:Name="txtSubTotalTaxable" Grid.Column="2" Grid.Row="2" Margin="5 5 5 5" VerticalContentAlignment="Center"
@@ -142,9 +161,10 @@ UI for Open Transaction.
                     <TextBox x:Name="txtZipCode" Grid.Column="2" Grid.Row="4" Margin="5 5 5 5" VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Center">1111</TextBox>
 
-                    <TextBox x:Name="txtTotal" Grid.Column="2" Margin="0,-28,10,39" VerticalContentAlignment="Center"
+                    <TextBox x:Name="txtTotal" Grid.Column="2" Grid.Row="3" Margin="5 5 5 5" VerticalContentAlignment="Center"
                          HorizontalContentAlignment="Center"/>
-
+                    <TextBox x:Name="txtEmail" Margin="5 2 79 2" VerticalContentAlignment="Center"
+                        HorizontalContentAlignment="Center" Grid.ColumnSpan="3" Grid.Column="1"/>
                 </Grid>
             </Grid>
 

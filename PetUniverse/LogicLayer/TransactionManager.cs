@@ -459,7 +459,7 @@ namespace LogicLayer
 
                     // verify that it doesn't exceed the quantity in stock.
                     // also verifies the QUANTITY ENTERED is not zero or less.
-                    if (totalQuantity <= productVM.ItemQuantity && productVM.Quantity > 0)
+                    if (totalQuantity <= productVM.ItemQuantity)
                     {
                         isValid = true;
                     }
@@ -468,7 +468,7 @@ namespace LogicLayer
                 // This else statement runs whenever a DIFFERENT product is added.
                 else
                 {
-                    if (productVM.Quantity <= productVM.ItemQuantity && productVM.Quantity > 0)
+                    if (productVM.Quantity <= productVM.ItemQuantity)
                     {
                         isValid = true;
                     }
@@ -482,7 +482,7 @@ namespace LogicLayer
             // THIS BLOCK OF CODE SHOULD RUN ONLY ONCE!!!
             else
             {
-                if (productVM.Quantity <= productVM.ItemQuantity && productVM.Quantity > 0)
+                if (productVM.Quantity <= productVM.ItemQuantity)
                 {
                     isValid = true;
                 }
@@ -710,6 +710,164 @@ namespace LogicLayer
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/23
+        /// Approver: Robert Holmes
+        ///  
+        /// This method calls the Select transaction types method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionType</returns>
+        public List<TransactionType> RetrieveAllTransactionTypes()
+        {
+            try
+            {
+                return _transactionAccessor.SelectAllTransactionTypes();
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Transaction Types Not Found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        ///  
+        /// This method calls the Select all transaction status method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionStatus list</returns>
+        public List<TransactionStatus> RetrieveAllTransactionStatus()
+        {
+            try
+            {
+                return _transactionAccessor.SelectAllTransactionStatus();
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Transaction Statuses Not Found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/23
+        /// Approver: Robert Holmes
+        ///  
+        /// This method calls the Select default transaction type method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionType</returns>
+        public TransactionType RetrieveDefaultTransactionType()
+        {
+            try
+            {
+                return _transactionAccessor.SelectDefaultTransactionType();
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Transaction type Not Found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        ///  
+        /// This method calls the Select default transaction status method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionStatus</returns>
+        public TransactionStatus RetrieveDefaultTransactionStatus()
+        {
+            try
+            {
+                return _transactionAccessor.SelectDefaultTransactionStatus();
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Transaction status Not Found", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 2020/04/24
+        /// Approver: Robert Holmes
+        ///  
+        /// This method calls the update item quantity method in the DataAccessLayer.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <returns>TransactionStatus</returns>
+        public bool EditItemQuantity(TransactionLineProducts transactionLineProducts)
+        {
+            bool result = false;
+
+            try
+            {
+                result = (_transactionAccessor.UpdateItemQuantity(transactionLineProducts) > 0);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Could Not Add Transaction.", ex);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020  
+        /// Approver: Steven Cardona
+        ///  
+        /// This method connects to the data access layer to get transactions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="Email"></param>
+        /// <returns></returns>
+        public List<Transaction> GetTransactionsByCustomerEmail(string Email)
+        {
+            try
+            {
+                return _transactionAccessor.GetTransactionsByCustomerEmail(Email);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Could not find transactions", ex);
+            }
         }
     }
 }

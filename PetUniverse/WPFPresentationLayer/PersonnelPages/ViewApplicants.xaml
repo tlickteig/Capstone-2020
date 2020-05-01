@@ -12,7 +12,6 @@
       xmlns:local="clr-namespace:WPFPresentationLayer.PersonnelPages"
       mc:Ignorable="d" 
       d:DesignHeight="550" d:DesignWidth="900"
-      Background="#2e3137"
       Title="ViewApplicants" Loaded="Page_Loaded">
 
     <Grid>
@@ -30,8 +29,8 @@
             <ColumnDefinition Width="50px"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Label x:Name="lblViewAllApplicants" Grid.Row="0" Grid.Column="1" Content="Current Applicants" VerticalAlignment="Center"
-               HorizontalAlignment="Center" FontWeight="DemiBold" FontSize="40" FontStyle="Italic" Foreground="#fff8e3" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnSelectApplicant" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" 
+               HorizontalAlignment="Center" FontWeight="DemiBold" FontSize="40" FontStyle="Italic" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnSelectApplicant" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" 
                 Padding="20 3" FontSize="18" HorizontalContentAlignment="Center" FontWeight="DemiBold"
                 Click="btnSelectApplicant_Click">Select Applicant</Button>
         <DataGrid x:Name="dgViewAllApplicants" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="3" Grid.Column="1" FontSize="16" 

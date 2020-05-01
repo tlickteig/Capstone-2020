@@ -112,6 +112,56 @@ namespace DataAccessFakes
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// submits Fake Survey record.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        public int InsertCustomerSurvey(string customerName, string serviceRating, string notes)
+        {
+            if (customerName != null && customerName != "")
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Holmes
+        /// Created: 04/28/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// submits Fake Conflict record.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        public int InsertEmpCustProblem(string problemType, string name, string description)
+        {
+            if (problemType != null && problemType != "")
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
 
         /// <summary>
         /// CREATOR: Ethan Holmes

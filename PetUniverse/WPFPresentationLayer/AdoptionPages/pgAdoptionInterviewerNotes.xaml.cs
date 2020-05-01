@@ -9,9 +9,8 @@ namespace WPFPresentationLayer.AdoptionPages
     /// <summary>
     /// Creator: Mohamed Elamin
     /// Created: 2020/02/29
-    /// Approver: 
-    ///
-    ///  This class has interaction logic for the Adoption Interviewer notes enter
+    /// Approver: Awaab Elamin, 2020/02/21
+    ///  This class has interaction logic for the Adoption Interviewer notes 
     ///  page.
     public partial class pgAdoptionInterviewerNotes : Page
     {
@@ -20,23 +19,17 @@ namespace WPFPresentationLayer.AdoptionPages
         private IAdoptionInterviewerManager _adoptionInterviewerManager = null;
         private bool _addMode = false;
 
-
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/29
-        /// Approver: 
-        /// 
+        /// Approver: Awaab Elamin, 2020/02/21
         /// This is the Constructor method for Interviewer pag.
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <returns></returns>
         public pgAdoptionInterviewerNotes(IAdoptionInterviewerManager adoptionInterviewerManager)
         {
             InitializeComponent();
@@ -44,26 +37,19 @@ namespace WPFPresentationLayer.AdoptionPages
             _addMode = true;
         }
 
-
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/29
-        /// Approver: 
-        /// 
+        /// Approver: Awaab Elamin, 2020/02/21
         /// This is the Constructor method for Interviewer page 
-        /// 
-        /// 
-        /// 
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=""></param>
-        /// <param name=""></param>
-        /// <returns> </returns>
+        /// <param name="adoptionAppointment"></param>
+        /// <param name="adoptionInterviewerManager"></param>
         public pgAdoptionInterviewerNotes(AdoptionAppointment adoptionAppointment,
             IAdoptionInterviewerManager adoptionInterviewerManager)
         {
@@ -74,25 +60,19 @@ namespace WPFPresentationLayer.AdoptionPages
         }
 
 
-
-
-
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
-        /// This is an Event on Save Button is clicked.
+        /// This is an Event on Save button is clicked.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
         /// <param name=" sender"></param>
-        /// <param name=" e"></param>
-        /// <returns></returns>   
+        /// <param name=" e"></param> 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             AdoptionAppointment newAdoptionAppointment = new AdoptionAppointment()
@@ -128,32 +108,26 @@ namespace WPFPresentationLayer.AdoptionPages
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
-        /// This is an event when btnCancel is clicked.
+        /// This is an event when Cancel button is clicked.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
         /// <param name=" sender"></param>
-        /// <param name=" e"></param>
-        /// <returns></returns>   
+        /// <param name=" e"></param> 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService?.Navigate(new pgAdoptionInterviewer());
 
         }
-
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is an event when Edit button is clicked.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
@@ -166,22 +140,19 @@ namespace WPFPresentationLayer.AdoptionPages
             SetEditMode();
         }
 
+
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/19
         /// Approver: Awaab Elamin, 2020/02/21
-        /// 
         /// This is void method will be called to whene the edit button is clicked.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
         /// Update: ()
         /// </remarks>
-        /// <param name=" sender"></param>
-        /// <param name=" e"></param>
-        /// <returns></returns>   
+
         private void SetEditMode()
         {
             _addMode = true;
@@ -200,11 +171,9 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Mohamed Elamin
         /// Created: 2020/02/29
-        /// Approver: 
-        /// 
+        /// Approver: Awaab Elamin, 2020/02/21
         /// This is an event on the page first loads.
         /// </summary>
-        ///
         /// <remarks>
         /// Updater Name
         /// Updated: yyyy/mm/dd 
