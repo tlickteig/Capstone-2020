@@ -50,8 +50,36 @@ namespace DataAccessFakes
                     PictureID = 2,
                     ProductID = "1234567890120",
                     ImagePath = "pic2",
+                },
+                new Picture()
+                {
+                    PictureID = 2,
+                    ProductID = "1234567890121",
+                    ImagePath = "pic3",
                 }
             };
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Fake adds a picutre.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="picture"></param>
+        /// <returns></returns>
+        public int InsertPicture(Picture picture)
+        {
+            int oldCount = pictures.Count;
+            pictures.Add(picture);
+            return pictures.Count - oldCount;
         }
 
         /// <summary>
@@ -73,6 +101,32 @@ namespace DataAccessFakes
             return pictures;
         }
 
-
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Returns a list of picutres that match the product ID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public List<Picture> SelectAllPicturesByProductID(string productID)
+        {
+            var specificPics = new List<Picture>();
+            foreach (var p in pictures)
+            {
+                if (p.ProductID.Equals(productID))
+                {
+                    specificPics.Add(p);
+                }
+            }
+            return specificPics;
+        }
     }
 }

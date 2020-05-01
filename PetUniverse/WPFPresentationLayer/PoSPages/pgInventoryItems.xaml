@@ -26,7 +26,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <DataGrid x:Name="dgInventoryItems" Grid.Row="0" Width="1207" Grid.ColumnSpan="1" SelectionMode="Single"
-                   Padding="0"
+                   Padding="0" MouseDoubleClick="dgInventoryItems_MouseDoubleClick"
                   IsReadOnly="True" CanUserResizeRows="False" FontSize="12" FontWeight="Medium"
                   CanUserResizeColumns="False" CanUserReorderColumns="False" Loaded="Window_Loaded" Margin="40,100,-22,30" HorizontalAlignment="Left" />
 

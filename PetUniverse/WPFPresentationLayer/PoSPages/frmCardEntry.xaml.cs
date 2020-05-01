@@ -1,20 +1,10 @@
 ﻿using DataTransferObjects;
+using PresentationUtilityCode;
 using Stripe;
-using Stripe.Checkout;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WPFPresentationLayer.PoSPages
 {
@@ -88,7 +78,7 @@ namespace WPFPresentationLayer.PoSPages
         {
             try
             {
-                StripeConfiguration.ApiKey = "sk_test_LwRdJba4TJC91iOfd401NOxY00MuxLrgmJ";
+                StripeConfiguration.ApiKey = StripeKey.SecretKey;
                 string cardnumber = removeMask(txtCardnumber.Text);
                 var tokenOptions = new TokenCreateOptions
                 {

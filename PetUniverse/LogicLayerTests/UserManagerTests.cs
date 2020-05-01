@@ -242,17 +242,17 @@ namespace LogicLayerTests
         /// Update: NA  
         /// 
         /// </remarks>
-        [TestMethod]
-        public void TestLockoutUser()
-        {
-            //Arrange
-            string Email = "j.doe@RandoGuy.com";
-            bool isLocked = false;
-            //Act
-            isLocked = _userManager.LockoutUser(Email, DateTime.Now.AddMinutes(15), DateTime.Now);
-            //Assert
-            Assert.IsTrue(isLocked);
-        }
+        //[TestMethod]
+        //public void TestLockoutUser()
+        //{
+        //    //Arrange
+        //    string Email = "j.doe@RandoGuy.com";
+        //    bool isLocked = false;
+        //    //Act
+        //    isLocked = _userManager.LockoutUser(Email, DateTime.Now.AddMinutes(15), DateTime.Now);
+        //    //Assert
+        //    Assert.IsTrue(isLocked);
+        //}
 
         /// <summary>
         /// Creator: Zach Behrensmeyer

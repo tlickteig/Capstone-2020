@@ -1,4 +1,5 @@
-﻿using LogicLayer;
+﻿using DataTransferObjects;
+using LogicLayer;
 using LogicLayerInterfaces;
 using System.Windows;
 using System.Windows.Controls;
@@ -110,6 +111,28 @@ namespace WPFPresentationLayer.PoSPages
         private void btnAddProduct_Click(object sender, RoutedEventArgs e)
         {
             _frame.Navigate(new pgChooseItemForProduct(_frame));
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: 
+        /// 
+        /// Allows the user to view the details about an item.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        private void dgInventoryItems_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (dgInventoryItems.SelectedItem != null)
+            {
+                _frame.Navigate(new pgAddEditViewProduct(_frame, (InventoryItems)dgInventoryItems.SelectedItem));
+
+            }
         }
     }
 }
