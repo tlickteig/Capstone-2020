@@ -13125,30 +13125,6 @@ END
 GO
 
 /*
-Created by: Chase Schulte
-Date: 03/27/2020
-Comment: select all availabilities related to a particular user
-*/
-DROP PROCEDURE IF EXISTS [sp_select_availabilties_by_employee_id]
-GO
-PRINT '' PRINT '*** Creating sp_select_availabilties_by_employee_id'
-GO
-GO
-CREATE PROCEDURE sp_select_availabilties_by_employee_id
-(
-	@UserID [int]
-)
-AS
-BEGIN
-	SELECT [AvailabilityID],[Availability].[UserID],[StartTime],[EndTime],[DayOfWeek],[FirstName],[LastName]
-	FROM [dbo].[Availability]
-	Join [User] On [Availability].[UserID] = [User].[UserID]
-	WHERE [Availability].[UserID] = @UserID
-	And [Availability].[Active] = 1
-END
-GO
-
-/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
