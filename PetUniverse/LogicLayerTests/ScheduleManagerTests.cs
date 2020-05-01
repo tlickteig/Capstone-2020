@@ -114,7 +114,7 @@ namespace LogicLayerTests
                         ShiftTimeID = 1000000,
                         ShiftDate = DateTime.Now,
                         EmployeeID = 1000000,
-                        ERoleID = "Manager"
+                        RoleID = "Manager"
                     },
                     new ShiftUserVM()
                     {
@@ -123,7 +123,7 @@ namespace LogicLayerTests
                         ShiftTimeID = 1000000,
                         ShiftDate = DateTime.Now,
                         EmployeeID = 1000001,
-                        ERoleID = "Supervisor"
+                        RoleID = "Supervisor"
                     }
                 }
 
