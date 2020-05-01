@@ -64,5 +64,54 @@ namespace DataAccessInterfaces
         /// <returns>Insert succesful</returns>
         bool UpdateVetAppointment(AnimalVetAppointment oldAnimalVetAppointment,
             AnimalVetAppointment newAnimalVetAppointment);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/27/2020
+        /// Approver:
+        /// 
+        /// Deletes an existing animal vet appointment record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="vetAppointment">Record to be deleted</param>
+        /// <returns>Rows affected</returns>
+        int DeleteAnimalVetAppointment(AnimalVetAppointment vetAppointment);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Selects all vet appointments record by active/inactive
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="active">Active status</param>
+        /// <returns>List of vet appointment</returns>
+        List<AnimalVetAppointment> SelectVetAppointmentsByActive(bool active);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Sets vet appointment to active or inactive
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="vetAppointment">Record to change</param>
+        /// <param name="active">State to be changed to</param>
+        /// <returns>Rows affected</returns>
+        int SetVetAppointmentActiveStatus(AnimalVetAppointment vetAppointment, bool active);
     }
 }

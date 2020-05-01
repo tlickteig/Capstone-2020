@@ -267,6 +267,8 @@ CREATE TABLE [dbo].[AnimalVetAppointment] (
 	[ClinicAddress]				[nvarchar](200),
 	[VetName]					[nvarchar](200),
 	[FollowUpDate]				[datetime],
+	[Active]					[bit]								NOT NULL
+		DEFAULT 1,
 
 	CONSTRAINT [pk_AnimalVetAppointmentID] PRIMARY KEY([AnimalVetAppointmentID] ASC),
 
@@ -12245,8 +12247,8 @@ GO
 
 /*
 Create by: Ethan Murphy
-Date: 3/9/2020
-Comment: Procedure to select all animal prescription records
+Date: 4/25/2020
+Comment: Procedure to select prescription records by active status
 */
 DROP PROCEDURE IF EXISTS [sp_select_animal_prescriptions_by_active]
 GO
@@ -13694,7 +13696,104 @@ BEGIN
 END
 GO
 
+/*
+Created by: Ethan Murphy
+Date: 4/27/2020
+Comment: Procedure to delete an animal vet record
+*/
+DROP PROCEDURE IF EXISTS [sp_delete_animal_vet_record]
+GO
+print '' print '*** creating sp_delete_animal_vet_record'
+GO
+CREATE PROCEDURE [sp_delete_animal_vet_record]
+(
+	@AnimalVetAppointmentID			[int],
+	@AnimalID						[int],
+	@UserID							[int],
+	@AppointmentDate				[datetime],
+	@AppointmentDescription			[nvarchar](4000),
+	@ClinicAddress					[nvarchar](200),
+	@VetName						[nvarchar](200)
+)
+AS
+BEGIN
+	DELETE FROM [dbo].[AnimalVetAppointment]
+	WHERE 	[AnimalVetAppointmentID] = @AnimalVetAppointmentID
+	AND		[AnimalID] = @AnimalID
+	AND		[UserID] = @UserID
+	AND		[AppointmentDate] = @AppointmentDate
+	AND		[AppointmentDescription] = @AppointmentDescription
+	AND		[ClinicAddress] = @ClinicAddress
+	AND		[VetName] = @VetName
+END
+GO
 
+/*
+Create by: Ethan Murphy
+Date: 4/28/2020
+Comment: Deactivates a vet appointment record
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_animal_vet_record]
+GO
+print '' print '*** creating sp_deactivate_animal_vet_record'
+GO
+CREATE PROCEDURE [sp_deactivate_animal_vet_record]
+(
+	@AnimalVetAppointmentID		[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalVetAppointment]
+	SET [Active] = 0
+	WHERE [AnimalVetAppointmentID] = @AnimalVetAppointmentID
+END
+GO
+
+/*
+Create by: Ethan Murphy
+Date: 4/28/2020
+Comment: Activates a vet appointment record
+*/
+DROP PROCEDURE IF EXISTS [sp_activate_animal_vet_record]
+GO
+print '' print '*** creating sp_activate_animal_vet_record'
+GO
+CREATE PROCEDURE [sp_activate_animal_vet_record]
+(
+	@AnimalVetAppointmentID		[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AnimalVetAppointment]
+	SET [Active] = 1
+	WHERE [AnimalVetAppointmentID] = @AnimalVetAppointmentID
+END
+GO
+
+/*
+Created by: Ethan Murphy
+Date: 4/28/2020
+Comment: Sproc to select vet appointments by active
+*/
+DROP PROCEDURE IF EXISTS [sp_select_animal_vet_records_by_active]
+GO
+PRINT '' PRINT '*** Creating sp_select_animal_vet_records_by_active'
+GO
+CREATE PROCEDURE [sp_select_animal_vet_records_by_active]
+(
+	@Active			[bit]
+)
+AS
+BEGIN
+    SELECT [AnimalVetAppointmentID], [Animal].[AnimalID], [AnimalName],
+            [AppointmentDate], [AppointmentDescription], [ClinicAddress],
+			[VetName], [FollowUpDate], [UserID], [AnimalVetAppointment].[Active]
+    FROM [AnimalVetAppointment] INNER JOIN [Animal]
+    ON [AnimalVetAppointment].[AnimalID] = [Animal].[AnimalID]
+	WHERE [AnimalVetAppointment].[Active] = @Active
+    ORDER BY [AppointmentDate]
+END
+GO
 
 /*
  ******************************* Inserting Sample Data *****************************

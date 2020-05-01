@@ -38,7 +38,7 @@ namespace LogicLayer
         public VetAppointmentManager()
         {
             _vetAppointmentAccessor = new VetAppointmentAccessor();
-            _vetAppointments = _vetAppointmentAccessor.SelectAllVetAppointments();
+            _vetAppointments = RetrieveVetAppointmentsByActive(true);
         }
 
         /// <summary>
@@ -223,28 +223,6 @@ namespace LogicLayer
         /// Approver: Carl Davis 2/14/2020
         /// Approver: Chuck Baxter 2/14/2020
         /// 
-        /// Retrieves active vet appointments
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="active">Active status</param>
-        /// <returns>List of animal vet appointments</returns>
-        public List<AnimalVetAppointment> RetrieveVetAppointmentsByActive(bool active = true)
-        {
-            return (from b in _vetAppointments
-                    where b.Active == active
-                    select b).ToList();
-        }
-
-        /// <summary>
-        /// Creator: Ethan Murphy
-        /// Created: 2/7/2020
-        /// Approver: Carl Davis 2/14/2020
-        /// Approver: Chuck Baxter 2/14/2020
-        /// 
         /// Retrieves vet appointments by an animals unique identifier
         /// </summary>
         /// <remarks>
@@ -336,6 +314,111 @@ namespace LogicLayer
             return (from b in _vetAppointments
                     where b.AnimalName.ToLower().IndexOf(animalName.ToLower()) > -1
                     select b).ToList();
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/27/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Deletes an existing vet appointment record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="vetAppointment">Record to be deleted</param>
+        /// <returns>Delete successful</returns>
+        public bool RemoveAnimalVetAppointment(AnimalVetAppointment vetAppointment)
+        {
+            try
+            {
+                return _vetAppointmentAccessor.DeleteAnimalVetAppointment(vetAppointment) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to delete", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Activates an inactive vet appointment record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// /// <param name="vetAppointment">Record to be updated</param>
+        /// <returns>Update successful</returns>
+        public bool ActivateVetAppointment(AnimalVetAppointment vetAppointment)
+        {
+            try
+            {
+                return _vetAppointmentAccessor.SetVetAppointmentActiveStatus(vetAppointment, true) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to activate", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Deactivates an active vet appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// /// <param name="vetAppointment">Record to be updated</param>
+        /// <returns>Update successful</returns>
+        public bool DeactivateVetAppointment(AnimalVetAppointment vetAppointment)
+        {
+            try
+            {
+                return _vetAppointmentAccessor.SetVetAppointmentActiveStatus(vetAppointment, false) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to deactivate", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Retrieves vet appointments by active status
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="active">Actie status</param>
+        /// <returns>List of vet appointments</returns>
+        public List<AnimalVetAppointment> RetrieveVetAppointmentsByActive(bool active)
+        {
+            try
+            {
+                _vetAppointments = _vetAppointmentAccessor.SelectVetAppointmentsByActive(active);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Failed to find records", ex);
+            }
+            return _vetAppointments;
         }
     }
 }

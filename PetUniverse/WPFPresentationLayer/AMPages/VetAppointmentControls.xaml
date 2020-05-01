@@ -33,7 +33,7 @@
         <Canvas x:Name="canViewVetAppointment" Height="845" Width="1280" Visibility="Hidden" Background="AntiqueWhite">
             <Grid Height="800" Width="1280">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="160"></ColumnDefinition>
                     <ColumnDefinition Width="400"></ColumnDefinition>
                     <ColumnDefinition Width="130"></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -72,9 +72,14 @@
                 <Label x:Name="lblAnimalList" Visibility="Hidden" Grid.Row="1" Grid.Column="3" Margin="30 5">Select an animal:</Label>
                 <DataGrid x:Name="dgAnimalList" Grid.Column="3" Grid.RowSpan="3" Visibility="Hidden"
                           Grid.Row="1" Margin="30" IsReadOnly="True" MouseDoubleClick="DgAnimalList_MouseDoubleClick"></DataGrid>
-                <Button x:Name="btnClose" Grid.Row="5" Margin="10 50" Content="Close" Click="BtnClose_Click"></Button>
+                <CheckBox x:Name="chkSetActive" Grid.Row="5" Grid.Column="1" Content="Active"
+                          Margin="20" Click="chkSetActive_Click" IsChecked="True" IsEnabled="False"></CheckBox>
+
+                <Button x:Name="btnClose" Grid.Row="5" Grid.Column="1" Margin="0 90 270 10" Content="Close" Click="BtnClose_Click"></Button>
                 <Button x:Name="btnSaveEdit" Grid.Row="5" Grid.Column="1" 
-                        Width="150" Height="35" Content="Edit" Click="BtnSaveEdit_Click"></Button>
+                        Margin="135 90 135 10" Content="Edit" Click="BtnSaveEdit_Click"></Button>
+                <Button x:Name="btnDelete" Grid.Column="1" Grid.Row="5" Content="Delete" 
+                        Margin="270 90 0 10" Visibility="Hidden" Click="btnDelete_Click"></Button>
             </Grid>
         </Canvas>
         <Canvas x:Name="canViewVetAppointmentFilter" Height="845" Width="1280" 
@@ -117,8 +122,8 @@
                 <CheckBox x:Name="chkVetname" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False" Unchecked="DisableFilter"></CheckBox>
                 <Label Grid.Column="2" Grid.Row="4" VerticalAlignment="Center">Vet Name:</Label>
                 <TextBox x:Name="txtFilterVetName" VerticalAlignment="Center" Grid.Column="3" Grid.Row="4" TextChanged="EnableFilter" LostFocus="GetFilteredResultsCount"></TextBox>
-                <CheckBox Visibility="Hidden" x:Name="chkActive" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Center" IsEnabled="False" Unchecked="DisableFilter"></CheckBox>
-                <Label Visibility="Hidden" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center">Active Appointments:</Label>
+                <CheckBox x:Name="chkActive" Grid.Row="5" VerticalAlignment="Center" IsChecked="True" Grid.Column="3"
+                           Content="Active Records" HorizontalAlignment="Left" Click="GetFilteredResultsCount"></CheckBox>
                 <Button x:Name="btnApplyFilter" Grid.Column="3" Grid.Row="6" Margin="40" Content="Apply" Click="BtnApplyFilter_Click"></Button>
                 <Button x:Name="btnCloseFilters" Grid.Column="2" Grid.Row="6" Margin="20 40" Content="Close" Click="BtnCloseFilters_Click"></Button>
                 <Label x:Name="lblFilterResultCount" Grid.Column="4" Grid.Row="6" Grid.ColumnSpan="2" VerticalContentAlignment="Center">Search Result Count:</Label>
