@@ -440,15 +440,15 @@
                 <TabItem x:Name="tabViewAdoption" Header="View Adoptions" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AdoptionApplications.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
                 </TabItem>
-                <TabItem x:Name="tabViewInterviewer" Header="Interviewer" FontWeight="Bold" Background="#fff8e3">
+                <!--<TabItem x:Name="tabViewInterviewer" Header="Interviewer" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/InterviewerPage.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
-                </TabItem>
-                <TabItem x:Name="tabviewHomeInspector" Header="Home Inspection" FontWeight="Bold" Background="#fff8e3">
+                </TabItem>-->
+                <TabItem x:Name="tabviewHomeInspector" Header="Inspections" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/frmHomeInspectionForm.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="AppointmentSchedule" Header="Appointment Schedule" FontWeight="Bold" Background="#fff8e3">
+                <!--<TabItem x:Name="AppointmentSchedule" Header="Appointment Schedule" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AppointmentSchedule.xaml" NavigationUIVisibility="Hidden"/>
-                </TabItem>
+                </TabItem>-->
                 <TabItem x:Name="InHomeInspector" Header="Inspection Decision" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/frmInHomeInspectorDecision.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
