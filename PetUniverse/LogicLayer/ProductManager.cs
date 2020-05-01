@@ -201,5 +201,54 @@ namespace LogicLayer
 
         }
 
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Method to Deactivate Product by ProductID
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public bool DeactivateProduct(string productID)
+        {
+            bool result = false;
+
+            try
+            {
+                result = _productAccessor.DeactivateProduct(productID) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Deactivation failed", ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Method to Activate a Product by ProductID
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public bool ActivateProduct(string productID)
+        {
+            bool result = false;
+
+            try
+            {
+                result = _productAccessor.ActivateProduct(productID) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Activatation failed", ex);
+            }
+
+            return result;
+        }
     }
 }

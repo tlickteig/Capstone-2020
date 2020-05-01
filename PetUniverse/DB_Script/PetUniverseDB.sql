@@ -4431,7 +4431,9 @@ GO
 /*
 Created by: Cash Carlson
 Date: 2/21/2020
-Comment: Creating Stored Procedure sp_select_all_products_items, updated 2020/03/17 to be compatible with new product table structure.
+Comment: Creating Stored Procedure sp_select_all_products_items, 
+updated 2020/03/17 to be compatible with new product table structure.
+updated 2020/04/29 added active field
 */
 DROP PROCEDURE IF EXISTS [sp_select_all_products_items]
 print '' print '*** Creating sp_select_all_products_items'
@@ -4447,6 +4449,7 @@ BEGIN
 		,	[Product].[ProductTypeID]
 		,	[Product].[Price]
 		,	[Item].[ItemQuantity]
+		,	[Product].[Active]
 		FROM	[Product]
 		JOIN	[Item]	ON	[Item].[ItemID] = [Product].[ItemID]
 	END
@@ -8437,7 +8440,7 @@ GO
 /*
     Created By: Cash Carlson
     Date: 3/01/2020
-    Comment: Creating procedure to insert User
+    Comment: Creating procedure to insert total items sold
 */
 print '' print '*** Creating sp_select_total_items_sold'
 GO
@@ -13006,6 +13009,50 @@ BEGIN
         [Product].[Brand],
         [Item].[ItemCategoryID],
         [Product].[ProductTypeID]
+END
+GO
+
+/*
+Created by: Cash Carlson
+Date: 04/29/2020
+Comment: Stored Procedure to deactivate product 
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_product]
+GO
+PRINT '' PRINT '*** Creating sp_deactivate_product'
+GO
+CREATE PROCEDURE [sp_deactivate_product]
+(
+	@ProductID					[nvarchar](13)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Product]
+	SET		[Active] = 0
+	WHERE [Product].[ProductID] = @ProductID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Cash Carlson
+Date: 04/29/2020
+Comment: Stored Procedure to activate product 
+*/
+DROP PROCEDURE IF EXISTS [sp_activate_product]
+GO
+PRINT '' PRINT '*** Creating sp_activate_product'
+GO
+CREATE PROCEDURE [sp_activate_product]
+(
+	@ProductID					[nvarchar](13)
+)
+AS
+BEGIN
+	UPDATE [dbo].[Product]
+	SET		[Active] = 1
+	WHERE [Product].[ProductID] = @ProductID
+	RETURN @@ROWCOUNT
 END
 GO
 

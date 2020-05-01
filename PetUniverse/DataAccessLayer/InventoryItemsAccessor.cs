@@ -24,9 +24,9 @@ namespace DataAccessLayer
         /// Method to get Inventory Items
         /// </summary>
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: ()
+        /// Updater Cash Carlson
+        /// Updated: 2020/04/29
+        /// Update: Updated to add active field
         /// </remarks>
         /// <returns>A List of Inventory Items</returns>
         public List<InventoryItems> SelectAllInventory()
@@ -55,6 +55,7 @@ namespace DataAccessLayer
                         inventoryItem.Type = reader.GetString(4);
                         inventoryItem.Price = reader.GetDecimal(5);
                         inventoryItem.Quantity = reader.GetInt32(6);
+                        inventoryItem.Active = reader.GetBoolean(7);
 
                         inventoryItems.Add(inventoryItem);
                     }
