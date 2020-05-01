@@ -47,7 +47,7 @@
         <dt>Transaction History:</dt>
         <dd>
             [
-                @Html.ActionLink("View Your Transaction History", "TransactionHistory", "Transaction", new { customerEmail = User.Identity.Name}, null)          
+            @Html.ActionLink("View Your Transaction History", "TransactionHistory", "Transaction", new { customerEmail = User.Identity.Name }, null)
             ]
         </dd>
         <dt>Password:</dt>
@@ -68,6 +68,12 @@
         </dt>
         <dd>
             [@Html.ActionLink("View Adoption Applications", "CustomerApplicationList", "Adoption", new { customerEmail = User.Identity.Name }, null)]
+        </dd>
+        <dt>
+            Adoption Appointments:
+        </dt>
+        <dd>
+            [@Html.ActionLink("View Adoption Appointments", "CustomerAppointmentSchedule", "Adoption", new { email = User.Identity.Name }, null)]
         </dd>
         <dt>External Logins:</dt>
         <dd>

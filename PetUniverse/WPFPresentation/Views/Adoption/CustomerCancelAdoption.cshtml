@@ -66,7 +66,7 @@
         @Html.HiddenFor(model => model.CustomerEmail)
         <div class="form-actions no-color">
             <input type="submit" value="Cancel Adoption" class="btn btn-primary" /> 
-            @Html.ActionLink("Back to App List", "CustomerApplicationList",null , new { @class = "btn btn-primary" })
+            @Html.ActionLink("Back to App List", "CustomerApplicationList", new { customerEmail = User.Identity.Name } , new { @class = "btn btn-primary" })
         </div>
     }
 </div>

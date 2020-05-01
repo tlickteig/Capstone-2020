@@ -59,6 +59,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Back to List", "CustomerApplicationList", new { email = ViewBag.CustomerEmail }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Back to List", "CustomerApplicationList", new { customerEmail = User.Identity.Name }, new { @class = "btn btn-primary" })
     @Html.ActionLink("Cancel Adoption", "CustomerCancelAdoption", new { adoptionApplicationID = Model.AdoptionApplicationID }, new { @class = "btn btn-primary" })
 </p>

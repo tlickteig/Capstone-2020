@@ -75,7 +75,7 @@ namespace WPFPresentation.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            var animalProfiles = _animalManager.RetrieveAllAnimalProfiles();
+            var animalProfiles = _adoptionAnimalManager.RetrieveAdoptionAnimalsByActiveAndAdoptable();
             return View(animalProfiles);
         }
 
@@ -247,7 +247,7 @@ namespace WPFPresentation.Controllers
         /// </remarks>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public ActionResult CustomerApplicationList(string customerEmail = "tdupuy@PetUniverse.com")
+        public ActionResult CustomerApplicationList(string customerEmail)
         {
             var customer = _adoptionCustomerManager.RetrieveAdoptionCustomerByEmail(customerEmail);
             var applications = _adoptionApplicationManager.RetrieveAdoptionApplicationsByEmailAndActive(customerEmail);
@@ -295,7 +295,7 @@ namespace WPFPresentation.Controllers
         /// </remarks>
         /// <param name="email"></param>
         /// <returns></returns>
-        [Authorize]
+        
         public ActionResult CustomerAppointmentSchedule(string email)
         {
             var schedule = _adoptionAppointmentManager.RetrieveAdoptionAppointmentsByCustomerEmailAndActive(email);
