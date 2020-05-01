@@ -6,7 +6,7 @@ namespace WPFPresentation.Models
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 04/29/2020
-    /// Approver: 
+    /// Approver: Jaeho Kim
     /// 
     /// Binds cart model to make usage/recall easier.
     /// </summary>

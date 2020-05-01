@@ -16,7 +16,7 @@ namespace WPFPresentation.Controllers
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 04/29/2020
-    /// Approver: 
+    /// Approver: Jaeho Kim
     /// 
     /// Controller for cart actions.
     /// </summary>
@@ -33,7 +33,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Default constructor, initializes class level variables.
         /// </summary>
@@ -51,7 +51,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Default view for cart.
         /// </summary>
@@ -76,7 +76,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Adds a product to the cart session object, or adds one to the amount if it is already present.
         /// </summary>
@@ -102,7 +102,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Removes an item from the cart, or decrements the amount by one if it would not be reduced to zero by the decrement.
         /// </summary>
@@ -132,7 +132,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Removes all of an item from the cart, regardless of current amount.
         /// </summary>
@@ -158,7 +158,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Returns the pre-tax total of items currently in the cart.
         /// </summary>
@@ -183,7 +183,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Starts the checkout process by prompting the user to enter their information, or returns them to the index if their cart is empty.
         /// </summary>
@@ -219,7 +219,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Collects payment information and displays a summary of the order.
         /// </summary>
@@ -361,7 +361,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Saves the transaction to the database and thanks the user for their purchase.
         /// </summary>

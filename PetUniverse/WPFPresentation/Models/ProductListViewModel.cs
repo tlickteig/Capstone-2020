@@ -11,7 +11,7 @@ namespace WPFPresentation.Models
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 04/29/2020
-    /// Approver: 
+    /// Approver: Jaeho Kim
     /// 
     /// Holds data for displaying and filtering a list of products.
     /// </summary>

@@ -305,7 +305,7 @@ namespace DataAccessLayer
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Returns a single product that matches the supplied productID.
         /// </summary>

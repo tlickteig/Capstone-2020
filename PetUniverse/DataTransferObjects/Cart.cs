@@ -9,7 +9,7 @@ namespace DataTransferObjects
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 04/29/2020
-    /// Approver: 
+    /// Approver: Jaeho Kim
     /// 
     /// A class to hold the items an online customer may purchase.
     /// </summary>
@@ -26,7 +26,7 @@ namespace DataTransferObjects
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Adds a product and an amount to the cart.
         /// </summary>
@@ -58,7 +58,7 @@ namespace DataTransferObjects
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Removes an item and decrements amount in the cart.
         /// </summary>
@@ -85,7 +85,7 @@ namespace DataTransferObjects
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Removes all of an item from the cart.
         /// </summary>
@@ -103,7 +103,7 @@ namespace DataTransferObjects
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Removes all items from the cart.
         /// </summary>
@@ -121,7 +121,7 @@ namespace DataTransferObjects
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// The collection of lines for the cart.
         /// </summary>
@@ -139,7 +139,7 @@ namespace DataTransferObjects
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Simple class for holding the pairs of products and their amounts.
         /// </summary>

@@ -9,7 +9,7 @@ namespace PresentationUtilityCode
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 04/29/2020
-    /// Approver: 
+    /// Approver: Jaeho Kim
     /// 
     /// Holds Stripe Keys, necessary for payment processing.
     /// </summary>

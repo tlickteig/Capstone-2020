@@ -8,7 +8,7 @@ namespace PresentationUtilityCode
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 04/29/2020
-    /// Approver: 
+    /// Approver: Jaeho Kim
     /// 
     /// Class for holding HTML Helper methods.
     /// </summary>

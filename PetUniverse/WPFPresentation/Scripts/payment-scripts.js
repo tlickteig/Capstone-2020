@@ -1,7 +1,7 @@
 ﻿/*
  * Creator: Robert Holmes
  * Created: 04/29/2020
- * Approver: 
+ * Approver: Jaeho Kim
  * 
  * Utilzes Stripe Elements and other functionality to create and process payments.
  * Updater:

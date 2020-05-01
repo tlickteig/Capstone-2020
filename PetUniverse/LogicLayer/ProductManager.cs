@@ -209,7 +209,7 @@ namespace LogicLayer
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Returns a single product based on the provided productID.
         /// </summary>

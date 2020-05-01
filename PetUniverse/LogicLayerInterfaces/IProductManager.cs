@@ -96,7 +96,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Interface for a method to retrieve a single product based on the supplied productID.
         /// </summary>

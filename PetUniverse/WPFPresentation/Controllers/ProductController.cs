@@ -13,7 +13,7 @@ namespace WPFPresentation.Controllers
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 04/29/2020
-    /// Approver: 
+    /// Approver: Jaeho Kim
     /// 
     /// Controller for product related actions.
     /// </summary>
@@ -32,7 +32,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Default Constructor, intitializes class level variables.
         /// </summary>
@@ -50,7 +50,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Default display for a list of products, also handles navigation and filtering.
         /// </summary>
@@ -99,7 +99,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Action for view the details about a specific item.
         /// </summary>
@@ -131,7 +131,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Gets the image for a product or returns the default if there isn't one.
         /// </summary>
@@ -157,7 +157,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Gets "popular" items for display on the home page.
         /// Currently just gets the first few items in alphabetical order.
@@ -180,7 +180,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Allows users to search for produts.
         /// </summary>

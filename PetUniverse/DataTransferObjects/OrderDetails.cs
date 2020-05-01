@@ -10,7 +10,7 @@ namespace DataTransferObjects
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 04/29/2020
-    /// Approver: 
+    /// Approver: Jaeho Kim
     /// 
     /// Holds all relevent data for an order and server side validation.
     /// </summary>

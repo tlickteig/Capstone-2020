@@ -67,7 +67,7 @@ namespace LogicLayer
         /// /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Calls relevent Data Access Layer functionality to add a picture to the database.
         /// </summary>
@@ -131,7 +131,7 @@ namespace LogicLayer
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Returns most recently uploaded picture associated with the provided productID.
         /// </summary>
@@ -162,7 +162,7 @@ namespace LogicLayer
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Calls relevent data access layer functionality to return a list of pictures associated with the provided productID.
         /// </summary>

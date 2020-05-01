@@ -8,7 +8,7 @@ namespace WPFPresentation.Models
     /// <summary>
     /// Creator: Robert Holmes
     /// Created: 04/29/2020
-    /// Approver: 
+    /// Approver: Jaeho Kim
     /// 
     /// Stores lists of strings to filter by.
     /// </summary>

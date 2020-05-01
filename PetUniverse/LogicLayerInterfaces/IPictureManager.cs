@@ -35,7 +35,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Interface for a method to return the most recently uploaded picture associated with the supplied productID.
         /// </summary>
@@ -51,7 +51,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Interface for a method to retrieve all pictures associated with the supplied productID.
         /// </summary>
@@ -67,7 +67,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Interface for a method to add a picture to the database.
         /// </summary>

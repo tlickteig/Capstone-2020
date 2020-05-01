@@ -156,7 +156,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Gets information about the product into the controls.
         /// </summary>
@@ -394,7 +394,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/26/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Opens a file dialog to allow someone to upload an image for a product.
         /// </summary>
@@ -462,7 +462,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Returns mime type based on file extension.
         /// </summary>
@@ -494,7 +494,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Makes fields read only (for viewing).
         /// </summary>
@@ -519,7 +519,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 04/29/2020
-        /// Approver: 
+        /// Approver: Jaeho Kim
         /// 
         /// Makes fields editable (for editing).
         /// </summary>

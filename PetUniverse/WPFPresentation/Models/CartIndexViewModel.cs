@@ -10,7 +10,7 @@ namespace WPFPresentation.Models
     /// /// <summary>
     /// Creator: Robert Holmes
     /// Created: 04/29/2020
-    /// Approver: 
+    /// Approver: Jaeho Kim
     /// 
     /// Simple class for holding the cart and return url.
     /// </summary>
