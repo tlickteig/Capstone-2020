@@ -27,7 +27,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"></RowDefinition>
                 <RowDefinition ></RowDefinition>
-                <RowDefinition Height="70"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="1">
                 <DataGrid x:Name="dgAdoptionApplicationsList" Margin="30 10 30 0" SelectionMode="Single" 
@@ -35,8 +35,8 @@
             </Grid>
             <Grid Grid.Row="2">
                
-                <Button Content=" Open Customer Record" Name="btnOpenRecord" 
-                            HorizontalAlignment="Right" Width="140" Height="30" Margin="20" Click="BtnOpenRecord_Click" />
+                <Button Content=" Open Customer Record" Name="btnOpenRecord" VerticalAlignment="Top"
+                            HorizontalAlignment="Right" Width="140" Height="30" Margin="30 10" Click="BtnOpenRecord_Click" />
             </Grid>
         </Grid>
     </Grid>

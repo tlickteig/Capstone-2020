@@ -117,11 +117,11 @@
                              VerticalContentAlignment="Center" Margin="0 5 40 5"></TextBox>
 
 
-                    <Button x:Name="btnBackToInspectorScreen" Grid.Row="13" Grid.Column="0" Margin="20 0 80 0" Width="150"
+                    <Button x:Name="btnBackToInspectorScreen" Grid.Row="13" Grid.Column="1" Width="150"
                         HorizontalAlignment="Left" Content="Back To Inspector Screen" Click="btnBackToInspectorScreen_Click"></Button>
 
-                    <Button x:Name="btnBackToReviewerScreen"  Grid.Row="13" Grid.Column="1"  Margin="5 0 80 0" Width="150"
-                      HorizontalAlignment="Right" Content="Back To Reviewer Screen" Click="btnBackToReviewerScreen_Click"></Button>
+                    <!--<Button x:Name="btnBackToReviewerScreen"  Grid.Row="13" Grid.Column="1"  Margin="5 0 80 0" Width="150"
+                      HorizontalAlignment="Right" Content="Back To Reviewer Screen" Click="btnBackToReviewerScreen_Click"></Button>-->
                 </Grid>
             </Grid>
         </Canvas>
