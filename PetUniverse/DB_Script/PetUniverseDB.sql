@@ -15291,4 +15291,122 @@ INSERT INTO [dbo].[FosterAppointment]
 	(1000000, '15:00:00', '17:00:00', 'This is a description'),
 	(1000001, '12:00:00', '13:00:00', 'This is another description')
 GO
+
+
+
+
+/*
+Created by: Hassan Karar
+Date: 2020/2/7  
+Comment: Creating a stored procedure to insert into Request Response table.
+*/
+print '' print '*** Creating sp_insert_RequestResponse'
+GO
+CREATE PROCEDURE [sp_insert_RequestResponse]
+(
+   	  		       
+	  @RequestID	                       [int],
+	  @UserID                              [int], 
+      @Response       	                   [nvarchar](4000)
+    /*  @RequestResponseID                   [int]  */
+	
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[RequestResponse]
+		([RequestID],[UserID],[Response],[ResponseTimeStamp])
+	VALUES
+		(@RequestID,@UserID ,@Response, CURRENT_TIMESTAMP)
+	SELECT @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Hassan Karar
+Date: 2020/2/7 
+Comment: Creating a stored procedure for cancelling a request.
+*/
+print '' print '*** Creating sp_Cancle_Request'
+GO
+CREATE PROCEDURE [sp_Cancle_Request]
+(
+   	  		       
+	  @RequestID 	     [int]
+)
+AS
+BEGIN
+	DELETE FROM  [dbo].[DepartmentRequest]
+	WHERE    DeptRequestID  = @RequestID 
+	SELECT @@ROWCOUNT
+END
+GO
+
+
+/*
+Created by: Hassan Karar
+Date: 2/7/2020  
+Comment: Creating a stored procedure to select_Department Request.
+*/
+
+print '' print '*** Creating sp_select_DepartmentRequest'
+GO
+CREATE PROCEDURE [sp_select_DepartmentRequest]
+
+AS
+BEGIN
+	SELECT [DeptRequestID],[RequestSubject],[RequestBody]
+	FROM 	[DepartmentRequest]
+		
+END
+GO
+
+
+/*
+Created by: Hassan Karar
+Date: 2/7/2020  
+Comment: Creating a stored procedure to insert into Department Request table.
+*/
+print '' print '*** Creating sp_insert_DepartmentRequest'
+GO
+CREATE PROCEDURE [sp_insert_DepartmentRequest]
+(
+   	  		       
+	  @DeptRequestID	                   [int],
+	  @RequestGroupID                      [nvarchar](50),
+	  @RequestingUserID	            	   [int],
+      @RequestSubject       	           [nvarchar](100),
+      @RequestBody	                       [nvarchar](4000) 
+	 
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[DepartmentRequest]
+		([DeptRequestID],[RequestingUserID],[RequestGroupID],[RequestSubject],[RequestBody],[AcknowledgingUserID],
+		[CompletedUserID],[RequestedGroupID],[RequestTopic])
+	VALUES
+		(@DeptRequestID,@RequestingUserID,@RequestGroupID,@RequestSubject,@RequestBody,@RequestingUserID,@RequestingUserID,
+		@RequestGroupID,@RequestSubject)
+		RETURN @@ROWCOUNT
+	 
+END
+GO
+
+
+/*
+Created by: Hassan Karar.
+Date: 2/13/2020
+Comment:Creating a stored procedure to  all submitted requests
+*/
+print '' print '*** Creating sp_select_all_requests'
+GO
+CREATE PROCEDURE [sp_select_all_requests]
+AS
+BEGIN
+	SELECT [RequestID], [RequestTypeID]
+	FROM [dbo].[request]
+END
+GO
+
+
+
 -- End of file

@@ -358,5 +358,78 @@ namespace DataAccessInterfaces
         /// <param name="request"></param>
         /// <returns></returns>
         int InsertSocialMediaRequest(SocialMediaRequest request);
+
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to add a request that gets the department name, the subject
+        /// and the body of the request
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// 
+
+
+        bool addNewRequestIsPosted(DepartmentRequest department);
+        List<ViewResponds> viewRequestRsponds();
+
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to add a request that gets the department name, the subject
+        /// and the body of the request
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="requestID"></param>
+        /// <param name="text"></param>
+        /// <param name="userID"></param>
+        /// </remarks>
+        /// 
+
+        bool insertRequestResponse(int requestID, string text, string userID);
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to add a request that gets the department name, the subject
+        /// and the body of the request
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="requestID"></param>
+        /// </remarks>
+        /// 
+
+        bool cancleRequest(int requestID);
+
+
+        /// <summary>
+        ///  Creatpr: Hassan Karar
+        ///  Created: 2020/2/7
+        ///  Approver: Derek Taylor
+        ///  <summary>
+        ///  Interface method for retrieving all requests.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        List<RequestVM> SelectAllRequests();
+
     }
 }

@@ -643,5 +643,127 @@ namespace LogicLayer
                 throw new ApplicationException("Request was unsuccessful.", ex);
             }
         }
+
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to add a request that gets the department name.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="department"></param>
+        /// </remarks>
+        /// 
+        public bool addNewRequestIsPosted(DepartmentRequest department)
+        {
+            bool result = false;
+            if (_requestAccessor.addNewRequestIsPosted(department))
+            {
+                result = true;
+            }
+            return result;
+        }
+        /// NAME: Hassan Karar
+        /// DATE:  2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to cancel a reguest, it onle have one parametres (requestID).
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="requestID"></param>
+        /// </remarks>
+        /// 
+        public bool cancleRequest(int requestID)
+        {
+            bool result = false;
+            result = _requestAccessor.cancleRequest(requestID);
+
+            return result;
+        }
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is inserting the reguest, and has three parameters and return the result.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="requestID"></param>
+        /// <param name="text"></param>
+        ///  <param name="userID"></param>
+        /// </remarks>
+        ///
+
+
+        public bool insertRequestResponse(int requestID, string text, string userID)
+        {
+            bool result
+                  = _requestAccessor.insertRequestResponse(requestID, text, userID);
+
+            return result;
+
+        }
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor 
+        /// <summary>
+        /// This method is returning a list of reponses.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="ViewResponds"></param>
+        /// </remarks>
+        ///
+
+        public List<ViewResponds> responds()
+        {
+            List<ViewResponds> responds = new List<ViewResponds>();
+
+            //  ICreateRequestAccessor view = new CreateRequestAccessor();
+            responds = _requestAccessor.viewRequestRsponds();
+
+            return responds;
+
+        }
+
+
+        /// <summary>
+		///  Creator: Hassan Karar.
+		///  Created: 2/9/2020
+		///  Approver: 
+		///  
+		///  This method calls the SelectAllRequests method from the Accessor
+		/// </summary>
+		/// <remarks>
+		/// Updater: NA
+		/// Updated: NA
+		/// Update: NA
+		/// 
+		/// </remarks>
+		public List<RequestVM> RetrieveAllRequests()
+        {
+            try
+            {
+                return _requestAccessor.SelectAllRequests();
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Requests not found.", ex);
+            }
+        }
     }
 }

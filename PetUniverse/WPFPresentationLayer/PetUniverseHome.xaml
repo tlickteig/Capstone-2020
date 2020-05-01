@@ -491,6 +491,9 @@
 				<TabItem x:Name="tabSocialMediaRequest" Header="Request Social Media Post" FontWeight="Bold" Background="#fff8e3">
 					<Frame x:Name="frRequestSocialMedia" Source="./RecruitingPages/SocialMediaRequestForm.xaml" NavigationUIVisibility="Hidden"/>
 				</TabItem>
+                <TabItem x:Name="tabCreateNewRequest" Header="Requests" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="newRequest" Source="./RecruitingPages/CreatNewRequest.xaml" NavigationUIVisibility="Hidden"></Frame>
+                </TabItem>
             </TabControl>
         </Canvas>
 

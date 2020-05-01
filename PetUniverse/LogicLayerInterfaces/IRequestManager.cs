@@ -359,5 +359,63 @@ namespace LogicLayer
         /// <param name="request"></param>
         /// <returns></returns>
         int AddSocialMediaRequest(SocialMediaRequest request);
+
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to add a request that gets the department name.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="department"></param>
+        /// </remarks>
+        /// 
+
+
+        bool addNewRequestIsPosted(DepartmentRequest department);
+
+
+        List<ViewResponds> responds();
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        ///<summary>
+        /// this method is testing the insertion of the responds.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="requestID"></param>
+        /// <param name="text"></param>
+        /// /// <param name="userID"></param>
+        /// </remarks>
+
+        bool insertRequestResponse(int requestID, string text, string userID);
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        ///<summary>
+        /// this method test the cancelation of the  request.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="requestID"></param>
+        /// </remarks>
+        /// 
+
+
+        bool cancleRequest(int requestID);
+
+
+
     }
 }

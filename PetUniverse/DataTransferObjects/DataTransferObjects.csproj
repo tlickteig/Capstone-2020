@@ -176,6 +176,7 @@
     <Compile Include="TreatmentRecord.cs" />
     <Compile Include="TreatmentRecordVM.cs" />
     <Compile Include="Vendor.cs" />
+    <Compile Include="ViewResponds.cs" />
     <Compile Include="Volunteer.cs" />
     <Compile Include="VolunteerEvent.cs" />
     <Compile Include="VolunteerEventVM.cs" />
