@@ -91,7 +91,29 @@ namespace LogicLayerTests
             pictures = pictureManager.RetrieveAllPictures();
 
             //assert
-            Assert.AreEqual(2, pictures.Count);
+            Assert.AreEqual(3, pictures.Count);
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/30/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Tests whether it retrieves only pictures with the supplied productID.
+        /// </summary>
+        [TestMethod]
+        public void TestRetrievePicturesByID()
+        {
+            //arrange
+            IPictureManager pictureManager = new PictureManager(_fakePictureAccessor);
+            string productID = "1234567890120";
+            int expected = 2;
+
+            //act
+            int actual = pictureManager.RetrievePicturesByProductID(productID).Count;
+
+            //assert
+            Assert.AreEqual(expected, actual);
         }
 
         /// <summary>

@@ -91,5 +91,22 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns></returns>
         List<string> SelectAllProductTypeIDs();
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Interface for a method to supply a single product.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        Product SelectProductByID(string productID);
     }
 }

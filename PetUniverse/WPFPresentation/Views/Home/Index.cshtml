@@ -1,10 +1,10 @@
 ﻿<!--
-   NAME: Gabrielle Legrand
-   DATE: 2/6/2020
+   Creator: Gabrielle Legrand
+   Created: 2/6/2020
 
-   UPDATED BY: N/A
-   UPDATE DATE: N/A
-   CHANGE DESCRIPTION: N/A
+   Updater: Robert Holmes
+   Updated: 04/29/2020
+   Update: Added real popular items
 
 -->
 @{
@@ -38,60 +38,17 @@
 
 
 <div>
-    <h2 class=" text-center text-uppercase">Popular Organic Brands</h2>
-    <h3 class="  text-bold text-center">Buy one, get one save 15%</h3>
+    <h2 class=" text-center text-uppercase">Our Popular Items</h2>
+    <h3 class="  text-bold text-center">Click an image below to get started</h3>
 </div>
 
 <div>
     &nbsp;
     <ul class="list-unstyled list-inline row padding-top-lg">
-        <li class="col-2 rd-brand-tile">
-            <a href="!#" onclick="">
-                <div>
-                    <img src="~/Content/Images/BlueBuffaloBasicsLimitedIngredientDietGrainFreeNaturalIndoorAdultDryCatFood Resized.jpg" lazyimg="loaded" data-src="//assets.petco.com/petco/image/upload/f_auto,q_auto/popular-rd-brands-031320-wholehearted-170w-170h-d" alt="WholeHearted" class="center-block img-responsive" style="width:auto;">
-                </div>
-            </a>
-        </li>
-
-        <li class="col-2 rd-brand-tile">
-            <a href="!#" onclick="clickTrackLink(this);">
-                <div>
-                    <img src="~/Content/Images/OrganixGrainFreeCaston&Pollux resized.jpg" lazyimg="loaded" data-src="//assets.petco.com/petco/image/upload/f_auto,q_auto/popular-rd-brands-031320-greenies-170w-170h-d" alt="Greenies" class="center-block img-responsive" style="width:auto;">
-                </div>
-            </a>
-        </li>
-
-        <li class="col-2 rd-brand-tile">
-            <a href="!#" onclick="">
-                <div>
-                    <img src="~/Content/Images/OrganixDogFood resized.jpg" lazyimg="loaded" data-src="//assets.petco.com/petco/image/upload/f_auto,q_auto/popular-rd-brands-031320-taste-of-the-wild-170w-170h-d" alt="Taste of the Wild" class="center-block img-responsive" style="width:auto;">
-                </div>
-            </a>
-        </li>
-
-        <li class="col-2 rd-brand-tile">
-            <a href="!#" onclick="">
-                <div>
-                    <img src="~/Content/Images/RealMeatOrganicDogFoodTruDog resized.jpg" alt="Merrick" class="center-block img-responsive" style="width:auto;">
-                </div>
-            </a>
-        </li>
-
-        <li class="col-2 rd-brand-tile">
-            <a href="!#" onclick="">
-                <div>
-                    <img src="~/Content/Images/BudgetPickZeroGrainGrainFreeCatsRachelRay resizeed.jpg" lazyimg="loaded" data-src="//assets.petco.com/petco/image/upload/f_auto,q_auto/popular-rd-brands-031320-blue-buffalo-170w-170h-d" alt="Blue Buffalo" class="center-block img-responsive" style="width:auto;">
-                </div>
-            </a>
-        </li>
-
-        <li class="col-2 rd-brand-tile">
-            <a href="!#" onclick="">
-                <div>
-                    <img src="~/Content/Images/NewmansOwnPremiumCannedFormulasForCats3oz resized.jpg" lazyimg="loaded" data-src="//assets.petco.com/petco/image/upload/f_auto,q_auto/popular-rd-brands-031320-royal-canin-170w-170h-d" alt="Royal Canin" class="center-block img-responsive" style="width:auto;">
-                </div>
-            </a>
-        </li>
+        @for (int i = 0; i < 6; i++)
+        {
+            @Html.Action("GetPopularItem", "Product", new { index = i });
+        }
     </ul>
 </div>
 <div class="text-center padding-top-lg">

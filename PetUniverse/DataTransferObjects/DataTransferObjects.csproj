@@ -89,6 +89,7 @@
     <Compile Include="BaseScheduleLine.cs" />
     <Compile Include="BaseScheduleLineVM.cs" />
     <Compile Include="BaseScheduleVM.cs" />
+    <Compile Include="Cart.cs" />
     <Compile Include="CreditCardVM.cs" />
     <Compile Include="CreditCardVM2.cs" />
     <Compile Include="Customer.cs" />
@@ -133,9 +134,11 @@
     <Compile Include="MVCQuestionnair.cs" />
     <Compile Include="NewAnimalChecklist.cs" />
     <Compile Include="Order.cs" />
+    <Compile Include="OrderDetails.cs" />
     <Compile Include="OrderItemLine.cs" />
     <Compile Include="OrderLine.cs" />
     <Compile Include="OutgoingOrders.cs" />
+    <Compile Include="PagingInfo.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />
     <Compile Include="Picture.cs" />

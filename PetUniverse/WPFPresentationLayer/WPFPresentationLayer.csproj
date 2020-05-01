@@ -920,6 +920,9 @@
     <Resource Include="Resources\X.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\MISSING.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="images\LoCatMein.jpg" />
     <Resource Include="images\ScratchBeGone.jpg" />
   </ItemGroup>
