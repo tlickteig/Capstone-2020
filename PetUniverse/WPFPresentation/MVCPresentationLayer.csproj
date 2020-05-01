@@ -195,6 +195,7 @@
     <Compile Include="Controllers\DonationsController.cs" />
     <Compile Include="Controllers\EmployeesController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\FosterApplicantController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -593,6 +594,8 @@
     <Content Include="Views\RequestTimeOff\Create.cshtml" />
     <Content Include="Views\ScheduleSupervisor\EmployeeShiftDetails.cshtml" />
     <Content Include="Views\ScheduleSupervisor\ShiftCalendarEmployee.cshtml" />
+    <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Events\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

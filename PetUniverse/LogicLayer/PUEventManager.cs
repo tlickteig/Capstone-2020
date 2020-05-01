@@ -8,32 +8,41 @@ using System.Collections.Generic;
 namespace LogicLayer
 {
     /// <summary>
-    /// NAME: Steve Coonrod, Derek Taylor
-    /// DATE: 2020-02-06
-    /// CHECKED BY: Ryan Morganti
-    ///  
+    /// 
+    /// CREATOR: Steve Coonrod
+    /// CREATED: 2020/2/06
+    /// APPROVER: Ryan Morganti
+    /// 
     /// The PUEventmanager class that implements the IPUEventManager interface
     /// 
-    /// Updated By:
-    /// Updated On:
-    /// 
     /// </summary>
+    /// <remarks>
+    /// 
+    /// UPDATER: NA
+    /// UPDATED: NA
+    /// UPDATE: NA
+    /// 
+    /// </remarks>
     public class PUEventManager : IPUEventManager
     {
         private IEventAccessor _eventAccessor;
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/06
+        /// APPROVER: Ryan Morganti
         /// 
         /// The default constructor for an EventRequest
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         public PUEventManager()
         {
             _eventAccessor = new EventAccessor();
@@ -41,16 +50,20 @@ namespace LogicLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/06
+        /// APPROVER: Ryan Morganti
         /// 
         /// The constructor for the EventManager
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="eventAccessor"></param>
         public PUEventManager(IEventAccessor eventAccessor)
         {
@@ -58,16 +71,21 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Steve Coonrod, Derek Taylor
-        /// DATE 2020-02-06
-        /// CHECKED BY: Ryan Morganti 
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/06
+        /// APPROVER: Ryan Morganti
         /// 
         /// The AddEvent method that attempt to add a new event.
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="puEvent"></param>
         /// <returns> bool result true if successful </returns>
         public int AddEvent(PUEvent puEvent)
@@ -87,16 +105,20 @@ namespace LogicLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod, Derek Taylor
-        /// DATE 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/06
+        /// APPROVER: Ryan Morganti
         /// 
         /// The EditEvent method that attempts to edit an existing event.
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="oldEvent"></param>
         /// <param name="newEvent"></param>
         /// <returns></returns>
@@ -115,16 +137,20 @@ namespace LogicLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod, Derek Taylor
-        /// DATE 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/06
+        /// APPROVER: Ryan Morganti
         /// 
         /// The DeleteEvent method that attempts to delete an existing event.
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <returns></returns>
         public bool DeleteEvent(int eventID)
@@ -141,17 +167,22 @@ namespace LogicLayer
 
 
         /// <summary>
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/06
+        /// APPROVER: Ryan Morganti
         /// 
         /// The AddEventRequest method that creates a request for 
         /// an event to be created
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="eventRequest"></param>
         /// <returns> int </returns>
         public int AddEventRequest(EventRequest eventRequest)
@@ -167,17 +198,22 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Steve Coonrod, Derek Taylor
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti 
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/06
+        /// APPROVER: Ryan Morganti
         /// 
         /// The AddRequest method that creates a request to be
         /// approved by a manager.
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="request"></param>
         /// <returns> int </returns>
         public int AddRequest(Request request)
@@ -194,17 +230,21 @@ namespace LogicLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/06
+        /// APPROVER: Ryan Morganti
         /// 
         /// This method returns a List of all Events in the DB
         /// through the EventAccessor
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <returns></returns>
         public List<PUEvent> GetAllEvents()
         {
@@ -220,17 +260,21 @@ namespace LogicLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/06
+        /// APPROVER: Ryan Morganti
         /// 
         /// This method returns a List of all Event Types in the DB
         /// through the EventAccessor
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <returns></returns>
         public List<EventType> GetAllEventTypes()
         {
@@ -247,17 +291,21 @@ namespace LogicLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/06
+        /// APPROVER: Ryan Morganti
         /// 
         /// This method returns the Event associated with the given eventID
         /// through the EventAccessor
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <returns></returns>
         public PUEvent GetEventByID(int eventID)
@@ -272,23 +320,23 @@ namespace LogicLayer
             }
         }
 
-
-        //===============================================================================\\
-
-
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-01
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/01
+        /// APPROVER: Ryan Morganti
         /// 
         /// This method returns a List of all Events pending approval
         /// from the DB through the EventAccessor
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <returns></returns>
         public List<PUEvent> GetEventsByStatus(string status)
         {
@@ -304,17 +352,21 @@ namespace LogicLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-03-04
-        /// CHECKED BY: 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/04
+        /// APPROVER: Ryan Morganti
         /// 
         /// This method returns the Event associated with the given eventID
         /// through the EventAccessor
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="EventID"></param>
         /// <param name="CreatedByID"></param>
         /// <returns></returns>
@@ -334,16 +386,20 @@ namespace LogicLayer
 
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod
-        /// Date: 3/15/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/15
+        /// APPROVER: Ryan Morganti
         /// 
         /// The method used to retrieve an Event's Request by the EventID
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <returns></returns>
         public EventRequest GetEventRequestByEventID(int eventID)
@@ -360,16 +416,20 @@ namespace LogicLayer
 
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod
-        /// Date: 3/15/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/15
+        /// APPROVER: Ryan Morganti
         /// 
         /// The method used to update an Event Request
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="oldEventRequest"></param>
         /// <param name="newEventRequest"></param>
         /// <returns></returns>
@@ -387,16 +447,20 @@ namespace LogicLayer
 
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod
-        /// Date: 3/15/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/15
+        /// APPROVER: Ryan Morganti
         /// 
         /// The method used to Update the Status of an Event
-        /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
+        ///
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <param name="status"></param>
         /// <returns></returns>

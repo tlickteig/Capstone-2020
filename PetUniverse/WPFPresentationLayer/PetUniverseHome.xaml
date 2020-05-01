@@ -488,6 +488,9 @@
                 <TabItem x:Name="tabViewEventManagement" Header="Events" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="fEventMgmt" Source="./RecruitingPages/EventMgmt.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
+				<TabItem x:Name="tabSocialMediaRequest" Header="Request Social Media Post" FontWeight="Bold" Background="#fff8e3">
+					<Frame x:Name="frRequestSocialMedia" Source="./RecruitingPages/SocialMediaRequestForm.xaml" NavigationUIVisibility="Hidden"/>
+				</TabItem>
             </TabControl>
         </Canvas>
 

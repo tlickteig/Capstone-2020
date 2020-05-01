@@ -119,8 +119,17 @@ namespace WPFPresentationLayer.RecruitingPages
             lblEventName.Content = _event.EventName;
             lblEventTime.Content = _event.EventDateTime;
             lblLocation.Content = _event.Address + "\n" + _event.City + ", " + _event.State + " " + _event.Zipcode;
-            imgEvent.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory
-                    + "\\Images\\" + _event.BannerPath, UriKind.RelativeOrAbsolute));
+            try
+            {
+                Uri uri = new Uri(System.AppDomain.CurrentDomain.BaseDirectory
+                            + @"..\..\images\" + _event.BannerPath, UriKind.RelativeOrAbsolute);
+                imgEvent.Source = new BitmapImage(uri);
+            }
+            catch
+            {
+                //Will leave image unloaded
+            }
+
         }
     }
 }

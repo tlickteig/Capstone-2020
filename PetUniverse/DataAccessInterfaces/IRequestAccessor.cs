@@ -338,5 +338,25 @@ namespace DataAccessInterfaces
         /// <param name="requestID"></param>
         /// <returns></returns>
         AvailabilityRequestVM SelectAvailabilityRequestByID(int requestID);
+
+
+        /// <summary>
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/04/08
+        /// APPROVER: Matt Deaton
+        ///  
+        /// Interface method for inserting a social media request to the database
+        /// 
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        int InsertSocialMediaRequest(SocialMediaRequest request);
     }
 }

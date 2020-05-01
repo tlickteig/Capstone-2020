@@ -9,36 +9,44 @@ namespace DataAccessLayer
 {
     /// <summary>
     /// 
-    /// NAME: Steve Coonrod, Derek Taylor
-    /// DATE: 2020-02-06
-    /// CHECKED BY: Ryan Morganti
+    /// CREATOR: Steve Coonrod
+    /// CREATED: 2020-02-06
+    /// APPROVER: Ryan Morganti
     /// 
     /// EventAccessor class that implements IEventAccessor
     /// Manages the operations with the database
     /// 
-    /// Updated By:
-    /// Updated On:
-    /// 
     /// </summary>
+    /// <remarks>
+    /// 
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA   
+    /// 
+    /// </remarks>
     public class EventAccessor : IEventAccessor
     {
         /// <summary>
-        /// NAME: Steve Coonrod, Matt Deaton
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// 
+        /// CREATOR: Steve Coonrod, Matt Deaton
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// This InsertEvent method is used to access data through a stored 
         /// procedure sp_insert_event in the database
-        /// 
         /// It returns the new Event's EventID
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="puEvent"></param>
         /// <returns> int eventID </returns>
-        public int InsertEvent(PUEvent puEvent)//Got rid of userCreatedID
+        public int InsertEvent(PUEvent puEvent)
         {
             int eventID = 0;
             //Connection
@@ -95,19 +103,23 @@ namespace DataAccessLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-09
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-09
+        /// APPROVER: Ryan Morganti
         /// 
         /// This UpdateEventDetails method is used to Update event data through  
         /// a stored procedure sp_update_event in the database
         /// 
         /// It returns true if the edit was successful
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="oldEvent"></param>
         /// <param name="newEvent"></param>
         /// <returns> bool successful </returns>
@@ -173,17 +185,21 @@ namespace DataAccessLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// This DeleteEvent method calls the stored procedure sp_delete_event
         /// It will return true if the Event records have been sucessfully deleted
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         public bool DeleteEvent(int eventID)
         {
             bool successful = false;
@@ -228,16 +244,23 @@ namespace DataAccessLayer
 
 
         /// <summary>
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// This InsertEventRequest method is used to access data through a stored 
         /// procedure sp_insert_event_request in the database
-        /// 
         /// It returns the rows effected
         /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="eventRequest"></param>
         /// <returns >int rowsEffected </returns>
         public int InsertEventRequest(EventRequest eventRequest)
@@ -285,19 +308,22 @@ namespace DataAccessLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// This InsertRequest method is used to access data through a stored 
         /// procedure sp_insert_event_request in the database
-        /// 
         /// It returns the new Request's RequestID
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="request"></param>
         /// <returns> int requestID </returns>
         public int InsertRequest(Request request)
@@ -342,19 +368,21 @@ namespace DataAccessLayer
 
         /// <summary>
         /// 
-        /// /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is a helper method that calls the stored procedure sp_select_all_event_types
-        /// 
         /// It returns the full list of all Event Types in the database
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <returns></returns>
         public List<EventType> SelectAllEventTypes()
         {
@@ -398,19 +426,23 @@ namespace DataAccessLayer
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-09
-        /// CHECKED BY: Ryan Morganti
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-09
+        /// APPROVER: Ryan Morganti
         /// 
         /// This SelectEventByID method is used to access data through a stored 
         /// procedure sp_select_Event_by_ID in the database
         /// 
         /// It returns the Event associated with the given EventID
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <returns> Event event </returns>
         public PUEvent SelectEventByID(int eventID)
@@ -461,18 +493,22 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-09
-        /// CHECKED BY: Ryan Morganti
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-09
+        /// APPROVER: Ryan Morganti
         /// 
         /// This method calls the stored procedure sp_select_all_events
-        /// 
         /// It returns a full list of all Events in the DB
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <returns></returns>
         public List<PUEvent> SelectEventsAll()
         {
@@ -524,21 +560,22 @@ namespace DataAccessLayer
             return retrievedEvents;
         }// End SelectAllEvents()
 
-
-        //======================================================================================\\
-
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod
-        /// Date: 3/15/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3/15/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// The data accessor method for Selecting an Event View Model
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <param name="createdByID"></param>
         /// <returns></returns>
@@ -604,16 +641,20 @@ namespace DataAccessLayer
 
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod
-        /// Date: 3/15/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// Created: 3/15/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// The data accessor method for Selecting an Event Request by it's EventID
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <returns></returns>
         public EventRequest SelectEventRequestByEventID(int eventID)
@@ -668,16 +709,20 @@ namespace DataAccessLayer
 
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod
-        /// Date: 3/15/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3/15/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// The data accessor method for Updating an Event Request
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="oldEventRequest"></param>
         /// <param name="newEventRequest"></param>
         /// <returns></returns>
@@ -743,16 +788,20 @@ namespace DataAccessLayer
 
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod
-        /// Date: 3/15/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3/15/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// The data accessor method for Selecting a List of Events by the Status
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="status"></param>
         /// <returns></returns>
         public List<PUEvent> SelectEventsByStatus(string status)
@@ -808,16 +857,20 @@ namespace DataAccessLayer
 
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod
-        /// Date: 3/15/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3/15/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// The data accessor method for Updating an Event's Status
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <param name="status"></param>
         /// <returns></returns>
