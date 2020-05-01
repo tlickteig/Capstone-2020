@@ -11,18 +11,22 @@ namespace WPFPresentationLayer.RecruitingPages
     /// <summary>
     /// Interaction logic for EventApprovalForm.xaml
     /// 
-    /// Name: Steve Coonrod
-    /// Date: 2\08\2020
-    /// Checked By:
+    /// CREATOR: Steve Coonrod
+    /// CREATED: 2\08\2020
+    /// APPROVER: Ryan Morganti
     /// 
     /// This is the page for displaying the View Model of an Event
     /// It has two modes, one for Reviewing an Event (UC-619)
     /// And another for simply Viewing the Events Details
     /// 
-    /// Updated By:     
-    /// Date Updated: 
-    /// 
     /// </summary>
+    /// <remarks>
+    /// 
+    /// UPDATER: NA
+    /// UPDATED: NA
+    /// UPDATE: NA
+    /// 
+    /// </remarks>
     public partial class EventApprovalForm : Page
     {
         private PetUniverseUser _user = null;//For implementing based on the User's Role
@@ -37,17 +41,21 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 2\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2\08\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is the constructor that will load this page for Viewing an Event's details
         /// It keeps the approveMode as false
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="eventManager"></param>
         /// <param name="user"></param>
         /// <param name="puEvent"></param>
@@ -66,17 +74,21 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 2\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2\08\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is the full argument constructor which is used for Reviewing an Event (UC-619)
         /// It will set the approveMode to true when called
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="eventManager"></param>
         /// <param name="user"></param>
         /// <param name="puEvent"></param>
@@ -95,16 +107,20 @@ namespace WPFPresentationLayer.RecruitingPages
         }
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3\08\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is the no-argument constructor needed for the programs initialization
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         public EventApprovalForm()
         {
             _eventManager = new PUEventManager();
@@ -115,17 +131,21 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3\08\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is the event handler for when this page loads
         /// Gets the Event's View Model through the Event Manager
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -161,16 +181,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\15\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3\15\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is a helper method to Set up the EventApprovalForm as a View only Page
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="eventApprovalVM"></param>
         private void SetUpViewMode(EventApprovalVM eventApprovalVM)
         {
@@ -209,16 +233,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3\08\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is a helper method which fills the forms fields with the Event's data
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="eventApprovalVM"></param>
         private void FillFieldData(EventApprovalVM eventApprovalVM)
         {
@@ -235,8 +263,9 @@ namespace WPFPresentationLayer.RecruitingPages
             lblEventType.Content = eventApprovalVM.EventTypeID;
             try
             {
-                picEventPicture.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory
-                    + "\\Images\\" + _event.BannerPath, UriKind.Absolute));
+                Uri uri = new Uri(System.AppDomain.CurrentDomain.BaseDirectory
+                            + @"..\..\images\" + _event.BannerPath, UriKind.RelativeOrAbsolute);
+                picEventPicture.Source = new BitmapImage(uri);
             }
             catch (Exception ex)
             {
@@ -249,18 +278,22 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3\08\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is the event handler for the Approve Event Button
         /// It will prompt a confirmation message and if the user clicks Yes
         /// It will update the Event and the Event Request in the DB
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnApprove_Click(object sender, RoutedEventArgs e)
@@ -312,16 +345,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\16\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3\16\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is a helper method to Update the Event's EventRequest data and Event Status in the DB
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void UpdateEventRequestAndStatus()
         {
             //First updates the EventRequest data
@@ -363,17 +400,22 @@ namespace WPFPresentationLayer.RecruitingPages
             }
         }
 
-
-        /// Name: Steve Coonrod
-        /// Date: 3\16\2020
-        /// Checked By:
+        ///<summary>
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3\16\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is a helper method to Update the events status through the event manager
         /// following a successful update of the Event's EventRequest
         /// 
-        /// Updated By:     
-        /// Date Updated: 
+        /// </summary>
+        /// <remarks>
         /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void UpdateEventStatus()
         {
             //Attempt to update the Event with the new status
@@ -405,17 +447,21 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\16\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3\16\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is a helper method to Auto-Generate a generic Volunteer Task
         /// if the reviewer of this event has kept the check box checked
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <returns></returns>
         private bool GenerateVolunteerTaskIfSelected()
         {
@@ -443,18 +489,22 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 3\08\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is the event handler for the Disapprove button
         /// It will prompt a confirmation messagebox, if yes
         /// it will update the Event's status and the Event Request data in the DB
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnDisapprove_Click(object sender, RoutedEventArgs e)
@@ -528,9 +578,22 @@ namespace WPFPresentationLayer.RecruitingPages
         }//End Disapprove Click Handler
 
         /// <summary>
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/03/06
+        /// APPROVER: Ryan Morganti
+        /// 
         /// Simple click event for the disapproval reason checkbox.
         /// it will clear the contents when the reviewer first clicks the box
+        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void txtEventDisapprovalReason_GotFocus(object sender, RoutedEventArgs e)

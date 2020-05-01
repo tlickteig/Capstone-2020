@@ -275,5 +275,146 @@ namespace DataAccessLayer
 
             return rowsAffected;
         }
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/05
+        /// Approver: Kaleb Bachert
+        /// 
+        /// get a collection of shift details by user ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        public List<ShiftDetailsVM> SelectAllShiftsDetailsByUserID(int userID)
+        {
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_shift_details_by_user_id", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("UserID", userID);
+            List<ShiftDetailsVM> shifts = new List<ShiftDetailsVM>();
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        shifts.Add(new ShiftDetailsVM()
+                        {
+                            ShiftID = reader.GetInt32(0),
+                            ShiftTimeID = reader.GetInt32(1),
+                            ScheduleID = reader.GetInt32(2),
+                            ShiftDate = reader.GetDateTime(3),
+                            EmployeeID = reader.GetInt32(4),
+                            RoleID = reader.GetString(5),
+                            ShiftTimeDeptID = reader.GetString(6),
+                            ShiftStartTime = reader.GetString(7),
+                            ShiftEndTime = reader.GetString(8),
+                            ShiftScheduleStartDate = reader.GetDateTime(9),
+                            ShiftScheduleEndDate = reader.GetDateTime(10),
+                            ShiftPUUserFirstName = reader.GetString(11),
+                            ShiftPUUserLastName = reader.GetString(12),
+                        });
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return shifts;
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/05
+        /// Approver: Kaleb Bachert
+        /// 
+        /// get a collection of shift details by ID
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="shiftID"></param>
+        /// <returns></returns>
+        public ShiftDetailsVM SelectShiftDetailsByID(int shiftID)
+        {
+            var conn = DBConnection.GetConnection();
+            var cmd1 = new SqlCommand("sp_select_shift_details_by_id", conn);
+            var cmd2 = new SqlCommand("sp_select_availabilties_by_employee_id", conn);
+            cmd1.CommandType = CommandType.StoredProcedure;
+            cmd2.CommandType = CommandType.StoredProcedure;
+            cmd1.Parameters.AddWithValue("@ShiftID", shiftID);
+
+
+            ShiftDetailsVM shift = new ShiftDetailsVM();
+            try
+            {
+                conn.Open();
+                var reader = cmd1.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+
+                    shift.ShiftID = reader.GetInt32(0);
+                    shift.ShiftTimeID = reader.GetInt32(1);
+                    shift.ScheduleID = reader.GetInt32(2);
+                    shift.ShiftDate = reader.GetDateTime(3);
+                    shift.EmployeeID = reader.GetInt32(4);
+                    shift.RoleID = reader.GetString(5);
+                    shift.ShiftTimeDeptID = reader.GetString(6);
+                    shift.ShiftStartTime = reader.GetString(7);
+                    shift.ShiftEndTime = reader.GetString(8);
+                    shift.ShiftScheduleStartDate = reader.GetDateTime(9);
+                    shift.ShiftScheduleEndDate = reader.GetDateTime(10);
+                    shift.ShiftPUUserFirstName = reader.GetString(11);
+                    shift.ShiftPUUserLastName = reader.GetString(12);
+                }
+                reader.Close();
+                cmd2.Parameters.AddWithValue("UserID", shift.EmployeeID);
+                reader = cmd2.ExecuteReader();
+                shift.ShiftAvailabilities = new List<EmployeeAvailability>();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        shift.ShiftAvailabilities.Add(new EmployeeAvailability()
+                        {
+                            StartTime = reader.GetString(2),
+                            EndTime = reader.GetString(3),
+                            DayOfWeek = reader.GetString(4)
+
+                        });
+                    }
+                }
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return shift;
+        }
     }
 }

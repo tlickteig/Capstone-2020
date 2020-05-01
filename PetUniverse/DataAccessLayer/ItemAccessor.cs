@@ -456,9 +456,11 @@ namespace DataAccessLayer
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
+        /// 
+        /// UPDATED BY: Steve Coonrod
+        /// UPDATED: 2020-4-25
+        /// CHANGE: Changed the rowCount check to accomidate a low inventory trigger in the DB
+        ///         which will return that it effected 3 rows rather than 1
         /// 
         /// </remarks>
         /// <param name="oldShelterItem"></param>
@@ -492,7 +494,7 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 rows = cmd.ExecuteNonQuery();
-                if (rows == 0)
+                if (rows != 1 && rows != 3)
                 {
                     throw new ApplicationException("Shelter Item Not Found");
                 }

@@ -3,12 +3,21 @@
 namespace DataTransferObjects
 {
     /// <summary>
-    /// NAME: Steve Coonrod
-    /// DATE: 2020-02-06
-    /// CHECKED BY:
+    /// 
+    /// CREATOR: Steve Coonrod
+    /// CREATED: 2020-02-06
+    /// APPROVER: Ryan Morganti
     /// 
     /// The DTO class to retrieve data for the PUEvent
+    /// 
     /// </summary>
+    /// <remarks>
+    /// 
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA   
+    /// 
+    /// </remarks>
     public class PUEvent
     {
         public int EventID { get; set; }
@@ -28,30 +37,38 @@ namespace DataTransferObjects
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER:
         /// 
         /// The no-argument constructor for an event
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         public PUEvent() { }
 
         /// <summary>
         /// 
-        /// NAME: Steve Coonrod
-        /// DATE: 2020-02-06
-        /// CHECKED BY:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-02-06
+        /// APPROVER: Ryan Morganti
         /// 
         /// The full-argument constructor for an event
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA   
+        /// 
+        /// </remarks>
         /// <param name="eventID"></param>
         /// <param name="createdByID"></param>
         /// <param name="dateCreated"></param>

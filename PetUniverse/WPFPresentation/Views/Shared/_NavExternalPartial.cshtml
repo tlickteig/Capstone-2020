@@ -23,8 +23,15 @@
             <li>
                 <a class="nav-link" href="~/Adoption">Animals</a>
             </li>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Cashier") || User.IsInRole("Manager"))
+            {
+                <li>
+                    <a class="nav-link" href="~/ScheduleSupervisor/ShiftCalendarEmployee">Scheduling & Personnel</a>
+                </li>
+            }
+
             <li class="nav-item">
-                <a class="nav-link" href="#">Events</a>
+                <a class="nav-link" href="/Events">Events</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shopping</a>
@@ -36,9 +43,12 @@
                     <a class="dropdown-item" href="#">More</a>
                 </div>
             </li>
-            @if (User.IsInRole("Volunteer")) { 
+            @if (User.IsInRole("Volunteer"))
+            {
                 <li>
-                    <a class="nav-link" href="#">Volunteer schedule</a>
+                    <a href="@Url.Action("Index", "VolunteerShift")" class="nav-link">
+                        Volunteer Schedule
+                    </a>
                 </li>
             }
             @if (User.IsInRole("Administrator"))

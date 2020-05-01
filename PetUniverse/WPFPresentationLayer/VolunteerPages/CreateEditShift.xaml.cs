@@ -22,7 +22,7 @@ namespace WPFPresentationLayer
     public partial class CreateEditShift : Page
     {
         private IVolunteerShiftManager _volunteerShiftAccessor = new VolunteerShiftManager();
-        private VolunteerShift _volunteerShift = new VolunteerShift();
+        private VolunteerShiftVM _volunteerShift = new VolunteerShiftVM();
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
@@ -42,7 +42,7 @@ namespace WPFPresentationLayer
         ///     CHECKED BY: Zoey McDonald
         ///     DESCRIPTION: Editing constructor for the class
         /// </summary>
-        public CreateEditShift(VolunteerShift shift)
+        public CreateEditShift(VolunteerShiftVM shift)
         {
             InitializeComponent();
 

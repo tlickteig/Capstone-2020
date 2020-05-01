@@ -54,7 +54,7 @@ namespace LogicLayer
         /// </summary>
         /// <param name="shift">Shift Object to be passed</param>
         /// <returns>Number of rows affected</returns>
-        public int AddVolunteerShift(VolunteerShift shift)
+        public int AddVolunteerShift(VolunteerShiftVM shift)
         {
             int rows = 0;
             try
@@ -97,7 +97,7 @@ namespace LogicLayer
         /// <param name="oldShift">Old shift to be replaced</param>
         /// <param name="newShift">Replacement shift</param>
         /// <returns>Number of rows affected</returns>
-        public int EditVolunteerShift(VolunteerShift oldShift, VolunteerShift newShift)
+        public int EditVolunteerShift(VolunteerShiftVM oldShift, VolunteerShiftVM newShift)
         {
             int rows = 0;
             try
@@ -118,9 +118,9 @@ namespace LogicLayer
         ///     CHECKED BY: Zoey McDonald
         /// </summary>        
         /// <returns>A list of availible shifts</returns>
-        public List<VolunteerShift> ReturnAllVolunteerShifts()
+        public List<VolunteerShiftVM> ReturnAllVolunteerShifts()
         {
-            List<VolunteerShift> shifts = new List<VolunteerShift>();
+            List<VolunteerShiftVM> shifts = new List<VolunteerShiftVM>();
 
             try
             {
@@ -141,7 +141,7 @@ namespace LogicLayer
         /// </summary>        
         /// <param name="shiftID">The shiftID to query</param>
         /// <returns>A list of shifts</returns>
-        public VolunteerShift SelectVolunteerShift(int shiftID)
+        public VolunteerShiftVM SelectVolunteerShift(int shiftID)
         {
             try
             {
@@ -160,7 +160,7 @@ namespace LogicLayer
         /// </summary>        
         /// <param name="volunteerID">The volunteer ID number</param>
         /// <returns>A list of shifts</returns>
-        public List<VolunteerShift> ReturnAllVolunteerShiftsForAVolunteer(int volunteerID)
+        public List<VolunteerShiftVM> ReturnAllVolunteerShiftsForAVolunteer(int volunteerID)
         {
             try
             {

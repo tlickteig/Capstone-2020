@@ -17,7 +17,6 @@ namespace DataTransferObjects
 
         // Connection String for home
         @"Data Source=localhost\sqlexpress;Initial Catalog=PetUniverseDB; Integrated Security = True";
-
         //Connection string for school
         //@"Data Source=localhost;Initial Catalog=PetUniverseDB;Integrated Security=True"; // Connection string for school
 

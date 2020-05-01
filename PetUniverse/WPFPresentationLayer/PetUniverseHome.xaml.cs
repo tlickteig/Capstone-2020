@@ -513,7 +513,15 @@ namespace WPFPresentationLayer
         {
             //Added to allow the user object to be passed to the EventMgmt page
             fEventMgmt.Content = new EventMgmt(_user);
-
+            if (_user.PURoles.Contains("Administrator") || _user.PURoles.Contains("Manager"))
+            {
+                tabSocialMediaRequest.Visibility = Visibility.Visible;
+                frRequestSocialMedia.Content = new RecruitingPages.SocialMediaRequestForm(this, _user);
+            }
+            else
+            {
+                tabSocialMediaRequest.Visibility = Visibility.Hidden;
+            }
             desiredScreen = "Donations";
             switchScreen(desiredScreen);
         }

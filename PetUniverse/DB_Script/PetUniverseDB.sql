@@ -2378,6 +2378,30 @@ CREATE TABLE [dbo].[TreatmentRecord](
 )
 GO
 
+
+/*
+	Created by: Steve Coonrod
+	Date: 		2/9/2020
+	Comment: 	This is the Social Media Request table.
+				It is a table for joining a SocialMediaRequest to a Request
+*/
+DROP TABLE IF EXISTS [dbo].[SocialMediaRequest]
+GO
+PRINT '' PRINT '*** Creating SocialMediaRequest Table'
+GO
+CREATE TABLE[dbo].[SocialMediaRequest](
+	[RequestID]		[int]									NOT NULL,
+	[Title]			[nvarchar](100)							NOT NULL,
+	[Description]	[nvarchar](500)							NOT NULL
+
+	CONSTRAINT [pk_socialMediaRequest_RequestID] PRIMARY KEY([RequestID]),
+	CONSTRAINT [fk_socialMediaRequest_RequestID] FOREIGN KEY([RequestID])
+		REFERENCES [request]([RequestID]) ON UPDATE CASCADE ON DELETE CASCADE
+)
+GO
+
+
+
 /*
  ******************************* Create Procedures *****************************
 */
@@ -5587,6 +5611,29 @@ AS
 BEGIN
 	DELETE FROM [dbo].[VolunteerShift]
 	WHERE [VolunteerShiftID] = @ShiftID
+END
+GO
+
+/*
+    AUTHOR: Timothy Lickteig
+    DATE: 2020/04/30
+    COMMENT: Procedure for selecting a volunteer shift
+*/
+DROP PROCEDURE IF EXISTS [sp_select_volunteer_shift]
+GO
+PRINT '' PRINT '** Creating sp_select_volunteer_shift'
+GO
+CREATE PROCEDURE [sp_select_volunteer_shift]
+(
+    @VolunteerShiftID [int]
+)
+AS
+BEGIN
+    SELECT [VolunteerShiftID], [ShiftDescription], [ShiftTitle],
+        [ShiftDate], [ShiftStartTime], [ShiftEndTime], [Recurrance],
+        [IsSpecialEvent], [ShiftNotes], [ScheduleID]
+    FROM [VolunteerShift]
+    WHERE @VolunteerShiftID = [VolunteerShiftID]
 END
 GO
 
@@ -13063,6 +13110,179 @@ END
 GO
 
 /*
+Created by: Chase Schulte
+Date: 3/31/2020
+Comment: pull up a list of shift by shiftID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shift_details_by_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_shift_details_by_id'
+GO
+CREATE PROCEDURE sp_select_shift_details_by_id
+(
+	@ShiftID[int]
+)
+AS
+BEGIN
+    SELECT 	[ShiftID],[Shift].[ShiftTimeID],[Shift].[ScheduleID],[Date],[Shift].[UserID],[ERoleID],
+	[ShiftTime].[DepartmentID],[ShiftTime].[StartTime],[ShiftTime].[EndTime],		
+	[StartDate], [EndDate],
+	[FirstName], [LastName]
+	
+    FROM 	[Shift]
+	join [Schedule] on 
+	[Shift].[ScheduleID] = [Schedule].[ScheduleID]
+	join [ShiftTime] on 
+	[Shift].[ShiftTimeID] = [ShiftTime].[ShiftTimeID]
+	join [User] on 
+	[Shift].[UserID] = [User].[UserID]
+	Where	@ShiftID = [ShiftID]
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 3/31/2020
+Comment: pull up a list of shift by shiftID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shift_details_by_user_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_shift_details_by_user_id'
+GO
+CREATE PROCEDURE sp_select_shift_details_by_user_id
+(
+	@UserID[int]
+)
+AS
+BEGIN
+    SELECT 	[ShiftID],[Shift].[ShiftTimeID],[Shift].[ScheduleID],[Date],[Shift].[UserID],[ERoleID],
+	[ShiftTime].[DepartmentID],[ShiftTime].[StartTime],[ShiftTime].[EndTime],		
+	[StartDate], [EndDate],
+	[FirstName], [LastName]
+	
+    FROM 	[Shift]
+	join [Schedule] on 
+	[Shift].[ScheduleID] = [Schedule].[ScheduleID]
+	join [ShiftTime] on 
+	[Shift].[ShiftTimeID] = [ShiftTime].[ShiftTimeID]
+	join [User] on 
+	[Shift].[UserID] = [User].[UserID]
+	Where	@UserID = [Shift].[UserID]
+END
+GO
+
+
+
+
+/*
+	Created by: Steve Coonrod
+	Date: 2/9/2020
+	Comment: Stored Procedure for adding a new social media Request to the DB
+	
+	Updated On : 2020-03-15
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_social_media_request]
+GO
+PRINT '' PRINT '*** Creating sp_insert_social_media_request'
+GO
+CREATE PROCEDURE [sp_insert_social_media_request]
+(
+	@RequestID			[int] OUTPUT,
+	@DateCreated		[datetime],
+	@RequestTypeID		[nvarchar](50),
+	@RequestingUserID	[int],
+	@Open				[bit],
+	@Title				[nvarchar](100),
+	@Description		[nvarchar](500)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[request]
+		([DateCreated],[RequestTypeID],[RequestingUserID],[Open])
+	VALUES
+		(@DateCreated, @RequestTypeID, @RequestingUserID, @Open)
+		
+	SELECT @RequestID = SCOPE_IDENTITY()
+	
+	INSERT INTO [dbo].[SocialMediaRequest]
+		([RequestID],[Title],[Description])
+	VALUES
+		(@RequestID, @Title, @Description)
+	
+END
+GO
+
+/*
+	Created by: Steve Coonrod
+	Date: 2020-04-19
+	Comment: For UC-649 (Auto-Inventory Request)
+			A trigger on updates to the item table
+			Checks IF the item being updated is a shelter item
+			and IF the quantity is below the Shelter Threshold for that item
+			it will create a Request, and then build a Department request
+	
+	Updated On :
+*/
+DROP TRIGGER IF EXISTS [trg_shelter_item_low_quantity]
+GO
+PRINT '' PRINT '*** Creating trg_shelter_item_low_quantity'
+GO
+CREATE TRIGGER [trg_shelter_item_low_quantity]
+ON [dbo].[Item]
+FOR UPDATE
+AS
+BEGIN
+	DECLARE @itemID int
+	DECLARE @itemName nvarchar(50)
+	DECLARE @itemQuantity int
+	DECLARE @shelterThreshold int
+	DECLARE @isShelterItem bit
+	
+	SELECT 	@itemID = itemID, 
+			@itemQuantity = itemQuantity, 
+			@shelterThreshold = ShelterThershold,
+			@itemName = ItemName,
+			@isShelterItem = ShelterItem
+	FROM INSERTED
+	
+	IF((@itemQuantity)<=(@shelterThreshold) AND 1 = (@isShelterItem))
+	BEGIN
+		DECLARE @DeptRequestID int
+		INSERT INTO [dbo].[request]
+		([RequestTypeID], [DateCreated], [RequestingUserID] )
+		VALUES
+		('Shelter Inventory', GETDATE(), 100000 )
+		
+		SELECT @DeptRequestID = SCOPE_IDENTITY()
+		
+		DECLARE @RequestSubject AS nvarchar(100)
+		DECLARE @RequestTopic AS nvarchar(250)
+		DECLARE @RequestBody AS nvarchar(4000)
+		SET @RequestSubject = CONVERT(nvarchar(25), @itemID) + ' is low on inventory.'
+		SET @RequestTopic = CONVERT(nvarchar(25), @itemID) + ', ' + @itemName + ' is low on inventory.'
+		SET @RequestBody = CONVERT(nvarchar(25), @itemID) + ', ' + @itemName + ' is low on inventory. Please restock the shelter inventory for this item.'
+		
+		INSERT INTO [dbo].[DepartmentRequest]
+			([DeptRequestID], [RequestingUserID], [RequestGroupID], [RequestedGroupID],
+				[DateAcknowledged], [AcknowledgingUserID], [DateCompleted], [CompletedUserID],
+				[RequestSubject], [RequestTopic], [RequestBody])
+		VALUES
+			(@DeptRequestID, 100000, 'ShelterManagement', 'Inventory',
+				NULL, NULL, NULL, NULL,
+				@RequestSubject, 
+				@RequestTopic, 
+				@RequestBody)
+		
+	END
+END
+GO
+
+
+
+
+
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -13830,7 +14050,9 @@ GO
 INSERT INTO [dbo].[RequestType]
 	([RequestTypeID],[Description])
 	VALUES
-	('Event','A request to host an event sponsored by Pet Universe.')
+	('Event','A request to host an event sponsored by Pet Universe.'),
+	('Social Media', 'A request to post information on our social media outlets'),
+	('Shelter Inventory', 'A request to replenish a shelter items inventory')
 GO
 
 /*
@@ -13844,7 +14066,8 @@ INSERT INTO [dbo].[Department]
 	([DepartmentID], [Description])
 	VALUES
 	('Inventory', 'Inventory Description'),
-	('CustomerService', 'CustomerService Description')
+	('CustomerService', 'CustomerService Description'),
+	('ShelterManagement', 'The shelter management department')
 GO
 
 /*
@@ -14687,8 +14910,10 @@ INSERT INTO [dbo].[shift]
 	(1000003, 1000000, '2020-4-17', 100000, 'Administrator'),
 	(1000003, 1000000, '2020-4-25', 100001, 'Administrator'),
 	(1000002, 1000000, '2020-4-25', 100001, 'Administrator'),
-	(1000000, 1000000, '2020-5-20', 100001, 'Administrator'),
-	(1000001, 1000000, '2020-5-20', 100001, 'Administrator')
+	(1000000, 1000000, '2020-5-21', 100001, 'Administrator'),
+	(1000001, 1000000, '2020-5-20', 100001, 'Administrator'),
+	(1000000, 1000000, '2020-5-20', 100000, 'Administrator'),
+	(1000001, 1000000, '2020-5-21', 100000, 'Administrator')
 
 GO
 

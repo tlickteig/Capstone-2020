@@ -731,5 +731,40 @@ namespace DataAccessFakes
             }
             throw new Exception();
         }
+
+
+        /// <summary>
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-04-10
+        /// APPROVER: Matt Deaton
+        ///  
+        /// This is a fake accessor method for inserting a social media request
+        /// It returns a mock RequestID for the request if it passes the
+        /// validation on the title and description values, otherwise it
+        /// returns 0 for an unsuccessful insertion
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public int InsertSocialMediaRequest(SocialMediaRequest request)
+        {
+            if (request.Title.Trim().Length > 0 && request.Description.Trim().Length > 0)
+            {
+                return 1000014;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
     }
 }

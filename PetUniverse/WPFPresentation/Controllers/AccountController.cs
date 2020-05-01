@@ -276,6 +276,7 @@ namespace WPFPresentation.Controllers
                             return RedirectToAction("Index", "Home");
                         }
                         AddErrors(newresult);
+                        return RedirectToAction("Login", "Account");
                     }
                     else if (volMgr.FindVolunteer(model.Email))
                     {

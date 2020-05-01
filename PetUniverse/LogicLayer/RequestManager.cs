@@ -614,5 +614,34 @@ namespace LogicLayer
         }
 
 
+        /// <summary>
+        /// 
+        /// Creator: Steve Coonrod
+        /// Created: 2020/04/08
+        /// Approver: Matt Deaton
+        /// 
+        /// Manager method for adding a social media request
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// 
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public int AddSocialMediaRequest(SocialMediaRequest request)
+        {
+            try
+            {
+                return _requestAccessor.InsertSocialMediaRequest(request);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Request was unsuccessful.", ex);
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using DataAccessFakes;
-using DataAccessInterfaces;
 using DataTransferObjects;
+using DataAccessInterfaces;
 using LogicLayer;
 using LogicLayerInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
+    
+
+
     /// <summary>
     ///     AUTHOR: Timothy Lickteig
     ///     DATE: 2020-02-05
@@ -23,8 +26,8 @@ namespace LogicLayerTests
     [TestClass]
     public class VolunteerShiftTests
     {
-        private IVolunteerShiftAccessor accessor = new FakeVolunteerShiftAccessor();
 
+        private IVolunteerShiftAccessor _fakeShiftAccessor = new FakeVolunteerShiftAccessor();
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
         ///     DATE: 2020-02-05
@@ -35,10 +38,10 @@ namespace LogicLayerTests
         public void TestVolunteerShiftManagerAddsNewShift()
         {
             //Arrange
-            IVolunteerShiftManager manager = new VolunteerShiftManager(accessor);
+            IVolunteerShiftManager manager = new VolunteerShiftManager(_fakeShiftAccessor);
 
             //Act
-            int rows = manager.AddVolunteerShift(new VolunteerShift()
+            int rows = manager.AddVolunteerShift(new VolunteerShiftVM()
             {
                 VolunteerShiftID = 100,
                 VolunteerID = 1,
@@ -68,7 +71,7 @@ namespace LogicLayerTests
         public void TestVolunteerShiftManagerRemoveAnExistingShift()
         {
             //Arrange
-            IVolunteerShiftManager manager = new VolunteerShiftManager(accessor);
+            IVolunteerShiftManager manager = new VolunteerShiftManager(_fakeShiftAccessor);
 
             //Act            
             int rows = manager.RemoveVolunteerShift(2);
@@ -87,7 +90,7 @@ namespace LogicLayerTests
         public void TestVolunteerShiftManagerRemoveNonExistingShift()
         {
             //Arrange
-            IVolunteerShiftManager manager = new VolunteerShiftManager(accessor);
+            IVolunteerShiftManager manager = new VolunteerShiftManager(_fakeShiftAccessor);
 
             //Act            
             int rows = manager.RemoveVolunteerShift(1000);
@@ -106,15 +109,15 @@ namespace LogicLayerTests
         public void TestVolunteerShiftManagerEditAShiftRecord()
         {
             //Arrange
-            IVolunteerShiftManager manager = new VolunteerShiftManager(accessor);
+            IVolunteerShiftManager manager = new VolunteerShiftManager(_fakeShiftAccessor);
 
             //Act            
             int rows = manager.EditVolunteerShift(
-                new VolunteerShift()
+                new VolunteerShiftVM()
                 {
                     VolunteerShiftID = 1
                 },
-                new VolunteerShift()
+                new VolunteerShiftVM()
                 {
                     VolunteerShiftID = 1,
                     ShiftDescription = "Hello World!",
@@ -142,9 +145,9 @@ namespace LogicLayerTests
         [TestMethod]
         public void TestVolunteerShiftManagerReturnAllVolunteerShifts()
         {
-            IVolunteerShiftManager manager = new VolunteerShiftManager(accessor);
+            IVolunteerShiftManager manager = new VolunteerShiftManager(_fakeShiftAccessor);
 
-            manager.AddVolunteerShift(new VolunteerShift()
+            manager.AddVolunteerShift(new VolunteerShiftVM()
             {
                 VolunteerID = 0,
                 VolunteerShiftID = 0,
@@ -159,7 +162,7 @@ namespace LogicLayerTests
                 ShiftStartTime = TimeSpan.Zero,
                 ShiftEndTime = TimeSpan.Zero
             });
-            manager.AddVolunteerShift(new VolunteerShift()
+            manager.AddVolunteerShift(new VolunteerShiftVM()
             {
                 VolunteerID = 0,
                 VolunteerShiftID = 0,
@@ -190,7 +193,7 @@ namespace LogicLayerTests
         [TestMethod]
         public void testVolunteerShiftManagerSelectShift()
         {
-            IVolunteerShiftManager manager = new VolunteerShiftManager(accessor);
+            IVolunteerShiftManager manager = new VolunteerShiftManager(_fakeShiftAccessor);
 
             int shiftID = manager.SelectVolunteerShift(1).VolunteerShiftID;
 
@@ -207,9 +210,9 @@ namespace LogicLayerTests
         [TestMethod]
         public void testVolunteerShiftManagerReturnAllShiftsForAVolunteer()
         {
-            IVolunteerShiftManager manager = new VolunteerShiftManager(accessor);
+            IVolunteerShiftManager manager = new VolunteerShiftManager(_fakeShiftAccessor);
 
-            List<VolunteerShift> shifts =
+            List<VolunteerShiftVM> shifts =
                 manager.ReturnAllVolunteerShiftsForAVolunteer(1);
 
             Assert.AreEqual(true, shifts.Count > 0);
@@ -225,7 +228,7 @@ namespace LogicLayerTests
         [TestMethod]
         public void testVolunteerShiftManagerSignVolunteerUpForShift()
         {
-            IVolunteerShiftManager manager = new VolunteerShiftManager(accessor);
+            IVolunteerShiftManager manager = new VolunteerShiftManager(_fakeShiftAccessor);
 
             int rows = manager.SignVolunteerUpForShift(1000001, 1000001);
 
@@ -242,7 +245,7 @@ namespace LogicLayerTests
         [TestMethod]
         public void testVolunteerShiftManagerCancelVolunteerShift()
         {
-            IVolunteerShiftManager manager = new VolunteerShiftManager(accessor);
+            IVolunteerShiftManager manager = new VolunteerShiftManager(_fakeShiftAccessor);
 
             int rows = manager.CancelVolunteerShift(1000001, 1000001);
 

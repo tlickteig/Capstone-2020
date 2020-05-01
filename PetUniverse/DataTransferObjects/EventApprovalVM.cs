@@ -3,17 +3,21 @@
 namespace DataTransferObjects
 {
     /// <summary>
-    /// 
-    /// Created By: Steve Coonrod
-    /// Date: 3/08/2020
-    /// Checked By:
-    /// 
-    /// The data transfer object to represent an Event's View Model data
-    /// 
-    /// Updated By:
-    /// Updated On:
+    ///  
+    /// CREATOR: Steve Coonrod
+    /// CREATED: 2020/3/08
+    /// APPROVER: Matt Deaton
+    ///  
+    /// This is the View Model for an event approval
     /// 
     /// </summary>
+    /// <remarks>
+    /// 
+    /// UPDATER: NA
+    /// UPDATED: NA
+    /// UPDATE: NA
+    /// 
+    /// </remarks>
     public class EventApprovalVM
     {
         public string EventName { get; set; }

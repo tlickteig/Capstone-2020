@@ -5,6 +5,8 @@ APPROVER: Lane Sandburg
 View for selecting a Type of request to submit, the Create View will appear within this View
 -->
 @using DataTransferObjects
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.Owin
 @section Scripts{
     <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
     <script src="~/Scripts/request-type-dropdown-view-selector.js"></script>
@@ -38,7 +40,15 @@ View for selecting a Type of request to submit, the Create View will appear with
         </select>
     </label>
 
-    @{PetUniverseUser currentUser = new PetUniverseUser { PUUserID = 100001, FirstName = "Steven" };}
+    <!-- Get the current user from the ApplicationUserManager -->
+    @{ApplicationUserManager userManager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
+    var userid = User.Identity.GetUserId();
+    var user = userManager.Users.First(u => u.Id == userid); }
+
+    <!-- Create a PetUniverseUser object from the ApplicationUser -->
+    @{PetUniverseUser currentUser = new PetUniverseUser { PUUserID = Convert.ToInt32(user.EmployeeID), FirstName = user.GivenName, LastName = user.FamilyName };}
+
+    <!-- A Date String must be passed into the ScheduleChangeController, this is the default date -->
     @{string defaultDateSelection = DateTime.Now.AddDays(1).ToShortDateString();}
 
     <div class="col-md-10 timeOffHideableViewDiv">
