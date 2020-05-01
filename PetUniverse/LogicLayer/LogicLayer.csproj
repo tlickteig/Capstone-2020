@@ -107,6 +107,8 @@
     <Compile Include="ReviewerManager.cs" />
     <Compile Include="SalesDataManager.cs" />
     <Compile Include="SalesTaxManager.cs" />
+    <Compile Include="ScheduleHoursManager.cs" />
+    <Compile Include="ScheduleManager.cs" />
     <Compile Include="ShiftManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
     <Compile Include="SpecialOrderItemLineManager.cs" />

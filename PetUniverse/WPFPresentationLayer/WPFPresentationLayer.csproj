@@ -228,11 +228,20 @@
     <Compile Include="InventoryPages\ViewVendors.xaml.cs">
       <DependentUpon>ViewVendors.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonnelPages\frmConfirmNewSchedule.xaml.cs">
+      <DependentUpon>frmConfirmNewSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonnelPages\frmGetStartDate.xaml.cs">
+      <DependentUpon>frmGetStartDate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PersonnelPages\InterviewApplicant.xaml.cs">
       <DependentUpon>InterviewApplicant.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersonnelPages\pgBaseScheduleControls.xaml.cs">
       <DependentUpon>pgBaseScheduleControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonnelPages\pgSchedule.xaml.cs">
+      <DependentUpon>pgSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersonnelPages\ViewApplicants.xaml.cs">
       <DependentUpon>ViewApplicants.xaml</DependentUpon>
@@ -588,11 +597,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PersonnelPages\frmConfirmNewSchedule.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PersonnelPages\frmGetStartDate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PersonnelPages\InterviewApplicant.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PersonnelPages\pgBaseScheduleControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PersonnelPages\pgSchedule.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

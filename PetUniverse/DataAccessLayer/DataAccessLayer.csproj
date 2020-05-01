@@ -109,6 +109,8 @@
     <Compile Include="ReviewerAccessor.cs" />
     <Compile Include="SalesDataAccessor.cs" />
     <Compile Include="SalesTaxAccessor.cs" />
+    <Compile Include="ScheduleAccessor.cs" />
+    <Compile Include="ScheduleHoursAccessor.cs" />
     <Compile Include="ShiftAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
     <Compile Include="SpecialOrderAccessor.cs" />

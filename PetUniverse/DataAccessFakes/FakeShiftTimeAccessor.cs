@@ -16,6 +16,7 @@ namespace DataAccessFakes
     public class FakeShiftTimeAccessor : IShiftTimeAccessor
     {
         private List<PetUniverseShiftTime> shiftTimes;
+        private List<PetUniverseShiftTime> managementShiftTimes;
 
         /// <summary>
         /// Creator: Lane Sandburg
@@ -26,6 +27,11 @@ namespace DataAccessFakes
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
+        /// 
+        /// Updater: Jordan Lindo
+        /// Updated: 4/23/2020
+        /// Update: Added ManagementShiftTimes.
+        /// 
         /// </remarks>
         public FakeShiftTimeAccessor()
         {
@@ -37,6 +43,17 @@ namespace DataAccessFakes
                     DepartmentID = "Sales",
                     StartTime = "08:45:00",
                     EndTime = "5:45:00"
+                }
+            };
+
+            managementShiftTimes = new List<PetUniverseShiftTime>
+            {
+                new PetUniverseShiftTime()
+                {
+                    ShiftTimeID = 100002,
+                    DepartmentID = "Management",
+                    StartTime = "06:00",
+                    EndTime = "14:30"
                 }
             };
         }
@@ -178,5 +195,42 @@ namespace DataAccessFakes
             }
             return times;
         }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 4/16/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// This is a method for selecting shift times by id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="shiftTimeID"></param>
+        /// <returns></returns>
+        public PetUniverseShiftTime SelectShiftTimeByID(int shiftTimeID)
+        {
+            PetUniverseShiftTime shiftTime = new PetUniverseShiftTime();
+            foreach (PetUniverseShiftTime s in shiftTimes)
+            {
+                if (shiftTimeID == s.ShiftTimeID)
+                {
+                    shiftTime = s;
+                }
+            }
+            foreach (PetUniverseShiftTime s in managementShiftTimes)
+            {
+                if (shiftTimeID == s.ShiftTimeID)
+                {
+                    shiftTime = s;
+                }
+            }
+
+            return shiftTime;
+        }
     }
 }
+

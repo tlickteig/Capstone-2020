@@ -106,6 +106,8 @@
     <Compile Include="FakeRequestAccessor.cs" />
     <Compile Include="FakeReviewerAccessor.cs" />
     <Compile Include="FakeSalesTaxAccessor.cs" />
+    <Compile Include="FakeScheduleAccessor.cs" />
+    <Compile Include="FakeScheduleHoursAccessor.cs" />
     <Compile Include="FakeShiftAccessor.cs" />
     <Compile Include="FakeShiftTimeAccessor.cs" />
     <Compile Include="FakeSpecialOrderAccessor.cs" />

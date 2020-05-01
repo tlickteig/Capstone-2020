@@ -105,6 +105,8 @@
     <Compile Include="IRequestManager.cs" />
     <Compile Include="ISalesDataManager.cs" />
     <Compile Include="ISalesTaxManager.cs" />
+    <Compile Include="IScheduleHoursManager.cs" />
+    <Compile Include="IScheduleManager.cs" />
     <Compile Include="IShiftManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
     <Compile Include="ISpecialOrderItemLineManager.cs" />

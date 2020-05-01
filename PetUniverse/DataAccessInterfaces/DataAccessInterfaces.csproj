@@ -107,6 +107,8 @@
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="ISalesDataAccessor.cs" />
     <Compile Include="ISalesTaxAccessor.cs" />
+    <Compile Include="IScheduleAccessor.cs" />
+    <Compile Include="IScheduleHoursAccessor.cs" />
     <Compile Include="IShiftAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="ISpecialOrderAccessor.cs" />

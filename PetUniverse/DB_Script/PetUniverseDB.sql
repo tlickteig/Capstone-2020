@@ -1645,11 +1645,12 @@ GO
 
 CREATE TABLE [dbo].[BaseScheduleLine]
 (
-	 [ERoleID]						[nvarchar](50)			NOT NULL
+	 [BaseScheduleLineID]			[int]			IDENTITY(1000000,1)	 	NOT NULL
+	,[ERoleID]						[nvarchar](50)			NOT NULL
 	,[BaseScheduleID]				[int]					NOT	NULL
 	,[ShiftTimeID]					[int]					NOT NULL
 	,[Count]						[int]		DEFAULT 0
-	,CONSTRAINT [pk_ERoleID_BaseScheduleID]	PRIMARY KEY([ERoleID] ASC,[BaseScheduleID] ASC)
+	,CONSTRAINT [pk_BaseScheduleLineID]	PRIMARY KEY([BaseScheduleLineID] ASC)
 	,CONSTRAINT [fk_ERole_BaseScheduleLine_RoleID] FOREIGN KEY ([ERoleID])
 		REFERENCES [ERole]([ERoleID])
 	,CONSTRAINT [fk_BaseSchedule_BaseScheduleLine_BaseScheduleID] FOREIGN KEY([BaseScheduleID])
@@ -1865,16 +1866,26 @@ GO
 Created by: Kaleb Bachert
 Date: 2/13/2020
 Comment: Table holding the schedule Start and End dates
+
+Updated By: Jordan Lindo
+Updated: 04/08/2020
 */
-DROP TABLE IF EXISTS [dbo].[schedule]
+DROP TABLE IF EXISTS [dbo].[Schedule]
 GO
-PRINT '' PRINT '*** Creating schedule table'
+
+print '' print'*** Creating Schedule Table'
 GO
-CREATE TABLE [dbo].[schedule] (
-	[ScheduleID]	[int]IDENTITY(1000000,1)	NOT NULL,
-	[StartDate]		[date]						NOT NULL,
-	[EndDate]		[date]						NOT NULL,
-	CONSTRAINT [pk_ScheduleID] PRIMARY KEY ([ScheduleID] ASC)
+
+CREATE TABLE [dbo].[Schedule]
+(
+	[ScheduleID] 		[int]				IDENTITY(1000000,1)	NOT NULL,
+	[StartDate]			[date]									NOT NULL,
+	[EndDate]			[date]									NOT NULL,
+	[CreatingUserID]	[int]									NOT NULL,
+	[Active]			[bit]				DEFAULT 1			NOT NULL,
+	CONSTRAINT	[pk_ScheduleID] PRIMARY KEY([ScheduleID] ASC),
+	CONSTRAINT	[fk_CreatingUserID_Schedule] FOREIGN KEY ([CreatingUserID])
+		REFERENCES	[User]([UserID])
 )
 GO
 
@@ -13408,6 +13419,284 @@ END
 GO
 
 /*
+Created by: Jordan Lindo
+Date: 04/08/2020
+Comment: Stored procedure for inserting a schedule.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_schedule]
+GO
+
+print '' print'*** Creating procedure sp_insert_schedule'
+GO
+
+CREATE PROCEDURE [sp_insert_schedule]
+(
+	@StartDate				[date],
+	@EndDate				[date],
+	@CreatingUserID			[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Schedule]
+	([StartDate],[EndDate],[CreatingUserID])
+	VALUES
+	(@StartDate,@EndDate,@CreatingUserID)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 04/09/2020
+Comment: Stored procedure for inserting a shift.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_shift]
+GO
+
+print '' print'*** Creating procedure sp_insert_shift'
+GO
+
+CREATE PROCEDURE [sp_insert_shift]
+(
+	@ShiftTimeID	[int],
+	@ScheduleID		[int],
+	@Date			[Date],
+	@UserID			[int],
+	@ERoleID		[nvarchar](50)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Shift]
+	([ShiftTimeID],[ScheduleID],[Date],[UserID],[ERoleID])
+	VALUES
+	(@ShiftTimeID,@ScheduleID,@Date,@UserID,@ERoleID)
+END
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 04/11/2020
+Comment: sp for inserting a new ScheduleHours record.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_schedulehours]
+GO
+
+print'' print'*** Creating sp_insert_schedulehours'
+GO
+
+CREATE PROCEDURE [sp_insert_schedulehours]
+(
+	@ScheduleID				[int],
+	@UserID					[int],
+    @HoursFirstWeek         [decimal],
+    @HoursSecondWeek        [decimal]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[ScheduleHours]
+	([ScheduleID],[UserID],[HoursFirstWeek],[HoursSecondWeek])
+	VALUES
+	(@ScheduleID,@UserID,@HoursFirstWeek,@HoursSecondWeek)
+END
+GO
+
+
+/*
+Created by: Jordan Lindo
+Date: 04/12/2020
+Comment: Select schedules by active.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_all_schedules_by_active]
+GO
+
+print '' print'*** Create procedure sp_select_all_schedules_by_active'
+GO
+
+CREATE PROCEDURE [sp_select_all_schedules_by_active]
+(
+	@Active					[bit]
+)
+AS
+BEGIN
+	SELECT [ScheduleID],[StartDate],[EndDate],[CreatingUserID],[LastName],[FirstName]
+	FROM [dbo].[Schedule] JOIN [User] ON [Schedule].[CreatingUserID] = [User].[UserID]
+	WHERE [Schedule].[Active] = @Active
+	ORDER BY [ScheduleID]
+END
+GO
+
+
+/*
+Created by: Jordan Lindo
+Date: 04/12/2020
+Comment: Select shifts by schedule.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shifts_by_scheduleid]
+GO
+
+print '' print'*** Creating sp_select_shifts_by_scheduleid'
+GO
+
+CREATE PROCEDURE [sp_select_shifts_by_scheduleid]
+(
+	@ScheduleID						[int]
+)
+AS
+BEGIN
+	SELECT [ShiftID],[ShiftTime].[ShiftTimeID],[Date],
+	[User].[UserID],[ERoleID],[LastName],[FirstName],[StartTime],[EndTime]
+	FROM [dbo].[Shift]
+	JOIN [User] ON [User].[UserID] = [Shift].[UserID]
+	JOIN [ShiftTime] ON [Shift].[ShiftTimeID] = [ShiftTime].[ShiftTimeID]
+	WHERE [ScheduleID] = @ScheduleID
+END
+GO
+
+
+/*
+Created by: Jordan Lindo
+Date: 4/16/2020
+Comment: Stored procedure for selecting a shiftTime by id.
+*/
+DROP PROCEDURE IF EXISTS [sp_select_shifttime_by_id]
+GO
+
+print'' print'*** Creating procedure sp_select_shifttime_by_id'
+GO
+
+CREATE PROCEDURE [sp_select_shifttime_by_id]
+(
+	@ShiftTimeID				[int]
+)
+AS
+BEGIN
+	SELECT 	[DepartmentID],[StartTime],[EndTime]
+	FROM 	[dbo].[ShiftTime]
+	WHERE	[ShiftTimeID] = @ShiftTimeID
+END
+GO
+
+
+/*
+Created by: Jordan Lindo
+Date: 04/14/2020
+Comment: Select Available Employees.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_select_available_users_new_schedule]
+GO
+
+print'' print '*** Creating sp_select_available_users_new_schedule'
+GO
+
+CREATE PROCEDURE [sp_select_available_users_new_schedule]
+(
+	@DayOfWeek					[nvarchar](9),
+	@ADate						[date],
+	@ERoleID					[nvarchar](50),
+	@ShiftTimeID				[int]
+)
+AS
+BEGIN
+	SELECT 	[User].[UserID],[FirstName],[LastName],[Email],
+			[Availability].[StartTime],[Availability].[EndTime]
+	FROM 	[User]
+	JOIN 	[Availability] ON ([User].[UserID] = [Availability].[UserID])
+	JOIN	[UserERole]	ON ([User].[UserID] = [UserERole].[UserID])
+	WHERE	[DayOfWeek] = @DayOfWeek
+	AND		[ERoleID] = @ERoleID
+	AND		(CAST([Availability].[StartTime] AS time(0))
+			BETWEEN	(SELECT CAST([StartTime] AS time(0))
+				FROM [ShiftTime]
+				WHERE [ShiftTimeID] = @ShiftTimeID)
+			AND (SELECT CAST([EndTime] AS time(0))
+				FROM [ShiftTime]
+				WHERE [ShiftTimeID] = @ShiftTimeID)
+		OR (CAST([Availability].[EndTime] AS time(0))
+			BETWEEN	(SELECT CAST([StartTime] AS time(0))
+				FROM [ShiftTime]
+				WHERE [ShiftTimeID] = @ShiftTimeID)
+			AND (SELECT CAST([EndTime] AS time(0))
+				FROM [ShiftTime]
+				WHERE [ShiftTimeID] = @ShiftTimeID))
+		OR	(CAST([Availability].[StartTime] AS time(0))
+			BETWEEN	(SELECT CAST([StartTime] AS time(0))
+				FROM [ShiftTime]
+				WHERE [ShiftTimeID] = @ShiftTimeID)
+			AND (SELECT CAST([EndTime] AS time(0))
+				FROM [ShiftTime]
+				WHERE [ShiftTimeID] = @ShiftTimeID)
+			AND
+			CAST([Availability].[EndTime] AS time(0))
+			BETWEEN	(SELECT CAST([StartTime] AS time(0))
+				FROM [ShiftTime]
+				WHERE [ShiftTimeID] = @ShiftTimeID)
+			AND (SELECT CAST([EndTime] AS time(0))
+				FROM [ShiftTime]
+				WHERE [ShiftTimeID] = @ShiftTimeID))
+		OR		((SELECT CAST([StartTime] AS time(0))
+				FROM [ShiftTime]
+				WHERE [ShiftTimeID] = @ShiftTimeID))
+				BETWEEN CAST([Availability].[StartTime] AS time(0))
+			AND (CAST([Availability].[EndTime] AS time(0))
+				))
+	AND		[User].[UserID] 
+	NOT IN 	(SELECT [ActiveTimeOff].[UserID]
+			FROM [ActiveTimeOff]
+			WHERE @ADate BETWEEN [StartDate] 
+				AND [EndDate])
+END
+GO
+
+
+/*
+Created by: Jordan Lindo
+Date: 04/28/2020
+Comment: Select a count of active schedules.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_select_count_of_active_schedules]
+GO
+
+print'' print '*** Creating sp_select_count_of_active_schedules'
+GO
+
+CREATE PROCEDURE [sp_select_count_of_active_schedules]
+AS
+BEGIN
+	SELECT COUNT(ScheduleID)
+	FROM [Schedule]
+	WHERE [Active] = 1
+END
+GO
+
+/*
+Created by: Jordan Lindo
+Date: 04/28/2020
+Comment: Deaactivate a schedule.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_deactivate_schedule]
+GO
+
+print'' print '*** Creating sp_deactivate_schedule'
+GO
+
+CREATE PROCEDURE [sp_deactivate_schedule]
+(
+	@ScheduleID				[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Schedule]
+	SET [Active] = 0
+	WHERE [ScheduleID] = @ScheduleID
+END
+GO
+
+
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -13516,7 +13805,24 @@ INSERT INTO [dbo].[ERole]
 VALUES
 	('Administrator', 'Management'),
 	('Customer', 'Sales'),
-	('Volunteer', 'Fake1')
+	('Volunteer', 'Fake1'),
+	("Supervisor","Management")
+GO
+
+
+/*
+Created by: Chase Schulte
+Date: 02/05/2020
+Comment: Inserts test data for the ERole Table
+*/
+print ''  print '*** Insert eRoles into ERole Table'
+GO
+
+Insert INTO [dbo].[ERole]
+	([ERoleID],[DepartmentID],[Description])
+	Values
+	('Cashier','Sales','Handles customer'),
+	('Manager','Management','Handles internal operations like employee records and payment info')
 GO
 
 /*
@@ -13534,7 +13840,11 @@ VALUES
 (100000, 'Administrator'),
 (100001, 'Customer'),
 (100002, 'Volunteer'),
-(100002, 'Administrator')
+(100002, 'Administrator'),
+	(100000,"Manager"),
+	(100001,"Manager"),
+	(100002,"Supervisor"),
+	(100006,"Cashier")
 GO
 
 /*
@@ -13898,20 +14208,6 @@ INSERT INTO [dbo].[Applicant]
 	('Michael', 'Thompson', 'Michael','michael@company.com', '15555555555', '123 Fake Street', '', 'Faketown', 'IA', '55555')
 GO
 
-/*
-Created by: Chase Schulte
-Date: 02/05/2020
-Comment: Inserts test data for the ERole Table
-*/
-print ''  print '*** Insert eRoles into ERole Table'
-GO
-
-Insert INTO [dbo].[ERole]
-	([ERoleID],[DepartmentID],[Description])
-	Values
-	('Cashier','Sales','Handles customer'),
-	('Manager','Management','Handles internal operations like employee records and payment info')
-Go
 
 /*
 Created by: Ethan Holmes
@@ -14986,18 +15282,15 @@ INSERT INTO [dbo].[JobListing]
 	('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own')
 GO
 
-/*
-Created by: Kaleb Bachert
-Date: 3/31/2020
-Comment: Inserting Sample Data for Schedule
-*/
-PRINT '' PRINT '*** Inserting sample Schedule data'
+
+print '' print '*** Inserting sample schedule'
 GO
-INSERT INTO [dbo].[schedule]
-	([StartDate], [EndDate])
+
+INSERT INTO [dbo].[Schedule]
+	([StartDate],[EndDate],[CreatingUserID])
 	VALUES
-	('2020-3-29', '2020-4-11'),
-	('2020-4-12', '2020-4-25')
+	('2020/04/01','2020/4/15',100000),
+	('2020/04/16','2020/4/30',100000)
 GO
 
 /*
@@ -15027,16 +15320,6 @@ INSERT INTO [dbo].[shift]
 	(1000000, 1000000, '2020-5-20', 100000, 'Administrator'),
 	(1000001, 1000000, '2020-5-21', 100000, 'Administrator')
 
-GO
-
-/*
-Created by: Kaleb Bachert
-Date: 2/13/2020
-Comment: Inserting Sample Data for ScheduleChangeRequest
-*/
-PRINT '' PRINT '*** Inserting Sample ScheduleChangeRequest Data'
-GO
-EXEC sp_insert_schedule_change_request 1000003, 100001;
 GO
 
 /*
@@ -15336,6 +15619,44 @@ INSERT INTO [dbo].[FosterAppointment]
 	VALUES
 	(1000000, '15:00:00', '17:00:00', 'This is a description'),
 	(1000001, '12:00:00', '13:00:00', 'This is another description')
+GO
+
+
+
+print '' print'Inserting Availability records'
+GO
+
+INSERT INTO [dbo].[Availability]
+    ([UserID],[DayOfWeek],[StartTime],[EndTime])
+	VALUES
+	(100000,"Monday","04:00","20:00"),
+	(100000,"Tuesday","04:00","20:00"),
+	(100000,"Wednesday","04:00","20:00"),
+	(100000,"Thursday","04:00","20:00"),
+	(100000,"Friday","04:00","20:00"),
+	(100000,"Saturday","04:00","20:00"),
+	(100000,"Sunday","04:00","20:00"),
+	(100001,"Monday","04:00","20:00"),
+	(100001,"Tuesday","04:00","20:00"),
+	(100001,"Wednesday","04:00","20:00"),
+	(100001,"Thursday","04:00","20:00"),
+	(100001,"Friday","04:00","20:00"),
+	(100001,"Saturday","04:00","20:00"),
+	(100001,"Sunday","04:00","20:00"),
+	(100002,"Monday","12:00","20:00"),
+	(100002,"Tuesday","12:00","20:00"),
+	(100002,"Wednesday","12:00","20:00"),
+	(100002,"Thursday","12:00","20:00"),
+	(100002,"Friday","12:00","20:00"),
+	(100002,"Saturday","12:00","20:00"),
+	(100002,"Sunday","12:00","20:00"),
+	(100006,"Monday","04:00","20:00"),
+	(100006,"Tuesday","04:00","20:00"),
+	(100006,"Wednesday","04:00","20:00"),
+	(100006,"Thursday","04:00","20:00"),
+	(100006,"Friday","04:00","20:00"),
+	(100006,"Saturday","04:00","20:00"),
+	(100006,"Sunday","04:00","20:00")
 GO
 
 

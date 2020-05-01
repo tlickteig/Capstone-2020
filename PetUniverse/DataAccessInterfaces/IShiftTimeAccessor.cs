@@ -94,5 +94,23 @@ namespace DataAccessInterfaces
         /// <param name="departmentID"></param>
         /// <returns></returns>
         List<PetUniverseShiftTime> SelectShiftTimeByDepartment(string departmentID);
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 4/16/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// This is an interface method for selecting a Shift time by ID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="shiftTimeID"></param>
+        /// <returns></returns>
+        PetUniverseShiftTime SelectShiftTimeByID(int shiftTimeID);
     }
 }

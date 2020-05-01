@@ -133,6 +133,7 @@
     <Compile Include="MVCAdoptionApplication.cs" />
     <Compile Include="MVCQuestionnair.cs" />
     <Compile Include="NewAnimalChecklist.cs" />
+    <Compile Include="OpenPosition.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderDetails.cs" />
     <Compile Include="OrderItemLine.cs" />
@@ -147,6 +148,8 @@
     <Compile Include="Promotion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PUEvent.cs" />
+    <Compile Include="PUUserVMAvailability.cs" />
+    <Compile Include="PUUserVMHours.cs" />
     <Compile Include="questionnair.cs" />
     <Compile Include="ReceivingRecord.cs" />
     <Compile Include="Request.cs" />
@@ -157,9 +160,11 @@
     <Compile Include="Schedule.cs" />
     <Compile Include="ScheduleChangeRequest.cs" />
     <Compile Include="ScheduleChangeRequestVM.cs" />
+    <Compile Include="ScheduleVM.cs" />
     <Compile Include="ScheduleWithHoursWorked.cs" />
     <Compile Include="Shift.cs" />
     <Compile Include="ShiftDetailsVM.cs" />
+    <Compile Include="ShiftUserVM.cs" />
     <Compile Include="ShiftVM.cs" />
     <Compile Include="SocialMediaRequest.cs" />
     <Compile Include="SpecialOrder.cs" />

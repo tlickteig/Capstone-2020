@@ -100,5 +100,23 @@ namespace LogicLayerInterfaces
         /// <param name="departmentID"></param>
         /// <returns></returns>
         List<PetUniverseShiftTime> RetrieveShiftTimesByDepartment(string departmentID);
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 4/23/2020
+        /// Approver: 
+        /// 
+        /// This is an interface method for selecting shift times by id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        PetUniverseShiftTime RetrieveShiftTimeByID(int shiftID);
     }
 }
