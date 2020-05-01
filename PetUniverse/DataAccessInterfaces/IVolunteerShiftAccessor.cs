@@ -27,7 +27,7 @@ namespace DataAccessInterfaces
         /// Updated: N/A
         /// </remarks>
         /// <returns>A list of shifts from the database</returns>
-        List<VolunteerShift> SelectAllShifts();
+        List<VolunteerShiftVM> SelectAllShifts();
 
         /// <summary>
         /// Creator: Timothy Lickteig
@@ -43,7 +43,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="volunteerID">The volunteerID to query</param>
         /// <returns>A list of shifts from the database</returns>
-        List<VolunteerShift> SelectAllShiftsForAVolunteer(int volunteerID);
+        List<VolunteerShiftVM> SelectAllShiftsForAVolunteer(int volunteerID);
 
         /// <summary>
         /// Creator: Timothy Lickteig
@@ -59,7 +59,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="shiftID">The shiftID to query</param>
         /// <returns>A shift from the database</returns>
-        VolunteerShift SelectShift(int shiftID);
+        VolunteerShiftVM SelectShift(int shiftID);
 
         /// <summary>
         /// Creator: Timothy Lickteig
@@ -76,7 +76,7 @@ namespace DataAccessInterfaces
         /// <param name="oldShift">The shift to be updated</param>
         /// <param name="newShift">The new shift</param>
         /// <returns>Number of rows affected</returns>
-        int UpdateShift(VolunteerShift oldShift, VolunteerShift newShift);
+        int UpdateShift(VolunteerShiftVM oldShift, VolunteerShiftVM newShift);
 
         /// <summary>
         /// Creator: Timothy Lickteig
@@ -108,7 +108,7 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="shift">Shift Object to be added</param>
         /// <returns>Number of rows affected</returns>
-        int AddShift(VolunteerShift shift);
+        int AddShift(VolunteerShiftVM shift);
 
         /// <summary>
         /// Creator: Timothy Lickteig
