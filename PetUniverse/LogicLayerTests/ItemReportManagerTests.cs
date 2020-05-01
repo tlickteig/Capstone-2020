@@ -2,7 +2,10 @@
 using DataTransferObjects;
 using LogicLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace LogicLayerTests
 {
@@ -77,6 +80,39 @@ namespace LogicLayerTests
             // assert
             Assert.AreEqual(expectedResult, created);
         }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/30/2020
+        /// Approver: Steven Cardona        
+        ///
+        /// Tests failure of adding item report
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        [ExpectedException(typeof(ApplicationException))]
+        public void TestCreateNewItemReportException()
+        {
+            // arrange
+            ItemReport report = new ItemReport()
+            {
+                Report = "Report Field: Test Create New Item Report",
+                ItemID = 0000,
+                ItemName = "Item A",
+                Quantity = 10
+            };
+
+            bool created = false;            
+
+            // act
+            created = _itemReportManager.createNewItemReport(report);
+        }
+
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
