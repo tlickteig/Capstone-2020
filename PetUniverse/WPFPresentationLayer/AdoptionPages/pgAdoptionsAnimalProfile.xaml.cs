@@ -18,6 +18,7 @@ namespace WPFPresentationLayer.AdoptionsPages
     /// </summary>
     public partial class pgAdoptionsAnimalProfile : Page
     {
+        private Animal _selectedAnimal;
         public pgAdoptionsAnimalProfile()
         {
             InitializeComponent();
@@ -30,7 +31,9 @@ namespace WPFPresentationLayer.AdoptionsPages
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            refreshData();
+            //refreshData();
+            //canAnimalProfile.Visibility = Visibility.Hidden;
+            //canViewAnimalProfileList.Visibility = Visibility.Visible;
         }
         /// <summary>
         /// Creator: Michael Thompson
@@ -69,18 +72,31 @@ namespace WPFPresentationLayer.AdoptionsPages
 
         private void DgAnimals_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            canUpdateAnimal.Visibility = Visibility.Visible;
+            //canUpdateAnimal.Visibility = Visibility.Visible;
             BtnSubmitAnimalUpdate.Visibility = Visibility.Visible;
+            canViewAnimalProfileList.Visibility = Visibility.Hidden;
+            canAnimalProfile.Visibility = Visibility.Visible;
 
-            var selectedItem = dgAnimalProfiles.SelectedItem;
-            string ID = (dgAnimalProfiles.SelectedCells[0].Column.GetCellContent(selectedItem) as TextBlock).Text;
+            _selectedAnimal = _animalManager.RetrieveAnimalByAnimalID(((Animal)dgAnimalProfiles.SelectedItem).AnimalID)[0];
+            
+
+            //var selectedItem = dgAnimalProfiles.SelectedItem;
+            //string ID = (dgAnimalProfiles.SelectedCells[0].Column.GetCellContent(selectedItem) as TextBlock).Text;
             try
             {
-                int animalID = Int32.Parse(ID);
-                Animal selectedAnimal = getInitialData(animalID);
+                
+                lblAnimalName.Content = _selectedAnimal.AnimalName;
+                lblAnimalBreed.Content = _selectedAnimal.AnimalBreed;
+                lblAnimalSpecies.Content = _selectedAnimal.AnimalSpeciesID;
+
+                //int animalID = Int32.Parse(ID);
+                //Animal selectedAnimal = getInitialData(animalID);
+                Animal selectedAnimal = _animalManager.RetrieveOneAnimalByAnimalID(((Animal)(dgAnimalProfiles.SelectedItem)).AnimalID);
                 txtAnimalProfileDescription.Text = selectedAnimal.ProfileDescription;
+
                 if (selectedAnimal.ProfileImageData != null)
                 {
+                    currentPetProfile.Source = null;
                     currentPetProfile.Source = byteArrayToImage(selectedAnimal.ProfileImageData);
                 }
             }
@@ -89,7 +105,7 @@ namespace WPFPresentationLayer.AdoptionsPages
 
                 throw;
             }
-
+            
 
         }
 
@@ -107,7 +123,16 @@ namespace WPFPresentationLayer.AdoptionsPages
 
         private void BtnCancelUpdate_Click(object sender, RoutedEventArgs e)
         {
-            canUpdateAnimal.Visibility = Visibility.Hidden;
+            //canUpdateAnimal.Visibility = Visibility.Hidden;
+            canViewAnimalProfileList.Visibility = Visibility.Visible;
+            canAnimalProfile.Visibility = Visibility.Hidden;
+
+            currentPetProfile.Source = null;
+            
+            lblAnimalBreed.Content = "";
+            lblAnimalName.Content = "";
+            txtAnimalProfileDescription.Clear();
+            lblAnimalSpecies.Content = "";
             refreshData();
         }
         /// <summary>
@@ -126,9 +151,10 @@ namespace WPFPresentationLayer.AdoptionsPages
         {
             txtAnimalProfileDescription.Text = "";
             canViewAnimalProfileList.Visibility = Visibility.Visible;
-            canUpdateAnimal.Visibility = Visibility.Hidden;
+            //canUpdateAnimal.Visibility = Visibility.Hidden;
+            canAnimalProfile.Visibility = Visibility.Hidden;
             dgAnimalProfiles.Visibility = Visibility.Visible;
-            currentPetProfile.Visibility = Visibility.Hidden;
+            
             refreshData();
         }
         /// <summary>
@@ -170,7 +196,11 @@ namespace WPFPresentationLayer.AdoptionsPages
                 WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
                 ClearDisplay();
             }
-
+            currentPetProfile.Source = new BitmapImage();
+            lblAnimalBreed.Content = "";
+            lblAnimalName.Content = "";
+            txtAnimalProfileDescription.Clear();
+            lblAnimalSpecies.Content = "";
         }
         /// <summary>
         /// Creator: Michael Thompson
@@ -284,6 +314,14 @@ namespace WPFPresentationLayer.AdoptionsPages
             dgAnimalProfiles.Columns.RemoveAt(3);
             dgAnimalProfiles.Columns.RemoveAt(3);
 
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            canAnimalProfile.Visibility = Visibility.Hidden;
+            canViewAnimalProfileList.Visibility = Visibility.Visible;
+            dgAnimalProfiles.Visibility = Visibility.Visible;
+            refreshData();
         }
     }
 }
