@@ -325,6 +325,46 @@ namespace DataAccessLayer
             var cmdText = "sp_select_product_by_id";
 
             var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ProductID", productID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        product = new Product
+                        {
+                            ProductID = reader.GetString(0),
+                            Name = reader.GetString(1),
+                            Taxable = reader.GetBoolean(2),
+                            Price = reader.GetDecimal(3),
+                            // 4 is ItemQuantity
+                            Description = reader.GetString(5),
+                            Active = reader.GetBoolean(6),
+                            ItemID = reader.GetInt32(7),
+                            Category = reader.GetString(8),
+                            Type = reader.GetString(9),
+                            Brand = reader.GetString(10)
+                        };
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return product;
         }
         
         /// Creator: Cash Carlson
