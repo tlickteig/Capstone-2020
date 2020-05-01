@@ -300,7 +300,7 @@ namespace WPFPresentationLayer.PoSPages
                     }
                 case "Done":
                     {
-                        _frame.Navigate(new pgInventoryItems());
+                        _frame.Navigate(new pgInventoryItems(_frame));
                         break;
                     }
                 default:
