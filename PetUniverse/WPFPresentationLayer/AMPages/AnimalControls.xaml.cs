@@ -112,6 +112,7 @@ namespace WPFPresentationLayer.AMPages
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByActive();
           
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[10]);
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
             
@@ -153,6 +154,7 @@ namespace WPFPresentationLayer.AMPages
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByInactive();
 
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[10]);
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
             dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
 
@@ -354,7 +356,6 @@ namespace WPFPresentationLayer.AMPages
             
             DG.Visibility = Visibility.Visible;
 
-            Scroll.ScrollToTop();
             SearchBar_.Visibility = Visibility.Visible;
             DG.Visibility = Visibility.Visible;
             SearchSymbolButton.Visibility = Visibility.Visible;

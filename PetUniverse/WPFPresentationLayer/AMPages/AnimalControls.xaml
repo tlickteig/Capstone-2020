@@ -155,124 +155,119 @@
             Update:
             Approver:
         -->
-        <Canvas x:Name="canIndividualAnimal" Background="AntiqueWhite" Height="800" Width="1289" Visibility="hidden">
-            <ScrollViewer x:Name="Scroll" Height="660"  Width="1160" >
+        <Canvas x:Name="canIndividualAnimal" Background="AntiqueWhite" Height="800" Width="1289" Visibility="Hidden">
+            <Grid Height="775" Width="1101">
+                <Grid.RowDefinitions>
+                    <!--name-->
+                    <RowDefinition></RowDefinition>
+                    <!--id-->
+                    <RowDefinition></RowDefinition>
+                    <!--species-->
+                    <RowDefinition></RowDefinition>
+                    <!--breed-->
+                    <RowDefinition></RowDefinition>
+                    <!--dob-->
+                    <RowDefinition></RowDefinition>
+                    <!--arrival-->
+                    <RowDefinition></RowDefinition>
+                    <!--checkboxes-->
+                    <RowDefinition></RowDefinition>
+                    <!--return-->
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                <Canvas  Visibility="Visible" Height="807" Width="1109">
-                    <Grid Height="775" Width="1101">
-                        <Grid.RowDefinitions>
-                            <!--name-->
-                            <RowDefinition></RowDefinition>
-                            <!--id-->
-                            <RowDefinition></RowDefinition>
-                            <!--species-->
-                            <RowDefinition></RowDefinition>
-                            <!--breed-->
-                            <RowDefinition></RowDefinition>
-                            <!--dob-->
-                            <RowDefinition></RowDefinition>
-                            <!--arrival-->
-                            <RowDefinition></RowDefinition>
-                            <!--checkboxes-->
-                            <RowDefinition></RowDefinition>
-                            <!--return-->
-                            <RowDefinition></RowDefinition>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-
-                        <!--Name-->
-                        <Label Grid.Row="0" Content="Name:" HorizontalContentAlignment="Right"
+                <!--Name-->
+                <Label Grid.Row="0" Content="Name:" HorizontalContentAlignment="Right"
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
-                        <Label x:Name="lblIndividualAnimalName" Grid.Row="0" Grid.Column="1" Content="" 
+                <Label x:Name="lblIndividualAnimalName" Grid.Row="0" Grid.Column="1" Content="" 
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
-                        <!--ID-->
-                        <Label Grid.Row="1" Content="Animal ID Number:" HorizontalContentAlignment="Right"
+                <!--ID-->
+                <Label Grid.Row="1" Content="Animal ID Number:" HorizontalContentAlignment="Right"
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
-                        <Label x:Name="lblIndividualAnimalID" Grid.Row="1" Grid.Column="1" Content="" 
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
-
-                        <!--Species-->
-                        <Label Grid.Row="2" Content="Species:" HorizontalContentAlignment="Right"
-                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
-                        <Label x:Name="lblIndividualAnimalSpecies" Grid.Row="2" Grid.Column="1" Content="" 
+                <Label x:Name="lblIndividualAnimalID" Grid.Row="1" Grid.Column="1" Content="" 
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
-                        <!--Breed-->
-                        <Label Grid.Row="3" Content="Breed:" HorizontalContentAlignment="Right"
+                <!--Species-->
+                <Label Grid.Row="2" Content="Species:" HorizontalContentAlignment="Right"
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
-                        <Label x:Name="lblIndividualAnimalBreed" Grid.Row="3" Grid.Column="1" Content="" 
+                <Label x:Name="lblIndividualAnimalSpecies" Grid.Row="2" Grid.Column="1" Content="" 
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
-                        <!--Dob-->
-                        <Label Grid.Row="4" Content="Date of Birth:" HorizontalContentAlignment="Right"
+                <!--Breed-->
+                <Label Grid.Row="3" Content="Breed:" HorizontalContentAlignment="Right"
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
+                <Label x:Name="lblIndividualAnimalBreed" Grid.Row="3" Grid.Column="1" Content="" 
+                       FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
+
+                <!--Dob-->
+                <Label Grid.Row="4" Content="Date of Birth:" HorizontalContentAlignment="Right"
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="294,20,20,20"></Label>
-                        <Label x:Name="lblIndividualAnimalDob" Grid.Row="4" Grid.Column="1" Content="" 
+                <Label x:Name="lblIndividualAnimalDob" Grid.Row="4" Grid.Column="1" Content="" 
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
-                        <!--Arrival Date-->
-                        <Label Grid.Row="5" Content="Arrival Date:" HorizontalContentAlignment="Right"
+                <!--Arrival Date-->
+                <Label Grid.Row="5" Content="Arrival Date:" HorizontalContentAlignment="Right"
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="350,20,0,20"></Label>
-                        <Label x:Name="lblIndividualAnimalArrivalDate" Grid.Row="5" Grid.Column="1" Content="" 
+                <Label x:Name="lblIndividualAnimalArrivalDate" Grid.Row="5" Grid.Column="1" Content="" 
                        FontSize="32" FontWeight="Bold" VerticalContentAlignment="Center" Margin="20"></Label>
 
-                        <!--Check Boxes-->
-                        <Grid Grid.Row="6" Grid.ColumnSpan="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
+                <!--Check Boxes-->
+                <Grid Grid.Row="6" Grid.ColumnSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
 
-                            </Grid.ColumnDefinitions>
+                    </Grid.ColumnDefinitions>
 
-                            <!--Active-->
-                            <CheckBox x:Name="chkIndvidualActive" Grid.Row="0" Grid.Column="0" 
+                    <!--Active-->
+                    <CheckBox x:Name="chkIndvidualActive" Grid.Row="0" Grid.Column="0" 
                               VerticalAlignment="Center" VerticalContentAlignment="Center"
                               HorizontalAlignment="Center" IsEnabled="False"
                               FontSize="20" FontWeight="Bold" Content="Active" Margin="10">
-                                <CheckBox.LayoutTransform>
-                                    <ScaleTransform ScaleX="2" ScaleY="2" />
-                                </CheckBox.LayoutTransform>
-                            </CheckBox>
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="2" ScaleY="2" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
 
 
-                            <!--CurrentlyHoused-->
-                            <CheckBox x:Name="chkIndvidualCurrentlyHoused" Grid.Row="0" Grid.Column="1" 
+                    <!--CurrentlyHoused-->
+                    <CheckBox x:Name="chkIndvidualCurrentlyHoused" Grid.Row="0" Grid.Column="1" 
                               VerticalAlignment="Center" VerticalContentAlignment="Center"
                               HorizontalAlignment="Center" IsEnabled="False"
                               FontSize="20" FontWeight="Bold" Content="Currently Housed" >
-                                <CheckBox.LayoutTransform>
-                                    <ScaleTransform ScaleX="2" ScaleY="2" />
-                                </CheckBox.LayoutTransform>
-                            </CheckBox>
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="2" ScaleY="2" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
 
-                            <!--Adoptable-->
-                            <CheckBox x:Name="chkIndvidualAdoptable" Grid.Row="0" Grid.Column="2" 
+                    <!--Adoptable-->
+                    <CheckBox x:Name="chkIndvidualAdoptable" Grid.Row="0" Grid.Column="2" 
                               VerticalAlignment="Center" VerticalContentAlignment="Center"
                               HorizontalAlignment="Center" IsEnabled="False"
                               FontSize="20" FontWeight="Bold" Content="Adoptable" Margin="10">
-                                <CheckBox.LayoutTransform>
-                                    <ScaleTransform ScaleX="2" ScaleY="2" />
-                                </CheckBox.LayoutTransform>
-                            </CheckBox>
+                        <CheckBox.LayoutTransform>
+                            <ScaleTransform ScaleX="2" ScaleY="2" />
+                        </CheckBox.LayoutTransform>
+                    </CheckBox>
 
-                        </Grid>
+                </Grid>
 
-                        <!--Return & Edit-->
-                        <Button x:Name="BtnReturnViewIndividualAnimal" Grid.Row="7" Grid.Column="0"
+                <!--Return & Edit-->
+                <Button x:Name="BtnReturnViewIndividualAnimal" Grid.Row="7" Grid.Column="0"
                         Width="150" FontSize="36" Padding="10"
                         VerticalAlignment="Center" HorizontalAlignment="Center"
                         Click="BtnReturnViewIndividualAnimal_Click">Return</Button>
-                        <Button x:Name="BtnEditIndividualAnimal" Grid.Row="7" Grid.Column="1"
+                <Button x:Name="BtnEditIndividualAnimal" Grid.Row="7" Grid.Column="1"
                         Width="150" FontSize="36" Padding="10"
                         VerticalAlignment="Center" HorizontalAlignment="Center"
                         Click="BtnEditIndividualAnimal_Click">Edit</Button>
-                    </Grid>
-                </Canvas>
-            </ScrollViewer>
+            </Grid>
         </Canvas>
 
         <!--Name: Chuck Baxter
