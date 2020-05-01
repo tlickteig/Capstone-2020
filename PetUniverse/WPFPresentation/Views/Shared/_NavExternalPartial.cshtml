@@ -42,7 +42,9 @@
             @if (User.IsInRole("Volunteer"))
             {
                 <li>
-                    <a class="nav-link" href="#">Volunteer schedule</a>
+                    <a href="@Url.Action("Index", "VolunteerShift")" class="nav-link">
+                        Volunteer Schedule
+                    </a>
                 </li>
             }
             @if (User.IsInRole("Administrator"))

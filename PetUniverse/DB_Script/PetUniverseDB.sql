@@ -5591,6 +5591,29 @@ END
 GO
 
 /*
+    AUTHOR: Timothy Lickteig
+    DATE: 2020/04/30
+    COMMENT: Procedure for selecting a volunteer shift
+*/
+DROP PROCEDURE IF EXISTS [sp_select_volunteer_shift]
+GO
+PRINT '' PRINT '** Creating sp_select_volunteer_shift'
+GO
+CREATE PROCEDURE [sp_select_volunteer_shift]
+(
+    @VolunteerShiftID [int]
+)
+AS
+BEGIN
+    SELECT [VolunteerShiftID], [ShiftDescription], [ShiftTitle],
+        [ShiftDate], [ShiftStartTime], [ShiftEndTime], [Recurrance],
+        [IsSpecialEvent], [ShiftNotes], [ScheduleID]
+    FROM [VolunteerShift]
+    WHERE @VolunteerShiftID = [VolunteerShiftID]
+END
+GO
+
+/*
 Created By: Timothy Lickteig
 Date: 2/10/2020
 Comment: Procedure for updating a volunteer shift

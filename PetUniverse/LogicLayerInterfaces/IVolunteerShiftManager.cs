@@ -23,7 +23,7 @@ namespace LogicLayerInterfaces
         /// </summary>
         /// <param name="shift">Shift Object to be passed</param>
         /// <returns>Number of rows affected</returns>
-        int AddVolunteerShift(VolunteerShift shift);
+        int AddVolunteerShift(VolunteerShiftVM shift);
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
@@ -42,7 +42,7 @@ namespace LogicLayerInterfaces
         /// <param name="oldShift">Old shift to be replaced</param>
         /// <param name="newShift">Replacement shift</param>
         /// <returns>Number of rows affected</returns>
-        int EditVolunteerShift(VolunteerShift oldShift, VolunteerShift newShift);
+        int EditVolunteerShift(VolunteerShiftVM oldShift, VolunteerShiftVM newShift);
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
@@ -71,7 +71,7 @@ namespace LogicLayerInterfaces
         /// </summary>        
         /// <param name="shiftID">The shiftID to query</param>
         /// <returns>A list of shifts</returns>
-        VolunteerShift SelectVolunteerShift(int shiftID);
+        VolunteerShiftVM SelectVolunteerShift(int shiftID);
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
@@ -79,7 +79,7 @@ namespace LogicLayerInterfaces
         ///     CHECKED BY: Zoey McDonald
         /// </summary>        
         /// <returns>A list of availible shifts</returns>
-        List<VolunteerShift> ReturnAllVolunteerShifts();
+        List<VolunteerShiftVM> ReturnAllVolunteerShifts();
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
@@ -88,6 +88,6 @@ namespace LogicLayerInterfaces
         /// </summary>        
         /// <param name="volunteerID">The volunteer ID number</param>
         /// <returns>A list of shifts</returns>
-        List<VolunteerShift> ReturnAllVolunteerShiftsForAVolunteer(int volunteerID);
+        List<VolunteerShiftVM> ReturnAllVolunteerShiftsForAVolunteer(int volunteerID);
     }
 }

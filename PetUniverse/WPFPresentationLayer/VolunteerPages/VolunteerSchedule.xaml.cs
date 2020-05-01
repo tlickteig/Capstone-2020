@@ -35,7 +35,7 @@ namespace WPFPresentationLayer.VolunteerPages
             try
             {
                 int id = Convert.ToInt32(txtVolunteerID.Text);
-                List<VolunteerShift> shifts = _manager.ReturnAllVolunteerShiftsForAVolunteer(id);
+                List<VolunteerShiftVM> shifts = _manager.ReturnAllVolunteerShiftsForAVolunteer(id);
                 dteShiftList.ItemsSource = shifts;
             }
             catch (Exception ex)

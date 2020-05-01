@@ -204,6 +204,7 @@
     <Compile Include="Controllers\RequestTimeOffController.cs" />
     <Compile Include="Controllers\ScheduleSupervisorController.cs" />
     <Compile Include="Controllers\TransactionController.cs" />
+    <Compile Include="Controllers\VolunteerShiftController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -593,6 +594,8 @@
     <Content Include="Views\RequestTimeOff\Create.cshtml" />
     <Content Include="Views\ScheduleSupervisor\EmployeeShiftDetails.cshtml" />
     <Content Include="Views\ScheduleSupervisor\ShiftCalendarEmployee.cshtml" />
+    <Content Include="Views\VolunteerShift\Index.cshtml" />
+    <Content Include="Views\VolunteerShift\VolunteerShiftDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
