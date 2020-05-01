@@ -227,6 +227,10 @@
     <Compile Include="Migrations\202004280520284_VolEmail.Designer.cs">
       <DependentUpon>202004280520284_VolEmail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202005011627388_RepoFix.cs" />
+    <Compile Include="Migrations\202005011627388_RepoFix.Designer.cs">
+      <DependentUpon>202005011627388_RepoFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicantListViewModel.cs" />
@@ -663,6 +667,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004280520284_VolEmail.resx">
       <DependentUpon>202004280520284_VolEmail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202005011627388_RepoFix.resx">
+      <DependentUpon>202005011627388_RepoFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -159,10 +159,10 @@ namespace WPFPresentation.Controllers
         [AllowAnonymous]
         public ActionResult RegisterContinuation(RegisterViewModel model)
         {
-            ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();            
+            ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             ViewBag.Email = model.Email;
             ViewBag.FirstName = model.GivenName;
-            ViewBag.LastName = model.FamilyName;            
+            ViewBag.LastName = model.FamilyName;
 
 
             return View();
@@ -187,7 +187,7 @@ namespace WPFPresentation.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult RegisterAcceptance(FormCollection formCollection)
-        {            
+        {
             string email = formCollection[1];
             string firstName = formCollection[2];
             string lastName = formCollection[3];
@@ -276,7 +276,6 @@ namespace WPFPresentation.Controllers
                             return RedirectToAction("Index", "Home");
                         }
                         AddErrors(newresult);
-                        return RedirectToAction("Login", "Account");
                     }
                     else if (volMgr.FindVolunteer(model.Email))
                     {
