@@ -1,8 +1,10 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using PresentationUtilityCode;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -59,9 +61,9 @@ namespace WPFPresentationLayer.PoSPages
         /// This method shows the list of picture when the window loads
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updater: Robert Holmes
+        /// Updated: 04/30/2020
+        /// Update: Made compatible with byte[] storage.
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -75,14 +77,18 @@ namespace WPFPresentationLayer.PoSPages
             List<Image> ListPictures = new List<Image>();
             foreach (var picture in pictures)
             {
-                bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(AppContext.BaseDirectory + @"\images\" + picture.ImagePath);
-                bitmap.EndInit();
                 image = new Image();
-                image.Source = bitmap;
-
-                //image.Height = 200;
+                try
+                {
+                    using (var stream = new MemoryStream(picture.ImageData))
+                    {
+                        image.Source = BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    WPFErrorHandler.ErrorMessage("There was a problem loading the picture.\n\n" + ex.Message);
+                }
 
                 ListPictures.Add(image);
             }
@@ -110,12 +116,14 @@ namespace WPFPresentationLayer.PoSPages
         private void click_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Image filterimage = (Image)listImage.SelectedItem;
+            if (filterimage != null)
+            {
+                image.Source = filterimage.Source;
 
-            image.Source = filterimage.Source;
+                ViewPicture.Visibility = Visibility.Hidden;
 
-            ViewPicture.Visibility = Visibility.Hidden;
-
-            gdshowImage.Visibility = Visibility.Visible;
+                gdshowImage.Visibility = Visibility.Visible;
+            }
         }
 
         /// <summary>

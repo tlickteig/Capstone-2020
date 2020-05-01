@@ -217,5 +217,36 @@ namespace DataAccessFakes
             }
             return rows;
         }
+
+        /// /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Returns a single product based on the supplied product ID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public Product SelectProductByID(string productID)
+        {
+            Product result = null;
+
+            foreach (var p in products)
+            {
+                if (p.ProductID.Equals(productID))
+                {
+                    result = p;
+                    break;
+                }
+            }
+
+            return result;
+        }
     }
 }

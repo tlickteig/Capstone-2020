@@ -30,5 +30,7 @@ namespace WPFPresentation.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<DataTransferObjects.Product> Products { get; set; }
     }
 }

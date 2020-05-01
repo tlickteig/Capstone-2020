@@ -136,9 +136,9 @@ namespace DataAccessLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updated By: 
-        /// Updated: 
-        /// Update:
+        /// Updated By:
+        /// Updated:
+        /// Update: 
         /// </remarks>
         /// <param name="newDesc"></param>
         /// <param name="newName"></param>
@@ -192,9 +192,9 @@ namespace DataAccessLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updated By: 
-        /// Updated: 
-        /// Update:
+        /// Updated By: Robert Holmes
+        /// Updated: 04/29/2020
+        /// Update: Made it safe to attempt when description is null.
         /// </remarks>
         public List<Item> getAllItemsByActive(bool active)
         {
@@ -218,7 +218,10 @@ namespace DataAccessLayer
                     item.ItemName = reader.GetString(1);
                     item.ItemQuantity = reader.GetInt32(2);
                     item.ItemCategoryID = reader.GetString(3);
-                    item.Description = reader.GetString(4);
+                    if (!reader.IsDBNull(4))
+                    {
+                        item.Description = reader.GetString(4);
+                    }
                     //item.Active = reader.GetBoolean(5);
                     itemList.Add(item);
                 }

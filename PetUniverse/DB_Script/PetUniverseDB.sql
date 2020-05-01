@@ -1087,9 +1087,7 @@ CREATE TABLE [dbo].[Transaction](
 	CONSTRAINT [fk_Transaction_TransactionStatusID] FOREIGN KEY ([TransactionStatusID])
 		REFERENCES [TransactionStatus]([TransactionStatusID]) ON UPDATE CASCADE,
 	CONSTRAINT [fk_Transaction_TransactionTypeID] FOREIGN KEY ([TransactionTypeID])
-		REFERENCES [TransactionType]([TransactionTypeID])  ON UPDATE CASCADE,
-	CONSTRAINT [fk_Transaction_CustomerEmail] FOREIGN KEY ([CustomerEmail])
-		REFERENCES [Customer]([Email])  ON UPDATE CASCADE
+		REFERENCES [TransactionType]([TransactionTypeID])  ON UPDATE CASCADE
 )
 GO
 
@@ -1750,6 +1748,7 @@ DROP TABLE IF EXISTS [dbo].[Picture]
 GO
 print '' print '*** Creating Picture table'
 GO
+/*
 CREATE TABLE [dbo].[Picture]
 (
    [PictureID] 	 	[INT] 		 		NOT NULL  PRIMARY KEY,
@@ -1757,6 +1756,16 @@ CREATE TABLE [dbo].[Picture]
    [ImagePath] 		[NVARCHAR](MAX)		NOT NULL,
 	CONSTRAINT [fk_Picture_ProductID] FOREIGN KEY ([ProductID])
 		REFERENCES [dbo].[Product]([ProductID]) 
+)
+*/
+CREATE TABLE [dbo].[Picture]
+(
+	[PictureID]			[int]	IDENTITY	NOT NULL	PRIMARY KEY,
+	[ProductID]			[nvarchar](13)		NOT NULL,
+	[PictureData]		[varbinary](MAX)	NOT NULL,
+	[PictureMimeType]	[nvarchar](50)		NOT NULL,
+	CONSTRAINT [fk_Picture_ProductID] FOREIGN KEY ([ProductID])
+		REFERENCES [dbo].[Product]([ProductID])
 )
 GO
 
@@ -9322,14 +9331,17 @@ CREATE PROCEDURE sp_select_product_by_id
 AS
 BEGIN
 	SELECT 
-		  P.[ProductID]
-		, I.[ItemName]
-		, P.[Taxable]
-		, P.[Price]
-		, I.[ItemQuantity]
-		, I.[ItemDescription]
-		, P.[Active]
-			
+		P.[ProductID],
+		I.[ItemName],
+		P.[Taxable],
+		P.[Price],
+		I.[ItemQuantity],
+		P.[Description],
+		P.[Active],
+		I.[ItemID],
+		I.[ItemCategoryID],
+		P.[ProductTypeID],
+		P.[Brand]
 	FROM [Item] I
 	INNER JOIN [dbo].[Product] P
 	ON I.[ItemID] = P.[ItemID]
@@ -11091,6 +11103,51 @@ END
 GO
 
 /*
+Created By: Robert Holmes
+Date: 04/29/2020
+Comment: Inserts a picture
+*/
+print '' print '*** Creating sp_insert_picture'
+GO
+DROP PROCEDURE IF EXISTS [sp_insert_picture]
+GO
+CREATE PROCEDURE [sp_insert_picture]
+(
+	@ProductID 			[nvarchar](13),
+	@PictureData		[varbinary](MAX),
+	@PictureMimeType	[nvarchar](50)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Picture]
+	([ProductID], [PictureData], [PictureMimeType])
+	VALUES
+	(@ProductID, @PictureData, @PictureMimeType)
+END
+GO
+
+/*
+Created by: Robert Holmes
+Date: 04/30/2020
+Comment: Selects all pictures by product id
+*/
+print '' print '*** Creating sp_select_all_pictures_by_product_id'
+GO
+DROP PROCEDURE IF EXISTS [sp_select_all_pictures_by_product_id]
+GO
+CREATE PROCEDURE [sp_select_all_pictures_by_product_id]
+(
+	@ProductID	[nvarchar](13)
+)
+AS
+BEGIN
+	SELECT [PictureID], [ProductID], [PictureData], [PictureMimeType]
+	FROM [dbo].[Picture]
+	WHERE [ProductID] = @ProductID
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -11664,7 +11721,8 @@ Insert INTO [dbo].[TransactionStatus]
 	('tranStatus100', 'description 100'),
 	('tranStatus200', 'description 200'),
 	('tranStatus500', 'description 500'),
-	('tranStatus800', 'description 800')
+	('tranStatus800', 'description 800'),
+	('Completed', 'A completed transaction')
 GO
 
 /*
@@ -11680,7 +11738,8 @@ Insert INTO [dbo].[TransactionType]
 	('tranTYPE100', 'TYPEdescription 100'),
 	('tranTYPE200', 'TYPEdescription 200'),
 	('tranTYPE500', 'TYPEdescription 500'),
-	('tranTYPE800', 'TYPEdescription 800')
+	('tranTYPE800', 'TYPEdescription 800'),
+	('Online Sale', 'Online Sale')
 GO
 
 /*
@@ -12606,12 +12665,14 @@ Comment: Insert sample data into Picture table
 */
 print ''  print '*** Insert sample record to picture'
 GO
+/*
 INSERT INTO [dbo].[Picture]
 	([PictureID], [ProductID],[ImagePath])
 	VALUES
 	(1, '7084781116', 'LoCatMein.jpg'),
 	(2, '2500006153', 'ScratchBeGone.jpg')
 GO
+*/
 
 
 /*Created by: Rasha Mohammed
@@ -12623,10 +12684,13 @@ GO
 CREATE PROCEDURE [sp_select__all_image]
 AS
 BEGIN
+/*
 	SELECT  [Picture].[PictureID], [Product].[ProductID], [Picture].[ImagePath]	
 	FROM 	[Picture]
     JOIN 	[Product] ON [Product].[ProductID] = [Picture].[ProductID]
-		
+	*/
+	SELECT 	[PictureID], [ProductID], [PictureData], [PictureMimeType]
+	FROM 	[Picture]
 END
 GO	
 

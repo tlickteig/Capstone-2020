@@ -34,5 +34,37 @@ namespace DataAccessInterfaces
         //List<Picture> SelectAllPictureByProductCategoryID(string productCategoryID);
 
         List<Picture> SelectAllPicture();
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Interface for a method to return all pictures associated with a product id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        List<Picture> SelectAllPicturesByProductID(string productID);
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Interface for a method to add a picture.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        int InsertPicture(Picture picture);
     }
 }

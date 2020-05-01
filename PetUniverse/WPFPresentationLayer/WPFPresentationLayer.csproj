@@ -553,7 +553,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\pgAddEditViewPromotion.xaml">
-	  <SubType>Designer</SubType>
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PoSPages\FilterItem.xaml">
@@ -841,6 +841,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\X.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MISSING.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

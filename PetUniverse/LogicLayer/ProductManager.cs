@@ -14,6 +14,11 @@ namespace LogicLayer
     /// 
     /// Handles data requests from the presentation layer by requesting data from the data access layer.
     /// </summary>
+    /// <remarks>
+    /// Updater: Robert Holmes
+    /// Updated: 04/29/2020
+    /// Update: Added RetrieveProductByID
+    /// </remarks>
     public class ProductManager : IProductManager
     {
         private IProductAccessor _productAccessor;
@@ -201,5 +206,34 @@ namespace LogicLayer
 
         }
 
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: 
+        /// 
+        /// Returns a single product based on the provided productID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public Product RetrieveProductByID(string productID)
+        {
+            Product product = null;
+
+            try
+            {
+                product = _productAccessor.SelectProductByID(productID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return product;
+        }
     }
 }
