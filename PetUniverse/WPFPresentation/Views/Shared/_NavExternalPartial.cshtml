@@ -21,12 +21,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="~/Product">Browse Products</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Foster</a>
-            </li>
-            <li>
-                <a class="nav-link" href="#">Volunteer</a>
-            </li>
             <li>
                 <a class="nav-link" href="~/Adoption">Animals</a>
             </li>
@@ -39,17 +33,7 @@
 
             <li class="nav-item">
                 <a class="nav-link" href="/Events">Events</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Shopping</a>
-                <div class="dropdown-menu" style="">
-                    <a class="dropdown-item" href="#">Toys</a>
-                    <a class="dropdown-item" href="#">Food</a>
-                    <a class="dropdown-item" href="#">Medicine</a>
-                    <a class="dropdown-item" href="#">Accessories</a>
-                    <a class="dropdown-item" href="#">More</a>
-                </div>
-            </li>
+            </li>            
             @if (User.IsInRole("Volunteer"))
             {
                 <li>
