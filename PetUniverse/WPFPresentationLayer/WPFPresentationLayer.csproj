@@ -327,6 +327,9 @@
     <Compile Include="RecruitingPages\CreateEventForm.xaml.cs">
       <DependentUpon>CreateEventForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RecruitingPages\CreatNewRequest.xaml.cs">
+      <DependentUpon>CreatNewRequest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RecruitingPages\DepartmentRequestDetails.xaml.cs">
       <DependentUpon>DepartmentRequestDetails.xaml</DependentUpon>
     </Compile>
@@ -716,6 +719,10 @@
     <Page Include="RecruitingPages\CreateEventForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecruitingPages\CreatNewRequest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="RecruitingPages\DepartmentRequestDetails.xaml">
       <SubType>Designer</SubType>

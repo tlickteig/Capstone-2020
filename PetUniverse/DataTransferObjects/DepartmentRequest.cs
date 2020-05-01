@@ -6,12 +6,13 @@ namespace DataTransferObjects
     /// Creator: Ryan Morganti
     /// Created: 2020/02/06
     /// Approver:Derek Taylor
-    /// 
+    /// Updated by: Hassan Karar.
     /// Class for storing DepartmentRequest data pulled from the Data Store 
     /// Inherits from Class Request
     /// </summary>
     public class DepartmentRequest : Request
     {
+        public int DeptRequestID { get; set; }
         public int RequestorID { get; set; }
         public string RequestorGroupID { get; set; }
         public string RequesteeGroupID { get; set; }

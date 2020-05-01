@@ -1097,5 +1097,285 @@ namespace DataAccessLayer
             return requestID;
         }
 
+
+        /// NAME: Hassan Karar
+        /// DATE: 2/7/2020
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This is the default constructor.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// </remarks>
+        /// 
+        public RequestAccessor()
+        {
+        }
+
+        /// NAME: Hassan Karar
+        /// DATE: 2/7/2020
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to accessing  the data for the insert_DepartmentRequest stored procedure. 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="department"></param>
+        /// <param name="subjec"></param>
+        /// <param name="body"></param>
+        /// </remarks>
+        /// 
+
+
+        public bool addNewRequestIsPosted(DepartmentRequest department)
+        {
+            int effect = 0;
+
+            bool result = false;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_DepartmentRequest", conn);
+
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DeptRequestID", department.DeptRequestID);
+            cmd.Parameters.AddWithValue("@RequestGroupID", department.RequesteeGroupID);
+            cmd.Parameters.AddWithValue("@RequestingUserID", department.AcknowledgingEmployee);
+            cmd.Parameters.AddWithValue("@RequestSubject", department.Subject);
+            cmd.Parameters.AddWithValue("@RequestBody", department.Body);
+
+
+            try
+            {
+                conn.Open();
+                effect = Convert.ToInt32(cmd.ExecuteNonQuery());
+                if (effect == 1)
+                {
+                    result = true;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
+        }
+
+
+        /// NAME: Hassan Karar
+        /// DATE: 2/7/2020
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to accessing  the data for the Cancle_Request sored procedure. 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="requestID"></param>
+        /// </remarks>
+        /// 
+        public bool cancleRequest(int requestID)
+        {
+            int effect = 0;
+            bool result = false;
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_Cancle_Request");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@RequestID", requestID);
+            try
+            {
+                conn.Open();
+                effect = Convert.ToInt32(cmd.ExecuteScalar());
+                if (effect != 0)
+                {
+                    result = true;
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
+        }
+
+        /// NAME: Hassan Karar
+        /// DATE: 2/7/2020
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to accessing  the data for the insert_RequestResponse stored procedure.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="requestID"></param>
+        /// <param name="text"></param>
+        /// </remarks>
+        /// 
+
+        public bool insertRequestResponse(int requestID, string text, string userID)
+        {
+            int effect = 0;
+            bool result = false;
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_insert_RequestResponse");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@RequestID", requestID);
+            cmd.Parameters.AddWithValue("@Response", text);
+            cmd.Parameters.AddWithValue("@UserID", userID);
+            try
+            {
+                conn.Open();
+                effect = Convert.ToInt32(cmd.ExecuteScalar());
+
+                if (effect != 0)
+                {
+                    result = true;
+
+                }
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return result;
+        }
+
+        /// NAME: Hassan Karar
+        /// DATE: 2/7/2020
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is accessing the select_DepartmentRequest stored procedure and connecting to it
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="department"></param>
+        /// <param name="subjec"></param>
+        /// <param name="body"></param>
+        /// </remarks>
+        /// 
+
+        public List<ViewResponds> viewRequestRsponds()
+        {
+            List<ViewResponds> responds
+                = new List<ViewResponds>();
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_select_DepartmentRequest");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        var view = new ViewResponds();
+                        view.RequestID = reader.GetInt32(0);
+                        view.Subject = reader.GetString(1);
+                        view.RequestBody = reader.GetString(2);
+
+                        responds.Add(view);
+
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return responds;
+        }
+
+        /// <summary>
+        ///  Creator: Hassan Karar.
+        ///  Created: 2/9/2020
+        ///  Approver: 
+        ///  
+        ///  This method calls the SelectAllRequests method from the Accessor
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+
+        public List<RequestVM> SelectAllRequests()
+        {
+            List<RequestVM> requests = new List<RequestVM>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_all_requests", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        RequestVM request = new RequestVM();
+
+                        request.RequestID = reader.GetInt32(0);
+                        request.RequestTypeID = reader.GetString(1);
+
+                        requests.Add(request);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return requests;
+        }
+
+
     }
 }
