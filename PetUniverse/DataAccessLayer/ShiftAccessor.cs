@@ -416,5 +416,130 @@ namespace DataAccessLayer
             }
             return shift;
         }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 4/26/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// method to get all shifts by user, dept, and schedule id
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="scheduleID"></param>
+        /// <param name="departmentID"></param>
+        /// <param name="userID"></param>
+        /// <returns></returns>
+        public List<ShiftUserVM> SelectShiftsByScheduleAndDepartmentID(int scheduleID, string departmentID)
+        {
+            List<ShiftUserVM> shiftVMs = new List<ShiftUserVM>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_supervisor_shifts_by_schedule_department_id", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ScheduleID", scheduleID);
+            cmd.Parameters.AddWithValue("DepartmentID", departmentID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ShiftUserVM shiftVM = new ShiftUserVM();
+
+                        shiftVM.DateString = reader.GetDateTime(0).ToShortDateString();
+                        shiftVM.EmployeeName = reader.GetString(1) + " " + reader.GetString(2);
+                        shiftVM.ShiftStart = reader.GetString(3);
+                        shiftVM.ShiftEnd = reader.GetString(4);
+                        shiftVM.RoleID = reader.GetString(5);
+                        shiftVM.ScheduleID = reader.GetInt32(6);
+                        shiftVM.EmployeeID = reader.GetInt32(7);
+                        shiftVM.ShiftID = reader.GetInt32(8);
+
+                        shiftVMs.Add(shiftVM);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return shiftVMs;
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 4/26/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// method for getting shifts by schedule, department ids and date
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="scheduleID"></param>
+        /// <param name="departmentID"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<ShiftUserVM> SelectShiftsByScheduleAndDepartmentIDWithDate(int scheduleID, string departmentID, DateTime date)
+        {
+            List<ShiftUserVM> shiftVMs = new List<ShiftUserVM>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_supervisor_shifts_by_schedule_department_id_with_date", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ScheduleID", scheduleID);
+            cmd.Parameters.AddWithValue("DepartmentID", departmentID);
+            cmd.Parameters.AddWithValue("Date", date);
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        ShiftUserVM shiftVM = new ShiftUserVM();
+
+                        shiftVM.DateString = reader.GetDateTime(0).ToShortDateString();
+                        shiftVM.EmployeeName = reader.GetString(1) + " " + reader.GetString(2);
+                        shiftVM.ShiftStart = reader.GetString(3);
+                        shiftVM.ShiftEnd = reader.GetString(4);
+                        shiftVM.RoleID = reader.GetString(5);
+                        shiftVM.ScheduleID = reader.GetInt32(6);
+                        shiftVM.EmployeeID = reader.GetInt32(7);
+                        shiftVM.ShiftID = reader.GetInt32(8);
+                        shiftVMs.Add(shiftVM);
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return shiftVMs;
+        }
     }
 }

@@ -224,5 +224,63 @@ namespace LogicLayer
                 throw new ApplicationException("Shifts not found", ex);
             }
         }
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 4/26/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// method retrieve shifts by department, and schedule id
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="scheduleID"></param>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        public List<ShiftUserVM> RetrieveShiftsByScheduleAndDepartmentID(int scheduleID, string departmentID)
+        {
+            try
+            {
+                return _shiftAccessor.SelectShiftsByScheduleAndDepartmentID(scheduleID, departmentID);
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Hours Worked Not Found.", ex);
+            }
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 4/26/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// method retrieve shifts by department, date, and schedule id
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="scheduleID"></param>
+        /// <param name="departmentID"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<ShiftUserVM> RetrieveShiftsByScheduleAndDepartmentIDWithDate(int scheduleID, string departmentID, DateTime date)
+        {
+            try
+            {
+                return _shiftAccessor.SelectShiftsByScheduleAndDepartmentIDWithDate(scheduleID, departmentID, date);
+            }
+
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Hours Worked Not Found.", ex);
+            }
+        }
     }
 }
