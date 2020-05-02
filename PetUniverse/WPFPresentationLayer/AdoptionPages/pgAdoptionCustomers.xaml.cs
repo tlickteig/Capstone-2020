@@ -292,7 +292,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="e"></param>
         private void btnScheduleAppointment_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if (dgCustomers.SelectedItem != null)
             {
                 AdoptionCustomerVM adoptionCustomer = (AdoptionCustomerVM)dgCustomers.SelectedItem;
                 _adoptionCustomerVM = _adoptionCustomerManager.RetrieveAdoptionCustomerByEmail(adoptionCustomer.Email);
@@ -301,8 +301,14 @@ namespace WPFPresentationLayer.AdoptionPages
                 lblEmail.Content = _adoptionCustomerVM.Email;
                 txtAppointmentTime.Text = "00h: 00m am/pm";
                 showAppointmentScheduling();
+                //dgLocations.Visibility = Visibility.Visible;
+                grdChooseLocation.Visibility = Visibility.Visible;
+                btnAddLocation.Visibility = Visibility.Visible;
+                btnLocationSearch.Visibility = Visibility.Visible;
+                btnSaveLocation.Visibility = Visibility.Hidden;
+                txtLocationSearch.Visibility = Visibility.Visible;
             }
-            catch (Exception)
+            else
             {
                 WPFErrorHandler.ErrorMessage("Please choose a customer from the list");
             }
@@ -887,6 +893,36 @@ namespace WPFPresentationLayer.AdoptionPages
             {
 
 
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: NA
+        /// 
+        /// Chooses a customer
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnView_Click(object sender, RoutedEventArgs e)
+        {
+            if(null != dgCustomers.SelectedItem)
+            {
+                _adoptionCustomerVM = (AdoptionCustomerVM)dgCustomers.SelectedItem;
+
+                showCustomerProfile();
+                populateTextFields();
+            }
+            else
+            {
+                WPFErrorHandler.ErrorMessage("Please make a customer selection.");
             }
         }
     }

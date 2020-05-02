@@ -5,33 +5,26 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WPFPresentationLayer.AdoptionPages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="AnimalsRecords" Loaded="Page_Loaded">
-    <Canvas x:Name="AnimalControl" Visibility="Visible" HorizontalAlignment="Left">
-        <Grid Height="850">
+      d:DesignHeight="845" d:DesignWidth="1280"
+      Title="AnimalsRecords" Loaded="Page_Loaded"
+      Background="AliceBlue">
+    <Grid>
+      <Canvas x:Name="AnimalControl" Visibility="Visible">
+        <Grid Width="1280" Height="800">
             <Grid.RowDefinitions>
-                <RowDefinition Height="60"></RowDefinition>
-                <RowDefinition Height="600"></RowDefinition>
-                <RowDefinition Height="80"></RowDefinition>
+                <RowDefinition Height="60"/>
+                <RowDefinition/>
+                <RowDefinition Height="200"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="509*"/>
-                    <ColumnDefinition Width="291*"/>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Label Content="Animals Medical Records" FontSize="40"/>
-                </Grid>
-                <Grid Grid.Column="1">
-
-                </Grid>
-            </Grid>
-            <Grid Grid.Row="1">
-                <DataGrid x:Name="DGViewData"  Width="800" Height="600" IsReadOnly="True"/>
-            </Grid>
-            <Grid Grid.Row="2">
-                <Label x:Name="lblAnimalMedError"></Label>
-            </Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <Label HorizontalAlignment="Center" Grid.Row="0" Grid.Column="1" Content="Animals Medical Records" FontSize="18" VerticalAlignment="Center"/>
+            <DataGrid x:Name="DGViewData" Grid.Row="1" Grid.Column="1" IsReadOnly="True"/>
+            <Label x:Name="lblAnimalMedError" Grid.Row="2" Grid.Column="1"></Label>
         </Grid>
     </Canvas>
+    </Grid>
 </Page>

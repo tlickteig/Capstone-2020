@@ -563,7 +563,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="e"></param>
         private void btnAnimalOutOfInventory_Click(object sender, RoutedEventArgs e)
         {
-            try
+            if(null != dgAnimalList.SelectedItem)
             {
                 if (System.Windows.Forms.MessageBox.Show("Are you sure you want to mark Animal out of Inventory", "Warning", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 {
@@ -572,7 +572,7 @@ namespace WPFPresentationLayer.AdoptionPages
                 }
 
             }
-            catch (Exception)
+            else
             {
 
                 WPFErrorHandler.ErrorMessage("Please choose an animal first");
