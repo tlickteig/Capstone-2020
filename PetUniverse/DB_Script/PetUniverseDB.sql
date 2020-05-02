@@ -12790,11 +12790,11 @@ Created By: Ryan Morganti
 Date: 2020/04/16
 Comment: Stored Procedure for adding a new donation record
 */
-DROP PROCEDURE IF EXISTS [sp_insert_new_donation]
+DROP PROCEDURE IF EXISTS [sp_insert_new_monetary_donation]
 GO
-PRINT '' PRINT '*** creating stored procedure sp_insert_new_donation'
+PRINT '' PRINT '*** creating stored procedure sp_insert_new_monetary_donation'
 GO
-CREATE PROCEDURE [sp_insert_new_donation]
+CREATE PROCEDURE [sp_insert_new_monetary_donation]
 (
 	@DonorID			[int],
 	@TypeOfDonation		[nvarchar](50),

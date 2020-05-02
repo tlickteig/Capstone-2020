@@ -82,7 +82,7 @@ namespace DataAccessLayer
             var cmd = new SqlCommand("sp_select_name_by_username", conn);
             var cmd2 = new SqlCommand("sp_insert_new_donor", conn);
             var cmd3 = new SqlCommand("sp_insert_new_recurring_donation_info", conn);
-            var cmd4 = new SqlCommand("sp_insert_new_donation", conn);
+            var cmd4 = new SqlCommand("sp_insert_new_monetary_donation", conn);
             var cmd5 = new SqlCommand("sp_insert_new_recurring_donation", conn);
 
 
