@@ -572,6 +572,9 @@
     <Content Include="Views\Adoption\CustomerAppointmentSchedule.cshtml" />
     <Content Include="Views\Adoption\CustomerConfirmAdoptionApplication.cshtml" />
     <Content Include="Views\Adoption\RescheduleAppointment.cshtml" />
+    <Content Include="Views\Donations\NewRecurringDonation.cshtml" />
+    <Content Include="Views\Donations\ActiveDonations.cshtml" />
+    <Content Include="Views\Donations\CancelRecurringDonation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

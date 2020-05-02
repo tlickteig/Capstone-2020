@@ -145,6 +145,8 @@
     <Compile Include="PUEvent.cs" />
     <Compile Include="questionnair.cs" />
     <Compile Include="ReceivingRecord.cs" />
+    <Compile Include="RecurringDonation.cs" />
+    <Compile Include="RecurringDonationVM.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="RequestResponse.cs" />
     <Compile Include="RequestVM.cs" />

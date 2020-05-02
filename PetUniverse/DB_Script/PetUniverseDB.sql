@@ -1684,7 +1684,7 @@ CREATE TABLE [dbo].[Donations](
 	[DonationID]			[int]IDENTITY(1000,1)			NOT NULL,
 	[DonorID]				[int]							NOT NULL,
 	[TypeOfDonation]		[nvarchar](100)					NOT NULL,
-	[DateOfDonation]		[datetime]						NOT NULL,
+	[DateOfDonation]		[datetime]						NOT NULL DEFAULT GETDATE(),
 	[DonationAmount]		[decimal](9,2)					NULL,
 	CONSTRAINT [pk_DonationID] PRIMARY KEY([DonationID] ASC),
 	CONSTRAINT [fk_donations_DonorID] FOREIGN KEY([DonorID])
@@ -2289,6 +2289,49 @@ CREATE TABLE [dbo].[EmpCustProblem](
 	[Description]			[NVARCHAR](100)				NOT NULL,
 
 	CONSTRAINT [pk_ProblemID] PRIMARY KEY([ProblemID] ASC),
+)
+GO
+
+/*
+Created By: Ryan Morganti
+Date: 2020/04/15
+Comment: Table for tracking information needed to process recurring scheduled donations 
+*/
+DROP TABLE IF EXISTS [dbo].[RecurringDonationInfo]
+GO
+PRINT '' PRINT '*** creating table RecurringDonationInfo'
+GO
+CREATE TABLE [dbo].[RecurringDonationInfo](
+	[RecurringDonationID]		[int] IDENTITY(100000,1)		NOT NULL,
+	[UserName]					[nvarchar](250)					NOT NULL,
+	[DonorID]					[int]							NOT NULL,
+	[DonationAmount]			[decimal](9, 2)					NOT NULL,
+	[StartDate]					[date]							NOT NULL DEFAULT GETDATE(),
+	[Interval]					[int]							NOT NULL,
+	[Active]					[bit]							NOT NULL DEFAULT 1,
+	CONSTRAINT [pk_RecurringDonationInfo_RecurringDonationID] PRIMARY KEY([RecurringDonationID] ASC),
+	CONSTRAINT [fk_RecurringDonationInfo_DonorID] FOREIGN KEY([DonorID])
+		REFERENCES [Donor]([DonorID])	
+)
+GO
+
+/*
+Created By: Ryan Morganti
+Date: 2020/04/15
+Comment: Table for relating a scheduled Recurring Donation with the individual donations being made
+*/
+DROP TABLE IF EXISTS [dbo].[RecurringDonation]
+GO
+PRINT '' PRINT '*** creating table RecurringDonation'
+GO
+CREATE TABLE [dbo].[RecurringDonation](
+	[RecurringDonationID]			[int]							NOT NULL,
+	[DonationID]					[int]							NOT NULL,
+	CONSTRAINT [pk_RecurringDonation_DonationID] PRIMARY KEY([DonationID] ASC),
+	CONSTRAINT [fk_RecurringDonation_DonationID] FOREIGN KEY([DonationID])
+		REFERENCES [Donations]([DonationID]),
+	CONSTRAINT [fk_RecurringDonation_RecurringDonationID] FOREIGN KEY([RecurringDonationID])
+		REFERENCES [RecurringDonationInfo]([RecurringDonationID])	
 )
 GO
 
@@ -12336,6 +12379,196 @@ BEGIN
 END
 GO
 
+
+
+/*
+Created By: Ryan Morganti
+Date: 2020/04/16
+Comment: Stored Procedure for adding a recurring donation record
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_new_recurring_donation_info]
+GO
+PRINT '' PRINT '*** creating stored procedure sp_insert_new_recurring_donation_info'
+GO
+CREATE PROCEDURE [sp_insert_new_recurring_donation_info]
+(
+	@UserName			[nvarchar](250),
+	@DonorID			[int],
+	@DonationAmount		[decimal](9, 2),
+	@Interval			[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[RecurringDonationInfo]
+	([UserName], [DonorID], [DonationAmount], [Interval])
+	VALUES
+	(@UserName, @DonorID, @DonationAmount, @Interval)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created By: Ryan Morganti
+Date: 2020/04/16
+Comment: Stored Procedure for retrieving a user's name
+*/
+DROP PROCEDURE IF EXISTS [sp_select_name_by_username]
+GO
+PRINT '' PRINT '*** creating stored procedure sp_select_name_by_username'
+GO
+CREATE PROCEDURE [sp_select_name_by_username]
+(
+	@UserName		[nvarchar](250)
+)
+AS
+BEGIN
+	SELECT [FirstName], [LastName]
+	FROM [User]
+	WHERE [Email] = @UserName
+END
+GO
+
+/*
+Created By: Ryan Morganti
+Date: 2020/04/16
+Comment: Stored Procedure for adding a new donor record
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_new_donor]
+GO
+PRINT '' PRINT '*** creating stored procedure sp_insert_new_donor'
+GO
+CREATE PROCEDURE [sp_insert_new_donor]
+(
+	@FirstName		[nvarchar](50),
+	@LastName		[nvarchar](50)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Donor]
+	([FirstName], [LastName])
+	VALUES
+	(@FirstName, @LastName)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created By: Ryan Morganti
+Date: 2020/04/16
+Comment: Stored Procedure for adding a new donation record
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_new_donation]
+GO
+PRINT '' PRINT '*** creating stored procedure sp_insert_new_donation'
+GO
+CREATE PROCEDURE [sp_insert_new_donation]
+(
+	@DonorID			[int],
+	@TypeOfDonation		[nvarchar](50),
+	@DonationAmount		[decimal](9, 2)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Donations]
+	([DonorID], [TypeOfDonation], [DonationAmount])
+	VALUES
+	(@DonorID, @TypeOfDonation, @DonationAmount)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created By: Ryan Morganti
+Date: 2020/04/16
+Comment: Stored Procedure for adding a new recurring donation record
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_new_recurring_donation]
+GO
+PRINT '' PRINT '*** creating stored procedure sp_insert_new_recurring_donation'
+GO
+CREATE PROCEDURE [sp_insert_new_recurring_donation]
+(
+	@RecurringDonationID			[int],
+	@DonationID						[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[RecurringDonation]
+	([RecurringDonationID], [DonationID])
+	VALUES
+	(@RecurringDonationID, @DonationID)
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created By: Ryan Morganti
+Date: 2020/04/16
+Comment: Stored Procedure for deactivating a recurring donation
+*/
+DROP PROCEDURE IF EXISTS [sp_deactivate_recurring_donation]
+GO
+PRINT '' PRINT '*** creating stored procedure sp_deactivate_recurring_donation'
+GO
+CREATE PROCEDURE [sp_deactivate_recurring_donation]
+(
+	@RecurringDonationID		[int]
+)
+AS
+BEGIN
+	UPDATE [dbo].[RecurringDonationInfo]
+	SET [Active] = 0
+	WHERE [RecurringDonationID] = @RecurringDonationID
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created By: Ryan Morganti
+Date: 2020/04/29
+Comment: Stored Procedure for viewing recurring donations by user
+*/
+DROP PROCEDURE IF EXISTS [sp_select_recurring_donations_by_user]
+GO
+PRINT '' PRINT '*** creating stored procedure sp_select_recurring_donations_by_user'
+GO
+CREATE PROCEDURE [sp_select_recurring_donations_by_user]
+(
+	@UserName		[nvarchar](250)
+)
+AS
+BEGIN
+	SELECT [RecurringDonationID], [DonorID], [DonationAmount], [StartDate], [Interval],
+			[Active] 
+	FROM [RecurringDonationInfo]
+	WHERE [UserName] = @UserName
+END
+GO
+
+/*
+Created By: Ryan Morganti
+Date: 2020/04/29
+Comment: Stored Procedure for viewing a recurring donation by id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_recurring_donation_by_id]
+GO
+PRINT '' PRINT '*** creating stored procedure sp_select_recurring_donation_by_id'
+GO
+CREATE PROCEDURE [sp_select_recurring_donation_by_id]
+(
+	@RecurringDonationID		[int]
+)
+AS
+BEGIN
+	SELECT  [UserName], [DonorID], [DonationAmount], [StartDate], [Interval],
+			[Active] 
+	FROM [RecurringDonationInfo]
+	WHERE [RecurringDonationID] = @RecurringDonationID
+END
+GO
+
+
+
 /*
  ******************************* Inserting Sample Data *****************************
 */
@@ -14275,3 +14508,30 @@ INSERT INTO [dbo].[FosterAppointment]
 	(1000001, '12:00:00', '13:00:00', 'This is another description')
 GO
 -- End of file
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

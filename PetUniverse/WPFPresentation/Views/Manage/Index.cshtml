@@ -35,6 +35,10 @@
         <dd>
             [@Html.ActionLink("View Appointment Schedule", "CustomerAppointmentSchedule", "Adoption", new { email = User.Identity.Name }, null)]
         </dd>
+        <dt>Donations:</dt>
+        <dd>
+            [@Html.ActionLink("View Your Recurring Donations", "ActiveDonations", "Donations")]
+        </dd>
         <dt>External Logins:</dt>
         <dd>
             @Model.Logins.Count [
