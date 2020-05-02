@@ -231,6 +231,9 @@
     <Compile Include="PersonnelPages\frmConfirmNewSchedule.xaml.cs">
       <DependentUpon>frmConfirmNewSchedule.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonnelPages\frmEditShiftEmployee.xaml.cs">
+      <DependentUpon>frmEditShiftEmployee.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PersonnelPages\frmGetStartDate.xaml.cs">
       <DependentUpon>frmGetStartDate.xaml</DependentUpon>
     </Compile>
@@ -242,6 +245,9 @@
     </Compile>
     <Compile Include="PersonnelPages\pgSchedule.xaml.cs">
       <DependentUpon>pgSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonnelPages\pgSupervisorSchedule.xaml.cs">
+      <DependentUpon>pgSupervisorSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersonnelPages\ViewApplicants.xaml.cs">
       <DependentUpon>ViewApplicants.xaml</DependentUpon>
@@ -601,6 +607,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PersonnelPages\frmEditShiftEmployee.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PersonnelPages\frmGetStartDate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -616,6 +626,10 @@
     <Page Include="PersonnelPages\pgSchedule.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PersonnelPages\pgSupervisorSchedule.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PersonnelPages\ViewApplicants.xaml">
       <SubType>Designer</SubType>

@@ -11115,6 +11115,59 @@ END
 GO
 
 /*
+Created by: Chase Schulte
+Date: 04/26/2020
+Comment: pull up a list of shifts by the DepartmentID, ScheduleID, 
+*/
+DROP PROCEDURE IF EXISTS [sp_select_supervisor_shifts_by_schedule_department_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_supervisor_shifts_by_schedule_department_id'
+GO
+CREATE PROCEDURE [sp_select_supervisor_shifts_by_schedule_department_id]
+(	
+	@ScheduleID				[int],
+	@DepartmentID			[nvarchar](50)
+)
+AS
+BEGIN
+    SELECT 	[Date],[FirstName],[LastName],[StartTime],[EndTime],[ERoleID],[Shift].[ScheduleID],[Shift].[UserID],[ShiftID],[ShiftTime].[DepartmentID]
+    FROM 	[Shift]
+	join 	[ShiftTime] on [ShiftTime].[ShiftTimeID] = [Shift].[ShiftTimeID]	
+	join 	[User] 		on [User].[UserID]	=	[Shift].[UserID]
+	where 	[ShiftTime].[DepartmentID] = @DepartmentID
+	and 	[ScheduleID] = @ScheduleID
+END
+GO
+
+/*
+Created by: Chase Schulte
+Date: 04/26/2020
+Comment: pull up a list of shifts by the departmentID, ScheduleID, and Date 
+*/
+DROP PROCEDURE IF EXISTS [sp_select_supervisor_shifts_by_schedule_department_id_with_date]
+GO
+PRINT '' PRINT '*** Creating sp_select_supervisor_shifts_by_schedule_department_id_with_date'
+GO
+CREATE PROCEDURE [sp_select_supervisor_shifts_by_schedule_department_id_with_date]
+(	
+	
+	@Date					[Date],
+	@ScheduleID				[int],
+	@DepartmentID			[nvarchar](50)
+)
+AS
+BEGIN
+    SELECT 	[Date],[FirstName],[LastName],[StartTime],[EndTime],[ERoleID],[Shift].[ScheduleID],[Shift].[UserID],[ShiftID],[ShiftTime].[DepartmentID]
+    FROM 	[Shift]
+	join 	[ShiftTime] on [ShiftTime].[ShiftTimeID] = [Shift].[ShiftTimeID]	
+	join 	[User] 		on [User].[UserID]	=	[Shift].[UserID]
+	where 	[ShiftTime].[DepartmentID] = @DepartmentID
+	and 	[ScheduleID] = @ScheduleID
+	and 	[Date] = @Date
+END
+GO
+
+/*
 Created by: Kaleb Bachert
 Date: 4/15/2020
 Comment: Returns the current total hours for a User, for the week containing the specified date

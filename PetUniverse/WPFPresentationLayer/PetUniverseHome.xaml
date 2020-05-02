@@ -526,6 +526,9 @@
                 <TabItem x:Name="tabSchedule" Header="Schedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frSchedule"></Frame>
                 </TabItem>
+                <TabItem x:Name="tabSupervisorSchedule" Header="Supervisor Schedule" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frSupervisorSchedule" NavigationUIVisibility="Hidden"></Frame>
+                </TabItem>
 
                 <!-- Creator: Kaleb Bachert
                  Date: 2/23/2020

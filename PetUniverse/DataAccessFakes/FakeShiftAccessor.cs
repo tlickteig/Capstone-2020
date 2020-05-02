@@ -20,6 +20,7 @@ namespace DataAccessFakes
         List<ShiftDetailsVM> shiftDetailsVMs = null;
         List<Schedule> schedules = null;
         List<EmployeeAvailability> availability = null;
+        private List<ShiftUserVM> shiftUserVMs;
         List<ERole> eRoles = null;
         private List<ShiftVM> shiftVMs;
         private List<ScheduleWithHoursWorked> scheduleHours;
@@ -39,6 +40,29 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeShiftAccessor()
         {
+
+            shiftUserVMs = new List<ShiftUserVM>()
+            {
+                new ShiftUserVM()
+                {
+                    DateString = DateTime.Today.ToShortDateString(),
+                    EmployeeName = "Bob John",
+                    RoleID = "Role",
+                    EmployeeID = 1,
+                    ScheduleID = 1,
+                    ShiftID=  2
+                },
+                new ShiftUserVM()
+                {
+                    DateString = DateTime.Today.ToShortDateString(),
+                    EmployeeName = "Trapp Glasgow",
+                    RoleID = "Role",
+                    EmployeeID = 1,
+                    ScheduleID = 2,
+                    ShiftID = 1
+                }
+            };
+
             //Fake Data Shifttime
             shiftTimes = new List<PetUniverseShiftTime>()
             {
@@ -386,6 +410,60 @@ namespace DataAccessFakes
                 throw new Exception();
             }
 
+        }
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 4/26/2020
+        /// Approver:
+        /// 
+        /// method to test getting shifts by department, and schedule id
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="scheduleID"></param>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        public List<ShiftUserVM> SelectShiftsByScheduleAndDepartmentID(int scheduleID, string departmentID)
+        {
+            var shifts = shiftUserVMs.FindAll(sv => sv.ScheduleID == scheduleID);
+            //find department shift belongs to
+            if (shiftTimes.Find(st => st.DepartmentID == departmentID) != null)
+            {
+                return shifts;
+            }
+            return null;
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 4/26/2020
+        /// Approver:
+        /// 
+        /// method to test getting shifts by department, date, and schedule id
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="scheduleID"></param>
+        /// <param name="departmentID"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        public List<ShiftUserVM> SelectShiftsByScheduleAndDepartmentIDWithDate(int scheduleID, string departmentID, DateTime date)
+        {
+            var shifts = shiftUserVMs.FindAll(sv => sv.ScheduleID == scheduleID && sv.DateString == date.ToShortDateString());
+            //find department shift belongs to
+            if (shiftTimes.Find(st => st.DepartmentID == departmentID) != null)
+            {
+                return shifts;
+            }
+            return null;
         }
     }
 }
