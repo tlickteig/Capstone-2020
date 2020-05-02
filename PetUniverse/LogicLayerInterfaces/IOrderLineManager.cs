@@ -54,5 +54,52 @@ namespace LogicLayerInterfaces
         /// Update:
         /// </remarks>
         int UpdateOrderLine(OrderLine oldOrderLine, OrderLine newOrderLine);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/28
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        ///
+        /// Method to create an orderLine
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks
+        bool createOrderLine(OrderLine orderLine);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/28
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        ///
+        /// Method to delete an orderLine
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks
+        bool deleteOrderLine(OrderLine orderLine);
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/28
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        ///
+        /// Method to select all orderLines
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        List<OrderLine> selectAllOrderLines();
     }
 }

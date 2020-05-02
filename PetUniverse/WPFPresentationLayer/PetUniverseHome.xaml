@@ -147,6 +147,12 @@
                 <TabItem x:Name="tabViewShelterInventory" Header="View Shelter Inventory" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./InventoryPages/ViewShelterItems.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
+                <TabItem x:Name="tabViewShipper" Header="View Shippers" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./InventoryPages/ViewShipper.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="tabViewOrderLine" Header="View Order Lines" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./InventoryPages/ViewOrderLine.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
             </TabControl>
         </Canvas>
 

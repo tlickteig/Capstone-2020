@@ -111,6 +111,7 @@
     <Compile Include="ScheduleManager.cs" />
     <Compile Include="ShiftManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
+    <Compile Include="ShipperManager.cs" />
     <Compile Include="SpecialOrderItemLineManager.cs" />
     <Compile Include="SpecialOrderManager.cs" />
     <Compile Include="StatusManager.cs" />

@@ -110,6 +110,7 @@
     <Compile Include="FakeScheduleHoursAccessor.cs" />
     <Compile Include="FakeShiftAccessor.cs" />
     <Compile Include="FakeShiftTimeAccessor.cs" />
+    <Compile Include="FakeShipperAccessor.cs" />
     <Compile Include="FakeSpecialOrderAccessor.cs" />
     <Compile Include="FakeStatusAccessor.cs" />
     <Compile Include="FakeTrainingVideoAccessor.cs" />

@@ -115,6 +115,7 @@
     <Compile Include="ScheduleManagerTests.cs" />
     <Compile Include="ShiftManagerTests.cs" />
     <Compile Include="ShiftTimeManagerTests.cs" />
+    <Compile Include="ShipperManagerTests.cs" />
     <Compile Include="SpecialOrderManagerTests.cs" />
     <Compile Include="StatusManagerTests.cs" />
     <Compile Include="TrainingVideoTests.cs" />

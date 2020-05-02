@@ -109,6 +109,7 @@
     <Compile Include="IScheduleManager.cs" />
     <Compile Include="IShiftManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
+    <Compile Include="IShipperManager.cs" />
     <Compile Include="ISpecialOrderItemLineManager.cs" />
     <Compile Include="ISpecialOrderManager.cs" />
     <Compile Include="IStatusManager.cs" />

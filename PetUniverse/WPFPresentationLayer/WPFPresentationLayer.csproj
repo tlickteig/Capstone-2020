@@ -183,8 +183,14 @@
     <Compile Include="InventoryPages\AddItemReport.xaml.cs">
       <DependentUpon>AddItemReport.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\AddOrderLine.xaml.cs">
+      <DependentUpon>AddOrderLine.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\AddShelterItem.xaml.cs">
       <DependentUpon>AddShelterItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\AddShipper.xaml.cs">
+      <DependentUpon>AddShipper.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\AddVendor.xaml.cs">
       <DependentUpon>AddVendor.xaml</DependentUpon>
@@ -201,8 +207,14 @@
     <Compile Include="InventoryPages\ShelterInventory.xaml.cs">
       <DependentUpon>ShelterInventory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\UpdateOrderLine.xaml.cs">
+      <DependentUpon>UpdateOrderLine.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\UpdateShelterItem.xaml.cs">
       <DependentUpon>UpdateShelterItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\UpdateShipper.xaml.cs">
+      <DependentUpon>UpdateShipper.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\ViewAddOrder.xaml.cs">
       <DependentUpon>ViewAddOrder.xaml</DependentUpon>
@@ -216,11 +228,17 @@
     <Compile Include="InventoryPages\ViewOrderDetails.xaml.cs">
       <DependentUpon>ViewOrderDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="InventoryPages\ViewOrderLine.xaml.cs">
+      <DependentUpon>ViewOrderLine.xaml</DependentUpon>
+    </Compile>
     <Compile Include="InventoryPages\ViewOrders.xaml.cs">
       <DependentUpon>ViewOrders.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\ViewShelterItems.xaml.cs">
       <DependentUpon>ViewShelterItems.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryPages\ViewShipper.xaml.cs">
+      <DependentUpon>ViewShipper.xaml</DependentUpon>
     </Compile>
     <Compile Include="InventoryPages\ViewSpecialOrders.xaml.cs">
       <DependentUpon>ViewSpecialOrders.xaml</DependentUpon>
@@ -537,7 +555,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\AddOrderLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\AddShelterItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\AddShipper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -561,7 +587,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\UpdateOrderLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\UpdateShelterItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\UpdateShipper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -581,11 +615,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="InventoryPages\ViewOrderLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="InventoryPages\ViewOrders.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="InventoryPages\ViewShelterItems.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InventoryPages\ViewShipper.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

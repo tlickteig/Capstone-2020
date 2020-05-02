@@ -168,6 +168,7 @@
     <Compile Include="ShiftDetailsVM.cs" />
     <Compile Include="ShiftUserVM.cs" />
     <Compile Include="ShiftVM.cs" />
+    <Compile Include="Shipper.cs" />
     <Compile Include="SocialMediaRequest.cs" />
     <Compile Include="SpecialOrder.cs" />
     <Compile Include="SpecialOrderItemLine.cs" />

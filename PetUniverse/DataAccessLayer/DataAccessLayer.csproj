@@ -113,6 +113,7 @@
     <Compile Include="ScheduleHoursAccessor.cs" />
     <Compile Include="ShiftAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
+    <Compile Include="ShipperAccessor.cs" />
     <Compile Include="SpecialOrderAccessor.cs" />
     <Compile Include="SpecialOrderItemLIneAccessor.cs" />
     <Compile Include="StatusAccessor.cs" />

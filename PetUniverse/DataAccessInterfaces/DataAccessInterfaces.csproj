@@ -111,6 +111,7 @@
     <Compile Include="IScheduleHoursAccessor.cs" />
     <Compile Include="IShiftAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
+    <Compile Include="IShipperAccessor.cs" />
     <Compile Include="ISpecialOrderAccessor.cs" />
     <Compile Include="ISpecialOrderItemLineAccessor.cs" />
     <Compile Include="IStatusAccessor.cs" />
