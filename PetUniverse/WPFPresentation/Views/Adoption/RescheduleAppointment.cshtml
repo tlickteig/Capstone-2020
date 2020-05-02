@@ -40,14 +40,17 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Reschedule" class="btn btn-default" />
+                <input type="submit" value="Reschedule" class="btn btn-primary" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <div class="col-md-offset-2 col-md-10">
+        @Html.ActionLink("Back", "AppointmentDetails", new { id = Model.AppointmentID }, new { @class = "btn btn-primary" })
+    </div>
+    
 </div>
 
 @section Scripts {

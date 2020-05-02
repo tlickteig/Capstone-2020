@@ -26,7 +26,21 @@ namespace WPFPresentation.Controllers
             return View();
         }
 
-
+        /// <summary>
+        /// Creator: Steve Coonrod
+        /// Created: 2020/04/15
+        /// Approver: Matt Deaton
+        ///
+        /// ActionResult Method to display the FAQ list
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updator:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <returns></returns>
         public ActionResult DonationFAQ()
         {
             return View();

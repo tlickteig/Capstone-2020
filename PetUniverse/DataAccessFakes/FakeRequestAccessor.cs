@@ -731,5 +731,167 @@ namespace DataAccessFakes
             }
             throw new Exception();
         }
+
+
+        /// <summary>
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020-04-10
+        /// APPROVER: Matt Deaton
+        ///  
+        /// This is a fake accessor method for inserting a social media request
+        /// It returns a mock RequestID for the request if it passes the
+        /// validation on the title and description values, otherwise it
+        /// returns 0 for an unsuccessful insertion
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public int InsertSocialMediaRequest(SocialMediaRequest request)
+        {
+            if (request.Title.Trim().Length > 0 && request.Description.Trim().Length > 0)
+            {
+                return 1000014;
+            }
+            else
+            {
+                return 0;
+            }
+
+        }
+
+
+        private string department, subject, body;
+        private int requestID;
+        private string response;
+        private List<ViewResponds> viewResponds;
+
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to add a fake data to the request.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="department"></param>
+        /// </remarks>
+        /// 
+
+        public bool addNewRequestIsPosted(DepartmentRequest department)
+        {
+            bool result = true;
+            this.department = department.RequestID.ToString();
+            this.subject = department.Subject;
+            this.body = department.Body;
+            if ((null != this.department) && (null != this.subject) && (null != this.body))
+            {
+                result = true;
+            }
+            return result;
+        }
+
+        /// NAME: Hassan Karar
+        /// DATE:2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to send feke data for deleting a a reguest to logic layer test.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="requestID"></param>
+        /// </remarks>
+        /// 
+
+        public bool cancleRequest(int requestID)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        /// This method is to send feke data for submit a response and send it to logic layer test.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="requestID"></param>
+        /// <param name="text"></param>
+        /// /// <param name="userID"></param>
+        /// </remarks>
+        /// 
+
+
+        public bool insertRequestResponse(int requestID, string text, string userID)
+        {
+
+            this.requestID = requestID;
+            response = text;
+
+            bool result = false;
+
+            if (this.requestID != 0 && response != "")
+            {
+                result = true;
+            }
+
+            return result;
+
+        }
+
+
+        /// NAME: Hassan Karar
+        /// DATE: 2020/2/7
+        /// CHECKED BY: Derek Taylor
+        /// <summary>
+        ///  This method is sending feke list of reguesr responses to test it.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATE DATE:
+        /// WHAT WAS CHANGED:
+        /// <param name="ViewResponds"></param>
+        /// </remarks>
+        /// 
+        public List<ViewResponds> viewRequestRsponds()
+        {
+
+            return viewResponds;
+
+        }
+
+
+        ///
+        ///  CREATOR: Hassan Karar.
+        ///  CREATED: 2020/2/7
+        ///  APPROVER: 
+        ///   <summary>
+        ///   Method that retrieves all the Requests.
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// <param name=""></param>
+        /// </remarks>
+        public List<RequestVM> SelectAllRequests()
+        {
+            return (from r in requests select r).ToList();
+        }
     }
 }

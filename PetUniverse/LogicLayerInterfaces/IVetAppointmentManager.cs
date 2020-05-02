@@ -36,23 +36,6 @@ namespace LogicLayerInterfaces
         /// Approver: Carl Davis 2/14/2020
         /// Approver: Chuck Baxter 2/14/2020
         /// 
-        /// Retrieves active vet appointments
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        /// <param name="active">Active status</param>
-        /// <returns>List of animal vet appointments</returns>
-        List<AnimalVetAppointment> RetrieveVetAppointmentsByActive(bool active = true);
-
-        /// <summary>
-        /// Creator: Ethan Murphy
-        /// Created: 2/7/2020
-        /// Approver: Carl Davis 2/14/2020
-        /// Approver: Chuck Baxter 2/14/2020
-        /// 
         /// Retrieves vet appointments by an animals unique identifier
         /// </summary>
         /// <remarks>
@@ -201,5 +184,69 @@ namespace LogicLayerInterfaces
         /// <returns>Edit successful</returns>
         bool EditAnimalVetAppointmentRecord(AnimalVetAppointment oldVetAppointment,
             AnimalVetAppointment newVetAppointment);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/27/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Deletes an existing vet appointment record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="vetAppointment">Record to be deleted</param>
+        /// <returns>Delete successful</returns>
+        bool RemoveAnimalVetAppointment(AnimalVetAppointment vetAppointment);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Retrieves vet appointments by active status
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="active">Actie status</param>
+        /// <returns>List of vet appointments</returns>
+        List<AnimalVetAppointment> RetrieveVetAppointmentsByActive(bool active);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Activates an inactive vet appointment record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// /// <param name="vetAppointment">Record to be updated</param>
+        /// <returns>Update successful</returns>
+        bool ActivateVetAppointment(AnimalVetAppointment vetAppointment);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Deactivates an active vet appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="vetAppointment">Record to be updated</param>
+        /// <returns>Update successful</returns>
+        bool DeactivateVetAppointment(AnimalVetAppointment vetAppointment);
     }
 }

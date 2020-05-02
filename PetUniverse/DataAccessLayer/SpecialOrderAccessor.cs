@@ -111,6 +111,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@UserID", newOrder.UserID);
             cmd.Parameters.AddWithValue("@Active", newOrder.Active);
 
+            cmd.Parameters.AddWithValue("@OldSpecialOrderID", oldOrder.SpecialOrderID);
             cmd.Parameters.AddWithValue("@UserID", oldOrder.UserID);
             cmd.Parameters.AddWithValue("@OldActive", oldOrder.Active);
             try
@@ -118,9 +119,9 @@ namespace DataAccessLayer
                 conn.Open();
                 cmd.ExecuteScalar();
             }
-            catch (Exception)
+            catch (Exception ex )
             {
-                throw;
+                throw ex;
             }
             finally
             {
@@ -193,14 +194,15 @@ namespace DataAccessLayer
 
             var conn = DBConnection.GetConnection();
 
-            var cmdText = @"sp_delete_order_by_id";
+            var cmdText = @"sp_delete_special_order_by_id";
             var cmd = new SqlCommand(cmdText, conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
-            cmd.Parameters.AddWithValue("@OrderID", specialOrderID);
+            cmd.Parameters.AddWithValue("@SpecialOrderID", specialOrderID);
 
             try
             {
+                conn.Open();
                 cmd.ExecuteScalar();
             }
             catch (Exception)

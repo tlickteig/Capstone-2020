@@ -1,13 +1,9 @@
 ﻿@model DataTransferObjects.Animal
 
-@{
-    ViewBag.Title = "CustomerConfirmAdoptionApplication";
-}
-
-<h2>CustomerConfirmAdoptionApplication</h2>
+<br/>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>Animal</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -42,57 +38,9 @@
             @Html.DisplayFor(model => model.AnimalBreed)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ArrivalDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ArrivalDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CurrentlyHoused)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CurrentlyHoused)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Adoptable)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Adoptable)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfileDescription)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProfileDescription)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProfileImage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProfileImage)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Apply", "CustomerAdoptionApplicationConfirmed", new { email = User.Identity.Name, animalID = ViewBag.AnimalID })
-    @Html.ActionLink("Cancel", "Index")
+    @Html.ActionLink("Apply", "CustomerAdoptionApplicationConfirmed", new { email = User.Identity.Name, animalID = ViewBag.AnimalID }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-primary" })
 </p>

@@ -541,5 +541,17 @@ namespace LogicLayerTests
             Assert.AreEqual(expected, result);
 
         }
+
+        [TestMethod]
+        public void TestGetTransactionByEmail()
+        {
+            ITransactionManager transactionManager = new TransactionManager(_transactionAccessor);
+            int expected = 1;
+
+            var result = _transactionManager.GetTransactionsByCustomerEmail("test@test.com");
+
+            Assert.AreEqual(expected, result.Count);
+
+        }
     }
 }

@@ -39,10 +39,11 @@ namespace WPFPresentation.Migrations
 
             LogicLayer.UserManager usermgr = new LogicLayer.UserManager();
             LogicLayer.ERoleManager rolemgr = new LogicLayer.ERoleManager();
-            var roles = rolemgr.RetrieveAllERoles();            
+            var roles = rolemgr.RetrieveAllERoles();
             List<string> RoleNames = new List<string>();
 
-            foreach (var role in roles){
+            foreach (var role in roles)
+            {
                 RoleNames.Add(role.ERoleID);
             }
 

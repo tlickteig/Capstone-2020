@@ -217,5 +217,36 @@ namespace LogicLayerTests
 
             Assert.AreEqual(1, times.Count);
         }
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 04/23/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Test for selecting a Shift time by id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        [TestMethod]
+        public void TestSelectShiftTimesByID()
+        {
+            IShiftTimeManager shiftTimeManager = new ShiftTimeManager(_shiftTimeAccessor);
+            PetUniverseShiftTime time;
+
+            PetUniverseShiftTime target = new PetUniverseShiftTime()
+            {
+                ShiftTimeID = 100001,
+                DepartmentID = "Sales",
+                StartTime = "08:45:00",
+                EndTime = "5:45:00"
+            };
+
+            time = shiftTimeManager.RetrieveShiftTimeByID(100001);
+
+            Assert.AreEqual(target.ShiftTimeID, time.ShiftTimeID);
+        }
     }
 }

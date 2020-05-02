@@ -11,7 +11,7 @@
         xmlns:local="clr-namespace:WPFPresentationLayer"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
         mc:Ignorable="d" WindowStartupLocation="CenterScreen" 
-        Title="PetUniverse" Height="900" Width="1500" Background="#fff8e3" Loaded="Window_Loaded">
+        Title="PetUniverse" Height="900" Width="1500" Background="#fff8e3" Loaded="Window_Loaded" Closing="Window_Closing">
     <Grid MinHeight="4" Margin="0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -375,6 +375,12 @@
                     <Frame x:Name="frmFosterAppointments"
                            Source="./VolunteerPages/FosterAppointments.xaml" />
                 </TabItem>
+                <TabItem x:Name="TreatmentRecordControls"
+                         Header="Treatment Records" 
+                         FontWeight="Bold" 
+                         Background="#fff8e3">
+                    <Frame Source="./VolunteerPages/TreatmentRecordControls.xaml"></Frame>
+                </TabItem>
             </TabControl>
         </Canvas>
 
@@ -428,21 +434,21 @@
              CHANGE: NA -->
         <Canvas x:Name="canAdoptions" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetAdoptions" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabAnimals" Header="Animals records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./AdoptionPages/AnimalsRecords.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
+                <TabItem x:Name="tabAnimals" Header="Animal records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/AnimalsRecords.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <TabItem x:Name="tabViewAdoption" Header="View Adoptions" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AdoptionApplications.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
                 </TabItem>
-                <TabItem x:Name="tabViewInterviewer" Header="Interviewer" FontWeight="Bold" Background="#fff8e3">
+                <!--<TabItem x:Name="tabViewInterviewer" Header="Interviewer" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/InterviewerPage.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
-                </TabItem>
-                <TabItem x:Name="tabviewHomeInspector" Header="Home Inspection" FontWeight="Bold" Background="#fff8e3">
+                </TabItem>-->
+                <TabItem x:Name="tabviewHomeInspector" Header="Inspections" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/frmHomeInspectionForm.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="AppointmentSchedule" Header="Appointment Schedule" FontWeight="Bold" Background="#fff8e3">
+                <!--<TabItem x:Name="AppointmentSchedule" Header="Appointment Schedule" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AppointmentSchedule.xaml" NavigationUIVisibility="Hidden"/>
-                </TabItem>
+                </TabItem>-->
                 <TabItem x:Name="InHomeInspector" Header="Inspection Decision" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/frmInHomeInspectorDecision.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
@@ -452,10 +458,10 @@
                 <TabItem x:Name="tabMeetAndGreets" Header="Meet And Greets" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgMeetAndGreets.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabViewAdoptionProfiles" Header="View Profiles" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewAdoptionProfiles" Header="Pet Profiles" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionsAnimalProfile.xaml" ></Frame>
                 </TabItem>
-                <TabItem x:Name="tabInterviewer" Header="Interviewer Note" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabInterviewer" Header="Interviewer Notes" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionInterviewer.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <TabItem x:Name="tabAdoptionAnimals" Header="Adoption Animals" FontWeight="Bold" Background="#fff8e3">
@@ -481,6 +487,12 @@
                 </TabItem>
                 <TabItem x:Name="tabViewEventManagement" Header="Events" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="fEventMgmt" Source="./RecruitingPages/EventMgmt.xaml" NavigationUIVisibility="Hidden"></Frame>
+                </TabItem>
+				<TabItem x:Name="tabSocialMediaRequest" Header="Request Social Media Post" FontWeight="Bold" Background="#fff8e3">
+					<Frame x:Name="frRequestSocialMedia" Source="./RecruitingPages/SocialMediaRequestForm.xaml" NavigationUIVisibility="Hidden"/>
+				</TabItem>
+                <TabItem x:Name="tabCreateNewRequest" Header="Requests" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="newRequest" Source="./RecruitingPages/CreatNewRequest.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -510,6 +522,9 @@
                 </TabItem>
                 <TabItem x:Name="tabBaseSchedule" Header="Base Schedule" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frBaseSchedule" NavigationUIVisibility="Hidden"></Frame>
+                </TabItem>
+                <TabItem x:Name="tabSchedule" Header="Schedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frSchedule"></Frame>
                 </TabItem>
 
                 <!-- Creator: Kaleb Bachert

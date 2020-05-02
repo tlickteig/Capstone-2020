@@ -12,16 +12,20 @@ namespace WPFPresentationLayer.RecruitingPages
     /// <summary>
     /// Interaction logic for CreateEventForm.xaml
     /// 
-    /// Name: Steve Coonrod, Matt Deaton
-    /// Date: 2\08\2020
-    /// Checked By:
+    /// CREATORS: Steve Coonrod, Matt Deaton
+    /// CREATED: 2\08\2020
+    /// APPROVER: Ryan Morganti
     /// 
     /// This is the page for Creating and Editing an Event (UC-606, UC-633, UC-607)
     /// 
-    /// Updated By:     
-    /// Date Updated: 
-    /// 
     /// </summary>
+    /// <remarks>
+    /// 
+    /// UPDATER: NA
+    /// UPDATED: NA
+    /// UPDATE: NA
+    /// 
+    /// </remarks>
     public partial class CreateEventForm : Page
     {
 
@@ -34,15 +38,19 @@ namespace WPFPresentationLayer.RecruitingPages
         /// <summary>
         /// 
         /// Name: Steve Coonrod
-        /// Date: 2\08\2020
-        /// Checked By:
+        /// CREATED 2\08\2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// An Enum for event status options. Could be moved to utility class
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private enum statusOptions
         {
             PendingApproval,
@@ -61,19 +69,23 @@ namespace WPFPresentationLayer.RecruitingPages
 
 
         /// <summary>
-        /// Created By: Steve Coonrod, Matt Deaton
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod, Matt Deaton
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// Constructor for Creating New Events. (UC-606 and UC-633)
         /// Must base functionality on user's role. Donation Coordinator(DC) vs all other roles
         /// Takes in the eventManager interface and user object involved.
         /// Keeps Edit Mode false
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         public CreateEventForm(IPUEventManager eventManager, PetUniverseUser user, EventMgmt eventMgmt)
         {
             _eventManager = eventManager;
@@ -85,19 +97,23 @@ namespace WPFPresentationLayer.RecruitingPages
 
 
         /// <summary>
-        /// Created By: Steve Coonrod, Matt Deaton
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod, Matt Deaton
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// Constructor for Editing Events. (UC-607)
         /// Must base functionality on user's role
         /// Takes in an existing Event, as well as the eventManager interface and user object involved
         /// Sets the Edit Mode to true
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         public CreateEventForm(IPUEventManager eventManager, PetUniverseUser user, EventMgmt eventMgmt, PUEvent puEvent)
         {
             _eventManager = eventManager;
@@ -109,16 +125,20 @@ namespace WPFPresentationLayer.RecruitingPages
         }
 
         /// <summary>
-        /// Created By: Steve Coonrod, Matt Deaton
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod, Matt Deaton
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// Main Click Event to submit an Event. Submits Form Data for processing.
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void BtnSubmitCreate_Click(object sender, RoutedEventArgs e)
         {
             int eventID;//Will be returned with the Event
@@ -227,16 +247,20 @@ namespace WPFPresentationLayer.RecruitingPages
         }//End Submit click event
 
         /// <summary>
-        /// Created By: Steve Coonrod
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// Edit Event Click Event. Submits Form Data for processing.
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void BtnSubmitEdit_Click(object sender, RoutedEventArgs e)
         {
             //This method will validate the field data and return the values in a string array
@@ -295,18 +319,22 @@ namespace WPFPresentationLayer.RecruitingPages
 
 
         /// <summary>
-        /// Created By: Steve Coonrod
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// Validation Method to validate all form data
         /// If all fields are valid, returns a string array with the validated field values
         /// else, it returns a null array which needs to be checked at its point of return
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private string[] validateFormData()
         {
             string[] fieldEntries = new string[12];//To be passed back to the submission method
@@ -502,17 +530,21 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod, Matt Deaton
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod, Matt Deaton
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// Cancel form event handler. Prompts the user to confirm cancellation. 
         /// If yes, sets the dialog result for the form to false
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult cancel = MessageBox.Show
@@ -526,17 +558,21 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// A helper method to close the page
         /// Useful if anything else is needed on the pages close
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void CloseThisPage()
         {
             this.Visibility = Visibility.Hidden;
@@ -544,17 +580,21 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Created By: Steve Coonrod, Matt Deaton
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod, Matt Deaton
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is the event handler for the page's load event
         /// This is where the page is set up based on the Edit/Create Mode
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -647,14 +687,16 @@ namespace WPFPresentationLayer.RecruitingPages
                     txtCity.Text = _event.City;
                     txtZip.Text = _event.Zipcode;
                     txtPictureFileName.Text = _event.BannerPath;
+
                     try
                     {
-                        picEventPicture.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory
-                            + "\\Images\\" + _event.BannerPath, UriKind.Absolute));
+                        Uri uri = new Uri(System.AppDomain.CurrentDomain.BaseDirectory
+                            + @"..\..\images\" + _event.BannerPath, UriKind.RelativeOrAbsolute);
+                        picEventPicture.Source = new BitmapImage(uri);
                     }
                     catch (Exception ex)
                     {
-
+                        //Will leave image unloaded
                     }
 
                     txtDescription.Text = _event.Description;
@@ -681,12 +723,13 @@ namespace WPFPresentationLayer.RecruitingPages
                     txtPictureFileName.Text = "default.png";
                     try
                     {
-                        picEventPicture.Source = new BitmapImage(new Uri(System.AppDomain.CurrentDomain.BaseDirectory
-                        + "\\Images\\default.png", UriKind.RelativeOrAbsolute));
+                        Uri uri = new Uri(System.AppDomain.CurrentDomain.BaseDirectory
+                            + @"..\..\images\default.png", UriKind.RelativeOrAbsolute);
+                        picEventPicture.Source = new BitmapImage(uri);
                     }
-                    catch (Exception ex)
+                    catch
                     {
-
+                        //Will leave image unloaded
                     }
 
                     txtDescription.Text = "";
@@ -697,16 +740,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
 
         /// <summary>
-        /// Created By: Steve Coonrod, Matt Deaton
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod, Matt Deaton
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is a helper method to set the form combo box values
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void setFormCboItems()
         {
             //Set cboEventType Items
@@ -748,16 +795,20 @@ namespace WPFPresentationLayer.RecruitingPages
         }
 
         /// <summary>
-        /// Created By: Steve Coonrod, Matt Deaton
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod, Matt Deaton
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// simple event handler for the calendar
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime selectedDate = calendar.SelectedDate.Value;
@@ -766,16 +817,20 @@ namespace WPFPresentationLayer.RecruitingPages
         }
 
         /// <summary>
-        /// Created By: Steve Coonrod, Matt Deaton
-        /// Date: 2/10/2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod, Matt Deaton
+        /// CREATED 2/10/2020
+        /// APPROVER: Ryan Morganti
         /// 
         /// The event handler for the choose picture file name button
         /// 
-        /// Updated By:
-        /// Updated On:
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void btnChoosePicture_Click(object sender, RoutedEventArgs e)
         {
             // Create OpenFileDialog

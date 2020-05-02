@@ -110,7 +110,7 @@ namespace DataAccessFakes
                     Email = "j.doe@RandoGuy.com",
                     FirstName = "John",
                     LastName = "Doe",
-                    PhoneNumber = "5632102101",                    
+                    PhoneNumber = "5632102101",
                     Active = true,
                     City = "Cedar Rapids",
                     State = "IA",
@@ -123,7 +123,12 @@ namespace DataAccessFakes
                 throw new ApplicationException("Invalid User");
             }
         }
-    
+
+        public bool InsertNewCustomer(Customer customer)
+        {
+            return true;
+        }
+
 
         /// <summary>
         /// Creator: Mohamed Elamin

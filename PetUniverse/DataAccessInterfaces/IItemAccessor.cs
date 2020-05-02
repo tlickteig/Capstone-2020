@@ -199,5 +199,21 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <param name="item"></param>
         int reactivateItem(Item item);
+        /// <summary>
+        /// Creator: Jesse Tomash
+        /// Created: 4/27/2020
+        /// Approver: 
+        /// Approver: 
+        ///
+        /// Interface method to select item by id
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        Item SelectItemByItemID(int itemID);
     }
 }

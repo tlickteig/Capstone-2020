@@ -356,6 +356,17 @@ namespace LogicLayer
             {
                 user = _userAccessor.getUserByEmail(email);
             }
+            catch (ApplicationException ax)
+            {
+                if (ax.Message == "User not found.")
+                {
+                    return null;
+                }
+                else
+                {
+                    throw;
+                }
+            }
             catch (Exception ex)
             {
                 throw new ApplicationException("No user found", ex);
@@ -669,5 +680,70 @@ namespace LogicLayer
             return updated;
         }
 
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called for the Setting security info
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="Q1"></param>
+        /// <param name="Q2"></param>
+        /// <param name="A1"></param>
+        /// <param name="A2"></param>
+        /// <returns></returns>
+        public bool UpdateSecurityInfo(int userID, string Q1, string Q2, string A1, string A2)
+        {
+            bool updated = false;
+
+            try
+            {
+               updated = _userAccessor.UpdateSecurityInfo(userID, Q1, Q2, A1, A2);
+            }
+            catch(Exception ex)
+            {
+                throw new ApplicationException("Password update failed.", ex);
+            }
+            return updated;            
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called for updating the password after getting the security questions right
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
+        public bool UpdatePasswordHashBySecurity(int userID, string newPasswordHash)
+        {
+            bool updated = false;
+
+            string newpassword = hashPassword(newPasswordHash);
+
+            try
+            {
+                updated = _userAccessor.UpdatePasswordHashBySecurity(userID, newpassword);
+                    
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Password update failed.", ex);
+            }
+            return updated;
+        }
     }
 }

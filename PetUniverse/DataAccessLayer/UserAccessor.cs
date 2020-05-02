@@ -242,6 +242,10 @@ namespace DataAccessLayer
                     user.FirstName = reader1.GetString(1);
                     user.LastName = reader1.GetString(2);
                     user.PhoneNumber = reader1.GetString(3);
+                    user.SecurityQuestion1 = reader1.IsDBNull(4) ? null : reader1.GetString(4);
+                    user.SecurityQuestion2 = reader1.IsDBNull(5) ? null : reader1.GetString(5);
+                    user.SecurityAnswer1 = reader1.IsDBNull(6) ? null : reader1.GetString(6);
+                    user.SecurityAnswer2 = reader1.IsDBNull(7) ? null : reader1.GetString(7);
                     user.Email = email;
                 }
                 else
@@ -757,21 +761,21 @@ namespace DataAccessLayer
         public bool UpdatePasswordHash(int userID, string oldPasswordHash, string newPasswordHash)
         {
             bool succesfulUpdate = false;
-            var dexConn = DBConnection.GetConnection();
-            var dexCmd = new SqlCommand("sp_update_user_password");
-            dexCmd.Connection = dexConn;
-            dexCmd.CommandType = CommandType.StoredProcedure;
-            dexCmd.Parameters.Add("@UserID", SqlDbType.Int);
-            dexCmd.Parameters.Add("@OldPasswordHash", SqlDbType.NVarChar, 100);
-            dexCmd.Parameters.Add("@NewPasswordHash", SqlDbType.NVarChar, 100);
+            var Conn = DBConnection.GetConnection();
+            var Cmd = new SqlCommand("sp_update_user_password");
+            Cmd.Connection = Conn;
+            Cmd.CommandType = CommandType.StoredProcedure;
+            Cmd.Parameters.Add("@UserID", SqlDbType.Int);
+            Cmd.Parameters.Add("@OldPasswordHash", SqlDbType.NVarChar, 100);
+            Cmd.Parameters.Add("@NewPasswordHash", SqlDbType.NVarChar, 100);
 
-            dexCmd.Parameters["@UserID"].Value = userID;
-            dexCmd.Parameters["@OldPasswordHash"].Value = oldPasswordHash;
-            dexCmd.Parameters["@NewPasswordHash"].Value = newPasswordHash;
+            Cmd.Parameters["@UserID"].Value = userID;
+            Cmd.Parameters["@OldPasswordHash"].Value = oldPasswordHash;
+            Cmd.Parameters["@NewPasswordHash"].Value = newPasswordHash;
             try
             {
-                dexConn.Open();
-                int rows = dexCmd.ExecuteNonQuery();
+                Conn.Open();
+                int rows = Cmd.ExecuteNonQuery();
                 succesfulUpdate = (rows == 1);
             }
             catch (Exception ex)
@@ -780,7 +784,105 @@ namespace DataAccessLayer
             }
             finally
             {
-                dexConn.Close();
+                Conn.Close();
+            }
+            return succesfulUpdate;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called for the Setting security info
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="Q1"></param>
+        /// <param name="Q2"></param>
+        /// <param name="A1"></param>
+        /// <param name="A2"></param>
+        /// <returns></returns>
+        public bool UpdateSecurityInfo(int userID, string Q1, string Q2, string A1, string A2)
+        {
+            bool succesfulUpdate = false;
+            var Conn = DBConnection.GetConnection();
+            var Cmd = new SqlCommand("sp_update_security_qna");
+            Cmd.Connection = Conn;
+            Cmd.CommandType = CommandType.StoredProcedure;
+            Cmd.Parameters.Add("@UserID", SqlDbType.Int);
+            Cmd.Parameters.Add("@Answer1", SqlDbType.NVarChar, 100);
+            Cmd.Parameters.Add("@Answer2", SqlDbType.NVarChar, 100);
+            Cmd.Parameters.Add("@Question1", SqlDbType.NVarChar, 100);
+            Cmd.Parameters.Add("@Question2", SqlDbType.NVarChar, 100);
+
+            Cmd.Parameters["@UserId"].Value = userID;
+            Cmd.Parameters["@Answer1"].Value = A1;
+            Cmd.Parameters["@Answer2"].Value = A2;
+            Cmd.Parameters["@Question1"].Value = Q1;
+            Cmd.Parameters["@Question2"].Value = Q2;
+
+            try
+            {
+                Conn.Open();
+                int rows = Cmd.ExecuteNonQuery();
+                succesfulUpdate = (rows == 1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Conn.Close();
+            }
+            return succesfulUpdate;
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// This fake method is called for updating the password after getting the security questions right
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="userID"></param>
+        /// <param name="newPasswordHash"></param>
+        /// <returns></returns>
+        public bool UpdatePasswordHashBySecurity(int userID, string newPasswordHash)
+        {
+            bool succesfulUpdate = false;
+            var Conn = DBConnection.GetConnection();
+            var Cmd = new SqlCommand("sp_update_password_by_security");
+            Cmd.Connection = Conn;
+            Cmd.CommandType = CommandType.StoredProcedure;
+            Cmd.Parameters.Add("@UserID", SqlDbType.Int);            
+            Cmd.Parameters.Add("@NewPasswordHash", SqlDbType.NVarChar, 100);
+
+            Cmd.Parameters["@UserID"].Value = userID;            
+            Cmd.Parameters["@NewPasswordHash"].Value = newPasswordHash;
+            try
+            {
+                Conn.Open();
+                int rows = Cmd.ExecuteNonQuery();
+                succesfulUpdate = (rows == 1);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                Conn.Close();
             }
             return succesfulUpdate;
         }

@@ -91,5 +91,43 @@ namespace DataAccessInterfaces
         /// </remarks>
         /// <returns></returns>
         List<string> SelectAllProductTypeIDs();
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Interface for a method to supply a single product.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        Product SelectProductByID(string productID);
+        
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Interface for a method to deactivate a product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        int DeactivateProduct(string productID);
+
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Interface for a method to activate a product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        int ActivateProduct(string productID);
     }
 }

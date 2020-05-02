@@ -92,6 +92,7 @@
     <Compile Include="MedicineManager.cs" />
     <Compile Include="MessagesManager.cs" />
     <Compile Include="NewAnimalChecklistManager.cs" />
+    <Compile Include="OrderItemLineManager.cs" />
     <Compile Include="OrderLineManager.cs" />
     <Compile Include="OrderManager.cs" />
     <Compile Include="PetUniverseUserERolesManager.cs" />
@@ -106,13 +107,17 @@
     <Compile Include="ReviewerManager.cs" />
     <Compile Include="SalesDataManager.cs" />
     <Compile Include="SalesTaxManager.cs" />
+    <Compile Include="ScheduleHoursManager.cs" />
+    <Compile Include="ScheduleManager.cs" />
     <Compile Include="ShiftManager.cs" />
     <Compile Include="ShiftTimeManager.cs" />
+    <Compile Include="SpecialOrderItemLineManager.cs" />
     <Compile Include="SpecialOrderManager.cs" />
     <Compile Include="StatusManager.cs" />
     <Compile Include="TrainingVideoManager.cs" />
     <Compile Include="TransactionAdminManager.cs" />
     <Compile Include="TransactionManager.cs" />
+    <Compile Include="TreatmentRecordManager.cs" />
     <Compile Include="UserManager.cs" />
     <Compile Include="VendorManager.cs" />
     <Compile Include="VetAppointmentManager.cs" />

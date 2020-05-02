@@ -66,15 +66,7 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void DgAppointments_Loaded(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                _vetAppointments = _vetAppointmentManager.RetrieveAllVetAppointments();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
-            }
-            dgAppointments.ItemsSource = _vetAppointments;
+            RefreshList();
         }
 
         /// <summary>
@@ -110,6 +102,7 @@ namespace WPFPresentationLayer.AMPages
             canViewVetAppointmentFilter.Visibility = Visibility.Visible;
             cboDateTime.ItemsSource = times;
             cboFollowUpTime.ItemsSource = times;
+            GetFilteredResultsCount(null, null);
         }
 
         /// <summary>
@@ -173,6 +166,7 @@ namespace WPFPresentationLayer.AMPages
             txtClinicAddress.Text = vetAppointment.ClinicAddress;
             txtVetName.Text = vetAppointment.VetName;
             txtDescription.Text = vetAppointment.AppointmentDescription;
+            chkSetActive.IsChecked = vetAppointment.Active;
             if (vetAppointment.FollowUpDateTime != null)
             {
                 dateFollowUp.SelectedDate = vetAppointment.FollowUpDateTime;
@@ -298,6 +292,8 @@ namespace WPFPresentationLayer.AMPages
             dateAppointmentDate.DisplayDateStart = DateTime.Now;
             dateFollowUp.DisplayDateStart = DateTime.Now.AddDays(1);
             btnSaveEdit.Content = "Save";
+            btnDelete.Visibility = Visibility.Visible;
+            chkSetActive.IsEnabled = true;
         }
 
         /// <summary>
@@ -321,6 +317,8 @@ namespace WPFPresentationLayer.AMPages
             dateFollowUp.IsEnabled = false;
             txtFollowUpTime.IsEnabled = false;
             btnClearFollowUp.Visibility = Visibility.Hidden;
+            btnDelete.Visibility = Visibility.Hidden;
+            chkSetActive.IsEnabled = false;
         }
 
         /// <summary>
@@ -339,7 +337,15 @@ namespace WPFPresentationLayer.AMPages
         private void RefreshList()
         {
             dgAppointments.ItemsSource = null;
-            DgAppointments_Loaded(null, null);
+            try
+            {
+                _vetAppointments = _vetAppointmentManager.RetrieveVetAppointmentsByActive((bool)chkActive.IsChecked);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + " " + ex.InnerException.Message);
+            }
+            dgAppointments.ItemsSource = _vetAppointments;
         }
 
         /// <summary>
@@ -360,6 +366,7 @@ namespace WPFPresentationLayer.AMPages
             canViewVetAppointment.Visibility = Visibility.Hidden;
             DisableEditMode();
             ClearFields();
+            RefreshList();
         }
 
         /// <summary>
@@ -641,6 +648,16 @@ namespace WPFPresentationLayer.AMPages
         {
             List<AnimalVetAppointment> filteredList = _vetAppointments;
 
+            try
+            {
+                filteredList =
+                    _vetAppointmentManager.RetrieveVetAppointmentsByActive((bool)chkActive.IsChecked);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to filter by active: " + ex.InnerException.Message);
+            }
+
             if ((bool)chkAnimalName.IsChecked)
             {
                 try
@@ -817,6 +834,9 @@ namespace WPFPresentationLayer.AMPages
                     chkVetname.IsChecked = true;
                     chkVetname.IsEnabled = true;
                     break;
+                case "chkSetActive":
+                    GetFilteredResultsCount(null, null);
+                    break;
             }
         }
 
@@ -887,6 +907,125 @@ namespace WPFPresentationLayer.AMPages
                 CheckBox chk = new CheckBox();
                 chk.Name = id;
                 DisableFilter(chk, null);
+            }
+            chkActive.IsChecked = true;
+            GetFilteredResultsCount(null, null);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/27/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Button click event to delete vet appointment record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            AnimalVetAppointment appointment = (AnimalVetAppointment)dgAppointments.SelectedItem;
+            if (appointment == null)
+            {
+                return;
+            }
+            string message = "Are you sure you want to delete the vet appointment record for " +
+                appointment.AnimalName + " on " + appointment.AppointmentDateTime.ToShortDateString() +
+                "? If you're unsure please deactivate the record instead, as deletions can't be undone!";
+            if (MessageBox.Show(message, "Confirm Delete", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    if (_vetAppointmentManager.RemoveAnimalVetAppointment(appointment))
+                    {
+                        MessageBox.Show("Record deleted!");
+                        BtnClose_Click(null, null);
+                        RefreshList();
+                        DisableEditMode();
+                    }
+                    else
+                    {
+                        throw new ApplicationException("Delete failed");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string error = ex.InnerException == null ? ex.Message :
+                        ex.Message + "\n\n" + ex.InnerException.Message;
+                    MessageBox.Show(error);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Click event to switch record between active/inactive
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void chkSetActive_Click(object sender, RoutedEventArgs e)
+        {
+            string message = "Are you sure you want to " +
+                ((bool)chkSetActive.IsChecked ? "activate" : "deactivate") +
+                " this record?";
+            if (MessageBox.Show(message, "Confirm", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                if ((bool)chkSetActive.IsChecked)
+                {
+                    try
+                    {
+                        if (_vetAppointmentManager.ActivateVetAppointment(
+                            (AnimalVetAppointment)dgAppointments.SelectedItem))
+                        {
+                            MessageBox.Show("Record activated");
+                            DisableEditMode();
+                            PopulateFields((AnimalVetAppointment)dgAppointments.SelectedItem);
+                            chkSetActive.IsChecked = true;
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Record not found");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        string error = ex.InnerException == null ? ex.Message :
+                            ex.Message + "\n\n" + ex.InnerException.Message;
+                        MessageBox.Show(error);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        if (_vetAppointmentManager.DeactivateVetAppointment(
+                            (AnimalVetAppointment)dgAppointments.SelectedItem))
+                        {
+                            MessageBox.Show("Record deactivated");
+                            DisableEditMode();
+                            PopulateFields((AnimalVetAppointment)dgAppointments.SelectedItem);
+                            chkSetActive.IsChecked = false;
+                        }
+                        else
+                        {
+                            throw new ApplicationException("Record not found");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        string error = ex.InnerException == null ? ex.Message :
+                            ex.Message + "\n\n" + ex.InnerException.Message;
+                        MessageBox.Show(error);
+                    }
+                }
             }
         }
     }

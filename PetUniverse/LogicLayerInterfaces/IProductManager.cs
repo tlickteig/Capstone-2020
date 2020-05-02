@@ -10,6 +10,11 @@ namespace LogicLayerInterfaces
     /// 
     /// Interface for product manager logic layer class to facilitate loose coupling.
     /// </summary>
+    /// <remarks>
+    /// Updater: Robert Holmes
+    /// Updated: 04/29/2020
+    /// Update: Added method signatures.
+    /// </remarks>
     public interface IProductManager
     {
         /// <summary>
@@ -87,5 +92,42 @@ namespace LogicLayerInterfaces
         /// 
         /// </remarks>
         List<string> RetrieveAllProductTypeIDs();
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Interface for a method to retrieve a single product based on the supplied productID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        Product RetrieveProductByID(string productID);
+        
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// An interface for a mehtod to deactivate a product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        bool DeactivateProduct(string productID);
+
+         /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// An interface for a mehtod to activate a product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        bool ActivateProduct(string productID);
     }
 }

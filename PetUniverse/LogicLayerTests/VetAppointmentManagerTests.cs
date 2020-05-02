@@ -77,33 +77,6 @@ namespace LogicLayerTests
         /// Approver: Carl Davis 2/14/2020
         /// Approver: Chuck Baxter 2/14/2020
         /// 
-        /// Tests retrieving active vet appointments
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        [TestMethod]
-        public void TestVetAppointmentsManagerRetrieveActiveAppointments()
-        {
-            // Arrage
-            List<AnimalVetAppointment> vetAppointments;
-            IVetAppointmentManager vetAppointmentManager = new VetAppointmentManager(_vetAppointmentAccessor, _vetAppointments);
-
-            // Act
-            vetAppointments = vetAppointmentManager.RetrieveVetAppointmentsByActive();
-
-            // Assert
-            Assert.AreEqual(2, vetAppointments.Count);
-        }
-
-        /// <summary>
-        /// Creator: Ethan Murphy
-        /// Created: 2/7/2020
-        /// Approver: Carl Davis 2/14/2020
-        /// Approver: Chuck Baxter 2/14/2020
-        /// 
         /// Tests retrieving inactive vet appointment records
         /// </summary>
         /// <remarks>
@@ -460,6 +433,175 @@ namespace LogicLayerTests
 
             // Assert
             Assert.AreEqual(1, vetAppointments.Count);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/27/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Tests deleting a valid appointment record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeletingValidAppointmentRecord()
+        {
+            // Arrange
+            bool result = false;
+            IVetAppointmentManager manager =
+                new VetAppointmentManager(_vetAppointmentAccessor);
+            AnimalVetAppointment vetAppointment = new AnimalVetAppointment()
+            {
+                VetAppointmentID = 1,
+                AnimalID = 1,
+                UserID = 10000,
+                AppointmentDateTime = DateTime.Now,
+                AppointmentDescription = "test",
+                ClinicAddress = "test",
+                VetName = "test"
+            };
+
+            // Act
+            manager.AddAnimalVetAppointmentRecord(vetAppointment);
+            result = manager.RemoveAnimalVetAppointment(vetAppointment);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/27/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Tests deleting an invalid appointment record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeletingInValidAppointmentRecord()
+        {
+            // Arrange
+            bool result = false;
+            IVetAppointmentManager manager =
+                new VetAppointmentManager(_vetAppointmentAccessor);
+            AnimalVetAppointment vetAppointment = new AnimalVetAppointment()
+            {
+                VetAppointmentID = 1,
+                AnimalID = 1,
+                UserID = 10000,
+                AppointmentDateTime = DateTime.Now,
+                AppointmentDescription = "test",
+                ClinicAddress = "test",
+                VetName = "test"
+            };
+
+            // Act
+            result = manager.RemoveAnimalVetAppointment(vetAppointment);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Tests selecting vet records by active status
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestSelectVetAppointmentsByActive()
+        {
+            // Arrange
+            List<AnimalVetAppointment> activeList;
+            List<AnimalVetAppointment> inactiveList;
+            IVetAppointmentManager manager =
+                new VetAppointmentManager(_vetAppointmentAccessor);
+
+            // Act
+            activeList = manager.RetrieveVetAppointmentsByActive(true);
+            inactiveList = manager.RetrieveVetAppointmentsByActive(false);
+
+            // Assert
+            Assert.AreEqual(2, activeList.Count);
+            Assert.AreEqual(1, inactiveList.Count);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Tests deactivating record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeactivatingRecord()
+        {
+            // Arrange
+            bool result = false;
+            IVetAppointmentManager manager =
+                new VetAppointmentManager(_vetAppointmentAccessor);
+            AnimalVetAppointment vetAppointment = new AnimalVetAppointment()
+            {
+                VetAppointmentID = 1,
+                Active = true
+            };
+
+            // Act
+            result = manager.DeactivateVetAppointment(vetAppointment);
+
+            // Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/28/2020
+        /// Approver: Carl Davis 4/30/2020
+        /// 
+        /// Tests activating a vet record
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestActivatingRecord()
+        {
+            // Arrange
+            bool result = false;
+            IVetAppointmentManager manager =
+                new VetAppointmentManager(_vetAppointmentAccessor);
+            AnimalVetAppointment vetAppointment = new AnimalVetAppointment()
+            {
+                VetAppointmentID = 1,
+                Active = false
+            };
+
+            // Act
+            result = manager.ActivateVetAppointment(vetAppointment);
+
+            // Assert
+            Assert.IsTrue(result);
         }
     }
 }

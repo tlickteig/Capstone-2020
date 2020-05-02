@@ -20,7 +20,7 @@ namespace WPFPresentationLayer.VolunteerPages
     /// </remarks>
     public partial class PrintVolunteerShifts : Page
     {
-        private VolunteerShift _shiftBeingEdited = null;
+        private VolunteerShiftVM _shiftBeingEdited = null;
 
         VolunteerShiftManager manager = new VolunteerShiftManager();
 
@@ -45,9 +45,9 @@ namespace WPFPresentationLayer.VolunteerPages
         /// </summary>
         private void DgShiftList_BeginningEdit(object sender, DataGridBeginningEditEventArgs e)
         {
-            if (((VolunteerShift)dgShiftList.Items[dgShiftList.SelectedIndex]).VolunteerShiftID != 0)
+            if (((VolunteerShiftVM)dgShiftList.Items[dgShiftList.SelectedIndex]).VolunteerShiftID != 0)
             {
-                _shiftBeingEdited = (VolunteerShift)dgShiftList.Items[dgShiftList.SelectedIndex];
+                _shiftBeingEdited = (VolunteerShiftVM)dgShiftList.Items[dgShiftList.SelectedIndex];
             }
         }
 
@@ -63,7 +63,7 @@ namespace WPFPresentationLayer.VolunteerPages
             {
                 try
                 {
-                    manager.EditVolunteerShift(_shiftBeingEdited, (VolunteerShift)dgShiftList.SelectedItem);
+                    manager.EditVolunteerShift(_shiftBeingEdited, (VolunteerShiftVM)dgShiftList.SelectedItem);
                     refreshList();
                 }
                 catch (Exception ex)

@@ -283,9 +283,10 @@ namespace DataAccessLayer
         /// a data access method for retrieving a list of all animal profiles
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Michael Thompsom
+        /// Updated: 4/28/2020
+        /// Update: To book specifications
+        /// Approver: Austin Gee
         /// </remarks>
         /// <returns>a list of animal objects</returns>
         public List<Animal> SelectAllAnimnalProfiles()
@@ -309,8 +310,15 @@ namespace DataAccessLayer
                         var animal = new Animal();
                         animal.AnimalID = reader.GetInt32(0);
                         animal.AnimalName = reader.GetString(1);
-                        animal.ProfileImage = reader.GetString(2);
-                        animal.ProfileDescription = reader.GetString(3);
+                        if (reader[2] != System.DBNull.Value)
+                        {
+                            animal.ProfileImageData = (byte[])reader[2];
+                        }
+                        if (reader.GetString(3) != null)
+                        {
+                            animal.ProfileImageMimeType = reader.GetString(3);
+                        }
+                        animal.ProfileDescription = reader.GetString(4);
 
                         animals.Add(animal);
                     }
@@ -336,15 +344,17 @@ namespace DataAccessLayer
         /// It will return False if zero rows effected
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update
+        /// Updater: Michael Thompson
+        /// Updated: 4/25/2020
+        /// Update: Updating to books specifications for images
+        /// Approver: Austin Gee
         /// </remarks>
-        /// <param name="animal"></param>
+        /// <param name="animalID"></param>
         /// <param name="profileDescription"></param>
-        /// <param name="profileImagePath"></param>
-        /// <returns></returns>
-        public bool UpdateAnimalProfile(int animalID, string profileDescription, string profileImagePath)
+        /// <param name="profileImageData"></param>
+        /// <param name="profileImageMimeType"></param>
+        /// <returns>True if the animal was updated and false if it was not</returns>
+        public bool UpdateAnimalProfile(int animalID, string profileDescription, byte[] profileImageData, string profileImageMimeType)
         {
             bool updateSuccess = false;
 
@@ -358,12 +368,14 @@ namespace DataAccessLayer
 
             // parameters
             cmd.Parameters.Add("@AnimalID", SqlDbType.Int);
-            cmd.Parameters.Add("@ProfilePhoto", SqlDbType.NVarChar, 50);
+            cmd.Parameters.Add("@ProfileImageData", SqlDbType.VarBinary);
+            cmd.Parameters.Add("@ProfileImageMimeType", SqlDbType.NVarChar, 10);
             cmd.Parameters.Add("@ProfileDescription", SqlDbType.NVarChar, 500);
 
             // values
             cmd.Parameters["@AnimalID"].Value = animalID;
-            cmd.Parameters["@ProfilePhoto"].Value = profileImagePath;
+            cmd.Parameters["@ProfileImageData"].Value = profileImageData;
+            cmd.Parameters["@ProfileImageMimeType"].Value = profileImageMimeType;
             cmd.Parameters["@ProfileDescription"].Value = profileDescription;
 
             // execute the command
@@ -810,6 +822,202 @@ namespace DataAccessLayer
 
             }
             return animals;
+        }
+
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/27/2020
+        /// Approver: Austin Gee
+        /// 
+        /// Gets an single animal by its ID
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// Approver: 
+        /// </remarks>
+        /// <param name="ID"> The primary key that identifies the animal. </param>
+        /// <returns> An animal Object with that animalID </returns>
+        public Animal GetOneAnimalByAnimalID(int ID)
+        {
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_select_animal_profile_by_animalid");
+
+            Animal animal = new Animal();
+
+            cmd.Connection = conn;
+
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.Add("@AnimalID", SqlDbType.Int);
+            cmd.Parameters["@AnimalID"].Value = ID;
+            conn.Open();
+            var reader = cmd.ExecuteReader();
+
+            try
+            {
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+
+                        animal.AnimalID = reader.GetInt32(0);
+                        animal.AnimalName = reader.GetString(1);
+                        if (reader[2] != System.DBNull.Value)
+                        {
+                            animal.ProfileImageData = (byte[])reader[2];
+                        }
+                        if (reader.GetString(3) != null)
+                        {
+                            animal.ProfileImageMimeType = reader.GetString(3);
+                        }
+                        animal.ProfileDescription = reader.GetString(4);
+                    }
+                }
+
+                reader.Close();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+
+
+            }
+            return animal;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/13/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        ///
+        /// a data access method that uses a stored procedure to add a new animal species to the database
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animal"></param>
+        /// <returns>int</returns>
+        public int InsertAnimalSpecies(string animalSpecies, string description)
+        {
+            int speciesID = 0;
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_insert_animal_species", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@AnimalSpeciesID", animalSpecies);
+            cmd.Parameters.AddWithValue("@Description", description);
+
+            try
+            {
+                conn.Open();
+                speciesID = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return speciesID;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        ///
+        /// a data access method that uses a stored procedure to delete an animal species from the database
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="animalSpeciesID"></param>
+        /// <returns>int</returns
+        public int DeleteAnimalSpecies(string animalSpeciesID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_delete_animal_species", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@AnimalSpeciesID", animalSpeciesID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver: 
+        ///
+        /// a data access method that uses a stored procedure to update an animal species in the database
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// <param name="oldAnimalSpeciesID"></param>
+        /// <param name="newAnimalSpeciesID"></param>
+        /// <param name="description"></param>
+        /// <returns>int</returns
+        public int UpdateAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_update_animal_species", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@OldAnimalSpeciesID", oldAnimalSpeciesID);
+            cmd.Parameters.AddWithValue("@NewAnimalSpeciesID", newAnimalSpeciesID);
+            cmd.Parameters.AddWithValue("@NewDescription", description);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return rows;
         }
     }
 }

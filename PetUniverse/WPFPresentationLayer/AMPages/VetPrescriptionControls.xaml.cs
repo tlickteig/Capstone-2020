@@ -235,7 +235,7 @@ namespace WPFPresentationLayer.AMPages
             _vetAppointmentManager = new VetAppointmentManager();
             try
             {
-                dgAppointmentList.ItemsSource = _vetAppointmentManager.RetrieveAllVetAppointments();
+                dgAppointmentList.ItemsSource = _vetAppointmentManager.RetrieveVetAppointmentsByActive(true);
             }
             catch (Exception ex)
             {

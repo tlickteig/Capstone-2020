@@ -770,5 +770,11 @@ namespace WPFPresentationLayer.AdoptionPages
             }
 
         }
+
+        private void btnFilterReset_Click(object sender, RoutedEventArgs e)
+        {
+            cmbApptFilter.SelectedItem = null;
+            populateAppointmentDataGrid();
+        }
     }
 }

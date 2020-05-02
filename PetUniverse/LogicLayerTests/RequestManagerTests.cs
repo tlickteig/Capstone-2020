@@ -746,6 +746,86 @@ namespace LogicLayerTests
 
         }
 
+
+        /// <summary>
+        /// 
+        /// CREATOR: Steve Coonrod
+        ///  CREATED: 2020/4/10
+        ///  APPROVER: Matt Deaton
+        ///  
+        ///  This method tests adding a valid social media request
+        ///  
+        /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestCanAddValidSocialMediaRequest()
+        {
+            //Arrange
+            int requestID = 0;
+            SocialMediaRequest request = new SocialMediaRequest
+            {
+                DateCreated = DateTime.Now,
+                Description = "A Good Description",
+                Open = true,
+                RequestingUserID = 100000,
+                RequestTypeID = "Social Media",
+                Title = "A Good Title"
+            };
+
+            //Act
+            requestID = _fakeRequestAccessor.InsertSocialMediaRequest(request);
+
+            //Assert
+            Assert.AreNotEqual(requestID, 0);
+        }
+
+        /// <summary>
+        /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/4/10
+        /// APPROVER: Matt Deaton
+        ///  
+        /// This method tests adding an invalid social media request
+        ///  
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// 
+        /// </summary>
+        [TestMethod]
+        public void TestCannotAddInvalidSocialMediaRequest()
+        {
+            //Arrange
+            int requestID = 0;
+            SocialMediaRequest request = new SocialMediaRequest
+            {
+                DateCreated = DateTime.Now,
+                Description = "",//This will cause an unsucessful insertion
+                Open = true,
+                RequestingUserID = 100000,
+                RequestTypeID = "Social Media",
+                Title = "A Good Title"
+            };
+
+            //Act
+            requestID = _fakeRequestAccessor.InsertSocialMediaRequest(request);
+
+            //Assert
+            Assert.AreEqual(requestID, 0);
+        }
+
         [TestCleanup]
         public void TestTearDown()
         {

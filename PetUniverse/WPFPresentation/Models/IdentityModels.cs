@@ -36,6 +36,8 @@ namespace WPFPresentation.Models
             return new ApplicationDbContext();
         }
 
+        public System.Data.Entity.DbSet<DataTransferObjects.Product> Products { get; set; }
+
         //public System.Data.Entity.DbSet<WPFPresentation.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

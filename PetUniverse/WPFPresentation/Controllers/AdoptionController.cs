@@ -29,6 +29,7 @@ namespace WPFPresentation.Controllers
         private IAdoptionAppointmentManager _adoptionAppointmentManager;
         private IUserManager _userManager;
         private IAnimalManager _animalManager;
+
         
 
         /// <summary>
@@ -74,8 +75,7 @@ namespace WPFPresentation.Controllers
         [AllowAnonymous]
         public ActionResult Index()
         {
-            bool active = true;
-            var animalProfiles = _adoptionAnimalManager.RetrieveAdoptionAnimalsByActive(active);
+            var animalProfiles = _adoptionAnimalManager.RetrieveAdoptionAnimalsByActiveAndAdoptable();
             return View(animalProfiles);
         }
 
@@ -247,7 +247,7 @@ namespace WPFPresentation.Controllers
         /// </remarks>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public ActionResult CustomerApplicationList(string customerEmail = "tdupuy@PetUniverse.com")
+        public ActionResult CustomerApplicationList(string customerEmail)
         {
             var customer = _adoptionCustomerManager.RetrieveAdoptionCustomerByEmail(customerEmail);
             var applications = _adoptionApplicationManager.RetrieveAdoptionApplicationsByEmailAndActive(customerEmail);
@@ -295,7 +295,7 @@ namespace WPFPresentation.Controllers
         /// </remarks>
         /// <param name="email"></param>
         /// <returns></returns>
-        [Authorize]
+        
         public ActionResult CustomerAppointmentSchedule(string email)
         {
             var schedule = _adoptionAppointmentManager.RetrieveAdoptionAppointmentsByCustomerEmailAndActive(email);
@@ -430,7 +430,9 @@ namespace WPFPresentation.Controllers
             try
             {
                 int applicationID = Int32.Parse(applicationIDSring);
+                var application = _adoptionApplicationManager.RetrieveAdoptionApplicationByID(applicationID);
                 _adoptionApplicationManager.DeactivateAdoptionApplication(applicationID);
+                _adoptionAnimalManager.EditAnimalAdoptable(application.AnimalID, true);
                 return RedirectToAction("CustomerApplicationList", new { customerEmail = formCollection[2] });
             }
             catch (Exception)
@@ -555,10 +557,10 @@ namespace WPFPresentation.Controllers
                 _adoptionCustomerManager.AddAdoptionCustomer(customer);
                 return RedirectToAction("CustomerConfirmAdoptionApplication", new {animalID = animalID });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
             return View();
@@ -616,6 +618,23 @@ namespace WPFPresentation.Controllers
                     RecievedDate = DateTime.Now
                 };
                 _adoptionApplicationManager.AddAdoptionApplication(application);
+                //var oldAnimals = _animalManager.RetrieveAnimalByAnimalID(animalID);
+                //var oldAnimal = oldAnimals[0];
+                //var newAnimal = new Animal
+                //{
+                //    AnimalID = oldAnimal.AnimalID,
+                //    Adoptable = false,
+                //    AnimalBreed = oldAnimal.AnimalBreed,
+                //    Active = oldAnimal.Active,
+                //    AnimalName = oldAnimal.AnimalName,
+                //    AnimalSpeciesID = oldAnimal.AnimalSpeciesID,
+                //    ArrivalDate = oldAnimal.ArrivalDate,
+                //    CurrentlyHoused = oldAnimal.CurrentlyHoused,
+                //    Dob = oldAnimal.Dob,
+                //    ProfileDescription = oldAnimal.ProfileDescription,
+                //    ProfileImage = oldAnimal.ProfileImage,
+                //};
+                _adoptionAnimalManager.EditAnimalAdoptable(animalID, false);
             }
             catch (Exception)
             {
@@ -623,6 +642,50 @@ namespace WPFPresentation.Controllers
                 
             }
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/28/2020
+        /// Approver: Austin Gee
+        ///
+        /// returns a detail view of a customer adoption application
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA        
+        /// </remarks>
+        [AllowAnonymous]
+        public FileContentResult GetImage(int animalId)
+        {
+            Animal animal = _animalManager.RetrieveOneAnimalByAnimalID(animalId);
+            if (animal.ProfileImageData != null && animal.ProfileImageMimeType != null)
+            {
+                return File(animal.ProfileImageData, animal.ProfileImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/29/2020
+        /// Approver: Austin Gee
+        ///
+        /// Returns a view of Frequently asked questions for a customer coming in for an interview for an animal
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA        
+        /// </remarks>
+        public ActionResult FAQ()
+        {
+            return View();
         }
     }
 }

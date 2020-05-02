@@ -60,7 +60,7 @@
                     <ComboBox Grid.Row="5"
                   x:Name="cboRecurrance"
                               Height="25"
-                  Margin="20 10 20 10" Padding="5 1 0 0">Recurrance</ComboBox>
+                  Margin="20 10 20 10" Padding="5 1 0 0">One time</ComboBox>
                     <TextBox Grid.Row="6"
                              Height="25"
                  x:Name="txtShiftDescription"

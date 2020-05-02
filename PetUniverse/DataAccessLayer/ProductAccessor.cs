@@ -14,6 +14,11 @@ namespace DataAccessLayer
     /// 
     /// Retrieves records from permanent storage for products.
     /// </summary>
+    /// <remarks>
+    /// Updater: Robert Holmes
+    /// Updated: 04/29/2020
+    /// Update: Added SelectProductByID
+    /// </remarks>
     public class ProductAccessor : IProductAccessor
     {
         /// <summary>
@@ -279,6 +284,144 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@OldPrice", oldProduct.Price);
             cmd.Parameters.AddWithValue("@OldBrand", oldProduct.Brand);
             cmd.Parameters.AddWithValue("@OldTaxable", oldProduct.Taxable);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Returns a single product that matches the supplied productID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public Product SelectProductByID(string productID)
+        {
+            Product product = null;
+
+            var conn = DBConnection.GetConnection();
+            var cmdText = "sp_select_product_by_id";
+
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ProductID", productID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        product = new Product
+                        {
+                            ProductID = reader.GetString(0),
+                            Name = reader.GetString(1),
+                            Taxable = reader.GetBoolean(2),
+                            Price = reader.GetDecimal(3),
+                            // 4 is ItemQuantity
+                            Description = reader.GetString(5),
+                            Active = reader.GetBoolean(6),
+                            ItemID = reader.GetInt32(7),
+                            Category = reader.GetString(8),
+                            Type = reader.GetString(9),
+                            Brand = reader.GetString(10)
+                        };
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return product;
+        }
+        
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Tells Database to deactivate product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public int DeactivateProduct(string productID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_deactivate_product", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ProductID", productID);
+
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Tells Database to activate product
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public int ActivateProduct(string productID)
+        {
+            int rows = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_activate_product", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@ProductID", productID);
 
             try
             {

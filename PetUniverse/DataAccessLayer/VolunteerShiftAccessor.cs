@@ -28,7 +28,7 @@ namespace DataAccessLayer
         /// </summary>
         /// <param name="shift">Shift Object to be added</param>
         /// <returns>Number of rows affected</returns>
-        public int AddShift(VolunteerShift shift)
+        public int AddShift(VolunteerShiftVM shift)
         {
             //Declare variables
             int rows = 0;
@@ -171,10 +171,10 @@ namespace DataAccessLayer
         ///     CHECKED BY: Zoey McDonald
         /// </summary>        
         /// <returns>A list of shifts from the database</returns>
-        public List<VolunteerShift> SelectAllShifts()
+        public List<VolunteerShiftVM> SelectAllShifts()
         {
             //Declare variables
-            List<VolunteerShift> shifts = new List<VolunteerShift>();
+            List<VolunteerShiftVM> shifts = new List<VolunteerShiftVM>();
             var conn = DBConnection.GetConnection();
             var cmd = new SqlCommand("sp_select_all_volunteer_shifts");
 
@@ -189,7 +189,7 @@ namespace DataAccessLayer
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    VolunteerShift shift = new VolunteerShift();
+                    VolunteerShiftVM shift = new VolunteerShiftVM();
                     shift.VolunteerShiftID = Convert.ToInt32(reader.GetValue(0));
                     shift.ShiftDescription = Convert.ToString(reader.GetValue(1));
                     shift.ShiftTitle = Convert.ToString(reader.GetValue(2));
@@ -223,10 +223,10 @@ namespace DataAccessLayer
         /// </summary>        
         /// <param name="volunteerID">The volunteerID to query</param>
         /// <returns>A list of shifts from the database</returns>
-        public List<VolunteerShift> SelectAllShiftsForAVolunteer(int volunteerID)
+        public List<VolunteerShiftVM> SelectAllShiftsForAVolunteer(int volunteerID)
         {
             //Declare variables
-            List<VolunteerShift> shifts = new List<VolunteerShift>();
+            List<VolunteerShiftVM> shifts = new List<VolunteerShiftVM>();
             var conn = DBConnection.GetConnection();
             var cmd = new SqlCommand("sp_select_shifts_for_a_volunteer");
 
@@ -245,7 +245,7 @@ namespace DataAccessLayer
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    VolunteerShift shift = new VolunteerShift();
+                    VolunteerShiftVM shift = new VolunteerShiftVM();
                     shift.VolunteerShiftID = reader.GetInt32(0);
                     shift.ShiftDescription = reader.GetString(1);
                     shift.ShiftTitle = reader.GetString(2);
@@ -279,12 +279,12 @@ namespace DataAccessLayer
         /// </summary>        
         /// <param name="shiftID">The shiftID to query</param>
         /// <returns>A shift from the database</returns>
-        public VolunteerShift SelectShift(int shiftID)
+        public VolunteerShiftVM SelectShift(int shiftID)
         {
             //Declare variables
             var conn = DBConnection.GetConnection();
             var cmd = new SqlCommand("sp_select_volunteer_shift");
-            VolunteerShift shift = new VolunteerShift();
+            VolunteerShiftVM shift = new VolunteerShiftVM();
 
             //Setup cmd object
             cmd.Connection = conn;
@@ -311,8 +311,6 @@ namespace DataAccessLayer
                     shift.IsSpecialEvent = reader.GetBoolean(7);
                     shift.ShiftNotes = reader.GetString(8);
                     shift.ScheduleID = reader.GetInt32(9);
-                    shift.VolunteerID = reader.IsDBNull(10)
-                        ? 0 : reader.GetInt32(10);
                 }
             }
             catch (Exception ex)
@@ -381,7 +379,7 @@ namespace DataAccessLayer
         /// <param name="oldShift">The shift to be updated</param>
         /// <param name="newShift">The new shift</param>
         /// <returns>Number of rows affected</returns>
-        public int UpdateShift(VolunteerShift oldShift, VolunteerShift newShift)
+        public int UpdateShift(VolunteerShiftVM oldShift, VolunteerShiftVM newShift)
         {
             //Declare variables
             int rows = 0;

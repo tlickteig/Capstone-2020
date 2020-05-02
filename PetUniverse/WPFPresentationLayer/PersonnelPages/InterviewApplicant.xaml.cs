@@ -197,6 +197,24 @@ namespace WPFPresentationLayer.PersonnelPages
 					editHomeCheckDate();
 				}
 				editInterviewNotes();
+				if (cboApplicationStatus.Text == "Declined")
+				{
+					if (MessageBox.Show("Please call " + _applicant.FirstName + " " + _applicant.LastName +
+						" at " + _applicant.PhoneNumber + "\nto inform them of job declined offer",
+						"Decline Job Offer", MessageBoxButton.OKCancel, MessageBoxImage.Warning) == MessageBoxResult.Cancel)
+					{
+						return;
+					};
+				}
+				if (cboApplicationStatus.Text == "Approved")
+				{
+					if (MessageBox.Show("Please call " + _applicant.FirstName + " " + _applicant.LastName +
+						" at " + _applicant.PhoneNumber + "\nto inform them of APPROVAL for job!",
+						"Approved Job Offer", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation) == MessageBoxResult.Cancel)
+					{
+						return;
+					};
+				}
 				editApplicationStatus();
 
 				MessageBox.Show("Applicant Updated");

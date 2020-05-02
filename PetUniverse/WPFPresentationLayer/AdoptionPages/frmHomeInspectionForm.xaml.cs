@@ -70,7 +70,7 @@ namespace WPFPresentationLayer.AdoptionPages
 
             dgAdoptionApplicationsList.ItemsSource = _homeInspectorManager.SelectAdoptionApplicationByStatus();
             dgAdoptionApplicationsList.Columns[0].Header = "Adoption Application ID";
-            dgAdoptionApplicationsList.Columns[1].Header = "Custome Email";
+            dgAdoptionApplicationsList.Columns[1].Header = "Customer Email";
             dgAdoptionApplicationsList.Columns[2].Header = "Animal Name";
             dgAdoptionApplicationsList.Columns[3].Header = "Status";
             dgAdoptionApplicationsList.Columns[4].Header = "Recieved Date and Time";

@@ -1,4 +1,6 @@
 ﻿using DataTransferObjects;
+using LogicLayer;
+using LogicLayerInterfaces;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -17,8 +19,13 @@ namespace WPFPresentation.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
+        //This already inserts into customer
+        private IAdoptionCustomerManager _customerManager;
+
+
         public AccountController()
         {
+            _customerManager = new AdoptionCustomerManager();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -135,6 +142,90 @@ namespace WPFPresentation.Controllers
 
         //
         // GET: /Account/Register
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method to get the rest of the Customer questions       
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [AllowAnonymous]
+        public ActionResult RegisterContinuation(RegisterViewModel model)
+        {
+            ApplicationUserManager userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            ViewBag.Email = model.Email;
+            ViewBag.FirstName = model.GivenName;
+            ViewBag.LastName = model.FamilyName;
+
+
+            return View();
+        }
+
+
+        //
+        // GET: /Account/Register
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 4/29/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method to insert customer
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterAcceptance(FormCollection formCollection)
+        {
+            string email = formCollection[1];
+            string firstName = formCollection[2];
+            string lastName = formCollection[3];
+            string phoneNumber = formCollection[4];
+            string address1 = formCollection[5];
+            string address2 = formCollection[6];
+            string city = formCollection[7];
+            string state = formCollection[8];
+            string zip = formCollection[9];
+            try
+            {
+                var customer = new AdoptionCustomer
+                {
+                    CustomerEmail = email,
+                    FirstName = firstName,
+                    LastName = lastName,
+                    PhoneNumber = phoneNumber,
+                    AddressLineOne = address1,
+                    AddressLineTwo = address2,
+                    City = city,
+                    State = state,
+                    Zipcode = zip
+                };
+                _customerManager.AddAdoptionCustomer(customer);
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+            return View();
+        }
+
+
+        //
+        // GET: /Account/Register
         [AllowAnonymous]
         public ActionResult Register()
         {
@@ -246,7 +337,7 @@ namespace WPFPresentation.Controllers
                             if (newResult.Succeeded)
                             {
                                 await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
-                                return RedirectToAction("Index", "Home");
+                                return RedirectToAction("RegisterContinuation", "Account", model);
                             }
                             AddErrors(newResult);
                         }
@@ -254,7 +345,7 @@ namespace WPFPresentation.Controllers
                 }
                 // Did this next part in the exception because if it can't find a user in the db its a customer. If a customer already exists in our db we don't want to add them again
                 catch
-                {                    
+                {
                     var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                     var result = await UserManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
@@ -308,7 +399,7 @@ namespace WPFPresentation.Controllers
                             City = model.City,
                             State = model.State,
                             ZipCode = model.ZipCode
-                            
+
                         };
                         if (usrMgr.CreateNewUser(employee))
                         {
@@ -318,9 +409,9 @@ namespace WPFPresentation.Controllers
                                 EmployeeID = employeeID,
                                 GivenName = model.GivenName,
                                 FamilyName = model.FamilyName,
-                                UserName = model.Email,                                                         
+                                UserName = model.Email,
                                 Email = model.Email
-                                
+
                             };
                             var result = await UserManager.CreateAsync(user, "newuser");
                             if (result.Succeeded)

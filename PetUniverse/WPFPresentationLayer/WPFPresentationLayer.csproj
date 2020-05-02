@@ -228,11 +228,20 @@
     <Compile Include="InventoryPages\ViewVendors.xaml.cs">
       <DependentUpon>ViewVendors.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonnelPages\frmConfirmNewSchedule.xaml.cs">
+      <DependentUpon>frmConfirmNewSchedule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonnelPages\frmGetStartDate.xaml.cs">
+      <DependentUpon>frmGetStartDate.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PersonnelPages\InterviewApplicant.xaml.cs">
       <DependentUpon>InterviewApplicant.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersonnelPages\pgBaseScheduleControls.xaml.cs">
       <DependentUpon>pgBaseScheduleControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PersonnelPages\pgSchedule.xaml.cs">
+      <DependentUpon>pgSchedule.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersonnelPages\ViewApplicants.xaml.cs">
       <DependentUpon>ViewApplicants.xaml</DependentUpon>
@@ -327,6 +336,9 @@
     <Compile Include="RecruitingPages\CreateEventForm.xaml.cs">
       <DependentUpon>CreateEventForm.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RecruitingPages\CreatNewRequest.xaml.cs">
+      <DependentUpon>CreatNewRequest.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RecruitingPages\DepartmentRequestDetails.xaml.cs">
       <DependentUpon>DepartmentRequestDetails.xaml</DependentUpon>
     </Compile>
@@ -359,6 +371,12 @@
     </Compile>
     <Compile Include="RecruitingPages\ListRequests.xaml.cs">
       <DependentUpon>ListRequests.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RecruitingPages\SocialMediaRequestForm.xaml.cs">
+      <DependentUpon>SocialMediaRequestForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResetPassword.xaml.cs">
+      <DependentUpon>ResetPassword.xaml</DependentUpon>
     </Compile>
     <Compile Include="SystemAdminPages\pgLogView.xaml.cs">
       <DependentUpon>pgLogView.xaml</DependentUpon>
@@ -407,6 +425,9 @@
     </Compile>
     <Compile Include="VolunteerPages\TaskControls.xaml.cs">
       <DependentUpon>TaskControls.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="VolunteerPages\TreatmentRecordControls.xaml.cs">
+      <DependentUpon>TreatmentRecordControls.xaml</DependentUpon>
     </Compile>
     <Compile Include="VolunteerPages\ViewAllVolunteerSchedules.xaml.cs">
       <DependentUpon>ViewAllVolunteerSchedules.xaml</DependentUpon>
@@ -576,11 +597,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PersonnelPages\frmConfirmNewSchedule.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PersonnelPages\frmGetStartDate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PersonnelPages\InterviewApplicant.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PersonnelPages\pgBaseScheduleControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PersonnelPages\pgSchedule.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -708,6 +741,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="RecruitingPages\CreatNewRequest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="RecruitingPages\DepartmentRequestDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -749,6 +786,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="RecruitingPages\ListRequests.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecruitingPages\SocialMediaRequestForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResetPassword.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -819,6 +864,10 @@
     <Page Include="VolunteerPages\TaskControls.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VolunteerPages\TreatmentRecordControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="VolunteerPages\ViewAllVolunteerSchedules.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -897,6 +946,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\X.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\MISSING.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\LoCatMein.jpg" />

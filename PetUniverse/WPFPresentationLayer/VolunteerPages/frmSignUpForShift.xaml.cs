@@ -14,7 +14,7 @@ namespace WPFPresentationLayer.VolunteerPages
     {
         private VolunteerShiftManager _shiftManager = new VolunteerShiftManager();
         private int _volunteerID = 0;
-        private List<VolunteerShift> _shifts = new List<VolunteerShift>();
+        private List<VolunteerShiftVM> _shifts = new List<VolunteerShiftVM>();
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
@@ -41,7 +41,7 @@ namespace WPFPresentationLayer.VolunteerPages
         {
             try
             {
-                List<VolunteerShift> shifts = _shiftManager.ReturnAllVolunteerShifts().Where(x => x.VolunteerID == 0).ToList();
+                List<VolunteerShiftVM> shifts = _shiftManager.ReturnAllVolunteerShifts().Where(x => x.VolunteerID == 0).ToList();
                 dgShiftList.ItemsSource = shifts;
             }
             catch (Exception ex)
@@ -60,8 +60,9 @@ namespace WPFPresentationLayer.VolunteerPages
         {
             try
             {
-                VolunteerShift shift = (VolunteerShift)dgShiftList.SelectedItem;
+                VolunteerShiftVM shift = (VolunteerShiftVM)dgShiftList.SelectedItem;
                 _shiftManager.SignVolunteerUpForShift(_volunteerID, shift.VolunteerShiftID);
+                this.Close();
             }
             catch (Exception ex)
             {

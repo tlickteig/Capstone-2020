@@ -26,9 +26,9 @@ namespace DataAccessFakes
         /// Sets up fake data for testing purposes.
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated: 
-        /// Update: 
+        /// Updater: Cash Carlson
+        /// Updated: 2020/04/29
+        /// Update: Added more test data for other tests.
         /// </remarks>
         public FakeProductAccessor()
         {
@@ -58,6 +58,34 @@ namespace DataAccessFakes
                     Price = 0.50M,
                     Brand = "Test Brand",
                     Taxable = true
+                },
+
+                new Product()
+                {
+                    ProductID = "1234567890121",
+                    ItemID = 0,
+                    Name = "Test",
+                    Category = "Test Category",
+                    Type = "Test Type 3",
+                    Description = "A test product description.",
+                    Price = 0.50M,
+                    Brand = "Test Brand",
+                    Taxable = true,
+                    Active = true
+                },
+
+                new Product()
+                {
+                    ProductID = "1234567890124",
+                    ItemID = 0,
+                    Name = "Test",
+                    Category = "Test Category",
+                    Type = "Test Type 4",
+                    Description = "A test product description.",
+                    Price = 0.50M,
+                    Brand = "Test Brand",
+                    Taxable = true,
+                    Active = false
                 }
             };
         }
@@ -216,6 +244,87 @@ namespace DataAccessFakes
                 }
             }
             return rows;
+        }
+
+        /// /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Returns a single product based on the supplied product ID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// </remarks>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public Product SelectProductByID(string productID)
+        {
+            Product result = null;
+
+            foreach (var p in products)
+            {
+                if (p.ProductID.Equals(productID))
+                {
+                    result = p;
+                    break;
+                }
+            }
+
+            return result;
+        }
+        
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Fake Accessor Method for Deactivation
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public int DeactivateProduct(string productID)
+        {
+            int deactive = 0;
+
+            foreach(Product product in products)
+            {
+                if (product.ProductID == productID)
+                {
+                    product.Active = false;
+                    deactive++;
+                }
+            }
+
+            return deactive;
+        }
+
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Fake Accessor Method for Activatation
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public int ActivateProduct(string productID)
+        {
+            int active = 0;
+
+            foreach (Product product in products)
+            {
+                if (product.ProductID == productID)
+                {
+                    product.Active = true;
+                    active++;
+                }
+            }
+
+            return active;
         }
     }
 }

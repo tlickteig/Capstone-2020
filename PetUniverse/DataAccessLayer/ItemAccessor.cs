@@ -137,9 +137,9 @@ namespace DataAccessLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updated By: 
-        /// Updated: 
-        /// Update:
+        /// Updated By:
+        /// Updated:
+        /// Update: 
         /// </remarks>
         /// <param name="newDesc"></param>
         /// <param name="newName"></param>
@@ -193,9 +193,9 @@ namespace DataAccessLayer
         /// </summary>
         ///
         /// <remarks>
-        /// Updated By: 
-        /// Updated: 
-        /// Update:
+        /// Updated By: Robert Holmes
+        /// Updated: 04/29/2020
+        /// Update: Made it safe to attempt when description is null.
         /// </remarks>
         public List<Item> getAllItemsByActive(bool active)
         {
@@ -219,7 +219,10 @@ namespace DataAccessLayer
                     item.ItemName = reader.GetString(1);
                     item.ItemQuantity = reader.GetInt32(2);
                     item.ItemCategoryID = reader.GetString(3);
-                    item.Description = reader.GetString(4);
+                    if (!reader.IsDBNull(4))
+                    {
+                        item.Description = reader.GetString(4);
+                    }
                     //item.Active = reader.GetBoolean(5);
                     itemList.Add(item);
                 }
@@ -456,9 +459,11 @@ namespace DataAccessLayer
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
+        /// 
+        /// UPDATED BY: Steve Coonrod
+        /// UPDATED: 2020-4-25
+        /// CHANGE: Changed the rowCount check to accomidate a low inventory trigger in the DB
+        ///         which will return that it effected 3 rows rather than 1
         /// 
         /// </remarks>
         /// <param name="oldShelterItem"></param>
@@ -492,7 +497,7 @@ namespace DataAccessLayer
             {
                 conn.Open();
                 rows = cmd.ExecuteNonQuery();
-                if (rows == 0)
+                if (rows != 1 && rows != 3)
                 {
                     throw new ApplicationException("Shelter Item Not Found");
                 }
@@ -603,7 +608,63 @@ namespace DataAccessLayer
 
             return rowsAffected;
         }
+        /// <summary>
+        /// Creator: Jesse Tomash
+        /// Created: 4/27/2020
+        /// Approver: 
+        ///
+        /// Method to select item by item id.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public Item SelectItemByItemID(int itemID)
+        {
+            Item item = null;
 
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_item_by_item_id", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("ItemID", itemID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    {
+                        item = new Item()
+                        {
+                            ItemName = reader.GetString(0),
+                            ItemCategoryID = reader.GetString(1),
+                            ItemQuantity = reader.GetInt32(2),
+                            Description = reader.GetString(3),
+                            ShelterItem = reader.GetBoolean(4),
+                            ItemID = reader.GetInt32(5),
+                            ShelterThreshold = reader.IsDBNull(6) ? 0 : reader.GetInt32(6)
+                        };
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return item;
+        }
     }
 }
 

@@ -22,7 +22,7 @@ namespace WPFPresentationLayer
     public partial class CreateEditShift : Page
     {
         private IVolunteerShiftManager _volunteerShiftAccessor = new VolunteerShiftManager();
-        private VolunteerShift _volunteerShift = new VolunteerShift();
+        private VolunteerShiftVM _volunteerShift = new VolunteerShiftVM();
 
         /// <summary>
         ///     AUTHOR: Timothy Lickteig
@@ -42,7 +42,7 @@ namespace WPFPresentationLayer
         ///     CHECKED BY: Zoey McDonald
         ///     DESCRIPTION: Editing constructor for the class
         /// </summary>
-        public CreateEditShift(VolunteerShift shift)
+        public CreateEditShift(VolunteerShiftVM shift)
         {
             InitializeComponent();
 
@@ -85,10 +85,10 @@ namespace WPFPresentationLayer
             cboNeededRole.Items.Add("Role 4");
             cboNeededRole.SelectedIndex = 0;
 
-            cboRecurrance.Items.Add("Recurrance One");
-            cboRecurrance.Items.Add("Recurrance Two");
-            cboRecurrance.Items.Add("Recurrance Three");
-            cboRecurrance.Items.Add("Recurrance Four");
+            cboRecurrance.Items.Add("Daily");
+            cboRecurrance.Items.Add("Weekly");
+            cboRecurrance.Items.Add("Bi-Weekly");
+            cboRecurrance.Items.Add("Monthly");
             cboRecurrance.SelectedIndex = 0;
 
             for (int i = 1; i < 13; i++)

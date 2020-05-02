@@ -96,6 +96,7 @@
     <Compile Include="IMessagesAccessor.cs" />
     <Compile Include="INewAnimalChecklistAccessor.cs" />
     <Compile Include="IOrderAccessor.cs" />
+    <Compile Include="IOrderItemLIneAccessor.cs" />
     <Compile Include="IOrderLineAccessor.cs" />
     <Compile Include="IPetUniverseUserERolesAccessor.cs" />
     <Compile Include="IPictureAccessor.cs" />
@@ -106,13 +107,17 @@
     <Compile Include="IRequestAccessor.cs" />
     <Compile Include="ISalesDataAccessor.cs" />
     <Compile Include="ISalesTaxAccessor.cs" />
+    <Compile Include="IScheduleAccessor.cs" />
+    <Compile Include="IScheduleHoursAccessor.cs" />
     <Compile Include="IShiftAccessor.cs" />
     <Compile Include="IShiftTimeAccessor.cs" />
     <Compile Include="ISpecialOrderAccessor.cs" />
+    <Compile Include="ISpecialOrderItemLineAccessor.cs" />
     <Compile Include="IStatusAccessor.cs" />
     <Compile Include="ITrainingVideoAccessor.cs" />
     <Compile Include="ITransactionAccessor.cs" />
     <Compile Include="ITransactionAdminAccessor.cs" />
+    <Compile Include="ITreatmentRecordAccessor.cs" />
     <Compile Include="IUserAccessor.cs" />
     <Compile Include="IVendorAccessor.cs" />
     <Compile Include="IVetAppointmentAccessor.cs" />

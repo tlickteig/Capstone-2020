@@ -5,7 +5,7 @@
 ///  CREATED: 2020/3/15
 ///  APPROVER: Lane Sandburg
 ///  
-///  Controller for Time Off Requests
+///  Controller for Selecting a Request Type to submit
 /// </summary>
 
 namespace WPFPresentation.Controllers
@@ -25,6 +25,7 @@ namespace WPFPresentation.Controllers
         /// UPDATE: NA
         /// 
         /// </remarks>
+        [Authorize]
         // GET: ChooseRequestType
         public ActionResult Index(string outputMessage = null)
         {

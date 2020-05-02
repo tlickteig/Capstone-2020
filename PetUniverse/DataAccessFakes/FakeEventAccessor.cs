@@ -8,12 +8,21 @@ using System.Text.RegularExpressions;
 namespace DataAccessFakes
 {
     /// <summary>    
+    /// 
     /// Creator: Steve Coonrod
     /// Created: 02/06/2020
     /// Approver: Ryan Morganti
     /// 
     /// The Fake Event Data to ensure the classes and methods work properly.
+    /// 
     /// </summary>
+    /// <remarks>
+    /// 
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
+    /// 
+    /// </remarks>
     public class FakeEventAccessor : IEventAccessor
     {
 
@@ -29,8 +38,10 @@ namespace DataAccessFakes
         /// Approver: Ryan Morganti
         /// 
         /// No arg constructor
+        /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -238,6 +249,7 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod, Matt Deaton
         /// Created: 02/06/2020
         /// Approver: Ryan Morganti
@@ -248,6 +260,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -306,6 +319,7 @@ namespace DataAccessFakes
 
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 02/06/2020
         /// Approver: Ryan Morganti
@@ -316,6 +330,7 @@ namespace DataAccessFakes
         ///
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -399,6 +414,7 @@ namespace DataAccessFakes
 
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 02/06/2020
         /// Approver: Ryan Morganti
@@ -406,8 +422,10 @@ namespace DataAccessFakes
         /// The method used to add a test event to the fake repository
         /// Returns false if failed
         /// Returns true if successful
+        /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -428,6 +446,7 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 02/06/2020
         /// Approver: Ryan Morganti
@@ -437,6 +456,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -457,6 +477,7 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 02/06/2020
         /// Approver: Ryan Morganti
@@ -466,6 +487,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -485,6 +507,7 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 02/06/2020
         /// Approver: Ryan Morganti
@@ -494,6 +517,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -510,6 +534,7 @@ namespace DataAccessFakes
 
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 02/06/2020
         /// Approver: Ryan Morganti
@@ -519,6 +544,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -536,6 +562,7 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 02/06/2020
         /// Approver: Ryan Morganti
@@ -546,6 +573,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -560,6 +588,7 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 3/15/2020
         /// Approver: Ryan Morganti
@@ -568,6 +597,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -589,6 +619,7 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 3/15/2020
         /// Approver: Ryan Morganti
@@ -597,6 +628,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -613,6 +645,7 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 3/15/2020
         /// Approver: Ryan Morganti
@@ -621,6 +654,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -666,6 +700,7 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 3/15/2020
         /// Approver: Ryan Morganti
@@ -674,6 +709,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA
@@ -690,6 +726,7 @@ namespace DataAccessFakes
         }
 
         /// <summary>
+        /// 
         /// Creator: Steve Coonrod
         /// Created: 3/15/2020
         /// Approver: Ryan Morganti
@@ -698,6 +735,7 @@ namespace DataAccessFakes
         /// 
         /// </summary>
         /// <remarks>
+        /// 
         /// Updater: NA
         /// Updated: NA
         /// Update: NA

@@ -14,6 +14,11 @@ namespace LogicLayer
     /// 
     /// Handles data requests from the presentation layer by requesting data from the data access layer.
     /// </summary>
+    /// <remarks>
+    /// Updater: Robert Holmes
+    /// Updated: 04/29/2020
+    /// Update: Added RetrieveProductByID
+    /// </remarks>
     public class ProductManager : IProductManager
     {
         private IProductAccessor _productAccessor;
@@ -201,5 +206,83 @@ namespace LogicLayer
 
         }
 
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 04/29/2020
+        /// Approver: Jaeho Kim
+        /// 
+        /// Returns a single product based on the provided productID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public Product RetrieveProductByID(string productID)
+        {
+            Product product = null;
+
+            try
+            {
+                product = _productAccessor.SelectProductByID(productID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return product;
+        }
+        
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Method to Deactivate Product by ProductID
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public bool DeactivateProduct(string productID)
+        {
+            bool result = false;
+
+            try
+            {
+                result = _productAccessor.DeactivateProduct(productID) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Deactivation failed", ex);
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Cash Carlson
+        /// Created: 2020/04/29
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Method to Activate a Product by ProductID
+        /// </summary>
+        /// <param name="productID"></param>
+        /// <returns></returns>
+        public bool ActivateProduct(string productID)
+        {
+            bool result = false;
+
+            try
+            {
+                result = _productAccessor.ActivateProduct(productID) == 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Activatation failed", ex);
+            }
+
+            return result;
+        }
     }
 }

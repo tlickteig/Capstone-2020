@@ -39,8 +39,13 @@ namespace DataTransferObjects
         /// Created: 2/7/2020
         /// Approver: Austin Gee, 2/21/2020
         /// adding ProfileDescription and ProfileImage
+        /// Updated: 4/24/2020
+        /// By: Michael Thompson
+        /// Approver: NeedsAvpproved
+        /// Comment: Updating to book specifications for images
         /// </summary>
         public string ProfileDescription { get; set; }
-        public string ProfileImage { get; set; }
+        public byte[] ProfileImageData { get; set; }
+        public string ProfileImageMimeType { get; set; }
     }
 }

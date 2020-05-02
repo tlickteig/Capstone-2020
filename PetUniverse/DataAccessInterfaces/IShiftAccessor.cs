@@ -95,5 +95,38 @@ namespace DataAccessInterfaces
         /// <param name="weekNumber"></param>
         /// <param name="changeAmount"></param>
         int UpdateEmployeeHoursWorked(int userID, int scheduleID, int weekNumber, double changeAmount);
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/05
+        /// Approver: Kaleb Bachert
+        /// 
+        /// interface method for selecting all shifts's details
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <returns></returns>
+        List<ShiftDetailsVM> SelectAllShiftsDetailsByUserID(int userID);
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 2020/04/05
+        /// Approver: Kaleb Bachert
+        /// 
+        /// interface method for selecting a shift's details by id
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater: N/A
+        /// Updated: N/A
+        /// Update: N/A
+        /// </remarks>
+        /// <param name="shiftID"></param>
+        /// <returns></returns>
+        ShiftDetailsVM SelectShiftDetailsByID(int shiftID);
     }
 }

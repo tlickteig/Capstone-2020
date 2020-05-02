@@ -152,7 +152,6 @@ namespace WPFPresentationLayer.InventoryPages
                 _order.OrderStatus = orderStatus;
             }
 
-
             // Refresh text box data
             PopulateTextBoxes(_order);
         }

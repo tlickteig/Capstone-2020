@@ -313,9 +313,11 @@ namespace LogicLayer
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY:
-        /// UPDATED:
-        /// CHANGE:
+        /// 
+        /// UPDATED BY: Steve Coonrod
+        /// UPDATED: 2020-4-25
+        /// CHANGE: Changed the result to accomidate for a low inventory trigger
+        ///         which will return 3 rows effected rather than 1
         /// 
         /// </remarks>
         /// <param name="oldShelterItem"></param>
@@ -327,7 +329,12 @@ namespace LogicLayer
 
             try
             {
-                result = (1 == _itemAccessor.UpdateShelterItem(oldShelterItem, newShelterItem));
+                int rowsEffected = _itemAccessor.UpdateShelterItem(oldShelterItem, newShelterItem);
+                if (rowsEffected == 1 || rowsEffected == 3)
+                {
+                    result = true;
+                }
+
             }
             catch (Exception ex)
             {
@@ -391,6 +398,32 @@ namespace LogicLayer
             catch (Exception ex)
             {
                 throw new ApplicationException("Unable to add a new Item", ex);
+            }
+        }
+        /// <summary>
+        /// Creator: Jesse Tomash
+        /// Created: 4/26/2020
+        /// Approver: 
+        /// Approver: 
+        ///
+        /// selects item by item id
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        /// <param name="item"></param>
+        public Item SelectItemByItemID(int itemID)
+        {
+            try
+            {
+                return _itemAccessor.SelectItemByItemID(itemID);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Unable find item", ex);
             }
         }
     }

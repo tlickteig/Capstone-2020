@@ -38,17 +38,21 @@ namespace LogicLayer
         /// takes a shift time as a parameter.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Jordan Lindo
+        /// Updated: 4/27/2020
+        /// Update: Added a count limit.
+        /// 
         /// </remarks> 
         /// <param name="shiftTime"></param>
         public bool AddShiftTime(PetUniverseShiftTime shiftTime)
         {
-            bool result = true;
+            bool result = false;
             try
             {
-                result = _shiftTimeAccessor.InsertShiftTime(shiftTime) > 0;
+                if (_shiftTimeAccessor.SelectShiftTimeByDepartment(shiftTime.DepartmentID).Count < 3)
+                {
+                    result = _shiftTimeAccessor.InsertShiftTime(shiftTime) > 0;
+                }
             }
             catch (Exception ex)
             {
@@ -169,6 +173,34 @@ namespace LogicLayer
             try
             {
                 return _shiftTimeAccessor.SelectShiftTimeByDepartment(departmentID);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 4/23/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// This is a method for retrieving shift times by id.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="shiftTimeID"></param>
+        /// <returns></returns>
+        public PetUniverseShiftTime RetrieveShiftTimeByID(int shiftTimeID)
+        {
+            try
+            {
+                return _shiftTimeAccessor.SelectShiftTimeByID(shiftTimeID);
             }
             catch (Exception ex)
             {

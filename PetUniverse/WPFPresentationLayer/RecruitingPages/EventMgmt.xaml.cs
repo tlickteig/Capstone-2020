@@ -8,9 +8,9 @@ namespace WPFPresentationLayer.RecruitingPages
 {
     /// <summary>
     /// 
-    /// Name: Steve Coonrod
-    /// Date: 2\08\2020
-    /// Checked By:
+    /// CREATOR: Steve Coonrod
+    /// CREATED: 2\08\2020
+    /// APPROVER: Ryan Morganti
     /// 
     /// This is the page which contains all Event Management operations.
     /// It is set up as a tab control which hold seperate frames each containing a datagrid
@@ -19,11 +19,13 @@ namespace WPFPresentationLayer.RecruitingPages
     /// There is a public event attribute to track which event is currently selected
     ///     Each page sets this value in its datagrid's selection_changed event handler
     ///     so that it can be referred to by the buttons on this page
-    ///
-    /// Updated By:     
-    /// Date Updated:   
-    /// 
     /// </summary>
+    /// <remarks>
+    /// UPDATER: NA
+    /// UPDATED: NA
+    /// UPDATE: NA
+    /// 
+    /// </remarks>
     public partial class EventMgmt : Page
     {
 
@@ -33,17 +35,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
 
         /// <summary>
-        /// Name: Steve Coonrod
-        /// Date: 2\08\2020
-        /// Checked By:
         /// 
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/2/08
+        /// APPROVER: Ryan Morganti
         /// This is the no-argument constructor.
-        /// It is never referenced, but is necessary for the PUHome window to initialize.
-        /// 
-        /// Updated By:     
-        /// Date Updated: 
+        ///     It is never referenced, but is necessary for the PUHome window to initialize.
         /// 
         /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         public EventMgmt()
         {
             InitializeComponent();
@@ -51,17 +56,20 @@ namespace WPFPresentationLayer.RecruitingPages
         }
 
         /// <summary>
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/08
+        /// APPROVER: Ryan Morganti
         /// 
         /// This is the constructor for this page which takes in a user object.
         /// This is necessary for basing functionality on the users role.
-        /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="user"></param>
         public EventMgmt(PetUniverseUser user)
         {
@@ -72,19 +80,21 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/08
+        /// APPROVER: Ryan Morganti
         /// 
         /// A helper method to disable and enable the buttons 
         /// which depend on an Event being selected in one of the the datagrids
         /// 
         /// Public so the method can be used by each page connected to the EventMgmt Page
-        /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         public void ToggleEventButtons()
         {
             if (_selectedEvent == null)
@@ -100,7 +110,7 @@ namespace WPFPresentationLayer.RecruitingPages
                 btnViewEventDetails.IsEnabled = true;
 
                 bool isDCAdmin = false;
-                if (_user.PURoles.Contains("Admin") || _user.PURoles.Contains("Donation Coordinator"))
+                if (_user.PURoles.Contains("Administrator") || _user.PURoles.Contains("Donation Coordinator"))
                 {
                     isDCAdmin = true;
                 }
@@ -146,17 +156,21 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/08
+        /// APPROVER: Ryan Morganti
         /// 
         /// The handler for loading this page.
         /// At this point it will populate the events datagrid
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -169,16 +183,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/08
+        /// APPROVER: Ryan Morganti
         /// 
         /// A helper method to set up the page based on the user's roles
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void SetUpPageBasedOnUserRole()
         {
             //Searches through the user's role list, 
@@ -186,7 +204,7 @@ namespace WPFPresentationLayer.RecruitingPages
             //otherwise it sets up basic member functionality
             foreach (string role in _user.PURoles)
             {
-                if (role == "Admin" || role == "Donation Coordinator")
+                if (role == "Administrator" || role == "Donation Coordinator")
                 {
                     frAllEvents.Content = new ListAllEvents(_eventManager, this);
                     frPendingEvents.Content = new ListPendingEvents(_eventManager, this);
@@ -209,16 +227,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATED: Steve Coonrod
+        /// CREATED: 2020/3/08
+        /// APPROVER: Ryan Morganti
         /// 
         /// A helper method to set up the basic member functionality
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         private void DefaultUserSetUp()
         {
             frApprovedEvents.Content = new ListApprovedEvents(_eventManager, this);
@@ -234,16 +256,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/08
+        /// APPROVER: Ryan Morganti
         /// 
         /// The click event handler for Creating an Event (UC-606 & UC-633)
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnCreateEvent_Click(object sender, RoutedEventArgs e)
@@ -256,16 +282,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/08
+        /// APPROVER: Ryan Morganti
         /// 
         /// The click event handler for Editing an Event (UC-607)
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnEditEvent_Click(object sender, RoutedEventArgs e)
@@ -281,16 +311,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/08
+        /// APPROVER: Ryan Morganti
         /// 
         /// The click event handler for Deleting an Event (UC-608) ADMIN/DC ONLY
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnDeleteEvent_Click(object sender, RoutedEventArgs e)
@@ -304,22 +338,27 @@ namespace WPFPresentationLayer.RecruitingPages
                     frAllEvents.Content = new ListAllEvents(_eventManager, this);
                     frPendingEvents.Content = new ListPendingEvents(_eventManager, this);
                     frApprovedEvents.Content = new ListApprovedEvents(_eventManager, this);
+                    tabAllEvents.IsSelected = true;
                 }
             }
         }
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/3/08
+        /// APPROVER: Ryan Morganti
         /// 
         /// The click event handler for Viewing an Event's details (partially UC-619)
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnViewEventDetails_Click(object sender, RoutedEventArgs e)
@@ -335,16 +374,20 @@ namespace WPFPresentationLayer.RecruitingPages
 
         /// <summary>
         /// 
-        /// Name: Steve Coonrod
-        /// Date: 3\08\2020
-        /// Checked By:
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020\3\08
+        /// APPROVER: Ryan Morganti
         /// 
         /// The click event handler for Reviewing an Event (UC-619)
         /// 
-        /// Updated By:     
-        /// Date Updated: 
-        /// 
         /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnReviewEvent_Click(object sender, RoutedEventArgs e)
@@ -355,6 +398,40 @@ namespace WPFPresentationLayer.RecruitingPages
                 frEventApprovalForm.Visibility = Visibility.Visible;
                 frEventApprovalForm.Content = new EventApprovalForm(_eventManager, _user, _selectedEvent, this, true);
                 tabEventApprovalForm.IsSelected = true;
+            }
+        }
+
+        /// <summary>
+        /// CREATOR: Steve Coonrod
+        /// CREATED: 2020/4/23
+        /// APPROVER: Matt Deaton
+        ///  
+        /// Display method to change the title displayed based on the active tab
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// UPDATER: NA
+        /// UPDATED: NA
+        /// UPDATE: NA
+        /// 
+        /// </remarks>
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (tabAllEvents.IsSelected)
+            {
+                lblEventMgmtHeader.Content = "All Events";
+            }
+            else if (tabApprovedEvents.IsSelected)
+            {
+                lblEventMgmtHeader.Content = "Upcoming Events";
+            }
+            else if (tabPendingEvents.IsSelected)
+            {
+                lblEventMgmtHeader.Content = "Events Pending Approval";
             }
         }
     }

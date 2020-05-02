@@ -16,7 +16,7 @@
     UI for Transaction Admin.
     -->
     <Grid>
-        <Canvas x:Name="canTransactionAdmin" Height="845" Width="1289" Visibility="Visible">
+        <Canvas x:Name="canTransactionAdmin" Height="845" Width="1289" Visibility="Visible" Loaded="canTransactionAdmin_Loaded">
             <Grid Canvas.Left="166" Canvas.Top="187">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100"></RowDefinition>
@@ -36,11 +36,12 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="1" Grid.Column="1" FontWeight="Bold" FontSize="15">Transaction Type:</Label>
-                <DataGrid Grid.Row="2" Grid.Column="1"></DataGrid>
+                <DataGrid x:Name="dgTransactionType" Grid.Row="2" Grid.Column="1" MouseDoubleClick="dgTransactionType_MouseDoubleClick"
+                          IsReadOnly="True" SelectionMode="Single"></DataGrid>
                 <Button x:Name="btnAddTransactionType" Grid.Column="2" Grid.Row="2" Margin="5 5 5 5" Width="130" Height="30" Click="btnAddTransactionType_Click">Add Transaction Type</Button>
 
                 <Label Grid.Row="3" Grid.Column="1" FontWeight="Bold" FontSize="15">Transaction Status:</Label>
-                <DataGrid Grid.Row="4" Grid.Column="1"></DataGrid>
+                <DataGrid x:Name="dgTransactionStatus" Grid.Row="4" Grid.Column="1" MouseDoubleClick="dgTransactionStatus_MouseDoubleClick"></DataGrid>
                 <Button x:Name="btnAddTransactionStatus" Grid.Column="2" Grid.Row="4" Margin="5 5 5 5" Width="130" Height="30" Click="btnAddTransactionStatus_Click">
                     Add Transaction Status
                 </Button>
@@ -73,7 +74,7 @@
 
                 <TextBox x:Name="txtTransactionTypeID" Grid.Row="1" Grid.Column="2" Margin="5 5 5 5"
                          VerticalContentAlignment="Center"
-                         HorizontalContentAlignment="Center"></TextBox>
+                         HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
 
                 <Label Grid.Row="2" Grid.Column="1" FontSize="15" FontWeight="Bold" 
                        VerticalAlignment="Center"
@@ -81,7 +82,7 @@
 
                 <TextBox x:Name="txtTransactionTypeDescription" Grid.Row="2" Grid.Column="2" Margin="5 5 5 5"
                          VerticalContentAlignment="Center"
-                         HorizontalContentAlignment="Center"></TextBox>
+                         HorizontalContentAlignment="Center" IsReadOnly="True"></TextBox>
 
                 <Label Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Right"
                        FontSize="15" FontWeight="Bold">
@@ -90,11 +91,23 @@
 
                 <CheckBox x:Name="chkTransactionTypeDefaultInStore" Grid.Row="3" Grid.Column="2" 
                           VerticalAlignment="Center"
-                          HorizontalAlignment="Center">
+                          HorizontalAlignment="Center" IsEnabled="False">
                 </CheckBox>
 
-                <Button x:Name="btnSaveTransactionType" Grid.Column="2" Grid.Row="4" Margin="5 5 5 5" Click="btnSaveTransactionType_Click">
-                    Add Transaction Type
+                <!--Add-->
+                <Button x:Name="btnSaveTransactionType" Grid.Column="2" Grid.Row="4" Margin="5 5 5 5" Click="btnSaveTransactionType_Click"
+                        Visibility="Hidden">
+                    Save Transaction Type
+                </Button>
+
+                <!--Edit-->
+                <Button x:Name="btnEditTransactionType" Grid.Column="2" Grid.Row="4" Margin="5 5 5 5" Click="btnEditTransactionType_Click" 
+                        Visibility="Visible">
+                    Edit Transaction Type
+                </Button>
+
+                <Button x:Name="btnDeleteTransactionType" Grid.Column="2" Grid.Row="5" Margin="5 5 5 5" Visibility="Hidden" Click="btnDeleteTransactionType_Click">
+                    Delete Transaction Type
                 </Button>
 
                 <Button x:Name="btnCancelTransactionType" Grid.Column="3" Grid.Row="4" Margin="5 5 5 5" Click="btnCancelTransactionType_Click">
@@ -149,12 +162,23 @@
                           HorizontalAlignment="Center">
                 </CheckBox>
 
-                <Button x:Name="btnSaveTransactionStatus" Grid.Column="2" Grid.Row="4" Margin="5 5 5 5" Click="btnSaveTransactionStatus_Click">
-                    Add Transaction Status
+                <Button x:Name="btnSaveTransactionStatus" Grid.Column="2" Grid.Row="4" Margin="5 5 5 5" Click="btnSaveTransactionStatus_Click"
+                        Visibility="Hidden">
+                    Save Transaction Status
                 </Button>
 
                 <Button x:Name="btnCancelTransactionStatus" Grid.Column="3" Grid.Row="4" Margin="5 5 5 5" Click="btnCancelTransactionStatus_Click">
                     Cancel
+                </Button>
+
+                <!--Edit-->
+                <Button x:Name="btnEditTransactionStatus" Grid.Column="2" Grid.Row="4" Margin="5 5 5 5"
+                        Visibility="Visible" Click="btnEditTransactionStatus_Click">
+                    Edit Transaction Type
+                </Button>
+
+                <Button x:Name="btnDeleteTransactionStatus" Grid.Column="2" Grid.Row="5" Margin="5 5 5 5" Visibility="Hidden" Click="btnDeleteTransactionStatus_Click">
+                    Delete Transaction Type
                 </Button>
             </Grid>
         </Canvas>

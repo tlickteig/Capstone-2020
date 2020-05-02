@@ -19,11 +19,10 @@ namespace DataAccessFakes
         private List<Animal> animals;
         private List<Animal> activeAnimals;
         private List<string> species;
-
         private List<AnimalNames> names;
-
         private Animal _animal;
         private List<Animal> animalProfiles;
+        private List<string> animalSpeciesList;
 
         /// <summary>
         /// Creator: Chuck Baxter
@@ -75,7 +74,8 @@ namespace DataAccessFakes
                 {
                     AnimalID = 1,
                     AnimalName = "A",
-                    ProfileImage = "sample images",
+                    ProfileImageData = new byte[10],
+                    ProfileImageMimeType = "JPG",
                     ProfileDescription = "sample description"
                 },
 
@@ -83,9 +83,16 @@ namespace DataAccessFakes
                 {
                     AnimalID = 1,
                     AnimalName = "A",
-                    ProfileImage = "sample images",
+                    ProfileImageData = new byte[10],
+                    ProfileImageMimeType = "JPG",
                     ProfileDescription = "sample description"
                 }
+            };
+
+            animalSpeciesList = new List<string>()
+            {
+                "Dog",
+                "Doggo"
             };
         }
 
@@ -220,20 +227,23 @@ namespace DataAccessFakes
         /// in the database
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update: 
-        /// <param name="animal"></param>
-        /// <param name="profileDescription"></param>
-        /// <param name="profileImagePath"></param>
+        /// Updater: Michael Thompson
+        /// Updated: 2/26/2020
+        /// Update: Book specifications for images
+        /// <param name="animalID">Animals ID</param>
+        /// <param name="profileDescription">Animals profile description</param>
+        /// <param name="profileImageData">Animals profile image in for of byte array</param>
+        /// <param name="profileImageMimeType">File type of the profile image</param>
         /// <returns></returns>
-        public bool UpdateAnimalProfile(int animalID, string profileDescription, string profileImagePath)
+        public bool UpdateAnimalProfile(int animalID, string profileDescription, byte[] profileImageData, string profileImageMimeType)
         {
             _animal = new Animal()
             {
                 AnimalID = 100000,
                 ProfileDescription = "This is a fake Pet profile description",
-                ProfileImage = "/images",
+                ProfileImageData = new byte[10],
+                ProfileImageMimeType = "JPG"
+
             };
             return true;
         }
@@ -505,6 +515,135 @@ namespace DataAccessFakes
                 activeAnimals = null;
                 return activeAnimals;
             }
+        }
+
+        /// <summary>
+        /// Creator: Michael Thompson
+        /// Created: 4/25/2020
+        /// Approver: Austin Gee
+        /// The fake data access method for selecting one animal by its animalID
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="ID"></param>
+        /// <returns></returns>
+        public Animal GetOneAnimalByAnimalID(int ID)
+        {
+            Animal animal = new Animal();
+            try
+            {
+
+                foreach (var item in animals)
+                {
+                    if (item.AnimalID == ID)
+                    {
+                        animal = item;
+                    }
+                }
+                return animal;
+            }
+            catch
+            {
+                animal = null;
+                return animal;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020
+        /// Approver:
+        /// 
+        /// The fake data access method for adding a new animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalSpecies"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
+        public int InsertAnimalSpecies(string animalSpecies, string description)
+        {
+            try
+            {
+                animalSpeciesList.Add(animalSpecies);
+                animalSpeciesList.Add(description);
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver:
+        /// 
+        /// The fake data access method for deleting an animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="animalSpeciesID"></param>
+        /// <returns></returns
+        public int DeleteAnimalSpecies(string animalSpeciesID)
+        {
+            foreach (string species in animalSpeciesList)
+            {
+                if (animalSpeciesID == species)
+                {
+                    try
+                    {
+                        animalSpeciesList.Remove(species);
+                        return 1;
+                    }
+                    catch
+                    {
+                        return 0;
+                    }
+                }
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 3/18/2020
+        /// Approver: Carl Davis, 3/18/2020 
+        /// Approver:
+        /// 
+        /// The fake data access method for updating an animal species
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update: 
+        /// </remarks>
+        /// <param name="oldAnimalSpeciesID"></param>
+        /// <param name="newAnimalSpeciesID"></param>
+        /// <param name="description"></param>
+        /// <returns></returns
+        public int UpdateAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description)
+        {
+            foreach (string animalSpeciesID in animalSpeciesList)
+            {
+                if (oldAnimalSpeciesID == animalSpeciesID)
+                {
+                    return 1;
+                }
+            }
+            return 0;
         }
     }
 }

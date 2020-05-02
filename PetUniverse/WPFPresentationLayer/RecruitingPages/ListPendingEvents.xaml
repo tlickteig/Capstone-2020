@@ -1,4 +1,13 @@
-﻿<Page x:Class="WPFPresentationLayer.RecruitingPages.ListPendingEvents"
+﻿<!-- CREATOR: Steve Coonrod
+     CREATED: 2/8/2020
+     APPROVER: Ryan Morganti 
+     
+     This is the list view for all events that are pending approval. Only for admins and managers
+      
+     UPDATE BY: NA
+     UPDATE DATE: NA
+     CHANGE: NA -->
+<Page x:Class="WPFPresentationLayer.RecruitingPages.ListPendingEvents"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

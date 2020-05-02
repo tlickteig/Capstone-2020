@@ -446,5 +446,11 @@ namespace DataAccessFakes
                 throw new ApplicationException("Cannot add new Item.");
             }
         }
+
+        public Item SelectItemByItemID(int itemID)
+        {
+            Item item = null;
+            return item;
+        }
     }
 }

@@ -37,7 +37,6 @@ This page is used to View all Orders.
                             <ColumnDefinition Width="201*"/>
                             <ColumnDefinition Width="37*"/>
                         </Grid.ColumnDefinitions>
-                        <Button x:Name="btnRefresh" Height="30" Content="Refresh List" HorizontalAlignment="Right" Margin="0,-10,30,20" Width="100" Click="btnRefresh_Click" Grid.Column="1" />
                     </Grid>
                     <Grid Grid.Row="1">
                         <Grid.RowDefinitions>

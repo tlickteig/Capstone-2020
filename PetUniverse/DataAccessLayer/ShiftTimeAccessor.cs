@@ -267,5 +267,58 @@ namespace DataAccessLayer
             }
             return ShiftTimes;
         }
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 4/16/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// This method is for selecting a Shift time by ID.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="shiftTimeID"></param>
+        /// <returns></returns>
+        public PetUniverseShiftTime SelectShiftTimeByID(int shiftTimeID)
+        {
+
+            PetUniverseShiftTime shiftTime = null;
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_shifttime_by_id", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@ShiftTimeID", shiftTimeID);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+                if (reader.Read())
+                {
+                    shiftTime = new PetUniverseShiftTime
+                    {
+                        ShiftTimeID = shiftTimeID,
+                        DepartmentID = reader.GetString(0),
+                        StartTime = reader.GetString(1),
+                        EndTime = reader.GetString(2),
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return shiftTime;
+        }
     }
 }
+

@@ -242,17 +242,17 @@ namespace LogicLayerTests
         /// Update: NA  
         /// 
         /// </remarks>
-        [TestMethod]
-        public void TestLockoutUser()
-        {
-            //Arrange
-            string Email = "j.doe@RandoGuy.com";
-            bool isLocked = false;
-            //Act
-            isLocked = _userManager.LockoutUser(Email, DateTime.Now.AddMinutes(15), DateTime.Now);
-            //Assert
-            Assert.IsTrue(isLocked);
-        }
+        //[TestMethod]
+        //public void TestLockoutUser()
+        //{
+        //    //Arrange
+        //    string Email = "j.doe@RandoGuy.com";
+        //    bool isLocked = false;
+        //    //Act
+        //    isLocked = _userManager.LockoutUser(Email, DateTime.Now.AddMinutes(15), DateTime.Now);
+        //    //Assert
+        //    Assert.IsTrue(isLocked);
+        //}
 
         /// <summary>
         /// Creator: Zach Behrensmeyer
@@ -732,6 +732,55 @@ namespace LogicLayerTests
             bool result = _userManager.UpdatePassword(userID, currentPassword, newPassword);
 
             //Assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/30/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method to set security questions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA 
+        /// </remarks>
+        [TestMethod]
+        public void testSetQuestions()
+        {
+            int userID = 100000;
+            string Q1 = "First Car?";
+            string Q2 = "First pet?";
+            string A1 = "Chevy Malibu";
+            string A2 = "Dog";
+
+            bool result = _userManager.UpdateSecurityInfo(userID, Q1, Q2, A1, A2);
+
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// Creator: Zach Behrensmeyer
+        /// Created: 04/30/2020
+        /// Approver: Steven Cardona
+        /// 
+        /// Method to change password after security questions
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA 
+        /// </remarks>
+        [TestMethod]
+        public void testChangePasswordAfterSecurityQuestions()
+        {
+            int userID = 100000;
+            string newPass = "TestPass12!";
+
+            bool result = _userManager.UpdatePasswordHashBySecurity(userID, newPass);
+
             Assert.IsTrue(result);
         }
 
