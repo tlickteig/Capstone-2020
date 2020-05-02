@@ -1,7 +1,3 @@
-# ASP.NET
-# Build and test ASP.NET projects.
-# Add steps that publish symbols, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 trigger:
 - master
@@ -20,6 +16,15 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+
+# ASP.NET
+- task: FileTransform@2
+  inputs:
+    folderPath: '$(System.DefaultWorkingDirectory)/**/WPFPresentation'
+    xmlTransformationRules: '-transform **\*.Production.config -xml **\*.config'
+# Build and test ASP.NET projects.
+# Add steps that publish symbols, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/aspnet/build-aspnet-4
 
 - task: VSBuild@1
   inputs:
@@ -49,11 +54,6 @@ steps:
     scriptSource: 'filePath'
     scriptPath: '$(system.defaultworkingdirectory)/db_transformer.py'
     arguments: '$(system.defaultworkingdirectory)/PetUniverse/DB_Script/PetUniverseDB.sql'
-
-- task: FileTransform@2
-  inputs:
-    folderPath: '$(System.DefaultWorkingDirectory)/PetUniverse/WPFPresentation'
-    xmlTransformationRules: '-transform web.Production.config -xml web.config'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
