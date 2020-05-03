@@ -5764,10 +5764,13 @@ BEGIN
 		[VolunteerShift].[VolunteerShiftID], [ShiftDescription],
 		[ShiftTitle], [ShiftStartTime], [ShiftEndTime],
 		[Recurrance], [IsSpecialEvent], [ShiftNotes],
-		[ShiftDate], [ScheduleID], [ShiftRecord].[VolunteerID]
+		[ShiftDate], [ScheduleID], [ShiftRecord].[VolunteerID],
+		[Volunteer].[FirstName], [Volunteer].[LastName]
 	FROM [dbo].[VolunteerShift]
 	LEFT JOIN [ShiftRecord]
 	ON [ShiftRecord].[VolunteerShiftID] = [VolunteerShift].[VolunteerShiftID]
+	LEFT JOIN [Volunteer]
+	ON [Volunteer].[VolunteerID] = [ShiftRecord].[VolunteerID]
 END
 GO
 
@@ -8326,10 +8329,12 @@ BEGIN
 	SELECT [VolunteerShift].[VolunteerShiftID], [ShiftDescription],
 		[ShiftTitle], [ShiftDate], [ShiftStartTime],
 		[ShiftEndTime], [Recurrance], [IsSpecialEvent],
-		[ShiftNotes], [ScheduleID]
+		[ShiftNotes], [ScheduleID], [Volunteer].[FirstName], [Volunteer].[LastName]
 	FROM [ShiftRecord]
-	JOIN [VolunteerShift] ON
+	LEFT JOIN [VolunteerShift] ON
 		([VolunteerShift].[VolunteerShiftID] = [ShiftRecord].[VolunteerShiftID])
+	LEFT JOIN [Volunteer] ON
+		([Volunteer].[VolunteerID] = [ShiftRecord].[VolunteerID])
 	WHERE [ShiftRecord].[VolunteerID] = @VolunteerID
 END
 GO
