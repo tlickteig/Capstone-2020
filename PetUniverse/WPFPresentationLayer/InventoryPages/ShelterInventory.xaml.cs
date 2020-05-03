@@ -12,7 +12,7 @@ namespace WPFPresentationLayer.InventoryPages
     /// <summary>
     /// CREATED BY: Matt Deaton
     /// DATE: 2020-03-06
-    /// CHECKED BY:
+    /// CHECKED BY: Steve Coonrod
     /// 
     /// View for handling the Shelter Inventory
     /// Interaction logic for ShelterInventory.xaml
@@ -36,7 +36,7 @@ namespace WPFPresentationLayer.InventoryPages
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE: 2020-03-06
-        /// CHECKED BY:
+        /// CHECKED BY: Steve Coonrod
         /// 
         /// Method that loads the list of Shelter Items into the Data Grid on page load.
         /// 
@@ -65,7 +65,7 @@ namespace WPFPresentationLayer.InventoryPages
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE: 2020-03-06
-        /// CHECKED BY:
+        /// CHECKED BY: Steve Coonrod
         /// 
         /// Method that loads the list of Shelter Items into the Data Grid on page load.
         /// 
@@ -87,7 +87,7 @@ namespace WPFPresentationLayer.InventoryPages
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE: 2020-03-06
-        /// CHECKED BY:
+        /// CHECKED BY: Steve Coonrod
         /// 
         /// Method that loads the list of Needed Shelter Items into the Data Grid 
         /// Button Click.
@@ -111,7 +111,7 @@ namespace WPFPresentationLayer.InventoryPages
         /// <summary>
         /// CREATED BY: Matt Deaton
         /// DATE: 2020-03-06
-        /// CHECKED BY:
+        /// CHECKED BY: Steve Coonrod
         /// 
         /// Button that calls the RetrieveShelterItems methdod.
         /// Only visible during search or needed donations screens are used.
@@ -133,6 +133,22 @@ namespace WPFPresentationLayer.InventoryPages
             lblShelterInvetoryHeader.Content = "Shelter Inventory";
         }// End btnAllShelterInventory_Click()
 
+        /// <summary>
+        /// CREATED BY: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steve Coonrod
+        /// 
+        /// Button that calls the RetrieveShelterItems methdod.
+        /// Only visible during search or needed donations screens are used.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TxtShelterItemSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
             List<Item> shelterItems = _itemManager.RetrieveShelterItems();
@@ -158,15 +174,46 @@ namespace WPFPresentationLayer.InventoryPages
             }
         }// End TxtShelterItemSearch_TextChanged()
 
+        /// <summary>
+        /// CREATED BY: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steve Coonrod
+        /// 
+        /// Button that brings up the AddDonatedItem page.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddDonation_Click(object sender, RoutedEventArgs e)
         {
             this.NavigationService?.Navigate(new AddDonatedItem());
         }// End btnAddDonation_Click()
 
+        /// <summary>
+        /// CREATED BY: Matt Deaton
+        /// DATE: 2020-03-06
+        /// CHECKED BY: Steve Coonrod
+        /// 
+        /// A double click on the data grid will bring up the UpdateShleterITem page.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY:
+        /// UPDATED:
+        /// CHANGE:
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void dgViewShelterInventory_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             Item shelterItem = (Item)dgViewShelterInventory.SelectedItem;
             this.NavigationService?.Navigate(new UpdateShelterItem(shelterItem, _itemManager));
-        }
+        }// End dgViewShelterInventory_MouseDoubleClick()
+
     }// End class ShelterInventory
 }

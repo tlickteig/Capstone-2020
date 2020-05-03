@@ -12,7 +12,7 @@ namespace WPFPresentationLayer.InventoryPages
     /// <summary>
     /// CREATED BY: Matt Deaton
     /// DATE: 2020-03-15
-    /// CHECKED BY:
+    /// CHECKED BY: Steve Coonrod
     /// Page for adding a new Donated Item
     /// 
     /// Interaction logic for AddDonationItem.xaml
@@ -37,8 +37,7 @@ namespace WPFPresentationLayer.InventoryPages
         /// <summary>
         /// Creator: Brandyn T. Coverdill
         /// Created: 2020/02/22
-        /// Approver: 
-        /// Approver:  
+        /// Approver: Steve Coonrod 
         ///
         /// Populates the ComboBox with values.
         /// </summary>
@@ -62,8 +61,7 @@ namespace WPFPresentationLayer.InventoryPages
         /// <summary>
         /// Creator: Brandyn T. Coverdill
         /// Created: 2020/02/22
-        /// Approver: 
-        /// Approver:  
+        /// Approver: Steve Coonrod 
         ///
         /// When the user clicks this button, it will add a new item category.
         /// </summary>
@@ -99,8 +97,7 @@ namespace WPFPresentationLayer.InventoryPages
         /// <summary>
         /// Creator: Brandyn T. Coverdill
         /// Created: 2020/02/22
-        /// Approver: 
-        /// Approver:  
+        /// Approver: Steve Coonrod  
         ///
         /// This method refreshes the ComboBox that shows Item Categories to choose from.
         /// </summary>
@@ -126,7 +123,7 @@ namespace WPFPresentationLayer.InventoryPages
         /// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE: 2020-03-06
-		/// CHECKED BY:
+		/// CHECKED BY: Steve Coonrod
 		/// 
 		/// Method that cancels the Add Donated Item Process, and 
         /// returns to Shelter Inventory view.
@@ -147,20 +144,51 @@ namespace WPFPresentationLayer.InventoryPages
         /// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE: 2020-03-06
-		/// CHECKED BY:
+		/// CHECKED BY: Steve Coonrod
 		/// 
 		/// Method that Adds a new Donated Item to the Shelter Inventory.
 		/// 
 		/// </summary>
 		/// <remarks>
-		/// UPDATED BY:
-		/// UPDATED:
-		/// CHANGE:
+		/// UPDATED BY: Matt Deaton
+		/// UPDATED: 2020-05-03
+		/// CHANGE: Add validation checks to make sure ItemQty and ShelterThreshold were only
+        /// recieving numbers.
 		/// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnAddDonation_Click(object sender, RoutedEventArgs e)
         {
+            // Set variables to set the quantites to later.
+            int itemQuantity = 0;
+            int shelterThreshold = 0;
+
+            // Check to make sure txtItemQty is a number. 
+            try
+            {
+                int quantity = Int32.Parse(txtItemQty.Text);
+                itemQuantity = quantity;
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Item Quantity must be a number.");
+                txtItemQty.Focus();
+                return;
+            }
+            // Check to make sure txtShelterThreshold is a number.
+            try
+            {
+
+                int threshold = Int32.Parse(txtShelterThreshold.Text);
+                shelterThreshold = threshold;
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show("Shelter Threshold must be a number.");
+                txtShelterThreshold.Focus();
+                return;
+            }
+
             if (txtItemName.Text.ToString() == "")
             {
                 MessageBox.Show("Please enter an Item Name.");
@@ -189,8 +217,8 @@ namespace WPFPresentationLayer.InventoryPages
             Item donatedItem = new Item()
             {
                 ItemName = txtItemName.Text.ToString(),
-                ItemQuantity = Convert.ToInt32(txtItemQty.Text),
-                ShelterThreshold = Convert.ToInt32(txtShelterThreshold.Text),
+                ItemQuantity = itemQuantity,
+                ShelterThreshold = shelterThreshold,
                 ItemCategoryID = cboBxCategory.Text,
                 Description = txtItemDesc.Text,
                 ShelterItem = (bool)chkShelterItem.IsChecked
@@ -217,7 +245,7 @@ namespace WPFPresentationLayer.InventoryPages
         /// <summary>
 		/// CREATED BY: Matt Deaton
 		/// DATE: 2020-03-17
-		/// CHECKED BY:
+		/// CHECKED BY: Steve Coonrod
 		/// 
 		/// Method that sets the focus to the Item Name when page is loaded.
 		/// 
