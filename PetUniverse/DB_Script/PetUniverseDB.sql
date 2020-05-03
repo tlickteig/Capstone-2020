@@ -1667,9 +1667,10 @@ Created by: Matt Deaton
 Date: 2020-02-28
 Comment: Table for Donor Information
 */
+DROP TABLE IF EXISTS [dbo].[Donor]
+GO
 PRINT '' PRINT '*** Creating Donor Table'
 GO
-
 CREATE TABLE [dbo].[Donor](
 	[DonorID]				[int]IDENTITY(1000,1)			NOT NULL,
 	[FirstName]				[nvarchar](25)					NOT NULL DEFAULT 'Anonymous',
@@ -1684,9 +1685,10 @@ Created by: Matt Deaton
 Date: 2020-02-28
 Comment: Table for Donations
 */
+DROP TABLE IF EXISTS [dbo].[Donations]
+GO
 PRINT '' PRINT '*** Creating Donations Table'
 GO
-
 CREATE TABLE [dbo].[Donations](
 	[DonationID]			[int]IDENTITY(1000,1)			NOT NULL,
 	[DonorID]				[int]							NOT NULL,
@@ -1704,9 +1706,10 @@ Created by: Matt Deaton
 Date: 2020-02-28
 Comment: Table for DonationItem
 */
-PRINT '' PRINT '*** Creating Donation Item Table'
+DROP TABLE IF EXISTS [dbo].[DonationItem]
 GO
-
+PRINT '' PRINT '*** Creating DonationItem Table'
+GO
 CREATE TABLE [dbo].[DonationItem](
 	[DonationID]			[int]								NOT NULL,
 	[ItemID]				[int]								NOT NULL,
@@ -9018,6 +9021,8 @@ Created by: Matt Deaton
 Date: 2020-03-06
 Comment: Stored Procedure for selecting all shelter items, where ShelterItem field is true.
 */
+DROP PROCEDURE IF EXISTS [sp_select_shelter_items]
+GO
 PRINT '' PRINT '*** Creating sp_select_shelter_items'
 GO
 CREATE PROCEDURE [sp_select_shelter_items]
@@ -9041,6 +9046,8 @@ Created by: Matt Deaton
 Date: 2020-03-06
 Comment: Strored Procedure for viewing only Shelter Items that are below the ShelterThreshold.
 */
+DROP PROCEDURE IF EXISTS [sp_view_needed_donations]
+GO
 PRINT '' PRINT '*** Creating sp_view_needed_donations'
 GO
 CREATE PROCEDURE [sp_view_needed_donations]
@@ -9061,6 +9068,8 @@ Created by: Matt Deaton
 Date: 2020-03-06
 Comment: Stored Procedure for selecting a ShelterItem by there ItemName
 */
+DROP PROCEDURE IF EXISTS [sp_select_shelter_item_by_item_name]
+GO
 PRINT '' PRINT '*** Creating sp_select_shelter_item_by_item_name'
 GO
 CREATE PROCEDURE [sp_select_shelter_item_by_item_name]
@@ -9084,9 +9093,11 @@ Created by: Matt Deaton
 Date: 2020-03-06
 Comment: Stored Procedure for inserting a new ShelterItem through donations.
 */
-PRINT '' PRINT '*** Creating sp_insert_new_donation'
+DROP PROCEDURE IF EXISTS [sp_insert_new_physical_donation]
 GO
-CREATE PROCEDURE [sp_insert_new_donation]
+PRINT '' PRINT '*** Creating sp_insert_new_physical_donation'
+GO
+CREATE PROCEDURE [sp_insert_new_physical_donation]
 (
 	@ItemName			[nvarchar](50),
 	@ItemCategoryID		[nvarchar](50),
@@ -9112,6 +9123,8 @@ CREATED BY: Matt Deaton
 DATE: 2020-03-16
 COMMENT: Stored Procedure to edit a shelter item.
 */
+DROP PROCEDURE IF EXISTS [sp_update_shelter_item]
+GO
 PRINT '' PRINT '*** Creating sp_update_shelter_item'
 GO
 CREATE PROCEDURE [sp_update_shelter_item]
@@ -9157,6 +9170,8 @@ CREATED BY: Matt Deaton
 DATE: 2020-03-16
 COMMENT: Stored Procedure to view all donors.
 */
+DROP PROCEDURE IF EXISTS [sp_select_donors]
+GO
 PRINT '' PRINT '*** Creating sp_select_donors'
 GO
 CREATE PROCEDURE[sp_select_donors]
@@ -11955,7 +11970,6 @@ CREATED BY: Matt Deaton
 DATE: 2020-04-07
 COMMENT: Stored Procedure to delete an applicant by the applicantID
 */
-
 DROP PROCEDURE IF EXISTS [sp_select_applicant_for_interview]
 GO
 PRINT '' PRINT '*** Creating sp_select_applicant_for_interview'
