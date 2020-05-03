@@ -56,6 +56,7 @@ namespace WPFPresentationLayer.AMPages
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             canViewPrescription.Visibility = Visibility.Hidden;
+            canView.Visibility = Visibility.Visible;
             ResetFields();
             DisableAddMode();
             if (editMode)
@@ -155,6 +156,7 @@ namespace WPFPresentationLayer.AMPages
                             DisableEditMode();
                             RefreshPrescriptionsList();
                             canViewPrescription.Visibility = Visibility.Hidden;
+                            canView.Visibility = Visibility.Visible;
                         }
                         else
                         {
@@ -177,6 +179,7 @@ namespace WPFPresentationLayer.AMPages
                             DisableAddMode();
                             RefreshPrescriptionsList();
                             canViewPrescription.Visibility = Visibility.Hidden;
+                            canView.Visibility = Visibility.Visible;
                         }
                         else
                         {
@@ -232,6 +235,7 @@ namespace WPFPresentationLayer.AMPages
         private void BtnCreate_Click(object sender, RoutedEventArgs e)
         {
             canViewPrescription.Visibility = Visibility.Visible;
+            canView.Visibility = Visibility.Hidden;
             _vetAppointmentManager = new VetAppointmentManager();
             try
             {
@@ -264,6 +268,7 @@ namespace WPFPresentationLayer.AMPages
             }
             PopulateFields((AnimalPrescriptionVM)dgPrescriptions.SelectedItem);
             canViewPrescription.Visibility = Visibility.Visible;
+            canView.Visibility = Visibility.Hidden;
         }
 
         /// <summary>
@@ -335,7 +340,6 @@ namespace WPFPresentationLayer.AMPages
             txtAnimalName.Visibility = Visibility.Visible;
             dgAppointmentList.Visibility = Visibility.Visible;
             lblSearchAnimal.Visibility = Visibility.Visible;
-            lblVetApptList.Visibility = Visibility.Visible;
             btnSaveEdit.Content = "Save";
             dateStartDate.DisplayDateStart = DateTime.Now;
             dateEndDate.DisplayDateStart = DateTime.Now.AddDays(1);
@@ -366,7 +370,6 @@ namespace WPFPresentationLayer.AMPages
             txtDescription.IsEnabled = false;
             dgAppointmentList.Visibility = Visibility.Hidden;
             lblSearchAnimal.Visibility = Visibility.Hidden;
-            lblVetApptList.Visibility = Visibility.Hidden;
             txtAnimalName.Visibility = Visibility.Hidden;
             btnSaveEdit.Content = "Edit";
             dgAppointmentList.ItemsSource = null;
@@ -579,6 +582,7 @@ namespace WPFPresentationLayer.AMPages
         {
             dgPrescriptions.Columns.RemoveAt(8);
             dgPrescriptions.Columns.RemoveAt(9);
+            dgPrescriptions.Columns.RemoveAt(9);
             dgPrescriptions.Columns[0].Header = "Animal Name";
             dgPrescriptions.Columns[1].Header = "Prescription Name";
             dgPrescriptions.Columns[4].Header = "Administration Method";
@@ -658,7 +662,7 @@ namespace WPFPresentationLayer.AMPages
             {
                 if (txtAnimalName.Text.Equals(""))
                 {
-                    dgAppointmentList.ItemsSource = _vetAppointmentManager.RetrieveAllVetAppointments();
+                    dgAppointmentList.ItemsSource = _vetAppointmentManager.RetrieveVetAppointmentsByActive(true);
                 }
                 else
                 {
@@ -685,6 +689,10 @@ namespace WPFPresentationLayer.AMPages
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             AnimalPrescriptionVM animalPrescription = (AnimalPrescriptionVM)dgPrescriptions.SelectedItem;
+            if (animalPrescription == null)
+            {
+                return;
+            }
             string message = "Are you sure you want to delete the " + animalPrescription.PrescriptionName +
                 " record for " + animalPrescription.AnimalName + "? Please deactivate the record instead " +
                 "unless you're sure you want to delete!";
@@ -698,6 +706,7 @@ namespace WPFPresentationLayer.AMPages
                         DisableEditMode();
                         RefreshPrescriptionsList();
                         canViewPrescription.Visibility = Visibility.Hidden;
+                        canView.Visibility = Visibility.Visible;
                     }
                     else
                     {

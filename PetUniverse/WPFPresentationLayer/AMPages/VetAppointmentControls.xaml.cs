@@ -48,6 +48,8 @@ namespace WPFPresentationLayer.AMPages
             _vetAppointmentManager = new VetAppointmentManager();
             _animalManager = new AnimalManager();
             _user = user;
+            cboAppointmentTime.ItemsSource = Times();
+            cboFollowupTime.ItemsSource = Times();
         }
 
         /// <summary>
@@ -87,6 +89,28 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void BtnFilter_Click(object sender, RoutedEventArgs e)
         {
+
+            canViewVetAppointmentFilter.Visibility = Visibility.Visible;
+            cboDateTime.ItemsSource = Times();
+            cboFollowUpTime.ItemsSource = Times();
+            GetFilteredResultsCount(null, null);
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 4/25/2020
+        /// Approver: Chuck Baxter 4/27/2020
+        /// 
+        /// Helper method for populating combo box
+        /// with every hour of the day in a 12 hour clock format
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        private List<string> Times()
+        {
             List<string> times = new List<string>();
             for (int i = 1; i < 25; i++)
             {
@@ -99,10 +123,7 @@ namespace WPFPresentationLayer.AMPages
                 }
                 times.Add(i - subtrahend + ":00 " + daytime);
             }
-            canViewVetAppointmentFilter.Visibility = Visibility.Visible;
-            cboDateTime.ItemsSource = times;
-            cboFollowUpTime.ItemsSource = times;
-            GetFilteredResultsCount(null, null);
+            return times;
         }
 
         /// <summary>
@@ -121,6 +142,7 @@ namespace WPFPresentationLayer.AMPages
         private void BtnSchedule_Click(object sender, RoutedEventArgs e)
         {
             canViewVetAppointment.Visibility = Visibility.Visible;
+            canView.Visibility = Visibility.Hidden;
             EnableAddMode();
         }
 
@@ -141,6 +163,7 @@ namespace WPFPresentationLayer.AMPages
             if (dgAppointments.SelectedItem != null)
             {
                 canViewVetAppointment.Visibility = Visibility.Visible;
+                canView.Visibility = Visibility.Hidden;
                 PopulateFields((AnimalVetAppointment)dgAppointments.SelectedItem);
             }
         }
@@ -162,7 +185,7 @@ namespace WPFPresentationLayer.AMPages
         {
             txtAnimalName.Text = vetAppointment.AnimalName;
             dateAppointmentDate.SelectedDate = vetAppointment.AppointmentDateTime;
-            txtTime.Text = vetAppointment.AppointmentDateTime.ToString("h:mm tt", CultureInfo.InvariantCulture);
+            cboAppointmentTime.Text = vetAppointment.AppointmentDateTime.ToShortTimeString();
             txtClinicAddress.Text = vetAppointment.ClinicAddress;
             txtVetName.Text = vetAppointment.VetName;
             txtDescription.Text = vetAppointment.AppointmentDescription;
@@ -170,8 +193,7 @@ namespace WPFPresentationLayer.AMPages
             if (vetAppointment.FollowUpDateTime != null)
             {
                 dateFollowUp.SelectedDate = vetAppointment.FollowUpDateTime;
-                txtFollowUpTime.Text = vetAppointment.FollowUpDateTime.Value.ToString(
-                    "h:mm tt", CultureInfo.InvariantCulture);
+                cboFollowupTime.Text = vetAppointment.AppointmentDateTime.ToShortTimeString();
             }
         }
 
@@ -191,7 +213,7 @@ namespace WPFPresentationLayer.AMPages
         {
             txtAnimalName.Text = "";
             dateAppointmentDate.SelectedDate = null;
-            txtTime.Text = "";
+            cboAppointmentTime.SelectedItem = null;
             txtClinicAddress.Text = "";
             txtVetName.Text = "";
             txtDescription.Text = "";
@@ -214,7 +236,7 @@ namespace WPFPresentationLayer.AMPages
         private void EnableAddMode()
         {
             dateAppointmentDate.IsEnabled = true;
-            txtTime.IsEnabled = true;
+            cboAppointmentTime.IsEnabled = true;
             txtClinicAddress.IsEnabled = true;
             txtDescription.IsEnabled = true;
             txtVetName.IsEnabled = true;
@@ -222,10 +244,6 @@ namespace WPFPresentationLayer.AMPages
             btnSaveEdit.Content = "Save";
             dgAnimalList.Visibility = Visibility.Visible;
             lblAnimalList.Visibility = Visibility.Visible;
-            lblFollowUp.Visibility = Visibility.Hidden;
-            lblFollowUpTime.Visibility = Visibility.Hidden;
-            dateFollowUp.Visibility = Visibility.Hidden;
-            txtFollowUpTime.Visibility = Visibility.Hidden;
             try
             {
                 dgAnimalList.ItemsSource = _animalManager.RetrieveAnimalsByActive();
@@ -251,17 +269,13 @@ namespace WPFPresentationLayer.AMPages
         private void DisableAddMode()
         {
             dateAppointmentDate.IsEnabled = false;
-            txtTime.IsEnabled = false;
+            cboAppointmentTime.IsEnabled = false;
             txtClinicAddress.IsEnabled = false;
             txtDescription.IsEnabled = false;
             txtVetName.IsEnabled = false;
             btnSaveEdit.Content = "Edit";
             dgAnimalList.Visibility = Visibility.Hidden;
             lblAnimalList.Visibility = Visibility.Hidden;
-            lblFollowUp.Visibility = Visibility.Visible;
-            lblFollowUpTime.Visibility = Visibility.Visible;
-            dateFollowUp.Visibility = Visibility.Visible;
-            txtFollowUpTime.Visibility = Visibility.Visible;
             ClearFields();
         }
 
@@ -282,12 +296,12 @@ namespace WPFPresentationLayer.AMPages
         {
             _editMode = true;
             dateAppointmentDate.IsEnabled = true;
-            txtTime.IsEnabled = true;
+            cboAppointmentTime.IsEnabled = true;
             txtClinicAddress.IsEnabled = true;
             txtDescription.IsEnabled = true;
             txtVetName.IsEnabled = true;
             dateFollowUp.IsEnabled = true;
-            txtFollowUpTime.IsEnabled = true;
+            cboFollowupTime.IsEnabled = true;
             btnClearFollowUp.Visibility = Visibility.Visible;
             dateAppointmentDate.DisplayDateStart = DateTime.Now;
             dateFollowUp.DisplayDateStart = DateTime.Now.AddDays(1);
@@ -315,7 +329,7 @@ namespace WPFPresentationLayer.AMPages
             _editMode = false;
             DisableAddMode();
             dateFollowUp.IsEnabled = false;
-            txtFollowUpTime.IsEnabled = false;
+            cboFollowupTime.IsEnabled = false;
             btnClearFollowUp.Visibility = Visibility.Hidden;
             btnDelete.Visibility = Visibility.Hidden;
             chkSetActive.IsEnabled = false;
@@ -364,6 +378,7 @@ namespace WPFPresentationLayer.AMPages
         private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             canViewVetAppointment.Visibility = Visibility.Hidden;
+            canView.Visibility = Visibility.Visible;
             DisableEditMode();
             ClearFields();
             RefreshList();
@@ -405,9 +420,9 @@ namespace WPFPresentationLayer.AMPages
                     MessageBox.Show("Please select an appointment date");
                     return;
                 }
-                if (!txtTime.Text.IsValidTime(dateAppointmentDate.SelectedDate.Value))
+                if (cboAppointmentTime.SelectedItem == null)
                 {
-                    MessageBox.Show("Invalid time entered. Please enter in 12 hour format (ex. 2:00 PM)");
+                    MessageBox.Show("Please select an appointment time");
                     return;
                 }
                 if (!txtVetName.Text.IsValidVetName())
@@ -433,7 +448,7 @@ namespace WPFPresentationLayer.AMPages
                     UserID = _user.PUUserID,
                     AppointmentDateTime = DateTime.Parse(
                         dateAppointmentDate.SelectedDate.Value.ToShortDateString() +
-                        " " + txtTime.Text),
+                        " " + cboAppointmentTime.SelectedValue),
                     ClinicAddress = txtClinicAddress.Text,
                     VetName = txtVetName.Text,
                     AppointmentDescription = txtDescription.Text,
@@ -442,22 +457,22 @@ namespace WPFPresentationLayer.AMPages
 
                 if (_editMode)
                 {
-                    if (dateFollowUp.SelectedDate != null
-                        && txtFollowUpTime.Text != "")
+                    if ((dateFollowUp.SelectedDate != null &&
+                        cboFollowupTime.SelectedItem == null) ||
+                        (dateFollowUp.SelectedDate == null &&
+                        cboFollowupTime.SelectedItem != null))
                     {
-                        if (!txtFollowUpTime.Text.IsValidTime(dateFollowUp.SelectedDate.Value))
-                        {
-                            MessageBox.Show("Invalid follow up date entered. Leave blank" +
-                                " if not applicable");
-                            return;
-                        }
-                        else
-                        {
-                            animalVetAppointment.FollowUpDateTime =
+                        MessageBox.Show("If you select a follow up date you must select a time also and vice versa." +
+                            " You can select the 'Clear Follow Up' button to not have one set.");
+                        return;
+                    }
+                    if (dateFollowUp.SelectedDate != null
+                        && cboFollowupTime.SelectedItem != null)
+                    {
+                        animalVetAppointment.FollowUpDateTime =
                                 DateTime.Parse(
                                     dateFollowUp.SelectedDate.Value.ToShortDateString() +
-                                    " " + txtFollowUpTime.Text);
-                        }
+                                    " " + cboFollowupTime.SelectedValue);
                     }
                     try
                     {
@@ -607,7 +622,7 @@ namespace WPFPresentationLayer.AMPages
             if (_editMode)
             {
                 dateFollowUp.SelectedDate = null;
-                txtFollowUpTime.Text = "";
+                cboFollowupTime.SelectedItem = null;
                 dateFollowUp.DisplayDateStart = dateAppointmentDate.SelectedDate.Value.AddDays(1);
             }
         }
@@ -629,7 +644,7 @@ namespace WPFPresentationLayer.AMPages
         private void BtnClearFollowUp_Click(object sender, RoutedEventArgs e)
         {
             dateFollowUp.SelectedDate = null;
-            txtFollowUpTime.Text = "";
+            cboFollowupTime.SelectedItem = null;
         }
 
         /// <summary>
@@ -1027,6 +1042,36 @@ namespace WPFPresentationLayer.AMPages
                     }
                 }
             }
+            else
+            {
+                chkSetActive.IsChecked = !chkSetActive.IsChecked;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 5/2/2020
+        /// Approver: 
+        /// 
+        /// Removes unneeded columns and fixes header names
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void dgAppointments_AutoGeneratedColumns(object sender, EventArgs e)
+        {
+            dgAppointments.Columns.Remove(dgAppointments.Columns[0]);
+            dgAppointments.Columns.Remove(dgAppointments.Columns[0]);
+            dgAppointments.Columns.Remove(dgAppointments.Columns[1]);
+            dgAppointments.Columns.Remove(dgAppointments.Columns[2]);
+            dgAppointments.Columns[0].Header = "Animal Name";
+            dgAppointments.Columns[1].Header = "Followup Date/Time";
+            dgAppointments.Columns[2].Header = "Description";
+            dgAppointments.Columns[3].Header = "Appointment Date/Time";
+            dgAppointments.Columns[4].Header = "Clinic Address";
+            dgAppointments.Columns[5].Header = "Vet Name";
         }
     }
 }
