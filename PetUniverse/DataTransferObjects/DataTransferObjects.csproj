@@ -127,7 +127,6 @@
     <Compile Include="LogItem.cs" />
     <Compile Include="MedicalHistory.cs" />
     <Compile Include="Medication.cs" />
-    <Compile Include="MedicationOrder.cs" />
     <Compile Include="Medicine.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="MVCAdoptionApplication.cs" />
@@ -138,7 +137,6 @@
     <Compile Include="OrderDetails.cs" />
     <Compile Include="OrderItemLine.cs" />
     <Compile Include="OrderLine.cs" />
-    <Compile Include="OutgoingOrders.cs" />
     <Compile Include="PagingInfo.cs" />
     <Compile Include="PetUniverseShiftTime.cs" />
     <Compile Include="PetUniverseUser.cs" />

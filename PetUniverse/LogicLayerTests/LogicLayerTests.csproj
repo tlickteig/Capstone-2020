@@ -83,7 +83,6 @@
     <Compile Include="FosterAppointmentManagerTests.cs" />
     <Compile Include="ItemReportManagerTests.cs" />
     <Compile Include="LocationManagerTests.cs" />
-    <Compile Include="MedicationManagerTests.cs" />
     <Compile Include="MedicineManagerTests.cs" />
     <Compile Include="MessagesTests.cs" />
     <Compile Include="OrderLineManagerTests.cs" />

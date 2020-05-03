@@ -91,7 +91,6 @@
     <Compile Include="IItemReportAccessor.cs" />
     <Compile Include="ILocationAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
-    <Compile Include="IMedicationAccessor.cs" />
     <Compile Include="IMedicineAccessor.cs" />
     <Compile Include="IMessagesAccessor.cs" />
     <Compile Include="INewAnimalChecklistAccessor.cs" />
