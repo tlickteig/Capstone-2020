@@ -1835,8 +1835,10 @@ GO
 print '' print '*** creating JobListing table'
 GO
 CREATE TABLE [dbo].[JobListing] (
+
 	[JobListingID]			[int] IDENTITY(100000, 1)	NOT NULL,
-	[Position]				[nvarchar](50)				NOT NULL,
+	[RoleID]		        [nvarchar](50)				Null,  
+	[Position]				[nvarchar](50)				Not NULL,
 	[Benefits]				[nvarchar](250)				NOT NULL,
 	[Requirements]			[nvarchar](250)				NOT NULL,
 	[StartingWage]			[decimal](10,2)						NOT NULL,
@@ -15975,15 +15977,42 @@ Comment: Sample JobListing Records
 print '' print '*** Inserting Sample JobListing record '
 GO
 INSERT INTO [dbo].[JobListing]
-	([Position], [Benefits], [Requirements], [StartingWage], [Responsibilities])
+	([RoleID],[Position], [Benefits], [Requirements], [StartingWage], [Responsibilities])
 	VALUES
-	('Volunteer', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'Good Enough Degree', 0000.01, 'Do things without expectation of pay'),
-	('Administrator', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
-	('Customer', 'No Benefits', 'No Requirements', 0000.01, 'Give us money in exchange for merchandise'),
-	('Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in'),
-	('Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves'),
-	('Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own')
+	('Admin','Volunteer', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'Good Enough Degree', 0000.01, 'Do things without expectation of pay'),	
+	('Customer','Administrator', 'Free Healthcare, Horse-Dental, Jungle Gym Membership', 'PHD in Astrophysics', 130000.99, 'Solve World Hunger'),
+	('Volunteer','Customer', 'No Benefits', 'No Requirements', 0000.01, 'Give us money in exchange for merchandise'),
+	('Customer','Groomer', 'Dental, Eye Care, Vision', 'Grooming Experience Recommended', 12.50, 'Groom the animals as the come in'),
+	('Inventory','Stocker', 'Dental, Eye Care, Vision', 'None', 10.50, 'Stock shelves'),
+	('Admin','Foster', 'No Benefits', 'Home Inspection, Fenced Yard', 0.00, 'Care for the Animal as it were your own')
+	
 GO
+
+/*
+Created by: Hassan Karar.
+Date: 2020/03/11
+Comment: Job Listing table, used to create the job listing.
+*/
+print '' print '* Creating Sample Job Listing'
+
+
+Go
+
+ INSERT INTO [dbo].[JobListing]
+	([RoleID],[Position],[Benefits], [Requirements], [StartingWage], [Responsibilities])
+	VALUES
+	('Admin','Volunteer', 'Helth insurance', 'Experiance more than ten years ', 20.70, 'All the responsibilites'),
+	('Volunteer','Volunteer', 'Helth Insurance', ' Experiance in customer service ', 14.99, 'All the responsibilites'),
+	('Customer','Customer', 'Helth Insurance', ' Experiance in customer service ', 14.99, 'All the responsibilites'),
+	('Employee','Employee', 'Helth Insurance', ' Experiance in customer service ', 14.99, 'All the responsibilites'),
+	('Customer','Customer', 'Helth Insurance', ' Experiance in customer service ', 14.99, 'All the responsibilites'),
+	('Employee','Employee', 'Helth Insurance', ' Experiance in customer service ', 14.99, 'All the responsibilites'),
+	('Customer','Customer', 'Helth Insurance', ' Experiance in customer service ', 14.99, 'All the responsibilites')
+	
+
+	
+Go 
+
 
 
 print '' print '*** Inserting sample schedule'
@@ -16511,6 +16540,132 @@ BEGIN
 	FROM [dbo].[request]
 END
 GO
+
+
+
+
+
+/*
+Created by: Hassan Karar.
+Date: 2020/3/16
+Comment: delete an JobListing
+*/
+print '' print '*** Creating sp_delete_JobListing ' 
+GO
+CREATE PROCEDURE [sp_delete_JobListing] 
+	(
+	
+   @JobListingID			[int]
+	)
+AS
+	BEGIN
+	DELETE  FROM 	[dbo].[JobListing]
+	
+	WHERE [JobListingID] = @JobListingID
+	  
+	END
+GO
+
+
+
+
+/*
+Created by: Hassan Karar.
+Date: 2020/03/11
+Comment: Job Listing table, used to create the job listing.
+*/
+print '' print '* Creating sp_retrieve_JobListing'
+GO
+CREATE PROCEDURE [sp_retrieve_JobListing]
+AS
+BEGIN
+	SELECT    [JobListingID], [RoleID], [Benefits], [Requirements], [StartingWage], [Responsibilities]   	
+	FROM      [dbo].[JobListing]
+	ORDER BY  [JobListingID]
+	
+END
+GO
+
+/*
+Created by: Hassan Karar
+Date: 2020/3/17  
+Comment: Creating a stored procedure to insert into JobListing table.
+*/
+print '' print '*** Creating sp_insert_JobListing'
+GO
+CREATE PROCEDURE [sp_insert_JobListing]
+(
+	@RoleID		            [nvarchar](50),
+	@Benefits		        [nvarchar](250),
+    @Requirements		    [nvarchar](250),
+    @StartingWage	        [decimal] (9,2),
+    @Responsibilities		[nvarchar](700),	
+	@Position				[nvarchar](50)		
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[JobListing]
+	([RoleID],[Position], [Benefits], [Requirements], [StartingWage], [Responsibilities])
+	VALUES
+		(@RoleID, @Position, @Benefits, @Requirements, @StartingWage, @Responsibilities)
+	
+END
+GO
+
+
+
+/*
+Created by: Hassan Karar.
+Date: 2020/3/18
+Comment: update an old JobListing to new JobListing.
+*/
+print ''  print '*** Creating sp_update_JobListing'
+GO
+CREATE PROCEDURE [sp_update_JobListing]
+(
+    --New rows
+	
+    @OldJobListingID			         [int],
+	
+	@OldRoleID		            [nvarchar](50),
+	@OldBenefits		        [nvarchar](250),
+    @OldRequirements		    [nvarchar](250),
+    @OldStartingWage	        [decimal] (9,2),
+    @OldResponsibilities		[nvarchar](700),
+	
+	
+	@NewRoleID                  [nvarchar](50),
+	@NewBenefits		        [nvarchar](250),
+    @NewRequirements		    [nvarchar](250),
+    @NewStartingWage	        [decimal] (9,2),
+    @NewResponsibilities		[nvarchar](700)	
+		
+)
+
+AS
+BEGIN
+	Update [dbo].[JobListing]
+	SET
+	[RoleID] = @NewRoleID,
+	[Benefits]= @NewBenefits,
+	[Requirements]=  @NewRequirements,
+	[StartingWage] = @NewStartingWage,
+	[Responsibilities] =   @NewResponsibilities 
+	
+	
+	Where [JobListingID]= @OldJobListingID 
+	And [RoleID] = @OldRoleID
+	And [Benefits]= @OldBenefits
+	And [Requirements]=  @OldRequirements
+	And [StartingWage] = @OldStartingWage
+	And [Responsibilities] = @OldResponsibilities
+	
+	RETURN @@ROWCOUNT
+	
+	
+END
+GO
+
 
 /*
 Created by: Alex Diers

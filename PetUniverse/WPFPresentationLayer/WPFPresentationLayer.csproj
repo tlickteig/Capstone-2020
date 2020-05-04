@@ -375,6 +375,9 @@
     <Compile Include="RecruitingPages\frmDeleteEvent.xaml.cs">
       <DependentUpon>frmDeleteEvent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RecruitingPages\JobListing.xaml.cs">
+      <DependentUpon>JobListing.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RecruitingPages\ListActiveRequests.xaml.cs">
       <DependentUpon>ListActiveRequests.xaml</DependentUpon>
     </Compile>
@@ -816,6 +819,10 @@
     <Page Include="RecruitingPages\frmDeleteEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RecruitingPages\JobListing.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="RecruitingPages\ListActiveRequests.xaml">
       <SubType>Designer</SubType>

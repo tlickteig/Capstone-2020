@@ -86,6 +86,7 @@
     <Compile Include="ItemCategoryManager.cs" />
     <Compile Include="ItemManager.cs" />
     <Compile Include="ItemReportManager.cs" />
+    <Compile Include="JobListingManager.cs" />
     <Compile Include="LocationManager.cs" />
     <Compile Include="LogManager.cs" />
     <Compile Include="MedicineManager.cs" />

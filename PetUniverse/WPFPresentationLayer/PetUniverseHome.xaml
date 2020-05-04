@@ -500,6 +500,10 @@
                 <TabItem x:Name="tabCreateNewRequest" Header="Requests" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="newRequest" Source="./RecruitingPages/CreatNewRequest.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
+
+                <TabItem x:Name="tabJobListing" Header="Job Listing" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="JobListing" Source="./RecruitingPages/JobListing.xaml" NavigationUIVisibility="Hidden"></Frame>
+                </TabItem>
             </TabControl>
         </Canvas>
 

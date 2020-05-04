@@ -88,6 +88,7 @@
     <Compile Include="FakeItemAccessor.cs" />
     <Compile Include="FakeItemCategoryAccessor.cs" />
     <Compile Include="FakeItemReportAccessor.cs" />
+    <Compile Include="FakeJobListingAccessor.cs" />
     <Compile Include="FakeLocationAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
     <Compile Include="FakeMedicalHistoryAccessor.cs" />

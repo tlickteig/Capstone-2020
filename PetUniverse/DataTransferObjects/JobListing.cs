@@ -11,6 +11,7 @@
     {
         public int JobListingID { get; set; }
         public string Position { get; set; }
+        public string RoleID { get; set; }
         public string Benefits { get; set; }
         public string Requirements { get; set; }
         public decimal StartingWage { get; set; }

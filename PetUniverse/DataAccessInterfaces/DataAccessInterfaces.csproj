@@ -89,6 +89,7 @@
     <Compile Include="IItemAccessor.cs" />
     <Compile Include="IItemCategoryAccessor.cs" />
     <Compile Include="IItemReportAccessor.cs" />
+    <Compile Include="IJobListingAccessor.cs" />
     <Compile Include="ILocationAccessor.cs" />
     <Compile Include="ILogAccessor.cs" />
     <Compile Include="IMedicineAccessor.cs" />
