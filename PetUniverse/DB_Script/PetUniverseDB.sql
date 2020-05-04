@@ -5764,10 +5764,13 @@ BEGIN
 		[VolunteerShift].[VolunteerShiftID], [ShiftDescription],
 		[ShiftTitle], [ShiftStartTime], [ShiftEndTime],
 		[Recurrance], [IsSpecialEvent], [ShiftNotes],
-		[ShiftDate], [ScheduleID], [ShiftRecord].[VolunteerID]
+		[ShiftDate], [ScheduleID], [ShiftRecord].[VolunteerID],
+		[Volunteer].[FirstName], [Volunteer].[LastName]
 	FROM [dbo].[VolunteerShift]
 	LEFT JOIN [ShiftRecord]
 	ON [ShiftRecord].[VolunteerShiftID] = [VolunteerShift].[VolunteerShiftID]
+	LEFT JOIN [Volunteer]
+	ON [Volunteer].[VolunteerID] = [ShiftRecord].[VolunteerID]
 END
 GO
 
@@ -8326,10 +8329,12 @@ BEGIN
 	SELECT [VolunteerShift].[VolunteerShiftID], [ShiftDescription],
 		[ShiftTitle], [ShiftDate], [ShiftStartTime],
 		[ShiftEndTime], [Recurrance], [IsSpecialEvent],
-		[ShiftNotes], [ScheduleID]
+		[ShiftNotes], [ScheduleID], [Volunteer].[FirstName], [Volunteer].[LastName]
 	FROM [ShiftRecord]
-	JOIN [VolunteerShift] ON
+	LEFT JOIN [VolunteerShift] ON
 		([VolunteerShift].[VolunteerShiftID] = [ShiftRecord].[VolunteerShiftID])
+	LEFT JOIN [Volunteer] ON
+		([Volunteer].[VolunteerID] = [ShiftRecord].[VolunteerID])
 	WHERE [ShiftRecord].[VolunteerID] = @VolunteerID
 END
 GO
@@ -14239,10 +14244,11 @@ VALUES
 (100001, 'Customer'),
 (100002, 'Volunteer'),
 (100002, 'Administrator'),
-	(100000,'Manager'),
-	(100001,'Manager'),
-	(100002,'Supervisor'),
-	(100006,'Cashier')
+    (100000,'Manager'),
+    (100000,'Supervisor'),
+    (100001,'Manager'),
+    (100002,'Manager'),
+    (100006,'Cashier')
 GO
 
 /*
@@ -15918,10 +15924,12 @@ print '' print '*** Inserting sample schedule'
 GO
 
 INSERT INTO [dbo].[Schedule]
-	([StartDate],[EndDate],[CreatingUserID])
-	VALUES
-	('2020/04/01','2020/4/15',100000),
-	('2020/04/16','2020/4/30',100000)
+    ([StartDate],[EndDate],[CreatingUserID])
+    VALUES
+    ('2020/04/01','2020/4/15',100000),
+    ('2020/04/16','2020/4/30',100000),
+    ('2020-05-04', '2020-05-18', 100000)
+
 GO
 
 /*
@@ -15934,22 +15942,55 @@ GO
 INSERT INTO [dbo].[shift]
 	([ShiftTimeID], [ScheduleID], [Date], [UserID], [ERoleID])
 	VALUES
-	(1000000, 1000000, '2020-4-11', 100001, 'Administrator'),
-	(1000001, 1000000, '2020-4-11', 100001, 'Customer'),
-	(1000002, 1000000, '2020-4-14', 100001, 'Volunteer'),
-	(1000003, 1000000, '2020-4-17', 100001, 'Administrator'),
-	(1000000, 1000000, '2020-4-13', 100002, 'Volunteer'),
-	(1000000, 1000000, '2020-4-14', 100002, 'Volunteer'),
-	(1000000, 1000000, '2020-4-15', 100002, 'Volunteer'),
-	(1000000, 1000000, '2020-4-16', 100002, 'Volunteer'),
-	(1000000, 1000000, '2020-4-18', 100002, 'Volunteer'),
-	(1000003, 1000000, '2020-4-17', 100000, 'Administrator'),
-	(1000003, 1000000, '2020-4-25', 100001, 'Administrator'),
-	(1000002, 1000000, '2020-4-25', 100001, 'Administrator'),
-	(1000000, 1000000, '2020-5-21', 100001, 'Administrator'),
-	(1000001, 1000000, '2020-5-20', 100001, 'Administrator'),
-	(1000000, 1000000, '2020-5-20', 100000, 'Administrator'),
-	(1000001, 1000000, '2020-5-21', 100000, 'Administrator')
+(1000000, 1000000, '2020-04-11', 100001, 'Administrator'),
+(1000001, 1000000, '2020-04-11', 100001, 'Customer'),
+(1000002, 1000000, '2020-04-14', 100001, 'Volunteer'),
+(1000003, 1000000, '2020-04-17', 100001, 'Administrator'),
+(1000000, 1000000, '2020-04-13', 100002, 'Volunteer'),
+(1000000, 1000000, '2020-04-14', 100002, 'Volunteer'),
+(1000000, 1000000, '2020-04-15', 100002, 'Volunteer'),
+(1000000, 1000000, '2020-04-16', 100002, 'Volunteer'),
+(1000000, 1000000, '2020-04-18', 100002, 'Volunteer'),
+(1000003, 1000000, '2020-04-17', 100000, 'Administrator'),
+(1000003, 1000000, '2020-04-25', 100001, 'Administrator'),
+(1000002, 1000000, '2020-04-25', 100001, 'Administrator'),
+(1000000, 1000000, '2020-05-21', 100001, 'Administrator'),
+(1000001, 1000000, '2020-05-20', 100001, 'Administrator'),
+(1000000, 1000000, '2020-05-20', 100000, 'Administrator'),
+(1000001, 1000000, '2020-05-21', 100000, 'Administrator'),
+(1000004, 1000002, '2020-05-04', 100001, 'Manager'),
+(1000004, 1000002, '2020-05-04', 100000, 'Manager'),
+(1000004, 1000002, '2020-05-04', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-05', 100001, 'Manager'),
+(1000004, 1000002, '2020-05-05', 100000, 'Manager'),
+(1000004, 1000002, '2020-05-05', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-06', 100001, 'Manager'),
+(1000004, 1000002, '2020-05-06', 100000, 'Manager'),
+(1000004, 1000002, '2020-05-06', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-07', 100001, 'Manager'),
+(1000004, 1000002, '2020-05-07', 100000, 'Manager'),
+(1000004, 1000002, '2020-05-07', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-08', 100001, 'Manager'),
+(1000004, 1000002, '2020-05-08', 100000, 'Manager'),
+(1000004, 1000002, '2020-05-08', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-09', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-10', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-11', 100001, 'Manager'),
+(1000004, 1000002, '2020-05-11', 100000, 'Manager'),
+(1000004, 1000002, '2020-05-11', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-12', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-12', 100001, 'Manager'),
+(1000004, 1000002, '2020-05-12', 100000, 'Manager'),
+(1000004, 1000002, '2020-05-13', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-13', 100001, 'Manager'),
+(1000004, 1000002, '2020-05-13', 100000, 'Manager'),
+(1000004, 1000002, '2020-05-14', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-14', 100001, 'Manager'),
+(1000004, 1000002, '2020-05-14', 100000, 'Manager'),
+(1000004, 1000002, '2020-05-15', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-15', 100000, 'Manager'),
+(1000004, 1000002, '2020-05-16', 100002, 'Manager'),
+(1000004, 1000002, '2020-05-17', 100002, 'Manager')
 
 GO
 
