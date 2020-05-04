@@ -163,7 +163,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/18/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// shows the customer profile screen
         /// </summary>
@@ -237,7 +237,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 2/6/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// This clears the tab when another tab is clicked.
         /// </summary>
@@ -258,7 +258,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 2/6/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// This clears the tab when another tab is clicked.
         /// </summary>
@@ -278,7 +278,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/18/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// allows user to schedule a new appointment
         /// </summary>
@@ -319,7 +319,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/18/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// shows the scheduling screen
         /// </summary>
@@ -334,12 +334,14 @@ namespace WPFPresentationLayer.AdoptionPages
             try
             {
                 dgAdoptionApplications.ItemsSource = _adoptionApplicationManager.RetrieveAdoptionApplicationsByEmailAndActive(_adoptionCustomerVM.Email);
+                cmbAppointmentType.ItemsSource = null;
                 cmbAppointmentType.ItemsSource = _appointmentTypeManager.RetrieveAllAppontmentTypes();
             }
             catch (Exception)
             {
 
             }
+            
             populateLocationsDataGrid();
             canAdoptionCustomerProfile.Visibility = Visibility.Hidden;
             canAdoptionCustomerProfiles.Visibility = Visibility.Hidden;
@@ -350,7 +352,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/21/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// populates the location data grid
         /// </summary>
@@ -376,7 +378,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/18/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// goes back to the profile list screen from the schedule appointment screen
         /// </summary>
@@ -394,7 +396,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/19/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// formats the dgAdoptionApplications data grid into a human readable format
         /// </summary>
@@ -423,7 +425,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/19/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// formats the dgLocations data grid into a human readable format
         /// </summary>
@@ -448,7 +450,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/19/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// clears the time text box when its clicked on
         /// </summary>
@@ -473,7 +475,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/19/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// adds an appointment
         /// </summary>
@@ -574,7 +576,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/19/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// adds an appointment
         /// </summary>
@@ -597,7 +599,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/20/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// shows a chosen animal in the animal text field
         /// </summary>
@@ -613,6 +615,7 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             try
             {
+                cmbAppointmentType.SelectedValue = ((ApplicationVM)dgAdoptionApplications.SelectedItem).Status;
                 txtScheduledAnimalName.Text = ((ApplicationVM)dgAdoptionApplications.SelectedItem).AnimalName;
             }
             catch (Exception)
@@ -625,9 +628,9 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/20/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
-        /// shows a chosen animal in the animal text field
+        /// shows a chosen location in the location text field
         /// </summary>
         /// <remarks>
         /// UPDATED BY: NA
@@ -661,7 +664,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/20/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// starts the options for creating a new location
         /// </summary>
@@ -698,7 +701,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/21/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// goes back from the Location details
         /// </summary>
@@ -718,7 +721,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/21/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// closes location Details
         /// </summary>
@@ -756,7 +759,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/21/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Saves location Details
         /// </summary>
@@ -821,7 +824,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/21/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// clears location search text box when clicked and repopulates location data grid from db
         /// </summary>
@@ -842,7 +845,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/21/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Searches the locations for matching fields
         /// </summary>
@@ -860,27 +863,27 @@ namespace WPFPresentationLayer.AdoptionPages
             var allLocations = _locationManager.RetrieveAllLocations();
             foreach (var l in allLocations)
             {
-                if (l.Name == txtLocationSearch.Text)
+                if (l.Name.ToUpper() == txtLocationSearch.Text.ToUpper())
                 {
                     _locations.Add(l);
                 }
-                else if (l.Address1 == txtLocationSearch.Text)
+                else if (l.Address1.ToUpper() == txtLocationSearch.Text.ToUpper())
                 {
                     _locations.Add(l);
                 }
-                else if (l.Address2 == txtLocationSearch.Text)
+                else if (l.Address2.ToUpper() == txtLocationSearch.Text.ToUpper())
                 {
                     _locations.Add(l);
                 }
-                else if (l.City == txtLocationSearch.Text)
+                else if (l.City.ToUpper() == txtLocationSearch.Text.ToUpper())
                 {
                     _locations.Add(l);
                 }
-                else if (l.State == txtLocationSearch.Text)
+                else if (l.State.ToUpper() == txtLocationSearch.Text.ToUpper())
                 {
                     _locations.Add(l);
                 }
-                else if (l.Zip == txtLocationSearch.Text)
+                else if (l.Zip.ToUpper() == txtLocationSearch.Text.ToUpper())
                 {
                     _locations.Add(l);
                 }
@@ -899,7 +902,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 5/1/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Chooses a customer
         /// </summary>

@@ -121,7 +121,7 @@ namespace WPFPresentationLayer.AdoptionPages
             dgAppointments.Columns.RemoveAt(33);
             dgAppointments.Columns.RemoveAt(32);
             dgAppointments.Columns.RemoveAt(31);
-            dgAppointments.Columns.RemoveAt(29);
+            //dgAppointments.Columns.RemoveAt(29);
             dgAppointments.Columns.RemoveAt(28);
             dgAppointments.Columns.RemoveAt(27);
             dgAppointments.Columns.RemoveAt(26);
@@ -144,28 +144,29 @@ namespace WPFPresentationLayer.AdoptionPages
             dgAppointments.Columns.RemoveAt(5);
             //dgAppointments.Columns.RemoveAt(4);
             dgAppointments.Columns.RemoveAt(3);
-            //dgAppointments.Columns.RemoveAt(2);
+            dgAppointments.Columns.RemoveAt(2);
             dgAppointments.Columns.RemoveAt(1);
             dgAppointments.Columns.RemoveAt(0);
 
+
+
+
+
+
             
 
+            dgAppointments.Columns[0].Header = "Location Name";
 
+            dgAppointments.Columns[1].Header = "First Name";
+            dgAppointments.Columns[2].Header = "Last Name";
+            dgAppointments.Columns[3].Header = "Customer Phone";
+            dgAppointments.Columns[4].Header = "Customer Email";
 
-            
-            dgAppointments.Columns[0].Header = "Appointment Type";
-
-            dgAppointments.Columns[1].Header = "Location Name";
-
-            dgAppointments.Columns[2].Header = "First Name";
-            dgAppointments.Columns[3].Header = "Last Name";
-            dgAppointments.Columns[4].Header = "Customer Phone";
-            dgAppointments.Columns[5].Header = "Customer Email";
-            
+            dgAppointments.Columns[5].Header = "Appointment Type";
             dgAppointments.Columns[6].Header = "Appointment Time";
 
-            dgAppointments.Columns[0].DisplayIndex = 5;
-            dgAppointments.Columns[5].DisplayIndex = 6;
+
+            dgAppointments.Columns[0].DisplayIndex = 6;
             dgAppointments.Columns[6].DisplayIndex = 0;
 
 
@@ -295,7 +296,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/4/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Helper method that makes the meet and greet notes text box and the decision combo 
         /// box read only.
@@ -317,7 +318,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/4/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Helper method that makes only the Meet And Greet Schedule page visible
         /// </summary>
@@ -338,7 +339,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/4/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// This event handler is fired when the notes button is clicked. it will then display a page which contains the notes for
         /// the displayed meet and greet. This will also be the place where a Facilitator can write notes about how the appointment went.
@@ -361,7 +362,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/4/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Helper method that makes only the Meat And Greet Notes page visible
         /// </summary>
@@ -382,7 +383,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/4/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Helper method that populates the fields on the notes page
         /// </summary>
@@ -399,7 +400,7 @@ namespace WPFPresentationLayer.AdoptionPages
             txtNotesAnimalName.Text = _adoptionAppointment.AnimalName;
             txtNotesCustomerName.Text = _adoptionAppointment.CustomerFirstName + " " + _adoptionAppointment.CustomerLastName;
             txtNotesMeetAndGreet.Text = _adoptionAppointment.Notes;
-
+            cmbDecision.Items.Clear();
             cmbDecision.Items.Add("Approved");
             cmbDecision.Items.Add("Denied");
 
@@ -409,7 +410,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/4/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// This event handler is fired when the editNotes button is clicked, it enables the notes and decicision
         /// section of the page so that they can be edited and then saved
@@ -431,7 +432,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/4/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Helper method that makes the meet and greet notes text box and the decision combo 
         /// box not read only.
@@ -454,7 +455,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/4/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// This event handler is fired when the Notes Back button is clicked. It takes the user back to the Appointment
         /// details page.
@@ -480,9 +481,9 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/4/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
-        /// Helper method that makes only the Meat And Greet Details page visible
+        /// Helper method that makes only the Meet And Greet Details page visible
         /// </summary>
         /// <remarks>
         /// UPDATED BY: NA
@@ -502,9 +503,10 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/4/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Event handler that is fired when the save button is clicked. validates input, then updates appointment decision and notes
+        /// and updates the application status
         /// </summary>
         /// <remarks>
         /// UPDATED BY: NA
@@ -528,31 +530,86 @@ namespace WPFPresentationLayer.AdoptionPages
                 cmbDecision.Focus();
                 return;
             }
-            HomeInspectorAdoptionAppointmentDecision oldAppointment = new HomeInspectorAdoptionAppointmentDecision
+            AdoptionAppointment oldAppointment = new AdoptionAppointment
             {
-                Active = _adoptionAppointment.AppointmentActive,
                 AdoptionApplicationID = _adoptionAppointment.AdoptionApplicationID,
+                AppointmentActive = _adoptionAppointment.AppointmentActive,
+                AppointmentDateTime = _adoptionAppointment.AppointmentDateTime,
                 AppointmentID = _adoptionAppointment.AppointmentID,
                 AppointmentTypeID = _adoptionAppointment.AppointmentTypeID,
                 Decision = _adoptionAppointment.Decision,
-                DateTime = _adoptionAppointment.AppointmentDateTime,
                 LocationID = _adoptionAppointment.LocationID,
+                LocationName = _adoptionAppointment.LocationName,
                 Notes = _adoptionAppointment.Notes
             };
-            HomeInspectorAdoptionAppointmentDecision newAppointment = new HomeInspectorAdoptionAppointmentDecision
+            AdoptionAppointment newAppointment = new AdoptionAppointment
             {
-                Active = _adoptionAppointment.AppointmentActive,
                 AdoptionApplicationID = _adoptionAppointment.AdoptionApplicationID,
+                AppointmentActive = _adoptionAppointment.AppointmentActive,
+                AppointmentDateTime = _adoptionAppointment.AppointmentDateTime,
                 AppointmentID = _adoptionAppointment.AppointmentID,
                 AppointmentTypeID = _adoptionAppointment.AppointmentTypeID,
                 Decision = cmbDecision.SelectedItem.ToString(),
-                DateTime = _adoptionAppointment.AppointmentDateTime,
                 LocationID = _adoptionAppointment.LocationID,
+                LocationName = _adoptionAppointment.LocationName,
                 Notes = txtNotesMeetAndGreet.Text
             };
+            
             try
             {
-                _homeInspectorManager.EditAppointment(oldAppointment, newAppointment);
+                IAdoptionAppointmentManager adoptionAppointmentManager = new AdoptionAppointmentManager();
+                adoptionAppointmentManager.EditAdoptionAppointment(oldAppointment, newAppointment);
+
+                if(newAppointment.Decision == "Approved")
+                {
+                    AdoptionApplicationManager adoptionApplicationManager = new AdoptionApplicationManager();
+                    ApplicationVM oldApplicationVM = adoptionApplicationManager.RetrieveAdoptionApplicationByID(oldAppointment.AdoptionApplicationID);
+
+                    string newStatus = "";
+
+                    if(_adoptionAppointment.AppointmentTypeID == "Interview")
+                    {
+                        newStatus = "Home Inspection";
+                    }
+                    else if (_adoptionAppointment.AppointmentTypeID == "Home Inspection")
+                    {
+                        newStatus = "Meet and Greet";
+                    }
+                    else if (_adoptionAppointment.AppointmentTypeID == "Meet and Greet")
+                    {
+                        newStatus = "Animal Pick-up";
+                    }
+                    else if (_adoptionAppointment.AppointmentTypeID == "Animal Pick-up")
+                    {
+                        newStatus = "Adoption Complete";
+                    }
+
+                    DataTransferObjects.Application oldApplication = new DataTransferObjects.Application
+                    {
+                        AdoptionApplicationID = oldApplicationVM.AdoptionApplicationID,
+                        AnimalID = oldApplicationVM.AnimalID,
+                        ApplicationActive = oldApplicationVM.ApplicationActive,
+                        CustomerEmail = oldApplicationVM.CustomerEmail,
+                        RecievedDate = oldApplicationVM.RecievedDate,
+                        Status = oldApplicationVM.Status
+                        
+                    };
+                    
+
+                    DataTransferObjects.Application newApplication = new DataTransferObjects.Application
+                    {
+                        AdoptionApplicationID = oldApplicationVM.AdoptionApplicationID,
+                        AnimalID = oldApplicationVM.AnimalID,
+                        ApplicationActive = oldApplicationVM.ApplicationActive,
+                        CustomerEmail = oldApplicationVM.CustomerEmail,
+                        RecievedDate = oldApplicationVM.RecievedDate,
+                        Status = newStatus
+                    };
+
+                    adoptionApplicationManager.UpdateAdoptionApplication(oldApplication, newApplication);
+
+                    _adoptionAppointmentManager.EditAdoptionAppointmentActive(oldAppointment.AppointmentID, false);
+                }
             }
             catch (Exception)
             {
@@ -573,7 +630,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/3/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// This event handler is fired whenthe view button si clicked. It then opens
         /// a new form containing the appointment details form
@@ -588,13 +645,20 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="e"></param>
         private void btnView_Click(object sender, RoutedEventArgs e)
         {
-            selectAppointmentDetails();
+            if (dgAppointments.SelectedItem != null)
+            {
+                selectAppointmentDetails();
+            }
+            else
+            {
+                WPFErrorHandler.ErrorMessage("Please choose an appointment.");
+            }
         }
 
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 3/3/2020
-        /// CHECKED BY: NA
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Helper method that is responsible for what happens after an appoinment selection is made
         /// </summary>
@@ -687,7 +751,7 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 2020/04/14
-        /// Approver: 
+        /// Approver: Michael Thompson
         /// Filters out appointments by type
         /// </summary>
         /// <remarks>
@@ -720,7 +784,7 @@ namespace WPFPresentationLayer.AdoptionPages
         private void btnCancelApplaction_Click(object sender, RoutedEventArgs e)
         {
             HomeInspectorAdoptionAppointmentDecision newHomeInspectorAdoptionAppointmentDecision =
- new HomeInspectorAdoptionAppointmentDecision();
+                new HomeInspectorAdoptionAppointmentDecision();
             AdoptionAppointmentVM selectedApplication = new AdoptionAppointmentVM();
 
             selectedApplication =
@@ -771,10 +835,55 @@ namespace WPFPresentationLayer.AdoptionPages
 
         }
 
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Event handler that is fired when the filter reset buttom is clicked. It resets the Adoptions Applications list
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnFilterReset_Click(object sender, RoutedEventArgs e)
         {
             cmbApptFilter.SelectedItem = null;
             populateAppointmentDataGrid();
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 3/4/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Cancels an adoption application
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCancelAppointment_Click(object sender, RoutedEventArgs e)
+        {
+            if(null != dgAppointments.SelectedItem)
+            {
+                _adoptionAppointmentManager.EditAdoptionAppointmentActive(((AdoptionAppointmentVM)dgAppointments.SelectedItem).AppointmentID, false);
+                populateAppointmentDataGrid();
+            }
+            else
+            {
+                WPFErrorHandler.ErrorMessage("Please select an appointment first.");
+            }   
         }
     }
 }

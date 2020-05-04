@@ -152,5 +152,105 @@ namespace LogicLayerTests
             //assert
             Assert.AreEqual(result, true);
         }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 3/5/2020
+        /// Approver: Micheal Thompson,
+        /// 
+        /// Tests
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionApplicationManagerRetrieveAdoptionApplicationsByActive()
+        {
+            // arrange
+            var adoptionApplications = new List<ApplicationVM>();
+            IAdoptionApplicationManager adoptionApplicationManager = new AdoptionApplicationManager(_fakeAdoptionApplicationAccessor);
+
+            // act
+            adoptionApplications = adoptionApplicationManager.RetrieveAdoptionApplicationsByActive(true);
+
+            //assert
+            Assert.AreEqual(3, adoptionApplications.Count);
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 5/4/2020
+        /// Approver: 
+        /// 
+        /// Tests
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionApplicationManagerRetrieveAdoptionApplicationNamesByActive()
+        {
+            // arrange
+            var adoptionApplications = new List<ApplicationNameVM>();
+            IAdoptionApplicationManager adoptionApplicationManager = new AdoptionApplicationManager(_fakeAdoptionApplicationAccessor);
+
+            // act
+            adoptionApplications = adoptionApplicationManager.RetrieveAdoptionApplicationsByActiveWithName(true);
+
+            //assert
+            Assert.AreEqual(3, adoptionApplications.Count);
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 3/5/2020
+        /// Approver: Micheal Thompson,
+        /// 
+        /// Tests
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionApplicationUpdateAdoptionApplication()
+        {
+            // arrange
+            var oldApplication = new Application
+            {
+                AdoptionApplicationID = 000,
+                AnimalID = 000,
+                RecievedDate = DateTime.Parse("11/12/1984"),
+                CustomerEmail = "Fake@fake.com",
+                Status = "Fake",
+                ApplicationActive = true
+            };
+
+            var newApplication = new Application
+            {
+                AdoptionApplicationID = 000,
+                AnimalID = 000,
+                RecievedDate = DateTime.Parse("11/12/1984"),
+                CustomerEmail = "Fake@fake.com",
+                Status = "Next Fake",
+                ApplicationActive = true
+            };
+
+            IAdoptionApplicationManager adoptionApplicationManager = new AdoptionApplicationManager(_fakeAdoptionApplicationAccessor);
+
+            // act
+            var result = adoptionApplicationManager.UpdateAdoptionApplication(oldApplication, newApplication);
+
+            //assert
+            Assert.IsTrue(result);
+        }
     }
 }

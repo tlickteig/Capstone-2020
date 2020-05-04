@@ -16,8 +16,8 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeAdoptionAppointmentAccessor : IAdoptionAppointmentAccessor
     {
-        private List<AdoptionAppointmentVM> adoptionAppointmentVMs;
-        private List<AdoptionAppointment> _adoptionAppointments = new List<AdoptionAppointment>();
+        private List<AdoptionAppointmentVM> _adoptionAppointmentVMs;
+        private List<AdoptionAppointment> _adoptionAppointments;
 
         /// <summary>
         /// NAME: Austin Gee
@@ -35,7 +35,7 @@ namespace DataAccessFakes
         /// </remarks>
         public FakeAdoptionAppointmentAccessor()
         {
-            adoptionAppointmentVMs = new List<AdoptionAppointmentVM>()
+            _adoptionAppointmentVMs = new List<AdoptionAppointmentVM>()
             {
                 new AdoptionAppointmentVM()
                 {
@@ -75,6 +75,46 @@ namespace DataAccessFakes
                     AnimalAdoptable = true,
                     AnimalActive = true
                 }
+            };
+
+            _adoptionAppointments = new List<AdoptionAppointment>
+            {
+                new AdoptionAppointment
+                {
+                    AppointmentID = 000,
+                    AdoptionApplicationID = 000,
+                    AppointmentActive = true,
+                    AppointmentDateTime = DateTime.Parse("7/12/1984"),
+                    AppointmentTypeID = "FAKE",
+                    Decision = "Fake",
+                    LocationID = 000,
+                    LocationName = "Fake",
+                    Notes = "Fake",
+                },
+                new AdoptionAppointment
+                {
+                    AppointmentID = 001,
+                    AdoptionApplicationID = 000,
+                    AppointmentActive = true,
+                    AppointmentDateTime = DateTime.Parse("7/12/1984"),
+                    AppointmentTypeID = "FAKE",
+                    Decision = "Fake",
+                    LocationID = 000,
+                    LocationName = "Fake",
+                    Notes = "Fake",
+                },
+                new AdoptionAppointment
+                {
+                    AppointmentID = 002,
+                    AdoptionApplicationID = 000,
+                    AppointmentActive = true,
+                    AppointmentDateTime = DateTime.Parse("7/12/1984"),
+                    AppointmentTypeID = "FAKE",
+                    Decision = "Fake",
+                    LocationID = 000,
+                    LocationName = "Fake",
+                    Notes = "Fake",
+                },
             };
         }
 
@@ -126,7 +166,7 @@ namespace DataAccessFakes
         /// <returns></returns>
         public AdoptionAppointmentVM SelectAdoptionAppointmentByAppointmentID(int appointmentID)
         {
-            return (from a in adoptionAppointmentVMs
+            return (from a in _adoptionAppointmentVMs
                     where a.AppointmentID == appointmentID
                     select a).First();
         }
@@ -150,7 +190,7 @@ namespace DataAccessFakes
         /// <returns></returns>
         public List<AdoptionAppointmentVM> SelectAdoptionAppointmentByCustomerEmailAndActive(string email, bool active)
         {
-            return (from a in adoptionAppointmentVMs
+            return (from a in _adoptionAppointmentVMs
                     where a.CustomerEmail == email
                     && a.AppointmentActive == active
                     select a).ToList();
@@ -159,7 +199,7 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 4/29/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// This method returns a fake list of Adoption customer VM's. This method will
         /// be used exclusively for unit testing.
@@ -174,7 +214,7 @@ namespace DataAccessFakes
         /// <returns></returns>
         public List<AdoptionAppointmentVM> SelectAdoptionAppointmentsByActive(bool active)
         {
-            return (from a in adoptionAppointmentVMs
+            return (from a in _adoptionAppointmentVMs
                     where a.AppointmentActive == active
                     select a).ToList();
         }
@@ -198,12 +238,41 @@ namespace DataAccessFakes
         /// <returns></returns>
         public List<AdoptionAppointmentVM> SelectAdoptionAppointmentsByActiveAndType(bool active, string appointmentTypeID)
         {
-            return (from a in adoptionAppointmentVMs
+            return (from a in _adoptionAppointmentVMs
                     where a.AppointmentActive == true
                     && a.AppointmentTypeID == appointmentTypeID
                     select a).ToList();
         }
 
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This method updates an appointments active property.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="appointmentID"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public int UpdateAdoptionAppointmentActive(int appointmentID, bool active)
+        {
+            int rows = 0;
+            foreach(var a in _adoptionAppointmentVMs)
+            {
+                if(a.AppointmentID == appointmentID)
+                {
+                    a.AppointmentActive = active;
+                    rows += 1;
+                }
+            }
+            return rows;
+        }
 
         /// <summary>
         /// NAME: Austin Gee
@@ -224,7 +293,7 @@ namespace DataAccessFakes
         public int UpdateAdoptionAppointmentDateTime(int appointmentID, DateTime dateTime)
         {
             int rows = 0;
-            foreach(var a in adoptionAppointmentVMs)
+            foreach(var a in _adoptionAppointmentVMs)
             {
                 if(a.AppointmentID == appointmentID)
                 {
@@ -233,7 +302,31 @@ namespace DataAccessFakes
                 }
             }
             return rows;
+        }
 
+        public int UpdateAdoptionAppopintment(AdoptionAppointment oldAppointment, AdoptionAppointment newAppointment)
+        {
+            int rows = 0;
+            foreach(var a in _adoptionAppointments)
+            {
+                if (a.AppointmentID == oldAppointment.AppointmentID
+                    && a.AdoptionApplicationID == oldAppointment.AdoptionApplicationID
+                    && a.AppointmentActive == oldAppointment.AppointmentActive
+                    && a.AppointmentDateTime == oldAppointment.AppointmentDateTime
+                    && a.AppointmentTypeID == oldAppointment.AppointmentTypeID
+                    && a.Decision == oldAppointment.Decision
+                    && a.LocationID == oldAppointment.LocationID)
+                {
+                    a.AdoptionApplicationID = newAppointment.AdoptionApplicationID;
+                    a.AppointmentActive = newAppointment.AppointmentActive;
+                    a.AppointmentDateTime = newAppointment.AppointmentDateTime;
+                    a.AppointmentTypeID = newAppointment.AppointmentTypeID;
+                    a.Decision = newAppointment.Decision;
+                    a.LocationID = newAppointment.LocationID;
+                    rows += 1;
+                }
+            }
+            return rows;
         }
     }
 }

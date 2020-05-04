@@ -19,6 +19,7 @@ namespace DataAccessFakes
     {
         List<ApplicationVM> _applicationVMs;
         List<Application> _applications;
+        List<ApplicationNameVM> _applicationNameVMs;
 
         public FakeApplicationAccessor()
         {
@@ -62,6 +63,55 @@ namespace DataAccessFakes
                     CustomerEmail = "Fake",
                     RecievedDate = DateTime.Now,
                     Status = "Fake"
+                }
+            };
+
+            _applicationNameVMs = new List<ApplicationNameVM>
+            {
+                new ApplicationNameVM
+                {
+                    AdoptionApplicationID = 000,
+                    AnimalActive = true,
+                    AnimalBreed = "Fake",
+                    AnimalID = 000,
+                    AnimalName = "Fake",
+                    AnimalSpeciesID = "Fake",
+                    ApplicationActive = true,
+                    CustomerEmail = "Fake@fake.com",
+                    RecievedDate = DateTime.Now,
+                    Status = "Fake",
+                    FirstName = "Fake",
+                    LastName = "Fake"
+                },
+                new ApplicationNameVM
+                {
+                    AdoptionApplicationID = 001,
+                    AnimalActive = true,
+                    AnimalBreed = "Fake",
+                    AnimalID = 001,
+                    AnimalName = "Fake",
+                    AnimalSpeciesID = "Fake",
+                    ApplicationActive = true,
+                    CustomerEmail = "Fake",
+                    RecievedDate = DateTime.Now,
+                    Status = "Fake",
+                    FirstName = "Fake",
+                    LastName = "Fake"
+                },
+                new ApplicationNameVM
+                {
+                    AdoptionApplicationID = 002,
+                    AnimalActive = true,
+                    AnimalBreed = "Fake",
+                    AnimalID = 002,
+                    AnimalName = "Fake",
+                    AnimalSpeciesID = "Fake",
+                    ApplicationActive = true,
+                    CustomerEmail = "Fake",
+                    RecievedDate = DateTime.Now,
+                    Status = "Fake",
+                    FirstName = "Fake",
+                    LastName = "Fake"
                 }
             };
 
@@ -129,7 +179,7 @@ namespace DataAccessFakes
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 4/22/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// This inserts an allication into applications
         /// </summary>
@@ -182,6 +232,52 @@ namespace DataAccessFakes
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This method returns a fake Adoption applications by active. This method will
+        /// be used exclusively for unit testing.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public List<ApplicationVM> SelectAdoptionApplicationsByActive(bool active)
+        {
+            return (from a in _applicationVMs
+                    where a.ApplicationActive == active
+                    select a).ToList();
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This method returns a fake Adoption applications by active. This method will
+        /// be used exclusively for unit testing.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public List<ApplicationNameVM> SelectAdoptionApplicationsByActiveWithName(bool active)
+        {
+            return (from a in _applicationNameVMs
+                    where a.ApplicationActive == active
+                    select a).ToList();
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 2/10/2020
         /// CHECKED BY: Micheal Thompson, 4/9/2020
         /// 
@@ -200,6 +296,46 @@ namespace DataAccessFakes
                     where a.CustomerEmail == email
                     && a.ApplicationActive == active
                     select a).ToList();
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Updates an adoption application
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="oldApplication"></param>
+        /// <param name="newApplication"></param>
+        /// <returns></returns>
+        public int UpdateAdoptionApplication(Application oldApplication, Application newApplication)
+        {
+            int rows = 0;
+            foreach (var a in _applications)
+            {
+                
+                if(a.AdoptionApplicationID == oldApplication.AdoptionApplicationID
+                    && a.AnimalID == oldApplication.AnimalID
+                    && a.ApplicationActive == oldApplication.ApplicationActive
+                    && a.CustomerEmail == oldApplication.CustomerEmail
+                    && a.RecievedDate == oldApplication.RecievedDate
+                    && a.Status == oldApplication.Status)
+                {
+                    a.AnimalID = newApplication.AnimalID;
+                    a.ApplicationActive = newApplication.ApplicationActive;
+                    a.CustomerEmail = newApplication.CustomerEmail;
+                    a.RecievedDate = newApplication.RecievedDate;
+                    a.Status = newApplication.Status;
+                    rows += 1;
+                }
+            }
+            return rows;
         }
     }
 }

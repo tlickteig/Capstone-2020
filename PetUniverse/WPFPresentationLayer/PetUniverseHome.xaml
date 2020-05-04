@@ -444,7 +444,7 @@
                     <Frame Source="./AdoptionPages/AnimalsRecords.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <TabItem x:Name="tabViewAdoption" Header="View Adoptions" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./AdoptionPages/AdoptionApplications.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
+                    <Frame Source="./AdoptionPages/AdoptionApplications.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <!--<TabItem x:Name="tabViewInterviewer" Header="Interviewer" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/InterviewerPage.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
@@ -461,7 +461,7 @@
                 <TabItem x:Name="tabAdoptionCustomers" Header="Adoption Customers" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionCustomers.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabMeetAndGreets" Header="Meet And Greets" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabMeetAndGreets" Header="Appointments" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgMeetAndGreets.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <TabItem x:Name="tabViewAdoptionProfiles" Header="Pet Profiles" FontWeight="Bold" Background="#fff8e3">

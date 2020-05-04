@@ -124,6 +124,56 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Retrieves adoption application by active
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        public List<ApplicationVM> RetrieveAdoptionApplicationsByActive(bool active = true)
+        {
+            try
+            {
+                return _adoptionApplicationAccessor.SelectAdoptionApplicationsByActive(active);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/4/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Retrieves adoption application by active
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        public List<ApplicationNameVM> RetrieveAdoptionApplicationsByActiveWithName(bool active)
+        {
+            try
+            {
+                return _adoptionApplicationAccessor.SelectAdoptionApplicationsByActiveWithName(active);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 3/19/2020
         /// CHECKED BY: Michael Thompson
         /// 
@@ -145,6 +195,35 @@ namespace LogicLayer
             }
             catch (Exception ex)
             {
+                throw new ApplicationException("Data not found", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Updates an adoption application
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="oldApplication"></param>
+        /// <param name="newApplication"></param>
+        /// <returns></returns>
+        public bool UpdateAdoptionApplication(Application oldApplication, Application newApplication)
+        {
+            try
+            {
+                return 1 == _adoptionApplicationAccessor.UpdateAdoptionApplication(oldApplication, newApplication);
+            }
+            catch (Exception ex)
+            {
+
                 throw new ApplicationException("Data not found", ex);
             }
         }

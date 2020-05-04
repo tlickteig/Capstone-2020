@@ -18,7 +18,7 @@ namespace DataAccessInterfaces
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 4/28/2020
-        /// Approver: 
+        /// Approver: Michael Thompson
         /// 
         /// Data Access Inteface that is used to Select Adoption Appointment VMs by active
         /// </summary>
@@ -110,5 +110,36 @@ namespace DataAccessInterfaces
         /// <param name="dateTime"></param>
         /// <returns></returns>
         int UpdateAdoptionAppointmentDateTime(int appointmentID, DateTime dateTime);
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 5/1/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// Data Access Inteface that is used to deactivate an appointments
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// <param name="appointmentID"></param>
+        /// <returns></returns>
+        int UpdateAdoptionAppointmentActive(int appointmentID, bool active);
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 5/3/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// Data Access Inteface that is used to update an appointment
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// <param name="oldAppointment"></param>
+        /// <param name="newAppointment"></param>
+        /// <returns></returns>
+        int UpdateAdoptionAppopintment(AdoptionAppointment oldAppointment, AdoptionAppointment newAppointment);
     }
 }

@@ -97,6 +97,64 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME: Austin Gee
+        /// DATE: 5/2/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// updates an Appointment
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="oldAppointment"></param>
+        /// <param name="newAppointment"></param>
+        /// <returns></returns>
+        public bool EditAdoptionAppointment(AdoptionAppointment oldAppointment, AdoptionAppointment newAppointment)
+        {
+            try
+            {
+                return 1 == _adoptionAppointmentAccessor.UpdateAdoptionAppopintment(oldAppointment, newAppointment);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/2/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// updates an Appointments active status
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="appointmentID"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public bool EditAdoptionAppointmentActive(int appointmentID, bool active)
+        {
+            try
+            {
+                return 1 == _adoptionAppointmentAccessor.UpdateAdoptionAppointmentActive(appointmentID, active);
+            }
+            catch (Exception ex)
+            {
+
+                throw new ApplicationException("Database Error", ex);
+            }
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
         /// DATE: 4/27/2020
         /// CHECKED BY: Michael Thompson
         /// 
@@ -154,7 +212,7 @@ namespace LogicLayer
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 4/29/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Gets a list Adoption AppointmentVMs by active
         /// </summary>

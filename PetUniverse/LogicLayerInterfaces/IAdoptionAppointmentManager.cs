@@ -23,7 +23,7 @@ namespace LogicLayerInterfaces
         /// <summary>
         /// NAME: Austin Gee
         /// DATE: 4/29/2020
-        /// CHECKED BY: 
+        /// CHECKED BY: Michael Thompson
         /// 
         /// Interface for retrieveing an adoption vm by active
         /// </summary>
@@ -130,6 +130,42 @@ namespace LogicLayerInterfaces
         /// <param name="dateTime"></param>
         /// <returns></returns>
         bool EditAdoptionAppointmentDateTime(int appointmentID, DateTime dateTime);
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Interface for editing an appointments datetime
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="appointmentID"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        bool EditAdoptionAppointmentActive(int appointmentID, bool active);
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Interface for editing an appointment
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="oldAppointment"></param>
+        /// <param name="newAppointment"></param>
+        /// <returns></returns>
+        bool EditAdoptionAppointment(AdoptionAppointment oldAppointment, AdoptionAppointment newAppointment);
     }
 }
 

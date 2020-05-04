@@ -515,7 +515,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 4/28/2020
-        /// Approver: 
+        /// Approver: Michael Thompson
         ///
         /// Lets a customer register as a customer in the database
         /// </summary>
@@ -569,7 +569,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 4/28/2020
-        /// Approver: 
+        /// Approver: Michael Thompson
         ///
         /// Shows a confirmation page for applying for an adoption
         /// </summary>
@@ -593,7 +593,7 @@ namespace WPFPresentation.Controllers
         /// <summary>
         /// Creator: Austin Gee
         /// Created: 4/28/2020
-        /// Approver: 
+        /// Approver: Michael Thompson
         ///
         /// creates an adoption application
         /// </summary>
@@ -614,7 +614,7 @@ namespace WPFPresentation.Controllers
                 {
                     AnimalID = animalID,
                     CustomerEmail = email,
-                    Status = "Interviewer",
+                    Status = "Interview",
                     RecievedDate = DateTime.Now
                 };
                 _adoptionApplicationManager.AddAdoptionApplication(application);

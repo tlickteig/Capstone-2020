@@ -410,6 +410,49 @@ namespace DataAccessLayer
         }
 
         /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// This data access class is used to access data that pertains to the Adoption customer.
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        /// <param name="appointmentID"></param>
+        /// <param name="active"></param>
+        /// <returns></returns>
+        public int UpdateAdoptionAppointmentActive(int appointmentID, bool active)
+        {
+            int rows = 0;
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_update_adoption_appointment_active", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@AppointmentID", appointmentID);
+            cmd.Parameters.AddWithValue("@Active", active);
+            
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+            return rows;
+        }
+
+        /// <summary>
         /// Creator: Austin Gee
         /// Created: 4/27/2020
         /// Approver: Michael Thompson
@@ -452,6 +495,64 @@ namespace DataAccessLayer
                 conn.Close();
             }
 
+            return rows;
+        }
+
+        /// <summary>
+        /// Creator: Austin Gee
+        /// Created: 4/27/2020
+        /// Approver: Michael Thompson
+        /// 
+        /// updates an adoption appointment 
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="oldAppointment"></param>
+        /// <param name="newAppointment"></param>
+        /// <returns></returns>
+        public int UpdateAdoptionAppopintment(AdoptionAppointment oldAppointment, AdoptionAppointment newAppointment)
+        {
+            int rows = 0;
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_update_adoption_appointment", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@OldAppointmentID", oldAppointment.AppointmentID);
+            
+            cmd.Parameters.AddWithValue("@OldAdoptionApplicationID", oldAppointment.AdoptionApplicationID);
+            cmd.Parameters.AddWithValue("@OldAppointmentTypeID", oldAppointment.AppointmentTypeID);
+            cmd.Parameters.AddWithValue("@OldDateTime", oldAppointment.AppointmentDateTime);
+            //if (oldAppointment.Notes != null) oldAppointment.Notes = "";
+            //cmd.Parameters.AddWithValue("@OldNotes", oldAppointment.Notes);
+            //cmd.Parameters.AddWithValue("@OldDecision", oldAppointment.Decision);
+            cmd.Parameters.AddWithValue("@OldLocationID", oldAppointment.LocationID);
+            cmd.Parameters.AddWithValue("@OldActive", oldAppointment.AppointmentActive);
+            
+            cmd.Parameters.AddWithValue("@NewAdoptionApplicationID", newAppointment.AdoptionApplicationID);
+            cmd.Parameters.AddWithValue("@NewAppointmentTypeID", newAppointment.AppointmentTypeID);
+            cmd.Parameters.AddWithValue("@NewDateTime", newAppointment.AppointmentDateTime);
+            cmd.Parameters.AddWithValue("@NewNotes", newAppointment.Notes);
+            cmd.Parameters.AddWithValue("@NewDecision", newAppointment.Decision);
+            cmd.Parameters.AddWithValue("@NewLocationID", newAppointment.LocationID);
+            cmd.Parameters.AddWithValue("@NewActive", newAppointment.AppointmentActive);
+            
+            try
+            {
+                conn.Open();
+                rows = cmd.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
             return rows;
         }
     }

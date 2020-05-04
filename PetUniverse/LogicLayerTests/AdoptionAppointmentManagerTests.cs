@@ -216,5 +216,83 @@ namespace LogicLayerTests
             // assert
             Assert.AreEqual(1, result.Count);
         }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/1/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Tests the updates an appointments datetime
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionAppointmentManagerEditAppointmentActive()
+        {
+            // arrange
+            IAdoptionAppointmentManager adoptionAppointmentManager = new AdoptionAppointmentManager(_adoptionAppointmentAccessor);
+
+            // act
+            bool result = adoptionAppointmentManager.EditAdoptionAppointmentActive(000, false);
+
+            // assert
+            Assert.IsTrue(result);
+        }
+
+        /// <summary>
+        /// NAME: Austin Gee
+        /// DATE: 5/3/2020
+        /// CHECKED BY: Michael Thompson
+        /// 
+        /// Tests the Update adoption
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// 
+        /// </remarks>
+        [TestMethod]
+        public void TestAdoptionAppointmentUpdateAdoptionAppointment()
+        {
+            // arrange
+            bool result = false;
+            var oldAdoptionAppointment = new AdoptionAppointment
+            {
+                AppointmentID = 000,
+                AdoptionApplicationID = 000,
+                AppointmentActive = true,
+                AppointmentDateTime = DateTime.Parse("7/12/1984"),
+                AppointmentTypeID = "FAKE",
+                Decision = "Fake",
+                LocationID = 000,
+                LocationName = "Fake",
+                Notes = "Fake",
+            };
+
+            var newAdoptionAppointment = new AdoptionAppointment
+            {
+                AppointmentID = 000,
+                AdoptionApplicationID = 001,
+                AppointmentActive = true,
+                AppointmentDateTime = DateTime.Parse("7/12/1984"),
+                AppointmentTypeID = "FAKE",
+                Decision = "Fake",
+                LocationID = 000,
+                LocationName = "Fake",
+                Notes = "Fake",
+            };
+            IAdoptionAppointmentManager adoptionAppointmentManager = new AdoptionAppointmentManager(_adoptionAppointmentAccessor);
+
+            // act
+            result = adoptionAppointmentManager.EditAdoptionAppointment(oldAdoptionAppointment, newAdoptionAppointment);
+
+            // assert
+            Assert.IsTrue(result);
+        }
     }
 }
