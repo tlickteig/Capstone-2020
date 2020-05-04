@@ -14119,32 +14119,6 @@ GO
 
 /*
 Created by: Alex Diers
-Date: 3/10/2020
-Comment: Stored procedure to select the videos to watch by employee and unwatched
-*/
-DROP PROCEDURE IF EXISTS [sp_select_videos_by_employee]
-GO
-PRINT '' PRINT '*** Creating sp_select_videos_by_employee'
-GO
-CREATE PROCEDURE [sp_select_videos_by_employee]
-(
-	@IsWatched 	[bit]
-)
-AS
-BEGIN
-	SELECT	[TrainingVideo].[TrainingVideoID], [RunTimeMinutes], [RunTimeSeconds], [Description], [TrainingVideo].[Active],
-		[IsWatched], [TrainingVideoLine].[UserID], [FirstName], [LastName]
-	FROM		[TrainingVideo] JOIN [TrainingVideoLine] ON [TrainingVideo].[TrainingVideoID]
-		= [TrainingVideoLine].[TrainingVideoID] JOIN [User] ON [TrainingVideoLine].[UserID] =
-		[User].[UserID]
-	WHERE [IsWatched] = @IsWatched
-	ORDER BY [LastName]
-END
-GO
-
-
-/*
-Created by: Alex Diers
 Date: 3/17/2020
 Comment: update the status of whether an employee has watched a video or not
 */

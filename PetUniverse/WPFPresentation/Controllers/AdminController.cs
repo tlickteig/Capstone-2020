@@ -74,21 +74,20 @@ namespace WPFPresentation.Controllers
                     ViewBag.Error = "Cannot remove last adminstrator.";
                     return RedirectToAction("Details", "Admin", new { id = user.Id });
                 }
-
-
-                userManager.RemoveFromRole(id, role);
-
-                if (user.EmployeeID != null)
-                    try
-                    {
-                        var roleMgr = new LogicLayer.PetUniverseUserERolesManager();
-                        roleMgr.DeletePetUniverseUserERole(Convert.ToInt32(user.EmployeeID), role);
-                    }
-                    catch (Exception)
-                    {
-                        //Do nothing
-                    }
             }
+            userManager.RemoveFromRole(id, role);
+
+            if (user.EmployeeID != null)
+                try
+                {
+                    var roleMgr = new LogicLayer.PetUniverseUserERolesManager();
+                    roleMgr.DeletePetUniverseUserERole(Convert.ToInt32(user.EmployeeID), role);
+                }
+                catch (Exception)
+                {
+                    //Do nothing
+                }
+
             return RedirectToAction("Details", "Admin", new { id = user.Id });
         }
 
