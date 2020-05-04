@@ -34,6 +34,7 @@
                             <ColumnDefinition></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Grid Grid.Column="0">
+                            <Label  HorizontalAlignment="Right" Content="Departments" Width="66"/>
                             <ComboBox x:Name="cboDepartmentName"  Width="200" Height="40" HorizontalAlignment="Left"
                                   Margin="5 0" >
                             </ComboBox>
@@ -42,12 +43,14 @@
 
 
                         <Grid Grid.Column="1">
+                            <Label  HorizontalAlignment="Right" Content="Users" Width="66"/>
                             <ComboBox x:Name="cboUsersID" Width="200" Height="40" HorizontalAlignment="Left"
                                   Margin="5 0" >
                             </ComboBox>
                         </Grid>
 
                         <Grid Grid.Column="2">
+                            <Label HorizontalAlignment="Right" Content="Requests" />
                             <ComboBox x:Name="cboRequestsID" Width="200" Height="40" HorizontalAlignment="Left"
                                   Margin="5 0" >
                             </ComboBox>
@@ -104,7 +107,7 @@
                             />
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Label x:Name="lblViewError" Width="300" Height="40"/>
+                        <Label x:Name="lblViewError" Width="210" Height="40" HorizontalAlignment="Center"/>
                     </Grid>
                     <Grid Grid.Column="2">
                         
@@ -132,8 +135,8 @@
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
-
-                    <ComboBox x:Name="cboUser" Width="200" Height="40" HorizontalAlignment="Left"
+                    <Label Grid.Row="0"  HorizontalAlignment="Left"  Content="Users List:" />
+                    <ComboBox x:Name="cboUser" Width="200" Height="30" HorizontalAlignment="Left"
                                   Margin="5 0" >
                     </ComboBox>
 

@@ -168,14 +168,16 @@ namespace WPFPresentationLayer.RecruitingPages
                 if (neededRequest.addNewRequestIsPosted(department))
                 {
                     txtBody.Select(0, 0);
+
                     txtResponse.Select(0, 0);
 
-                    lblError.Content = "the reqest added correctly";
                     cboDepartmentName.SelectedItem = null;
                     cboUsersID.SelectedItem = null;
                     cboRequestsID.SelectedItem = null;
-                    txtSubject.Text = "";
-                    txtBody.Text = "";
+                    txtSubject.Clear();
+                    txtBody.Clear();
+
+                    lblError.Content = "the reqest added correctly";
                 }
                 else
                 {
@@ -297,17 +299,35 @@ namespace WPFPresentationLayer.RecruitingPages
 
             try
             {
+
+                if (cboUser.SelectedItem == null)
+                {
+                    
+                    lblSubmitError.Content = "You have to select a user";
+                    return;
+                }
+
+                if (txtResponse == null)
+                {
+                    lblSubmitError.Content = "You have to insert a response";
+                }
+
                 createRequest.insertRequestResponse(Convert.ToInt32(viewResponds.RequestID),
                  txtResponse.Text, cboUser.SelectedItem.ToString());
 
                 lblSubmitError.Content = "the respond is submitted ";
-                cboRequestsID.SelectedItem = null;
-                txtResponse.Text = "";
+                cboUser.SelectedItem = null;
+                txtResponse.Clear();
+
+
             }
+
             catch (Exception)
+
             {
 
                 lblSubmitError.Content = " we already have a response for this request";
+                return;
             }
 
            
@@ -363,9 +383,10 @@ namespace WPFPresentationLayer.RecruitingPages
                 lblError.Content = "Request Cancled";
                 DGResponds.ItemsSource = show.responds();
             }
+
             else
             {
-                lblError.Content = "you have to select a request to cancel";
+                lblViewError.Content = "you have to select a request to cancel";
 
             }
         }
@@ -390,6 +411,12 @@ namespace WPFPresentationLayer.RecruitingPages
         {
             DataTransferObjects.ViewResponds respo = new DataTransferObjects.ViewResponds();
 
+            if (DGResponds.SelectedItem == null)
+            {
+                lblViewError.Content = "You have to select a Request first";
+                return;
+            }
+
             if (DGResponds.SelectedItem != null
                 && (DGResponds.SelectedItem.ToString() != "{NewItemPlaceholder}"))
 
@@ -399,8 +426,9 @@ namespace WPFPresentationLayer.RecruitingPages
                 canSubmitResponse.Visibility = Visibility.Visible;
                 canViewResponse.Visibility = Visibility.Hidden;
 
-
             }
+
+            
             else
             {
                 lblError.Content = "you have to select a request";
