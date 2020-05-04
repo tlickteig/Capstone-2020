@@ -100,5 +100,98 @@ namespace LogicLayer
 
             return rowsAffected;
         }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/29
+        /// Approver: 
+        /// Approver:  
+        ///
+        /// method to select all orderlines
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public List<OrderLine> selectAllOrderLines()
+        {
+            List<OrderLine> orderLines = new List<OrderLine>();
+
+            try
+            {
+                orderLines = _orderLineAccessor.selectAllOrderLines();
+            }
+            catch (Exception)
+            {
+
+                throw new ApplicationException("OrderLines not found");
+            }
+
+            return orderLines;
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/29
+        /// Approver: 
+        /// Approver:  
+        ///
+        /// method to create orderlines
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public bool createOrderLine(OrderLine orderLine)
+        {
+            bool result = false;
+
+            try
+            {
+                result = _orderLineAccessor.createOrderLine(orderLine);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/29
+        /// Approver: 
+        /// Approver:  
+        ///
+        /// method to delete orderLines
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public bool deleteOrderLine(OrderLine orderLine)
+        {
+            bool result = false;
+
+            try
+            {
+                result = _orderLineAccessor.deleteOrderLine(orderLine);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            return result;
+        }
     }
 }

@@ -91,7 +91,6 @@
     <Compile Include="FakeLocationAccessor.cs" />
     <Compile Include="FakeLogAccessor.cs" />
     <Compile Include="FakeMedicalHistoryAccessor.cs" />
-    <Compile Include="FakeMedicationAccessor.cs" />
     <Compile Include="FakeMedicineAccessor.cs" />
     <Compile Include="FakeMessageAccessor.cs" />
     <Compile Include="FakeNewAnimalChecklistAccessor.cs" />
@@ -110,6 +109,7 @@
     <Compile Include="FakeScheduleHoursAccessor.cs" />
     <Compile Include="FakeShiftAccessor.cs" />
     <Compile Include="FakeShiftTimeAccessor.cs" />
+    <Compile Include="FakeShipperAccessor.cs" />
     <Compile Include="FakeSpecialOrderAccessor.cs" />
     <Compile Include="FakeStatusAccessor.cs" />
     <Compile Include="FakeTrainingVideoAccessor.cs" />

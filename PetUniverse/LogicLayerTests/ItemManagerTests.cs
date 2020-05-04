@@ -1,5 +1,6 @@
 ﻿using DataAccessFakes;
 using DataTransferObjects;
+using DataAccessInterfaces;
 using LogicLayer;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
@@ -14,13 +15,19 @@ namespace LogicLayerTests
     ///
     /// The test class for ItemManager.
     /// </summary>
+    /// <remarks>
+    /// Updater: Matt Deaton
+    /// Updated: 2020-05-03
+    /// Update: Set class attributes to the interface, instead of concrete classes, as per Tim's
+    /// QA bug.  Ran all tests, and all passed. 
+    /// </remarks>
     [TestClass]
     public class ItemManagerTests
     {
 
         private Item _item;
         private ItemManager _itemManager;
-        private FakeItemAccessor _fakeItemAccessor;
+        private IItemAccessor _itemAccessor;
 
         /// <summary>
         /// Creator: Brandyn T. Coverdill
@@ -39,8 +46,8 @@ namespace LogicLayerTests
         [TestInitialize]
         public void TestSetup()
         {
-            _fakeItemAccessor = new FakeItemAccessor();
-            _itemManager = new ItemManager(_fakeItemAccessor);
+            _itemAccessor = new FakeItemAccessor();
+            _itemManager = new ItemManager(_itemAccessor);
         }
 
         /// <summary>
@@ -278,7 +285,7 @@ namespace LogicLayerTests
             List<Item> itemList = new List<Item>();
 
             // Act
-            itemList = _fakeItemAccessor.getAllItemsByActive(true);
+            itemList = _itemAccessor.getAllItemsByActive(true);
             rowsAffected = itemList.Count;
 
             // Assert
@@ -308,7 +315,7 @@ namespace LogicLayerTests
             List<Item> shelterItems = new List<Item>();
 
             //ACT
-            shelterItems = _fakeItemAccessor.SelectShelterItems(true);
+            shelterItems = _itemAccessor.SelectShelterItems(true);
 
             //ASSERT
             Assert.AreEqual(expectedNumber, shelterItems.Count);
@@ -334,7 +341,7 @@ namespace LogicLayerTests
             int expectedNumber = 2;
             List<Item> shelterItems = new List<Item>();
 
-            shelterItems = _fakeItemAccessor.SelectNeededShelterItems();
+            shelterItems = _itemAccessor.SelectNeededShelterItems();
 
             Assert.AreEqual(expectedNumber, shelterItems.Count);
         }// End TestRetrieveNeededItemList()
@@ -438,7 +445,7 @@ namespace LogicLayerTests
         public void TestTearDown()
         {
             _item = null;
-            _fakeItemAccessor = null;
+            _itemAccessor = null;
             _itemManager = null;
         }
     }

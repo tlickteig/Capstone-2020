@@ -310,7 +310,7 @@ namespace DataAccessLayer
             int rows = 0;
 
             var conn = DBConnection.GetConnection();
-            var cmd = new SqlCommand("sp_insert_new_donation", conn);
+            var cmd = new SqlCommand("sp_insert_new_physical_donation", conn);
             cmd.CommandType = CommandType.StoredProcedure;
 
             cmd.Parameters.AddWithValue("@ItemName", donatedItem.ItemName);

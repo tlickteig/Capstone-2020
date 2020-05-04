@@ -118,5 +118,40 @@ namespace LogicLayerInterfaces
         /// <param name="shiftID"></param>
         /// <returns></returns>
         List<ShiftDetailsVM> RetrieveShfitDetailsByUserID(int userID);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 4/26/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// interface method to getting shifts by department, userid, and schedule id
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="scheduleID"></param>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        List<ShiftUserVM> RetrieveShiftsByScheduleAndDepartmentID(int scheduleID, string departmentID);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 4/26/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// interface method to getting shifts by department, and schedule id
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="scheduleID"></param>
+        /// <param name="departmentID"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        List<ShiftUserVM> RetrieveShiftsByScheduleAndDepartmentIDWithDate(int scheduleID, string departmentID, DateTime date);
     }
 }

@@ -547,6 +547,7 @@ namespace WPFPresentationLayer
             switchScreen(desiredScreen);
             frBaseSchedule.Content = new PersonnelPages.BaseScheduleControls(_user);
             frSchedule.Content = new PersonnelPages.Schedule(_user);
+            frSupervisorSchedule.Content = new PersonnelPages.pgSupervisorSchedule(_user);
         }
 
         /// <summary>

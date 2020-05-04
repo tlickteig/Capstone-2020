@@ -128,5 +128,41 @@ namespace DataAccessInterfaces
         /// <param name="shiftID"></param>
         /// <returns></returns>
         ShiftDetailsVM SelectShiftDetailsByID(int shiftID);
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 4/26/2020
+        /// Approver:
+        /// 
+        /// interface method to retrieve shifts by department, userid, and schedule id
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="scheduleID"></param>
+        /// <param name="departmentID"></param>
+        /// <returns></returns>
+        List<ShiftUserVM> SelectShiftsByScheduleAndDepartmentID(int scheduleID, string departmentID);
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// Created: 4/26/2020
+        /// Approver:
+        /// 
+        /// interface method to retrieve shifts by department, and schedule id
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// 
+        /// </remarks>
+        /// <param name="scheduleID"></param>
+        /// <param name="departmentID"></param>
+        /// <param name="date"></param>
+        /// <returns></returns>
+        List<ShiftUserVM> SelectShiftsByScheduleAndDepartmentIDWithDate(int scheduleID, string departmentID, DateTime date);
     }
 }

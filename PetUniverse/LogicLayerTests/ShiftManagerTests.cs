@@ -376,5 +376,187 @@ namespace LogicLayerTests
              var actualResult = _shiftManager.RetrieveShfitDetailsByUserID(userID);
              Assert.AreEqual(null, actualResult);
          }
+
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// 
+        /// Created: 04/27/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Test Retrieve shifts by schedule and department id
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        [TestMethod]
+        public void TestSelectShiftsByScheduleAndDepartmentID()
+        {
+            //Arrange
+            int expectedResult = 1;
+            string departmentID = "Test1";
+            int scheduleID = 1;
+            IShiftManager _shiftManager = new ShiftManager(_shiftAccessor);
+            //Act
+            List<ShiftUserVM> actualResult = _shiftManager.RetrieveShiftsByScheduleAndDepartmentID(scheduleID, departmentID);
+            Assert.AreEqual(expectedResult, actualResult.Count);
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// 
+        /// Created: 04/27/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Test Retrieve shifts by schedule and invalid department id
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        [TestMethod]
+        public void TestSelectShiftsByScheduleAndInvalidDepartmentID()
+        {
+            //Arrange
+            string departmentID = "Fake4";
+            int scheduleID = 1;
+            IShiftManager _shiftManager = new ShiftManager(_shiftAccessor);
+            //Act
+            List<ShiftUserVM> actualResult = _shiftManager.RetrieveShiftsByScheduleAndDepartmentID(scheduleID, departmentID);
+            Assert.AreEqual(null, actualResult);
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// 
+        /// Created: 04/27/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Test Retrieve shifts by schedule and department id invalid scheudle id
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        [TestMethod]
+        public void TestSelectShiftsByScheduleAndInvalidScheduleID()
+        {
+            //Arrange
+            int expectedResult = 0;
+            string departmentID = "Test1";
+            int scheduleID = 8;
+            IShiftManager _shiftManager = new ShiftManager(_shiftAccessor);
+            //Act
+            List<ShiftUserVM> actualResult = _shiftManager.RetrieveShiftsByScheduleAndDepartmentID(scheduleID, departmentID);
+            Assert.AreEqual(expectedResult, actualResult.Count);
+        }
+
+
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// 
+        /// Created: 04/27/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Test Retrieve shifts by schedule and department id and date
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        [TestMethod]
+        public void TestSelectShiftsByScheduleAndDepartmentIDDate()
+        {
+            //Arrange
+            int expectedResult = 1;
+            DateTime Date = DateTime.Today;
+            string departmentID = "Test1";
+            int scheduleID = 1;
+            IShiftManager _shiftManager = new ShiftManager(_shiftAccessor);
+            //Act
+            List<ShiftUserVM> actualResult = _shiftManager.RetrieveShiftsByScheduleAndDepartmentIDWithDate(scheduleID, departmentID, Date);
+            Assert.AreEqual(expectedResult, actualResult.Count);
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// 
+        /// Created: 04/27/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Test Retrieve shifts by schedule and invalid department id and date
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        [TestMethod]
+        public void TestSelectShiftsByScheduleAndInvalidDepartmentDate()
+        {
+            //Arrange
+            DateTime Date = DateTime.Today;
+            string departmentID = "Fake01";
+            int scheduleID = 1;
+            IShiftManager _shiftManager = new ShiftManager(_shiftAccessor);
+            //Act
+            List<ShiftUserVM> actualResult = _shiftManager.RetrieveShiftsByScheduleAndDepartmentIDWithDate(scheduleID, departmentID, Date);
+            Assert.AreEqual(null, actualResult);
+
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// 
+        /// Created: 04/27/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// Test Retrieve shifts by invalid schedule and department id and date
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        [TestMethod]
+        public void TestSelectShiftsByScheduleAndInvalidScheduleIDDate()
+        {
+            //Arrange
+            DateTime Date = DateTime.Today;
+            int expectedResult = 0;
+            string departmentID = "Test1";
+            int scheduleID = 8;
+            IShiftManager _shiftManager = new ShiftManager(_shiftAccessor);
+            //Act
+            List<ShiftUserVM> actualResult = _shiftManager.RetrieveShiftsByScheduleAndDepartmentIDWithDate(scheduleID, departmentID, Date);
+            Assert.AreEqual(expectedResult, actualResult.Count);
+        }
+        /// <summary>
+        /// Creator: Chase Schulte
+        /// 
+        /// Created: 04/27/2020
+        /// Approver:Kaleb Bachert
+        /// 
+        /// Test Retrieve shifts by schedule and department id with invalid date
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:
+        /// Update: 
+        [TestMethod]
+        public void TestSelectShiftsByScheduleAndScheduleIInvalidDDate()
+        {
+            //Arrange
+            DateTime Date = DateTime.Today.AddYears(10).AddDays(10);
+            int expectedResult = 0;
+            string departmentID = "Test1";
+            int scheduleID = 1;
+            IShiftManager _shiftManager = new ShiftManager(_shiftAccessor);
+            //Act
+            List<ShiftUserVM> actualResult = _shiftManager.RetrieveShiftsByScheduleAndDepartmentIDWithDate(scheduleID, departmentID, Date);
+            Assert.AreEqual(expectedResult, actualResult.Count);
+        }
     }
 }

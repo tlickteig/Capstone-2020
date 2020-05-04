@@ -15,7 +15,5 @@
         public string VolunteerFirstName { get; set; }
 
         public string VolunteerLastName { get; set; }
-
-        public string TaskDescription { get; set; }
     }
 }

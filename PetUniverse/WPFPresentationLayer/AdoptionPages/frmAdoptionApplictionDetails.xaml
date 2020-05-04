@@ -111,7 +111,7 @@
         <ComboBox x:Name="cmbDecision" Padding="10 0" Grid.Row="6" Grid.Column="1"
                   VerticalContentAlignment="Center" Margin="0 5 40 5">
             <ComboBoxItem Name="Deny">Deny</ComboBoxItem>
-            <ComboBoxItem Name="Facilitator">Facilitator</ComboBoxItem>
+            <ComboBoxItem Name="Facilitator">Approve</ComboBoxItem>
         </ComboBox>
         <TextBox x:Name="txtLocationID" Padding="10 0" Grid.Row="7" Grid.Column="1"
                  VerticalContentAlignment="Center" Margin="0 5 40 5"></TextBox>

@@ -612,6 +612,9 @@
     <Content Include="Views\Adoption\CustomerAppointmentSchedule.cshtml" />
     <Content Include="Views\Adoption\CustomerConfirmAdoptionApplication.cshtml" />
     <Content Include="Views\Adoption\RescheduleAppointment.cshtml" />
+    <Content Include="Views\Donations\NewRecurringDonation.cshtml" />
+    <Content Include="Views\Donations\ActiveDonations.cshtml" />
+    <Content Include="Views\Donations\CancelRecurringDonation.cshtml" />
     <Content Include="Views\Transaction\TransactionHistory.cshtml" />
     <Content Include="Views\Account\RegisterContinuation.cshtml" />
     <Content Include="Views\Adoption\FAQ.cshtml" />

@@ -200,6 +200,9 @@ namespace DataAccessLayer
                     shift.ShiftNotes = Convert.ToString(reader.GetValue(7));
                     shift.VolunteerShiftDate = Convert.ToDateTime(reader.GetValue(8));
                     shift.ScheduleID = Convert.ToInt32(reader.GetValue(9));
+                    shift.VolunteerID = reader.IsDBNull(10) ? 0 : reader.GetInt32(10);
+                    shift.VolunteerFirstName = reader.IsDBNull(11) ? "" : reader.GetString(11);
+                    shift.VolunteerLastName = reader.IsDBNull(12) ? "" : reader.GetString(12);
                     shifts.Add(shift);
                 }
                 reader.Close();
@@ -257,6 +260,8 @@ namespace DataAccessLayer
                     shift.ShiftNotes = reader.GetString(8);
                     shift.ScheduleID = reader.GetInt32(9);
                     shift.VolunteerID = volunteerID;
+                    shift.VolunteerFirstName = reader.IsDBNull(10) ? "" : reader.GetString(10);
+                    shift.VolunteerLastName = reader.IsDBNull(11) ? "" : reader.GetString(11);
                     shifts.Add(shift);
                 }
             }

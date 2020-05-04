@@ -88,7 +88,6 @@
     <Compile Include="IItemReportManager.cs" />
     <Compile Include="ILocationManager.cs" />
     <Compile Include="ILogManager.cs" />
-    <Compile Include="IMedicationManager.cs" />
     <Compile Include="IMedicineManager.cs" />
     <Compile Include="IMessagesManager.cs" />
     <Compile Include="INewAnimalChecklistManager.cs" />
@@ -109,6 +108,7 @@
     <Compile Include="IScheduleManager.cs" />
     <Compile Include="IShiftManager.cs" />
     <Compile Include="IShiftTimeManager.cs" />
+    <Compile Include="IShipperManager.cs" />
     <Compile Include="ISpecialOrderItemLineManager.cs" />
     <Compile Include="ISpecialOrderManager.cs" />
     <Compile Include="IStatusManager.cs" />

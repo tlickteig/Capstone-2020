@@ -26,6 +26,175 @@ namespace DataAccessLayer
     /// </remarks>
     public class OrderLineAccessor : IOrderLineAccessor
     {
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/29
+        /// Approver: Brandyn T. Coverdill
+        /// Approver:  
+        ///
+        /// Method to create orderLine
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public bool createOrderLine(OrderLine orderLine)
+        {
+            bool result = false;
+
+            // Connection
+            var conn = DBConnection.GetConnection();
+
+            // Command Objects
+            var cmd = new SqlCommand("sp_create_orderLine", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // Parameters
+            cmd.Parameters.AddWithValue("@ItemID", orderLine.ItemID);
+            cmd.Parameters.AddWithValue("@ReceivingRecordID", orderLine.ReceivingRecordID);
+            cmd.Parameters.AddWithValue("@DamagedItemQuantity", orderLine.DamagedItemQuantity);
+            cmd.Parameters.AddWithValue("@MissingItemQuantity", orderLine.MissingItemQuantity);
+
+            try
+            {
+                conn.Open();
+                result = cmd.ExecuteNonQuery() == 1;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/29
+        /// Approver: Brandyn T. Coverdill
+        /// Approver:  
+        ///
+        /// method to delete orderLine
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public bool deleteOrderLine(OrderLine orderLine)
+        {
+            bool result = false;
+
+            // Connection
+            var conn = DBConnection.GetConnection();
+
+            // Command Objects
+            var cmd = new SqlCommand("sp_delete_orderLine", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            // Parameters
+            cmd.Parameters.AddWithValue("@OrderLineID", orderLine.OrderLineID);
+            cmd.Parameters.AddWithValue("@ItemID", orderLine.ItemID);
+            cmd.Parameters.AddWithValue("@ReceivingRecordID", orderLine.ReceivingRecordID);
+            cmd.Parameters.AddWithValue("@DamagedItemQuantity", orderLine.DamagedItemQuantity);
+            cmd.Parameters.AddWithValue("@MissingItemQuantity", orderLine.MissingItemQuantity);
+
+
+            try
+            {
+                conn.Open();
+                result = cmd.ExecuteNonQuery() == 1;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/29
+        /// Approver: Brandyn T. Coverdill
+        /// Approver:  
+        ///
+        /// method to select all orderLines
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        public List<OrderLine> selectAllOrderLines()
+        {
+            List<OrderLine> orderLineList = new List<OrderLine>();
+
+            // Connection
+            var conn = DBConnection.GetConnection();
+
+            // Command Objects
+            var cmd = new SqlCommand("sp_select_orderLines");
+            cmd.Connection = conn;
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+
+                // Execute Command
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        OrderLine orderLine = new OrderLine();
+
+                        orderLine.OrderLineID = reader.GetInt32(0);
+                        orderLine.ItemID = reader.GetInt32(1);
+                        orderLine.ReceivingRecordID = reader.GetInt32(2);
+                        orderLine.DamagedItemQuantity = reader.GetInt32(3);
+                        orderLine.MissingItemQuantity = reader.GetInt32(4);
+                        orderLineList.Add(orderLine);
+                    }
+
+                }
+                else
+                {
+                    throw new ApplicationException("OrderLines not found");
+                }
+
+                reader.Close();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return orderLineList;
+        }
+
         /// <summary>
         /// Creator: Dalton Reierson
         /// Created: 2020/04/24

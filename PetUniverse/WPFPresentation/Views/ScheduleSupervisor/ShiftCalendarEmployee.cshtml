@@ -10,6 +10,10 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#calendar').fullCalendar({
+                @if(ViewBag.DefaultDate != "")
+                    {
+                        <text>defaultDate: "@ViewBag.DefaultDate",</text>
+                    }
                 theme: false,
 
 
@@ -36,11 +40,11 @@
 {
     if (!item.Equals(Model.Last()))
     {
-                          <text>{ shiftID: '@item.ShiftID', title: '@item.ShiftPUUserFirstName @item.ShiftPUUserLastName.First()', start: '@item.ShiftDate.ToShortDateString() @item.ShiftStartTime' , end: '@item.ShiftDate.ToShortDateString() @item.ShiftEndTime' },</text>
+                          <text>{ shiftID: '@item.ShiftID', title: '@item.RoleID', start: '@item.ShiftDate.ToShortDateString() @item.ShiftStartTime' , end: '@item.ShiftDate.ToShortDateString() @item.ShiftEndTime' },</text>
     }
     else
     {
-                            <text>{ shiftID: '@item.ShiftID', title: '@item.ShiftPUUserFirstName @item.ShiftPUUserLastName.First()', start: '@item.ShiftDate.ToShortDateString() @item.ShiftStartTime' , end: '@item.ShiftDate.ToShortDateString() @item.ShiftEndTime' }</text>
+                            <text>{ shiftID: '@item.ShiftID', title: '@item.RoleID', start: '@item.ShiftDate.ToShortDateString() @item.ShiftStartTime' , end: '@item.ShiftDate.ToShortDateString() @item.ShiftEndTime' }</text>
     }
 
 }

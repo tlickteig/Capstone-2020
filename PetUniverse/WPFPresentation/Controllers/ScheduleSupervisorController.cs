@@ -35,48 +35,53 @@ namespace WPFPresentation.Controllers
         /// </remarks>
         /// <param name="id"></param>
         /// <returns></returns>
-        //[Authorize]
+        [Authorize]
         public ActionResult ShiftCalendarEmployee(int? id)
         {
-            //var userId = User.Identity.GetUserId();
-            //var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            //var user = userManager.Users.First(u => u.Id == userId);
-            //int employeeID = (int)user.EmployeeID;
-
-            //Uncomment when done with sample code
-            int employeeID = 100000;
-
-            //Make sure the user is in the db and is active
-            if (_userManager.RetrieveAllActivePetUniverseUsers().Find(pu => pu.PUUserID == employeeID) != null)
+            var userId = User.Identity.GetUserId();
+            var userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            var user = userManager.Users.First(u => u.Id == userId);
+            //make sure logged in user has an active employee id
+            if (_userManager.RetrieveAllActivePetUniverseUsers().Find(us => us.PUUserID == user.EmployeeID) != null)
             {
+                int employeeID = (int)user.EmployeeID;
                 ViewBag.name = _userManager.RetrieveAllActivePetUniverseUsers().Find(pu => pu.PUUserID == employeeID).FirstName + " " + _userManager.RetrieveAllActivePetUniverseUsers().Find(pu => pu.PUUserID == employeeID).LastName;
-            }
-            else
-            {
-                ViewBag.name = "Invalid User";
-            }
-
-
-
-            if (id != null)
-            {
-                //Make sure ID exists
-                if (_shiftManager.RetrieveShiftsByUser(employeeID).Find(shift => shift.ShiftID == id) != null)
+                if (id != null)
                 {
-                    ViewBag.ShiftID = (int)id;
-                    var shiftDetails = _shiftManager.RetrieveShfitDetailsByID((int)id);
-                    ViewBag.ShiftDetails = shiftDetails;
+                    //Make sure the shift belongs to that user
+                    if (_shiftManager.RetrieveShiftsByUser(employeeID).Find(shift => shift.ShiftID == id) != null)
+                    {
+                        ViewBag.ShiftID = (int)id;
+                        var shiftDetails = _shiftManager.RetrieveShfitDetailsByID((int)id);
+                        ViewBag.ShiftDetails = shiftDetails;
+                    }
+
                 }
+                else
+                {
+                    ViewBag.ShiftID = null;
+                }
+                var shifts = _shiftManager.RetrieveShfitDetailsByUserID(employeeID);
+                if (shifts.Count > 0)
+                {
+                    DateTime? latestDate = shifts.Max(r => r.ShiftDate);
+                    ViewBag.DefaultDate = Convert.ToDateTime(latestDate).ToShortDateString();
+                }
+                else
+                {
+                    ViewBag.DefaultDate = "";
+                }
+                return View(shifts);
 
             }
             else
             {
-                ViewBag.ShiftID = null;
+                return RedirectToAction("Login","Account",Url.Action("Home/Index"));
             }
-            var shifts = _shiftManager.RetrieveShfitDetailsByUserID(employeeID);
-            return View(shifts);
-
         }
+
+
+            
 
     }
 }

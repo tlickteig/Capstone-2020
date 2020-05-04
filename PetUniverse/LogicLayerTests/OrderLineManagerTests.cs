@@ -119,6 +119,109 @@ namespace LogicLayerTests
 
         /// <summary>
         /// Creator: Dalton Reierson
+        /// Created: 2020/04/29
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        ///
+        /// test to create order line
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestCreateOrderLine()
+        {
+            // Arrange
+            bool expectedResult = true;
+            bool result = false;
+
+            OrderLine orderLine = new OrderLine()
+            {
+                OrderLineID = 100000,
+                ReceivingRecordID = 100000,
+                ItemID = 100000,
+                MissingItemQuantity = 10,
+                DamagedItemQuantity = 10
+            };
+
+            // Act
+            result = _orderLineManager.createOrderLine(orderLine);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/29
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        ///
+        /// test to delete order line
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestDeleteOrderLine()
+        {
+            // Arrange
+            bool expectedResult = true;
+            bool result = false;
+
+            OrderLine orderLine = new OrderLine()
+            {
+                OrderLineID = 100000,
+                ReceivingRecordID = 100000,
+                ItemID = 100000,
+                MissingItemQuantity = 10,
+                DamagedItemQuantity = 10
+            };
+
+            // Act
+            result = _orderLineManager.deleteOrderLine(orderLine);
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+
+        /// <summary>
+        /// Creator: Dalton Reierson
+        /// Created: 2020/04/29
+        /// Approver: Brandyn T. Coverdill
+        /// Approver: 
+        ///
+        /// test to select all order line
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+        [TestMethod]
+        public void TestSelectAllOrderLines()
+        {
+            // Arrange
+            List<OrderLine> orderLines = new List<OrderLine>();
+            int expectedResult = 2;
+            int result = 0;
+
+            // Act
+            orderLines = _orderLineManager.selectAllOrderLines();
+            result = orderLines.Count;
+
+            // Assert
+            Assert.AreEqual(expectedResult, result);
+        }
+        /// <summary>
+        /// Creator: Dalton Reierson
         /// Created: 2020/04/24
         /// Approver: Jesse Tomash
         /// Approver: 

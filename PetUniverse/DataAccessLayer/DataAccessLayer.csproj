@@ -91,7 +91,6 @@
     <Compile Include="ItemReportAccessor.cs" />
     <Compile Include="LocationAccessor.cs" />
     <Compile Include="LogAccessor.cs" />
-    <Compile Include="MedicationAccessor.cs" />
     <Compile Include="MedicineAccessor.cs" />
     <Compile Include="MessagesAcessor.cs" />
     <Compile Include="NewAnimalChecklistAccessor.cs" />
@@ -113,6 +112,7 @@
     <Compile Include="ScheduleHoursAccessor.cs" />
     <Compile Include="ShiftAccessor.cs" />
     <Compile Include="ShiftTimeAccessor.cs" />
+    <Compile Include="ShipperAccessor.cs" />
     <Compile Include="SpecialOrderAccessor.cs" />
     <Compile Include="SpecialOrderItemLIneAccessor.cs" />
     <Compile Include="StatusAccessor.cs" />

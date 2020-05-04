@@ -147,6 +147,12 @@
                 <TabItem x:Name="tabViewShelterInventory" Header="View Shelter Inventory" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./InventoryPages/ViewShelterItems.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
+                <TabItem x:Name="tabViewShipper" Header="View Shippers" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./InventoryPages/ViewShipper.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
+                <TabItem x:Name="tabViewOrderLine" Header="View Order Lines" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./InventoryPages/ViewOrderLine.xaml" NavigationUIVisibility="Hidden"/>
+                </TabItem>
             </TabControl>
         </Canvas>
 
@@ -434,8 +440,8 @@
              CHANGE: NA -->
         <Canvas x:Name="canAdoptions" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetAdoptions" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabAnimals" Header="Animals records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame Source="./AdoptionPages/AnimalsRecords.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
+                <TabItem x:Name="tabAnimals" Header="Animal records" FontSize="18" FontWeight="Bold" Background="#fff8e3">
+                    <Frame Source="./AdoptionPages/AnimalsRecords.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <TabItem x:Name="tabViewAdoption" Header="View Adoptions" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/AdoptionApplications.xaml" NavigationUIVisibility="Hidden"  Width="800"/>
@@ -458,10 +464,10 @@
                 <TabItem x:Name="tabMeetAndGreets" Header="Meet And Greets" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgMeetAndGreets.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
-                <TabItem x:Name="tabViewAdoptionProfiles" Header="View Profiles" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabViewAdoptionProfiles" Header="Pet Profiles" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionsAnimalProfile.xaml" ></Frame>
                 </TabItem>
-                <TabItem x:Name="tabInterviewer" Header="Interviewer Note" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabInterviewer" Header="Interviewer Notes" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AdoptionPages/pgAdoptionInterviewer.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
                 <TabItem x:Name="tabAdoptionAnimals" Header="Adoption Animals" FontWeight="Bold" Background="#fff8e3">
@@ -525,6 +531,9 @@
                 </TabItem>
                 <TabItem x:Name="tabSchedule" Header="Schedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frSchedule"></Frame>
+                </TabItem>
+                <TabItem x:Name="tabSupervisorSchedule" Header="Supervisor Schedule" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frSupervisorSchedule" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
 
                 <!-- Creator: Kaleb Bachert

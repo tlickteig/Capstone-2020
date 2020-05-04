@@ -14,25 +14,34 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFPresentationLayer"
-        mc:Ignorable="d"
-        Title="frmInHomeIspectorDecision" Height="800" Width="1200" Loaded="Window_Loaded">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition  ></RowDefinition>
-            <RowDefinition Height="50"></RowDefinition>
-        </Grid.RowDefinitions>
+        mc:Ignorable="d" Background="AliceBlue"
+        Title="frmInHomeIspectorDecision" d:DesignHeight="845" 
+        d:DesignWidth="1280" Loaded="Window_Loaded">
+        <Grid>
+        <Canvas>
+            <Grid Width="1280" Height="800">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="200"/>
+                </Grid.RowDefinitions>
+        
 
-        <Grid Grid.Column="0" >
-            <DataGrid x:Name="dgAdoptionApplicationsAappointmentsList" Width="1000" HorizontalAlignment="Left" Margin="80,2,0,60" SelectionMode="Single" 
+        
+            <DataGrid x:Name="dgAdoptionApplicationsAappointmentsList" Grid.Row="1" Grid.Column="1" SelectionMode="Single" 
                               IsReadOnly="True"></DataGrid>
-        </Grid>
-        <Grid Grid.Row="3">
-        </Grid>
-        <Button Content=" Open" Name="btnOpen" 
-                            HorizontalAlignment="Right" Width="100" Height="30" 
-                    Margin="0,4,30,16" Click="btnOpen_Click" Grid.Row="1"   />
-        <Button Content=" Send Email" Name="btnSendEmail" 
-                HorizontalAlignment="Left" Width="100" Height="30" 
-                Margin="30,4,30,16" Grid.Row="1" Click="btnSendEmail_Click" />
+        
+            <Button Content=" Open" Name="btnOpen" Grid.Column="1" Grid.Row="2" Margin="0 0 0 100"
+                            HorizontalAlignment="Right" Width="100" Height="30" Click="btnOpen_Click"/>
+            <Button Content=" Send Email" Name="btnSendEmail" Grid.Row="2" Grid.Column="1" Margin="0 0 0 100"
+                            HorizontalAlignment="Left" Width="100" Height="30" 
+                            Click="btnSendEmail_Click" />
+            </Grid>
+        </Canvas>
     </Grid>
 </Page>
