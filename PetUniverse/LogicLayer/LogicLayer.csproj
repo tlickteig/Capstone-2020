@@ -88,7 +88,6 @@
     <Compile Include="ItemReportManager.cs" />
     <Compile Include="LocationManager.cs" />
     <Compile Include="LogManager.cs" />
-    <Compile Include="MedicationManager.cs" />
     <Compile Include="MedicineManager.cs" />
     <Compile Include="MessagesManager.cs" />
     <Compile Include="NewAnimalChecklistManager.cs" />

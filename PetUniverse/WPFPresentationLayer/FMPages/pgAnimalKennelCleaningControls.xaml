@@ -107,7 +107,7 @@
                     <Button x:Name="BtnSubmitCleaningRecord" Grid.Row="6" Grid.Column="1" Width="100" Height="30" VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitCleaningRecord_Click" Margin="487,137,14,133">Submit</Button>
 
                     <!--Edit-->
-                    <Button x:Name="BtnEditCleaning" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" Width="100" Click="BtnEditCleaningRecord_Click" Visibility="Visible" Margin="487,136,14,133">Edit</Button>
+                    <Button x:Name="BtnEditCleaning" Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" Width="100" Click="BtnEditCleaningRecord_Click" Visibility="Hidden" Margin="487,136,14,133">Edit</Button>
 
                     <!--Delete-->
                     <Button x:Name="BtnDeleteCleaning" Grid.Row="7" Width="100" Height="30" Visibility="Hidden" IsEnabled="False" Margin="333,65,168,-25" Grid.Column="1" Click="BtnDeleteCleaning_Click" Grid.RowSpan="2">Delete</Button>
