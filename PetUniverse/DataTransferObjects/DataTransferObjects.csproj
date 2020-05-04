@@ -173,6 +173,7 @@
     <Compile Include="TimeOffRequest.cs" />
     <Compile Include="TimeOffRequestVM.cs" />
     <Compile Include="TrainingVideo.cs" />
+    <Compile Include="TrainingVideoVM.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="TransactionLineProducts.cs" />
     <Compile Include="TransactionStatus.cs" />

@@ -91,6 +91,10 @@ namespace WPFPresentationLayer.PersonnelPages
             dgERoleList.Columns.RemoveAt(5);
             dgERoleList.Columns.RemoveAt(4);
             dgERoleList.Columns.RemoveAt(3);
+            dgERoleList.Columns.RemoveAt(3);
+            dgERoleList.Columns.RemoveAt(3);
+            dgERoleList.Columns.RemoveAt(3);
+            dgERoleList.Columns.RemoveAt(3);
             dgERoleList.Columns[0].Header = "Role";
             dgERoleList.Columns[1].Header = "Department";
             dgERoleList.Columns[2].Header = "Description";

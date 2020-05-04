@@ -314,5 +314,153 @@ namespace DataAccessLayer
 
             return rows;
         }
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Selects a list of training videos and sorts them by relevant employee data
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        public List<TrainingVideoVM> SelectTrainingVideosByEmployee(bool watched = false)
+        {
+
+            List<TrainingVideoVM> videos = new List<TrainingVideoVM>();
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_select_videos_by_employee", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@IsWatched", watched);
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        videos.Add(new TrainingVideoVM()
+                        {
+                            TrainingVideoID = reader.GetString(0),
+                            RunTimeMinutes = reader.GetInt32(1),
+                            RunTimeSeconds = reader.GetInt32(2),
+                            Description = reader.GetString(3),
+                            Active = reader.GetBoolean(4),
+                            IsWatched = reader.GetBoolean(5),
+                            UserID = reader.GetInt32(6),
+                            FirstName = reader.GetString(7),
+                            LastName = reader.GetString(8)
+                        });
+                    }
+                    reader.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return videos;
+        }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Changes the status of a TrainingVideoVM to being watched
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        /// <param name="videoVM"></param>
+        /// <returns></returns>
+        public int UpdateIsWatched(TrainingVideoVM videoVM)
+        {
+            int videoID = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_update_iswatched", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            cmd.Parameters.AddWithValue("@UserID", videoVM.UserID);
+            cmd.Parameters.AddWithValue("@TrainingVideoID", videoVM.TrainingVideoID);
+
+
+
+            try
+            {
+                conn.Open();
+                videoID = Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return videoID;
+        }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Changes the status of a TrainingVideoVM to not being watched
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: Chase Schulte
+        /// UPDATED DATE: 5/02/2020
+        /// WHAT WAS CHANGED: Added UserID to paramters 
+        /// </remarks>
+        /// <param name="videoVM"></param>
+        /// <returns></returns>
+        public int UpdateNotWatched(TrainingVideoVM videoVM)
+        {
+            int videoID = 0;
+
+            var conn = DBConnection.GetConnection();
+
+            var cmd = new SqlCommand("sp_update_notwatched", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@UserID", videoVM.UserID);
+
+            cmd.Parameters.AddWithValue("@TrainingVideoID", videoVM.TrainingVideoID);
+
+
+            try
+            {
+                conn.Open();
+                videoID = Convert.ToInt32(cmd.ExecuteNonQuery());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return videoID;
+        }
+
     }
 }

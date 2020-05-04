@@ -2423,6 +2423,24 @@ CREATE TABLE[dbo].[SocialMediaRequest](
 )
 GO
 
+/*
+Created by: Alex Diers
+Date: 3/5/2020
+Comment: Creates the table for Training Videos
+*/
+print '' print '*** Creating TrainingVideoLine Table'
+GO
+CREATE TABLE [dbo].[TrainingVideoLine](
+	[UserID] 			[int]		 		NOT NULL,
+	[TrainingVideoID] 	[nvarchar](150)  	NOT NULL,
+	[IsWatched]			[bit]				NOT NULL DEFAULT 0,
+	CONSTRAINT [pk_UserID_TrainingVideoID] PRIMARY KEY ([UserID] ASC, [TrainingVideoID] ASC),
+	CONSTRAINT [fk_TrainingVideoLine_UserID] FOREIGN KEY ([UserID])
+		REFERENCES [User]([UserID]),
+	CONSTRAINT [fk_TrainingVideoLine_TrainingVideoID] FOREIGN KEY([TrainingVideoID]) 
+		REFERENCES [TrainingVideo]([TrainingVideoID]) ON UPDATE CASCADE
+)
+GO
 
 
 /*
@@ -13796,6 +13814,80 @@ END
 GO
 
 /*
+Created by: Alex Diers
+Date: 3/10/2020
+Comment: Stored procedure to select the videos to watch by employee and unwatched
+*/
+DROP PROCEDURE IF EXISTS [sp_select_videos_by_employee]
+GO
+PRINT '' PRINT '*** Creating sp_select_videos_by_employee'
+GO
+CREATE PROCEDURE [sp_select_videos_by_employee]
+(
+	@IsWatched 	[bit]
+)
+AS
+BEGIN
+	SELECT	[TrainingVideo].[TrainingVideoID], [RunTimeMinutes], [RunTimeSeconds], [Description], [TrainingVideo].[Active],
+		[IsWatched], [TrainingVideoLine].[UserID], [FirstName], [LastName]
+	FROM		[TrainingVideo] JOIN [TrainingVideoLine] ON [TrainingVideo].[TrainingVideoID]
+		= [TrainingVideoLine].[TrainingVideoID] JOIN [User] ON [TrainingVideoLine].[UserID] =
+		[User].[UserID]
+	WHERE [IsWatched] = @IsWatched
+	ORDER BY [LastName]
+END
+GO
+
+
+/*
+Created by: Alex Diers
+Date: 3/17/2020
+Comment: update the status of whether an employee has watched a video or not
+*/
+DROP PROCEDURE IF EXISTS [sp_update_notwatched]
+GO
+PRINT ''  PRINT '*** Creating sp_update_notwatched '
+GO
+CREATE PROCEDURE [sp_update_notwatched]
+(
+	@UserID 			[int],
+	@TrainingVideoID	[nvarchar](150)
+)
+AS
+BEGIN
+	Update [dbo].[TrainingVideoLine]
+	Set [IsWatched]= 0
+	WHERE [UserID] = @UserID
+	and [TrainingVideoID] = @TrainingVideoID
+	Return @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Alex Diers
+Date: 3/17/2020
+Comment: update the status of whether an employee has watched a video or not
+*/
+DROP PROCEDURE IF EXISTS [sp_update_iswatched]
+GO
+PRINT ''  PRINT '*** Creating sp_update_iswatched '
+GO
+CREATE PROCEDURE [sp_update_iswatched]
+(
+	@UserID 			[int],
+	@TrainingVideoID	[nvarchar](150)
+)
+AS
+BEGIN
+	Update [dbo].[TrainingVideoLine]
+	Set [IsWatched]= 1
+	WHERE [UserID] = @UserID
+	and [TrainingVideoID] = @TrainingVideoID
+	Return @@ROWCOUNT
+END
+GO
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -15871,6 +15963,33 @@ BEGIN
 	SELECT [RequestID], [RequestTypeID]
 	FROM [dbo].[request]
 END
+GO
+
+/*
+Created by: Alex Diers
+Date: 3/10/2020
+Comment: This is used to pair a training video with employees
+*/
+PRINT '' PRINT '*** Insert Into TrainingVideoLine Table ***'
+GO
+INSERT INTO [dbo].[TrainingVideoLine]
+	([UserID], [TrainingVideoID])
+VALUES
+	(100004, 'Link'),
+	(100002, 'AnotherLink')
+GO
+
+/*
+Created by: Alex Diers
+Date: 3/10/2020
+Comment: This is used to pair a training video with employees
+*/
+PRINT '' PRINT '*** Insert Into TrainingVideoLine Table ***'
+GO
+INSERT INTO [dbo].[TrainingVideoLine]
+	([UserID], [TrainingVideoID], [IsWatched])
+VALUES
+	(100003, 'AnotherLink', 1)
 GO
 
 

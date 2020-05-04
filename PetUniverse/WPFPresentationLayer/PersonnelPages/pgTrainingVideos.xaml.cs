@@ -14,9 +14,11 @@ namespace WPFPresentationLayer.PersonnelPages
     public partial class frameTrainingVideos : Page
     {
         private TrainingVideo _trainingVideo;
+        private TrainingVideoVM _trainingVideoVM;
         private bool _editMode = false;
         bool _insertMode = false;
         private ITrainingVideoManager _videoManager = new TrainingVideoManager();
+        
 
         public frameTrainingVideos()
         {
@@ -56,14 +58,14 @@ namespace WPFPresentationLayer.PersonnelPages
         /// Helper method to populate the data grid
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
-        /// CHANGE: NA
+        /// UPDATED BY: Chase Schutle
+        /// UPDATE DATE: 04/29
+        /// CHANGE: added parameter isWatched
         /// 
         /// </remarks>
-        private void populateVideoList()
+        private void populateVideoList(bool isWatched = false)
         {
-            dgVideoList.ItemsSource = _videoManager.RetrieveTrainingVideosByActive((bool)chkVideosActive.IsChecked);
+            dgVideoList.ItemsSource = _videoManager.RetrieveTrainingVideosByEmployee(isWatched);
         }
 
         /// <summary>
@@ -145,6 +147,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// UPDATE DATE: 03/01/2020
         /// CHANGE: Added update mode functionality
         /// 
+        /// UPDATED BY: Alex Diers
+        /// UPDATE DATE: 4/7/20
+        /// CHANGE: Added update to modify the IsWatched field
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -184,6 +189,21 @@ namespace WPFPresentationLayer.PersonnelPages
                     bool result = _videoManager.EditTrainingVideo(_trainingVideo, newVideo);
                     if (result)
                     {
+                        //try
+                        //{
+                        //    if (chkIsWatched.IsChecked.Value == false)
+                        //    {
+                        //        _videoManager.EditNotWatched(_trainingVideoVM);
+                        //    }
+                        //    else
+                        //    {
+                        //        _videoManager.EditIsWatched(_trainingVideoVM);
+                        //    }
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //    MessageBox.Show("Failed to change Watched field");
+                        //}
                         MessageBox.Show("Video Modified.");
                         hidePrompt();
                         populateVideoList();
@@ -267,6 +287,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// Updater: Chase Schulte
         /// Updated: 03/06/2020
         /// Update: Added visibility not visible for datagrid
+        /// UPDATED BY: Alex Diers
+        /// UPDATE DATE: 4/7/20
+        /// CHANGE: Set view model for training video for edit
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -277,12 +300,18 @@ namespace WPFPresentationLayer.PersonnelPages
                 _editMode = true;
                 _insertMode = false;
                 _trainingVideo = (TrainingVideo)dgVideoList.SelectedItem;
+                
                 showPrompt();
                 txtVideoID.IsReadOnly = true;
                 txtRunTimeM.Text = _trainingVideo.RunTimeMinutes.ToString();
                 txtRunTimeS.Text = _trainingVideo.RunTimeSeconds.ToString();
                 txtVideoDesc.Text = _trainingVideo.Description.ToString();
                 txtVideoID.Text = _trainingVideo.TrainingVideoID.ToString();
+                chkVideoActive.IsChecked = _trainingVideo.Active;
+            }
+            else
+            {
+                WPFErrorHandler.ErrorMessage("Please select a video");
             }
         }
         /// <summary>
@@ -294,31 +323,33 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater : Chase Schutle
+        /// Updated: 5/2/20
+        /// Update: Added check to see if video slected exists
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void BtnViewVideo_Click(object sender, RoutedEventArgs e)
         {
-            if (dgVideoList.SelectedItem != null)
+            if(dgVideoList.SelectedItem != null)
             {
-                _editMode = false;
-                _insertMode = false;
-                _trainingVideo = (TrainingVideo)dgVideoList.SelectedItem;
-                showPrompt();
-                txtRunTimeM.Text = _trainingVideo.RunTimeMinutes.ToString();
-                txtRunTimeS.Text = _trainingVideo.RunTimeSeconds.ToString();
-                txtVideoDesc.Text = _trainingVideo.Description.ToString();
-                txtVideoID.Text = _trainingVideo.TrainingVideoID.ToString();
-                chkVideoActive.IsChecked = _trainingVideo.Active;
-                btnSaveVideo.Visibility = Visibility.Hidden;
+                _trainingVideoVM = (TrainingVideoVM)dgVideoList.SelectedItem;
+                if (_trainingVideoVM.IsWatched == false)
+                {
+                    _videoManager.EditIsWatched(_trainingVideoVM);
+                }
+                else
+                {
+                    _videoManager.EditNotWatched(_trainingVideoVM);
+                }
+                
+                populateVideoList(chkToggleWatchedVideos.IsChecked.Value);
             }
             else
             {
-                WPFErrorHandler.ErrorMessage("Select a video");
+                WPFErrorHandler.ErrorMessage("Please select a video");
             }
+            
 
         }
         /// <summary>
@@ -366,15 +397,15 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updater: Alex Diers
+        /// Updated: 5/1/20
+        /// Update: Uses different helper method due to refactoring of the previous one it used
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void ChkVideosActive_Click(object sender, RoutedEventArgs e)
         {
-            populateVideoList();
+            populateActiveVideoList(chkVideosActive.IsChecked.Value);
 
 
             if (chkVideoActive.IsChecked == true)
@@ -386,6 +417,92 @@ namespace WPFPresentationLayer.PersonnelPages
                 lblActiveVideos.Content = "Active";
             }
 
+        }
+
+        /// <summary>
+        /// Creator: Alex Diers
+        /// Created: 04/29/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// Event handler for clicking the Watched checkbox
+        /// </summary>
+        /// 
+        /// <remarks>
+        /// Updater: Chase Schulte
+        /// Updated: 05/01/2020
+        /// Update: Change btn content to reflect chk box
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkToggleWatchedVideos_Click(object sender, RoutedEventArgs e)
+        {
+            populateVideoList(chkToggleWatchedVideos.IsChecked.Value);
+            if(chkToggleWatchedVideos.IsChecked.Value == true)
+            {
+                btnViewVideo.Content = "Mark as Unviewed";
+            }
+            else
+            {
+                btnViewVideo.Content = "Mark as Viewed";
+            }
+        }
+
+        
+
+        /// <summary>
+        /// Creator: Alex Diers
+        /// Created: 04/29/2020
+        /// Approver: Chase Schulte
+        /// 
+        /// Event handler for the Sort by Employee checkbox
+        /// </summary>
+        /// 
+        /// <remarks>
+        /// Updater : Alex Diers
+        /// Updated:4/30/20
+        /// Update: Changed visibility of certain fields based on relevancy
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chkSort_Click(object sender, RoutedEventArgs e)
+        {
+            if (chkSort.IsChecked.Value == false)
+            {
+                populateActiveVideoList(chkVideosActive.IsChecked.Value);
+                lblToggleWatchedVideos.Visibility = Visibility.Hidden;
+                chkToggleWatchedVideos.Visibility = Visibility.Hidden;
+                btnViewVideo.Visibility = Visibility.Hidden;
+                lblActiveVideos.Visibility = Visibility.Visible;
+                chkVideosActive.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                populateVideoList();
+                lblToggleWatchedVideos.Visibility = Visibility.Visible;
+                chkToggleWatchedVideos.Visibility = Visibility.Visible;
+                btnViewVideo.Visibility = Visibility.Visible;
+                lblActiveVideos.Visibility = Visibility.Hidden;
+                chkVideosActive.Visibility = Visibility.Hidden;
+            }
+        }
+
+        /// <summary>
+        /// NAME : Alex Diers
+        /// DATE: 5/1/2020
+        /// CHECKED BY:Chase Schulte
+        /// 
+        /// Helper method for sorting by active and inactive videos
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATE DATE: NA
+        /// CHANGE: NA
+        /// 
+        /// </remarks>
+        /// <param name="active"></param>
+        private void populateActiveVideoList(bool active = true)
+        {
+            dgVideoList.ItemsSource = _videoManager.RetrieveTrainingVideosByActive(active);
         }
     }
 }

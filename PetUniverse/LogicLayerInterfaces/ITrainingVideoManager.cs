@@ -107,6 +107,51 @@ namespace LogicLayerInterfaces
         /// <param name="active"></param>
         /// <returns></returns>
         List<TrainingVideo> RetrieveTrainingVideosByActive(bool active = true);
-    }
 
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/15/2020
+        /// CHECKED BY: Lane Sandburg
+        /// 
+        /// Used to select a list of TrainingVideo objects by Employee that needs to view them
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        List<TrainingVideoVM> RetrieveTrainingVideosByEmployee(bool watched = false);
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/15/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Used to change the record of a video to being watched 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        /// <param name="isWatched"></param>
+        /// <returns></returns>
+        bool EditIsWatched(TrainingVideoVM videoVM);
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/15/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Used to change the record of a video to not being watched 
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        /// <param name="isWatched"></param>
+        /// <returns></returns>
+        bool EditNotWatched(TrainingVideoVM videoVM);
+    }
 }

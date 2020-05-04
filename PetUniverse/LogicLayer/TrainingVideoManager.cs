@@ -208,5 +208,87 @@ namespace LogicLayer
                 throw new ApplicationException("Data not found.", ex);
             }
         }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Changes the status of a TrainingVideoVM to being watched
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        /// <param name="videoVM"></param>
+        /// <returns></returns>
+        public bool EditIsWatched(TrainingVideoVM videoVM)
+        {
+            bool result = true;
+
+            try
+            {
+                result = _trainingVideoAccessor.UpdateIsWatched(videoVM) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Changes the status of a TrainingVideoVM to not being watched
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        /// <param name="videoVM"></param>
+        /// <returns></returns>
+        public bool EditNotWatched(TrainingVideoVM videoVM)
+        {
+            bool result = true;
+
+            try
+            {
+                result = _trainingVideoAccessor.UpdateNotWatched(videoVM) > 0;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Creates a list of TrainingVideoVM objects based on the data from the DAL
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: NA
+        /// UPDATED DATE: NA
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        public List<TrainingVideoVM> RetrieveTrainingVideosByEmployee(bool watched = false)
+        {
+            try
+            {
+                return _trainingVideoAccessor.SelectTrainingVideosByEmployee(watched);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Data not found.", ex);
+            }
+        }
     }
 }

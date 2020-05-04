@@ -15,6 +15,7 @@ namespace DataAccessFakes
     /// </summary>
     public class FakeTrainingVideoAccessor : ITrainingVideoAccessor
     {
+        private List<TrainingVideoVM> trainingVideoVMs;
         private List<TrainingVideo> trainingVideos;
 
         /// <summary>
@@ -48,6 +49,35 @@ namespace DataAccessFakes
                     RunTimeSeconds = 1,
                     Description = "A",
                     Active = false
+                }
+
+            };
+            trainingVideoVMs = new List<TrainingVideoVM>
+            {
+                new TrainingVideoVM()
+                {
+                    TrainingVideoID  = "A",
+                    RunTimeMinutes = 1,
+                    RunTimeSeconds = 1,
+                    Description = "A",
+                    Active = true,
+                    IsWatched = true,
+                    UserID = 1,
+                    FirstName = "Tom",
+                    LastName = "Hanks"
+
+                },
+                new TrainingVideoVM()
+                {
+                    TrainingVideoID  = "B",
+                    RunTimeMinutes = 1,
+                    RunTimeSeconds = 1,
+                    Description = "A",
+                    Active = true,
+                    IsWatched = false,
+                    UserID = 2,
+                    FirstName = "Tom",
+                    LastName = "Hardy"
                 }
             };
         }
@@ -287,6 +317,129 @@ namespace DataAccessFakes
             }
             return 0;
         }
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Creates a list from the mock objects sorted by employee data
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED DATE: 
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        public List<TrainingVideoVM> SelectTrainingVideosByEmployee(bool watched = false)
+        {
+            List<TrainingVideoVM> videos = new List<TrainingVideoVM>();
+            foreach (var video in videos)
+            {
+                if (video.IsWatched == watched)
+                {
+                    videos.Add(video);
+                }
+            }
+            return videos;
+        }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Uses mock objects to update their IsWatched value
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED DATE: 
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        /// <param name="videoVM"></param>
+        /// <returns></returns>
+        public int UpdateIsWatched(TrainingVideoVM videoVM)
+        {
+            TrainingVideoVM trainingVideoVM = null;
+
+            //Fail immediatly if null
+            if (videoVM == null)
+            {
+                throw new Exception();
+            }
+
+            //Check that video is in list, if so assign it, else fail
+            foreach (var v in trainingVideoVMs)
+            {
+                if (videoVM.TrainingVideoID == v.TrainingVideoID)
+                {
+                    trainingVideoVM = v;
+                }
+            }
+
+            //Throw exception if video isn't in list
+            if (trainingVideoVM == null || videoVM.TrainingVideoID != trainingVideoVM.TrainingVideoID)
+            {
+                throw new Exception();
+            }
+
+            //Deactivate it
+            trainingVideoVM.IsWatched = true;
+
+            if (trainingVideoVM.IsWatched == true)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Uses mock objects to update their IsWatched value
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED DATE: 
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        /// <param name="videoVM"></param>
+        /// <returns></returns>
+        public int UpdateNotWatched(TrainingVideoVM videoVM)
+        {
+            TrainingVideoVM trainingVideoVM = null;
+
+            //Fail immediatly if null
+            if (videoVM == null)
+            {
+                throw new Exception();
+            }
+
+            //Check that video is in list, if so assign it, else fail
+            foreach (var v in trainingVideoVMs)
+            {
+                if (videoVM.TrainingVideoID == v.TrainingVideoID)
+                {
+                    trainingVideoVM = v;
+                }
+            }
+
+            //Throw exception if video isn't in list
+            if (trainingVideoVM == null || videoVM.TrainingVideoID != trainingVideoVM.TrainingVideoID)
+            {
+                throw new Exception();
+            }
+
+            //Deactivate it
+            trainingVideoVM.IsWatched = false;
+
+            if (trainingVideoVM.IsWatched == false)
+            {
+                return 1;
+            }
+            return 0;
+        }
+
     }
 }
 

@@ -852,5 +852,135 @@ namespace LogicLayerTests
             // assert
             Assert.AreEqual(1, videos.Count);
         }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Tests the ability to retrieve TrainingVideoVM objects and sort by relevant employee data
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED DATE: 
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveTrainingVideosByEmployeeUnwatched()
+        {
+            // arrange
+            List<TrainingVideoVM> videos;
+            ITrainingVideoManager videoVMManager = new TrainingVideoManager(_trainingVideoAccessor);
+
+            // act
+            videos = videoVMManager.RetrieveTrainingVideosByEmployee(false);
+
+            // assert
+            Assert.AreEqual(1, videos.Count);
+        }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Tests the ability to retrieve TrainingVideoVM objects and sort by relevant employee data
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED DATE: 
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        [TestMethod]
+        public void TestRetrieveTrainingVideosByEmployeeWatched()
+        {
+            // arrange
+            List<TrainingVideoVM> videos;
+            ITrainingVideoManager videoVMManager = new TrainingVideoManager(_trainingVideoAccessor);
+
+            // act
+            videos = videoVMManager.RetrieveTrainingVideosByEmployee(true);
+
+            // assert
+            Assert.AreEqual(1, videos.Count);
+        }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Tests the ability to update a TrainingVideoVM IsWatched field
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED DATE: 
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        [TestMethod]
+        public void TestUpdateIsWatched()
+        {
+            //Arrange
+            TrainingVideoVM videoVM = new TrainingVideoVM()
+            {
+                TrainingVideoID = "B",
+                RunTimeMinutes = 1,
+                RunTimeSeconds = 1,
+                Description = "A",
+                Active = true,
+                IsWatched = false,
+                UserID = 2,
+                FirstName = "Tom",
+                LastName = "Hardy"
+            };
+
+            bool test;
+            ITrainingVideoManager videoVMManager = new TrainingVideoManager(_trainingVideoAccessor);
+
+            //Act
+            test = videoVMManager.EditIsWatched(videoVM);
+
+            //Assert
+            Assert.AreEqual(test, true);
+        }
+
+        /// <summary>
+        /// NAME: Alex Diers
+        /// DATE: 3/5/2020
+        /// CHECKED BY: Chase Schulte
+        /// 
+        /// Tests the ability to update a TrainingVideoVM IsWatched field
+        /// </summary>
+        /// <remarks>
+        /// UPDATED BY: 
+        /// UPDATED DATE: 
+        /// WHAT WAS CHANGED: NA
+        /// </remarks>
+        [TestMethod]
+        public void TestUpdateNotWatched()
+        {
+            //Arrange
+            TrainingVideoVM videoVM = new TrainingVideoVM()
+            {
+                TrainingVideoID = "B",
+                RunTimeMinutes = 1,
+                RunTimeSeconds = 1,
+                Description = "A",
+                Active = true,
+                IsWatched = true,
+                UserID = 2,
+                FirstName = "Tom",
+                LastName = "Hardy"
+            };
+
+            bool test;
+            ITrainingVideoManager videoVMManager = new TrainingVideoManager(_trainingVideoAccessor);
+
+            //Act
+            test = videoVMManager.EditNotWatched(videoVM);
+
+            //Assert
+            Assert.AreEqual(test, true);
+        }
     }
 }
