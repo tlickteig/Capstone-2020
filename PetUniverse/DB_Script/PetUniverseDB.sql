@@ -4441,7 +4441,7 @@ BEGIN
 	SELECT 	AppointmentID,AdoptionApplicationID,AppointmentTypeID,DateTime,Notes,
 			Decision,LocationID
 	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = 'Interviewer'
+	WHERE	[AppointmentTypeID] = 'Interview'
 END
 GO
 
@@ -4494,7 +4494,7 @@ BEGIN
         [LocationID],
         [Active]
 	FROM 	[dbo].[Appointment]
-	WHERE	[AppointmentTypeID] = 'inHomeInspection'
+	WHERE	[AppointmentTypeID] = 'Home Inspection'
 END
 GO
 
@@ -14168,6 +14168,168 @@ END
 GO
 
 /*
+Author: Austin Gee
+Date: 3/18/2020
+Comment: Creating procedure for selecting an adoption application by email
+*/
+DROP PROCEDURE IF EXISTS [sp_select_adoption_applications_by_active]
+GO
+print '' print '*** Creating sp_select_adoption_applications_by_active'
+GO
+CREATE PROCEDURE [sp_select_adoption_applications_by_active] 
+(
+	@Active [bit]
+)
+AS
+BEGIN
+	SELECT
+	[AdoptionApplicationID]
+	,[CustomerEmail]
+	,[AdoptionApplication].[AnimalID]
+	,[Status]
+	,[RecievedDate]
+	,[AnimalName]
+	,[AnimalSpeciesID]
+	,[AnimalBreed]
+	,[Animal].[Active]
+	,[AdoptionApplication].[Active]
+	,[FirstName]
+	,[LastName]
+	FROM [AdoptionApplication]
+	JOIN [Animal] ON [Animal].[AnimalID] = [AdoptionApplication].[AnimalID]
+	JOIN [Customer] ON [Customer].[Email] = [AdoptionApplication].[CustomerEmail]
+	WHERE [AdoptionApplication].[Active] = @Active
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 5/1/2020
+Comment: Deaactivate or reactivate an apppointment.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_update_adoption_appointment_active]
+GO
+
+print'' print '*** Creating sp_update_adoption_appointment_active'
+GO
+
+CREATE PROCEDURE [sp_update_adoption_appointment_active]
+(
+	@AppointmentID	[int],
+	@Active					[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET [Active] = @Active
+	WHERE [AppointmentID] = @AppointmentID
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 5/1/2020
+Comment: updates an adoption application.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_update_adoption_application]
+GO
+
+print'' print '*** Creating sp_update_adoption_application'
+GO
+
+CREATE PROCEDURE [sp_update_adoption_application]
+(
+	@AdoptionApplicationID	[int],
+	
+	@OldCustomerEmail			[nvarchar](250),
+	@OldAnimalID				[int],
+	@OldStatus					[nvarchar](1000),						
+	@OldRecievedDate			[datetime],
+	@OldActive					[bit],
+	
+	@NewCustomerEmail			[nvarchar](250),
+	@NewAnimalID				[int],
+	@NewStatus					[nvarchar](1000),						
+	@NewRecievedDate			[datetime],
+	@NewActive					[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[AdoptionApplication]
+	SET 	[CustomerEmail] = @NewCustomerEmail,
+			[AnimalID]		= @NewAnimalID,
+			[Status]		= @NewStatus,
+			[RecievedDate]	= @NewRecievedDate,
+			[Active]		= @NewActive
+	WHERE 	[AdoptionApplicationID] = @AdoptionApplicationID
+	AND		[CustomerEmail] 		= @OldCustomerEmail
+	AND		[AnimalID]				= @OldAnimalID
+	AND		[Status]				= @OldStatus
+	AND		[RecievedDate]			= @OldRecievedDate
+	AND		[Active]				= @OldActive
+	RETURN @@ROWCOUNT
+END
+GO
+
+/*
+Created by: Austin Gee
+Date: 5/1/2020
+Comment: updates an adoption application.
+*/
+
+DROP PROCEDURE IF EXISTS [sp_update_adoption_appointment]
+GO
+
+print'' print '*** Creating sp_update_adoption_appointment'
+GO
+
+CREATE PROCEDURE [sp_update_adoption_appointment]
+(
+	@OldAppointmentID			[int],
+	
+	@OldAdoptionApplicationID	[int],
+	@OldAppointmentTypeID		[nvarchar](100),
+	@OldDateTime				[datetime],
+	--@OldNotes					[nvarchar](1000),
+	--@OldDecision				[nvarchar](50),
+	@OldLocationID				[int],
+	@OldActive					[bit],
+	
+	@NewAdoptionApplicationID	[int],
+	@NewAppointmentTypeID		[nvarchar](100),
+	@NewDateTime				[datetime],
+	@NewNotes					[nvarchar](1000),
+	@NewDecision				[nvarchar](50),
+	@NewLocationID				[int],
+	@NewActive					[bit]
+)
+AS
+BEGIN
+	UPDATE [dbo].[Appointment]
+	SET 	[AdoptionApplicationID] = @NewAdoptionApplicationID,
+			[AppointmentTypeID]		= @NewAppointmentTypeID,
+			[DateTime]				= @NewDateTime,
+			[Notes]					= @NewNotes,
+			[Decision]				= @NewDecision,
+			[LocationID]			= @NewLocationID,
+			[Active]				= @NewActive
+			
+	WHERE 	[AppointmentID]			= @OldAppointmentID
+	AND		[AdoptionApplicationID] = @OldAdoptionApplicationID
+	AND		[AppointmentTypeID]		= @OldAppointmentTypeID
+	AND		[DateTime]				= @OldDateTime
+--	AND		[Notes]					= @OldNotes
+--	AND		[Decision]				= @OldDecision
+	AND		[LocationID]			= @OldLocationID
+	AND		[Active]				= @OldActive
+	RETURN @@ROWCOUNT
+END
+GO
+
+
+/*
  ******************************* Inserting Sample Data *****************************
 */
 PRINT '' PRINT '******************* Inserting Sample Data *********************'
@@ -14736,12 +14898,18 @@ GO
 INSERT INTO [dbo].[Appointment]
 	([AdoptionApplicationID],[AppointmentTypeID],[DateTime],[Notes],[Decision],[LocationID])
 	VALUES
-	(100000,'Reviewer','2020-2-22 10am','','',1000000),
+/*	(100000,'Reviewer','2020-2-22 10am','','',1000000),
 	(100001,'Meet and Greet','2020-2-22 9am','','',1000000),
 	(100002,'Interviewer','2020-2-22 12pm','','',1000000),
 	(100003,'InHomeInspection','2020-2-22 12pm','','',1000003),
 	(100004,'InHomeInspection','2020-2-22 12pm','','',1000004)
-
+*/
+--	(100000,'Reviewer','2020-2-22 10am','','',1000000),
+	(100001,'Meet and Greet','2020-2-22 9am','','',1000000),
+	(100002,'Interview','2020-2-22 12pm','','',1000000),
+	(100003,'Home Inspection','2020-2-22 12pm','','',1000003),
+	(100004,'Home Inspection','2020-2-22 12pm','','',1000004)
+GO
 
 GO
 /*
