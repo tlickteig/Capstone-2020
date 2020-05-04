@@ -14882,10 +14882,15 @@ GO
 INSERT INTO [dbo].[AppointmentType]
 	([AppointmentTypeID],[Description])
 	VALUES
-	('Meet and Greet','This is where the Adoption Customer will meet the animal while the facilitator is present'),
+/*	('Meet and Greet','This is where the Adoption Customer will meet the animal while the facilitator is present'),
 	('InHomeInspection','This is where the InHomeInspection will interview the Adoption Customer'),
 	('Interviewer','This is where the Interviewer will interview the Adoption Customer'),
 	('Reviewer','This is where the Reviewer will interview the Adoption Customer')
+*/
+	('Interview','The adoption customer interview'),
+	('Home Inspection','A home inspection'),
+	('Meet and Greet','A meet and greet with the adopters chosen animal'),
+	('Animal Pick-up','The adopter picks up ')
 GO
 
 /*
