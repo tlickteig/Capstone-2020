@@ -1,6 +1,7 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
@@ -15,11 +16,12 @@ using WPFPresentation.Models;
 /// </summary>
 namespace WPFPresentation.Controllers
 {
+    [Authorize]
     public class RequestScheduleChangeController : Controller
     {
         private IRequestManager _requestManager = null;
         private IShiftManager _shiftManager = null;
-
+        LogicLayerInterfaces.IUserManager _usrMgr = null;
 
         /// <summary>
         ///  CREATOR: Kaleb Bachert
@@ -29,14 +31,15 @@ namespace WPFPresentation.Controllers
         ///  Constructor for instantiating RequestManager and ShiftManager
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// UPDATER: Kaleb Bachert
+        /// UPDATED: 2020/5/4
+        /// UPDATE: Added UserManager
         /// 
         /// </remarks>
         public RequestScheduleChangeController()
         {
             _requestManager = new RequestManager();
+            _usrMgr = new LogicLayer.UserManager();
             _shiftManager = new ShiftManager();
         }
 
@@ -48,9 +51,9 @@ namespace WPFPresentation.Controllers
         ///  View for submitting a new Schedule Change Request
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// UPDATER: Kaleb Bachert
+        /// UPDATED: 2020/5/4
+        /// UPDATE: Checks if user exists as an employee to determine redirect
         /// 
         /// </remarks>
         // GET: RequestScheduleChange
@@ -60,55 +63,63 @@ namespace WPFPresentation.Controllers
 
             ViewBag.Title = "Schedule Change Request";
 
-            //Force past dates to be tomorrow
-            if (Convert.ToDateTime(selectedDate) <= DateTime.Now)
+            //Checks if the user exists in the database as an employee
+            if (_usrMgr.FindUser(User.Identity.GetUserName()))
             {
-                selectedDate = DateTime.Now.AddDays(1).ToShortDateString();
-            }
-
-            ViewBag.SelectedDate = selectedDate;
-
-            Session["currentUserID"] = userID;
-
-            if (0 != userID)
-            {
-                //Get all of current user's shifts, one time only
-                if (null == (List<ShiftVM>)Session["userShiftList"])
+                //Force past dates to be tomorrow
+                if (Convert.ToDateTime(selectedDate) <= DateTime.Now)
                 {
-                    Session["userShiftList"] = _shiftManager.RetrieveShiftsByUser(userID);
+                    selectedDate = DateTime.Now.AddDays(1).ToShortDateString();
                 }
 
-                List<ShiftVM> selectedShiftList = new List<ShiftVM>();
+                ViewBag.SelectedDate = selectedDate;
 
-                //Add all shifts on the selected date to a list
-                foreach (var shift in (List<ShiftVM>)Session["userShiftList"])
+                Session["currentUserID"] = userID;
+
+                if (0 != userID)
                 {
-                    if (Convert.ToDateTime(shift.Date) == Convert.ToDateTime(selectedDate))
+                    //Get all of current user's shifts, one time only
+                    if (null == (List<ShiftVM>)Session["userShiftList"])
                     {
-                        selectedShiftList.Add(shift);
+                        Session["userShiftList"] = _shiftManager.RetrieveShiftsByUser(userID);
                     }
-                }
 
-                //Build a SelectListItem List
-                List<SelectListItem> shiftListSelectList = new List<SelectListItem>();
-                shiftListSelectList.Add(new SelectListItem()
-                {
-                    Text = "-- Select a Shift --",
-                    Value = ""
-                });
-                foreach (ShiftVM shift in selectedShiftList)
-                {
+                    List<ShiftVM> selectedShiftList = new List<ShiftVM>();
+
+                    //Add all shifts on the selected date to a list
+                    foreach (var shift in (List<ShiftVM>)Session["userShiftList"])
+                    {
+                        if (Convert.ToDateTime(shift.Date) == Convert.ToDateTime(selectedDate))
+                        {
+                            selectedShiftList.Add(shift);
+                        }
+                    }
+
+                    //Build a SelectListItem List
+                    List<SelectListItem> shiftListSelectList = new List<SelectListItem>();
                     shiftListSelectList.Add(new SelectListItem()
                     {
-                        Text = "Department: " + shift.Department + " Date: " + shift.Date + " Time: " + shift.StartTime + " - " + shift.EndTime,
-                        Value = shift.ShiftID.ToString()
+                        Text = "-- Select a Shift --",
+                        Value = ""
                     });
-                }
-                ViewBag.ShiftList = shiftListSelectList;
+                    foreach (ShiftVM shift in selectedShiftList)
+                    {
+                        shiftListSelectList.Add(new SelectListItem()
+                        {
+                            Text = "Department: " + shift.Department + " Date: " + shift.Date + " Time: " + shift.StartTime + " - " + shift.EndTime,
+                            Value = shift.ShiftID.ToString()
+                        });
+                    }
+                    ViewBag.ShiftList = shiftListSelectList;
 
-                model.UserID = userID;
+                    model.UserID = userID;
+                }
+                return View(model);
             }
-            return View(model); //NOT UPDATING THE VIEW AFTER FIRST TIME
+            else //User is not an employee
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
 
@@ -132,7 +143,7 @@ namespace WPFPresentation.Controllers
             {
                 ScheduleChangeRequest request = new ScheduleChangeRequest();
                 request.ShiftID = shiftID;
-        
+
                 _requestManager.AddScheduleChangeRequest(request, Convert.ToInt32(Session["currentUserID"]));
 
                 return Json(Url.Action("Index", "ChooseRequestType", new { outputMessage = "SUCCESS: Schedule Change Request Submitted!" }));

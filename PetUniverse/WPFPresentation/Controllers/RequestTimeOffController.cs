@@ -1,5 +1,6 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Web.Mvc;
 
@@ -13,10 +14,11 @@ using System.Web.Mvc;
 
 namespace WPFPresentation.Controllers
 {
+    [Authorize]
     public class RequestTimeOffController : Controller
     {
         private IRequestManager _requestManager = null;
-
+        LogicLayerInterfaces.IUserManager _usrMgr = null;
 
         /// <summary>
         ///  CREATOR: Kaleb Bachert
@@ -26,14 +28,15 @@ namespace WPFPresentation.Controllers
         ///  Constructor for instantiating the Request Manager
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// UPDATER: Kaleb Bachert
+        /// UPDATED: 2020/5/4
+        /// UPDATE: Added a UserManager
         /// 
         /// </remarks>
         public RequestTimeOffController()
         {
             _requestManager = new RequestManager();
+            _usrMgr = new LogicLayer.UserManager();
         }
 
         /// <summary>
@@ -44,9 +47,9 @@ namespace WPFPresentation.Controllers
         ///  View for submitting a new Time Off Request
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// UPDATER: Kaleb Bachert
+        /// UPDATED: 2020/5/4
+        /// UPDATE: Checks if user exists as an employee to determine redirect
         /// 
         /// </remarks>
         // GET: RequestTimeOff
@@ -59,7 +62,15 @@ namespace WPFPresentation.Controllers
 
             Session["RequestingUserID"] = user.PUUserID;
 
-            return View();
+            //Checks if the user exists in the database as an employee
+            if (_usrMgr.FindUser(User.Identity.GetUserName()))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         /// <summary>

@@ -22,16 +22,16 @@ namespace WPFPresentationLayer.PersonnelPages
         PetUniverseUser _user;
 
         /// <summary>
-        /// NAME : Kaleb Bachert
-        /// DATE: 2/20/2020
-        /// APPROVER: Lane Sandburg
+        /// Creator: Kaleb Bachert
+        /// Created: 2/20/2020
+        /// Approver: Lane Sandburg
         /// 
         /// This is the default constructor
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
 
@@ -47,16 +47,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// NAME : Kaleb Bachert
-        /// DATE: 2/20/2020
-        /// APPROVER: Lane Sandburg
+        /// Creator: Kaleb Bachert
+        /// Created:2/20/2020
+        /// Approver: Lane Sandburg
         /// 
         /// This is the detailed constructor
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED NA
-        /// CHANGE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
 
@@ -72,41 +72,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// CREATOR: Kaleb Bachert
-        /// CREATED: 2020/2/14
-        /// APPROVER: MOST LIKELY SCRAPPING THIS
-        /// 
-        /// This method is called when the search bar in personnel Requests, gets focus
-        /// </summary>
-        /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
-        /// 
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void txtSearchRequests_GotFocus(object sender, RoutedEventArgs e)
-        //{
-        //    ((TextBox)sender).Text = string.Empty;
-        //    ((TextBox)sender).Foreground = new SolidColorBrush(Colors.Black);
-        //    ((TextBox)sender).FontStyle = FontStyles.Normal;
-
-        //    //Removes this event handler after one call. Won't keep deleting text.
-        //    ((TextBox)sender).GotFocus -= txtSearchRequests_GotFocus;
-        //}
-
-        /// <summary>
-        /// CREATOR: Kaleb Bachert
-        /// CREATED: 2020/2/14
-        /// APPROVER: Lane Sandburg
+        /// Creator: Kaleb Bachert
+        /// Created: 2020/2/14
+        /// Approver: Lane Sandburg
         /// 
         /// This method is called when the Open Requests DataGrid is done generating Columns
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -136,16 +111,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// CREATOR: Kaleb Bachert
-        /// CREATED: 2020/2/14
-        /// APPROVER: Lane Sandburg
+        /// Creator: Kaleb Bachert
+        /// Created: 2020/2/14
+        /// Approver: Lane Sandburg
         /// 
         /// This method is called when the Requests Tab in Personnel, is loaded
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -156,16 +131,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        /// CREATOR: Kaleb Bachert
-        /// CREATED: 2020/2/14
-        /// APPROVER: Lane Sandburg
+        /// Creator: Kaleb Bachert
+        /// Created: 2020/2/14
+        /// Approver: Lane Sandburg
         /// 
         /// This method is called to update the dgOpenRequests ItensSource
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -184,18 +159,18 @@ namespace WPFPresentationLayer.PersonnelPages
 
 
         /// <summary>
-        /// CREATOR: Kaleb Bachert
-        /// CREATED: 2020/2/16
-        /// APPROVER: Lane Sandburg
+        /// Creator: Kaleb Bachert
+        /// Created: 2020/2/16
+        /// Approver: Lane Sandburg
         /// 
         /// This method is called when btnRequestDetails is clicked, determines request type, 
         /// and changes canvas accordingly
         /// </summary>
         /// <remarks>
-        /// UPDATER: Chase Schulte
-        /// UPDATED: 2020/04/13
-        /// UPDATE: Added case for Availability Change
-        /// APPROVER: Kaleb Bachert
+        /// Updated By: Chase Schulte
+        /// Updated: 2020/04/13
+        /// Update: Added case for Availability Change
+        /// Approver: Kaleb Bachert
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -308,16 +283,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/2/17
-        ///  APPROVER: Lane Sandburg
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2020/2/17
+        ///  Approver: Lane Sandburg
         ///  
         ///  This button simply closes the window.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -329,16 +304,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/4/8
-        ///  APPROVER: Lane Sandburg
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2020/4/8
+        ///  Approver: Lane Sandburg
         ///  
         ///  This button simply closes the window.
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -350,17 +325,17 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/2/19
-        ///  APPROVER: Lane Sandburg
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2020/2/19
+        ///  Approver: Lane Sandburg
         ///  
         ///  This method is called to select the dates mentioned in the request
         ///  on the calendar control
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="request"></param>
@@ -386,17 +361,17 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/2/19
-        ///  APPROVER: Lane Sandburg
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2020/2/19
+        ///  Approver: Lane Sandburg
         ///  
         ///  This method is called to fill in the text fields for
         ///  Time Off Request details
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="request"></param>
@@ -419,17 +394,17 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/4/9
-        ///  APPROVER: Lane Sandburg
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2020/4/9
+        ///  Approver: Lane Sandburg
         ///  
         ///  This method is called to fill in the text fields for
         ///  Schedule Change Request details
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="request"></param>
@@ -472,16 +447,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/2/19
-        ///  APPROVER: Lane Sandburg
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2020/2/19
+        ///  Approver: Lane Sandburg
         ///  
         ///  This button will pop up a confirmation of approval, and approve the request
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -535,18 +510,18 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/4/15
-        ///  APPROVER: Lane Sandburg
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2020/4/15
+        ///  Approver: Lane Sandburg
         ///  
         ///  This button will pop up a confirmation of approval, and approve the request
         ///  It will also check to see if this change will put the User's hours over 40 for that week 
         /// 
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -674,16 +649,16 @@ namespace WPFPresentationLayer.PersonnelPages
         }
 
         /// <summary>
-        ///  CREATOR: Kaleb Bachert
-        ///  CREATED: 2020/2/19
-        ///  APPROVER: Lane Sandburg
+        ///  Creator: Kaleb Bachert
+        ///  Created: 2020/2/19
+        ///  Approver: Lane Sandburg
         ///  
         ///  Click event for chkViewClosedRequests to update which Requests re in the DataGrid
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// 
         /// </remarks>
         /// <param name="sender"></param>
@@ -701,9 +676,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -721,9 +696,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="selectedAvailabilityRequest"></param>
         /// <param name="availabilityVMs"></param>
@@ -767,9 +742,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="request"></param>
         /// <param name="availabilities"></param>
@@ -998,9 +973,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="selectedAvailabilityRequest"></param>
         public void setTextFieldsForAvailability(AvailabilityRequestVM selectedAvailabilityRequest)
@@ -1038,9 +1013,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void btnAvailabilityApprove_Click(object sender, RoutedEventArgs e)
         {
@@ -1092,9 +1067,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="request"></param>
         /// <param name="availabilities"></param>
@@ -1328,9 +1303,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1356,9 +1331,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1383,9 +1358,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         private void hideAllAvailabilityInputs()
         {
@@ -1433,9 +1408,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -1499,9 +1474,9 @@ namespace WPFPresentationLayer.PersonnelPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
+        /// Updated By: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>

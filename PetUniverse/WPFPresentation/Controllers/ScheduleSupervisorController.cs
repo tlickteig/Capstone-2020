@@ -76,12 +76,8 @@ namespace WPFPresentation.Controllers
             }
             else
             {
-                return RedirectToAction("Login","Account",Url.Action("Home/Index"));
+                return RedirectToAction("Login", "Account", Url.Action("Home/Index"));
             }
         }
-
-
-            
-
     }
 }

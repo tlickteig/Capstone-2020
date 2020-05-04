@@ -1,5 +1,6 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,11 @@ using WPFPresentation.Models;
 
 namespace WPFPresentation.Controllers
 {
+    [Authorize]
     public class RequestAvailabilityChangeController : Controller
     {
         private IRequestManager _requestManager = null;
+        LogicLayerInterfaces.IUserManager _usrMgr = null;
 
         /// <summary>
         ///  CREATOR: Kaleb Bachert
@@ -29,14 +32,15 @@ namespace WPFPresentation.Controllers
         ///  Constructor for instantiating a RequestManager
         /// </summary>
         /// <remarks>
-        /// UPDATER: NA
-        /// UPDATED: NA
-        /// UPDATE: NA
+        /// UPDATER: Kaleb Bachert
+        /// UPDATED: 2020/5/4
+        /// UPDATE: Added UserManager
         /// 
         /// </remarks>
         public RequestAvailabilityChangeController()
         {
             _requestManager = new RequestManager();
+            _usrMgr = new LogicLayer.UserManager();
         }
 
         /// <summary>
@@ -59,7 +63,15 @@ namespace WPFPresentation.Controllers
 
             Session["currentUserID"] = user.PUUserID;
 
-            return View();
+            //Checks if the user exists in the database as an employee
+            if (_usrMgr.FindUser(User.Identity.GetUserName()))
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
         }
 
         /// <summary>
