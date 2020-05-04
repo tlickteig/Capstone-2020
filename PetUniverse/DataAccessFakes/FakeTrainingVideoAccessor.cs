@@ -332,7 +332,7 @@ namespace DataAccessFakes
         public List<TrainingVideoVM> SelectTrainingVideosByEmployee(bool watched = false)
         {
             List<TrainingVideoVM> videos = new List<TrainingVideoVM>();
-            foreach (var video in videos)
+            foreach (var video in trainingVideoVMs)
             {
                 if (video.IsWatched == watched)
                 {
