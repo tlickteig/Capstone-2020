@@ -3,6 +3,7 @@ using LogicLayer;
 using LogicLayerInterfaces;
 using PresentationUtilityCode;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -22,6 +23,8 @@ namespace WPFPresentationLayer.AMPages
     {
         private AnimalHandlingNotes _oldNotes;
         private IAnimalHandlingManager _handlingManager;
+        private IAnimalManager _animalManager;
+
         bool _updateMode;
         private PetUniverseUser _user;
 
@@ -46,6 +49,7 @@ namespace WPFPresentationLayer.AMPages
             this._user = user;
             _oldNotes = new AnimalHandlingNotes();
             _handlingManager = new AnimalHandlingManager();
+            _animalManager = new AnimalManager();
 
             _updateMode = false;
         }
@@ -69,6 +73,7 @@ namespace WPFPresentationLayer.AMPages
             InitializeComponent();
             _oldNotes = new AnimalHandlingNotes();
             _handlingManager = new AnimalHandlingManager();
+            _animalManager = new AnimalManager();
 
             _updateMode = false;
         }
@@ -100,6 +105,7 @@ namespace WPFPresentationLayer.AMPages
             dpHandlingUpdateDate.SelectedDate = _oldNotes.UpdateDate;
 
             btnUpdateRecord.IsEnabled = true;
+            btnUpdateRecord.Visibility = Visibility.Visible;
         }
 
 
@@ -149,6 +155,8 @@ namespace WPFPresentationLayer.AMPages
             else
             {
                 dgHandlingNotesList.ItemsSource = _handlingManager.GetAllHandlingNotesByAnimalID(animalID);
+                dgHandlingNotesList.Columns[4].Visibility = Visibility.Hidden;
+                dgHandlingNotesList.Columns[3].Visibility = Visibility.Hidden;
             }
         }
 
@@ -217,7 +225,6 @@ namespace WPFPresentationLayer.AMPages
             btnCancel.Visibility = Visibility.Visible;
 
             txtAnimalID.IsEnabled = true;
-            txtUserID.IsEnabled = true;
             txtHandlingNotes.IsEnabled = true;
             txtTemperment.IsEnabled = true;
         }
@@ -232,16 +239,21 @@ namespace WPFPresentationLayer.AMPages
         /// Then, the button hides itself and unhides and reenables the original buttons
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Ben Hanna
+        /// Updated: 5/1/2020
+        /// Update: Added a validation fixes to verivy the animal ID exists in the DB
+        /// Approver: Ryan Morganti, 5/3/2020
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSubmitHandlingRecord_Click(object sender, RoutedEventArgs e)
         {
+            bool animalExists = false;
             int animalID;
             int userID;
+            List<Animal> animals = _animalManager.RetrieveAllAnimalProfiles();
+
+
 
             if (String.IsNullOrEmpty(txtAnimalID.Text))
             {
@@ -275,41 +287,59 @@ namespace WPFPresentationLayer.AMPages
             }
             else
             {
-                try
+
+                foreach (Animal a in animals)
                 {
-
-                    AnimalHandlingNotes newNotes = new AnimalHandlingNotes()
+                    if (a.AnimalID == animalID)
                     {
-                        AnimalID = animalID,
-                        UserID = userID,
-                        HandlingNotes = txtHandlingNotes.Text,
-                        TemperamentWarning = txtTemperment.Text,
-                        UpdateDate = DateTime.Now
-                    };
-
-                    if (_updateMode)
-                    {
-                        if (_handlingManager.EditAnimalHandlingNotes(_oldNotes, newNotes))
-                        {
-                            MessageBox.Show("Record Edited Successfully.", "Result");
-                        }
-                        RefreshHandlingNotes();
-                    }
-                    else
-                    {
-                        if (_handlingManager.AddAnimalHandlingNotes(newNotes))
-                        {
-                            MessageBox.Show("Data Added Successfully.", "Result");
-                        }
+                        animalExists = true;
+                        break;
                     }
                 }
-                catch (Exception ex)
+
+                if (animalExists)
                 {
-                    WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
+                    try
+                    {
+
+                        AnimalHandlingNotes newNotes = new AnimalHandlingNotes()
+                        {
+                            AnimalID = animalID,
+                            UserID = userID,
+                            HandlingNotes = txtHandlingNotes.Text,
+                            TemperamentWarning = txtTemperment.Text,
+                            UpdateDate = DateTime.Now
+                        };
+
+                        if (_updateMode)
+                        {
+                            if (_handlingManager.EditAnimalHandlingNotes(_oldNotes, newNotes))
+                            {
+                                MessageBox.Show("Record Edited Successfully.", "Result");
+                            }
+                            RefreshHandlingNotes();
+                        }
+                        else
+                        {
+                            if (_handlingManager.AddAnimalHandlingNotes(newNotes))
+                            {
+                                MessageBox.Show("Data Added Successfully.", "Result");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
+                    }
+                    finally
+                    {
+                        DeactivateEditingFields();
+                    }
                 }
-                finally
+                else
                 {
-                    DeactivateEditingFields();
+                    MessageBox.Show("Specified animal does not exist in Database.");
+                    return;
                 }
             }
         }
@@ -336,7 +366,6 @@ namespace WPFPresentationLayer.AMPages
 
 
             txtAnimalID.IsEnabled = false;
-            txtUserID.IsEnabled = false;
             txtHandlingNotes.IsEnabled = false;
             txtTemperment.IsEnabled = false;
         }
