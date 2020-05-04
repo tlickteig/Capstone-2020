@@ -42,6 +42,7 @@ namespace WPFPresentationLayer.AMPages
             InitializeComponent();
             _activityManager = new AnimalActivityManager();
             _user = user;
+            cboApptTime.ItemsSource = VetAppointmentControls.Times();
         }
 
         /// <summary>
@@ -103,10 +104,9 @@ namespace WPFPresentationLayer.AMPages
         {
             addMode = true;
             cmbActivityType2.ItemsSource = cmbActivityType.ItemsSource;
-            cmbAmPm.Visibility = Visibility.Visible;
             cmbActivityType2.IsEnabled = true;
             dateActivityDate.IsEnabled = true;
-            txtTime.IsEnabled = true;
+            cboApptTime.IsEnabled = true;
             txtDescription.IsEnabled = true;
             btnSaveEdit.Content = "Save";
             dateActivityDate.DisplayDateStart = DateTime.Now;
@@ -138,12 +138,11 @@ namespace WPFPresentationLayer.AMPages
         private void DisableAddMode()
         {
             addMode = false;
-            cmbAmPm.Visibility = Visibility.Hidden;
             cmbActivityType2.ItemsSource = null;
             dgAnimalList.ItemsSource = null;
             cmbActivityType2.IsEnabled = false;
             dateActivityDate.IsEnabled = false;
-            txtTime.IsEnabled = false;
+            cboApptTime.IsEnabled = false;
             txtDescription.IsEnabled = false;
             btnSaveEdit.Content = "Edit";
             selectedAnimal = null;
@@ -167,10 +166,9 @@ namespace WPFPresentationLayer.AMPages
         private void EnableEditMode()
         {
             cmbActivityType2.ItemsSource = cmbActivityType.ItemsSource;
-            cmbAmPm.Visibility = Visibility.Visible;
             cmbActivityType2.IsEnabled = true;
             dateActivityDate.IsEnabled = true;
-            txtTime.IsEnabled = true;
+            cboApptTime.IsEnabled = true;
             txtDescription.IsEnabled = true;
             btnSaveEdit.Content = "Save";
             dateActivityDate.DisplayDateStart = DateTime.Now;
@@ -181,16 +179,6 @@ namespace WPFPresentationLayer.AMPages
             {
                 AnimalID = ((AnimalActivity)dgActivities.SelectedItem).AnimalID
             };
-            if (txtTime.Text.Contains(" AM"))
-            {
-                txtTime.Text = txtTime.Text.Replace(" AM", "");
-                cmbAmPm.SelectedIndex = 0;
-            }
-            else if (txtTime.Text.Contains(" PM"))
-            {
-                txtTime.Text = txtTime.Text.Replace(" PM", "");
-                cmbAmPm.SelectedIndex = 1;
-            }
 
             try
             {
@@ -407,6 +395,10 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void cmbActivityType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if(cmbActivityType.SelectedItem == null)
+            {
+                cmbActivityType.SelectedIndex = 0;
+            }
             txtSearch.Text = "Search Animal Name";
             btnSearch.Content = "Search";
             RefreshActivitiesList();
@@ -491,7 +483,7 @@ namespace WPFPresentationLayer.AMPages
             txtAnimalName.Text = activity.AnimalName;
             cmbActivityType2.Text = activity.AnimalActivityTypeID;
             dateActivityDate.SelectedDate = activity.ActivityDateTime;
-            txtTime.Text = activity.ActivityDateTime.ToShortTimeString();
+            cboApptTime.Text = activity.ActivityDateTime.ToShortTimeString();
             txtDescription.Text = activity.Description;
         }
 
@@ -513,7 +505,7 @@ namespace WPFPresentationLayer.AMPages
             txtAnimalName.Text = "";
             cmbActivityType2.ItemsSource = null;
             dateActivityDate.SelectedDate = null;
-            txtTime.Text = "";
+            cboApptTime.SelectedItem = null;
             txtDescription.Text = "";
         }
 
@@ -552,16 +544,15 @@ namespace WPFPresentationLayer.AMPages
                 MessageBox.Show("You must select the activity date");
                 return;
             }
-            if (txtTime.Text == "" ||
-                !TimeSpan.TryParse(txtTime.Text, out TimeSpan t))
+            if (cboApptTime.SelectedItem == null)
             {
-                MessageBox.Show("Invalid time entered");
+                MessageBox.Show("Please select the activity time");
                 return;
             }
             DateTime activityDate;
             if (!DateTime.TryParse(
                 dateActivityDate.SelectedDate.Value.ToShortDateString()
-                + " " + txtTime.Text + cmbAmPm.Text, out activityDate))
+                + " " + cboApptTime.SelectedItem.ToString(), out activityDate))
             {
                 MessageBox.Show("Invalid date or time entered");
                 return;

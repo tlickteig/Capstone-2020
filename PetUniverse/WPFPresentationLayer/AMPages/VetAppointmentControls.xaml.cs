@@ -109,7 +109,7 @@ namespace WPFPresentationLayer.AMPages
         /// Updated: 
         /// Update: 
         /// </remarks>
-        private List<string> Times()
+        public static List<string> Times()
         {
             List<string> times = new List<string>();
             for (int i = 1; i < 25; i++)
@@ -218,6 +218,8 @@ namespace WPFPresentationLayer.AMPages
             txtVetName.Text = "";
             txtDescription.Text = "";
             dgAnimalList.ItemsSource = null;
+            dateFollowUp.SelectedDate = null;
+            cboFollowupTime.SelectedItem = null;
         }
 
         /// <summary>
