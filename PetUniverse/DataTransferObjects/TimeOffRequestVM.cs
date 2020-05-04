@@ -7,18 +7,12 @@
     ///  
     ///  TimeOffRequest Data Transfer Object View Model
     /// </summary>
-    public class TimeOffRequestVM
+    public class TimeOffRequestVM :TimeOffRequest
     {
-        public int TimeOffRequestID { get; set; }
+        public new string EffectiveStart { get; set; }
 
-        public string EffectiveStart { get; set; }
+        public new string EffectiveEnd { get; set; }
 
-        public string EffectiveEnd { get; set; }
-
-        public string ApprovalDate { get; set; }
-
-        public int ApprovingUserID { get; set; }
-
-        public int RequestID { get; set; }
+        public new string ApprovalDate { get; set; }
     }
 }

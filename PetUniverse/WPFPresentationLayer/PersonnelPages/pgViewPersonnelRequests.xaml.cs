@@ -216,6 +216,7 @@ namespace WPFPresentationLayer.PersonnelPages
 
                         try
                         {
+                            
                             selectedTimeOffRequest = _requestManager.RetrieveTimeOffRequestByRequestID(
                                 selectedRequest.RequestID);
                         }
@@ -505,7 +506,7 @@ namespace WPFPresentationLayer.PersonnelPages
                         //Adding approved request to a table for TimeOff for the schedule to read from
                         ActiveTimeOff activeTimeOff = new ActiveTimeOff()
                         {
-                            UserID = selectedRequest.RequestingUserID,
+                            UserID = selectedRequest.RequestingEmployeeID,
                             StartDate = Convert.ToDateTime(selectedTimeOffRequest.EffectiveStart),
                             EndDate = Convert.ToDateTime(selectedTimeOffRequest.EffectiveEnd)
                         };
