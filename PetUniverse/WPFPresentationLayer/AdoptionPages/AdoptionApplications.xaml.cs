@@ -367,7 +367,7 @@ namespace WPFPresentationLayer.AdoptionPages
             }
             else
             {
-                System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show("Are you sure you want to cnacel the Adoption Application?", "Cancel Application", System.Windows.Forms.MessageBoxButtons.YesNo);
+                System.Windows.Forms.DialogResult dialogResult = System.Windows.Forms.MessageBox.Show("Are you sure you want to cancel the Adoption Application?", "Cancel Application", System.Windows.Forms.MessageBoxButtons.YesNo);
                 if (dialogResult == System.Windows.Forms.DialogResult.Yes)
                 {
                     var appointments = adoptionAppointmentManager.RetrieveAdoptionAppointmentsByCustomerEmailAndActive(((ApplicationVM)DGViewData.SelectedItem).CustomerEmail);
@@ -375,7 +375,8 @@ namespace WPFPresentationLayer.AdoptionPages
                     {
                         adoptionAppointmentManager.EditAdoptionAppointmentActive(a.AppointmentID, false);
                     }
-
+                    IAdoptionAnimalManager adoptionAnimalManager = new AdoptionAnimalManager();
+                    adoptionAnimalManager.EditAnimalAdoptable(((ApplicationVM)DGViewData.SelectedItem).AnimalID, true);
                     _adoptionApplicationManager.DeactivateAdoptionApplication(((ApplicationVM)DGViewData.SelectedItem).AdoptionApplicationID);
                     
                     

@@ -763,7 +763,10 @@ namespace WPFPresentationLayer.AdoptionPages
         /// <param name="e"></param>
         private void btnAppointmentType_Click(object sender, RoutedEventArgs e)
         {
-            populateAppointmentDataGrid(cmbApptFilter.SelectedItem.ToString());
+            if (null != cmbApptFilter.SelectedItem)
+            {
+                populateAppointmentDataGrid(cmbApptFilter.SelectedItem.ToString());
+            }
         }
 
         /// <summary>

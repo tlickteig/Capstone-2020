@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="845" d:DesignWidth="1280"
       Title="pgMeetAndGreets"
-      Background="AliceBlue"
+      Background="White"
       Loaded="Page_Loaded">
     <Grid>
     <Canvas x:Name="canMeetAndGreetSchedule" Visibility="Visible">
@@ -182,7 +182,7 @@
 
                     <Button x:Name="btnBack" Grid.Column="1" Content="Back" Width="100" Height="30" Click="btnBack_Click"/>
                     <Button x:Name="btnNotes" Grid.Column="2" Content="Notes" Width="100" Height="30" Click="btnNotes_Click"/>
-                    <Button x:Name="btnEdit" Grid.Column="5" Content="Edit" Width="100" Height="30"/>
+                    <Button x:Name="btnEdit" Grid.Column="5" Visibility="Hidden" Content="Edit" Width="100" Height="30"/>
                     <Button x:Name="btnSave" Grid.Column="5" Content="Save" Width="100" Height="30" Visibility="Hidden"/>
                 </Grid>
             </Grid>

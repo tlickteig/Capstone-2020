@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="845" d:DesignWidth="1280"
       Title="AnimalsRecords" Loaded="Page_Loaded"
-      Background="AliceBlue">
+      Background="White">
     <Grid>
       <Canvas x:Name="AnimalControl" Visibility="Visible">
         <Grid Width="1280" Height="800">
