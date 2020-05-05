@@ -4335,40 +4335,6 @@ BEGIN
 END
 GO
 
-
-
-
-/*
-	Created by: Mohamed Elamin
-	Date: 02/18/2020
-	Comment: store Procedure to updates Adoption application Appointment decision and notes.
-*/
-DROP PROCEDURE IF EXISTS [sp_update_Adoption_Appointment]
-print '' print '*** Creating sp_update_Adoption_Appointment'
-GO
-
-CREATE PROCEDURE [sp_update_Adoption_Appointment]
-(
-
-    @AppointmentID		   [int]            ,
-	@NewNotes		       [nvarchar](1000) ,
-	@NewDecision		   [nvarchar](50)   ,
-	@OldNotes    		   [nvarchar](1000) ,
-	@OldDecision		   [nvarchar](50)
-)
-AS
-BEGIN
-	UPDATE [dbo].[Appointment]
-		SET [Notes] = 	  @NewNotes,
-			[Decision] = 	@NewDecision
-
-	WHERE 	[AppointmentID] =	@AppointmentID
-	  AND	[Notes] = 	@OldNotes
-	  AND	[Decision] = 	@OldDecision
-	RETURN  @@ROWCOUNT
-END
-GO
-
 /*
 	Created by: Mohamed Elamin
 	Date: 02/18/2020
@@ -14278,7 +14244,6 @@ Created by: Austin Gee
 Date: 5/1/2020
 Comment: updates an adoption application.
 */
-
 DROP PROCEDURE IF EXISTS [sp_update_adoption_appointment]
 GO
 
@@ -14292,8 +14257,6 @@ CREATE PROCEDURE [sp_update_adoption_appointment]
 	@OldAdoptionApplicationID	[int],
 	@OldAppointmentTypeID		[nvarchar](100),
 	@OldDateTime				[datetime],
-	--@OldNotes					[nvarchar](1000),
-	--@OldDecision				[nvarchar](50),
 	@OldLocationID				[int],
 	@OldActive					[bit],
 	
@@ -14320,8 +14283,6 @@ BEGIN
 	AND		[AdoptionApplicationID] = @OldAdoptionApplicationID
 	AND		[AppointmentTypeID]		= @OldAppointmentTypeID
 	AND		[DateTime]				= @OldDateTime
---	AND		[Notes]					= @OldNotes
---	AND		[Decision]				= @OldDecision
 	AND		[LocationID]			= @OldLocationID
 	AND		[Active]				= @OldActive
 	RETURN @@ROWCOUNT
