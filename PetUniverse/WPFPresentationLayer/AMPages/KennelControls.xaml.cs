@@ -85,12 +85,12 @@ namespace WPFPresentationLayer.AMPages
         /// <param name="e"></param>
         private void btnAddLocationRecord_Click(object sender, RoutedEventArgs e)
         {
-            canAddRecord.Visibility = Visibility.Visible;
+            canView.Visibility = Visibility.Hidden;
+            canAddRecord.Visibility = Visibility.Visible;            
             EnableEditingFields();
             addMode = true;
             lblTitle.Content = "Register New Kennel Record";
-            txtUserID.Text = _user.PUUserID.ToString();
-            canView.Visibility = Visibility.Hidden;
+            txtUserID.Text = _user.PUUserID.ToString();            
         }
 
         /// <summary>
@@ -111,10 +111,7 @@ namespace WPFPresentationLayer.AMPages
             txtAnimalID.IsEnabled = true;
             txtKennelInfo.IsEnabled = true;
             txtUserID.IsEnabled = true;
-
-
         }
-
 
         /// <summary>
         /// Creator: Ben Hanna
@@ -315,9 +312,10 @@ namespace WPFPresentationLayer.AMPages
             lblTitle.Content = "View Kennel Record Details";
 
             canAddRecord.Visibility = Visibility.Visible;
+            canView.Visibility = Visibility.Hidden;
             if (oldKennel.AnimalKennelDateOut == null)
             {
-                btnAddDateOut.Visibility = Visibility.Visible;
+                btnAddDateOut.Visibility = Visibility.Visible;                
             }
         }
 

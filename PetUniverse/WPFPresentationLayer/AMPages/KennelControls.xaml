@@ -116,17 +116,17 @@
                         <!--Submit-->
                         <Button x:Name="BtnSubmitkennelAdd" Grid.Row="1" Grid.Column="3" 
                         Width="100" Height="30"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitKennelAdd_Click" Margin="294,35,71,15">Submit</Button>
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnSubmitKennelAdd_Click" Margin="330,6,35,44">Submit</Button>
 
                         <!--Edit-->
-                        <Button x:Name="BtnEditKennelAdd" Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" 
-                        Width="150" FontSize="36" Padding="10"
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnEditKennelAdd_Click" Visibility="Hidden">Edit</Button>
+                        <Button x:Name="BtnEditKennelAdd" Grid.Row="1" Grid.Column="3" 
+                        Width="100" 
+                    VerticalAlignment="Top" HorizontalAlignment="Center" Click="BtnEditKennelAdd_Click" Visibility="Visible" Margin="120,6,245,0" Height="30">Edit</Button>
 
                         <!--Cancel-->
                         <Button x:Name="btnCancelKennelAdd" Grid.Row="1" Grid.Column="3" 
                         Width="100" Height="30" 
-                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnCancelKennelAdd_Click" Margin="189,35,176,15">Cancel</Button>
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Click="BtnCancelKennelAdd_Click" Margin="225,6,140,44">Cancel</Button>
                     </Grid>
                 </Grid>
             </Grid>
