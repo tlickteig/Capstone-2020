@@ -10751,8 +10751,7 @@ CREATE PROCEDURE [sp_update_user](
 	@OldPhoneNumber [nvarchar](11),
 	@OldEmail [nvarchar](250),
 	@OldActive [bit],
-	@OldaddressLineOne [nvarchar](250),
-	@OldaddressLineTwo [nvarchar](250),
+	@OldaddressLineOne [nvarchar](250),	
 	@OldCity [nvarchar] (20),
 	@OldState [nvarchar] (2),
 	@OldZipcode [nvarchar] (15),
@@ -10790,8 +10789,7 @@ BEGIN
 	AND [PhoneNumber] = @OldPhoneNumber
 	AND [Email] = @OldEmail
 	AND [Active] = @OldActive
-	AND [addressLineOne] = @OldaddressLineOne
-	AND [addressLineTwo] = @OldaddressLineTwo
+	AND [addressLineOne] = @OldaddressLineOne	
 	AND [City] = @OldCity
 	AND [State] = @OldState
 	AND [ZipCode] = @OldZipcode
