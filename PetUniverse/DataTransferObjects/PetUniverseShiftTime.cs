@@ -4,15 +4,15 @@ namespace DataTransferObjects
 {
     /// <summary>
     /// Creator: Lane Sandburg
-    /// Created: 02/07/2019
+    /// Created: 02/07/2020
     /// Approver: Alex Diers
     /// 
     /// ShiftTime Data Transfer Object
     /// </summary>
     /// <remarks>
-    /// Updater: NA
-    /// Updated: NA
-    /// Update: NA
+    /// Updater: Alex Diers
+    /// Updated: 5/5/2020
+    /// Update: Changed date of creation to correct year
     /// </remarks> 
     public class PetUniverseShiftTime
     {

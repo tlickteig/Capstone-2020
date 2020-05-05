@@ -32,7 +32,7 @@ GO
 PRINT '' PRINT '*** Creating Table Department'
 GO
 
-CREATE TABLE [dbo].[department]
+CREATE TABLE [dbo].[Department]
 (
 	 [DepartmentID]			[nvarchar](50)		NOT NULL PRIMARY KEY
 	,[Description]			[nvarchar](200)		NULL DEFAULT NULL

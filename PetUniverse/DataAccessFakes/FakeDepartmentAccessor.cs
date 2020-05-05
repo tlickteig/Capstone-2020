@@ -78,11 +78,14 @@ namespace DataAccessFakes
         /// This is the data access fake for adding a department to the table.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Alex Diers
+        /// Updated: 5/5/2020
+        /// Update: Added param and returns tags
         /// 
         /// </remarks>
+        /// /// <param name="departmentId"></param>
+        /// <param name="description"></param>
+        /// <returns> An int of rows effected.</returns>
         public int InsertDepartment(string departmentId, string description)
         {
             int rows = 0;
@@ -127,11 +130,13 @@ namespace DataAccessFakes
         /// This is the data access fake for selecting a department by id.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Alex Diers
+        /// Updated: 5/5/2020
+        /// Update: Added param and returns tags 
         /// 
         /// </remarks>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
         public Department SelectDepartmentByID(string departmentId)
         {
             Department department = null;

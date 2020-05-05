@@ -8,7 +8,7 @@ namespace DataAccessFakes
 {
     /// <summary>
     /// Creator: Lane Sandburg
-    /// Created: 02/05/2019
+    /// Created: 02/05/2020
     /// Approver: Alex Diers
     /// 
     /// the fake class for shift time accessor
@@ -20,19 +20,19 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Lane Sandburg
-        /// Created: 02/07/2019
+        /// Created: 02/07/2020
         /// Approver: Alex Diers
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
-        /// 
         /// Updater: Jordan Lindo
         /// Updated: 4/23/2020
         /// Update: Added ManagementShiftTimes.
         /// 
+        /// Updater: Alex Diers
+        /// Updated: 5/5/2020
+        /// Update: Updated the date created to the correct year
         /// </remarks>
+
         public FakeShiftTimeAccessor()
         {
             shiftTimes = new List<PetUniverseShiftTime>()
@@ -60,16 +60,19 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Lane Sandburg
-        /// Created: 03/05/2019
+        /// Created: 03/05/2020
         /// Approver: Kaleb Bachert
         /// 
         /// Fake Logic for deleting a shift time
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Alex Diers
+        /// Updated: 5/5/2020
+        /// Update: Added param and returns tags and updated 
+        ///     the date created to correct year
         /// </remarks>
+        /// <param name="shiftTimeID"></param>
+        /// <returns></returns>
         public int DeleteShiftTime(int shiftTimeID)
         {
             int result = 1;
@@ -91,16 +94,19 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Lane Sandburg
-        /// Created: 02/07/2019
+        /// Created: 02/07/2020
         /// Approver: Alex Diers
         /// 
         /// Fake Logic for inserting a shift time
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Alex Diers
+        /// Updated: 5/5/2020
+        /// Update: Added param and returns tags and updated
+        ///     the date created to the correct year
         /// </remarks> 
+        /// <param name="shiftTime"></param>
+        /// <returns></returns>
         public int InsertShiftTime(PetUniverseShiftTime shiftTime)
         {
             int result = 0;
@@ -121,15 +127,15 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Lane Sandburg
-        /// Created: 02/07/2019
+        /// Created: 02/07/2020
         /// Approver: Alex Diers
         /// 
         /// Fake Logic for selecting all shift times
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Alex Diers
+        /// Updated: 5/5/2020
+        /// Update: Updated the date created to the correct year
         /// </remarks> 
         public List<PetUniverseShiftTime> SelectAllShiftTimes()
         {
@@ -140,16 +146,20 @@ namespace DataAccessFakes
 
         /// <summary>
         /// Creator: Lane Sandburg
-        /// Created: 02/13/2019
+        /// Created: 02/13/2020
         /// Approver: Alex Diers
         /// 
         /// Fake Logic for updating a shift time
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Alex Diers
+        /// Updated: 5/5/2020
+        /// Update: Added param and returns tags and updated
+        ///     the date created to the correct year
         /// </remarks> 
+        /// <param name="oldShiftTime"></param>
+        /// <param name="newShiftTime"></param>
+        /// <returns></returns>
         public int UpdateShiftTime(PetUniverseShiftTime oldShiftTime, PetUniverseShiftTime newShiftTime)
         {
             int result = 0;
