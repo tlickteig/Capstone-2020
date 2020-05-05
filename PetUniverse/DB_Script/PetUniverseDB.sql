@@ -4309,7 +4309,7 @@ AS
 BEGIN
 	SELECT 	AdoptionApplicationID,AnimalID,CustomerEmail,Status,RecievedDate
 	FROM 	[dbo].[AdoptionApplication]
-	WHERE	[Status] = 'InHomeInspection'
+	WHERE	[Status] = 'Home Inspection'
 END
 GO
 
@@ -14629,11 +14629,11 @@ GO
 INSERT INTO [dbo].[AdoptionApplication]
 	([CustomerEmail],[AnimalID],[Status],[RecievedDate])
 	VALUES
-	('Awaab@Awaaab.com',(SELECT [AnimalID]FROM[dbo].[Animal]WHERE [Animal].[AnimalName] = 'Paul'),'Reviewer','2020-01-01'),
-	('moals@PetUniverse.com',1000001,'InHomeInspection','2019-10-9'),
-	('scardona@PetUniverse.com',1000002,'Interviewer','2019-10-9'),
-	('tdupuy@PetUniverse.com',1000003,'InHomeInspection','2019-10-9'),
-	('Austin@email.com',1000004,'InHomeInspection ','2019-10-9')
+	('Awaab@Awaaab.com',(SELECT [AnimalID]FROM[dbo].[Animal]WHERE [Animal].[AnimalName] = 'Paul'),'Review','2020-01-01'),
+	('moals@PetUniverse.com',1000001,'Home Inspection','2019-10-9'),
+	('scardona@PetUniverse.com',1000002,'Interview','2019-10-9'),
+	('tdupuy@PetUniverse.com',1000003,'Home Inspection','2019-10-9'),
+	('Austin@email.com',1000004,'Home Inspection ','2019-10-9')
 GO
 
 
@@ -14843,11 +14843,6 @@ GO
 INSERT INTO [dbo].[AppointmentType]
 	([AppointmentTypeID],[Description])
 	VALUES
-/*	('Meet and Greet','This is where the Adoption Customer will meet the animal while the facilitator is present'),
-	('InHomeInspection','This is where the InHomeInspection will interview the Adoption Customer'),
-	('Interviewer','This is where the Interviewer will interview the Adoption Customer'),
-	('Reviewer','This is where the Reviewer will interview the Adoption Customer')
-*/
 	('Interview','The adoption customer interview'),
 	('Home Inspection','A home inspection'),
 	('Meet and Greet','A meet and greet with the adopters chosen animal'),
@@ -14864,13 +14859,6 @@ GO
 INSERT INTO [dbo].[Appointment]
 	([AdoptionApplicationID],[AppointmentTypeID],[DateTime],[Notes],[Decision],[LocationID])
 	VALUES
-/*	(100000,'Reviewer','2020-2-22 10am','','',1000000),
-	(100001,'Meet and Greet','2020-2-22 9am','','',1000000),
-	(100002,'Interviewer','2020-2-22 12pm','','',1000000),
-	(100003,'InHomeInspection','2020-2-22 12pm','','',1000003),
-	(100004,'InHomeInspection','2020-2-22 12pm','','',1000004)
-*/
---	(100000,'Reviewer','2020-2-22 10am','','',1000000),
 	(100001,'Meet and Greet','2020-2-22 9am','','',1000000),
 	(100002,'Interview','2020-2-22 12pm','','',1000000),
 	(100003,'Home Inspection','2020-2-22 12pm','','',1000003),
