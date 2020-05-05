@@ -48,6 +48,9 @@
                     <a class="nav-link" href="~/Admin">Admin</a>
                 </li>
             }
+            <li class="nav-item">
+                <a href="@Url.Action("Index", "Cart")" class="nav-link">View Cart</a>
+            </li>
         </ul>
         @using (Html.BeginForm("Search", "Product", FormMethod.Get, new { @class = "form-inline my-2 my-lg-0" }))
         {
