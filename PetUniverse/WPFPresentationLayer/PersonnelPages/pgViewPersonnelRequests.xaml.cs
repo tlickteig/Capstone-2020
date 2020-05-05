@@ -807,7 +807,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 }
                 if (updated == 0)
                 {
-                    availabilities.Add(new AvailabilityVM { DayOfWeek = "Tuesday", StartTime = request.MondayStartTime, EndTime = request.MondayEndTime, Name = request.FirstName + " " + request.LastName });
+                    availabilities.Add(new AvailabilityVM { DayOfWeek = "Tuesday", StartTime = request.TuesdayStartTime, EndTime = request.TuesdayEndTime, Name = request.FirstName + " " + request.LastName });
                 }
             }
             if (txtWednesdayStartTime.Text != "" && txtWednesdayEndTime.Text != "")
@@ -837,7 +837,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 }
                 if (updated == 0)
                 {
-                    availabilities.Add(new AvailabilityVM { DayOfWeek = "Wednesday", StartTime = request.MondayStartTime, EndTime = request.MondayEndTime, Name = request.FirstName + " " + request.LastName });
+                    availabilities.Add(new AvailabilityVM { DayOfWeek = "Wednesday", StartTime = request.WednesdayStartTime, EndTime = request.WednesdayEndTime, Name = request.FirstName + " " + request.LastName });
                 }
             }
             if (txtThursdayStartTime.Text != "" && txtThursdayEndTime.Text != "")
@@ -1315,11 +1315,11 @@ namespace WPFPresentationLayer.PersonnelPages
             dgAvailability.Columns.RemoveAt(2);
             dgAvailability.Columns.RemoveAt(1);
             dgAvailability.Columns.RemoveAt(4);
-
-            dgAvailability.Columns[0].Header = "Name";
-            dgAvailability.Columns[1].Header = "Day";
-            dgAvailability.Columns[2].Header = "Start Time";
-            dgAvailability.Columns[3].Header = "End Time";
+            dgAvailability.Columns.RemoveAt(0);
+            
+            dgAvailability.Columns[0].Header = "Day";
+            dgAvailability.Columns[1].Header = "Start Time";
+            dgAvailability.Columns[2].Header = "End Time";
 
         }
         /// <summary>
@@ -1342,11 +1342,11 @@ namespace WPFPresentationLayer.PersonnelPages
             dgNewAvailability.Columns.RemoveAt(2);
             dgNewAvailability.Columns.RemoveAt(1);
             dgNewAvailability.Columns.RemoveAt(4);
+            dgNewAvailability.Columns.RemoveAt(0);
 
-            dgNewAvailability.Columns[0].Header = "Name";
-            dgNewAvailability.Columns[1].Header = "Day";
-            dgNewAvailability.Columns[2].Header = "Start Time";
-            dgNewAvailability.Columns[3].Header = "End Time";
+            dgNewAvailability.Columns[0].Header = "Day";
+            dgNewAvailability.Columns[1].Header = "Start Time";
+            dgNewAvailability.Columns[2].Header = "End Time";
 
         }
         /// <summary>
@@ -1485,11 +1485,11 @@ namespace WPFPresentationLayer.PersonnelPages
             dgRequestedAvailability.Columns.RemoveAt(2);
             dgRequestedAvailability.Columns.RemoveAt(1);
             dgRequestedAvailability.Columns.RemoveAt(4);
+            dgRequestedAvailability.Columns.RemoveAt(0);
 
-            dgRequestedAvailability.Columns[0].Header = "Name";
-            dgRequestedAvailability.Columns[1].Header = "Day";
-            dgRequestedAvailability.Columns[2].Header = "Start Time";
-            dgRequestedAvailability.Columns[3].Header = "End Time";
+            dgRequestedAvailability.Columns[0].Header = "Day";
+            dgRequestedAvailability.Columns[1].Header = "Start Time";
+            dgRequestedAvailability.Columns[2].Header = "End Time";
         }
     }
 }
