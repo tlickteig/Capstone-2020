@@ -18,7 +18,7 @@ namespace WPFPresentationLayer.PersonnelPages
         private bool _editMode = false;
         bool _insertMode = false;
         private ITrainingVideoManager _videoManager = new TrainingVideoManager();
-        
+
 
         public frameTrainingVideos()
         {
@@ -29,14 +29,14 @@ namespace WPFPresentationLayer.PersonnelPages
 
         /// <summary>
         /// NAME : Alex Diers
-        /// DATE: 2/20/2020
-        /// CHECKED BY:
+        /// Created: 2/20/2020
+        /// Approver:
         /// 
         /// This method is called when the view training videos tab is selected in the PM canvas
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
+        /// Updater: NA
+        /// Updated: NA
         /// CHANGE: NA
         /// 
         /// </remarks>
@@ -44,7 +44,7 @@ namespace WPFPresentationLayer.PersonnelPages
         /// <param name="e"></param>
         private void tabTrainingVideos_GotFocus(object sender, RoutedEventArgs e)
         {
-            populateVideoList();
+            populateActiveVideoList(chkVideosActive.IsChecked.Value);
             dgVideoList.Columns.RemoveAt(0);
         }
 
@@ -52,14 +52,14 @@ namespace WPFPresentationLayer.PersonnelPages
 
         /// <summary>
         /// NAME : Alex Diers
-        /// DATE: 2/20/2020
-        /// CHECKED BY:
+        /// Created: 2/20/2020
+        /// Approver:
         /// 
         /// Helper method to populate the data grid
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: Chase Schutle
-        /// UPDATE DATE: 04/29
+        /// Updater: Chase Schutle
+        /// Updated: 04/29
         /// CHANGE: added parameter isWatched
         /// 
         /// </remarks>
@@ -70,14 +70,14 @@ namespace WPFPresentationLayer.PersonnelPages
 
         /// <summary>
         /// NAME : Alex Diers
-        /// DATE: 2/20/2020
-        /// CHECKED BY: Jordan Lindo
+        /// Created: 2/20/2020
+        /// Approver: Jordan Lindo
         /// 
         /// Event handler for the Add button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: Chase Schulte
-        /// UPDATE DATE: 03/03/2020
+        /// Updater: Chase Schulte
+        /// Updated: 03/03/2020
         /// CHANGE: Added boolean insert mode and edit mode
         /// 
         /// </remarks>
@@ -100,14 +100,14 @@ namespace WPFPresentationLayer.PersonnelPages
 
         /// <summary>
         /// NAME : Alex Diers
-        /// DATE: 2/20/2020
-        /// CHECKED BY: Jordan Lindo
+        /// Created: 2/20/2020
+        /// Approver: Jordan Lindo
         /// 
         /// Helper method for showing the Add/Edit form on the page
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: Chase Schulte
-        /// UPDATE DATE: 03/01/2020
+        /// Updater: Chase Schulte
+        /// Updated: 03/01/2020
         /// CHANGE: Added edit mode if/else, show checkbox for sorting by active, hide checkbox for deactivating/activating videos
         /// 
         /// </remarks>
@@ -137,18 +137,18 @@ namespace WPFPresentationLayer.PersonnelPages
 
         /// <summary>
         /// NAME : Alex Diers
-        /// DATE: 2/20/2020
-        /// CHECKED BY: Jordan Lindo
+        /// Created: 2/20/2020
+        /// Approver: Jordan Lindo
         /// 
         /// Event handler for the Save button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: Chase Schulte
-        /// UPDATE DATE: 03/01/2020
+        /// Updater: Chase Schulte
+        /// Updated: 03/01/2020
         /// CHANGE: Added update mode functionality
         /// 
-        /// UPDATED BY: Alex Diers
-        /// UPDATE DATE: 4/7/20
+        /// Updater: Alex Diers
+        /// Updated: 4/7/20
         /// CHANGE: Added update to modify the IsWatched field
         /// </remarks>
         /// <param name="sender"></param>
@@ -169,7 +169,7 @@ namespace WPFPresentationLayer.PersonnelPages
                     {
                         MessageBox.Show("Video Added.");
                         hidePrompt();
-                        populateVideoList();
+                        populateActiveVideoList(chkVideosActive.IsChecked.Value);
                     }
                     else
                     {
@@ -206,7 +206,7 @@ namespace WPFPresentationLayer.PersonnelPages
                         //}
                         MessageBox.Show("Video Modified.");
                         hidePrompt();
-                        populateVideoList();
+                        populateActiveVideoList(chkVideosActive.IsChecked.Value);
                     }
                     else
                     {
@@ -223,14 +223,14 @@ namespace WPFPresentationLayer.PersonnelPages
 
         /// <summary>
         /// NAME : Alex Diers
-        /// DATE: 2/20/2020
-        /// CHECKED BY: Jordan Lindo
+        /// Created: 2/20/2020
+        /// Approver: Jordan Lindo
         /// 
         /// Helper method to hide the Add/Edit form on the page
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: Chase Schulte
-        /// UPDATE DATE: 03/03/2020
+        /// Updater: Chase Schulte
+        /// Updated: 03/03/2020
         /// CHANGE: Added Hide for Actie for datagrid checkbox and Edit button for  
         /// 
         /// </remarks>
@@ -243,14 +243,14 @@ namespace WPFPresentationLayer.PersonnelPages
 
         /// <summary>
         /// NAME : Alex Diers
-        /// DATE: 2/20/2020
-        /// CHECKED BY:
+        /// Created: 2/20/2020
+        /// Approver:
         /// 
         /// Event handler for the Cancel button
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
+        /// Updater: NA
+        /// Updated: NA
         /// CHANGE: NA
         /// 
         /// </remarks>
@@ -267,7 +267,7 @@ namespace WPFPresentationLayer.PersonnelPages
             {
                 if (dgVideoList.ItemsSource == null)
                 {
-                    populateVideoList();
+                    populateActiveVideoList();
                 }
             }
             catch (Exception ex)
@@ -287,8 +287,8 @@ namespace WPFPresentationLayer.PersonnelPages
         /// Updater: Chase Schulte
         /// Updated: 03/06/2020
         /// Update: Added visibility not visible for datagrid
-        /// UPDATED BY: Alex Diers
-        /// UPDATE DATE: 4/7/20
+        /// Updater: Alex Diers
+        /// Updated: 4/7/20
         /// CHANGE: Set view model for training video for edit
         /// </remarks>
         /// <param name="sender"></param>
@@ -300,7 +300,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 _editMode = true;
                 _insertMode = false;
                 _trainingVideo = (TrainingVideo)dgVideoList.SelectedItem;
-                
+
                 showPrompt();
                 txtVideoID.IsReadOnly = true;
                 txtRunTimeM.Text = _trainingVideo.RunTimeMinutes.ToString();
@@ -331,7 +331,7 @@ namespace WPFPresentationLayer.PersonnelPages
         /// <param name="e"></param>
         private void BtnViewVideo_Click(object sender, RoutedEventArgs e)
         {
-            if(dgVideoList.SelectedItem != null)
+            if (dgVideoList.SelectedItem != null)
             {
                 _trainingVideoVM = (TrainingVideoVM)dgVideoList.SelectedItem;
                 if (_trainingVideoVM.IsWatched == false)
@@ -342,14 +342,14 @@ namespace WPFPresentationLayer.PersonnelPages
                 {
                     _videoManager.EditNotWatched(_trainingVideoVM);
                 }
-                
+
                 populateVideoList(chkToggleWatchedVideos.IsChecked.Value);
             }
             else
             {
                 WPFErrorHandler.ErrorMessage("Please select a video");
             }
-            
+
 
         }
         /// <summary>
@@ -374,13 +374,13 @@ namespace WPFPresentationLayer.PersonnelPages
                 if (!(bool)chkVideoActive.IsChecked)
                 {
                     _videoManager.DeactivateTrainingVideo(_trainingVideo);
-                    populateVideoList();
+                    populateActiveVideoList(chkVideosActive.IsChecked.Value);
 
                 }
                 else if ((bool)chkVideoActive.IsChecked)
                 {
                     _videoManager.ActivateTrainingVideo(_trainingVideo);
-                    populateVideoList();
+                    populateActiveVideoList(chkVideosActive.IsChecked.Value);
                 }
             }
             catch (Exception ex)
@@ -408,7 +408,7 @@ namespace WPFPresentationLayer.PersonnelPages
             populateActiveVideoList(chkVideosActive.IsChecked.Value);
 
 
-            if (chkVideoActive.IsChecked == true)
+            if (chkVideosActive.IsChecked == false)
             {
                 lblActiveVideos.Content = "Inactive";
             }
@@ -437,7 +437,7 @@ namespace WPFPresentationLayer.PersonnelPages
         private void chkToggleWatchedVideos_Click(object sender, RoutedEventArgs e)
         {
             populateVideoList(chkToggleWatchedVideos.IsChecked.Value);
-            if(chkToggleWatchedVideos.IsChecked.Value == true)
+            if (chkToggleWatchedVideos.IsChecked.Value == true)
             {
                 btnViewVideo.Content = "Mark as Unviewed";
             }
@@ -447,7 +447,7 @@ namespace WPFPresentationLayer.PersonnelPages
             }
         }
 
-        
+
 
         /// <summary>
         /// Creator: Alex Diers
@@ -477,7 +477,7 @@ namespace WPFPresentationLayer.PersonnelPages
             }
             else
             {
-                populateVideoList();
+                populateVideoList(chkToggleWatchedVideos.IsChecked.Value);
                 lblToggleWatchedVideos.Visibility = Visibility.Visible;
                 chkToggleWatchedVideos.Visibility = Visibility.Visible;
                 btnViewVideo.Visibility = Visibility.Visible;
@@ -488,14 +488,14 @@ namespace WPFPresentationLayer.PersonnelPages
 
         /// <summary>
         /// NAME : Alex Diers
-        /// DATE: 5/1/2020
-        /// CHECKED BY:Chase Schulte
+        /// Created: 5/1/2020
+        /// Approver:Chase Schulte
         /// 
         /// Helper method for sorting by active and inactive videos
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
+        /// Updater: NA
+        /// Updated: NA
         /// CHANGE: NA
         /// 
         /// </remarks>

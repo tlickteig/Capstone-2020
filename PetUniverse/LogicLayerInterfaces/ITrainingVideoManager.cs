@@ -4,61 +4,48 @@ using System.Collections.Generic;
 namespace LogicLayerInterfaces
 {
     /// <summary>
-    /// NAME: Alex Diers
-    /// DATE: 2/6/2020
-    /// CHECKED BY: Lane Sandburg
+    /// Creator: Alex Diers
+    /// Created: 2/6/2020
+    /// Approver: Lane Sandburg
     /// 
     /// Interface for the Manager class
     /// </summary>
     /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATED DATE: NA
-    /// WHAT WAS CHANGED: NA
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
     /// </remarks>
     public interface ITrainingVideoManager
     {
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Jordan Lindo
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Jordan Lindo
         /// 
         /// Method for managing the creation of a TrainingVideo object
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="video"></param>
         /// <returns></returns>
         bool InsertTrainingVideo(TrainingVideo video);
 
 
-        /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Lane Sandburg
-        /// 
-        /// Method for the retrieval of the TrainingVideos an Employee needs to view
-        /// </summary>
-        /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// </remarks>
-        List<TrainingVideo> RetrieveTrainingVideosByEmployee();
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/13/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Method for the retrieval of the TrainingVideos an Employee needs to view
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         bool EditTrainingVideo(TrainingVideo oldVideo, TrainingVideo newVideo);
         /// <summary>
@@ -109,46 +96,46 @@ namespace LogicLayerInterfaces
         List<TrainingVideo> RetrieveTrainingVideosByActive(bool active = true);
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/15/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 3/15/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Used to select a list of TrainingVideo objects by Employee that needs to view them
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         List<TrainingVideoVM> RetrieveTrainingVideosByEmployee(bool watched = false);
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/15/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/15/2020
+        /// Approver: Chase Schulte
         /// 
         /// Used to change the record of a video to being watched 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="isWatched"></param>
         /// <returns></returns>
         bool EditIsWatched(TrainingVideoVM videoVM);
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/15/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/15/2020
+        /// Approver: Chase Schulte
         /// 
         /// Used to change the record of a video to not being watched 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="isWatched"></param>
         /// <returns></returns>

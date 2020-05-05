@@ -35,7 +35,7 @@
                 
                 <CheckBox Margin="425.333,123,-440.333,-103" VerticalAlignment="Center" HorizontalAlignment="Left" IsChecked="True" Grid.Column="3" Grid.Row="4" x:Name="chkVideosActive" Visibility="Visible" Click="ChkVideosActive_Click" Height="16" Width="15" RenderTransformOrigin="0.622,0.36" />
                 <Label x:Name="lblSort" Grid.Row="4" Margin="0.333,97,-456.333,-87" VerticalAlignment="Center" Grid.Column="3" HorizontalAlignment="left" Visibility="Visible" RenderTransformOrigin="0.83,0.278">Sort by Employee</Label>
-                <CheckBox IsChecked="True" Grid.Row="4" Margin="111.333,97,-456.333,-87" VerticalAlignment="Center" Grid.Column="3" HorizontalAlignment="left" Visibility="Visible" RenderTransformOrigin="0.83,0.278" x:Name="chkSort" Click="chkSort_Click"   >
+                <CheckBox  Grid.Row="4" Margin="111.333,97,-456.333,-87" VerticalAlignment="Center" Grid.Column="3" HorizontalAlignment="left" IsChecked="False" Visibility="Visible" RenderTransformOrigin="0.83,0.278" x:Name="chkSort" Click="chkSort_Click"   >
                     <CheckBox.LayoutTransform>
                         <ScaleTransform ScaleX="1.5" ScaleY="1.5" />
                     </CheckBox.LayoutTransform>

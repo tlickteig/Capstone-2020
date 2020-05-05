@@ -8,17 +8,17 @@ using System.Data.SqlClient;
 namespace DataAccessLayer
 {
     /// <summary>
-    /// NAME: Alex Diers
-    /// DATE: 2/6/2020
-    /// CHECKED BY: Lane Sandburg
+    /// Creator: Alex Diers
+    /// Created: 2/6/2020
+    /// Approver: Lane Sandburg
     /// 
     /// This class is used for accessing the data store to perform basic
     ///     CRUD functions
     /// </summary>
     /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATED DATE: NA
-    /// WHAT WAS CHANGED: NA
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
     /// </remarks>
     public class TrainingVideoAccessor : ITrainingVideoAccessor
     {
@@ -111,16 +111,16 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Implementation of the InsertTrainingVideo method to add a TrainingVideo
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="video"></param>
         /// <returns></returns>
@@ -212,71 +212,17 @@ namespace DataAccessLayer
 
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/13/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Implementation of the SelectTrainingVideosByEmployee method used to show
         ///     a list of training videos the employee needs to watch
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
-        /// </remarks>
-        public List<TrainingVideo> SelectTrainingVideosByEmployee()
-        {
-            List<TrainingVideo> videos = new List<TrainingVideo>();
-
-            var conn = DBConnection.GetConnection();
-            var cmd = new SqlCommand("sp_select_videos_by_employee", conn);
-            cmd.CommandType = CommandType.StoredProcedure;
-
-            try
-            {
-                conn.Open();
-                var reader = cmd.ExecuteReader();
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        videos.Add(new TrainingVideo()
-                        {
-                            TrainingVideoID = reader.GetString(0),
-                            RunTimeMinutes = reader.GetInt32(1),
-                            RunTimeSeconds = reader.GetInt32(2),
-                            Description = reader.GetString(3),
-                            Active = reader.GetBoolean(4)
-                        });
-                    }
-                    reader.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                conn.Close();
-            }
-
-            return videos;
-        }
-
-        /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Lane Sandburg
-        /// 
-        /// Implementation of the SelectTrainingVideosByEmployee method used to show
-        ///     a list of training videos the employee needs to watch
-        /// </summary>
-        /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
 
         public int UpdateTrainingVideo(TrainingVideo oldVideo, TrainingVideo newVideo)
@@ -315,16 +261,16 @@ namespace DataAccessLayer
             return rows;
         }
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/5/2020
+        /// Approver: Chase Schulte
         /// 
         /// Selects a list of training videos and sorts them by relevant employee data
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public List<TrainingVideoVM> SelectTrainingVideosByEmployee(bool watched = false)
         {
@@ -374,16 +320,16 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/5/2020
+        /// Approver: Chase Schulte
         /// 
         /// Changes the status of a TrainingVideoVM to being watched
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="videoVM"></param>
         /// <returns></returns>
@@ -419,16 +365,16 @@ namespace DataAccessLayer
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/5/2020
+        /// Approver: Chase Schulte
         /// 
         /// Changes the status of a TrainingVideoVM to not being watched
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: Chase Schulte
-        /// UPDATED DATE: 5/02/2020
-        /// WHAT WAS CHANGED: Added UserID to paramters 
+        /// Updater: Chase Schulte
+        /// Updated: 5/02/2020
+        /// Update: Added UserID to paramters 
         /// </remarks>
         /// <param name="videoVM"></param>
         /// <returns></returns>

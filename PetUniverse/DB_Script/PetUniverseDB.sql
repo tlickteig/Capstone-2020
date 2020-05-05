@@ -5413,19 +5413,26 @@ GO
 
 /*
 Created by: Alex Diers
-Date: 2/28/2020
-Comment: Stored procedure to select the videos to watch
+Date: 3/10/2020
+Comment: Stored procedure to select the videos to watch by employee and unwatched
 */
 DROP PROCEDURE IF EXISTS [sp_select_videos_by_employee]
 GO
 PRINT '' PRINT '*** Creating sp_select_videos_by_employee'
 GO
 CREATE PROCEDURE [sp_select_videos_by_employee]
+(
+	@IsWatched 	[bit]
+)
 AS
 BEGIN
-	SELECT	[TrainingVideoID], [RunTimeMinutes], [RunTimeSeconds], [Description]
-	FROM		[TrainingVideo]
-	ORDER BY [TrainingVideoID]
+	SELECT	[TrainingVideo].[TrainingVideoID], [RunTimeMinutes], [RunTimeSeconds], [Description], [TrainingVideo].[Active],
+		[IsWatched], [TrainingVideoLine].[UserID], [FirstName], [LastName]
+	FROM		[TrainingVideo] JOIN [TrainingVideoLine] ON [TrainingVideo].[TrainingVideoID]
+		= [TrainingVideoLine].[TrainingVideoID] JOIN [User] ON [TrainingVideoLine].[UserID] =
+		[User].[UserID]
+	WHERE [IsWatched] = @IsWatched
+	ORDER BY [LastName]
 END
 GO
 
@@ -14400,7 +14407,8 @@ VALUES
 	('Administrator', 'Management'),
 	('Customer', 'Sales'),
 	('Volunteer', 'Fake1'),
-	('Supervisor','Management')
+	('Management Supervisor','Management'),
+	('Sales Supervisor','Sales')
 GO
 
 
@@ -14436,7 +14444,7 @@ VALUES
 (100002, 'Volunteer'),
 (100002, 'Administrator'),
     (100000,'Manager'),
-    (100000,'Supervisor'),
+    (100000,'Management Supervisor'),
     (100001,'Manager'),
     (100002,'Manager'),
     (100006,'Cashier')
@@ -16242,7 +16250,7 @@ INSERT INTO [dbo].[AvailabilityRequest]
 
 VALUES
 	('00:00:00', '23:59:00', '00:00:00', '23:59:00',1000008),
-	('11:00:00', '12:00:00','13:00:00', '14:00:00',1000009),
+	('11:00:00', '12:00:00','12:00:00', '14:00:00',1000009),
 	('12:01:00', '13:59:00','14:01:00', '15:59:00',1000009)
 GO
 

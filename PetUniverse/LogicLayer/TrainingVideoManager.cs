@@ -8,16 +8,16 @@ using System.Collections.Generic;
 namespace LogicLayer
 {
     /// <summary>
-    /// NAME: Alex Diers
-    /// DATE: 2/6/2020
-    /// CHECKED BY: Lane Sandburg
+    /// Creator: Alex Diers
+    /// Created: 2/6/2020
+    /// Approver: Lane Sandburg
     /// 
     /// This class manages the usage of the CRUD functions
     /// </summary>
     /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATED DATE: NA
-    /// WHAT WAS CHANGED: NA
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
     /// </remarks>
     public class TrainingVideoManager : ITrainingVideoManager
     {
@@ -25,14 +25,14 @@ namespace LogicLayer
 
         /// <summary>
         /// NAME : Alex Diers
-        /// DATE: 2/20/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Created: 2/20/2020
+        /// Approver: Lane Sandburg
         /// 
         /// No argument constructor
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATE DATE: NA
+        /// Updater: NA
+        /// Updated: NA
         /// CHANGE: NA
         /// 
         /// </remarks>
@@ -43,16 +43,16 @@ namespace LogicLayer
 
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Constructor for the TrainingVideoManager
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="trainingVideoAccessor"></param>
         public TrainingVideoManager(ITrainingVideoAccessor trainingVideoAccessor)
@@ -104,16 +104,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Jordan Lindo
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Jordan Lindo
         /// 
         /// Implementation of the InsertTrainingVideo method from the ITrainingVideoManager
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="video"></param>
         /// <returns></returns>
@@ -133,19 +133,19 @@ namespace LogicLayer
 
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/13/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Implementation of the RetrieveTrainingVideoManager method from the ITrainingVideoManager interface
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <returns></returns>
-        public List<TrainingVideo> RetrieveTrainingVideosByEmployee()
+        public List<TrainingVideoVM> RetrieveTrainingVideosByEmployee()
         {
             try
             {
@@ -158,16 +158,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/13/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Implementation of the RetrieveTrainingVideoManager method from the ITrainingVideoManager interface
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <returns></returns>
         public bool EditTrainingVideo(TrainingVideo oldVideo, TrainingVideo newVideo)
@@ -210,16 +210,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/5/2020
+        /// Approver: Chase Schulte
         /// 
         /// Changes the status of a TrainingVideoVM to being watched
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="videoVM"></param>
         /// <returns></returns>
@@ -239,16 +239,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/5/2020
+        /// Approver: Chase Schulte
         /// 
         /// Changes the status of a TrainingVideoVM to not being watched
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="videoVM"></param>
         /// <returns></returns>
@@ -268,16 +268,16 @@ namespace LogicLayer
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/5/2020
+        /// Approver: Chase Schulte
         /// 
         /// Creates a list of TrainingVideoVM objects based on the data from the DAL
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public List<TrainingVideoVM> RetrieveTrainingVideosByEmployee(bool watched = false)
         {

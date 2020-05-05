@@ -10,16 +10,16 @@ using System.Collections.Generic;
 namespace LogicLayerTests
 {
     /// <summary>
-    /// NAME: Alex Diers
-    /// DATE: 2/6/2020
-    /// CHECKED BY: Lane Sandburg
+    /// Creator: Alex Diers
+    /// Created: 2/6/2020
+    /// Approver: Lane Sandburg
     /// 
     /// This class houses the actual tests for TrainingVideo
     /// </summary>
     /// <remarks>
-    /// UPDATED BY: NA
-    /// UPDATED DATE: NA
-    /// WHAT WAS CHANGED: NA
+    /// Updater: NA
+    /// Updated: NA
+    /// Update: NA
     /// </remarks>
     [TestClass]
     public class TrainingVideoTests
@@ -27,16 +27,16 @@ namespace LogicLayerTests
         private ITrainingVideoAccessor _trainingVideoAccessor;
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Constructor for the FakeTrainingVideoAccessor class
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         public TrainingVideoTests()
         {
@@ -68,16 +68,16 @@ namespace LogicLayerTests
 
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Tests the creation of a TrainingVideo object
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         [TestMethod]
         public void TrainingVideoManagerInsertVideoTest()
@@ -101,27 +101,27 @@ namespace LogicLayerTests
 
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Tests the retrieval of the TrainingVideos an Employee needs to view
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         [TestMethod]
         public void TrainingVideoManagerSelectVideosByEmployeeTest()
         {
             // arrange
-            List<TrainingVideo> videos;
+            List<TrainingVideoVM> videos;
             ITrainingVideoManager videoManager = new TrainingVideoManager(_trainingVideoAccessor);
 
             // act
             videos = videoManager.RetrieveTrainingVideosByEmployee();
-
+            videos.AddRange(videoManager.RetrieveTrainingVideosByEmployee(true));
             // assert
             Assert.AreEqual(2, videos.Count);
         }
@@ -342,16 +342,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/6/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/6/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Tests the retrieval of the TrainingVideos an Employee needs to view
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         [TestMethod]
         public void TrainingVideoManagerUpdateVideoTest()
@@ -854,16 +854,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/5/2020
+        /// Approver: Chase Schulte
         /// 
         /// Tests the ability to retrieve TrainingVideoVM objects and sort by relevant employee data
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATED DATE: 
-        /// WHAT WAS CHANGED: NA
+        /// Updater: 
+        /// Updated: 
+        /// Update: NA
         /// </remarks>
         [TestMethod]
         public void TestRetrieveTrainingVideosByEmployeeUnwatched()
@@ -880,16 +880,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/5/2020
+        /// Approver: Chase Schulte
         /// 
         /// Tests the ability to retrieve TrainingVideoVM objects and sort by relevant employee data
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATED DATE: 
-        /// WHAT WAS CHANGED: NA
+        /// Updater: 
+        /// Updated: 
+        /// Update: NA
         /// </remarks>
         [TestMethod]
         public void TestRetrieveTrainingVideosByEmployeeWatched()
@@ -906,16 +906,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/5/2020
+        /// Approver: Chase Schulte
         /// 
         /// Tests the ability to update a TrainingVideoVM IsWatched field
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATED DATE: 
-        /// WHAT WAS CHANGED: NA
+        /// Updater: 
+        /// Updated: 
+        /// Update: NA
         /// </remarks>
         [TestMethod]
         public void TestUpdateIsWatched()
@@ -945,16 +945,16 @@ namespace LogicLayerTests
         }
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/5/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/5/2020
+        /// Approver: Chase Schulte
         /// 
         /// Tests the ability to update a TrainingVideoVM IsWatched field
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: 
-        /// UPDATED DATE: 
-        /// WHAT WAS CHANGED: NA
+        /// Updater: 
+        /// Updated: 
+        /// Update: NA
         /// </remarks>
         [TestMethod]
         public void TestUpdateNotWatched()

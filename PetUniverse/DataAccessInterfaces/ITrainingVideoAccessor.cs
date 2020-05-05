@@ -30,19 +30,6 @@ namespace DataAccessInterfaces
         int InsertTrainingVideo(TrainingVideo video);
 
 
-        /// <summary>
-        /// Creator: Alex Diers
-        /// Created: 2/13/2020
-        /// Approver: Lane Sangburg
-        /// 
-        /// Used to select a list of TrainingVideo objects by Employee that needs to view them
-        /// </summary>
-        /// <remarks>
-        /// Updater 
-        /// Updated:
-        /// Update: 
-        /// </remarks>
-        List<TrainingVideo> SelectTrainingVideosByEmployee();
 
         /// <summary>
         /// Creator: Alex Diers
@@ -106,46 +93,46 @@ namespace DataAccessInterfaces
         /// <returns></returns>
         List<TrainingVideo> SelectTrainingVideosByActive(bool active = true);
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 2/13/2020
-        /// CHECKED BY: Lane Sandburg
+        /// Creator: Alex Diers
+        /// Created: 2/13/2020
+        /// Approver: Lane Sandburg
         /// 
         /// Used to select a list of TrainingVideo objects by Employee that needs to view them
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         List<TrainingVideoVM> SelectTrainingVideosByEmployee(bool watched = false);
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/15/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/15/2020
+        /// Approver: Chase Schulte
         /// 
         /// Used to change the record of a video being watched 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="isWatched"></param>
         /// <returns></returns>
         int UpdateIsWatched(TrainingVideoVM videoVM);
 
         /// <summary>
-        /// NAME: Alex Diers
-        /// DATE: 3/15/2020
-        /// CHECKED BY: Chase Schulte
+        /// Creator: Alex Diers
+        /// Created: 3/15/2020
+        /// Approver: Chase Schulte
         /// 
         /// Used to change the record of a video not being watched 
         /// </summary>
         /// <remarks>
-        /// UPDATED BY: NA
-        /// UPDATED DATE: NA
-        /// WHAT WAS CHANGED: NA
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
         /// </remarks>
         /// <param name="isWatched"></param>
         /// <returns></returns>
