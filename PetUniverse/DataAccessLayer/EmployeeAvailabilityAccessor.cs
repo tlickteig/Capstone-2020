@@ -37,7 +37,7 @@ namespace DataAccessLayer
                 CommandType = CommandType.StoredProcedure
             };
 
-            cmd.Parameters.AddWithValue("@EmployeeID", employeeAvailability.EmployeeID);
+            cmd.Parameters.AddWithValue("@UserID", employeeAvailability.EmployeeID);
             cmd.Parameters.AddWithValue("@DayOfWeek", employeeAvailability.DayOfWeek);
             cmd.Parameters.AddWithValue("@StartTime", employeeAvailability.StartTime);
             cmd.Parameters.AddWithValue("@EndTime", employeeAvailability.EndTime);
@@ -82,7 +82,7 @@ namespace DataAccessLayer
             var cmd = new SqlCommand("sp_select_all_user_availability_by_userID", conn);
 
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@EmployeeID", employeeID);
+            cmd.Parameters.AddWithValue("@UserID", employeeID);
 
 
             try
