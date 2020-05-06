@@ -4,6 +4,7 @@ using DataTransferObjects;
 using LogicLayerInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace LogicLayer
 {
@@ -537,6 +538,28 @@ namespace LogicLayer
             {
                 throw new ApplicationException("Update Failed!", ex);
             }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 5/3/2020
+        /// Approver: Chuck Baxter 5/5/2020
+        /// 
+        /// Retrieves all animals of a specific name
+        /// </summary>
+        /// <param name="name">The name to search</param>
+        /// <param name="list">
+        /// The list to iterate through. If one isn't provided
+        /// a new one will be fetched
+        /// </param>
+        /// <returns>List of animals</returns>
+        public List<Animal> RetrieveAnimalsByName(string name, List<Animal> list = null)
+        {
+            if (list == null)
+            {
+                list = RetrieveAnimalsByActive(true);
+            }
+            return list.Where(a => a.AnimalName.ToLower() == name.ToLower()).ToList();
         }
     }
 }

@@ -588,6 +588,16 @@ namespace WPFPresentationLayer.AMPages
             dgPrescriptions.Columns[4].Header = "Administration Method";
             dgPrescriptions.Columns[5].Header = "Start Date";
             dgPrescriptions.Columns[6].Header = "End Date";
+
+            dgPrescriptions.Columns[0].Width = 120;
+            dgPrescriptions.Columns[1].Width = 150;
+            dgPrescriptions.Columns[2].Width = 50;
+            dgPrescriptions.Columns[3].Width = 100;
+            dgPrescriptions.Columns[4].Width = 200;
+            dgPrescriptions.Columns[5].Width = 150;
+            dgPrescriptions.Columns[6].Width = 150;
+            dgPrescriptions.Columns[7].Width = 200;
+            dgPrescriptions.Columns[8].Width = 70;
         }
 
         /// <summary>

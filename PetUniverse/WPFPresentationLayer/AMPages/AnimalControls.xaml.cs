@@ -45,7 +45,7 @@ namespace WPFPresentationLayer.AMPages
         public AnimalControls()
         {
             InitializeComponent();
-            _animalManager = new AnimalManager();         
+            _animalManager = new AnimalManager();
         }
 
         private IAnimalManager _animalManager;
@@ -110,29 +110,6 @@ namespace WPFPresentationLayer.AMPages
         private void refreshActiveData()
         {
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByActive();
-          
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[10]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
-            
-            dgActiveAnimals.Columns[0].Header = "Name";
-            dgActiveAnimals.Columns[1].Header = "Date of Birth";
-            dgActiveAnimals.Columns[2].Header = "Species";
-            dgActiveAnimals.Columns[3].Header = "Breed";
-            dgActiveAnimals.Columns[4].Header = "Arrival Date";
-            dgActiveAnimals.Columns[5].Header = "Currently Housed";
-            dgActiveAnimals.Columns[6].Header = "Adoptable";
-            dgActiveAnimals.Columns[7].Header = "Active";
-
-            dgActiveAnimals.Columns[0].Width = 200;
-            dgActiveAnimals.Columns[1].Width = 200;
-            dgActiveAnimals.Columns[2].Width = 200;
-            dgActiveAnimals.Columns[3].Width = 200;
-            dgActiveAnimals.Columns[4].Width = 200;
-            dgActiveAnimals.Columns[5].Width = 90;
-            dgActiveAnimals.Columns[6].Width = 90;
-            dgActiveAnimals.Columns[7].Width = 90;
         }
 
         /// <summary>
@@ -152,29 +129,6 @@ namespace WPFPresentationLayer.AMPages
         private void refreshInactiveData()
         {
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByInactive();
-
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[10]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
-
-            dgActiveAnimals.Columns[0].Header = "Name";
-            dgActiveAnimals.Columns[1].Header = "Date of Birth";
-            dgActiveAnimals.Columns[2].Header = "Species";
-            dgActiveAnimals.Columns[3].Header = "Breed";
-            dgActiveAnimals.Columns[4].Header = "Arrival Date";
-            dgActiveAnimals.Columns[5].Header = "Currently Housed";
-            dgActiveAnimals.Columns[6].Header = "Adoptable";
-            dgActiveAnimals.Columns[7].Header = "Active";
-
-            dgActiveAnimals.Columns[0].Width = 200;
-            dgActiveAnimals.Columns[1].Width = 200;
-            dgActiveAnimals.Columns[2].Width = 200;
-            dgActiveAnimals.Columns[3].Width = 200;
-            dgActiveAnimals.Columns[4].Width = 200;
-            dgActiveAnimals.Columns[5].Width = 90;
-            dgActiveAnimals.Columns[6].Width = 90;
-            dgActiveAnimals.Columns[7].Width = 90;
         }
 
         /// <summary>
@@ -1071,6 +1025,130 @@ namespace WPFPresentationLayer.AMPages
                 canEditAnimalSpecies.Visibility = Visibility.Hidden;
                 txtEditAnimalSpecies.Text = "";
             }
-        }    
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 5/5/2020
+        /// Approver: Chuck Baxter 5/5/2020
+        /// 
+        /// Used for clearing the default text from the search bar
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void txtSearchAnimal_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (txtSearchAnimal.Text == "Animal Name")
+            {
+                txtSearchAnimal.Text = "";
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 5/5/2020
+        /// Approver: Chuck Baxter 5/5/2020
+        /// 
+        /// Used to search for an animal
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void btnSearchAnimal_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnSearchAnimal.Content.ToString() == "Search")
+            {
+                List<Animal> list;
+                btnSearchAnimal.Content = "Reset";
+                try
+                {
+                    list = !(bool)chkActive.IsChecked ?
+                    _animalManager.RetrieveAnimalsByActive() :
+                    _animalManager.RetrieveAnimalsByInactive();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    return;
+                }
+                dgActiveAnimals.ItemsSource = null;
+                dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByName(
+                    txtSearchAnimal.Text, list);
+            }
+            else
+            {
+                btnSearchAnimal.Content = "Search";
+                txtSearchAnimal.Text = "";
+                if (!(bool)chkActive.IsChecked)
+                {
+                    refreshActiveData();
+                }
+                else
+                {
+                    refreshInactiveData();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 5/5/2020
+        /// Approver: Chuck Baxter 5/5/2020
+        /// 
+        /// Changes the Reset button back to a Search button
+        /// when text is re-entered into the search bar
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void txtSearchAnimal_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (btnSearchAnimal != null &&
+                btnSearchAnimal.Content.ToString() == "Reset")
+            {
+                btnSearchAnimal.Content = "Search";
+            }
+        }
+
+        /// <summary>
+        /// Creator: Chuck Baxter
+        /// Created: 5/5/2020
+        /// Approver: Ethan Murphy 5/5/2020
+        /// 
+        /// Fixes columns in datagrid when data is populated
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void dgActiveAnimals_AutoGeneratedColumns(object sender, EventArgs e)
+        {
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[10]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
+
+            dgActiveAnimals.Columns[0].Header = "Name";
+            dgActiveAnimals.Columns[1].Header = "Date of Birth";
+            dgActiveAnimals.Columns[2].Header = "Species";
+            dgActiveAnimals.Columns[3].Header = "Breed";
+            dgActiveAnimals.Columns[4].Header = "Arrival Date";
+            dgActiveAnimals.Columns[5].Header = "Currently Housed";
+            dgActiveAnimals.Columns[6].Header = "Adoptable";
+            dgActiveAnimals.Columns[7].Header = "Active";
+
+            dgActiveAnimals.Columns[0].Width = 200;
+            dgActiveAnimals.Columns[1].Width = 200;
+            dgActiveAnimals.Columns[2].Width = 200;
+            dgActiveAnimals.Columns[3].Width = 200;
+            dgActiveAnimals.Columns[4].Width = 200;
+            dgActiveAnimals.Columns[5].Width = 90;
+            dgActiveAnimals.Columns[6].Width = 90;
+            dgActiveAnimals.Columns[7].Width = 90;
+        }
     }
 }
