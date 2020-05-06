@@ -130,8 +130,6 @@
     <Compile Include="Medication.cs" />
     <Compile Include="Medicine.cs" />
     <Compile Include="Messages.cs" />
-    <Compile Include="MVCAdoptionApplication.cs" />
-    <Compile Include="MVCQuestionnair.cs" />
     <Compile Include="NewAnimalChecklist.cs" />
     <Compile Include="OpenPosition.cs" />
     <Compile Include="Order.cs" />
