@@ -478,38 +478,38 @@
                     </CheckBox>
 
                     <!--Edit Species Select-->
-                    <Label x:Name="lblEditSpecies" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                    <Label x:Name="lblEditSpecies" Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center" 
                            HorizontalAlignment="Right" Visibility="Hidden">Animal Species:</Label>
                     <ComboBox x:Name="cmbEditSpecies" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Height="30" 
                               Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"
                               SelectionChanged="cmbEditSpecies_SelectionChanged"></ComboBox>
 
                     <!--Edit Animal Species Name-->
-                    <Label x:Name="lblEditAnimalSpeciesID" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                    <Label x:Name="lblEditAnimalSpeciesID" Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center" 
                            HorizontalAlignment="Right" Visibility="Hidden">Animal Species:</Label>
                     <TextBox x:Name="txtEditAnimalSpecies"  Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="5" Background="LightGray" Height="30" 
                              Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"></TextBox>
 
                     <!--Edit Animal Species Description-->
-                    <Label x:Name="lblEditAnimalSpeciesDescription" Grid.Row="3" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                    <Label x:Name="lblEditAnimalSpeciesDescription" Grid.Row="3" Grid.Column="0" FontSize="20" VerticalAlignment="Center" 
                            HorizontalAlignment="Right" Visibility="Hidden">Species Description:</Label>
                     <TextBox x:Name="txtEditAnimalSpeciesDescription"  Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="5" Background="LightGray" Height="30" 
                              Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"></TextBox>
 
                     <!--Delete Species Select-->
-                    <Label x:Name="lblDeleteSpecies" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                    <Label x:Name="lblDeleteSpecies" Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center" 
                            HorizontalAlignment="Right" Visibility="Hidden">Animal Species:</Label>
                     <ComboBox x:Name="cmbDeleteSpecies" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Height="30" 
                               Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"></ComboBox>
 
                     <!--Add Animal Species Name-->
-                    <Label x:Name="lblNewAnimalSpecies" Grid.Row="1" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                    <Label x:Name="lblNewAnimalSpecies" Grid.Row="1" Grid.Column="0" FontSize="20" VerticalAlignment="Center" 
                            HorizontalAlignment="Right" Visibility="Hidden">New Animal Species:</Label>
                     <TextBox x:Name="txtNewAnimalSpecies"  Grid.Row="1" Grid.Column="1"  Grid.ColumnSpan="5" Background="LightGray" Height="30" 
                              Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"></TextBox>
 
                     <!--Add Animal Species Description-->
-                    <Label x:Name="lblNewAnimalSpeciesDescription" Grid.Row="2" Grid.Column="0" FontSize="22" VerticalAlignment="Center" 
+                    <Label x:Name="lblNewAnimalSpeciesDescription" Grid.Row="2" Grid.Column="0" FontSize="20" VerticalAlignment="Center" 
                            HorizontalAlignment="Right" Visibility="Hidden">Species Description:</Label>
                     <TextBox x:Name="txtNewAnimalSpeciesDescription"  Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="5" Background="LightGray" Height="30" 
                              Margin="25 0 25 0" VerticalContentAlignment="Center" FontSize="16" Visibility="Hidden"></TextBox>

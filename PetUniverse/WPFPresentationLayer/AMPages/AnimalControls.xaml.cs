@@ -882,9 +882,16 @@ namespace WPFPresentationLayer.AMPages
         {
             try
             {
-                txtEditAnimalSpecies.Text = cmbEditSpecies.SelectedItem.ToString();
+                if (cmbEditSpecies.SelectedItem != null)
+                {
+                    txtEditAnimalSpecies.Text = cmbEditSpecies.SelectedItem.ToString();
+                }
+                else
+                {
+                    txtEditAnimalSpecies.Text = "";
+                }           
             }
-            catch
+            catch(Exception)
             {
                 txtEditAnimalSpecies.Text = "";
             }
