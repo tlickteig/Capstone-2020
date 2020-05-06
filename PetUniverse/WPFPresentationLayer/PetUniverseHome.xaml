@@ -195,6 +195,9 @@
                 <TabItem x:Name="tabViewAnimals" Header="View Animals" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AMPages/AnimalControls.xaml"/>
                 </TabItem>
+                <TabItem x:Name="tabViewAnimalActivity" Header="View Activity Records" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewAnimalActivities" NavigationUIVisibility="Hidden"/>
+                </TabItem>
                 <TabItem x:Name="tabViewKennels" Header="View Location Records" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frameViewKennelRecords" Source="./AMPages/KennelControls.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
@@ -206,9 +209,6 @@
                 </TabItem>
                 <TabItem x:Name="tabViewAnimalPrescriptions" Header="View Animal Prescriptions" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AMPages/VetPrescriptionControls.xaml" NavigationUIVisibility="Hidden"></Frame>
-                </TabItem>
-                <TabItem x:Name="tabViewAnimalActivity" Header="View Activity Records" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frameViewAnimalActivities" NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </TabControl>
         </Canvas>
