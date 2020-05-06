@@ -73,7 +73,7 @@ namespace DataAccessFakes
         /// </remarks>
         /// <param name="shiftTimeID"></param>
         /// <returns></returns>
-        public int DeleteShiftTime(int shiftTimeID)
+        public int DeactivateShiftTime(int shiftTimeID)
         {
             int result = 1;
             PetUniverseShiftTime shiftTime = null;

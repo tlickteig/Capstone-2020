@@ -66,16 +66,16 @@ namespace DataAccessInterfaces
         /// Created: 03/05/2020
         /// Approver: Kaleb Bachert
         /// 
-        /// definition for Deleteing a new ShiftTime and sets parameters for delete
+        /// definition for deactivating a new ShiftTime and sets parameters for delete
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: (example: Fixed a problem when user inputs bad data)
+        /// Updater: Lane Sandburg
+        /// Updated: 05/05/2020 
+        /// Update: Refactored to Deactivate shift time
         /// </remarks>
         /// <param name="shiftTime"></param>
-        int DeleteShiftTime(int shiftTimeID);
+        int DeactivateShiftTime(int shiftTimeID);
 
 
         /// <summary>

@@ -65,7 +65,7 @@
                     HorizontalAlignment="Right" 
                              Click="btnShiftTimeAdd_Click"/>
 
-                <Button x:Name="btnShiftTimeDelete"   Content="Delete" Visibility="Visible"
+                <Button x:Name="btnShiftTimeDelete"   Content="Deactivate" Visibility="Visible"
                     Grid.Column="13" Margin="0,724,1,0" Height="30" VerticalAlignment="Top"
                     HorizontalAlignment="Right" Width="100"
                       Grid.ColumnSpan="2" Click="btnShiftTimeDelete_Click">

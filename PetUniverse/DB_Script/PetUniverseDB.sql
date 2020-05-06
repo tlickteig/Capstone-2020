@@ -587,7 +587,7 @@ CREATE TABLE [dbo].[ShiftTime](
 	[DepartmentID]  [NVARCHAR](50)				NOT NULL,
 	[StartTime]		[NVARCHAR](20) 					NOT NULL,
 	[EndTime]		[NVARCHAR](20) 					NOT NULL,
-
+	[Active]		[bit]	DEFAULT 1        		NOT NULL,
 
 	CONSTRAINT [pk_ShiftTime_ShiftTimeID]
 		PRIMARY KEY([ShiftTimeID] ASC),
@@ -4203,13 +4203,14 @@ AS
 BEGIN
 	SELECT [ShiftTimeID],[DepartmentID],[StartTime],[EndTime]
 	FROM [dbo].[ShiftTime]
+	WHERE [Active] = 1
 	ORDER BY [DepartmentID]
 END
 GO
 
 
 /*
-Sproc for Retreiveing Departments
+Sproc for Updateing Departments
 
 Author: Lane Sandburg
 2/13/2020
@@ -4246,23 +4247,24 @@ END
 GO
 
 /*
-Sproc for Retreiveing Departments
+Sproc for Deavtivating Departments
 
 Author: Lane Sandburg
 03/05/2020
 */
-DROP PROCEDURE IF EXISTS [sp_delete_shiftTime]
+DROP PROCEDURE IF EXISTS [sp_deactivate_shiftTime]
 GO
-PRINT '' PRINT '*** creating sp_delete_shiftTime'
+PRINT '' PRINT '*** creating sp_deactivate_shiftTime'
 GO
-CREATE PROCEDURE [sp_delete_shiftTime](
+CREATE PROCEDURE [sp_deactivate_shiftTime](
 		@ShiftTimeID [int]
 )
 AS
 BEGIN
-	DELETE FROM [dbo].[ShiftTime]
-	WHERE [ShiftTimeID] = @ShiftTimeID
-	RETURN @@ROWCOUNT
+	Update [dbo].[ShiftTime]
+	Set	[Active]=0
+	Where [ShiftTimeID] = @ShiftTimeID
+	Return @@ROWCOUNT
 
 END
 GO
