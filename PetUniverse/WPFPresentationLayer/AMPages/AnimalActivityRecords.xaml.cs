@@ -255,18 +255,28 @@ namespace WPFPresentationLayer.AMPages
         /// Refreshes the list of activity records
         /// </summary>
         /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
+        /// Updater: Chuck Baxter
+        /// Updated: 5/5/2020
+        /// Update: Cleaned up column headers and size
         /// </remarks>
         private void RefreshActivitiesList()
         {
-            dgActivities.ItemsSource = null;
+            dgActivities.ItemsSource = null;           
             try
             {
                 dgActivities.ItemsSource = _activityManager
                     .RetrieveAnimalActivitiesByActivityType(
                     cmbActivityType.SelectedItem.ToString());
+
+                dgActivities.Columns[0].Header = "Name";
+                dgActivities.Columns[1].Header = "Activity";
+                dgActivities.Columns[2].Header = "Date & Time";
+                dgActivities.Columns[3].Header = "Description";
+
+                dgActivities.Columns[0].Width = 200;
+                dgActivities.Columns[1].Width = 200;
+                dgActivities.Columns[2].Width = 200;
+                dgActivities.Columns[3].Width = 590;
             }
             catch (Exception ex)
             {

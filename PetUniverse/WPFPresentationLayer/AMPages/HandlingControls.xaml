@@ -13,7 +13,7 @@
       d:DesignHeight="845" d:DesignWidth="1289"
       Title="HandlingControls" Loaded="Page_Loaded" ShowsNavigationUI="False">
 
-    <Canvas x:Name="canViewHandlingList" Height="845" Width="1289" Background="Beige">
+    <Canvas x:Name="canViewHandlingList" Height="845" Width="1289">
         <Grid Height="845" Width="1289">
             <Grid.RowDefinitions>
                 <RowDefinition Height="35"></RowDefinition>

@@ -85,12 +85,12 @@ namespace LogicLayerTests
         /// Created: 02/07/2019
         /// Approver: Kaleb Bachert
         /// 
-        /// Test of the Shift Time insert Method
+        /// Test of the Shift Time deactivate Method
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Lane Sandburg
+        /// Updated: 05/05/2020
+        /// Update: renamed to DeactivateShiftTime
         /// </remarks>
         #region Additional test attributes
         //
@@ -115,7 +115,7 @@ namespace LogicLayerTests
         #endregion
 
         [TestMethod]
-        public void TestShiftTimeManagerDeletetShiftTimeTests()
+        public void TestShiftTimeManagerDeactivatetShiftTimeTests()
         {
 
             //arrange
@@ -125,7 +125,7 @@ namespace LogicLayerTests
             bool expectedResult = true;
 
             //act
-            test = shiftTimeManager.DeleteShiftTime(shiftTimeID);
+            test = shiftTimeManager.DeactivateShiftTime(shiftTimeID);
 
             //assert
             Assert.AreEqual(test, expectedResult);

@@ -45,7 +45,7 @@ namespace WPFPresentationLayer.AMPages
         public AnimalControls()
         {
             InitializeComponent();
-            _animalManager = new AnimalManager();         
+            _animalManager = new AnimalManager();
         }
 
         private IAnimalManager _animalManager;
@@ -110,29 +110,6 @@ namespace WPFPresentationLayer.AMPages
         private void refreshActiveData()
         {
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByActive();
-          
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[10]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
-            
-            dgActiveAnimals.Columns[0].Header = "Name";
-            dgActiveAnimals.Columns[1].Header = "Date of Birth";
-            dgActiveAnimals.Columns[2].Header = "Species";
-            dgActiveAnimals.Columns[3].Header = "Breed";
-            dgActiveAnimals.Columns[4].Header = "Arrival Date";
-            dgActiveAnimals.Columns[5].Header = "Currently Housed";
-            dgActiveAnimals.Columns[6].Header = "Adoptable";
-            dgActiveAnimals.Columns[7].Header = "Active";
-
-            dgActiveAnimals.Columns[0].Width = 200;
-            dgActiveAnimals.Columns[1].Width = 200;
-            dgActiveAnimals.Columns[2].Width = 200;
-            dgActiveAnimals.Columns[3].Width = 200;
-            dgActiveAnimals.Columns[4].Width = 200;
-            dgActiveAnimals.Columns[5].Width = 90;
-            dgActiveAnimals.Columns[6].Width = 90;
-            dgActiveAnimals.Columns[7].Width = 90;
         }
 
         /// <summary>
@@ -152,29 +129,6 @@ namespace WPFPresentationLayer.AMPages
         private void refreshInactiveData()
         {
             dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByInactive();
-
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[10]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
-            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
-
-            dgActiveAnimals.Columns[0].Header = "Name";
-            dgActiveAnimals.Columns[1].Header = "Date of Birth";
-            dgActiveAnimals.Columns[2].Header = "Species";
-            dgActiveAnimals.Columns[3].Header = "Breed";
-            dgActiveAnimals.Columns[4].Header = "Arrival Date";
-            dgActiveAnimals.Columns[5].Header = "Currently Housed";
-            dgActiveAnimals.Columns[6].Header = "Adoptable";
-            dgActiveAnimals.Columns[7].Header = "Active";
-
-            dgActiveAnimals.Columns[0].Width = 200;
-            dgActiveAnimals.Columns[1].Width = 200;
-            dgActiveAnimals.Columns[2].Width = 200;
-            dgActiveAnimals.Columns[3].Width = 200;
-            dgActiveAnimals.Columns[4].Width = 200;
-            dgActiveAnimals.Columns[5].Width = 90;
-            dgActiveAnimals.Columns[6].Width = 90;
-            dgActiveAnimals.Columns[7].Width = 90;
         }
 
         /// <summary>
@@ -313,9 +267,6 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void DgActiveAnimals_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ACE.Visibility = Visibility.Hidden;
-            SearchBar_.Visibility = Visibility.Hidden;
-            DG.Visibility = Visibility.Hidden;
             try
             {
                 selectedAnimal = (Animal)dgActiveAnimals.SelectedItem;
@@ -352,13 +303,6 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void BtnReturnViewIndividualAnimal_Click(object sender, RoutedEventArgs e)
         {
-            ACE.Visibility = Visibility.Visible;
-            
-            DG.Visibility = Visibility.Visible;
-
-            SearchBar_.Visibility = Visibility.Visible;
-            DG.Visibility = Visibility.Visible;
-            SearchSymbolButton.Visibility = Visibility.Visible;
             canViewAnimalList.Visibility = Visibility.Visible;
             canIndividualAnimal.Visibility = Visibility.Hidden;
         }
@@ -1083,376 +1027,128 @@ namespace WPFPresentationLayer.AMPages
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 4/12/2020
-        /// Approver: Carl Davis 4/16/2020
-        /// Approver: 
-        /// Text changed event for the searchbar
-        /// </summary>
+        /// Creator: Ethan Murphy
+        /// Created: 5/5/2020
+        /// Approver: Chuck Baxter 5/5/2020
+        /// 
+        /// Used for clearing the default text from the search bar
         /// <remarks>
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        public void SearchBar1_TextChanged(object sender, TextChangedEventArgs e)
+        private void txtSearchAnimal_GotFocus(object sender, RoutedEventArgs e)
         {
-            //SearchBarTextInputManager();
-        }
-        int NumberOfResults = 0;
-        List<AnimalNames> List_ = new List<AnimalNames>();
-        bool mainList = true;
-
-        /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 4/12/2020
-        /// Approver: Carl Davis 4/16/2020
-        /// Approver: 
-        /// Handles retrieving reccomendations as the user types into the searchbar
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        public List<AnimalNames> SearchBarTextInputManager()
-        {
-            try
+            if (txtSearchAnimal.Text == "Animal Name")
             {
-                NoResults.Visibility = Visibility.Hidden;
-                SearchBar_.Foreground = Brushes.Black;
+                txtSearchAnimal.Text = "";
+            }
+        }
 
-                NumberOfResults = DG.Items.Count;
-
-                AnimalNames names = new AnimalNames();
-
-                DG.Visibility = Visibility.Visible;
-
-                AnimalManager am = new AnimalManager();
-
-                if (SearchBar_.Text == "")
-                {
-                    SearchSymbolButton.IsEnabled = false;
-
-                    mainList = true;
-                }
-                else
-                {
-                    SearchSymbolButton.IsEnabled = true;
-                }
-                int one = 0;
-                List_ = am.RetrieveNames();
-
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 5/5/2020
+        /// Approver: Chuck Baxter 5/5/2020
+        /// 
+        /// Used to search for an animal
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        /// </remarks>
+        private void btnSearchAnimal_Click(object sender, RoutedEventArgs e)
+        {
+            if (btnSearchAnimal.Content.ToString() == "Search")
+            {
+                List<Animal> list;
+                btnSearchAnimal.Content = "Reset";
                 try
                 {
-                    if (mainList == true)
-                    {
-                        one = Int32.Parse(SearchBar_.Text);
-
-                        DG.ItemsSource = (from c in List_
-                                          where c.AnimalID == Int32.Parse(SearchBar_.Text) + 1000000
-                                          select c).ToList();
-                    }
+                    list = !(bool)chkActive.IsChecked ?
+                    _animalManager.RetrieveAnimalsByActive() :
+                    _animalManager.RetrieveAnimalsByInactive();
                 }
-                catch
+                catch (Exception ex)
                 {
-                    if (mainList == true)
-                    {
-                        DG.ItemsSource = (from c in List_
-                                          where c.AnimalName == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                          ||
-                                          c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                          ||
-                                          c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty).Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                          ||
-                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                           ||
-                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                           ||
-                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                           ||
-                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                           ||
-                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                           ||
-                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                           ||
-                                           c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                           ||
-                                             c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                             ||
-                                               c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                               ||
-                                                 c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                                 ||
-                                                  c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                                  ||
-                                                    c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                                    ||
-                                                      c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                                      ||
-                                                       c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                                       ||
-                                                        c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                            ||
-                                               c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[17].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                               ||
-                                               c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[17].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[18].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                                ||
-                                               c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[17].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[18].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[19].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                                ||
-                                               c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[17].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[18].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[19].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[20].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty)
-                                               ||
-                                                c.AnimalName[0].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[1].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[2].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[3].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[4].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[5].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[6].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[7].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[8].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[9].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[10].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[11].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[12].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[13].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[14].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[15].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[16].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[17].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[18].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[19].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[20].ToString().ToLower().Replace(" ", String.Empty) + c.AnimalName[21].ToString().ToLower().Replace(" ", String.Empty) == SearchBar_.Text.ToLower().Replace(" ", String.Empty).Replace(" ", String.Empty)
-                                          select c).ToList();
-
-
-                        int NumberOfResults = DG.Items.Count;
-
-                        AnimalNames NAC = (AnimalNames)DG.Items[0];
-
-                        if (NumberOfResults <= 3 && SearchBar_.Text.Length >= 4 && ACE.IsChecked == true)
-                        {
-                            SearchSymbolButton.IsEnabled = true;
-
-                            SearchBar_.Foreground = Brushes.LightGray;
-
-                            SearchBar_.Text = NAC.AnimalName.TrimEnd().TrimStart();
-
-                            SearchBar_.Select(SearchBar_.Text.Length + 1, 0);
-
-                            SearchBar_.Focus();
-
-                            SearchBar_.IsReadOnly = true;
-                        }
-
-                        if (NumberOfResults > 3 && SearchBar_.Text.Length != 4)
-                        {
-                            SearchBar_.IsReadOnly = false;
-                        }
-                    }
+                    MessageBox.Show(ex.Message);
+                    return;
                 }
-            }
-            catch (Exception ex)
-            {
-            }
-            return List_;
-        }
-
-        /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 4/12/2020
-        /// Approver: Carl Davis 4/16/2020
-        /// Approver: 
-        /// MouseEnter and MouseLeave events for the searchbar
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        private void SearchBar_Hover_Off(object sender, MouseEventArgs e)
-        {
-
-            DG.Visibility = Visibility.Hidden;
-
-            if (SearchBar_.Text == "" && SearchBar_.IsFocused == false)
-            {
-                SearchBar_.Text = "Search...";
-                SearchBar_.Foreground = Brushes.LightGray;
-            }
-        }
-        private void SearchBar_Hover_ON(object sender, MouseEventArgs e)
-        {
-            DG.Visibility = Visibility.Visible;
-
-            if (SearchBar_.Text == "Search...")
-            {
-                SearchBar_.Clear();
-                SearchBar_.Foreground = Brushes.Black;
-            }
-        }
-
-        /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 4/12/2020
-        /// Approver: Carl Davis 4/16/2020
-        /// Approver: 
-        /// Allows the user to double click on a reccomendation 
-        /// </summary>
-        /// <remarks>
-        /// Updater:
-        /// Updated:
-        /// Update:
-        /// </remarks>
-        private void SearchResultList_DoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            ACE.Visibility = Visibility.Hidden;
-            if (dgActiveAnimals.Visibility == Visibility)
-            {
-                SearchBar_.Visibility = Visibility.Visible;
+                dgActiveAnimals.ItemsSource = null;
+                dgActiveAnimals.ItemsSource = _animalManager.RetrieveAnimalsByName(
+                    txtSearchAnimal.Text, list);
             }
             else
             {
-                SearchBar_.Visibility = Visibility.Hidden;
+                btnSearchAnimal.Content = "Search";
+                txtSearchAnimal.Text = "";
+                if (!(bool)chkActive.IsChecked)
+                {
+                    refreshActiveData();
+                }
+                else
+                {
+                    refreshInactiveData();
+                }
             }
-            try
-            {
-                NoResults.Visibility = Visibility.Hidden;
-
-                NoResults.Visibility = Visibility.Hidden;
-                SearchBar_.Visibility = Visibility.Hidden;
-                DG.Visibility = Visibility.Hidden;
-
-                object item = DG.SelectedItem;
-                string ID = (DG.SelectedCells[0].Column.GetCellContent(item) as TextBlock).Text;
-
-                List<Animal> list_ = _animalManager.RetrieveAnimalByAnimalID(Int32.Parse(ID.ToString()));
-
-                Animal NAC = (Animal)list_[0];
-
-                lblIndividualAnimalName.Content = NAC.AnimalName.ToString();
-                lblIndividualAnimalID.Content = NAC.AnimalID.ToString();
-                lblIndividualAnimalSpecies.Content = NAC.AnimalSpeciesID.ToString();
-                lblIndividualAnimalBreed.Content = NAC.AnimalBreed.ToString();
-                lblIndividualAnimalDob.Content = NAC.Dob.ToString();
-                lblIndividualAnimalArrivalDate.Content = NAC.ArrivalDate.ToString();
-
-
-                chkIndvidualActive.IsChecked = NAC.Active;
-                chkIndvidualAdoptable.IsChecked = NAC.Adoptable;
-                chkIndvidualCurrentlyHoused.IsChecked = NAC.CurrentlyHoused;
-
-                canIndividualAnimal.Visibility = Visibility;
-            }
-            catch { }
         }
 
         /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 4/12/2020
-        /// Approver: Carl Davis 4/16/2020
-        /// Approver: 
-        /// Binds a button click for the search bar
-        /// </summary>
+        /// Creator: Ethan Murphy
+        /// Created: 5/5/2020
+        /// Approver: Chuck Baxter 5/5/2020
+        /// 
+        /// Changes the Reset button back to a Search button
+        /// when text is re-entered into the search bar
         /// <remarks>
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        private void PreviewKeyDown(object sender, KeyEventArgs e)
+        private void txtSearchAnimal_TextChanged(object sender, TextChangedEventArgs e)
         {
-            try
+            if (btnSearchAnimal != null &&
+                btnSearchAnimal.Content.ToString() == "Reset")
             {
-                if (e.Key == Key.Space)
-                {
-                    SearchBar_.Foreground = Brushes.Black;
-
-                    SearchBar_.Text = SearchBar_.Text + " ";
-
-                    SearchBar_.Select(SearchBar_.Text.Length + 1, 0);
-
-                    SearchBar_.Focus();
-
-                    SearchBar_.IsReadOnly = false;
-
-                }
-
-                if (e.Key == Key.Back)
-                {
-                    if (SearchBar_.Foreground == Brushes.LightGray && SearchBar_.Text.Length > 2)
-                    {
-                        SearchBar_.Foreground = Brushes.Black;
-                        SearchBar_.Clear();
-
-                        SearchBar_.IsReadOnly = false;
-                    }
-                }
+                btnSearchAnimal.Content = "Search";
             }
-            catch { }        
         }
 
         /// <summary>
-        /// Creator: Daulton Schilling
-        /// Created: 4/12/2020
-        /// Approver: Carl Davis 4/16/2020
-        /// Approver: 
-        /// Button to allow the user to search for whatever is typed in the searchbar
-        /// </summary>
+        /// Creator: Chuck Baxter
+        /// Created: 5/5/2020
+        /// Approver: Ethan Murphy 5/5/2020
+        /// 
+        /// Fixes columns in datagrid when data is populated
         /// <remarks>
         /// Updater:
         /// Updated:
         /// Update:
         /// </remarks>
-        private void SearchButton(object sender, RoutedEventArgs e)
+        private void dgActiveAnimals_AutoGeneratedColumns(object sender, EventArgs e)
         {
-            
-            NumberOfResults = DG.Items.Count;
-            // SearchBar_.Select(0, 0);
-            //SearchBar_.Clear();
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[0]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[10]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[9]);
+            dgActiveAnimals.Columns.Remove(dgActiveAnimals.Columns[8]);
 
-            try
-            {
-                NoResults.Visibility = Visibility.Hidden;
+            dgActiveAnimals.Columns[0].Header = "Name";
+            dgActiveAnimals.Columns[1].Header = "Date of Birth";
+            dgActiveAnimals.Columns[2].Header = "Species";
+            dgActiveAnimals.Columns[3].Header = "Breed";
+            dgActiveAnimals.Columns[4].Header = "Arrival Date";
+            dgActiveAnimals.Columns[5].Header = "Currently Housed";
+            dgActiveAnimals.Columns[6].Header = "Adoptable";
+            dgActiveAnimals.Columns[7].Header = "Active";
 
-                an = (AnimalNames)DG.Items[0];
-
-                SearchBar_.Visibility = Visibility.Hidden;
-                DG.Visibility = Visibility.Hidden;
-
-                List<Animal> list_ = _animalManager.RetrieveAnimalByAnimalID(an.AnimalID);
-
-                Animal NAC = (Animal)list_[0];
-
-                lblIndividualAnimalName.Content = NAC.AnimalName.ToString();
-                lblIndividualAnimalID.Content = NAC.AnimalID.ToString();
-                lblIndividualAnimalSpecies.Content = NAC.AnimalSpeciesID.ToString();
-                lblIndividualAnimalBreed.Content = NAC.AnimalBreed.ToString();
-                lblIndividualAnimalDob.Content = NAC.Dob.ToString();
-                lblIndividualAnimalArrivalDate.Content = NAC.ArrivalDate.ToString();
-
-                chkIndvidualActive.IsChecked = NAC.Active;
-                chkIndvidualAdoptable.IsChecked = NAC.Adoptable;
-                chkIndvidualCurrentlyHoused.IsChecked = NAC.CurrentlyHoused;
-
-                canIndividualAnimal.Visibility = Visibility;
-                ACE.Visibility = Visibility.Hidden;
-            }
-            catch
-            {
-                SearchSymbolButton.IsEnabled = true;
-                NoResults.Visibility = Visibility.Visible;
-
-                NoResults.Content = "No results found for " + " ' " + SearchBar_.Text + " ' ";
-            }
-        }    
+            dgActiveAnimals.Columns[0].Width = 200;
+            dgActiveAnimals.Columns[1].Width = 200;
+            dgActiveAnimals.Columns[2].Width = 200;
+            dgActiveAnimals.Columns[3].Width = 200;
+            dgActiveAnimals.Columns[4].Width = 200;
+            dgActiveAnimals.Columns[5].Width = 90;
+            dgActiveAnimals.Columns[6].Width = 90;
+            dgActiveAnimals.Columns[7].Width = 90;
+        }
     }
 }

@@ -35,17 +35,17 @@ namespace LogicLayerInterfaces
         /// Created: 03/05/2019
         /// Approver: Kaleb Bachert
         /// 
-        /// defenition for deleting a shift time,
+        /// defenition for deactivating a shift time,
         /// returns true/false if shift time was deleted
         /// takes a shift time ID as a parameter.
         /// </summary>
         /// <remarks>
-        /// Updater:NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Lane Sandburg
+        /// Updated: 05/05/2020
+        /// Update: Refactored to Deavtivate Shift Time
         /// </remarks> 
         /// <param name="shiftTime"></param>
-        bool DeleteShiftTime(int shiftTimeID);
+        bool DeactivateShiftTime(int shiftTimeID);
 
         /// <summary>
         /// Creator: Lane Sandburg
