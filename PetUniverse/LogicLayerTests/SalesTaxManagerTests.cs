@@ -22,7 +22,8 @@ namespace LogicLayerTests
         private FakeSalesTaxAccessor _fakeSalesTaxAccessor;
 
         // default constructor for fake data.
-        public SalesTaxManagerTests()
+        [TestInitialize]
+        public void Setup()
         {
             _fakeSalesTaxAccessor = new FakeSalesTaxAccessor();
         }
@@ -73,7 +74,7 @@ namespace LogicLayerTests
             // arrange
             ISalesTaxManager salesTaxManager = new SalesTaxManager(_fakeSalesTaxAccessor);
             var list = new List<SalesTax>();
-            int expected = 9;
+            int expected = 7;
 
             // act
             list = salesTaxManager.RetrieveAllSalesTax();
@@ -81,6 +82,12 @@ namespace LogicLayerTests
 
             // assert
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            _fakeSalesTaxAccessor = null;
         }
     }
 }
