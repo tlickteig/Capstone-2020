@@ -267,8 +267,6 @@ namespace WPFPresentationLayer.AMPages
         /// </remarks>
         private void DgActiveAnimals_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            try
-            {
                 selectedAnimal = (Animal)dgActiveAnimals.SelectedItem;
 
                 lblIndividualAnimalName.Content = selectedAnimal.AnimalName;
@@ -282,9 +280,6 @@ namespace WPFPresentationLayer.AMPages
                 chkIndvidualCurrentlyHoused.IsChecked = selectedAnimal.CurrentlyHoused;
 
                 canIndividualAnimal.Visibility = Visibility;
-            }
-            catch { }
-
         }
 
         /// <summary>
@@ -1143,12 +1138,12 @@ namespace WPFPresentationLayer.AMPages
 
             dgActiveAnimals.Columns[0].Width = 200;
             dgActiveAnimals.Columns[1].Width = 200;
-            dgActiveAnimals.Columns[2].Width = 200;
+            dgActiveAnimals.Columns[2].Width = 117.5;
             dgActiveAnimals.Columns[3].Width = 200;
             dgActiveAnimals.Columns[4].Width = 200;
-            dgActiveAnimals.Columns[5].Width = 90;
-            dgActiveAnimals.Columns[6].Width = 90;
-            dgActiveAnimals.Columns[7].Width = 90;
+            dgActiveAnimals.Columns[5].Width = 117.5;
+            dgActiveAnimals.Columns[6].Width = 117.5;
+            dgActiveAnimals.Columns[7].Width = 117.5;
         }
     }
 }
