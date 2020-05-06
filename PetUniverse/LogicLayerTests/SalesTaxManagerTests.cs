@@ -74,7 +74,7 @@ namespace LogicLayerTests
             // arrange
             ISalesTaxManager salesTaxManager = new SalesTaxManager(_fakeSalesTaxAccessor);
             var list = new List<SalesTax>();
-            int expected = 7;
+            int expected = 2;
 
             // act
             list = salesTaxManager.RetrieveAllSalesTax();

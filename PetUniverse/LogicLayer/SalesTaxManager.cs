@@ -50,7 +50,7 @@ namespace LogicLayer
         /// <param name="salesTaxAccessor"></param>
         public SalesTaxManager(ISalesTaxAccessor salesTaxAccessor)
         {
-            _salesTaxAccessor = new SalesTaxAccessor();
+            _salesTaxAccessor = salesTaxAccessor;
         }
 
         /// <summary>
