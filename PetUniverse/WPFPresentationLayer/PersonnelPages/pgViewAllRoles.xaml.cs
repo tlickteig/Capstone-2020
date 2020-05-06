@@ -271,7 +271,7 @@ namespace WPFPresentationLayer.PersonnelPages
         {
             lblTitle.Visibility = Visibility.Visible;
             btnAddERole.Visibility = Visibility.Visible;
-            btnDeleteERole.Visibility = Visibility.Visible;
+            btnDeleteERole.Visibility = Visibility.Collapsed;
             btnOpenRole.Visibility = Visibility.Visible;
             btnViewERole.Visibility = Visibility.Visible;
             dgERoleList.Visibility = Visibility.Visible;
