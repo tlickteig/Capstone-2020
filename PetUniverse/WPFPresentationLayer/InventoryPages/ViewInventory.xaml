@@ -33,12 +33,12 @@
                                 <ColumnDefinition Width="61*"/>
                             </Grid.ColumnDefinitions>
                             <Label Name="lblError" Height="60" Width="120" HorizontalAlignment="Left" Margin="110,5,0,5"></Label>
-                            <Button Content="Update Location" x:Name="btnUpdateItem" Width="100" Height="30" Click="btnUpdateItem_Click"  Margin="988,20,125,20" Grid.ColumnSpan="2"/>
-                            <Button Content=" Print List" x:Name="btnPrentList" HorizontalAlignment="Right" Width="100" Height="30" Margin="0,20,20,20" Grid.ColumnSpan="2"/>
-                            <Button Width="100" Height="30" x:Name="btnViewItem" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="15 3" HorizontalContentAlignment="Center" Click="btnViewItem_Click" Margin="0,20,222,20">View Item</Button>
-                            <Button Width="100" Height="30" x:Name="btnAddItems" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="15 3"  Click="btnAddItems_Click" Margin="0,20,117,20">Add Items</Button>
-                            <Button Width="100" Height="30" x:Name="btnDeactivateItem" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="15 3" Click="btnDeactivateItem_Click" Margin="883,20,12,20">Deactivate</Button>
-                            <Button Width="100" Height=" 30" x:Name="btnAddItemReport" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="0 3" Margin="0,20,327,20" Click="btnAddItemReport_Click">Add Item Report</Button>
+                            <Button Content="Update Location" x:Name="btnUpdateItem" Width="100" Height="30" Click="btnUpdateItem_Click"  Margin="0,20,118,20" Grid.Column="1"/>
+                            <Button Content=" Print List" x:Name="btnPrentList" HorizontalAlignment="Right" Width="100" Height="30" Margin="0,20,0,20" Grid.ColumnSpan="2"/>
+                            <Button Width="100" Height="30" x:Name="btnViewItem" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="15 3" HorizontalContentAlignment="Center" Click="btnViewItem_Click" Margin="0,20,292,20">View Item</Button>
+                            <Button Width="100" Height="30" x:Name="btnAddItems" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="15 3"  Click="btnAddItems_Click" Margin="0,20,187,20">Add Items</Button>
+                            <Button Width="173" Height="30" x:Name="btnDeactivateItem" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="15 3 15 3"  Click="btnDeactivateItem_Click" Margin="812,20,10,20">Deactivate/Reactivate Item</Button>
+                            <Button Width="100" Height=" 30" x:Name="btnAddItemReport" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="0 3" Margin="400 0" Click="btnAddItemReport_Click">Add Item Report</Button>
                         </Grid>
                     </Grid>
                 </Grid>
