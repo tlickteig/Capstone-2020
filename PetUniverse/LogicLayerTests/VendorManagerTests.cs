@@ -47,6 +47,21 @@ namespace LogicLayerTests
             _vendorManager = new VendorManager(_fakeVendorAccessor);
         }
 
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/16
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Tests creating a new vendor.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
+
         [TestMethod]
         public void TestCreateNewVendor()
         {
@@ -72,6 +87,20 @@ namespace LogicLayerTests
             Assert.AreEqual(expectedResult, created);
         }
 
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/16
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Tests getting a list of Vendors.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
         [TestMethod]
         public void TestListVendor()
         {
@@ -86,6 +115,20 @@ namespace LogicLayerTests
             Assert.AreEqual(expectedResult, vendors.Count);
         }
 
+        /// <summary>
+        /// Creator: Brandyn T. Coverdill
+        /// Created: 2020/04/16
+        /// Approver: Kaleb Bachert
+        /// Approver: Jesse Tomash
+        ///
+        /// Test for updating a vendor.
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updated By: 
+        /// Updated: 
+        /// Update:
+        /// </remarks>
         [TestMethod]
         public void TestUpdateVendor()
         {

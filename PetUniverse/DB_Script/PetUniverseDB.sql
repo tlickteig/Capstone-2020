@@ -6357,6 +6357,9 @@ Comment: Added the ShelterItem to the Select to allow Shelter Item to show up on
 Updated By: Brandyn T. Coverdill
 Date: 2020-04-10
 Comment: Added the Active field to the select to allow active items and deactive items.
+Updated By: Brandyn T. Coverdill
+Date: 5/6/2020
+Comment: Added the ShelterThershold field.
 */
 DROP PROCEDURE IF EXISTS [sp_retrieve_items]
 GO
@@ -6372,7 +6375,8 @@ BEGIN
         [ic].[ItemCategoryID],
         [i].[ItemDescription],
 		[i].[Active],
-		[i].[ShelterItem]
+		[i].[ShelterItem],
+		[i].[ShelterThershold]
 	FROM [dbo].[Item] i
 	INNER JOIN [dbo].[ItemCategory] ic
 	ON [i].[ItemCategoryID] = [ic].[ItemCategoryID]
@@ -14766,22 +14770,6 @@ INSERT INTO [dbo].[Item]
 	(4,' Medication1', 'Medical', ''),
 	(4,' Medication2', 'Medical', '')
 GO
-
-/*
-Created by: Tener Karar
-Date: 02/27/2020
-Comment: inserting Item sample data
-*/
-print '' print '*** inserting Item sample data'
-GO
-INSERT INTO [dbo].[Item]
-	([ItemName], [ItemQuantity], [ItemCategoryID], [ItemDescription] )
-VALUES
-	('loon', 1, 'cat',' Litter-Robot 3 is the highest-rated automatic,
-    self-cleaning litter box for cats.
-    Never scoop cat litter again while giving your kitty a clean
-    bed of litter for each use. Litter-Robot ' )
-go
 
 /*
 Created by: Cash Carlson
