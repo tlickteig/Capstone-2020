@@ -1,6 +1,7 @@
 ﻿using DataAccessInterfaces;
 using DataTransferObjects;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -59,6 +60,46 @@ namespace DataAccessLayer
                 conn.Close();
             }
             return rows;
+        }
+
+        public List<SalesTax> SelectAllSalesTax()
+        {
+            var salesTaxes = new List<SalesTax>();
+
+            var conn = DBConnection.GetConnection();
+            var cmdText = "sp_select_all_sales_tax";
+
+            var cmd = new SqlCommand(cmdText, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            try
+            {
+                conn.Open();
+                var reader = cmd.ExecuteReader();
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        salesTaxes.Add(new SalesTax
+                        {
+                            ZipCode = reader.GetString(0),
+                            TaxDate = reader.GetDateTime(1),
+                            TaxRate = reader.GetDecimal(2)
+                        });
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return salesTaxes;
         }
     }
 }

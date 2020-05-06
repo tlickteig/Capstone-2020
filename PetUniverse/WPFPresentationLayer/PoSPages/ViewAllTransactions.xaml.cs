@@ -1,6 +1,7 @@
 ﻿using DataTransferObjects;
 using LogicLayer;
 using LogicLayerInterfaces;
+using PresentationUtilityCode;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -67,31 +68,33 @@ namespace WPFPresentationLayer.PoSPages
         /// This method displays a single transaction details with double click.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: No longer crashes with no selection.
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void DgTransactionsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            canViewTransactions.Visibility = Visibility.Hidden;
-            xTransactionDetails.Visibility = Visibility.Visible;
-            _transactionVM = (TransactionVM)dgTransactionsList.SelectedItem;
-            txtTransactionID.Text = _transactionVM.TransactionID.ToString();
-            txtTransactionDate.Text = _transactionVM.TransactionDateTime.ToString();
-            txtEmployeeID.Text = _transactionVM.EmployeeID.ToString();
-            txtFirstName.Text = _transactionVM.FirstName.ToString();
-            txtLastName.Text = _transactionVM.LastName.ToString();
-            txtTransactionTypeID.Text = _transactionVM.TransactionTypeID.ToString();
-            txtTransactionStatusID.Text = _transactionVM.TransactionStatusID.ToString();
-            txtTransactionTaxRate.Text = _transactionVM.TaxRate.ToString();
-            txtTransactionSubTotalTaxable.Text = _transactionVM.SubTotalTaxable.ToString();
-            txtTransactionSubTotal.Text = _transactionVM.SubTotal.ToString();
-            txtTransactionTotal.Text = _transactionVM.Total.ToString();
+            if (dgTransactionsList.SelectedItem != null)
+            {
+                canViewTransactions.Visibility = Visibility.Hidden;
+                xTransactionDetails.Visibility = Visibility.Visible;
+                _transactionVM = (TransactionVM)dgTransactionsList.SelectedItem;
+                txtTransactionID.Text = _transactionVM.TransactionID.ToString();
+                txtTransactionDate.Text = _transactionVM.TransactionDateTime.ToString();
+                txtEmployeeID.Text = _transactionVM.EmployeeID.ToString();
+                txtFirstName.Text = _transactionVM.FirstName.ToString();
+                txtLastName.Text = _transactionVM.LastName.ToString();
+                txtTransactionTypeID.Text = _transactionVM.TransactionTypeID.ToString();
+                txtTransactionStatusID.Text = _transactionVM.TransactionStatusID.ToString();
+                txtTransactionTaxRate.Text = _transactionVM.TaxRate.ToString();
+                txtTransactionSubTotalTaxable.Text = _transactionVM.SubTotalTaxable.ToString();
+                txtTransactionSubTotal.Text = _transactionVM.SubTotal.ToString();
+                txtTransactionTotal.Text = _transactionVM.Total.ToString();
 
-            populateProductList();
-
+                populateProductList();
+            }
         }
 
         /// <summary>
@@ -114,15 +117,31 @@ namespace WPFPresentationLayer.PoSPages
             xTransactionDetails.Visibility = Visibility.Hidden;
         }
 
+        /// <summary>
+        /// Creator: Jaeho Kim
+        /// Created: 3/7/2020
+        /// Approver: Rasha Mohammed
+        /// 
+        /// Removes item from transaction
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnRemoveItem_Click(object sender, RoutedEventArgs e)
         {
             TransactionVM transaction = (TransactionVM)dgProductList.SelectedItem;
-
-            _transactionManager.DeleteItem(transaction.ProductID);
+            if (transaction != null)
+            {
+                _transactionManager.DeleteItem(transaction.ProductID);
+            }
 
             if (true)
             {
-                MessageBox.Show("Are You Sure? The item will be remove");
+                MessageBox.Show("Are You Sure? The item will be removed");
                 TransactionVM _transaction = (TransactionVM)dgProductList.SelectedItem;
                 populateProductList();
 
@@ -140,14 +159,16 @@ namespace WPFPresentationLayer.PoSPages
         /// This event automatically adjusts the data grid whenever the window is loaded
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: Hid a couple more fields.
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgTransactionsList_AutoGeneratedColumns(object sender, EventArgs e)
         {
+            dgTransactionsList.Columns.RemoveAt(20);
+            dgTransactionsList.Columns.RemoveAt(19);
             dgTransactionsList.Columns.RemoveAt(14);
             dgTransactionsList.Columns.RemoveAt(13);
             dgTransactionsList.Columns.RemoveAt(12);
@@ -160,7 +181,7 @@ namespace WPFPresentationLayer.PoSPages
             dgTransactionsList.Columns.RemoveAt(5);
             dgTransactionsList.Columns.RemoveAt(4);
             dgTransactionsList.Columns.RemoveAt(3);
-            dgTransactionsList.Columns.RemoveAt(2);
+            dgTransactionsList.Columns.RemoveAt(2);           
         }
 
 
@@ -172,14 +193,17 @@ namespace WPFPresentationLayer.PoSPages
         /// This event automatically adjusts the data grid whenever the window is loaded
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: Hid some more fields
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgProductList_AutoGeneratedColumns(object sender, EventArgs e)
         {
+            dgProductList.Columns.RemoveAt(20);
+            dgProductList.Columns.RemoveAt(19);
+            dgProductList.Columns.RemoveAt(18);
             dgProductList.Columns.RemoveAt(17);
             dgProductList.Columns.RemoveAt(16);
             dgProductList.Columns.RemoveAt(15);
@@ -190,7 +214,6 @@ namespace WPFPresentationLayer.PoSPages
             dgProductList.Columns.RemoveAt(10);
             dgProductList.Columns.RemoveAt(9);
             dgProductList.Columns.RemoveAt(8);
-            dgProductList.Columns.RemoveAt(2);
             dgProductList.Columns.RemoveAt(1);
             dgProductList.Columns.RemoveAt(0);
         }
@@ -218,8 +241,20 @@ namespace WPFPresentationLayer.PoSPages
 
                 string lastName = txtEmployeeLastName.Text.ToString();
 
-                // Retrieve transactions
-                dgTransactionsList.ItemsSource = _transactionManager.RetrieveTransactionByEmployeeName(firstName, lastName);
+                if (firstName.Equals("") || firstName == null)
+                {
+                    WPFErrorHandler.ErrorMessage("Enter a first name.");
+                    txtEmployeeFirstName.Focus();
+                }
+                else if (lastName.Equals("") || lastName == null)
+                {
+                    WPFErrorHandler.ErrorMessage("Enter a last name.");
+                }
+                else
+                {
+                    // Retrieve transactions
+                    dgTransactionsList.ItemsSource = _transactionManager.RetrieveTransactionByEmployeeName(firstName, lastName);
+                }
             }
             catch (Exception ex)
             {
@@ -253,7 +288,7 @@ namespace WPFPresentationLayer.PoSPages
                 {
 
 
-                    dtpTransaction2.Value = DateTime.Today;
+                    dtpTransaction2.Value = DateTime.Now;
 
                     dtpTransaction.Value = DateTime.Now.AddDays(-30);
 

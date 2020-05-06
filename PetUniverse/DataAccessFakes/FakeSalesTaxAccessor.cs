@@ -66,5 +66,10 @@ namespace DataAccessFakes
 
             return result;
         }
+
+        public List<SalesTax> SelectAllSalesTax()
+        {
+            return _salesTaxes;
+        }
     }
 }

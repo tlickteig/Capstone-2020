@@ -2,6 +2,7 @@
 using LogicLayer;
 using LogicLayerInterfaces;
 using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
@@ -39,6 +40,7 @@ namespace WPFPresentationLayer.PoSPages
         {
             InitializeComponent();
             _salesTaxManager = new SalesTaxManager();
+            loadData();
         }
 
 
@@ -162,9 +164,10 @@ namespace WPFPresentationLayer.PoSPages
 
             canSalesTaxDetails.Visibility = Visibility.Hidden;
 
-            dpTaxDate = null;
+            dpTaxDate.Text = null;
             txtTaxRate.Clear();
             txtZipCode.Clear();
+            loadData();
         }
 
         /// <summary>
@@ -188,5 +191,24 @@ namespace WPFPresentationLayer.PoSPages
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 5/5/2020
+        /// Approver: 
+        /// 
+        /// Loads data to data grid.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        private void loadData()
+        {
+            dgSalesTaxRecords.ItemsSource = _salesTaxManager.RetrieveAllSalesTax()
+                .OrderByDescending(x => x.TaxDate).ThenBy(x => x.ZipCode);
+        }
+
     }
 }

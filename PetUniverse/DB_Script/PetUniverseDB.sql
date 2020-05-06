@@ -14296,6 +14296,20 @@ BEGIN
 END
 GO
 
+print '' print '*** Creating sp_select_all_sales_tax'
+GO
+DROP PROCEDURE IF EXISTS [sp_select_all_sales_tax]
+GO
+CREATE PROCEDURE [sp_select_all_sales_tax]
+AS
+BEGIN 
+	SELECT 
+		[ZipCode],
+		[SalesTaxDate],
+		[TaxRate]
+	FROM [dbo].[SalesTaxHistory]
+END
+GO
 
 /*
  ******************************* Inserting Sample Data *****************************
@@ -15505,7 +15519,7 @@ Insert INTO [dbo].[TransactionLineProducts]
 	(1000, '7084781116', 1, 37.22),
 	(1000, '2500006153', 1, 11.11),
 	(1001, '7084781116', 2, 74.44),
-	(1002, '7084781116', -5, -50.00)
+	(1002, '7084781116', 5, 50.00)
 Go
 
 /*
@@ -16823,7 +16837,5 @@ INSERT INTO [dbo].[TrainingVideoLine]
 VALUES
 	(100003, 'AnotherLink', 1)
 GO
-
-
 
 -- End of file

@@ -143,17 +143,27 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Method used for Deactivate Button on Click
         /// </summary>
+        /// <remarks>
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: No longer crashes if nothing is selected.
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnDeactivateProduct_Click(object sender, RoutedEventArgs e)
         {
             InventoryItems _inventoryItem = (InventoryItems)dgInventoryItems.SelectedItem;
-            if (_inventoryItem.Active) {
-                _productManager.DeactivateProduct(_inventoryItem.ProductID);
-                RefreshData();
-            }
-            else {
-                MessageBox.Show("This product is already deactivated!");
+            if (_inventoryItem != null)
+            {
+                if (_inventoryItem.Active)
+                {
+                    _productManager.DeactivateProduct(_inventoryItem.ProductID);
+                    RefreshData();
+                }
+                else
+                {
+                    MessageBox.Show("This product is already deactivated!");
+                }
             }
         }
 
@@ -164,19 +174,35 @@ namespace WPFPresentationLayer.PoSPages
         /// 
         /// Method used for Activate Button on Click
         /// </summary>
+        /// <remarks>
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: No longer crashes if nothing is selected.
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnActivateProduct_Click(object sender, RoutedEventArgs e)
         {
             InventoryItems _inventoryItem = (InventoryItems)dgInventoryItems.SelectedItem;
-            if (!_inventoryItem.Active)
+            if (_inventoryItem != null)
             {
-                _productManager.ActivateProduct(_inventoryItem.ProductID);
-                RefreshData();
+                if (!_inventoryItem.Active)
+                {
+                    _productManager.ActivateProduct(_inventoryItem.ProductID);
+                    RefreshData();
+                }
+                else
+                {
+                    MessageBox.Show("This product is already active!");
+                }
             }
-            else
+        }
+
+        private void btnEditProduct_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgInventoryItems.SelectedItem != null)
             {
-                MessageBox.Show("This product is already active!");
+                _frame.Navigate(new pgAddEditViewProduct(_frame, (InventoryItems)dgInventoryItems.SelectedItem, editMode: true));
             }
         }
     }

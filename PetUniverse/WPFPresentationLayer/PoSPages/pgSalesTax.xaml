@@ -54,7 +54,13 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Row="1" Grid.Column="1" FontWeight="Bold" FontSize="15">Sales Tax Records:</Label>
-                        <DataGrid x:Name="dgSalesTaxRecords" Grid.Row="2" Grid.Column="1"></DataGrid>
+                        <DataGrid x:Name="dgSalesTaxRecords" Grid.Row="2" Grid.Column="1" IsReadOnly="True" AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Binding="{Binding Path=ZipCode}" Header="Zip Code" />
+                                <DataGridTextColumn Binding="{Binding Path=TaxRate, StringFormat=p}" Header="Tax Rate" />
+                                <DataGridTextColumn Binding="{Binding Path=TaxDate, StringFormat=d}" Header="Effective Date" />
+                            </DataGrid.Columns>
+                        </DataGrid>
 
                     </Grid>
 

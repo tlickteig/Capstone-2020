@@ -163,17 +163,15 @@ namespace WPFPresentation.Controllers
         /// Currently just gets the first few items in alphabetical order.
         /// </summary>
         /// <remarks>
-        /// Updater: 
-        /// Updated: 
-        /// Update:
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: Doesn't just get the same item every time.
         /// </remarks>
         public PartialViewResult GetPopularItem(int index)
         {
             var products = _productManager.RetrieveAllProducts()
                 .OrderBy(p => p.Name);
-            products.Skip(index % products.Count())
-                .Take(1);
-            Product product = products.FirstOrDefault();
+            Product product = products.Skip(index % products.Count()).First();
             return PartialView("_PopularProductPartial", product);
         }
 
