@@ -323,6 +323,11 @@ namespace WPFPresentationLayer.AdoptionsPages
             dgAnimalProfiles.Columns.RemoveAt(3);
             dgAnimalProfiles.Columns.RemoveAt(3);
 
+            dgAnimalProfiles.Columns[0].Header = "Animal ID";
+            dgAnimalProfiles.Columns[1].Header = "Animal Name";
+            dgAnimalProfiles.Columns[2].Header = "Dob";
+            dgAnimalProfiles.Columns[3].Header = "Image Data";
+            dgAnimalProfiles.Columns[4].Header = "Image Mime Type";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
