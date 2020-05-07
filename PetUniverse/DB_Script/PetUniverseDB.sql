@@ -7533,7 +7533,8 @@ BEGIN
 		   [ItemName],
 		   [ItemQuantity],
 		   [ItemCategoryID],
-		   [ItemDescription]
+		   [ItemDescription],
+		   [ShelterItem]
 	FROM [dbo].[Item]
 	WHERE [Active] = @Active
 END

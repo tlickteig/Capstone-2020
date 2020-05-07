@@ -86,11 +86,11 @@ namespace WPFPresentationLayer.AMPages
         private void btnAddLocationRecord_Click(object sender, RoutedEventArgs e)
         {
             canView.Visibility = Visibility.Hidden;
-            canAddRecord.Visibility = Visibility.Visible;            
+            canAddRecord.Visibility = Visibility.Visible;
             EnableEditingFields();
             addMode = true;
             lblTitle.Content = "Register New Kennel Record";
-            txtUserID.Text = _user.PUUserID.ToString();            
+            txtUserID.Text = _user.PUUserID.ToString();
         }
 
         /// <summary>
@@ -133,7 +133,30 @@ namespace WPFPresentationLayer.AMPages
         {
             canViewKennelList.Visibility = Visibility.Visible;
             canAddRecord.Visibility = Visibility.Hidden;
+            ResetFields();
 
+            addMode = false;
+            RefreshData();
+            oldKennel = null;
+            canView.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// Creator: Ben Hanna
+        /// Created: 5/06/2020
+        /// Approver: Cash Carlson, 5/6/2020
+        /// 
+        /// Extracted method to reset all data fields between changing tabs.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// Approver: 
+        /// </remarks>
+        /// </summary>
+        private void ResetFields()
+        {
             txtAnimalID.Text = "";
             txtDateIn.Text = "";
             txtDateOut.Text = "";
@@ -147,11 +170,6 @@ namespace WPFPresentationLayer.AMPages
             txtKennelInfo.IsEnabled = false;
             txtUserID.IsEnabled = false;
             btnAddDateOut.IsEnabled = false;
-
-            addMode = false;
-            RefreshData();
-            oldKennel = null;
-            canView.Visibility = Visibility.Visible;
         }
 
         /// <summary>
@@ -186,12 +204,12 @@ namespace WPFPresentationLayer.AMPages
             }
             if (!int.TryParse(txtAnimalID.Text, out animalID))
             {
-                MessageBox.Show("ID fields may not contain anything but an integer number");
+                MessageBox.Show("ID fields may only contain whole numbers.");
                 return;
             }
             else if (!int.TryParse(txtUserID.Text, out userID))
             {
-                MessageBox.Show("ID fields may not contain anything but an integer number");
+                MessageBox.Show("ID fields may only contain whole numbers.");
                 return;
             }
             else
@@ -219,6 +237,8 @@ namespace WPFPresentationLayer.AMPages
                         _kennelManager.EditKennelRecord(oldKennel, newKennel);
                         WPFErrorHandler.SuccessMessage("Kennel Record Successfully Edited");
                     }
+
+                    ResetFields();
                 }
                 catch (Exception ex)
                 {
@@ -228,6 +248,7 @@ namespace WPFPresentationLayer.AMPages
                 {
                     oldKennel = null;
                     RefreshData();
+
                 }
                 canView.Visibility = Visibility.Visible;
                 canAddRecord.Visibility = Visibility.Hidden;
@@ -315,7 +336,7 @@ namespace WPFPresentationLayer.AMPages
             canView.Visibility = Visibility.Hidden;
             if (oldKennel.AnimalKennelDateOut == null)
             {
-                btnAddDateOut.Visibility = Visibility.Visible;                
+                btnAddDateOut.Visibility = Visibility.Visible;
             }
         }
 

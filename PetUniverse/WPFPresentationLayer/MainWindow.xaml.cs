@@ -162,7 +162,7 @@ namespace WPFPresentationLayer
                                 }
                             }
 
-                            if (pwdPassword.Password == "")
+                            if (pwdPassword.Password == "newuser")
                             {
                                 var updatePassword = new UpdatePassword(_user, _userManager);
                                 if (updatePassword.ShowDialog() == false)
