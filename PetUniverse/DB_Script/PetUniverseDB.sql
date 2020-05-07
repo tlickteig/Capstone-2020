@@ -5626,6 +5626,25 @@ BEGIN
 END
 GO
 
+
+/*
+Created by: Hassan Karar.
+Date: 2020/03/11
+Comment: Job Listing table, used to create the job listing.
+*/
+print '' print '* Creating sp_retrieve_JobListing'
+GO
+CREATE PROCEDURE [sp_retrieve_JobListing]
+AS
+BEGIN
+	SELECT    [JobListingID], [RoleID], [Benefits], [Requirements], [StartingWage], [Responsibilities]   	
+	FROM      [dbo].[JobListing]
+	ORDER BY  [JobListingID]
+	
+END
+GO
+
+
 /*
 Created By: Timothy Lickteig
 Date: 2/07/2020
@@ -5679,6 +5698,29 @@ BEGIN
 	WHERE [VolunteerShiftID] = @ShiftID
 END
 GO
+
+
+/*
+Created by: Hassan Karar.
+Date: 2020/3/16
+Comment: delete an JobListing
+*/
+print '' print '*** Creating sp_delete_JobListing ' 
+GO
+CREATE PROCEDURE [sp_delete_JobListing] 
+	(
+	
+   @JobListingID			[int]
+	)
+AS
+	BEGIN
+	DELETE  FROM 	[dbo].[JobListing]
+	
+	WHERE [JobListingID] = @JobListingID
+	  
+	END
+GO
+
 
 /*
     AUTHOR: Timothy Lickteig
@@ -15759,6 +15801,60 @@ BEGIN
 END
 GO
 
+
+
+/*
+Created by: Hassan Karar.
+Date: 2020/3/18
+Comment: update an old JobListing to new JobListing.
+*/
+print ''  print '*** Creating sp_update_JobListing'
+GO
+CREATE PROCEDURE [sp_update_JobListing]
+(
+    --New rows
+	
+    @OldJobListingID			         [int],
+	
+	@OldRoleID		            [nvarchar](50),
+	@OldBenefits		        [nvarchar](250),
+    @OldRequirements		    [nvarchar](250),
+    @OldStartingWage	        [decimal] (9,2),
+    @OldResponsibilities		[nvarchar](700),
+	
+	
+	@NewRoleID                  [nvarchar](50),
+	@NewBenefits		        [nvarchar](250),
+    @NewRequirements		    [nvarchar](250),
+    @NewStartingWage	        [decimal] (9,2),
+    @NewResponsibilities		[nvarchar](700)	
+		
+)
+
+AS
+BEGIN
+	Update [dbo].[JobListing]
+	SET
+	[RoleID] = @NewRoleID,
+	[Benefits]= @NewBenefits,
+	[Requirements]=  @NewRequirements,
+	[StartingWage] = @NewStartingWage,
+	[Responsibilities] =   @NewResponsibilities 
+	
+	
+	Where [JobListingID]= @OldJobListingID 
+	And [RoleID] = @OldRoleID
+	And [Benefits]= @OldBenefits
+	And [Requirements]=  @OldRequirements
+	And [StartingWage] = @OldStartingWage
+	And [Responsibilities] = @OldResponsibilities
+	
+	RETURN @@ROWCOUNT
+	
+	
+END
+GO
+
 /*
 Created by: Dalton Reierson
 Date: 2020/04/28
@@ -16558,34 +16654,6 @@ INSERT INTO [dbo].[Availability]
 GO
 
 
-
-
-/*
-Created by: Hassan Karar
-Date: 2020/2/7
-Comment: Creating a stored procedure to insert into Request Response table.
-*/
-print '' print '*** Creating sp_insert_RequestResponse'
-GO
-CREATE PROCEDURE [sp_insert_RequestResponse]
-(
-
-	  @RequestID	                       [int],
-	  @UserID                              [int],
-      @Response       	                   [nvarchar](4000)
-    /*  @RequestResponseID                   [int]  */
-
-)
-AS
-BEGIN
-	INSERT INTO [dbo].[RequestResponse]
-		([RequestID],[UserID],[Response],[ResponseTimeStamp])
-	VALUES
-		(@RequestID,@UserID ,@Response, CURRENT_TIMESTAMP)
-	SELECT @@ROWCOUNT
-END
-GO
-
 /*
 Created by: Hassan Karar
 Date: 2020/2/7
@@ -16607,21 +16675,31 @@ END
 GO
 
 
+
+
 /*
 Created by: Hassan Karar
-Date: 2/7/2020
-Comment: Creating a stored procedure to select_Department Request.
+Date: 2020/2/7
+Comment: Creating a stored procedure to insert into Request Response table.
 */
-
-print '' print '*** Creating sp_select_DepartmentRequest'
+print '' print '*** Creating sp_insert_RequestResponse'
 GO
-CREATE PROCEDURE [sp_select_DepartmentRequest]
+CREATE PROCEDURE [sp_insert_RequestResponse]
+(
 
+	  @RequestID	                       [int],
+	  @UserID                              [int],
+      @Response       	                   [nvarchar](4000)
+    
+
+)
 AS
 BEGIN
-	SELECT [DeptRequestID],[RequestSubject],[RequestBody]
-	FROM 	[DepartmentRequest]
-
+	INSERT INTO [dbo].[RequestResponse]
+		([RequestID],[UserID],[Response],[ResponseTimeStamp])
+	VALUES
+		(@RequestID,@UserID ,@Response, CURRENT_TIMESTAMP)
+	SELECT @@ROWCOUNT
 END
 GO
 
@@ -16674,48 +16752,25 @@ GO
 
 
 
-
-
 /*
-Created by: Hassan Karar.
-Date: 2020/3/16
-Comment: delete an JobListing
+Created by: Hassan Karar
+Date: 2/7/2020
+Comment: Creating a stored procedure to select_Department Request.
 */
-print '' print '*** Creating sp_delete_JobListing ' 
+
+print '' print '*** Creating sp_select_DepartmentRequest'
 GO
-CREATE PROCEDURE [sp_delete_JobListing] 
-	(
-	
-   @JobListingID			[int]
-	)
-AS
-	BEGIN
-	DELETE  FROM 	[dbo].[JobListing]
-	
-	WHERE [JobListingID] = @JobListingID
-	  
-	END
-GO
+CREATE PROCEDURE [sp_select_DepartmentRequest]
 
-
-
-
-/*
-Created by: Hassan Karar.
-Date: 2020/03/11
-Comment: Job Listing table, used to create the job listing.
-*/
-print '' print '* Creating sp_retrieve_JobListing'
-GO
-CREATE PROCEDURE [sp_retrieve_JobListing]
 AS
 BEGIN
-	SELECT    [JobListingID], [RoleID], [Benefits], [Requirements], [StartingWage], [Responsibilities]   	
-	FROM      [dbo].[JobListing]
-	ORDER BY  [JobListingID]
-	
+	SELECT [DeptRequestID],[RequestSubject],[RequestBody]
+	FROM 	[DepartmentRequest]
+
 END
 GO
+
+
 
 /*
 Created by: Hassan Karar
@@ -16743,59 +16798,6 @@ BEGIN
 END
 GO
 
-
-
-/*
-Created by: Hassan Karar.
-Date: 2020/3/18
-Comment: update an old JobListing to new JobListing.
-*/
-print ''  print '*** Creating sp_update_JobListing'
-GO
-CREATE PROCEDURE [sp_update_JobListing]
-(
-    --New rows
-	
-    @OldJobListingID			         [int],
-	
-	@OldRoleID		            [nvarchar](50),
-	@OldBenefits		        [nvarchar](250),
-    @OldRequirements		    [nvarchar](250),
-    @OldStartingWage	        [decimal] (9,2),
-    @OldResponsibilities		[nvarchar](700),
-	
-	
-	@NewRoleID                  [nvarchar](50),
-	@NewBenefits		        [nvarchar](250),
-    @NewRequirements		    [nvarchar](250),
-    @NewStartingWage	        [decimal] (9,2),
-    @NewResponsibilities		[nvarchar](700)	
-		
-)
-
-AS
-BEGIN
-	Update [dbo].[JobListing]
-	SET
-	[RoleID] = @NewRoleID,
-	[Benefits]= @NewBenefits,
-	[Requirements]=  @NewRequirements,
-	[StartingWage] = @NewStartingWage,
-	[Responsibilities] =   @NewResponsibilities 
-	
-	
-	Where [JobListingID]= @OldJobListingID 
-	And [RoleID] = @OldRoleID
-	And [Benefits]= @OldBenefits
-	And [Requirements]=  @OldRequirements
-	And [StartingWage] = @OldStartingWage
-	And [Responsibilities] = @OldResponsibilities
-	
-	RETURN @@ROWCOUNT
-	
-	
-END
-GO
 
 
 /*

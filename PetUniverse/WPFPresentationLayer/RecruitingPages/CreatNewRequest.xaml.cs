@@ -380,13 +380,13 @@ namespace WPFPresentationLayer.RecruitingPages
             }
             if (result)
             {
-                lblError.Content = "Request Cancled";
+                lblViewError.Content = "Request Cancled";
                 DGResponds.ItemsSource = show.responds();
             }
 
             else
             {
-                lblViewError.Content = "you have to select a request to cancel";
+                lblViewError.Content = "you have to select a request first";
 
             }
         }
