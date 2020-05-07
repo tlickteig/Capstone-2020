@@ -25,7 +25,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/17
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Default constructor.
         /// </summary>
@@ -56,7 +56,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/17
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Constructor that takes a frame for navigation purposes.
         /// </summary>
@@ -89,7 +89,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/17
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Filters the list of items based on the content of txtSearch.
         /// </summary>
@@ -153,7 +153,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/17
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Format columns for the data grid.
         /// </summary>
@@ -197,7 +197,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/17
-        /// Approver:
+        /// Approver: Cash Carlson
         /// 
         /// Returns a list containing only items without associated products.
         /// </summary>
@@ -212,20 +212,23 @@ namespace WPFPresentationLayer.PoSPages
         private List<Item> getItemsWithoutProducts(List<Item> items)
         {
             var filteredItems = new List<Item>();
-            foreach (Item i in _items)
+            if (_items != null)
             {
-                bool hasProduct = false;
-                foreach (Product p in _products)
+                foreach (Item i in _items)
                 {
-                    if (i.ItemID == p.ItemID)
+                    bool hasProduct = false;
+                    foreach (Product p in _products)
                     {
-                        hasProduct = true;
-                        break;
+                        if (i.ItemID == p.ItemID)
+                        {
+                            hasProduct = true;
+                            break;
+                        }
                     }
-                }
-                if (!hasProduct)
-                {
-                    filteredItems.Add(i);
+                    if (!hasProduct)
+                    {
+                        filteredItems.Add(i);
+                    }
                 }
             }
             return filteredItems;
@@ -234,7 +237,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/17
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Navigates to the previous page.
         /// </summary>
@@ -254,7 +257,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/18
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Sends inventory item data to the page used to create a new product.
         /// </summary>
@@ -278,7 +281,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <summary>
         /// Creator: Robert Holmes
         /// Created: 2020/03/18
-        /// Approver: 
+        /// Approver: Cash Carlson
         /// 
         /// Sends inventory item data to the page used to create a new product but with a double click.
         /// </summary>
