@@ -376,9 +376,10 @@ namespace WPFPresentationLayer.PersonnelPages
         /// button
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Jordan Lindo
+        /// Updated: 5/6/2020
+        /// Update: Disabled cboShiftTimeDepartment
+        /// 
         /// </remarks>
         private void btnShiftTimeEdit_Click(object sender, RoutedEventArgs e)
         {
@@ -396,7 +397,7 @@ namespace WPFPresentationLayer.PersonnelPages
                 btnShiftTimeAdd.IsEnabled = false;
                 btnShiftTimeDelete.IsEnabled = false;
                 btnShiftTimeCancel.IsEnabled = true;
-                cboShiftTimeDepartment.IsEnabled = true;
+                cboShiftTimeDepartment.IsEnabled = false;
                 TPStartTime.IsReadOnly = false;
                 TPEndTime.IsReadOnly = false;
                 TPStartTime.IsEnabled = true;

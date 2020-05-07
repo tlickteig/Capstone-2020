@@ -214,13 +214,16 @@ namespace LogicLayer
                                                 // Short availabilities will be skipped.
                                                 if (availableLength.TotalHours >= minimumHoursToWork)
                                                 {
-                                                    if (shiftStart.CompareTo(availabilityStart) <= 0)
+                                                    // If the shift start time is after or equal to the availability start time.
+                                                    if (shiftStart.CompareTo(availabilityStart) >= 0)
                                                     {
+                                                        // If the shift end time is after or equal with the availability end time.
                                                         if (shiftEnd.CompareTo(availabilityEnd) >= 0)
                                                         {
-                                                            if (shiftLength.Subtract(availabilityStart
-                                                                - shiftStart).TotalHours >= minimumHoursToWork)
+                                                            // If the diference between availability start and 
+                                                            if (availabilityEnd.Subtract(shiftStart).TotalHours >= minimumHoursToWork)
                                                             {
+                                                                shiftEnd = availabilityEnd;
                                                                 found = true;
                                                             }
                                                         }
@@ -229,20 +232,26 @@ namespace LogicLayer
                                                             found = true;
                                                         }
                                                     }
+                                                    // Checks if the person is available for enough of the shift to be scheduled.
                                                     else if ((shiftEnd.Subtract(availabilityStart)).TotalHours >= minimumHoursToWork)
                                                     {
+                                                        shiftStart = availabilityStart;
                                                         found = true;
                                                     }
 
                                                     if (found)
                                                     {
                                                         bool allowed = true;
+                                                        // A loop to see if a person is already scheduled the current day.
                                                         foreach (PUUserVMHours userVMHours in _employeeHours)
                                                         {
+                                                            // If the person is found on the current day
                                                             if (userVMHours.PUUserID.Equals(candidate.PUUserID))
                                                             {
+                                                                // If the date is in the first week
                                                                 if (i < (daysInSchedule / 2))
                                                                 {
+                                                                    // Check if the user is already scheduled for 40 hours
                                                                     if (userVMHours.Week1Hours >= 40)
                                                                     {
                                                                         allowed = false;
@@ -257,28 +266,34 @@ namespace LogicLayer
                                                                 }
                                                             }
                                                         }
+                                                        // If the user hasn't already been scheduled for 40 hours in a week.
                                                         if (allowed)
                                                         {
+                                                            // UserId is added to the list of people scheduled on a day.
                                                             employeeIDsInSchedule[i].Add(candidate.PUUserID);
                                                             chosen = candidate;
                                                             bool inList = false;
+                                                            // Loop to see if a corresponding user is in the list of hours.
                                                             foreach (PUUserVMHours userVMHours in _employeeHours)
                                                             {
+                                                                // If user matches an member
                                                                 if (userVMHours.PUUserID.Equals(chosen.PUUserID))
                                                                 {
                                                                     inList = true;
+                                                                    // Find which week's total hours to update
                                                                     if (i < (daysInSchedule / 2))
                                                                     {
-                                                                        userVMHours.Week1Hours += (decimal)(shiftEnd.Subtract(availabilityStart)).TotalHours;
+                                                                        userVMHours.Week1Hours += (decimal)(shiftEnd.Subtract(shiftStart)).TotalHours;
                                                                     }
                                                                     else
                                                                     {
-                                                                        userVMHours.Week2Hours += (decimal)(shiftEnd.Subtract(availabilityStart)).TotalHours;
+                                                                        userVMHours.Week2Hours += (decimal)(shiftEnd.Subtract(shiftStart)).TotalHours;
                                                                     }
                                                                 }
                                                             }
                                                             if (!inList)
                                                             {
+                                                                // Build a new userVMHours add the hours to the correct week.
                                                                 PUUserVMHours userVMHours = new PUUserVMHours
                                                                 {
                                                                     PUUserID = chosen.PUUserID,
@@ -288,17 +303,18 @@ namespace LogicLayer
                                                                 };
                                                                 if (i < (daysInSchedule / 2))
                                                                 {
-                                                                    userVMHours.Week1Hours += (decimal)(shiftEnd.Subtract(availabilityStart)).TotalHours;
+                                                                    userVMHours.Week1Hours += (decimal)(shiftEnd.Subtract(shiftStart)).TotalHours;
                                                                     userVMHours.Week2Hours = 0;
                                                                 }
                                                                 else
                                                                 {
                                                                     userVMHours.Week1Hours = 0;
-                                                                    userVMHours.Week2Hours += (decimal)(shiftEnd.Subtract(availabilityStart)).TotalHours;
+                                                                    userVMHours.Week2Hours += (decimal)(shiftEnd.Subtract(shiftStart)).TotalHours;
                                                                 }
                                                                 _employeeHours.Add(userVMHours);
                                                             }
                                                         }
+                                                        // If it was found, but failed to meet the alternate requirements set found back to false.
                                                         else
                                                         {
                                                             found = false;
@@ -306,13 +322,16 @@ namespace LogicLayer
                                                     }
                                                 }
                                             }
+                                            // Move to the next list item.
                                             next++;
                                             if (next != avaliable.Count)
                                             {
                                                 candidate = avaliable[next];
                                             }
+                                            // Decide if the loop continues
                                         } while (!found && next < avaliable.Count);
 
+                                        // If an appropriate user was found a shift is added to the schedule.
                                         if (found)
                                         {
                                             schedule.ScheduleLines.Add(new ShiftUserVM
@@ -327,6 +346,7 @@ namespace LogicLayer
 
                                             });
                                         }
+                                        // If no users were available the openings are recorded in the open positions list.
                                         else
                                         {
                                             _openPositions.Add(new OpenPosition
@@ -334,6 +354,7 @@ namespace LogicLayer
                                                 ERoleID = line.ERoleID,
                                                 count = j
                                             });
+                                            // To prevent more checks for this baseSchedule line based on the remaining count.
                                             end = true;
                                         }
                                     }

@@ -8879,6 +8879,7 @@ BEGIN
 	SELECT [ERoleID],[Description],[Active]
 	FROM [dbo].[ERole]
 	WHERE [DepartmentID] = @DepartmentID
+	AND [Active] = 1
 END
 GO
 
@@ -14419,14 +14420,13 @@ print '' print '*** Insert Into ERole Table ***'
 GO
 INSERT INTO [dbo].[ERole]
 (
-	[ERoleID], [DepartmentID]
+	[ERoleID], [DepartmentID], [Active]
 )
 VALUES
-	('Administrator', 'Management'),
-	('Customer', 'Sales'),
-	('Volunteer', 'Fake1'),
-	('Management Supervisor','Management'),
-	('Sales Supervisor','Sales')
+	('Administrator', 'Management',1),
+	('Customer', 'Sales',0),
+	('Volunteer', 'Fake1',1),
+	('Sales Supervisor','Sales',1)
 GO
 
 
@@ -14459,12 +14459,9 @@ INSERT INTO [dbo].[UserERole]
 VALUES
 (100000, 'Administrator'),
 (100001, 'Customer'),
-(100002, 'Volunteer'),
-(100002, 'Administrator'),
+(100002, 'Sales Supervisor'),
     (100000,'Manager'),
-    (100000,'Management Supervisor'),
     (100001,'Manager'),
-    (100002,'Manager'),
     (100006,'Cashier')
 GO
 
@@ -15436,10 +15433,10 @@ print '' print'***Creating BaseScheduleLine sample records'
 GO
 
 INSERT INTO [dbo].[BaseScheduleLine]
-	([ERoleID],[BaseScheduleID],[ShiftTimeID])
+	([ERoleID],[BaseScheduleID],[ShiftTimeID],[Count])
 	VALUES
-	 ('Cashier',1000001,1000007)
-	,('Manager',1000001,1000004)
+	 ('Cashier',1000001,1000007,3)
+	,('Manager',1000001,1000004,1)
 GO
 
 /*
