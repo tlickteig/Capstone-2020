@@ -116,6 +116,12 @@ namespace WPFPresentationLayer
                     txtQ2.Visibility = Visibility.Visible;
                     lblSecurity.Visibility = Visibility.Visible;
                 }
+                else
+                {
+                    MessageBox.Show("Current password is incorrect. Try again.");
+                    pwdCurrentUserPassword.Password = "";
+                    pwdCurrentUserPassword.Focus();
+                }
             }
             catch (Exception ex)
             {
