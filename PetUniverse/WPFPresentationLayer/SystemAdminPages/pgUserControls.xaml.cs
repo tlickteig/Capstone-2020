@@ -49,6 +49,7 @@ namespace WPFPresentationLayer.SystemAdminPages
         public UserControls()
         {
             _userManager = new UserManager();
+            _employeeAvailabilityManager= new EmployeeAvailabilityManager();
             InitializeComponent();
         }
 
@@ -68,6 +69,7 @@ namespace WPFPresentationLayer.SystemAdminPages
         {
             _userManager = new UserManager();
             _loggedInUser = _userManager.getUserByUserID(user.PUUserID);
+            _employeeAvailabilityManager = new EmployeeAvailabilityManager();
             InitializeComponent();
             populateStates();
             viewUserInfo(_loggedInUser);
