@@ -29,7 +29,7 @@ namespace DataTransferObjects
         public string CardNumber { get; set; }
         [Required]
         [Display(Name = "Exp (MM/YY)")]
-        [RegularExpression(@"^((0[5-9])|(1[0-2]))[\/\.\-]*((2[0-9]))$",
+        [RegularExpression(@"^((0[1-9])|(1[0-2]))[\/\.\-]*((2[0-9]))$",
             ErrorMessage = "Date is not in valid format")]
         public string ExpirationDate { get; set; }
         [Required]

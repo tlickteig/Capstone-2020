@@ -826,6 +826,38 @@ namespace LogicLayerTests
             Assert.AreEqual(requestID, 0);
         }
 
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/05/06
+        /// Approver: Steve Coonrod
+        /// 
+        /// Test Method for creating a new DepartmentRequest record.
+        /// 
+        /// </summary>
+        ///
+        /// <remarks>
+        /// Updater 
+        /// Updated:  
+        /// Update: 
+        /// </remarks>
+        [TestMethod]
+        public void InsertNewDepartmentRequest()
+        {
+            // Arrange
+            int result = 0;
+            DepartmentRequest request = new DepartmentRequest()
+            {
+                RequestID = 999
+            };
+
+            // Act
+            result = _requestManager.CreateNewRequest(request);
+
+            // Assert
+            Assert.AreEqual(1, result);
+        }
+
+
         [TestCleanup]
         public void TestTearDown()
         {

@@ -765,5 +765,38 @@ namespace LogicLayer
                 throw new ApplicationException("Requests not found.", ex);
             }
         }
+
+
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/05/05
+        /// Approver: Steve Coonrod
+        ///
+        /// Interface method for updating a DepartmentRequest status from 'acknowledged' to 'completed'.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public int CreateNewRequest(DepartmentRequest request)
+        {
+            int result = 0;
+
+            try
+            {
+                result = _requestAccessor.InsertNewDepartmentRequest(request);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return result;
+        }
     }
 }

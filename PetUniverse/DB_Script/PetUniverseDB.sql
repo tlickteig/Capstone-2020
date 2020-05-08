@@ -1333,7 +1333,7 @@ CREATE TABLE [dbo].[DepartmentRequest] (
 	[AcknowledgingUserID]	[int]						NULL,
 	[DateCompleted]			[datetime]					NULL,
 	[CompletedUserID]		[int]						NULL,
-	[RequestSubject]		[nvarchar](100)				NOT NULL,
+	[RequestSubject]		[nvarchar](100)				NULL,
 	[RequestTopic]			[nvarchar](250)				NOT NULL,
 	[RequestBody]			[nvarchar](4000)			NOT NULL,
 	CONSTRAINT [pk_DeptRequest_RequestID] PRIMARY KEY([DeptRequestID] ASC),
@@ -13593,7 +13593,7 @@ BEGIN
 				[DateAcknowledged], [AcknowledgingUserID], [DateCompleted], [CompletedUserID],
 				[RequestSubject], [RequestTopic], [RequestBody])
 		VALUES
-			(@DeptRequestID, 100000, 'ShelterManagement', 'Inventory',
+			(@DeptRequestID, 100000, 'Management', 'Inventory',
 				NULL, NULL, NULL, NULL,
 				@RequestSubject,
 				@RequestTopic,
@@ -14295,6 +14295,64 @@ BEGIN
 	RETURN @@ROWCOUNT
 END
 GO
+
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/05/05
+Comment: Stored Procedure for inserting a new Department request with
+			assigned RequestID.
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_new_department_request]
+GO
+PRINT '' PRINT '*** Creating sp_insert_new_department_request'
+GO
+CREATE PROCEDURE [sp_insert_new_department_request]
+(
+	@DeptRequestID			[int],
+	@RequestingUserID		[int],
+	@RequestGroupID			[nvarchar](50),
+	@RequestedGroupID		[nvarchar](50),
+	@RequestTopic			[nvarchar](250),
+	@RequestBody			[nvarchar](4000)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[DepartmentRequest]
+	([DeptRequestID], [RequestingUserID], [RequestGroupID], [RequestedGroupID],
+	 [RequestTopic], [RequestBody])
+	VALUES
+	(@DeptRequestID, @RequestingUserID, @RequestGroupID, @RequestedGroupID,
+		@RequestTopic, @RequestBody)
+	RETURN @@ROWCOUNT
+END
+GO
+
+
+/*
+Created by: Ryan Morganti
+Date: 2020/05/06
+Comment: Stored Procedure for Selecting a DepartmentId to match an
+			ERoleId based on the associated UserID
+*/
+DROP PROCEDURE IF EXISTS [sp_select_user_departmentID_by_eroleID]
+GO
+PRINT '' PRINT '*** Creating sp_select_user_departmentID_by_eroleID'
+GO
+CREATE PROCEDURE [sp_select_user_departmentID_by_eroleID]
+(
+	@UserID			[int]
+)
+AS
+BEGIN
+	SELECT er.[DepartmentID]
+	FROM [ERole] AS er JOIN [UserERole] AS uer
+		ON er.[ERoleID] = uer.[ERoleID]
+	WHERE uer.[UserID] = @UserID
+END
+GO
+
 
 
 /*
@@ -15159,7 +15217,7 @@ INSERT INTO [dbo].[DepartmentRequest]
 		[DateAcknowledged], [AcknowledgingUserID], [DateCompleted], [CompletedUserID],
 		 [RequestSubject], [RequestTopic], [RequestBody])
 VALUES
-	(1000000, 100003, 'Management', 'CustomerService',
+	(1000000, 100003, 'Sales', 'CustomerService',
 		NULL, NULL, NULL, NULL,
 		'subject filler test', 'topic test', 'This is my body, its so testable'),
 	(1000001, 100003, 'Inventory', 'Management',
@@ -15171,7 +15229,7 @@ VALUES
 	(1000003, 100003, 'Inventory', 'Management',
 		'20200208 01:02:03 PM', 100003, NULL, NULL,
 		'subject filler test', 'topic test', 'This is my body, its so testable'),
-	(1000004, 100003, 'Management', 'CustomerService',
+	(1000004, 100003, 'Sales', 'CustomerService',
 		'20200208 02:02:03 PM', 100003, '20200209 06:04:03 PM', 100003,
 		'subject filler test', 'topic test', 'This is my body, its so testable'),
 	(1000005, 100003, 'Management', 'Inventory',
@@ -16827,3 +16885,13 @@ GO
 
 
 -- End of file
+
+
+
+
+
+
+
+
+
+

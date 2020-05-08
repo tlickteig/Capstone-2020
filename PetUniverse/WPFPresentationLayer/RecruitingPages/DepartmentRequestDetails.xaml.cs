@@ -4,6 +4,7 @@ using LogicLayerInterfaces;
 using PresentationUtilityCode;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,16 +17,29 @@ namespace WPFPresentationLayer.RecruitingPages
     {
         private IRequestManager _requestManager;
         private IDepartmentManager _deptManager = new DepartmentManager();
-        private string[] _status = new string[] { "new", "acknowledged", "complete" };
+        private string[] _status = new string[] { "new", "active", "done" };
         private PetUniverseUser _user;
         private DepartmentRequestVM _request;
         private List<string> _departmentIDs = new List<string>();
+        private List<string> _userDeptIDs;
         private List<string> _requestTypes;
         private List<string[]> _employeeNames;
         private string _requestStatus;
         private bool _edit = false;
 
-
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/03/10
+        /// Approver: Derek Taylor
+        ///
+        /// Base Constructor for a detailed view of existing Department Requests
+        /// </summary>
+        /// <remarks>
+        /// Updater:  
+        /// Updated: 
+        /// Update: 
+        ///
+        /// </remarks>
         public DepartmentRequestDetails(IRequestManager requestManager, PetUniverseUser user,
             DepartmentRequestVM deptRequest, List<string> deptIDs, List<string> requestTypes, List<string[]> empNames)
         {
@@ -39,7 +53,35 @@ namespace WPFPresentationLayer.RecruitingPages
             cbbRequestedGroup.ItemsSource = _departmentIDs;
             cbbRequestType.ItemsSource = _requestTypes;
             PopulateFields();
+        }
 
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/05/05
+        /// Approver: Steve Coonrod
+        ///
+        /// Alternate Constructor for opening a detailed form to created a new Department Request
+        /// </summary>
+        /// <remarks>
+        /// Updater:  
+        /// Updated: 
+        /// Update: 
+        ///
+        /// </remarks>
+        public DepartmentRequestDetails(IRequestManager requestManager, PetUniverseUser user, List<string> deptIDs, List<string> requestTypes, List<string[]> empNames, List<string> userDeptIDs)
+        {
+            //DepartmentRequest blankConstruct = new DepartmentRequest();
+            //_request = new DepartmentRequestVM(blankConstruct); 
+            _requestManager = requestManager;
+            _user = user;
+            _userDeptIDs = userDeptIDs;
+            _departmentIDs = deptIDs;
+            _requestTypes = requestTypes;
+            _employeeNames = empNames;
+            InitializeComponent();
+            cbbRequestedGroup.ItemsSource = _departmentIDs;
+            cbbRequestType.ItemsSource = _requestTypes;
+            PopulateFields();
         }
 
         /// <summary>
@@ -51,14 +93,36 @@ namespace WPFPresentationLayer.RecruitingPages
         /// This method will load differently based on the date values assigned to various status point for the request.
         /// </summary>
         /// <remarks>
-        /// Updater:   
-        /// Updated: 
-        /// Update: 
+        /// Updater: Ryan Morganti  
+        /// Updated: 2020/05/05
+        /// Update: Added functionality for creating a new Department Request
         ///
         /// </remarks>
         private void PopulateFields()
         {
-            if (_request.DateAcknowledged.Year < 2000) //New Requests
+            if(_request == null)
+            {
+                lblRequestTypeHeader.Visibility = Visibility.Visible;
+                lblRequestedGroupHeader.Visibility = Visibility.Visible;
+                lblRequestingGroupHeader.Visibility = Visibility.Visible;
+                cbbRequestedGroup.IsEnabled = true;
+                cbbRequestingGroup.Visibility = Visibility.Visible;
+                lblRequestUser.Visibility = Visibility.Hidden;
+                txtDeptRequestTopic.IsReadOnly = false;
+                lblRequestStatus.Visibility = Visibility.Hidden;
+                txtDeptRequestBody.IsReadOnly = false;
+                txtDeptRequestResponses.Visibility = Visibility.Hidden;
+
+                btnRetractRequest.Visibility = Visibility.Hidden;
+                btnUpdateRequestStatus.Visibility = Visibility.Hidden;
+                btnCreateDepartmentRequest.Visibility = Visibility.Visible;
+
+                cbbRequestType.SelectedItem = "General";
+                cbbRequestingGroup.ItemsSource = _userDeptIDs.Distinct();
+                cbbRequestedGroup.ItemsSource = _departmentIDs;
+
+            }
+            else if (_request.DateAcknowledged.Year < 2000) //New Requests
             {
                 if (_user.PUUserID == _request.RequestorID)
                 {
@@ -81,7 +145,7 @@ namespace WPFPresentationLayer.RecruitingPages
             {
                 _requestStatus = _status[1];
                 btnRetractRequest.Visibility = Visibility.Hidden;
-                btnRespondToRequest.Visibility = Visibility.Visible;
+                //btnRespondToRequest.Visibility = Visibility.Visible;
                 btnUpdateRequestStatus.Content = "Request Completed";
                 cbbRequestedGroup.SelectedItem = _request.RequesteeGroupID;
                 cbbRequestType.SelectedItem = _request.RequestTypeID;
@@ -92,15 +156,15 @@ namespace WPFPresentationLayer.RecruitingPages
                 txtDeptRequestTopic.Text = _request.Topic;
                 txtDeptRequestBody.Text = _request.Body;
 
-                try
-                {
-                    txtDeptRequestResponses.Text =
-                        _requestManager.RetrieveAllResponsesByRequestID(_request.RequestID).ResponseListBuilder(_employeeNames);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, ex.InnerException.Message);
-                }
+                //try
+                //{
+                //    txtDeptRequestResponses.Text =
+                //        _requestManager.RetrieveAllResponsesByRequestID(_request.RequestID).ResponseListBuilder(_employeeNames);
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show(ex.Message, ex.InnerException.Message);
+                //}
             }
             else if (_request.DateCompleted.Year > 2000) //Completed Requests
             {
@@ -117,16 +181,16 @@ namespace WPFPresentationLayer.RecruitingPages
                 txtDeptRequestTopic.Text = _request.Topic;
                 txtDeptRequestBody.Text = _request.Body;
 
-                try
-                {
-                    txtDeptRequestResponses.Text =
-                        _requestManager.RetrieveAllResponsesByRequestID(_request.RequestID).ResponseListBuilder(_employeeNames);
-                }
-                catch (Exception ex)
-                {
+                //try
+                //{
+                //    txtDeptRequestResponses.Text =
+                //        _requestManager.RetrieveAllResponsesByRequestID(_request.RequestID).ResponseListBuilder(_employeeNames);
+                //}
+                //catch (Exception ex)
+                //{
 
-                    MessageBox.Show(ex.Message, ex.InnerException.Message);
-                }
+                //    MessageBox.Show(ex.Message, ex.InnerException.Message);
+                //}
             }
 
 
@@ -170,9 +234,10 @@ namespace WPFPresentationLayer.RecruitingPages
         /// Will display an error and remain on the detailed view if unsuccessful.
         /// </summary>
         /// <remarks>
-        /// Updater:   
-        /// Updated: 
-        /// Update: 
+        /// Updater: Ryan Morganti  
+        /// Updated: 2020/05/06
+        /// Update: Altered the navigation functionality to properly direct to the appropriate Request tab when leaving 
+        ///         the detailed view.
         ///
         /// </remarks>
         /// <param name="sender"></param>
@@ -187,14 +252,8 @@ namespace WPFPresentationLayer.RecruitingPages
                     if (result == 1)
                     {
                         MessageBox.Show("Status UPDATED!");
-                        if (this.NavigationService.CanGoBack)
-                        {
-                            this.NavigationService.GoBack();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Unable to Navigate");
-                        }
+                        this.NavigationService?.Navigate(frRequestList.Content = new ListRequests(_user, "active"));
+                
                     }
                     else
                     {
@@ -216,6 +275,7 @@ namespace WPFPresentationLayer.RecruitingPages
                     if (result == 1)
                     {
                         MessageBox.Show("Status UPDATED!");
+                        this.NavigationService?.Navigate(frRequestList.Content = new ListRequests(_user, "done"));
                     }
                     else
                     {
@@ -266,12 +326,6 @@ namespace WPFPresentationLayer.RecruitingPages
                         {
                             MessageBox.Show("Request UPDATED!");
 
-                            _edit = false;
-                            cbbRequestedGroup.IsEnabled = false;
-                            txtDeptRequestTopic.IsReadOnly = true;
-                            txtDeptRequestBody.IsReadOnly = true;
-                            btnEditDepartmentRequest.Content = "Edit";
-
                         }
                         else
                         {
@@ -292,6 +346,54 @@ namespace WPFPresentationLayer.RecruitingPages
                 txtDeptRequestBody.IsReadOnly = false;
 
                 btnEditDepartmentRequest.Content = "Save";
+            }
+        }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/05/06
+        /// Approver: Steve Coonrod
+        ///
+        /// Click Event Method to create a new Department Request and navigate back
+        /// to the department request tab view if successful.
+        /// </summary>
+        /// <remarks>
+        /// Updater:   
+        /// Updated: 
+        /// Update: 
+        ///
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCreateDepartmentRequest_Click(object sender, RoutedEventArgs e)
+        {
+            DepartmentRequest request = new DepartmentRequest()
+            {
+                RequestingUserID = _user.PUUserID,
+                RequestTypeID = cbbRequestType.Text,
+                RequestorGroupID = cbbRequestingGroup.Text,
+                RequesteeGroupID = cbbRequestedGroup.Text,
+                Topic = txtDeptRequestTopic.Text,
+                Body = txtDeptRequestBody.Text
+            };
+
+            try
+            {
+                int result;
+                result = _requestManager.CreateNewRequest(request);
+                if (result == 1)
+                {
+                    MessageBox.Show("Request CREATED!");
+                    this.NavigationService?.Navigate(frRequestList.Content = new ListRequests(_user));
+                }
+                else
+                {
+                    MessageBox.Show("Request creation failed.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, ex.InnerException.Message);
             }
         }
     }

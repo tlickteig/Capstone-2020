@@ -244,7 +244,10 @@ namespace DataAccessLayer
                         newRequest.RequesteeGroupID = reader.GetString(5);
                         newRequest.DateAcknowledged = reader.GetDateTime(6);
                         newRequest.AcknowledgingEmployee = reader.GetInt32(7);
-                        newRequest.Subject = reader.GetString(8);
+                        if (!reader.IsDBNull(8))
+                        {
+                            newRequest.Subject = reader.GetString(8);
+                        }
                         newRequest.Topic = reader.GetString(9);
                         newRequest.Body = reader.GetString(10);
 
@@ -284,7 +287,7 @@ namespace DataAccessLayer
         {
             List<string> depts = new List<string>();
             var conn = DBConnection.GetConnection();
-            var cmd = new SqlCommand("select_all_departments_by_userID", conn);
+            var cmd = new SqlCommand("sp_select_user_departmentID_by_eroleID", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@UserID", userID);
 
@@ -358,7 +361,10 @@ namespace DataAccessLayer
                         newRequest.AcknowledgingEmployee = reader.GetInt32(7);
                         newRequest.DateCompleted = reader.GetDateTime(8);
                         newRequest.CompletedEmployee = reader.GetInt32(9);
-                        newRequest.Subject = reader.GetString(10);
+                        if (!reader.IsDBNull(10))
+                        {
+                            newRequest.Subject = reader.GetString(10);
+                        }
                         newRequest.Topic = reader.GetString(11);
                         newRequest.Body = reader.GetString(12);
 
@@ -419,7 +425,10 @@ namespace DataAccessLayer
                         newRequest.RequestingUserID = reader.GetInt32(3);
                         newRequest.RequestorGroupID = reader.GetString(4);
                         newRequest.RequesteeGroupID = reader.GetString(5);
-                        newRequest.Subject = reader.GetString(6);
+                        if (!reader.IsDBNull(6))
+                        {
+                            newRequest.Subject = reader.GetString(6);
+                        }
                         newRequest.Topic = reader.GetString(7);
                         newRequest.Body = reader.GetString(8);
 
@@ -1376,6 +1385,69 @@ namespace DataAccessLayer
             return requests;
         }
 
+
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/05/05
+        /// Approver: Steve Coonrod
+        ///
+        /// Database Access method for inserting a new Request Record, and using it's
+        /// Identity key as the primary key for the DepartmentRequest record.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public int InsertNewDepartmentRequest(DepartmentRequest request)
+        {
+            int result = 0;
+
+            var conn = DBConnection.GetConnection();
+            var cmd = new SqlCommand("sp_insert_request", conn);
+            var cmd2 = new SqlCommand("sp_insert_new_department_request", conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd2.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@DateCreated", DateTime.Now);
+            cmd.Parameters.AddWithValue("RequestTypeID", request.RequestTypeID);
+            cmd.Parameters.AddWithValue("RequestingUserID", request.RequestingUserID);
+            cmd.Parameters.AddWithValue("@Open", true);
+            cmd.Parameters.Add("@RequestID", SqlDbType.Int).Direction = ParameterDirection.Output;
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteScalar();
+                request.RequestID = (int)cmd.Parameters["@RequestID"].Value;
+
+
+                cmd2.Parameters.AddWithValue("@DeptRequestID", request.RequestID);
+                cmd2.Parameters.AddWithValue("@RequestingUserID", request.RequestingUserID);
+                cmd2.Parameters.AddWithValue("@RequestGroupID", request.RequestorGroupID);
+                cmd2.Parameters.AddWithValue("@RequestedGroupID", request.RequesteeGroupID);
+                cmd2.Parameters.AddWithValue("@RequestTopic", request.Topic);
+                cmd2.Parameters.AddWithValue("@RequestBody", request.Body);
+
+
+                result = cmd2.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+            return result;
+        }
+
+        
 
     }
 }

@@ -893,5 +893,36 @@ namespace DataAccessFakes
         {
             return (from r in requests select r).ToList();
         }
+
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/05/06
+        /// Approver: Steve Coonrod
+        ///
+        /// Fake Access Method for inserting a new DepartmentRequest record.
+        /// </summary>
+        /// <remarks>
+        /// Updater: NA
+        /// Updated: NA
+        /// Update: NA
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public int InsertNewDepartmentRequest(DepartmentRequest request)
+        {
+            int count = _requests.Count;
+
+            _requests.Add(request);
+
+            if(count < _requests.Count)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
     }
 }

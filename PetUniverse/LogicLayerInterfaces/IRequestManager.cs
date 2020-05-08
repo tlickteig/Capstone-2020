@@ -416,6 +416,22 @@ namespace LogicLayer
         bool cancleRequest(int requestID);
 
 
+        /// <summary>
+        /// Creator: Ryan Morganti
+        /// Created: 2020/05/05
+        /// Approver: Steve Coonrod
+        ///
+        /// Interface method for creating a new DepartmentRequest.
+        /// </summary>
+        /// <remarks>
+        /// Updater:
+        /// Updated:
+        /// Update:
+        ///
+        /// </remarks>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        int CreateNewRequest(DepartmentRequest request);
 
     }
 }
