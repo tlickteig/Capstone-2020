@@ -76,10 +76,16 @@
     <Compile Include="AnimalPrescriptionVM.cs" />
     <Compile Include="AnimalStatus.cs" />
     <Compile Include="AnimalVetAppointments.cs" />
+    <Compile Include="ApplciationPreviousExperience.cs" />
     <Compile Include="Applicant.cs" />
     <Compile Include="ApplicantVM.cs" />
     <Compile Include="Application.cs" />
+    <Compile Include="ApplicationAvailability.cs" />
+    <Compile Include="ApplicationEducation.cs" />
     <Compile Include="ApplicationNameVM.cs" />
+    <Compile Include="ApplicationReference.cs" />
+    <Compile Include="ApplicationResume.cs" />
+    <Compile Include="ApplicationSkill.cs" />
     <Compile Include="ApplicationVM.cs" />
     <Compile Include="Appointment.cs" />
     <Compile Include="AppointmentLocationVM.cs" />
@@ -123,6 +129,7 @@
     <Compile Include="ItemCategory.cs" />
     <Compile Include="ItemLocation.cs" />
     <Compile Include="ItemReport.cs" />
+    <Compile Include="JobApplication.cs" />
     <Compile Include="JobListing.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="LogItem.cs" />

@@ -65,6 +65,7 @@
     <Compile Include="AnimalPrescriptionManager.cs" />
     <Compile Include="AnimalStatusManager.cs" />
     <Compile Include="ApplicantManager.cs" />
+    <Compile Include="ApplicationManager.cs" />
     <Compile Include="AppointmentManager.cs" />
     <Compile Include="AppointmentTypeManager.cs" />
     <Compile Include="AvailabilityManager.cs" />

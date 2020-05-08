@@ -14415,6 +14415,321 @@ BEGIN
 END
 GO
 
+/*
+	Created by: Derek Taylor
+	Date: 4/21/2020
+	Comment: Stored Procedure for inserting an Application record
+	
+	Updated On : NA
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_application]
+GO
+PRINT '' PRINT '*** Creating sp_insert_application'
+GO
+CREATE PROCEDURE [sp_insert_application]
+(
+	@ApplicantID			[int],
+	@JobListingID			[int]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[Application]
+		([ApplicantID],[JobListingID],[SubmissionDate],[Status])
+	VALUES
+		(@ApplicantID, @JobListingID, GETDATE(), 'New!')
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+	Created by: Derek Taylor
+	Date: 4/21/2020
+	Comment: Stored Procedure for inserting an Applications Education record
+	
+	Updated On : NA
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_application_education]
+GO
+PRINT '' PRINT '*** Creating sp_insert_application_education'
+GO
+CREATE PROCEDURE [sp_insert_application_education]
+(
+	@ApplicationID			[int],
+	@SchoolName				[nvarchar](75),
+	@City					[nvarchar](50),
+	@State					[nvarchar](2),
+	@LevelAchieved			[nvarchar](100)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[ApplicationEducation]
+		([ApplicationID], [SchoolName], [City], [State], [LevelAchieved])
+	VALUES
+		(@ApplicationID, @SchoolName, @City, @State, @LevelAchieved)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+	Created by: Derek Taylor
+	Date: 4/21/2020
+	Comment: Stored Procedure for inserting an Applications References records
+	
+	Updated On : NA
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_application_reference]
+GO
+PRINT '' PRINT '*** Creating sp_insert_application_reference'
+GO
+CREATE PROCEDURE [sp_insert_application_reference]
+(
+	@ReferenceID			[nvarchar](75),
+	@ApplicationID			[int],
+	@Relationship			[nvarchar](50),
+	@PhoneNumber			[nvarchar](2),
+	@EmailAddress			[nvarchar](100)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[ApplicationReference]
+		([ReferenceID], [ApplicationID], [Relationship], [PhoneNumber], [EmailAddress])
+	VALUES
+		(@ReferenceID, @ApplicationID, @Relationship, @PhoneNumber, @EmailAddress)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+	Created by: Derek Taylor
+	Date: 4/21/2020
+	Comment: Stored Procedure for inserting an Applications Skill records
+	
+	Updated On : NA
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_application_skill]
+GO
+PRINT '' PRINT '*** Creating sp_insert_application_skill'
+GO
+CREATE PROCEDURE [sp_insert_application_skill]
+(
+	@ApplicationSkillID			[nvarchar](75),
+	@ApplicationID				[int],
+	@Description				[nvarchar](200)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[ApplicationSkill]
+		([ApplicationSkillID], [ApplicationID], [Description])
+	VALUES
+		(@ApplicationSkillID, @ApplicationID, @Description)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+	Created by: Derek Taylor
+	Date: 4/21/2020
+	Comment: Stored Procedure for inserting an Applications Experience records
+	
+	Updated On : NA
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_application_previous_experience]
+GO
+PRINT '' PRINT '*** Creating sp_insert_application_previous_experience'
+GO
+CREATE PROCEDURE [sp_insert_application_previous_experience]
+(
+	@ApplicationID			[nvarchar](75),
+	@PreviousWorkName		[int],
+	@City					[nvarchar](200),
+	@State					[nvarchar](2),
+	@Type					[nvarchar](250)
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[PreviousExperience]
+		([ApplicationID], [PreviousWorkName], [City], [State], [Type])
+	VALUES
+		(@ApplicationID, @PreviousWorkName, @City, @State, @Type)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+
+/*
+	Created by: Derek Taylor
+	Date: 4/21/2020
+	Comment: Stored Procedure for inserting an Applications Availablity records
+	
+	Updated On : NA
+*/
+DROP PROCEDURE IF EXISTS [sp_insert_application_availablity]
+GO
+PRINT '' PRINT '*** Creating sp_insert_application_availablity'
+GO
+CREATE PROCEDURE [sp_insert_application_availablity]
+(
+	@ApplicationID			[int],
+	@DayOfWeek				[nvarchar](12),
+	@StartTime				[time],
+	@EndTime				[time]
+)
+AS
+BEGIN
+	INSERT INTO [dbo].[ApplicationAvailability]
+		([ApplicationID], [DayOfWeek], [StartTime], [EndTime])
+	VALUES
+		(@ApplicationID, @DayOfWeek, @StartTime, @EndTime)
+	SELECT SCOPE_IDENTITY()
+END
+GO
+
+/*
+Created by: Derek Taylor
+Date: 4/22/2020
+Comment: Stored Procedure to selecting all applications by applicant id
+*/
+DROP PROCEDURE IF EXISTS [sp_select_applications_by_applicant_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_applications_by_applicant_id'
+GO
+CREATE PROCEDURE [sp_select_applications_by_applicant_id]
+(
+	@ApplicantID			[int]
+)
+AS
+BEGIN
+	Select ApplicationID, JobListingID
+	FROM [dbo].[Application]
+	WHERE ApplicantID = @ApplicantID
+END
+GO
+
+/*
+Created by: Derek Taylor
+Date: 4/22/2020
+Comment: Stored Procedure to selecting an applications education
+*/
+DROP PROCEDURE IF EXISTS [sp_select_applications_education_by_application_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_applications_education_by_application_id'
+GO
+CREATE PROCEDURE [sp_select_applications_education_by_application_id]
+(
+	@ApplicationID			[int]
+)
+AS
+BEGIN
+	Select SchoolName, City, State, LevelAchieved
+	FROM [dbo].[ApplicationEducation]
+	WHERE ApplicationID = @ApplicationID
+END
+GO
+
+/*
+Created by: Derek Taylor
+Date: 4/22/2020
+Comment: Stored Procedure to selecting an applications references
+*/
+DROP PROCEDURE IF EXISTS [sp_select_applications_references_by_application_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_applications_references_by_application_id'
+GO
+CREATE PROCEDURE [sp_select_applications_references_by_application_id]
+(
+	@ApplicationID			[int]
+)
+AS
+BEGIN
+	Select ReferenceID, Relationship, PhoneNumber, EmailAddress
+	FROM [dbo].[ApplicationReference]
+	WHERE ApplicationID = @ApplicationID
+END
+GO
+
+/*
+Created by: Derek Taylor
+Date: 4/22/2020
+Comment: Stored Procedure to selecting an applications skills
+*/
+DROP PROCEDURE IF EXISTS [sp_select_applications_skills_by_application_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_applications_skills_by_application_id'
+GO
+CREATE PROCEDURE [sp_select_applications_skills_by_application_id]
+(
+	@ApplicationID			[int]
+)
+AS
+BEGIN
+	Select ApplicationSkillID, Description
+	FROM [dbo].[ApplicationSkill]
+	WHERE ApplicationID = @ApplicationID
+END
+GO
+
+/*
+Created by: Derek Taylor
+Date: 4/22/2020
+Comment: Stored Procedure to selecting an applications skills
+*/
+DROP PROCEDURE IF EXISTS [sp_select_applications_skills_by_application_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_applications_skills_by_application_id'
+GO
+CREATE PROCEDURE [sp_select_applications_skills_by_application_id]
+(
+	@ApplicationID			[int]
+)
+AS
+BEGIN
+	Select ApplicationSkillID, Description
+	FROM [dbo].[ApplicationSkill]
+	WHERE ApplicationID = @ApplicationID
+END
+GO
+
+/*
+Created by: Derek Taylor
+Date: 4/22/2020
+Comment: Stored Procedure to selecting an applications previous experience
+*/
+DROP PROCEDURE IF EXISTS [sp_select_applications_previous_experience_by_application_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_applications_previous_experience_by_application_id'
+GO
+CREATE PROCEDURE [sp_select_applications_previous_experience_by_application_id]
+(
+	@ApplicationID			[int]
+)
+AS
+BEGIN
+	Select PreviousWorkName, City, State, Type
+	FROM [dbo].[PreviousExperience]
+	WHERE ApplicationID = @ApplicationID
+END
+GO
+
+/*
+Created by: Derek Taylor
+Date: 4/22/2020
+Comment: Stored Procedure to selecting an application availability
+*/
+DROP PROCEDURE IF EXISTS [sp_select_application_availability_by_application_id]
+GO
+PRINT '' PRINT '*** Creating sp_select_application_availability_by_application_id'
+GO
+CREATE PROCEDURE [sp_select_application_availability_by_application_id]
+(
+	@ApplicationID			[int]
+)
+AS
+BEGIN
+	Select DayOfWeek, StartTime, EndTime
+	FROM [dbo].[ApplicationAvailability]
+	WHERE ApplicationID = @ApplicationID
+END
+GO
 
 
 /*

@@ -190,6 +190,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AdoptionController.cs" />
     <Compile Include="Controllers\AdoptionScheduleController.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\CareersController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\ChooseRequestTypeController.cs" />
@@ -626,6 +627,7 @@
     <Content Include="Views\ScheduleSupervisor\ShiftCalendarEmployee.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
     <Content Include="Views\Events\Details.cshtml" />
+    <Content Include="Views\Application\Applications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

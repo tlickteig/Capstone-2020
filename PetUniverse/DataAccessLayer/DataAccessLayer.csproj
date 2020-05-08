@@ -66,6 +66,7 @@
     <Compile Include="AnimalPrescriptionAccessor.cs" />
     <Compile Include="AnimalStatusAccessor.cs" />
     <Compile Include="ApplicantAccessor.cs" />
+    <Compile Include="ApplicationAccessor.cs" />
     <Compile Include="AppointmentAccessor.cs" />
     <Compile Include="AppointmentTypeAccessor.cs" />
     <Compile Include="AvailabilityAccessor.cs" />
