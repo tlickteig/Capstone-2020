@@ -378,17 +378,8 @@
     <Compile Include="RecruitingPages\JobListing.xaml.cs">
       <DependentUpon>JobListing.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RecruitingPages\ListActiveRequests.xaml.cs">
-      <DependentUpon>ListActiveRequests.xaml</DependentUpon>
-    </Compile>
     <Compile Include="RecruitingPages\ListAllEvents.xaml.cs">
       <DependentUpon>ListAllEvents.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="RecruitingPages\ListCompleteRequests.xaml.cs">
-      <DependentUpon>ListCompleteRequests.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="RecruitingPages\ListNewRequests.xaml.cs">
-      <DependentUpon>ListNewRequests.xaml</DependentUpon>
     </Compile>
     <Compile Include="RecruitingPages\ListPendingEvents.xaml.cs">
       <DependentUpon>ListPendingEvents.xaml</DependentUpon>
@@ -824,19 +815,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="RecruitingPages\ListActiveRequests.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="RecruitingPages\ListAllEvents.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="RecruitingPages\ListCompleteRequests.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="RecruitingPages\ListNewRequests.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

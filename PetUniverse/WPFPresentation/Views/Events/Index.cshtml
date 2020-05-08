@@ -7,7 +7,7 @@
 
 <header><h1 style="color:orangered">Upcoming Events</h1></header>
 
-@if (Request.IsAuthenticated)
+@if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Donation Coordinator")))
 {
     <p>
         @Html.ActionLink("Create New", "Create")
@@ -72,7 +72,7 @@
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new { id = item.EventID })
-                @if (Request.IsAuthenticated)
+                @if (Request.IsAuthenticated && (User.IsInRole("Administrator") || User.IsInRole("Donation Coordinator")))
                 {
                     @Html.ActionLink("Edit", "Edit", new { id = item.EventID })
                 }
