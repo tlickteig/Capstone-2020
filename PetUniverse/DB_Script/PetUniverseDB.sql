@@ -14671,27 +14671,6 @@ GO
 /*
 Created by: Derek Taylor
 Date: 4/22/2020
-Comment: Stored Procedure to selecting an applications skills
-*/
-DROP PROCEDURE IF EXISTS [sp_select_applications_skills_by_application_id]
-GO
-PRINT '' PRINT '*** Creating sp_select_applications_skills_by_application_id'
-GO
-CREATE PROCEDURE [sp_select_applications_skills_by_application_id]
-(
-	@ApplicationID			[int]
-)
-AS
-BEGIN
-	Select ApplicationSkillID, Description
-	FROM [dbo].[ApplicationSkill]
-	WHERE ApplicationID = @ApplicationID
-END
-GO
-
-/*
-Created by: Derek Taylor
-Date: 4/22/2020
 Comment: Stored Procedure to selecting an applications previous experience
 */
 DROP PROCEDURE IF EXISTS [sp_select_applications_previous_experience_by_application_id]

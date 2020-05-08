@@ -1,8 +1,6 @@
-﻿using DataTransferObjects;
-using LogicLayer;
+﻿using LogicLayer;
 using LogicLayerInterfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using WPFPresentation.Models;
@@ -63,15 +61,7 @@ namespace WPFPresentation.Controllers
         /// </remarks>
         public ActionResult Applications()
         {
-            var applications = new List<JobApplication>();
-            try
-            {
-                applications = _applicationManager.RetrieveApplicationsByApplicantID(applicantID);
-            }
-            catch
-            {
-                return RedirectToAction("Error", "Error", null);
-            }
+            var applications = _applicationManager.RetrieveApplicationsByApplicantID(applicantID);
             return View(applications);
         }
     }
