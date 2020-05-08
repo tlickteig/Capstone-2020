@@ -268,5 +268,20 @@ namespace LogicLayerInterfaces
         /// <param name="description"></param>
         /// <returns></returns>
         bool EditAnimalSpecies(string oldAnimalSpeciesID, string newAnimalSpeciesID, string description);
+
+        /// <summary>
+        /// Creator: Ethan Murphy
+        /// Created: 5/3/2020
+        /// Approver: Chuck Baxter 5/5/2020
+        /// 
+        /// Retrieves all animals of a specific name
+        /// </summary>
+        /// <param name="name">The name to search</param>
+        /// <param name="list">
+        /// The list to iterate through. If one isn't provided
+        /// a new one will be fetched
+        /// </param>
+        /// <returns>List of animals</returns>
+        List<Animal> RetrieveAnimalsByName(string name, List<Animal> list = null);
     }
 }

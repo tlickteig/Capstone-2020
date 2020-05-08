@@ -3,6 +3,7 @@ using DataAccessLayer;
 using DataTransferObjects;
 using LogicLayerInterfaces;
 using System;
+using System.Collections.Generic;
 
 namespace LogicLayer
 {
@@ -49,7 +50,7 @@ namespace LogicLayer
         /// <param name="salesTaxAccessor"></param>
         public SalesTaxManager(ISalesTaxAccessor salesTaxAccessor)
         {
-            _salesTaxAccessor = new SalesTaxAccessor();
+            _salesTaxAccessor = salesTaxAccessor;
         }
 
         /// <summary>
@@ -76,6 +77,22 @@ namespace LogicLayer
             {
                 throw new ApplicationException("Data not added.", ex);
             }
+        }
+
+        public List<SalesTax> RetrieveAllSalesTax()
+        {
+            var salesTax = new List<SalesTax>();
+
+            try
+            {
+                salesTax = _salesTaxAccessor.SelectAllSalesTax();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return salesTax;
         }
     }
 }

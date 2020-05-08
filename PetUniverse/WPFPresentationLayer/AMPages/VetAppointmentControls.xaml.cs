@@ -1074,6 +1074,13 @@ namespace WPFPresentationLayer.AMPages
             dgAppointments.Columns[3].Header = "Appointment Date/Time";
             dgAppointments.Columns[4].Header = "Clinic Address";
             dgAppointments.Columns[5].Header = "Vet Name";
+
+            dgAppointments.Columns[0].Width = 120;
+            dgAppointments.Columns[1].Width = 170;
+            dgAppointments.Columns[2].Width = 220;
+            dgAppointments.Columns[3].Width = 170;
+            dgAppointments.Columns[4].Width = 300;
+            dgAppointments.Columns[5].Width = 200;
         }
     }
 }

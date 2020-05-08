@@ -651,8 +651,7 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@OldPhoneNumber", originalUser.PhoneNumber);
             cmd.Parameters.AddWithValue("@OldEmail", originalUser.Email);
             cmd.Parameters.AddWithValue("@OldActive", originalUser.Active);
-            cmd.Parameters.AddWithValue("@OldaddressLineOne", originalUser.Address1);
-            cmd.Parameters.AddWithValue("@OldaddressLineTwo", originalUser.Address2);
+            cmd.Parameters.AddWithValue("@OldaddressLineOne", originalUser.Address1);                               
             cmd.Parameters.AddWithValue("@OldCity", originalUser.City);
             cmd.Parameters.AddWithValue("@OldState", originalUser.State);
             cmd.Parameters.AddWithValue("@OldZipcode", originalUser.ZipCode);
@@ -664,7 +663,15 @@ namespace DataAccessLayer
             cmd.Parameters.AddWithValue("@NewEmail", updatedUser.Email);
             cmd.Parameters.AddWithValue("@NewActive", updatedUser.Active);
             cmd.Parameters.AddWithValue("@NewaddressLineOne", updatedUser.Address1);
-            cmd.Parameters.AddWithValue("@NewaddressLineTwo", updatedUser.Address2);
+            if (updatedUser.Address2 == null)
+            {
+                cmd.Parameters.AddWithValue("@NewaddressLineTwo", "");
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@NewaddressLineTwo", updatedUser.Address2);
+            }
+            
             cmd.Parameters.AddWithValue("@NewCity", updatedUser.City);
             cmd.Parameters.AddWithValue("@NewState", updatedUser.State);
             cmd.Parameters.AddWithValue("@NewZipcode", updatedUser.ZipCode);

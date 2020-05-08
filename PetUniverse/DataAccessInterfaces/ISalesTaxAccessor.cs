@@ -1,4 +1,5 @@
 ﻿using DataTransferObjects;
+using System.Collections.Generic;
 
 namespace DataAccessInterfaces
 {
@@ -26,5 +27,7 @@ namespace DataAccessInterfaces
         /// <param name="salesTax"></param>
         /// <returns>rows effected.</returns>
         int InsertSalesTax(SalesTax salesTax);
+
+        List<SalesTax> SelectAllSalesTax();
     }
 }

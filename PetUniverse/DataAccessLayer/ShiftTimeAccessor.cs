@@ -27,22 +27,23 @@ namespace DataAccessLayer
         /// Created: 03/05/2020
         /// Approver:Kaleb Bachert
         /// 
-        /// Opens DB Connection to delete an exixting ShiftTime
+        /// Opens DB Connection to deactivate an exixting ShiftTime
         /// and sets parameters for insertion
         /// </summary>
         ///
         /// <remarks>
-        /// Updater Name
-        /// Updated: yyyy/mm/dd 
-        /// Update: (example: Fixed a problem when user inputs bad data)
+        /// Updater: Lane Sandburg
+        /// Updated: 05/05/2020 
+        /// Update: Refactored to be deactivateShiftTIme
+        /// and change Stored procedure name to match
         /// </remarks>
         /// <param name="shiftTime"></param>
-        public int DeleteShiftTime(int shiftTimeID)
+        public int DeactivateShiftTime(int shiftTimeID)
         {
             int rows = 0;
 
             var conn = DBConnection.GetConnection();
-            var cmd = new SqlCommand("sp_delete_shiftTime", conn);
+            var cmd = new SqlCommand("sp_deactivate_shiftTime", conn);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@ShiftTimeID", shiftTimeID);
 

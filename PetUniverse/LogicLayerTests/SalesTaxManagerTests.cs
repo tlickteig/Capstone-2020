@@ -1,7 +1,10 @@
 ﻿using DataAccessFakes;
 using DataTransferObjects;
+using LogicLayer;
+using LogicLayerInterfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace LogicLayerTests
 {
@@ -19,7 +22,8 @@ namespace LogicLayerTests
         private FakeSalesTaxAccessor _fakeSalesTaxAccessor;
 
         // default constructor for fake data.
-        public SalesTaxManagerTests()
+        [TestInitialize]
+        public void Setup()
         {
             _fakeSalesTaxAccessor = new FakeSalesTaxAccessor();
         }
@@ -55,6 +59,35 @@ namespace LogicLayerTests
 
             // assert
             Assert.AreEqual(result, true);
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 5/5/2020
+        /// Approver: 
+        /// 
+        /// Tests whether the whole list of sales taxes is returned. (Was missing)
+        /// </summary>
+        [TestMethod]
+        public void TestRetreiveAllSalesTax()
+        {
+            // arrange
+            ISalesTaxManager salesTaxManager = new SalesTaxManager(_fakeSalesTaxAccessor);
+            var list = new List<SalesTax>();
+            int expected = 2;
+
+            // act
+            list = salesTaxManager.RetrieveAllSalesTax();
+            int actual = list.Count;
+
+            // assert
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCleanup]
+        public void TestCleanup()
+        {
+            _fakeSalesTaxAccessor = null;
         }
     }
 }

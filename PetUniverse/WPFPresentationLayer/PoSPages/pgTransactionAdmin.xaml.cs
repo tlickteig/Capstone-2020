@@ -2,6 +2,7 @@
 using LogicLayer;
 using LogicLayerInterfaces;
 using System;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -118,9 +119,9 @@ namespace WPFPresentationLayer.PoSPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: Reloads data so datagrid updates.
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -133,6 +134,7 @@ namespace WPFPresentationLayer.PoSPages
             txtTransactionTypeID.Clear();
             txtTransactionTypeDescription.Clear();
             chkTransactionTypeDefaultInStore.IsChecked = false;
+            loadData();
         }
 
 
@@ -340,9 +342,9 @@ namespace WPFPresentationLayer.PoSPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: Reloads data so datagrid updates.
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -355,6 +357,7 @@ namespace WPFPresentationLayer.PoSPages
             txtTransactionStatusID.Clear();
             txtTransactionStatusDescription.Clear();
             chkTransactionStatusDefaultInStore.IsChecked = false;
+            loadData();
         }
 
         /// <summary>
@@ -366,31 +369,35 @@ namespace WPFPresentationLayer.PoSPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: No longer crashes with no selection.
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgTransactionType_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            canTransactionAdmin.Visibility = Visibility.Hidden;
-            canTransactionTypeDetails.Visibility = Visibility.Visible;
             TransactionType _transactionType = (TransactionType)dgTransactionType.SelectedItem;
-            txtTransactionTypeID.Text = _transactionType.TransactionTypeID.ToString();
-            txtTransactionTypeDescription.Text = _transactionType.Description.ToString();
-            chkTransactionTypeDefaultInStore.IsChecked = _transactionType.DefaultInStore;
+            if (_transactionType != null)
+            {
+                canTransactionAdmin.Visibility = Visibility.Hidden;
+                canTransactionTypeDetails.Visibility = Visibility.Visible;
 
-            txtTransactionTypeID.IsReadOnly = true;
-            txtTransactionTypeDescription.IsReadOnly = true;
-            chkTransactionTypeDefaultInStore.IsEnabled = false;
-            btnSaveTransactionType.Visibility = Visibility.Hidden;
-            btnEditTransactionType.Visibility = Visibility.Visible;
-            btnDeleteTransactionType.Visibility = Visibility.Hidden;
+                txtTransactionTypeID.Text = _transactionType.TransactionTypeID.ToString();
+                txtTransactionTypeDescription.Text = _transactionType.Description.ToString();
+                chkTransactionTypeDefaultInStore.IsChecked = _transactionType.DefaultInStore;
 
-            oldTransactionType.TransactionTypeID = txtTransactionTypeID.Text.ToString();
-            oldTransactionType.Description = txtTransactionTypeDescription.Text.ToString();
-            oldTransactionType.DefaultInStore = (bool)chkTransactionTypeDefaultInStore.IsChecked;
+                txtTransactionTypeID.IsReadOnly = true;
+                txtTransactionTypeDescription.IsReadOnly = true;
+                chkTransactionTypeDefaultInStore.IsEnabled = false;
+                btnSaveTransactionType.Visibility = Visibility.Hidden;
+                btnEditTransactionType.Visibility = Visibility.Visible;
+                btnDeleteTransactionType.Visibility = Visibility.Hidden;
+
+                oldTransactionType.TransactionTypeID = txtTransactionTypeID.Text.ToString();
+                oldTransactionType.Description = txtTransactionTypeDescription.Text.ToString();
+                oldTransactionType.DefaultInStore = (bool)chkTransactionTypeDefaultInStore.IsChecked;
+            }
         }
 
 
@@ -403,17 +410,15 @@ namespace WPFPresentationLayer.PoSPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: Extracted method for clarity
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void canTransactionAdmin_Loaded(object sender, RoutedEventArgs e)
         {
-            dgTransactionType.ItemsSource = _transactionManager.RetrieveAllTransactionTypes();
-
-            dgTransactionStatus.ItemsSource = _transactionManager.RetrieveAllTransactionStatus();
+            loadData();
         }
 
         /// <summary>
@@ -537,31 +542,53 @@ namespace WPFPresentationLayer.PoSPages
         /// </summary>
         ///
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: No longer crashes with no selection.
         /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void dgTransactionStatus_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            canTransactionAdmin.Visibility = Visibility.Hidden;
-            canTransactionStatusDetails.Visibility = Visibility.Visible;
             TransactionStatus _transactionStatus = (TransactionStatus)dgTransactionStatus.SelectedItem;
-            txtTransactionStatusID.Text = _transactionStatus.TransactionStatusID.ToString();
-            txtTransactionStatusDescription.Text = _transactionStatus.Description.ToString();
-            chkTransactionStatusDefaultInStore.IsChecked = _transactionStatus.DefaultInStore;
+            if (_transactionStatus != null)
+            {
+                canTransactionAdmin.Visibility = Visibility.Hidden;
+                canTransactionStatusDetails.Visibility = Visibility.Visible;
 
-            txtTransactionStatusID.IsReadOnly = true;
-            txtTransactionStatusDescription.IsReadOnly = true;
-            chkTransactionStatusDefaultInStore.IsEnabled = false;
-            btnSaveTransactionStatus.Visibility = Visibility.Hidden;
-            btnEditTransactionStatus.Visibility = Visibility.Visible;
-            btnDeleteTransactionStatus.Visibility = Visibility.Hidden;
+                txtTransactionStatusID.Text = _transactionStatus.TransactionStatusID.ToString();
+                txtTransactionStatusDescription.Text = _transactionStatus.Description.ToString();
+                chkTransactionStatusDefaultInStore.IsChecked = _transactionStatus.DefaultInStore;
 
-            oldTransactionStatus.TransactionStatusID = txtTransactionStatusID.Text.ToString();
-            oldTransactionStatus.Description = txtTransactionStatusDescription.Text.ToString();
-            oldTransactionStatus.DefaultInStore = (bool)chkTransactionStatusDefaultInStore.IsChecked;
+                txtTransactionStatusID.IsReadOnly = true;
+                txtTransactionStatusDescription.IsReadOnly = true;
+                chkTransactionStatusDefaultInStore.IsEnabled = false;
+                btnSaveTransactionStatus.Visibility = Visibility.Hidden;
+                btnEditTransactionStatus.Visibility = Visibility.Visible;
+                btnDeleteTransactionStatus.Visibility = Visibility.Hidden;
+
+                oldTransactionStatus.TransactionStatusID = txtTransactionStatusID.Text.ToString();
+                oldTransactionStatus.Description = txtTransactionStatusDescription.Text.ToString();
+                oldTransactionStatus.DefaultInStore = (bool)chkTransactionStatusDefaultInStore.IsChecked;
+            }
+        }
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Creatd: 5/5/2020
+        /// Approver: 
+        /// 
+        /// Loads data to data grids. (Extracted for clarity)
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        private void loadData()
+        {
+            dgTransactionType.ItemsSource = _transactionManager.RetrieveAllTransactionTypes();
+            dgTransactionStatus.ItemsSource = _transactionManager.RetrieveAllTransactionStatus();
         }
     }
 }

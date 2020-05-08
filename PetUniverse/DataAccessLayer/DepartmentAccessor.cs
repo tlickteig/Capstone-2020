@@ -71,11 +71,14 @@ namespace DataAccessLayer
         /// This is a method for inserting a department into the tsql database.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Alex Diers
+        /// Updated: 5/5/2020
+        /// Update: Added param and returns tags
         /// 
         /// </remarks>
+        /// <param name="departmentId"></param>
+        /// <param name="description"></param>
+        /// <returns></returns>
         public int InsertDepartment(string departmentId, string description)
         {
             int rows = 0;
@@ -161,11 +164,13 @@ namespace DataAccessLayer
         /// This is the method for selecting a department by id from the tsql database.
         /// </summary>
         /// <remarks>
-        /// Updater: NA
-        /// Updated: NA
-        /// Update: NA
+        /// Updater: Alex Diers
+        /// Updated: 5/5/2020
+        /// Update: Added param and returns tags
         /// 
         /// </remarks>
+        /// <param name="departmentId"></param>
+        /// <returns></returns>
         public Department SelectDepartmentByID(string departmentId)
         {
             Department department = null;

@@ -72,9 +72,45 @@ namespace WPFPresentationLayer
             this._user = user;
             this.userRoles = userRoles;
             InitializeComponent();
+            bool isASupervisor = userIsASupervisor();
+            bool isAManager = _user.PURoles.Contains("Manager");
+            if (isASupervisor || isAManager)
+            {
+                btnPersonnelManagement.Visibility = Visibility.Visible;
+            }
             this.ShowDialog();
             _userManager = new UserManager();
 
+        }
+
+
+        /// <summary>
+        /// Creator: Jordan Lindo
+        /// Created: 5/6/2020
+        /// Approver: Kaleb Bachert
+        /// 
+        /// This method tests if the user is a supervisor.
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// 
+        /// 
+        /// </remarks>
+        private bool userIsASupervisor()
+        {
+            bool result = false;
+            for (int i = 0; i < _user.PURoles.Count && !result; i++)
+            {
+                string roleId = _user.PURoles[i];
+                if (roleId.Contains("Supervisor"))
+                {
+                    result = true;
+                }
+            }
+            return result;
         }
 
         /// <summary>
@@ -545,9 +581,21 @@ namespace WPFPresentationLayer
         {
             desiredScreen = "Personnel";
             switchScreen(desiredScreen);
-            frBaseSchedule.Content = new PersonnelPages.BaseScheduleControls(_user);
-            frSchedule.Content = new PersonnelPages.Schedule(_user);
-            frSupervisorSchedule.Content = new PersonnelPages.pgSupervisorSchedule(_user);
+            if (_user.PURoles.Contains("Manager"))
+            {
+                frBaseSchedule.Content = new PersonnelPages.BaseScheduleControls(_user);
+                frSchedule.Content = new PersonnelPages.Schedule(_user);
+                tabSchedule.Visibility = Visibility.Visible;
+                tabBaseSchedule.Visibility = Visibility.Visible;
+                tabShiftTimeManager.Visibility = Visibility.Visible;
+                tabViewAllERoles.Visibility = Visibility.Visible;
+                tabDepartment.Visibility = Visibility.Visible;
+            }
+            else if (userIsASupervisor())
+            {
+                frSupervisorSchedule.Content = new PersonnelPages.pgSupervisorSchedule(_user);
+                tabSupervisorSchedule.Visibility = Visibility.Visible;
+            }
         }
 
         /// <summary>

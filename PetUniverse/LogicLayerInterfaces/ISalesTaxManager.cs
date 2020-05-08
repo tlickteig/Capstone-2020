@@ -1,4 +1,5 @@
 ﻿using DataTransferObjects;
+using System.Collections.Generic;
 
 namespace LogicLayerInterfaces
 {
@@ -27,5 +28,20 @@ namespace LogicLayerInterfaces
         /// <param name="salesTax"></param>
         /// <returns>returns if success or failure</returns>
         bool AddSalesTax(SalesTax salesTax);
+
+        /// <summary>
+        /// Creator: Robert Holmes
+        /// Created: 5/5/2020
+        /// Approver: 
+        /// 
+        /// Necessary to load real data.
+        /// </summary>
+        /// <remarks>
+        /// Updater: 
+        /// Updated: 
+        /// Update: 
+        /// </remarks>
+        /// <returns></returns>
+        List<SalesTax> RetrieveAllSalesTax();
     }
 }

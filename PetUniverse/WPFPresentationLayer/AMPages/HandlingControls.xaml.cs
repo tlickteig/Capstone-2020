@@ -244,6 +244,12 @@ namespace WPFPresentationLayer.AMPages
         /// Update: Added a validation fixes to verivy the animal ID exists in the DB
         /// Approver: Ryan Morganti, 5/3/2020
         /// </remarks>
+        /// <remarks>
+        /// Updater: Ben Hanna
+        /// Updated: 5/6/2020
+        /// Update: Made validation feedback more clear.
+        /// Approver: Cash Carlson, 5/6/2020
+        /// </remarks>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnSubmitHandlingRecord_Click(object sender, RoutedEventArgs e)
@@ -257,7 +263,7 @@ namespace WPFPresentationLayer.AMPages
 
             if (String.IsNullOrEmpty(txtAnimalID.Text))
             {
-                MessageBox.Show("Please enter the animal's ID");
+                MessageBox.Show("Please enter the animal's ID.");
                 return;
             }
             if (String.IsNullOrEmpty(txtHandlingNotes.Text))
@@ -267,7 +273,7 @@ namespace WPFPresentationLayer.AMPages
             }
             if (String.IsNullOrEmpty(txtUserID.Text))
             {
-                MessageBox.Show("Please enter the Current User's ID");
+                MessageBox.Show("Please enter the Current User's ID.");
                 return;
             }
             if (String.IsNullOrEmpty(txtTemperment.Text))
@@ -277,12 +283,12 @@ namespace WPFPresentationLayer.AMPages
             }
             if (!int.TryParse(txtAnimalID.Text, out animalID))
             {
-                MessageBox.Show("ID fields may not contain anything but an integer number");
+                MessageBox.Show("ID fields may only contain whole number values.");
                 return;
             }
             else if (!int.TryParse(txtUserID.Text, out userID))
             {
-                MessageBox.Show("ID fields may not contain anything but an integer number");
+                MessageBox.Show("ID fields may only contain whole number values.");
                 return;
             }
             else

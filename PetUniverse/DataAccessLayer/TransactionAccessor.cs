@@ -80,7 +80,7 @@ namespace DataAccessLayer
         /// <returns>ProductVM</returns>
         public ProductVM SelectProductByProductID(string productID)
         {
-            var product = new ProductVM();
+            ProductVM product = null;
             var conn = DBConnection.GetConnection();
 
             var cmd = new SqlCommand("sp_select_product_by_id", conn);
@@ -93,6 +93,7 @@ namespace DataAccessLayer
                 var reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
+                    product = new ProductVM();
                     product.ProductID = reader.GetString(0);
                     product.Name = reader.GetString(1);
                     product.Taxable = reader.GetBoolean(2);

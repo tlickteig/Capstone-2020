@@ -305,11 +305,11 @@ UI for Open Transaction.
                          CHECKED BY: Jaeho Kim
              
                          This button will delete the item you selected when you click on it
-                         UPDATE BY: NA
-                         UPDATED NA
-                         CHANGE: NA -->
-                        <Button Grid.Row="1" Content="Remove Item" x:Name="btnRemoveItem" Height="50" Width="150" Click="BtnRemoveItem_Click"/>
-                        <Button x:Name="btnBack" Grid.Row="3" Content="Back" Height="50" Width="150" Click="BtnBack_Click"/>
+                         UPDATE BY: Robert Holmes
+                         UPDATED: 5/5/2020
+                         CHANGE: Not demoing remove item -->
+                        <Button Grid.Row="1" Content="Remove Item" x:Name="btnRemoveItem" Height="50" Width="150" Click="BtnRemoveItem_Click" Visibility="Hidden"/> 
+                        <Button x:Name="btnBack" Grid.Row="3" Content="Back" Height="50" Width="150" Click="BtnBack_Click" />
                     </Grid>
                 </Grid>
             </Grid>

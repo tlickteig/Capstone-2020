@@ -109,7 +109,8 @@ namespace DataAccessLayer
                         ItemCategoryID = reader.GetString(3),
                         Description = reader.GetString(4),
                         Active = reader.GetBoolean(5),
-                        ShelterItem = reader.GetBoolean(6)
+                        ShelterItem = reader.GetBoolean(6),
+                        ShelterThreshold = reader.IsDBNull(7) ? 0 : reader.GetInt32(7)
                     });
                 }
 
@@ -196,6 +197,10 @@ namespace DataAccessLayer
         /// Updated By: Robert Holmes
         /// Updated: 04/29/2020
         /// Update: Made it safe to attempt when description is null.
+        /// 
+        /// Updated By: Brandyn T. Coverdill
+        /// Updated: 4/29/2020
+        /// Update: Added the ShelterItem field for item.
         /// </remarks>
         public List<Item> getAllItemsByActive(bool active)
         {
@@ -224,6 +229,7 @@ namespace DataAccessLayer
                         item.Description = reader.GetString(4);
                     }
                     //item.Active = reader.GetBoolean(5);
+                    item.ShelterItem = reader.GetBoolean(5);
                     itemList.Add(item);
                 }
                 reader.Close();

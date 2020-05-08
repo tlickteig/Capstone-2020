@@ -72,7 +72,7 @@ namespace LogicLayerTests
             ScheduleVM scheduleVM = scheduleManager.GenerateSchedule(date, lines);
 
             int result = scheduleVM.ScheduleLines.Count;
-            int target = 14;
+            int target = 10;
 
             Assert.AreEqual(target, result);
         }

@@ -32,7 +32,7 @@ GO
 PRINT '' PRINT '*** Creating Table Department'
 GO
 
-CREATE TABLE [dbo].[department]
+CREATE TABLE [dbo].[Department]
 (
 	 [DepartmentID]			[nvarchar](50)		NOT NULL PRIMARY KEY
 	,[Description]			[nvarchar](200)		NULL DEFAULT NULL
@@ -587,7 +587,7 @@ CREATE TABLE [dbo].[ShiftTime](
 	[DepartmentID]  [NVARCHAR](50)				NOT NULL,
 	[StartTime]		[NVARCHAR](20) 					NOT NULL,
 	[EndTime]		[NVARCHAR](20) 					NOT NULL,
-
+	[Active]		[bit]	DEFAULT 1        		NOT NULL,
 
 	CONSTRAINT [pk_ShiftTime_ShiftTimeID]
 		PRIMARY KEY([ShiftTimeID] ASC),
@@ -4203,13 +4203,14 @@ AS
 BEGIN
 	SELECT [ShiftTimeID],[DepartmentID],[StartTime],[EndTime]
 	FROM [dbo].[ShiftTime]
+	WHERE [Active] = 1
 	ORDER BY [DepartmentID]
 END
 GO
 
 
 /*
-Sproc for Retreiveing Departments
+Sproc for Updateing Departments
 
 Author: Lane Sandburg
 2/13/2020
@@ -4246,23 +4247,24 @@ END
 GO
 
 /*
-Sproc for Retreiveing Departments
+Sproc for Deavtivating Departments
 
 Author: Lane Sandburg
 03/05/2020
 */
-DROP PROCEDURE IF EXISTS [sp_delete_shiftTime]
+DROP PROCEDURE IF EXISTS [sp_deactivate_shiftTime]
 GO
-PRINT '' PRINT '*** creating sp_delete_shiftTime'
+PRINT '' PRINT '*** creating sp_deactivate_shiftTime'
 GO
-CREATE PROCEDURE [sp_delete_shiftTime](
+CREATE PROCEDURE [sp_deactivate_shiftTime](
 		@ShiftTimeID [int]
 )
 AS
 BEGIN
-	DELETE FROM [dbo].[ShiftTime]
-	WHERE [ShiftTimeID] = @ShiftTimeID
-	RETURN @@ROWCOUNT
+	Update [dbo].[ShiftTime]
+	Set	[Active]=0
+	Where [ShiftTimeID] = @ShiftTimeID
+	Return @@ROWCOUNT
 
 END
 GO
@@ -5624,6 +5626,25 @@ BEGIN
 END
 GO
 
+
+/*
+Created by: Hassan Karar.
+Date: 2020/03/11
+Comment: Job Listing table, used to create the job listing.
+*/
+print '' print '* Creating sp_retrieve_JobListing'
+GO
+CREATE PROCEDURE [sp_retrieve_JobListing]
+AS
+BEGIN
+	SELECT    [JobListingID], [RoleID], [Benefits], [Requirements], [StartingWage], [Responsibilities]   	
+	FROM      [dbo].[JobListing]
+	ORDER BY  [JobListingID]
+	
+END
+GO
+
+
 /*
 Created By: Timothy Lickteig
 Date: 2/07/2020
@@ -5677,6 +5698,29 @@ BEGIN
 	WHERE [VolunteerShiftID] = @ShiftID
 END
 GO
+
+
+/*
+Created by: Hassan Karar.
+Date: 2020/3/16
+Comment: delete an JobListing
+*/
+print '' print '*** Creating sp_delete_JobListing ' 
+GO
+CREATE PROCEDURE [sp_delete_JobListing] 
+	(
+	
+   @JobListingID			[int]
+	)
+AS
+	BEGIN
+	DELETE  FROM 	[dbo].[JobListing]
+	
+	WHERE [JobListingID] = @JobListingID
+	  
+	END
+GO
+
 
 /*
     AUTHOR: Timothy Lickteig
@@ -6355,6 +6399,9 @@ Comment: Added the ShelterItem to the Select to allow Shelter Item to show up on
 Updated By: Brandyn T. Coverdill
 Date: 2020-04-10
 Comment: Added the Active field to the select to allow active items and deactive items.
+Updated By: Brandyn T. Coverdill
+Date: 5/6/2020
+Comment: Added the ShelterThershold field.
 */
 DROP PROCEDURE IF EXISTS [sp_retrieve_items]
 GO
@@ -6370,7 +6417,8 @@ BEGIN
         [ic].[ItemCategoryID],
         [i].[ItemDescription],
 		[i].[Active],
-		[i].[ShelterItem]
+		[i].[ShelterItem],
+		[i].[ShelterThershold]
 	FROM [dbo].[Item] i
 	INNER JOIN [dbo].[ItemCategory] ic
 	ON [i].[ItemCategoryID] = [ic].[ItemCategoryID]
@@ -7527,7 +7575,8 @@ BEGIN
 		   [ItemName],
 		   [ItemQuantity],
 		   [ItemCategoryID],
-		   [ItemDescription]
+		   [ItemDescription],
+		   [ShelterItem]
 	FROM [dbo].[Item]
 	WHERE [Active] = @Active
 END
@@ -8873,6 +8922,7 @@ BEGIN
 	SELECT [ERoleID],[Description],[Active]
 	FROM [dbo].[ERole]
 	WHERE [DepartmentID] = @DepartmentID
+	AND [Active] = 1
 END
 GO
 
@@ -10751,8 +10801,7 @@ CREATE PROCEDURE [sp_update_user](
 	@OldPhoneNumber [nvarchar](11),
 	@OldEmail [nvarchar](250),
 	@OldActive [bit],
-	@OldaddressLineOne [nvarchar](250),
-	@OldaddressLineTwo [nvarchar](250),
+	@OldaddressLineOne [nvarchar](250),	
 	@OldCity [nvarchar] (20),
 	@OldState [nvarchar] (2),
 	@OldZipcode [nvarchar] (15),
@@ -10790,8 +10839,7 @@ BEGIN
 	AND [PhoneNumber] = @OldPhoneNumber
 	AND [Email] = @OldEmail
 	AND [Active] = @OldActive
-	AND [addressLineOne] = @OldaddressLineOne
-	AND [addressLineTwo] = @OldaddressLineTwo
+	AND [addressLineOne] = @OldaddressLineOne	
 	AND [City] = @OldCity
 	AND [State] = @OldState
 	AND [ZipCode] = @OldZipcode
@@ -14296,6 +14344,20 @@ BEGIN
 END
 GO
 
+print '' print '*** Creating sp_select_all_sales_tax'
+GO
+DROP PROCEDURE IF EXISTS [sp_select_all_sales_tax]
+GO
+CREATE PROCEDURE [sp_select_all_sales_tax]
+AS
+BEGIN 
+	SELECT 
+		[ZipCode],
+		[SalesTaxDate],
+		[TaxRate]
+	FROM [dbo].[SalesTaxHistory]
+END
+GO
 
 
 /*
@@ -14451,7 +14513,7 @@ GO
 
 
 /*
-Created by: Zach Behrensmeyer
+Created by: Chase Schulte
 Date: 2/6/2020
 Comment: This is used to pair a user with their roles
 */
@@ -14459,14 +14521,13 @@ print '' print '*** Insert Into ERole Table ***'
 GO
 INSERT INTO [dbo].[ERole]
 (
-	[ERoleID], [DepartmentID]
+	[ERoleID], [DepartmentID], [Active]
 )
 VALUES
-	('Administrator', 'Management'),
-	('Customer', 'Sales'),
-	('Volunteer', 'Fake1'),
-	('Management Supervisor','Management'),
-	('Sales Supervisor','Sales')
+	('Administrator', 'Management',1),
+	('Customer', 'Sales',0),
+	('Volunteer', 'Fake1',1),
+	('Sales Supervisor','Sales',1)
 GO
 
 
@@ -14499,12 +14560,9 @@ INSERT INTO [dbo].[UserERole]
 VALUES
 (100000, 'Administrator'),
 (100001, 'Customer'),
-(100002, 'Volunteer'),
-(100002, 'Administrator'),
+(100002, 'Sales Supervisor'),
     (100000,'Manager'),
-    (100000,'Management Supervisor'),
     (100001,'Manager'),
-    (100002,'Manager'),
     (100006,'Cashier')
 GO
 
@@ -14551,8 +14609,9 @@ INSERT INTO [dbo].[Animal]
 	('Snowball II','10-05-2011','Tabby','11-24-2019',0,0,1,'Cat'),
 	('Lassie','04-23-2018','Collie','02-17-2020',1,1,1,'Dog'),
 	('Spot','08-14-2014','French Bulldog','05-10-2019',1,1,1,'Dog'),
-	('fluffs','06-21-2012','Siamese','04-11-2020',0,1,1,'Rat'),
-	('Doggo','03-06-2015','Shih Tzu','02-22-2019',1,1,0,'Dog')
+	('fluffs','06-21-2012','Siamese','04-11-2020',0,1,1,'Cat'),
+	('Doggo','03-06-2015','Shih Tzu','02-22-2019',0,0,0,'Dog'),
+	('Kitty','09-19-2014','Tabby','12-12-2019',0,0,0,'Cat')
 GO
 
 /*
@@ -14809,22 +14868,6 @@ INSERT INTO [dbo].[Item]
 	(4,' Medication1', 'Medical', ''),
 	(4,' Medication2', 'Medical', '')
 GO
-
-/*
-Created by: Tener Karar
-Date: 02/27/2020
-Comment: inserting Item sample data
-*/
-print '' print '*** inserting Item sample data'
-GO
-INSERT INTO [dbo].[Item]
-	([ItemName], [ItemQuantity], [ItemCategoryID], [ItemDescription] )
-VALUES
-	('loon', 1, 'cat',' Litter-Robot 3 is the highest-rated automatic,
-    self-cleaning litter box for cats.
-    Never scoop cat litter again while giving your kitty a clean
-    bed of litter for each use. Litter-Robot ' )
-go
 
 /*
 Created by: Cash Carlson
@@ -15491,10 +15534,10 @@ print '' print'***Creating BaseScheduleLine sample records'
 GO
 
 INSERT INTO [dbo].[BaseScheduleLine]
-	([ERoleID],[BaseScheduleID],[ShiftTimeID])
+	([ERoleID],[BaseScheduleID],[ShiftTimeID],[Count])
 	VALUES
-	 ('Cashier',1000001,1000007)
-	,('Manager',1000001,1000004)
+	 ('Cashier',1000001,1000007,3)
+	,('Manager',1000001,1000004,1)
 GO
 
 /*
@@ -15563,7 +15606,7 @@ Insert INTO [dbo].[TransactionLineProducts]
 	(1000, '7084781116', 1, 37.22),
 	(1000, '2500006153', 1, 11.11),
 	(1001, '7084781116', 2, 74.44),
-	(1002, '7084781116', -5, -50.00)
+	(1002, '7084781116', 5, 50.00)
 Go
 
 /*
@@ -15813,6 +15856,60 @@ BEGIN
 	UPDATE 	[dbo].[Event]
 	SET		[Status] = @Status
 	WHERE	[EventID] = @EventID
+END
+GO
+
+
+
+/*
+Created by: Hassan Karar.
+Date: 2020/3/18
+Comment: update an old JobListing to new JobListing.
+*/
+print ''  print '*** Creating sp_update_JobListing'
+GO
+CREATE PROCEDURE [sp_update_JobListing]
+(
+    --New rows
+	
+    @OldJobListingID			         [int],
+	
+	@OldRoleID		            [nvarchar](50),
+	@OldBenefits		        [nvarchar](250),
+    @OldRequirements		    [nvarchar](250),
+    @OldStartingWage	        [decimal] (9,2),
+    @OldResponsibilities		[nvarchar](700),
+	
+	
+	@NewRoleID                  [nvarchar](50),
+	@NewBenefits		        [nvarchar](250),
+    @NewRequirements		    [nvarchar](250),
+    @NewStartingWage	        [decimal] (9,2),
+    @NewResponsibilities		[nvarchar](700)	
+		
+)
+
+AS
+BEGIN
+	Update [dbo].[JobListing]
+	SET
+	[RoleID] = @NewRoleID,
+	[Benefits]= @NewBenefits,
+	[Requirements]=  @NewRequirements,
+	[StartingWage] = @NewStartingWage,
+	[Responsibilities] =   @NewResponsibilities 
+	
+	
+	Where [JobListingID]= @OldJobListingID 
+	And [RoleID] = @OldRoleID
+	And [Benefits]= @OldBenefits
+	And [Requirements]=  @OldRequirements
+	And [StartingWage] = @OldStartingWage
+	And [Responsibilities] = @OldResponsibilities
+	
+	RETURN @@ROWCOUNT
+	
+	
 END
 GO
 
@@ -16615,34 +16712,6 @@ INSERT INTO [dbo].[Availability]
 GO
 
 
-
-
-/*
-Created by: Hassan Karar
-Date: 2020/2/7
-Comment: Creating a stored procedure to insert into Request Response table.
-*/
-print '' print '*** Creating sp_insert_RequestResponse'
-GO
-CREATE PROCEDURE [sp_insert_RequestResponse]
-(
-
-	  @RequestID	                       [int],
-	  @UserID                              [int],
-      @Response       	                   [nvarchar](4000)
-    /*  @RequestResponseID                   [int]  */
-
-)
-AS
-BEGIN
-	INSERT INTO [dbo].[RequestResponse]
-		([RequestID],[UserID],[Response],[ResponseTimeStamp])
-	VALUES
-		(@RequestID,@UserID ,@Response, CURRENT_TIMESTAMP)
-	SELECT @@ROWCOUNT
-END
-GO
-
 /*
 Created by: Hassan Karar
 Date: 2020/2/7
@@ -16664,21 +16733,31 @@ END
 GO
 
 
+
+
 /*
 Created by: Hassan Karar
-Date: 2/7/2020
-Comment: Creating a stored procedure to select_Department Request.
+Date: 2020/2/7
+Comment: Creating a stored procedure to insert into Request Response table.
 */
-
-print '' print '*** Creating sp_select_DepartmentRequest'
+print '' print '*** Creating sp_insert_RequestResponse'
 GO
-CREATE PROCEDURE [sp_select_DepartmentRequest]
+CREATE PROCEDURE [sp_insert_RequestResponse]
+(
 
+	  @RequestID	                       [int],
+	  @UserID                              [int],
+      @Response       	                   [nvarchar](4000)
+    
+
+)
 AS
 BEGIN
-	SELECT [DeptRequestID],[RequestSubject],[RequestBody]
-	FROM 	[DepartmentRequest]
-
+	INSERT INTO [dbo].[RequestResponse]
+		([RequestID],[UserID],[Response],[ResponseTimeStamp])
+	VALUES
+		(@RequestID,@UserID ,@Response, CURRENT_TIMESTAMP)
+	SELECT @@ROWCOUNT
 END
 GO
 
@@ -16731,48 +16810,25 @@ GO
 
 
 
-
-
 /*
-Created by: Hassan Karar.
-Date: 2020/3/16
-Comment: delete an JobListing
+Created by: Hassan Karar
+Date: 2/7/2020
+Comment: Creating a stored procedure to select_Department Request.
 */
-print '' print '*** Creating sp_delete_JobListing ' 
+
+print '' print '*** Creating sp_select_DepartmentRequest'
 GO
-CREATE PROCEDURE [sp_delete_JobListing] 
-	(
-	
-   @JobListingID			[int]
-	)
-AS
-	BEGIN
-	DELETE  FROM 	[dbo].[JobListing]
-	
-	WHERE [JobListingID] = @JobListingID
-	  
-	END
-GO
+CREATE PROCEDURE [sp_select_DepartmentRequest]
 
-
-
-
-/*
-Created by: Hassan Karar.
-Date: 2020/03/11
-Comment: Job Listing table, used to create the job listing.
-*/
-print '' print '* Creating sp_retrieve_JobListing'
-GO
-CREATE PROCEDURE [sp_retrieve_JobListing]
 AS
 BEGIN
-	SELECT    [JobListingID], [RoleID], [Benefits], [Requirements], [StartingWage], [Responsibilities]   	
-	FROM      [dbo].[JobListing]
-	ORDER BY  [JobListingID]
-	
+	SELECT [DeptRequestID],[RequestSubject],[RequestBody]
+	FROM 	[DepartmentRequest]
+
 END
 GO
+
+
 
 /*
 Created by: Hassan Karar
@@ -16803,59 +16859,6 @@ GO
 
 
 /*
-Created by: Hassan Karar.
-Date: 2020/3/18
-Comment: update an old JobListing to new JobListing.
-*/
-print ''  print '*** Creating sp_update_JobListing'
-GO
-CREATE PROCEDURE [sp_update_JobListing]
-(
-    --New rows
-	
-    @OldJobListingID			         [int],
-	
-	@OldRoleID		            [nvarchar](50),
-	@OldBenefits		        [nvarchar](250),
-    @OldRequirements		    [nvarchar](250),
-    @OldStartingWage	        [decimal] (9,2),
-    @OldResponsibilities		[nvarchar](700),
-	
-	
-	@NewRoleID                  [nvarchar](50),
-	@NewBenefits		        [nvarchar](250),
-    @NewRequirements		    [nvarchar](250),
-    @NewStartingWage	        [decimal] (9,2),
-    @NewResponsibilities		[nvarchar](700)	
-		
-)
-
-AS
-BEGIN
-	Update [dbo].[JobListing]
-	SET
-	[RoleID] = @NewRoleID,
-	[Benefits]= @NewBenefits,
-	[Requirements]=  @NewRequirements,
-	[StartingWage] = @NewStartingWage,
-	[Responsibilities] =   @NewResponsibilities 
-	
-	
-	Where [JobListingID]= @OldJobListingID 
-	And [RoleID] = @OldRoleID
-	And [Benefits]= @OldBenefits
-	And [Requirements]=  @OldRequirements
-	And [StartingWage] = @OldStartingWage
-	And [Responsibilities] = @OldResponsibilities
-	
-	RETURN @@ROWCOUNT
-	
-	
-END
-GO
-
-
-/*
 Created by: Alex Diers
 Date: 3/10/2020
 Comment: This is used to pair a training video with employees
@@ -16881,8 +16884,6 @@ INSERT INTO [dbo].[TrainingVideoLine]
 VALUES
 	(100003, 'AnotherLink', 1)
 GO
-
-
 
 -- End of file
 

@@ -91,7 +91,7 @@
                     </Button.Resources>
                 </Button>
 
-                <Button x:Name="btnPersonnelManagement" Content="Personnel Management" Margin="10" HorizontalContentAlignment="Center" Height="40" FontSize="15" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnPersonnelManagement_Click">
+                <Button x:Name="btnPersonnelManagement" Content="Personnel Management" Margin="10" HorizontalContentAlignment="Center" Height="40" FontSize="15" FontWeight="Bold" Background="#fff8e3" Foreground="#2e3137" Click="btnPersonnelManagement_Click" Visibility="Collapsed">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="15"/>
@@ -195,6 +195,9 @@
                 <TabItem x:Name="tabViewAnimals" Header="View Animals" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AMPages/AnimalControls.xaml"/>
                 </TabItem>
+                <TabItem x:Name="tabViewAnimalActivity" Header="View Activity Records" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frameViewAnimalActivities" NavigationUIVisibility="Hidden"/>
+                </TabItem>
                 <TabItem x:Name="tabViewKennels" Header="View Location Records" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="frameViewKennelRecords" Source="./AMPages/KennelControls.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
@@ -206,9 +209,6 @@
                 </TabItem>
                 <TabItem x:Name="tabViewAnimalPrescriptions" Header="View Animal Prescriptions" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./AMPages/VetPrescriptionControls.xaml" NavigationUIVisibility="Hidden"></Frame>
-                </TabItem>
-                <TabItem x:Name="tabViewAnimalActivity" Header="View Activity Records" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frameViewAnimalActivities" NavigationUIVisibility="Hidden"/>
                 </TabItem>
             </TabControl>
         </Canvas>
@@ -262,19 +262,6 @@
 
         <Canvas x:Name="canPoS" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Grid.Column="1" Visibility="Hidden">
             <TabControl x:Name="tabsetPoS" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-
-                <!-- Creator: Robert Holmes
-                     Created: 2020/02/14
-                     Approver: Cash Carlson
-                
-                     Tab for checking out customers
-                
-                     Updater:
-                     Updated:
-                     Update: -->
-                <TabItem x:Name="tabCheckOut" Header="Check Out" FontWeight="Bold" Loaded="tabCheckOut_Loaded" >
-                    <Frame x:Name="frmCheckOut" />
-                </TabItem>
                 <TabItem x:Name="tabViewSales" Header="View Sales" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PoSPages/pgViewSalesData.xaml"/>
                 </TabItem>
@@ -286,11 +273,11 @@
                     <Frame Source="./PoSPages/ViewAllTransactions.xaml"/>
                 </TabItem>
 
-                <TabItem x:Name="tabPromotions" Header="Promotions" FontWeight="Bold" Background="#fff8e3" Loaded="tabPromotions_Loaded">
+                <TabItem x:Name="tabPromotions" Header="Promotions" FontWeight="Bold" Background="#fff8e3" Loaded="tabPromotions_Loaded" Visibility="Collapsed">
                     <Frame x:Name="frmPromotions" NavigationUIVisibility="Hidden" />
                 </TabItem>
 
-                <TabItem x:Name="tabProduct" Header="Product" FontWeight="Bold" Background="#fff8e3" >
+                <TabItem x:Name="tabProduct" Header="Product" FontWeight="Bold" Background="#fff8e3" Visibility="Collapsed" >
                     <Frame Source="./PoSPages/Product.xaml"/>
                 </TabItem>
 
@@ -306,7 +293,18 @@
                          FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PosPages/pgSalesTax.xaml"/>
                 </TabItem>
-
+                <!-- Creator: Robert Holmes
+                     Created: 2020/02/14
+                     Approver: Cash Carlson
+                
+                     Tab for checking out customers
+                
+                     Updater:
+                     Updated:
+                     Update: -->
+                <TabItem x:Name="tabCheckOut" Header="Check Out" FontWeight="Bold" Loaded="tabCheckOut_Loaded" Visibility="Collapsed" >
+                    <Frame x:Name="frmCheckOut" />
+                </TabItem>
                 <!-- Creator: Rasha Mohammed
                  Date: 4/8/2020
                  CHECKED BY: Ethan Holmes
@@ -316,10 +314,10 @@
                  UPDATE BY: NA
                  UPDATED NA
                  CHANGE: NA -->
-                <TabItem x:Name="tabPicture" Header="Filter Item" FontWeight="Bold" Background="#fff8e3" >
+                <TabItem x:Name="tabPicture" Header="Filter Item" FontWeight="Bold" Background="#fff8e3" Visibility="Collapsed">
                     <Frame Source="./PoSPages/FilterItem.xaml"/>
                 </TabItem>
-                <TabItem x:Name="tabCustomer" Header="Customer Portal" FontSize="18" FontWeight="Bold" Background="#fff8e3" >
+                <TabItem x:Name="tabCustomer" Header="Customer Portal" FontSize="18" FontWeight="Bold" Background="#fff8e3" Visibility="Collapsed">
                     <Frame Source="./PoSPages/pgCustomerControls.xaml"/>
                 </TabItem>
             </TabControl>
@@ -494,11 +492,8 @@
                 <TabItem x:Name="tabViewEventManagement" Header="Events" FontWeight="Bold" Background="#fff8e3">
                     <Frame x:Name="fEventMgmt" Source="./RecruitingPages/EventMgmt.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
-				<TabItem x:Name="tabSocialMediaRequest" Header="Request Social Media Post" FontWeight="Bold" Background="#fff8e3">
-					<Frame x:Name="frRequestSocialMedia" Source="./RecruitingPages/SocialMediaRequestForm.xaml" NavigationUIVisibility="Hidden"/>
-				</TabItem>
-                <TabItem x:Name="tabCreateNewRequest" Header="Requests" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="newRequest" Source="./RecruitingPages/CreatNewRequest.xaml" NavigationUIVisibility="Hidden"></Frame>
+                <TabItem x:Name="tabSocialMediaRequest" Header="Request Social Media Post" FontWeight="Bold" Background="#fff8e3">
+                    <Frame x:Name="frRequestSocialMedia" Source="./RecruitingPages/SocialMediaRequestForm.xaml" NavigationUIVisibility="Hidden"/>
                 </TabItem>
 
                 <TabItem x:Name="tabJobListing" Header="Job Listing" FontWeight="Bold" Background="#fff8e3">
@@ -511,33 +506,33 @@
              Date: 2/20/2020
              CHECKED BY: Zach Behrensmeyer
              
-             This canvas will contain the general controls for Adoptions
+             This canvas will contain the general controls for personnel
               
-             UPDATE BY: NA
-             UPDATED NA
-             CHANGE: NA -->
+             UPDATE BY: Jordan Lindo
+             UPDATED: 5/6/2020
+             CHANGE: Some tabs hidden. -->
 
         <Canvas x:Name="canPersonnel" Width="1300" Height="850" Margin="0,16,0,0" Grid.RowSpan="2" Visibility="Hidden" Grid.Column="1">
             <TabControl x:Name="tabsetPersonnel" Grid.Row="2" Width="1289" Height="845" Canvas.Top="10">
-                <TabItem x:Name="tabDepartment" Header="Departments" FontWeight="Bold"  Background="#fff8e3">
+                <TabItem x:Name="tabSchedule" Header="Schedule" FontSize="18" FontWeight="Bold" Background="#fff8e3" Visibility="Collapsed">
+                    <Frame x:Name="frSchedule"></Frame>
+                </TabItem>
+                <TabItem x:Name="tabSupervisorSchedule" Header="Supervisor Schedule" FontWeight="Bold" Background="#fff8e3" Visibility="Collapsed">
+                    <Frame x:Name="frSupervisorSchedule" NavigationUIVisibility="Hidden"></Frame>
+                </TabItem>
+                <TabItem x:Name="tabDepartment" Header="Departments" FontWeight="Bold"  Background="#fff8e3" Visibility="Collapsed">
                     <Grid>
                         <Frame Source="./PersonnelPages/pgDepartments.xaml" NavigationUIVisibility="Hidden"/>
                     </Grid>
                 </TabItem>
-                <TabItem x:Name="tabShiftTimeManager" Header="ShiftTimeManager" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabShiftTimeManager" Header="ShiftTimeManager" FontWeight="Bold" Background="#fff8e3" Visibility="Collapsed">
                     <Frame Source="./PersonnelPages/pgShiftTime.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
                 <TabItem x:Name="tabTrainingVideos" Header="Training Videos" FontWeight="Bold" Background="#fff8e3">
                     <Frame Source="./PersonnelPages/pgTrainingVideos.xaml" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
-                <TabItem x:Name="tabBaseSchedule" Header="Base Schedule" FontWeight="Bold" Background="#fff8e3">
+                <TabItem x:Name="tabBaseSchedule" Header="Base Schedule" FontWeight="Bold" Background="#fff8e3" Visibility="Collapsed">
                     <Frame x:Name="frBaseSchedule" NavigationUIVisibility="Hidden"></Frame>
-                </TabItem>
-                <TabItem x:Name="tabSchedule" Header="Schedule" FontSize="18" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frSchedule"></Frame>
-                </TabItem>
-                <TabItem x:Name="tabSupervisorSchedule" Header="Supervisor Schedule" FontWeight="Bold" Background="#fff8e3">
-                    <Frame x:Name="frSupervisorSchedule" NavigationUIVisibility="Hidden"></Frame>
                 </TabItem>
 
                 <!-- Creator: Kaleb Bachert

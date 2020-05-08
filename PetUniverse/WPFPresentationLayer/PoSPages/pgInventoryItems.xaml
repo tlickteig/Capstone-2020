@@ -31,7 +31,7 @@
                   CanUserResizeColumns="False" CanUserReorderColumns="False" Loaded="Window_Loaded" Margin="40,100,-22,30" HorizontalAlignment="Left" />
 
             <Button x:Name="btnAddProduct" Content="Add Product" HorizontalAlignment="Right" Margin="0,735,294,27" VerticalAlignment="Center" Width="100" Height="30" Click="btnAddProduct_Click" Grid.RowSpan="2" />
-            <Button x:Name="btnEditProduct" Content="Edit Product" HorizontalAlignment="Right" Margin="0,735,189,27" VerticalAlignment="Center" Width="100" Height="30" Grid.RowSpan="2" />
+            <Button x:Name="btnEditProduct" Content="Edit Product" HorizontalAlignment="Right" Margin="0,735,189,27" VerticalAlignment="Center" Width="100" Height="30" Grid.RowSpan="2" Click="btnEditProduct_Click"/>
             <Button x:Name="btnDeactivateProduct" Content="Deactivate" HorizontalAlignment="Right" Margin="0,735, 84,27" VerticalAlignment="Center" Width="100" Height="30" Grid.RowSpan="2" Click="btnDeactivateProduct_Click"/>
 			<Button x:Name="btnActivateProduct" Content="Activate" HorizontalAlignment="Right" Width="100" Height="30" VerticalAlignment="Center" Grid.RowSpan="2" Margin="0 735 -21 27" Click="btnActivateProduct_Click" />
 		</Grid>

@@ -83,7 +83,16 @@ namespace WPFPresentationLayer.AdoptionPages
         {
             try
             {
-                dgCustomers.ItemsSource = _adoptionCustomerManager.RetrieveAdoptionCustomersByActive(true);
+                var allCustomers = _adoptionCustomerManager.RetrieveAdoptionCustomersByActive(true);
+                var adoptionCustomers = new List<AdoptionCustomerVM>();
+                foreach(var c in allCustomers)
+                {
+                    if(_adoptionApplicationManager.RetrieveAdoptionApplicationsByEmailAndActive(c.Email, true).Count > 0)
+                    {
+                        adoptionCustomers.Add(c);
+                    }
+                }
+                dgCustomers.ItemsSource = adoptionCustomers;
             }
             catch (Exception)
             {

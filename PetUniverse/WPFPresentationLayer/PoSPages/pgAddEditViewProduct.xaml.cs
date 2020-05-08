@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -25,6 +26,8 @@ namespace WPFPresentationLayer.PoSPages
         private Product _product;
         private InventoryItems _inventoryItem;
         private Picture _picture;
+        private bool _pictureUpdated = false;
+        private bool _editMode;
 
         /// <summary>
         /// Creator: Robert Holmes
@@ -72,9 +75,9 @@ namespace WPFPresentationLayer.PoSPages
         /// Constroctor for view/edit operations.
         /// </summary>
         /// <remarks>
-        /// Updater: 
-        /// Updated: 
-        /// Update: 
+        /// Updater: Robert Holmes
+        /// Updated: 5/5/2020
+        /// Update: Migrated edit functionality from other tab.
         /// 
         /// </remarks>
         /// <param name="frame"></param>
@@ -86,6 +89,7 @@ namespace WPFPresentationLayer.PoSPages
             _productManager = new ProductManager();
             _pictureManager = new PictureManager();
             _inventoryItem = inventoryItem;
+            _editMode = editMode;
             try
             {
                 _product = _productManager.RetrieveProductByID(inventoryItem.ProductID);
@@ -128,6 +132,7 @@ namespace WPFPresentationLayer.PoSPages
                 lblHeading.Content = "Edit Product";
                 btnAction.Content = "Update";
                 makeEditable();
+                txtProductID.IsReadOnly = true;
             }
         }
 
@@ -298,6 +303,47 @@ namespace WPFPresentationLayer.PoSPages
 
                         break;
                     }
+                case "Update":
+                    {
+                        if (validateFields())
+                        {
+                            try
+                            {
+                                var newProduct = new Product
+                                {
+                                    ProductID = _product.ProductID,
+                                    ItemID = Convert.ToInt32(txtItemID.Text),
+                                    Name = txtName.Text,
+                                    Category = txtCategory.Text,
+                                    Brand = txtBrand.Text,
+                                    Type = (string)cboType.SelectedItem,
+                                    Price = (decimal)numPrice.Value,
+                                    Description = txtDescription.Text,
+                                    Active = _product.Active
+                                };
+                                if (cboTaxable.SelectedItem.ToString().Equals("No"))
+                                {
+                                    newProduct.Taxable = false;
+                                }
+                                else
+                                {
+                                    newProduct.Taxable = true;
+                                }
+                                _productManager.EditProduct(_product, newProduct);
+                                _picture.ProductID = _product.ProductID;
+                                if (_pictureUpdated)
+                                {
+                                    _pictureManager.AddPicture(_picture);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                WPFErrorHandler.ErrorMessage("There was a problem saving the new product information:\n\n" + ex.Message);
+                            }
+                            _frame.Navigate(new pgInventoryItems(_frame));
+                        }
+                        break;
+                    }
                 case "Done":
                     {
                         _frame.Navigate(new pgInventoryItems(_frame));
@@ -326,6 +372,7 @@ namespace WPFPresentationLayer.PoSPages
         /// <returns>Returns true if field contents are acceptable.</returns>
         private bool validateFields()
         {
+            Regex notAlphaNum = new Regex("[^A-Za-z0-9]+");
             bool isValid = false;
             while (!isValid)
             {
@@ -342,17 +389,26 @@ namespace WPFPresentationLayer.PoSPages
                     txtProductID.Focus();
                     break;
                 }
-                bool duplicate = false;
-                foreach (Product p in _products)
+                if (!_editMode)
                 {
-                    if (p.ProductID.Equals(txtProductID.Text))
+                    bool duplicate = false;
+                    foreach (Product p in _products)
                     {
-                        duplicate = true;
+                        if (p.ProductID.Equals(txtProductID.Text))
+                        {
+                            duplicate = true;
+                        }
+                    }
+                    if (duplicate)
+                    {
+                        WPFErrorHandler.ErrorMessage("There is already a product with that Product ID, you must enter a new one.");
+                        txtProductID.Focus();
+                        break;
                     }
                 }
-                if (duplicate)
+                if (notAlphaNum.IsMatch(txtProductID.Text))
                 {
-                    WPFErrorHandler.ErrorMessage("There is already a product with that Product ID, you must enter a new one.");
+                    WPFErrorHandler.ErrorMessage("Product ID may only contain numbers and letters.");
                     txtProductID.Focus();
                     break;
                 }
@@ -436,6 +492,7 @@ namespace WPFPresentationLayer.PoSPages
 
                         _picture.ImageData = System.IO.File.ReadAllBytes(path);
                         _picture.ImageMimeType = getMimeType(extension);
+                        _pictureUpdated = true;
                     }
                     else
                     {

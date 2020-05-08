@@ -172,35 +172,44 @@ namespace WPFPresentationLayer.AdoptionsPages
         /// </remarks>
         private void BtnSubmitAnimalUpdate_Click(object sender, RoutedEventArgs e)
         {
-            if (String.IsNullOrEmpty(txtAnimalProfileDescription.Text))
+            if (currentPetProfile.Source != null)
             {
-                MessageBox.Show("Please enter the animal's profile description");
-                return;
-            }
 
-            var selectedItem = dgAnimalProfiles.SelectedItem;
-            string ID = (dgAnimalProfiles.SelectedCells[0].Column.GetCellContent(selectedItem) as TextBlock).Text;
-            try
-            {
-                int animalID = Int32.Parse(ID);
 
-                string profileDescription = txtAnimalProfileDescription.Text;
-                byte[] profileImage = imgToByteArray(currentPetProfile.Source as BitmapImage);
-                string profileImageMimeType = "jpg";
-                _animalManager.UpdatePetProfile(animalID, profileDescription, profileImage, profileImageMimeType);
-                WPFErrorHandler.SuccessMessage("Animal Successfully Updated");
-                ClearDisplay();
+                if (String.IsNullOrEmpty(txtAnimalProfileDescription.Text))
+                {
+                    MessageBox.Show("Please enter the animal's profile description");
+                    return;
+                }
+
+                var selectedItem = dgAnimalProfiles.SelectedItem;
+                string ID = (dgAnimalProfiles.SelectedCells[0].Column.GetCellContent(selectedItem) as TextBlock).Text;
+                try
+                {
+                    int animalID = Int32.Parse(ID);
+
+                    string profileDescription = txtAnimalProfileDescription.Text;
+                    byte[] profileImage = imgToByteArray(currentPetProfile.Source as BitmapImage);
+                    string profileImageMimeType = "jpg";
+                    _animalManager.UpdatePetProfile(animalID, profileDescription, profileImage, profileImageMimeType);
+                    WPFErrorHandler.SuccessMessage("Animal Successfully Updated");
+                    ClearDisplay();
+                }
+                catch (Exception ex)
+                {
+                    WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
+                    ClearDisplay();
+                }
+                currentPetProfile.Source = new BitmapImage();
+                lblAnimalBreed.Content = "";
+                lblAnimalName.Content = "";
+                txtAnimalProfileDescription.Clear();
+                lblAnimalSpecies.Content = "";
             }
-            catch (Exception ex)
+            else
             {
-                WPFErrorHandler.ErrorMessage(ex.Message + "\n\n" + ex.InnerException.Message);
-                ClearDisplay();
+                WPFErrorHandler.ErrorMessage("Please supply an Image");
             }
-            currentPetProfile.Source = new BitmapImage();
-            lblAnimalBreed.Content = "";
-            lblAnimalName.Content = "";
-            txtAnimalProfileDescription.Clear();
-            lblAnimalSpecies.Content = "";
         }
         /// <summary>
         /// Creator: Michael Thompson
@@ -314,6 +323,11 @@ namespace WPFPresentationLayer.AdoptionsPages
             dgAnimalProfiles.Columns.RemoveAt(3);
             dgAnimalProfiles.Columns.RemoveAt(3);
 
+            dgAnimalProfiles.Columns[0].Header = "Animal ID";
+            dgAnimalProfiles.Columns[1].Header = "Animal Name";
+            dgAnimalProfiles.Columns[2].Header = "Dob";
+            dgAnimalProfiles.Columns[3].Header = "Image Data";
+            dgAnimalProfiles.Columns[4].Header = "Image Mime Type";
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
